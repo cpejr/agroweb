@@ -32,7 +32,6 @@ router.post('/login',(req,res,next) => {
   BackEnd - LOGOUT
 //////////////////////////////*/
 router.post('/logout',(req,res,next) => {
-  console.log('deivin');
   firebase.auth().signOut().then(function() {
     res.redirect('/');
   }).catch(function(error) {
@@ -74,10 +73,16 @@ router.post('/signup', (req,res,next) => {
 router.post('/newsletter/signup', (req,res,next) => {
   const name = req.body.name;
   const mail = req.body.mail;
+  //Separa nome e sobrenome do cliente a partir da string name
+  const position = name.indexOf(" ");
+  const first_name = name.slice(0, position);
+  const last_name = name.slice(position + 1);
+
   const entered = firebase.database.ServerValue.TIMESTAMP;
 
   var newNuser = {
-      name: name,
+      first_name: first_name,
+      last_name: last_name,
       mail: mail,
       entered: entered,
     };

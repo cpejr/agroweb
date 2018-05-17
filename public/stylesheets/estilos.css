@@ -1,0 +1,77 @@
+body {
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+
+footer{
+	padding-bottom: 15px;
+}
+.container{
+    padding-top: 50px;
+}
+
+/* #industria{
+  background-color: #e8ef00;
+}
+
+
+#produtor{
+  background-color: #a3bf24;
+}
+
+
+#franqueado{
+  background-color: #80b625;
+}
+
+
+#revenda{
+  background-color: #617b13;
+} */
+
+.row.form-row div{
+	padding-bottom: 5px;
+}
+
+.vert .carousel-item-next.carousel-item-left,
+.vert .carousel-item-prev.carousel-item-right {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+}
+
+.vert .carousel-item-next,
+.vert .active.carousel-item-right {
+    -webkit-transform: translate3d(0, 100%, 0);
+            transform: translate3d(0, 100% 0);
+}
+
+.vert .carousel-item-prev,
+.vert .active.carousel-item-left {
+-webkit-transform: translate3d(0,-100%, 0);
+        transform: translate3d(0,-100%, 0);
+}
+.carousel-item{
+  font-size: 1.3em;
+  height: 40px !important;
+  color: #434c1e;
+}
+
+.btn-primary{
+  border: none;
+  color: white;
+  background-color: #527b00;
+}
+
+.b{
+  font-size: 0.75em;
+  margin: 0 5px;
+}
+
+.with-bg{
+  color: white !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}

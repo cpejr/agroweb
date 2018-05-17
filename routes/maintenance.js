@@ -5,7 +5,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-  res.render('maintenance', { title: 'Manutenção', layout: "layoutMaintenance" });
+  res.render('maintenance/maintenance', { title: 'Manutenção', layout: "maintenance/layoutMaintenance" });
 });
 
 module.exports = router;

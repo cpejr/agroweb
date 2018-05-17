@@ -13,7 +13,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home');
 const signupRouter = require('./routes/signup');
-const testeRouter = require('./routes/teste');
+const maintenanceRouter = require('./routes/maintenance');
 
 const app = express();
 
@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/home', homeRouter);
-app.use('/maintenance', testeRouter);
+app.use('/maintenance', maintenanceRouter);
 app.use('/signup', signupRouter);
 
 // catch 404 and forward to error handler

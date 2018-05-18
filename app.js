@@ -8,12 +8,13 @@ const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const firebase = require('firebase');
 const nodemailer = require('nodemailer');
+const firestore = require('firebase/firestore');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home');
 const signupRouter = require('./routes/signup');
-const maintenanceRouter = require('./routes/maintenance');
+const testeRouter = require('./routes/teste');
 
 const app = express();
 
@@ -21,8 +22,11 @@ const config = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
   databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
   storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID
 };
+
 firebase.initializeApp(config);
 
 // view engine setup
@@ -44,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/home', homeRouter);
-app.use('/maintenance', maintenanceRouter);
+app.use('/maintenance', testeRouter);
 app.use('/signup', signupRouter);
 
 // catch 404 and forward to error handler

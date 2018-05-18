@@ -1,17 +1,24 @@
 var express = require('express');
 const firebase = require('firebase');
+const firestore = require('firebase/firestore');
 var hbs = require('handlebars');
 var nodemailer = require('nodemailer');
-
 var router = express.Router();
-const database = require('firebase/database');
-
-var db = database;
 
 
 /* GET home page. */
 router.get('/', function (req, res, next  ){
   res.render('index', { title: 'Express', layout: "layout"});
+});
+
+/* GET NEWSLETTER. - TESTES */
+router.get('/newsletter', function (req, res, next  ){
+  res.render('newsletter', { title: 'Newsletter', layout: "layout"});
+});
+
+/* GET NEWPRODUCT - TESTES. */
+router.get('/newproduct', function (req, res, next  ){
+  res.render('newproduct', { title: 'Newsproduct', layout: "layout"});
 });
 
 /*/////////////////////////////
@@ -22,7 +29,7 @@ router.post('/login',(req,res,next) => {
   const pass = req.body.pass;
   firebase.auth().signInWithEmailAndPassword(mail, pass)
   .then((user) => {
-    res.redirect('/home');
+    res.redirect('/newproduct');
   }).catch((error) => {
     res.redirect('/cadastre-se');
   });
@@ -61,18 +68,18 @@ router.post('/signup', (req,res,next) => {
       created: created,
     };
     var setDoc = db.collection('users').doc(user.uid).set(newuser);
-    res.redirect('/home');
+    res.redirect('/newsletter');
   }).catch((error) => {
     res.redirect('/error'); //criar pagina de erro
   });
 });
 
-/*////////////////////////////////////
+/* ////////////////////////////////////
   BackEnd - CADASTRO NA NEWSLETTER
 //////////////////////////////////////*/
-router.post('/newsletter/signup', (req,res,next) => {
+router.post('/newsletter', (req,res,next) => {
   const name = req.body.name;
-  const mail = req.body.mail;
+  const mail = req.body.email;
   //Separa nome e sobrenome do cliente a partir da string name
   const position = name.indexOf(" ");
   const first_name = name.slice(0, position);
@@ -80,13 +87,19 @@ router.post('/newsletter/signup', (req,res,next) => {
 
   const entered = firebase.database.ServerValue.TIMESTAMP;
 
-  var newNuser = {
-      first_name: first_name,
-      last_name: last_name,
-      mail: mail,
-      entered: entered,
-    };
-   db.collection('newsletter').doc().set(newNuser);
+  firebase.firestore().collection('newsletter').add({
+     first_name: first_name,
+     last_name: last_name,
+     mail: mail,
+     entered: entered,
+   })
+   .then(function(docRef){
+     console.log("Document written with ID: ", docRef.id);
+     res.redirect('/home');
+   }).catch(function(error){
+     console.log("Error ading document: ", error);
+     res.redirect('/error');
+   });
 });
 
 /*/////////////////////////////
@@ -132,6 +145,34 @@ router.post('/contact',(req,res,next) => {
   // passando o primeiro lugar da fila no array
 
 
+});
+
+/* ////////////////////////////////////
+  BackEnd - CADASTRO DE NOVOS PRODUTOS
+//////////////////////////////////////*/
+router.post('/newproduct', (req,res,next) => {
+  const name = req.body.productname;
+  const category = req.body.category;
+
+  firebase.firestore().collection('categories').doc(category).set({
+     name: name,
+   })
+   .then(function(){
+     console.log("Document written!");
+     res.redirect('/home');
+   }).catch(function(error){
+     console.log("Error ading document: ", error);
+     res.redirect('/error');
+   });
+});
+
+/* ////////////////////////////////////
+  BackEnd - ENVIO DE EMAILS PARA NEWSLETTER
+//////////////////////////////////////*/
+router.post('/newslettermail', (req,res,next) => {
+  var client_list = firebase.firestore().collection('newsletter');
+  var mail_list = client_list.where("email","==",true);
+  console.log(mail_list);
 });
 
 module.exports = router;

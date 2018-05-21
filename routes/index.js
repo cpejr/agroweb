@@ -52,10 +52,15 @@ router.post('/logout',(req,res,next) => {
 router.post('/signup', (req,res,next) => {
   const mail = req.body.mail;
   const pass = req.body.pass;
-  const first_name = req.body.first_name;
-  const last_name = req.body.last_name;
+  const name = req.body.name;
   const user_type = req.body.user_type;
   const insc = req.body.insc;
+
+  //Separa nome e sobrenome do cliente a partir da string name
+  const position = name.indexOf(" ");
+  const first_name = name.slice(0, position);
+  const last_name = name.slice(position + 1);
+
   const created = firebase.database.ServerValue.TIMESTAMP;
 
   firebase.auth().createUserWithEmailAndPassword(mail,pass)

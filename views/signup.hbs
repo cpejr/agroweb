@@ -8,21 +8,21 @@
           <fieldset>
             <div class="form-group">
               <div class="form-group row">
-                <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                <label for="name" class="col-sm-2 col-form-label">Nome</label>
                 <div class="col-sm-10 col-md-8">
-                  <input type="text" class="form-control" id="nome">
+                  <input type="text" class="form-control" name="name" id="name">
                 </div>
               </div>
               <div class="form-group row">
-                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <label for="mail" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10 col-md-8">
-                  <input type="text" class="form-control" id="email2" placeholder="email@exemplo.com">
+                  <input type="text" class="form-control" name="mail" id="mail" placeholder="email@exemplo.com">
                 </div>
               </div>
               <div class="form-group row">
-                <label for="senha" class="col-sm-2 col-form-label">Senha</label>
+                <label for="pass" class="col-sm-2 col-form-label">Senha</label>
                 <div class="col-sm-10 col-md-8">
-                  <input type="password" class="form-control" id="senha">
+                  <input type="password" class="form-control" name="pass" id="pass">
                 </div>
               </div>
             </div>
@@ -31,16 +31,16 @@
                 <div class="form-group">
                   <div class="btn-group btn-group-toggle col-xs-5 col-md-8" style="padding-left: 1.5%;" data-toggle="buttons">
                     <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="options" id="industria" autocomplete="off" checked="checked"> Indústria
+                      <input type="radio" name="user_type" id="industria" autocomplete="off" checked="checked"> Indústria
                     </label>
                     <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="options" id="produtor" autocomplete="off"> Produtor
+                      <input type="radio" name="user_type" id="produtor" autocomplete="off"> Produtor
                     </label>
                     <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="options" id="franqueado" autocomplete="off"> Franqueado
+                      <input type="radio" name="user_type" id="franqueado" autocomplete="off"> Franqueado
                     </label>
                     <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="options" id="revendedor" autocomplete="off"> Revendedor
+                      <input type="radio" name="user_type" id="revendedor" autocomplete="off"> Revendedor
                     </label>
                   </div>
                 </div>
@@ -50,15 +50,15 @@
             <div class="form-group">
               <div class="form-group row" id="cpf">
                 <div class="col col-md-2">
-                  <label for="nome">CPF</label>
+                  <label for="name">CPF</label>
                 </div>
                 <div class="col-12 col-md-8">
-                <input type="text" class="form-control" name="cpf">
+                <input type="cpf" class="form-control" name="cpf">
                 </div>
               </div>
               <div class="form-group row" id="cnpj">
                 <div class="col col-md-2">
-                  <label for="nome">CNPJ</label>
+                  <label for="name">CNPJ</label>
                 </div>
                 <div class="col-12 col-md-8">
                   <input type="text" class="form-control" name="cnpj">
@@ -69,10 +69,10 @@
                   <label for="temloja" class="col-sm-2 col-form-label col-md-12 ">Tem loja?</label>
                   <div class="col-sm-10 col-md-12">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input " type="radio" name="temloja" id="inlineRadio" value="option1">
+                      <input class="form-check-input " type="radio" name="store" id="inlineRadio" value="option1">
                       <label class="form-check-label" for="inlineRadio1">Sim</label>
                     </div>
-                    <input class="form-check-input" type="radio" name="temloja" id="inlineRadio" value="option2">
+                    <input class="form-check-input" type="radio" name="store" id="inlineRadio" value="option2">
                     <label class="form-check-label" for="inlineRadio2">Não</label>
                   </div>
                 </div>

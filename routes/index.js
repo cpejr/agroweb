@@ -6,25 +6,35 @@ var nodemailer = require('nodemailer');
 var router = express.Router();
 
 
-/* GET home page. */
-router.get('/', function (req, res, next  ){
-  res.render('index', { title: 'Express', layout: "layout"});
+/* GET index. */
+router.get('/', (req, res, next) => {
+  res.render('index', { title: 'Express', layout: 'layout' });
 });
 
 /* GET NEWSLETTER. - TESTES */
-router.get('/newsletter', function (req, res, next  ){
-  res.render('newsletter', { title: 'Newsletter', layout: "layout"});
+router.get('/newsletter', (req, res, next) => {
+  res.render('newsletter', { title: 'Newsletter', layout: 'layout'});
 });
 
 /* GET NEWPRODUCT - TESTES. */
-router.get('/newproduct', function (req, res, next  ){
-  res.render('newproduct', { title: 'Newsproduct', layout: "layout"});
+router.get('/newproduct', (req, res, next) => {
+  res.render('newproduct', { title: 'Newsproduct', layout: 'layout'});
 });
 
-/*/////////////////////////////
+/* GET FORGOTPASSWORD - TESTES */
+router.get('/forgotPassword', (req, res, next) => {
+  res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });
+});
+
+/* GET SUCCESS - TESTES */
+router.get('/success', (req, res, next) => {
+  res.render('success', { title: 'Sucesso', layout: 'layout' });
+});
+
+/* ////////////////////////////
   BackEnd - LOGIN
-//////////////////////////////*/
-router.post('/login',(req,res,next) => {
+//////////////////////////// */
+router.post('/login', (req, res, next) => {
   const mail = req.body.mail;
   const pass = req.body.pass;
   firebase.auth().signInWithEmailAndPassword(mail, pass)
@@ -35,35 +45,48 @@ router.post('/login',(req,res,next) => {
   });
 });
 
-/*/////////////////////////////
-  BackEnd - LOGOUT
-//////////////////////////////*/
-router.post('/logout',(req,res,next) => {
-  firebase.auth().signOut().then(function() {
-    res.redirect('/');
+/* ////////////////////////////
+  BackEnd - RECOVER MY PASS
+//////////////////////////// */
+router.post('/recoverPassword', (req, res, next) => {
+  const mail = req.body.mail;
+
+  firebase.auth().sendPasswordResetEmail(mail).then(function() {
+    res.redirect('/success');
   }).catch(function(error) {
     res.redirect('/error');
   });
 });
 
-/*////////////////////////////
+/* ////////////////////////////
+  BackEnd - LOGOUT
+//////////////////////////// */
+router.post('/logout', (req, res, next) => {
+  firebase.auth().signOut().then(function () {
+    res.redirect('/');
+  }).catch(function (error) {
+    res.redirect('/error');
+  });
+});
+
+/* ///////////////////////////
   BackEnd - CADASTRO
-//////////////////////////////*/
-router.post('/signup', (req,res,next) => {
+/////////////////////////// */
+router.post('/signup', (req, res, next) => {
   const mail = req.body.mail;
   const pass = req.body.pass;
   const name = req.body.name;
   const user_type = req.body.user_type;
   const insc = req.body.insc;
 
-  //Separa nome e sobrenome do cliente a partir da string name
+  // Separa nome e sobrenome do cliente a partir da string name
   const position = name.indexOf(" ");
   const first_name = name.slice(0, position);
   const last_name = name.slice(position + 1);
 
   const created = firebase.database.ServerValue.TIMESTAMP;
 
-  firebase.auth().createUserWithEmailAndPassword(mail,pass)
+  firebase.auth().createUserWithEmailAndPassword(mail, pass)
   .then((user) => {
     var newuser = {
       first_name: first_name,
@@ -75,14 +98,18 @@ router.post('/signup', (req,res,next) => {
     var setDoc = db.collection('users').doc(user.uid).set(newuser);
     res.redirect('/newsletter');
   }).catch((error) => {
-    res.redirect('/error'); //criar pagina de erro
+    const errorCode = error.code;
+    if (errorCode == 'auth/email-already-in-use') {
+      res.redirect('/');
+    }
+    // res.redirect('/error'); // criar pagina de erro
   });
 });
 
 /* ////////////////////////////////////
   BackEnd - CADASTRO NA NEWSLETTER
-//////////////////////////////////////*/
-router.post('/newsletter', (req,res,next) => {
+//////////////////////////////////// */
+router.post('/newsletter', (req, res, next) => {
   const name = req.body.name;
   const mail = req.body.email;
   //Separa nome e sobrenome do cliente a partir da string name
@@ -107,10 +134,10 @@ router.post('/newsletter', (req,res,next) => {
    });
 });
 
-/*/////////////////////////////
+/* ////////////////////////////
   BackEnd - ENVIO DE EMAIL
-//////////////////////////////*/
-router.post('/contact',(req,res,next) => {
+//////////////////////////// */
+router.post('/contact', (req, res, next) => {
   const clientname = req.body.clientname;
   const clientemail = req.body.email;
   const content = req.body.content;
@@ -154,7 +181,7 @@ router.post('/contact',(req,res,next) => {
 
 /* ////////////////////////////////////
   BackEnd - CADASTRO DE NOVOS PRODUTOS
-//////////////////////////////////////*/
+//////////////////////////////////// */
 router.post('/newproduct', (req,res,next) => {
   const name = req.body.productname;
   const category = req.body.category;
@@ -173,7 +200,7 @@ router.post('/newproduct', (req,res,next) => {
 
 /* ////////////////////////////////////
   BackEnd - ENVIO DE EMAILS PARA NEWSLETTER
-//////////////////////////////////////*/
+//////////////////////////////////// */
 router.post('/newslettermail', (req,res,next) => {
   var client_list = firebase.firestore().collection('newsletter');
   var mail_list = client_list.where("email","==",true);

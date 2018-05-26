@@ -15,6 +15,8 @@ const usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home');
 const signupRouter = require('./routes/signup');
 const maintenanceRouter = require('./routes/maintenance');
+const newsletterRouter = require('./routes/newsletterlist');
+const PDFgeneratorRouter = require('./routes/PDFgenerator');
 
 const app = express();
 
@@ -28,6 +30,7 @@ const config = {
 };
 
 firebase.initializeApp(config);
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,6 +53,8 @@ app.use('/users', usersRouter);
 app.use('/home', homeRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/signup', signupRouter);
+app.use('/newsletterlist', newsletterRouter);
+app.use('/PDFgenerator', PDFgeneratorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

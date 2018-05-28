@@ -12,7 +12,6 @@ const firestore = require('firebase/firestore');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const homeRouter = require('./routes/home');
 const signupRouter = require('./routes/signup');
 const maintenanceRouter = require('./routes/maintenance');
 

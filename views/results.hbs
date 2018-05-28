@@ -1,18 +1,54 @@
 <!-- NavBar -->
 <div class="pos-f-t">
-    <nav class="navbar navbar-dark">
-    <form action="" method="get">
-      <button class="btn btn-outline-dark" type="submit">
-        <i class="fas fa-arrow-left fa-2x"></i>
-      </button>
-    </form>
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
 
-    <form class="float-right my-2 my-lg-0 my-sm-0">
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
       <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="submit">
+      <button class="btn btn-outline-dark " type="button">
         <i class="fas fa-search fa-2x"></i>
       </button>
     </form>
   </nav>
 </div>
 <!-- end NavBar -->
+
+<!-- ResultsHeader -->
+<div id="results-header" class="row justify-content-md-center">
+  <div class="col-12 col-md-8 d-flex flex-row align-items-center">
+    <h5 class="align-middle align-self-center mr-auto">Resultados</h5>
+    <button type="button" name="button" class="btn float-right">
+      <i class="fas fa-sort-amount-down "></i>
+    </button>
+    <button type="button" name="button" class="btn float-right">
+      <i class="fas fa-filter "></i>
+    </button>
+  </div>
+</div>
+<!-- end ResultsHeader -->
+
+<!-- ResultsList -->
+<div id="results-list" class="row justify-content-md-center">
+  <div class="col-12 col-md-8">
+
+    <div class="card">
+      <div class="card-body text-right">
+        <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+        <h6 class="card-title align-text-top">Adubo NPK 3000 exemplo01</h6>
+        <p class="card-text align-text-bottom">R$ 500,00 un.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body text-right">
+        <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+        <h6 class="card-title align-text-top">Adubo NPK 3000 exemplo02</h6>
+        <p class="card-text align-text-bottom">R$ 50,00 kg.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- end ResultsList -->

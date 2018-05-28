@@ -1,0 +1,18 @@
+/* Navbar Style */
+nav {
+  background-color: #212529;
+}
+
+.nav-item a,
+.nav-item .fas,
+.navbar .fas {
+  color: #EEE;
+}
+
+.nav-item .fas {
+  margin-right: 10px;
+}
+
+nav .form-control {
+    display: none;
+}

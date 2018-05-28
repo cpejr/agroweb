@@ -2,32 +2,46 @@ body {
   background-color: #EEE;
 }
 
-.list-group-item {
+.card {
+  font-family: Montserrat;
   background-color: #212529;
   color: #EEE;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
-nav {
-  background-color: #212529;
+.card {
+  margin: 5px 5px 0 5px;
+  padding: 0;
 }
 
-.nav-item a,
-.nav-item .fas,
-.navbar .fas {
-  color: #EEE;
+.card-text {
+  font-family: Varela Round;
 }
 
-.nav-item .fas,
-.list-group-item .fas:not(.float-right) {
-  margin-right: 10px;
+.card-icon
+{
+  color: #212529;
+  background-color: #EEE;
+  padding: 0.5em;
+  border-radius: 50%;
 }
 
-.list-group-item .float-right {
-  color: #999;
+#results-header {
+  padding: 10px 5px 5px 10px;
+  font-family: Varela Round;
 }
 
-nav .form-control {
-    display: none;
+  #results-header span {
+    font-size: 1.5em;
+    vertical-align: center;
+  }
+
+  #results-header button {
+    font-size: 1.5em;
+    margin-left: 15px;
+  }
+
+#results-header-title {
+  font-family: Valera Round
 }

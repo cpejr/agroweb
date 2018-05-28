@@ -1,0 +1,61 @@
+body {
+  background-color: #212529;
+}
+
+.list-group-item {
+  background-color: #212529;
+  color: #EEE;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+nav {
+  background-color: #212529;
+}
+
+.nav-item a,
+.nav-item .fas,
+.navbar .fas {
+  color: #EEE;
+}
+
+.nav-item .fas,
+.list-group-item .fas:not(.float-right) {
+  margin-right: 10px;
+}
+
+.list-group-item .float-right {
+  color: #999;
+}
+
+nav .form-control {
+    display: none;
+}
+
+.option {
+	position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+
+  margin: 5px;
+  /* background-color: red; */
+}
+
+.option .fas {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.square {
+  position: relative;
+  width: 50%;
+}
+
+.square:before {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}

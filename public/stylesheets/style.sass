@@ -2,32 +2,58 @@
 @import ../fonts/fontawesome/fontawesome-all.css
 
 //  INDEX
-//    Default colors
+//    Default color
 //    Default backgrounds
+//    Default text colors
 //    Default fonts
 //    Default header and navbar
 //    Users options list
 //    Default cards
-//
 
 //
 // Default colors
 //
-$dark-color: #212529
-$light-color: #EEEEEE
-$primary-color: green // A definir
+$dark-color: #232323
+$dark2-color: #5b5b5b
+$light-color: #dddddd
+$green-color: #3b9939 // A definir
+
+//
+// Default settings
+//
+body
+  background-color: $light-color
+  height: 100%
 
 //
 //Default backgrounds
 //
 .bg-dark
-  background-color: $dark-color
+  background-color: $dark-color !important
+
+.bg-dark2
+  background-color: $dark2-color
 
 .bg-light
-  background-color: $light-color
+  background-color: $light-color !important
 
-.bg-primary
-  background-color: $primary-color
+.bg-green
+  background: $green-color
+
+//
+// Default text colors
+//
+.text-dark
+  color: $dark-color !important
+
+.text-dark2
+  color: $dark2-color
+
+.text-light
+  color: $light-color !important
+
+.text-button
+  color: $green-color
 
 //
 // Default fonts
@@ -56,14 +82,14 @@ nav
   margin-right: 10px
 
 nav .form-control
-    display: none
+  display: none
 
 //
 // Users options list
 //
 .list-group-item
-  background-color: $dark-color
-  color: $light-color
+  background-color: $light-color
+  color: $dark-color
   padding-top: 20px
   padding-bottom: 20px
 

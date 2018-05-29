@@ -6039,14 +6039,33 @@ a.text-dark:hover, a.text-dark:focus {
   .table-bordered td {
     border: 1px solid #ddd !important; } }
 
+body {
+  background-color: #dddddd;
+  height: 100%; }
+
 .bg-dark {
-  background-color: #212529; }
+  background-color: #232323 !important; }
+
+.bg-dark2 {
+  background-color: #5b5b5b; }
 
 .bg-light {
-  background-color: #EEEEEE; }
+  background-color: #dddddd !important; }
 
-.bg-primary {
-  background-color: green; }
+.bg-green {
+  background: #3b9939; }
+
+.text-dark {
+  color: #232323 !important; }
+
+.text-dark2 {
+  color: #5b5b5b; }
+
+.text-light {
+  color: #dddddd !important; }
+
+.text-button {
+  color: #3b9939; }
 
 body {
   font-family: sans-serif; }
@@ -6058,12 +6077,12 @@ h1, h3, h5, span {
   font-family: 'Montserrat'; }
 
 nav {
-  background-color: #212529; }
+  background-color: #232323; }
 
 .nav-item a,
 .nav-item .fas,
 .navbar .fas {
-  color: #EEEEEE; }
+  color: #dddddd; }
 
 .nav-item .fas {
   margin-right: 10px; }
@@ -6072,8 +6091,8 @@ nav .form-control {
   display: none; }
 
 .list-group-item {
-  background-color: #212529;
-  color: #EEE;
+  background-color: #dddddd;
+  color: #232323;
   padding-top: 20px;
   padding-bottom: 20px; }
 
@@ -6084,8 +6103,8 @@ nav .form-control {
   color: #999; }
 
 .card {
-  background-color: #212529;
-  color: #EEE; }
+  background-color: #232323;
+  color: #dddddd; }
 
 .card-icon {
   color: #212529;

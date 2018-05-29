@@ -1,8 +1,113 @@
 @import ../bootstrap/scss/bootstrap.scss
+@import ../fonts/fontawesome/fontawesome-all.css
 
+//  INDEX
+//    Default color
+//    Default backgrounds
+//    Default text colors
+//    Default fonts
+//    Default header and navbar
+//    Users options list
+//    Default cards
+
+//
+// Default colors
+//
+$dark-color: #232323
+$dark2-color: #5b5b5b
+$light-color: #dddddd
+$green-color: #3b9939 // A definir
+
+//
+// Default settings
+//
 body
-  padding: 50px
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
+  background-color: $light-color
+  height: 100%
 
-a
-  color: #00B7FF
+//
+//Default backgrounds
+//
+.bg-dark
+  background-color: $dark-color !important
+
+.bg-dark2
+  background-color: $dark2-color
+
+.bg-light
+  background-color: $light-color !important
+
+.bg-green
+  background: $green-color
+
+//
+// Default text colors
+//
+.text-dark
+  color: $dark-color !important
+
+.text-dark2
+  color: $dark2-color
+
+.text-light
+  color: $light-color !important
+
+.text-button
+  color: $green-color
+
+//
+// Default fonts
+//
+body
+  font-family: sans-serif
+
+button, h2, h4, h6, p, i
+  font-family: 'Varela Round'
+
+h1, h3, h5, span
+  font-family: 'Montserrat'
+
+//
+// Default header and navbar
+//
+nav
+  background-color: $dark-color
+
+.nav-item a,
+.nav-item .fas,
+.navbar .fas
+  color: $light-color
+
+.nav-item .fas
+  margin-right: 10px
+
+nav .form-control
+  display: none
+
+//
+// Users options list
+//
+.list-group-item
+  background-color: $light-color
+  color: $dark-color
+  padding-top: 20px
+  padding-bottom: 20px
+
+.list-group-item .fas:not(.float-right)
+  margin-right: 10px
+
+.list-group-item .float-right
+  color: #999
+
+//
+// Default cards
+//
+.card
+  background-color: $dark-color
+  color: $light-color
+
+.card-icon
+  color: #212529
+  background-color: #EEE
+  padding: 0.5em
+  border-radius: 50%

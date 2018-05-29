@@ -6,59 +6,97 @@ var nodemailer = require('nodemailer');
 var router = express.Router();
 
 
-/* GET home page. */
-router.get('/', function (req, res, next  ){
-  res.render('index', { title: 'Express', layout: "layout"});
+/* GET HOME - TESTES */
+router.get('/', (req, res, next) => {
+  res.render('home', { title: 'Página inicial', layout: 'layout' });
 });
 
 /* GET NEWSLETTER. - TESTES */
-router.get('/newsletter', function (req, res, next  ){
-  res.render('newsletter', { title: 'Newsletter', layout: "layout"});
+router.get('/newsletter', (req, res, next) => {
+  res.render('newsletter', { title: 'Newsletter', layout: 'layout'});
 });
 
 /* GET NEWPRODUCT - TESTES. */
-router.get('/newproduct', function (req, res, next  ){
-  res.render('newproduct', { title: 'Newsproduct', layout: "layout"});
+router.get('/newproduct', (req, res, next) => {
+  res.render('newproduct', { title: 'Newsproduct', layout: 'layout'});
 });
 
-/*/////////////////////////////
+/* GET FORGOTPASSWORD - TESTES */
+router.get('/forgotPassword', (req, res, next) => {
+  res.render('forgotPassword', { title: 'Esqueci minha senha', extraCss: 'Login', layout: 'layout' });
+});
+
+/* GET SUCCESS - TESTES */
+router.get('/success', (req, res, next) => {
+  res.render('Success', { title: 'Sucesso', extraCss: 'Login', layout: 'layout' });
+});
+
+/* GET USER - TESTES */
+router.get('/user', (req, res, next) => {
+  res.render('User', { title: 'Usuário', extraCss: 'Login', layout: 'layout' });
+});
+
+/* GET LOGIN - TESTES */
+router.get('/login', (req, res, next) => {
+  res.render('login', { title: 'Login', extraCss: 'Login', layout: 'layout' });
+});
+
+/* ////////////////////////////
   BackEnd - LOGIN
-//////////////////////////////*/
-router.post('/login',(req,res,next) => {
+//////////////////////////// */
+router.post('/login', (req, res, next) => {
   const mail = req.body.mail;
   const pass = req.body.pass;
   firebase.auth().signInWithEmailAndPassword(mail, pass)
-  .then((user) => {
-    res.redirect('/newproduct');
-  }).catch((error) => {
-    res.redirect('/cadastre-se');
-  });
+    .then((user) => {
+      res.redirect('/user');
+    }).catch((error) => {
+      res.redirect('/cadastre-se');
+    });
 });
 
-/*/////////////////////////////
-  BackEnd - LOGOUT
-//////////////////////////////*/
-router.post('/logout',(req,res,next) => {
-  firebase.auth().signOut().then(function() {
-    res.redirect('/');
-  }).catch(function(error) {
+/* ////////////////////////////
+  BackEnd - RECOVER MY PASS
+//////////////////////////// */
+router.post('/recoverPassword', (req, res, next) => {
+  const mail = req.body.mail;
+
+  firebase.auth().sendPasswordResetEmail(mail).then(() => {
+    res.redirect('/success');
+  }).catch((error) => {
     res.redirect('/error');
   });
 });
 
-/*////////////////////////////
+/* ////////////////////////////
+  BackEnd - LOGOUT
+//////////////////////////// */
+router.post('/logout', (req, res, next) => {
+  firebase.auth().signOut().then(() => {
+    res.redirect('/');
+  }).catch((error) => {
+    res.redirect('/error');
+  });
+});
+
+/* ///////////////////////////
   BackEnd - CADASTRO
-//////////////////////////////*/
-router.post('/signup', (req,res,next) => {
+/////////////////////////// */
+router.post('/signup', (req, res, next) => {
   const mail = req.body.mail;
   const pass = req.body.pass;
-  const first_name = req.body.first_name;
-  const last_name = req.body.last_name;
+  const name = req.body.name;
   const user_type = req.body.user_type;
   const store = req.body.store;
   const cpf = req.body.cpf;
   const cnpj = req.body.cnpj
   const insc = req.body.insc;
+
+  // Separa nome e sobrenome do cliente a partir da string name
+  const position = name.indexOf(" ");
+  const first_name = name.slice(0, position);
+  const last_name = name.slice(position + 1);
+
   const created = firebase.database.ServerValue.TIMESTAMP;
 
   console.log("User type: ", user_type);
@@ -112,11 +150,11 @@ router.post('/signup', (req,res,next) => {
 
 /* ////////////////////////////////////
   BackEnd - CADASTRO NA NEWSLETTER
-//////////////////////////////////////*/
-router.post('/newsletter', (req,res,next) => {
+//////////////////////////////////// */
+router.post('/newsletter', (req, res, next) => {
   const name = req.body.name;
   const mail = req.body.email;
-  //Separa nome e sobrenome do cliente a partir da string name
+  // Separa nome e sobrenome do cliente a partir da string name
   const position = name.indexOf(" ");
   const first_name = name.slice(0, position);
   const last_name = name.slice(position + 1);
@@ -127,7 +165,7 @@ router.post('/newsletter', (req,res,next) => {
      first_name: first_name,
      last_name: last_name,
      mail: mail,
-     entered: entered,
+     entered: entered
    })
    .then(function(docRef){
      console.log("Document written with ID: ", docRef.id);
@@ -138,10 +176,10 @@ router.post('/newsletter', (req,res,next) => {
    });
 });
 
-/*/////////////////////////////
+/* ////////////////////////////
   BackEnd - ENVIO DE EMAIL
-//////////////////////////////*/
-router.post('/contact',(req,res,next) => {
+//////////////////////////// */
+router.post('/contact', (req, res, next) => {
   const clientname = req.body.clientname;
   const clientemail = req.body.email;
   const content = req.body.content;
@@ -185,7 +223,7 @@ router.post('/contact',(req,res,next) => {
 
 /* ////////////////////////////////////
   BackEnd - CADASTRO DE NOVOS PRODUTOS
-//////////////////////////////////////*/
+//////////////////////////////////// */
 router.post('/newproduct', (req,res,next) => {
   const name = req.body.productname;
   const category = req.body.category;
@@ -204,7 +242,7 @@ router.post('/newproduct', (req,res,next) => {
 
 /* ////////////////////////////////////
   BackEnd - ENVIO DE EMAILS PARA NEWSLETTER
-//////////////////////////////////////*/
+//////////////////////////////////// */
 router.post('/newslettermail', (req,res,next) => {
   var client_list = firebase.firestore().collection('newsletter');
   var mail_list = client_list.where("email","==",true);

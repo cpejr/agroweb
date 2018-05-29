@@ -8,7 +8,7 @@ var router = express.Router();
 
 /* GET HOME - TESTES */
 router.get('/', (req, res, next) => {
-  res.render('Home', { title: 'Página inicial', layout: 'layout' });
+  res.render('home', { title: 'Página inicial', layout: 'layout' });
 });
 
 /* GET NEWSLETTER. - TESTES */
@@ -38,7 +38,7 @@ router.get('/user', (req, res, next) => {
 
 /* GET LOGIN - TESTES */
 router.get('/login', (req, res, next) => {
-  res.render('Login', { title: 'Login', extraCss: 'Login', layout: 'layout' });
+  res.render('login', { title: 'Login', extraCss: 'Login', layout: 'layout' });
 });
 
 /* ////////////////////////////

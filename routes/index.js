@@ -143,7 +143,7 @@ router.post('/signup', (req, res, next) => {
   firebase.firestore().collection('users').add(newuser)
   .then(function(docRef){
     console.log("Document written with ID: ", docRef.id);
-  }).catch(function(error) => {
+  }).catch((error) => {
     console.log("Error ading document: ", error);
   });
 });

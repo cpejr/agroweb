@@ -6039,6 +6039,9 @@ a.text-dark:hover, a.text-dark:focus {
   .table-bordered td {
     border: 1px solid #ddd !important; } }
 
+body {
+  background-color: #EEEEEE; }
+
 .bg-dark {
   background-color: #212529; }
 
@@ -6072,8 +6075,8 @@ nav .form-control {
   display: none; }
 
 .list-group-item {
-  background-color: #212529;
-  color: #EEE;
+  background-color: #EEEEEE;
+  color: #212529;
   padding-top: 20px;
   padding-bottom: 20px; }
 
@@ -6085,7 +6088,7 @@ nav .form-control {
 
 .card {
   background-color: #212529;
-  color: #EEE; }
+  color: #EEEEEE; }
 
 .card-icon {
   color: #212529;

@@ -23,7 +23,7 @@ router.get('/newproduct', (req, res, next) => {
 
 /* GET FORGOTPASSWORD - TESTES */
 router.get('/forgotPassword', (req, res, next) => {
-  res.render('ForgotPassword', { title: 'Esqueci minha senha', extraCss: 'Login', layout: 'layout' });
+  res.render('forgotPassword', { title: 'Esqueci minha senha', extraCss: 'Login', layout: 'layout' });
 });
 
 /* GET SUCCESS - TESTES */

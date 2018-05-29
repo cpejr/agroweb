@@ -3,6 +3,7 @@ const firebase = require('firebase');
 const firestore = require('firebase/firestore');
 var hbs = require('handlebars');
 var nodemailer = require('nodemailer');
+
 var router = express.Router();
 
 
@@ -13,32 +14,32 @@ router.get('/', (req, res, next) => {
 
 /* GET NEWSLETTER. - TESTES */
 router.get('/newsletter', (req, res, next) => {
-  res.render('newsletter', { title: 'Newsletter', layout: 'layout'});
+  res.render('newsletter', { title: 'Newsletter', layout: 'layout' });
 });
 
 /* GET NEWPRODUCT - TESTES. */
 router.get('/newproduct', (req, res, next) => {
-  res.render('newproduct', { title: 'Newsproduct', layout: 'layout'});
+  res.render('newproduct', { title: 'Newsproduct', layout: 'layout' });
 });
 
 /* GET FORGOTPASSWORD - TESTES */
 router.get('/forgotPassword', (req, res, next) => {
-  res.render('forgotPassword', { title: 'Esqueci minha senha', extraCss: 'Login', layout: 'layout' });
+  res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });
 });
 
 /* GET SUCCESS - TESTES */
 router.get('/success', (req, res, next) => {
-  res.render('Success', { title: 'Sucesso', extraCss: 'Login', layout: 'layout' });
-});
-
-/* GET USER - TESTES */
-router.get('/user', (req, res, next) => {
-  res.render('User', { title: 'Usuário', extraCss: 'Login', layout: 'layout' });
+  res.render('Success', { title: 'Sucesso', layout: 'layout' });
 });
 
 /* GET LOGIN - TESTES */
 router.get('/login', (req, res, next) => {
-  res.render('login', { title: 'Login', extraCss: 'Login', layout: 'layout' });
+  res.render('login', { title: 'Login', layout: 'layout' });
+});
+
+/* GET SIGNUP - TESTES */
+router.get('/signup', (req, res, next) => {
+  res.render('Signup', { title: 'Cadastro', layout: 'layout' });
 });
 
 /* ////////////////////////////
@@ -73,7 +74,7 @@ router.post('/recoverPassword', (req, res, next) => {
 //////////////////////////// */
 router.post('/logout', (req, res, next) => {
   firebase.auth().signOut().then(() => {
-    res.redirect('/');
+    res.redirect('/home');
   }).catch((error) => {
     res.redirect('/error');
   });
@@ -98,12 +99,12 @@ router.post('/signup', (req, res, next) => {
 
   firebase.auth().createUserWithEmailAndPassword(mail, pass)
   .then((user) => {
-    var newuser = {
+    const newuser = {
       first_name: first_name,
       last_name: last_name,
       user_type: user_type,
       insc: insc,
-      created: created,
+      created: created
     };
     var setDoc = db.collection('users').doc(user.uid).set(newuser);
     res.redirect('/user');
@@ -187,25 +188,6 @@ router.post('/contact', (req, res, next) => {
   // passando o primeiro lugar da fila no array
 
 
-});
-
-/* ////////////////////////////////////
-  BackEnd - CADASTRO DE NOVOS PRODUTOS
-//////////////////////////////////// */
-router.post('/newproduct', (req,res,next) => {
-  const name = req.body.productname;
-  const category = req.body.category;
-
-  firebase.firestore().collection('categories').doc(category).set({
-     name: name,
-   })
-   .then(function(){
-     console.log("Document written!");
-     res.redirect('/home');
-   }).catch(function(error){
-     console.log("Error ading document: ", error);
-     res.redirect('/error');
-   });
 });
 
 /* ////////////////////////////////////

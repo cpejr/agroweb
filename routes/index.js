@@ -73,7 +73,7 @@ const settings = {
 firestore.settings(settings);
 
 function sendingMail(name, mail){
-  var content = "Parábens, ";
+  var content = "Welcome, ";
   content += name;
   content += "\n Você acaba de se cadastrar na newsletter do AgroWEB!\n";
   console.log("Texto: %s", content);

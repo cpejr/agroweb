@@ -87,6 +87,9 @@ router.post('/signup', (req, res, next) => {
   const pass = req.body.pass;
   const name = req.body.name;
   const user_type = req.body.user_type;
+  const store = req.body.store;
+  const cpf = req.body.cpf;
+  const cnpj = req.body.cnpj
   const insc = req.body.insc;
 
   // Separa nome e sobrenome do cliente a partir da string name
@@ -96,23 +99,52 @@ router.post('/signup', (req, res, next) => {
 
   const created = firebase.database.ServerValue.TIMESTAMP;
 
-  firebase.auth().createUserWithEmailAndPassword(mail, pass)
-  .then((user) => {
-    var newuser = {
-      first_name: first_name,
-      last_name: last_name,
-      user_type: user_type,
-      insc: insc,
-      created: created,
-    };
-    var setDoc = db.collection('users').doc(user.uid).set(newuser);
-    res.redirect('/user');
-  }).catch((error) => {
-    const errorCode = error.code;
-    if (errorCode === 'auth/email-already-in-use') {
-      res.redirect('/');
+  console.log("User type: ", user_type);
+
+  if(user_type == 'Produtor' || user_type == 'Franqueado' || user_type == 'Revendedor'){
+    if(user_type == 'Revendedor'){
+      firebase.auth().createUserWithEmailAndPassword(mail,pass).then((user) => {
+          var newuser = {
+            first_name: first_name,
+            last_name: last_name,
+            user_type: user_type,
+            CPF: cpf,
+            insc: insc,
+            created: created,
+          }
+        });
+    }else{
+      firebase.auth().createUserWithEmailAndPassword(mail,pass).then((user) => {
+          var newuser = {
+            first_name: first_name,
+            last_name: last_name,
+            user_type: user_type,
+            CPF: cpf,
+            store: store,
+            insc: insc,
+            created: created,
+          }
+        });
     }
-    // res.redirect('/error'); // criar pagina de erro
+  }else{
+    firebase.auth().createUserWithEmailAndPassword(mail,pass).then((user) => {
+        var newuser = {
+          first_name: first_name,
+          last_name: last_name,
+          user_type: user_type,
+          CNPJ: cnpj,
+          store: store,
+          insc: insc,
+          created: created,
+        }
+      });
+  }
+
+  firebase.firestore().collection('users').add(newuser)
+  .then(function(docRef){
+    console.log("Document written with ID: ", docRef.id);
+  }).catch(function(error) => {
+    console.log("Error ading document: ", error);
   });
 });
 

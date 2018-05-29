@@ -6,9 +6,9 @@ var nodemailer = require('nodemailer');
 var router = express.Router();
 
 
-/* GET index. */
+/* GET HOME - TESTES */
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express', layout: 'layout' });
+  res.render('Home', { title: 'Página inicial', layout: 'layout' });
 });
 
 /* GET NEWSLETTER. - TESTES */
@@ -22,7 +22,7 @@ router.get('/newproduct', (req, res, next) => {
 });
 
 /* GET FORGOTPASSWORD - TESTES */
-router.get('/ForgotPassword', (req, res, next) => {
+router.get('/forgotPassword', (req, res, next) => {
   res.render('ForgotPassword', { title: 'Esqueci minha senha', extraCss: 'Login', layout: 'layout' });
 });
 
@@ -36,6 +36,11 @@ router.get('/user', (req, res, next) => {
   res.render('User', { title: 'Usuário', extraCss: 'Login', layout: 'layout' });
 });
 
+/* GET LOGIN - TESTES */
+router.get('/login', (req, res, next) => {
+  res.render('Login', { title: 'Login', extraCss: 'Login', layout: 'layout' });
+});
+
 /* ////////////////////////////
   BackEnd - LOGIN
 //////////////////////////// */
@@ -43,11 +48,11 @@ router.post('/login', (req, res, next) => {
   const mail = req.body.mail;
   const pass = req.body.pass;
   firebase.auth().signInWithEmailAndPassword(mail, pass)
-  .then((user) => {
-    res.redirect('/newproduct');
-  }).catch((error) => {
-    res.redirect('/cadastre-se');
-  });
+    .then((user) => {
+      res.redirect('/user');
+    }).catch((error) => {
+      res.redirect('/cadastre-se');
+    });
 });
 
 /* ////////////////////////////
@@ -56,9 +61,9 @@ router.post('/login', (req, res, next) => {
 router.post('/recoverPassword', (req, res, next) => {
   const mail = req.body.mail;
 
-  firebase.auth().sendPasswordResetEmail(mail).then(function() {
+  firebase.auth().sendPasswordResetEmail(mail).then(() => {
     res.redirect('/success');
-  }).catch(function(error) {
+  }).catch((error) => {
     res.redirect('/error');
   });
 });
@@ -67,9 +72,9 @@ router.post('/recoverPassword', (req, res, next) => {
   BackEnd - LOGOUT
 //////////////////////////// */
 router.post('/logout', (req, res, next) => {
-  firebase.auth().signOut().then(function () {
+  firebase.auth().signOut().then(() => {
     res.redirect('/');
-  }).catch(function (error) {
+  }).catch((error) => {
     res.redirect('/error');
   });
 });
@@ -104,7 +109,7 @@ router.post('/signup', (req, res, next) => {
     res.redirect('/user');
   }).catch((error) => {
     const errorCode = error.code;
-    if (errorCode == 'auth/email-already-in-use') {
+    if (errorCode === 'auth/email-already-in-use') {
       res.redirect('/');
     }
     // res.redirect('/error'); // criar pagina de erro
@@ -117,7 +122,7 @@ router.post('/signup', (req, res, next) => {
 router.post('/newsletter', (req, res, next) => {
   const name = req.body.name;
   const mail = req.body.email;
-  //Separa nome e sobrenome do cliente a partir da string name
+  // Separa nome e sobrenome do cliente a partir da string name
   const position = name.indexOf(" ");
   const first_name = name.slice(0, position);
   const last_name = name.slice(position + 1);
@@ -128,7 +133,7 @@ router.post('/newsletter', (req, res, next) => {
      first_name: first_name,
      last_name: last_name,
      mail: mail,
-     entered: entered,
+     entered: entered
    })
    .then(function(docRef){
      console.log("Document written with ID: ", docRef.id);

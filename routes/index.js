@@ -22,13 +22,18 @@ router.get('/newproduct', (req, res, next) => {
 });
 
 /* GET FORGOTPASSWORD - TESTES */
-router.get('/forgotPassword', (req, res, next) => {
-  res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });
+router.get('/ForgotPassword', (req, res, next) => {
+  res.render('ForgotPassword', { title: 'Esqueci minha senha', extraCss: 'Login', layout: 'layout' });
 });
 
 /* GET SUCCESS - TESTES */
 router.get('/success', (req, res, next) => {
-  res.render('success', { title: 'Sucesso', layout: 'layout' });
+  res.render('Success', { title: 'Sucesso', extraCss: 'Login', layout: 'layout' });
+});
+
+/* GET USER - TESTES */
+router.get('/user', (req, res, next) => {
+  res.render('User', { title: 'Usuário', extraCss: 'Login', layout: 'layout' });
 });
 
 /* ////////////////////////////
@@ -96,7 +101,7 @@ router.post('/signup', (req, res, next) => {
       created: created,
     };
     var setDoc = db.collection('users').doc(user.uid).set(newuser);
-    res.redirect('/newsletter');
+    res.redirect('/user');
   }).catch((error) => {
     const errorCode = error.code;
     if (errorCode == 'auth/email-already-in-use') {

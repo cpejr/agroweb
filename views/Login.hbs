@@ -1,20 +1,21 @@
 <div class="container">
     <div class="col col-xs-8 align-self-center">
-      <form action="/login" method="POST" novalidate>
-            <div class="form-group">
-              <input type="email" class="form-control" placeholder="Email" id="email" name="email">
+      <form action="/login" method="post" novalidate>
+          <div class="form-group">
+            <input type="email" class="form-control" placeholder="Email" id="email" name="mail">
+          </div>
+          <div class="form-group">
+              <input type="password" class="form-control" placeholder="Senha" id="password" name="pass">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn col-md-8 btn-success mx-auto d-block">Entrar</button>
+          </div>
+          <div class="row">
+            <div class="col">
+              <a href="ForgotPassword" style="color: #fff">Esqueci minha senha</a>
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Senha" id="password" name="password">
-            </div>
-            <div class="form-group">
-              <button type="button" class="btn col-md-8 btn-success mx-auto d-block">Entrar</button>
-            </div>
-            <div class="row">
-              <div class="col">
-                <a href="ForgotPassword.hbs" style="color: #fff">Esqueceu sua senha?</a>
-              </div>
-                <a href="#" style="color: #fff">Cadastrar-se</a>
-            </div>
-      </div>
-  </div>
+              <a href="Signup" style="color: #fff">Cadastrar-se</a>
+          </div>
+      </form>
+    </div>
+</div>

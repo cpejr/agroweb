@@ -12,7 +12,7 @@ const firestore = require('firebase/firestore');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const homeRouter = require('./routes/home');
+const loginRouter = require('./routes/login');
 const signupRouter = require('./routes/signup');
 const maintenanceRouter = require('./routes/maintenance');
 
@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/home', homeRouter);
+app.use('/login', loginRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/signup', signupRouter);
 

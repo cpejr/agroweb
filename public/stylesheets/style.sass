@@ -1,8 +1,87 @@
 @import ../bootstrap/scss/bootstrap.scss
+@import ../fonts/fontawesome/fontawesome-all.css
 
+//  INDEX
+//    Default colors
+//    Default backgrounds
+//    Default fonts
+//    Default header and navbar
+//    Users options list
+//    Default cards
+//
+
+//
+// Default colors
+//
+$dark-color: #212529
+$light-color: #EEEEEE
+$primary-color: green // A definir
+
+//
+//Default backgrounds
+//
+.bg-dark
+  background-color: $dark-color
+
+.bg-light
+  background-color: $light-color
+
+.bg-primary
+  background-color: $primary-color
+
+//
+// Default fonts
+//
 body
-  padding: 50px
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
+  font-family: sans-serif
 
-a
-  color: #00B7FF
+button, h2, h4, h6, p, i
+  font-family: 'Varela Round'
+
+h1, h3, h5, span
+  font-family: 'Montserrat'
+
+//
+// Default header and navbar
+//
+nav
+  background-color: $dark-color
+
+.nav-item a,
+.nav-item .fas,
+.navbar .fas
+  color: $light-color
+
+.nav-item .fas
+  margin-right: 10px
+
+nav .form-control
+    display: none
+
+//
+// Users options list
+//
+.list-group-item
+  background-color: $dark-color
+  color: $light-color
+  padding-top: 20px
+  padding-bottom: 20px
+
+.list-group-item .fas:not(.float-right)
+  margin-right: 10px
+
+.list-group-item .float-right
+  color: #999
+
+//
+// Default cards
+//
+.card
+  background-color: $dark-color
+  color: $light-color
+
+.card-icon
+  color: #212529
+  background-color: #EEE
+  padding: 0.5em
+  border-radius: 50%

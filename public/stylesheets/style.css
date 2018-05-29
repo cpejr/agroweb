@@ -4,6 +4,7 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+@import url(../fonts/fontawesome/fontawesome-all.css);
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -6038,11 +6039,58 @@ a.text-dark:hover, a.text-dark:focus {
   .table-bordered td {
     border: 1px solid #ddd !important; } }
 
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+.bg-dark {
+  background-color: #212529; }
 
-a {
-  color: #00B7FF; }
+.bg-light {
+  background-color: #EEEEEE; }
+
+.bg-primary {
+  background-color: green; }
+
+body {
+  font-family: sans-serif; }
+
+button, h2, h4, h6, p, i {
+  font-family: 'Varela Round'; }
+
+h1, h3, h5, span {
+  font-family: 'Montserrat'; }
+
+nav {
+  background-color: #212529; }
+
+.nav-item a,
+.nav-item .fas,
+.navbar .fas {
+  color: #EEEEEE; }
+
+.nav-item .fas {
+  margin-right: 10px; }
+
+nav .form-control {
+  display: none; }
+
+.list-group-item {
+  background-color: #212529;
+  color: #EEE;
+  padding-top: 20px;
+  padding-bottom: 20px; }
+
+.list-group-item .fas:not(.float-right) {
+  margin-right: 10px; }
+
+.list-group-item .float-right {
+  color: #999; }
+
+.card {
+  background-color: #212529;
+  color: #EEE; }
+
+.card-icon {
+  color: #212529;
+  background-color: #EEE;
+  padding: 0.5em;
+  border-radius: 50%; }
 
 /*# sourceMappingURL=style.css.map */

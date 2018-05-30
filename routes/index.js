@@ -18,31 +18,27 @@ router.get('/newsletter', (req, res, next) => {
 });
 /* GET NEWPRODUCT - TESTES. */
 router.get('/newproduct', (req, res, next) => {
-  res.render('newproduct', { title: 'Newsproduct', layout: 'layout'});
+  res.render('newproduct', { title: 'Newsproduct', layout: 'layout' });
 });
 
 /* GET FORGOTPASSWORD - TESTES */
 router.get('/forgotPassword', (req, res, next) => {
-  res.render('forgotPassword', { title: 'Esqueci minha senha', extraCss: 'Login', layout: 'layout' });
+  res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });
 });
 
 /* GET SUCCESS - TESTES */
 router.get('/success', (req, res, next) => {
-  res.render('Success', { title: 'Sucesso', extraCss: 'Login', layout: 'layout' });
+  res.render('Success', { title: 'Sucesso', layout: 'layout' });
 });
-
-/* GET USER - TESTES */
-router.get('/user', (req, res, next) => {
-  res.render('User', { title: 'Usuário', extraCss: 'Login', layout: 'layout' });
-  
-/* GET NEWSLETTER - TESTES*/
-router.get('/email', function (req, res, next  ){
-  res.render('email', { title: 'Newsletter', layout: "layout"});
-
 
 /* GET LOGIN - TESTES */
 router.get('/login', (req, res, next) => {
-  res.render('login', { title: 'Login', extraCss: 'Login', layout: 'layout' });
+  res.render('login', { title: 'Login', layout: 'layout' });
+});
+
+/* GET SIGNUP - TESTES */
+router.get('/signup', (req, res, next) => {
+  res.render('Signup', { title: 'Cadastro', layout: 'layout' });
 });
 
 /* ////////////////////////////
@@ -80,7 +76,7 @@ router.post('/recoverPassword', (req, res, next) => {
 //////////////////////////// */
 router.post('/logout', (req, res, next) => {
   firebase.auth().signOut().then(() => {
-    res.redirect('/');
+    res.redirect('/home');
   }).catch((error) => {
     res.redirect('/error');
   });
@@ -113,7 +109,7 @@ firestore.settings(settings);
 function sendingMail(name, mail){
   var content = "Welcome, ";
   content += "\n Você acaba de se cadastrar na newsletter do AgroWEB!\n";
-  
+
   //Configuração do servidor
   var transporte = nodemailer.createTransport({
     host: 'mail.megapool.com.br',
@@ -277,25 +273,6 @@ router.post('/contact', (req, res, next) => {
 
   // Precisamos chamar a função que criamos
   // passando o primeiro lugar da fila no array
-});
-
-/* ////////////////////////////////////
-  BackEnd - CADASTRO DE NOVOS PRODUTOS
-//////////////////////////////////// */
-router.post('/newproduct', (req, res, next) => {
-  const name = req.body.productname;
-  const category = req.body.category;
-
-  firebase.firestore().collection('categories').doc(category).set({
-    name: name
-  })
-    .then(() => {
-      console.log('Document written!');
-      res.redirect('/home');
-    }).catch((error) => {
-      console.log('Error ading document: ', error);
-      res.redirect('/error');
-    });
 });
 
 /* ////////////////////////////////////

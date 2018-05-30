@@ -11,8 +11,7 @@ const nodemailer = require('nodemailer');
 const firestore = require('firebase/firestore');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const signupRouter = require('./routes/signup');
+const userRouter = require('./routes/user');
 const maintenanceRouter = require('./routes/maintenance');
 const newsletterRouter = require('./routes/newsletterlist');
 const PDFgeneratorRouter = require('./routes/PDFgenerator');
@@ -48,7 +47,7 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/signup', signupRouter);
 app.use('/newsletterlist', newsletterRouter);

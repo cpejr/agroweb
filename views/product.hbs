@@ -1,0 +1,112 @@
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
+
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+      <button class="btn btn-outline-dark " type="button">
+        <i class="fas fa-search fa-2x"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+<!-- end NavBar -->
+
+<div class="container">
+  <div class="row justify-content-center mx-sm-auto mx-md-9">
+    <!-- Product Title -->
+    <div class="col-12 col-md-6 mb-5">
+      <i class="text-muted">Produto Original</i>
+      <h2 class="my-0 py-0">Adubo NPK 5000 colorido</h2>
+      <h5 class="text-muted">R$ 500,00 un.</h5>
+    </div>
+    <!-- end Product Title -->
+
+    <!-- Quotation -->
+    <div class="col-12 col-md-6 pb-2 mb-5">
+      <form action="#" method="post">
+        <div class="row mb-3">
+          <div class="form-group col">
+            <label class="text-muted" for="delivery">Entrega</label>
+            <select class="form-control" id="delivery" name="delivery">
+              <option value="48hours">Até 48 horas</option>
+              <option value="31days">Até 31 dias</option>
+              <option value="crop">Safra</option>
+              <option value="littlecrop">Safrinha</option>
+            </select>
+          </div>
+
+          <div class="form-group col">
+            <label class="text-muted" for="amount">Quantidade</label>
+            <div class="input-group">
+              <input class="form-control" type="number" name="amount" id="amount" value="1">
+              <div class="input-group-prepend">
+                <div class="input-group-text">un.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+        <button class="w-100 text-white btn btn-default bg-dark" type="button" name="button">Cotar similar</button>
+      </form>
+    </div>
+    <!-- end Quotation -->
+
+    <!-- Product Description -->
+    <div class="col-12 col-md-6 mb-5">
+      <h4>Descrição</h4>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer volutpat lectus eu nunc efficitur, pharetra
+        vestibulum ligula laoreet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+        egestas. Pellentesque in nisi ornare, venenatis urna sed, pellentesque quam. Nunc molestie neque in lorem interdum,
+        ut tincidunt urna aliquam.
+      </p>
+    </div>
+    <!-- end Product Description -->
+
+    <!-- Product Characteristics -->
+    <div class="col-12 col-md-6 mb-5">
+      <h4>Características</h4>
+      <div class="row">
+        <div class="col-6">
+          <dt>C. agronômica</dt>
+          <dd>Feromônio</dd>
+        </div>
+        <div class="col-6">
+          <dt>Toxicologia</dt>
+          <dd>Pouco tóxico</dd>
+        </div>
+        <div class="col-6">
+          <dt>Inflamabilidade</dt>
+          <dd>Inflamável</dd>
+        </div>
+        <div class="col-6">
+          <dt>Formulação</dt>
+          <dd>Comprimidos e sachês</dd>
+        </div>
+        <div class="col-6">
+          <dt>Ingrediente ativo</dt>
+          <dd>[8]-E-dadacemal, paracetamol, outros</dd>
+        </div>
+      </div>
+    </div>
+    <!-- end Product Characteristics -->
+
+    <!-- Payment Options -->
+    <div class="col-12 col-md-12">
+      <h4>Formas de pagamento</h4>
+      <div class="">
+        <i class="fab fa-cc-visa fa-4x mr-2 text-info"></i>
+        <i class="fab fa-cc-mastercard fa-4x mr-2 text-danger"></i>
+        <i class="fas fa-barcode fa-4x mr-2"></i>
+      </div>
+      <a class="tex-muted" href="#"><small>Mais informações</small></a>
+    </div>
+    <!-- end Payment Options -->
+  </div>
+
+</div>

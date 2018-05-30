@@ -1,12 +1,14 @@
 body {
+  background-color: #232323;
+}
+
+@media (min-width: 720px) {
+  body {
     background-image: url('../images/background.jpg');
     background-size: cover;
     font-family: 'Dosis', serif;
 
-    background-position: center top;
+    //background-position: center top;
     background-repeat: no-repeat;
-}
-
-.container{
-    padding-top: 50px;
+  }
 }

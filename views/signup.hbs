@@ -1,121 +1,97 @@
 <header class="container img-responsive text-center">
     <img src="images/logo menor.png" alt="Logo do MegaPool">
 </header>
-<div class="container">
-  <div class="row">
-    <div class="col col-xs-8 align-self-center">
+
+<div class="container text-light">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-5 bg-dark rounded pt-2">
       <form action="/signup" method="post"> <!--o que a pessoa inserir nos campos vai pro bancodedados.php-->
-          <fieldset>
-            <div class="form-group">
-              <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Nome</label>
-                <div class="col-sm-10 col-md-8">
-                  <input type="text" class="form-control" name="name" id="name">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="mail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10 col-md-8">
-                  <input type="text" class="form-control" name="mail" id="mail" placeholder="email@exemplo.com">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="pass" class="col-sm-2 col-form-label">Senha</label>
-                <div class="col-sm-10 col-md-8">
-                  <input type="password" class="form-control" name="pass" id="pass">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col col-xs-8 text-center">
-                <div class="form-group">
-                  <div class="btn-group btn-group-toggle col-xs-5 col-md-8" style="padding-left: 1.5%;" data-toggle="buttons">
-                    <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="user_type" id="industria" autocomplete="off" checked="checked"> Indústria
-                    </label>
-                    <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="user_type" id="produtor" autocomplete="off"> Produtor
-                    </label>
-                    <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="user_type" id="franqueado" autocomplete="off"> Franqueado
-                    </label>
-                    <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="user_type" id="revendedor" autocomplete="off"> Revendedor
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="form-group row" id="cpf">
-                <div class="col col-md-2">
-                  <label for="name">CPF</label>
-                </div>
-                <div class="col-12 col-md-8">
-                <input type="cpf" class="form-control" name="cpf">
-                </div>
-              </div>
-              <div class="form-group row" id="cnpj">
-                <div class="col col-md-2">
-                  <label for="name">CNPJ</label>
-                </div>
-                <div class="col-12 col-md-8">
-                  <input type="text" class="form-control" name="cnpj">
-                </div>
-              </div>
-              <div class="form-check form-check-inline" id="temloja">
-                <div class="form-group row">
-                  <label for="temloja" class="col-sm-2 col-form-label col-md-12 ">Tem loja?</label>
-                  <div class="col-sm-10 col-md-12">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input " type="radio" name="store" id="inlineRadio" value="option1">
-                      <label class="form-check-label" for="inlineRadio1">Sim</label>
-                    </div>
-                    <input class="form-check-input" type="radio" name="store" id="inlineRadio" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">Não</label>
-                  </div>
-                </div>
-              </div>
-
-          </fieldset>
+        <fieldset>
           <div class="form-group">
-            <div class="row justify-content-center">
-              <button type="submit" class="col-5 col-md-2 btn btn-info btn-primary" style="margin: 0 5px;">Enviar</button>
-              <button type="reset" class="col-5 col-md-2 btn btn-light">Limpar</button>
+            <div class="form-group">
+              <label for="name" class="">Nome</label>
+              <div class="">
+                <input type="text" class="bg-light form-control" name="name" id="name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="mail" class="">Email</label>
+              <div class="">
+                <input type="text" class="bg-light form-control" name="mail" id="mail" placeholder="email@exemplo.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="pass" class="">Senha</label>
+              <div class="">
+                <input type="password" class="bg-light form-control" name="pass" id="pass">
+              </div>
             </div>
           </div>
-        </ul>
+
+          <div class="row">
+            <div class="col-12">
+              <label for="user-type" class="">Tipo de usuário</label>
+              <div class="form-group" id="user-type">
+                <div class="btn-group btn-group-toggle col-12 px-0 mx-0" data-toggle="buttons">
+                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                    <input type="radio" name="user_type" id="industria" value="industry">Indústria
+                  </button>
+                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                    <input type="radio" name="user_type" id="produtor" value="producer">Produtor
+                  </button>
+                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                    <input type="radio" name="user_type" id="franqueado" value="franchisee">Franq.
+                  </button>
+                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                    <input type="radio" name="user_type" id="revendedor" value="dealer">Revenda
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group producer-option franchisee-option d-none">
+                <label for="cpf">CPF</label>
+                <input type="number" class="bg-light form-control" name="cpf" id="cpf">
+              </div>
+
+              <div class="form-group industry-option dealer-option d-none">
+                <label for="cnpj">CNPJ</label>
+                <input type="number" class="bg-light form-control" name="cpf" id="cnpj">
+              </div>
+
+
+              <div class="franchisee-option d-none">
+                <label for="storeRadios">Você tem loja?</label>
+                <div class="form-group" id="storeRadios">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="store" id="storeRadio1" value="yes" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Sim
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="store" id="storeRadio2" value="no">
+                    <label class="form-check-label" for="storeRadios2">
+                      Não
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="row justify-content-center d-none mt-4" id="form-buttons">
+          <div class="form-group col-12 row justify-content-between">
+            <button type="submit" class="col-6 btn btn-default bg-green text-dark mr-1">Enviar</button>
+            <button type="reset" class="col btn btn-default bg-light text-dark">Limpar</button>
+          </div>
+        </div>
+
       </form>
     </div>
   </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#cpf').hide();
-    $('#cnpj').hide();
-    $('#temloja').hide();
-      $('#industria').change(function(){
-        $('#cpf').hide();
-        $('#cnpj').show();
-        $('#temloja').hide();
-    });
-      $('#produtor').change(function(){
-        $('#cpf').show();
-        $('#cnpj').hide();
-        $('#temloja').hide();
-      })
-      $('#franqueado').change(function(){
-        $('#cpf').show();
-        $('#cnpj').hide();
-        $('#temloja').hide();
-      })
-      $('#revendedor').change(function(){
-        $('#cpf').show();
-        $('#cnpj').hide();
-        $('#temloja').show();
-      })
-  });
-</script>

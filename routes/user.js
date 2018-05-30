@@ -9,16 +9,16 @@ router.get('/', (req, res, next) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
-        if (doc.data().user_type === 'Franqueado') {
+        if (doc.data().userType === 'Franqueado') {
           res.render('#', { title: '#', extraJS: ['navbar'], layout: 'layout' });
         }
-        else if (doc.data().user_type === 'Indústria') {
+        else if (doc.data().userType === 'Indústria') {
           res.render('#', { title: '#', extraJS: ['navbar'], layout: 'layout' });
         }
-        else if (doc.data().user_type === 'Produtor') {
+        else if (doc.data().userType === 'Produtor') {
           res.render('#', { title: '#', extraJS: ['navbar'], layout: 'layout' });
         }
-        else if (doc.data().user_type === 'Revendedor') {
+        else if (doc.data().userType === 'Revendedor') {
           res.render('user', { title: 'Revenda', extraJS: ['navbar'], layout: 'layout' });
         }
       }).catch((error) => {
@@ -43,15 +43,15 @@ router.post('/newproduct', (req, res, next) => {
   const category = req.body.category;
 
   firebase.firestore().collection('categories').doc(category).set({
-     name: `${name} Document written!`
- })
-   .then(() => {
-     console.log("Document written!");
-     res.redirect('/');
-   }).catch((error) => {
-     console.log("Error ading document: ", error);
-     res.redirect('/error');
-   });
+    name: `${name} Document written!`
+  })
+    .then(() => {
+      console.log('Document written!');
+      res.redirect('/');
+    }).catch((error) => {
+      console.log('Error ading document: ', error);
+      res.redirect('/error');
+    });
 });
 
 module.exports = router;

@@ -16,7 +16,6 @@ router.get('/', (req, res, next) => {
 router.get('/newsletter', (req, res, next) => {
   res.render('newsletter', { title: 'Newsletter', layout: 'layout' });
 });
-
 /* GET NEWPRODUCT - TESTES. */
 router.get('/newproduct', (req, res, next) => {
   res.render('newproduct', { title: 'Newsproduct', layout: 'layout'});
@@ -35,7 +34,11 @@ router.get('/success', (req, res, next) => {
 /* GET USER - TESTES */
 router.get('/user', (req, res, next) => {
   res.render('User', { title: 'Usuário', extraCss: 'Login', layout: 'layout' });
-});
+  
+/* GET NEWSLETTER - TESTES*/
+router.get('/email', function (req, res, next  ){
+  res.render('email', { title: 'Newsletter', layout: "layout"});
+
 
 /* GET LOGIN - TESTES */
 router.get('/login', (req, res, next) => {
@@ -67,6 +70,9 @@ router.post('/recoverPassword', (req, res, next) => {
   }).catch((error) => {
     res.redirect('/error');
   });
+  var client_list = firebase.firestore().collection('newsletter');
+  var mail_list = client_list.where("mail","==",true);
+  console.log(mail_list);
 });
 
 /* ////////////////////////////
@@ -82,27 +88,33 @@ router.post('/logout', (req, res, next) => {
 
 /* ///////////////////////////
   BackEnd - CADASTRO
-/////////////////////////// */
-router.post('/signup', (req, res, next) => {
+//////////////////////////////*/
+router.post('/signup', (req,res,next) => {
+  const name = req.body.name;
+  const user_type = req.body.user_type;
   const mail = req.body.mail;
   const pass = req.body.pass;
-  const name = req.body.name;
-  const userType = req.body.userType;
   const store = req.body.store;
   const cpf = req.body.cpf;
-  const cnpj = req.body.cnpj
-  const insc = req.body.insc;
-
-  // Separa nome e sobrenome do cliente a partir da string name
-  const position = name.indexOf(' ');
-  const first_name = name.slice(0, position);
-  const last_name = name.slice(position + 1);
-
+  const cnpj = req.body.cnpj;
   const created = firebase.database.ServerValue.TIMESTAMP;
+
+  //Separa nome e sobrenome do cliente a partir da string name
+const position = name.indexOf(" ");
+const first_name = name.slice(0, position);
+const last_name = name.slice(position + 1);
+
+const firestore = firebase.firestore();
+const settings = {
+  timestampsInSnapshots: true
+};
+firestore.settings(settings);
 
 function sendingMail(name, mail){
   var content = "Welcome, ";
   content += "\n Você acaba de se cadastrar na newsletter do AgroWEB!\n";
+  
+  //Configuração do servidor
   var transporte = nodemailer.createTransport({
     host: 'mail.megapool.com.br',
     port: '587',
@@ -114,6 +126,7 @@ function sendingMail(name, mail){
     tls: {
       rejectUnauthorized: false
     }
+
   });
   // Algumas configurações padrões para nossos e-mails
   var config = {
@@ -133,54 +146,64 @@ function sendingMail(name, mail){
     }
   });
 }
-  content += name;
-  console.log("Texto: %s", content);
 
-  if (userType === 'Produtor' || userType === 'Franqueado' || userType === 'Revendedor') {
-    if (userType === 'Revendedor') {
-      firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
-        const newuser = {
-          first_name: first_name,
-          last_name: last_name,
-          userType: userType,
-          CPF: cpf,
-          insc: insc,
-          created: created
-        }
-        firebase.firestore().collection('users').add(newuser)
-          .then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
-          }).catch((error) => {
-            console.log('Error ading document: ', error);
-          });
+  if(user_type == 'Produtor' || user_type == 'Franqueado' || user_type == 'Revendedor'){
+    if(user_type == 'Revendedor'){
+      firebase.auth().createUserWithEmailAndPassword(mail,pass).catch(function(error){
+        var errorCode = error.code;
+        var errorMessage = error.message;
       });
-    }
-    else {
-      firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
-        const newuser = {
+        firestore.collection('users').add({
           first_name: first_name,
           last_name: last_name,
-          userType: userType,
           CPF: cpf,
+          mail: mail,
+          user_type: user_type,
           store: store,
-          insc: insc,
-          created: created
-        }
-      });
+          created: created,
+        }).then(function(docRef){
+          console.log("Document written with ID: ", docRef.id);
+          sendingMail(first_name, mail);
+        }).catch(function(error){
+          console.log("Error ading document: ", error);
+        });
+      }else{
+        firebase.auth().createUserWithEmailAndPassword(mail,pass).catch(function(error){
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        });
+          firestore.collection('users').add({
+            first_name: first_name,
+            last_name: last_name,
+            mail: mail,
+            CPF: cpf,
+            user_type: user_type,
+            created: created,
+          }).then(function(docRef){
+            console.log("Document written with ID: ", docRef.id);
+            sendingMail(first_name, mail);
+          }).catch(function(error){
+            console.log("Error ading document: ", error);
+          });
     }
-  }
-  else {
-    firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
-      const newuser = {
+  }else{
+    firebase.auth().createUserWithEmailAndPassword(mail,pass).catch(function(error){
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
+      firestore.collection('users').add({
         first_name: first_name,
         last_name: last_name,
-        userType: userType,
+        mail: mail,
         CNPJ: cnpj,
-        store: store,
-        insc: insc,
-        created: created
-      }
-    });
+        user_type: user_type,
+        created: created,
+      }).then(function(docRef){
+        console.log("Document written with ID: ", docRef.id);
+        sendingMail(first_name, mail);
+      }).catch(function(error){
+        console.log("Error ading document: ", error);
+      });
   }
 });
 
@@ -283,5 +306,4 @@ router.post('/newslettermail', (req, res, next) => {
   var mailList = clientList.where('email', '==', true);
   console.log(mailList);
 });
-
 module.exports = router;

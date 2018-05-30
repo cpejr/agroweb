@@ -31,16 +31,16 @@
                 <div class="form-group">
                   <div class="btn-group btn-group-toggle col-xs-5 col-md-8" style="padding-left: 1.5%;" data-toggle="buttons">
                     <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="userType" id="industria" autocomplete="off" checked="checked"> Indústria
+                      <input type="radio" name="user_type" id="industria" autocomplete="off" checked="checked" value="Indústria"> Indústria
                     </label>
                     <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="userType" id="produtor" autocomplete="off"> Produtor
+                      <input type="radio" name="user_type" id="produtor" autocomplete="off" value="Produtor"> Produtor
                     </label>
                     <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="userType" id="franqueado" autocomplete="off"> Franqueado
+                      <input type="radio" name="user_type" id="franqueado" autocomplete="off" value="Franqueado"> Franqueado
                     </label>
                     <label class="col-md-3 btn-secondary btn b">
-                      <input type="radio" name="userType" id="revendedor" autocomplete="off"> Revendedor
+                      <input type="radio" name="user_type" id="revendedor" autocomplete="off" value="Revendedor"> Revendedor
                     </label>
                   </div>
                 </div>
@@ -69,10 +69,10 @@
                   <label for="temloja" class="col-sm-2 col-form-label col-md-12 ">Tem loja?</label>
                   <div class="col-sm-10 col-md-12">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input " type="radio" name="store" id="inlineRadio" value="option1">
+                      <input class="form-check-input " type="radio" name="store" id="inlineRadio" value="Sim">
                       <label class="form-check-label" for="inlineRadio1">Sim</label>
                     </div>
-                    <input class="form-check-input" type="radio" name="store" id="inlineRadio" value="option2">
+                    <input class="form-check-input" type="radio" name="store" id="inlineRadio" value="Não">
                     <label class="form-check-label" for="inlineRadio2">Não</label>
                   </div>
                 </div>
@@ -118,4 +118,17 @@
         $('#temloja').show();
       })
   });
+</script>
+<script language="javascript">
+
+function getValue(radio) {
+
+  for (i=0; i < radio.length; i++)
+
+      if (radio.checked == true) return radio.value;
+
+  return "Nenhum radio foi checado";
+
+}
+
 </script>

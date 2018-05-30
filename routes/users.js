@@ -1,3 +1,4 @@
+
 const express = require('express');
 
 const router = express.Router();
@@ -14,5 +15,6 @@ router.get('/revenda', function (req, res, next){
 router.get('/results', function (req, res, next){
   res.render('results', { title: 'Resultado', extraJS: ['navbar'], layout: "layout"});
 });
+
 
 module.exports = router;

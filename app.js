@@ -11,9 +11,10 @@ const nodemailer = require('nodemailer');
 const firestore = require('firebase/firestore');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const signupRouter = require('./routes/signup');
+const userRouter = require('./routes/user');
 const maintenanceRouter = require('./routes/maintenance');
+const newsletterRouter = require('./routes/newsletterlist');
+const PDFgeneratorRouter = require('./routes/PDFgenerator');
 
 const app = express();
 
@@ -27,6 +28,7 @@ const config = {
 };
 
 firebase.initializeApp(config);
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -45,9 +47,11 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/signup', signupRouter);
+app.use('/newsletterlist', newsletterRouter);
+app.use('/PDFgenerator', PDFgeneratorRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

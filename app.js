@@ -49,7 +49,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/maintenance', maintenanceRouter);
-app.use('/signup', signupRouter);
 app.use('/newsletterlist', newsletterRouter);
 app.use('/PDFgenerator', PDFgeneratorRouter);
 

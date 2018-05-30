@@ -66,9 +66,9 @@ router.post('/recoverPassword', (req, res, next) => {
   }).catch((error) => {
     res.redirect('/error');
   });
-  var client_list = firebase.firestore().collection('newsletter');
-  var mail_list = client_list.where("mail","==",true);
-  console.log(mail_list);
+  const clientList = firebase.firestore().collection('newsletter');
+  const mailList = clientList.where('mail', '==', true);
+  console.log(mailList);
 });
 
 /* ////////////////////////////
@@ -84,10 +84,10 @@ router.post('/logout', (req, res, next) => {
 
 /* ///////////////////////////
   BackEnd - CADASTRO
-//////////////////////////////*/
-router.post('/signup', (req,res,next) => {
+////////////////////////////// */
+router.post('/signup', (req, res, next) => {
   const name = req.body.name;
-  const user_type = req.body.user_type;
+  const userType = req.body.userType;
   const mail = req.body.mail;
   const pass = req.body.pass;
   const store = req.body.store;
@@ -95,111 +95,91 @@ router.post('/signup', (req,res,next) => {
   const cnpj = req.body.cnpj;
   const created = firebase.database.ServerValue.TIMESTAMP;
 
-  //Separa nome e sobrenome do cliente a partir da string name
-const position = name.indexOf(" ");
-const first_name = name.slice(0, position);
-const last_name = name.slice(position + 1);
+  // Separa nome e sobrenome do cliente a partir da string name
+  const position = name.indexOf(' ');
+  const first_name = name.slice(0, position);
+  const last_name = name.slice(position + 1);
 
-const firestore = firebase.firestore();
-const settings = {
-  timestampsInSnapshots: true
-};
-firestore.settings(settings);
-
-function sendingMail(name, mail){
-  var content = "Welcome, ";
-  content += "\n Você acaba de se cadastrar na newsletter do AgroWEB!\n";
-
-  //Configuração do servidor
-  var transporte = nodemailer.createTransport({
-    host: 'mail.megapool.com.br',
-    port: '587',
-    secure: false,
-    auth: {
-      user: 'admcpejr@megapool.com.br',
-      pass: 'Cpejr@2018'
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-
-  });
-  // Algumas configurações padrões para nossos e-mails
-  var config = {
-    from: 'admcpejr@megapool.com.br',
-    to: mail,
-    subject: 'Bem-Vindo ao AgroWeb!',
-    text: content
+  const firestore = firebase.firestore();
+  const settings = {
+    timestampsInSnapshots: true
   };
-    // Hora de disparar o e-mail usando as configurações pré
-    // definidas e as informações pessoas do usuário
-  transporte.sendMail(config, function (error, info){
-    if (error){
-      console.log(error);
-    }else{
-      console.log('Email enviado' + info.response);
-      console.log('Email enviado com sucesso!')
-    }
-  });
-}
-
-  if(user_type == 'Produtor' || user_type == 'Franqueado' || user_type == 'Revendedor'){
-    if(user_type == 'Revendedor'){
-      firebase.auth().createUserWithEmailAndPassword(mail,pass).catch(function(error){
+  firestore.settings(settings);
+  console.log(userType);
+  if (userType === 'Produtor' || userType === 'Franqueado' || userType === 'Revendedor') {
+    if (userType === 'Revendedor') {
+      firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
+        firebase.auth().currentUser.sendEmailVerification().then(() => {
+          firestore.collection('users').doc(user.uid).set({
+            first_name: first_name,
+            last_name: last_name,
+            CPF: cpf,
+            mail: mail,
+            userType: userType,
+            store: store,
+            created: created
+          }).then(() => {
+            res.redirect('/user');
+          }).catch((error) => {
+            res.redirect('/error');
+          });
+        }).catch((error) => {
+          res.redirect('/error');
+        });
+      }).catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
+        res.redirect('/error');
       });
-        firestore.collection('users').add({
+    }
+    else {
+      firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
+        firebase.auth().currentUser.sendEmailVerification().then(() => {
+          firestore.collection('users').doc(user.uid).set({
+            first_name: first_name,
+            last_name: last_name,
+            CPF: cpf,
+            mail: mail,
+            userType: userType,
+            created: created
+          }).then(() => {
+            res.redirect('/user');
+          }).catch((error) => {
+            res.redirect('/error');
+          });
+        }).catch((error) => {
+          res.redirect('/error');
+        });
+      }).catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        res.redirect('/error');
+      });
+    }
+  }
+  else {
+    firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
+      firebase.auth().currentUser.sendEmailVerification().then(() => {
+        firestore.collection('users').doc(user.uid).set({
           first_name: first_name,
           last_name: last_name,
           CPF: cpf,
           mail: mail,
-          user_type: user_type,
-          store: store,
-          created: created,
-        }).then(function(docRef){
-          console.log("Document written with ID: ", docRef.id);
-          sendingMail(first_name, mail);
-        }).catch(function(error){
-          console.log("Error ading document: ", error);
+          userType: userType,
+          created: created
+        }).then(() => {
+          res.redirect('/user');
+        }).catch((error) => {
+          res.redirect('/error');
         });
-      }else{
-        firebase.auth().createUserWithEmailAndPassword(mail,pass).catch(function(error){
-          var errorCode = error.code;
-          var errorMessage = error.message;
-        });
-          firestore.collection('users').add({
-            first_name: first_name,
-            last_name: last_name,
-            mail: mail,
-            CPF: cpf,
-            user_type: user_type,
-            created: created,
-          }).then(function(docRef){
-            console.log("Document written with ID: ", docRef.id);
-            sendingMail(first_name, mail);
-          }).catch(function(error){
-            console.log("Error ading document: ", error);
-          });
-    }
-  }else{
-    firebase.auth().createUserWithEmailAndPassword(mail,pass).catch(function(error){
+      }).catch((error) => {
+        res.redirect('/error');
+      });
+    }).catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
+      res.redirect('/error');
     });
-      firestore.collection('users').add({
-        first_name: first_name,
-        last_name: last_name,
-        mail: mail,
-        CNPJ: cnpj,
-        user_type: user_type,
-        created: created,
-      }).then(function(docRef){
-        console.log("Document written with ID: ", docRef.id);
-        sendingMail(first_name, mail);
-      }).catch(function(error){
-        console.log("Error ading document: ", error);
-      });
   }
 });
 

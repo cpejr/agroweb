@@ -100,7 +100,41 @@ router.post('/signup', (req, res, next) => {
 
   const created = firebase.database.ServerValue.TIMESTAMP;
 
-  console.log('User type: ', userType);
+function sendingMail(name, mail){
+  var content = "Welcome, ";
+  content += "\n Você acaba de se cadastrar na newsletter do AgroWEB!\n";
+  var transporte = nodemailer.createTransport({
+    host: 'mail.megapool.com.br',
+    port: '587',
+    secure: false,
+    auth: {
+      user: 'admcpejr@megapool.com.br',
+      pass: 'Cpejr@2018'
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+  // Algumas configurações padrões para nossos e-mails
+  var config = {
+    from: 'admcpejr@megapool.com.br',
+    to: mail,
+    subject: 'Bem-Vindo ao AgroWeb!',
+    text: content
+  };
+    // Hora de disparar o e-mail usando as configurações pré
+    // definidas e as informações pessoas do usuário
+  transporte.sendMail(config, function (error, info){
+    if (error){
+      console.log(error);
+    }else{
+      console.log('Email enviado' + info.response);
+      console.log('Email enviado com sucesso!')
+    }
+  });
+}
+  content += name;
+  console.log("Texto: %s", content);
 
   if (userType === 'Produtor' || userType === 'Franqueado' || userType === 'Revendedor') {
     if (userType === 'Revendedor') {

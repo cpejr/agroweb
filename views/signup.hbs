@@ -30,20 +30,20 @@
 
           <div class="row">
             <div class="col-12">
-              <label for="user-type" class="">Tipo de usuário</label>
-              <div class="form-group" id="user-type">
+              <label for="userType" class="">Tipo de usuário</label>
+              <div class="form-group" id="userType">
                 <div class="btn-group btn-group-toggle col-12 px-0 mx-0" data-toggle="buttons">
                   <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="user_type" id="industria" value="industry">Indústria
+                    <input type="radio" name="userType" id="industry" value="Indústria">Indústria
                   </button>
                   <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="user_type" id="produtor" value="producer">Produtor
+                    <input type="radio" name="userType" id="producer" value="Produtor">Produtor
                   </button>
                   <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="user_type" id="franqueado" value="franchise">Franq.
+                    <input type="radio" name="userType" id="franchisee" value="Franqueado">Franq.
                   </button>
                   <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="user_type" id="revendedor" value="dealer">Revenda
+                    <input type="radio" name="userType" id="dealer" value="Revendedor">Revenda
                   </button>
                 </div>
               </div>
@@ -52,18 +52,18 @@
 
           <div class="row">
             <div class="col-12">
-              <div class="form-group producer-option franchisee-option d-none">
+              <div class="form-group producer-option franchisee-option dealer-option d-none">
                 <label for="cpf">CPF</label>
-                <input type="number" class="bg-light form-control" name="cpf" id="cpf">
+                <input type="text" class="bg-light form-control" name="cpf" id="cpf">
               </div>
 
-              <div class="form-group industry-option dealer-option d-none">
+              <div class="form-group industry-option d-none">
                 <label for="cnpj">CNPJ</label>
-                <input type="number" class="bg-light form-control" name="cpf" id="cnpj">
+                <input type="text" class="bg-light form-control" name="cnpj" id="cnpj">
               </div>
 
 
-              <div class="franchisee-option d-none">
+              <div class="dealer-option d-none">
                 <label for="storeRadios">Você tem loja?</label>
                 <div class="form-group" id="storeRadios">
                   <div class="form-check form-check-inline">

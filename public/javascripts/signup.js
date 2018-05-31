@@ -1,20 +1,20 @@
 $(document).ready(() => {
-  $('input[name=user_type]').on('change', () => {
-    let selectedUserType = $('input[name=user_type]:checked').val();
+  $('input[name=userType]').on('change', () => {
+    const selectedUserType = $('input[name=userType]:checked').val();
 
-    if (selectedUserType == 'industry') {
+    if (selectedUserType === 'Indústria') {
       $('.producer-option').hide();
       $('.franchisee-option').hide();
       $('.dealer-option').hide();
       $('.industry-option').removeClass('d-none').show().focus();
     }
-    else if (selectedUserType == 'producer') {
+    else if (selectedUserType === 'Produtor') {
       $('.industry-option').hide();
       $('.franchisee-option').hide();
       $('.dealer-option').hide();
       $('.producer-option').removeClass('d-none').show();
     }
-    else if (selectedUserType == 'franchisee') {
+    else if (selectedUserType === 'Franqueado') {
       $('.producer-option').hide();
       $('.industry-option').hide();
       $('.dealer-option').hide();

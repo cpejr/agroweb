@@ -47,10 +47,14 @@ router.get('/teste', (req, res, next) => {
     firebase.firestore().collection('users').doc(user.uid).collection('myOrders')
       .get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
+          doc.data().product.get().then((product) => {
+            console.log('====================================');
+            console.log(product.data());
+          });
           const position = doc.data().product._key.path.offset + doc.data().product._key.path.len - 1;
           const offerDoc = doc.data().product._key.path.segments[position];
           firebase.firestore().collection('offers').doc(offerDoc).get().then((offer) => {
-            console.log(offer.data());
+            //console.log(offer.data());
             console.log(doc.id, ' => \n Preço = ', doc.data().price, '\n Quantidade = ', doc.data().quantity);
           });
         });

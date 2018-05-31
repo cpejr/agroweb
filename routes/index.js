@@ -42,8 +42,30 @@ router.get('/signup', (req, res, next) => {
 });
 
 router.get('/teste', (req, res, next) => {
-  res.render('success', { title: 'Teste', extraJS: ['navbar'], layout: 'layout' });
-
+  const user = firebase.auth().currentUser;
+  if (user) {
+    firebase.firestore().collection('users').doc(user.uid).collection('myOrders')
+      .get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.data().product.get().then((product) => {
+            console.log('====================================');
+            console.log(product.data());
+          });
+          const position = doc.data().product._key.path.offset + doc.data().product._key.path.len - 1;
+          const offerDoc = doc.data().product._key.path.segments[position];
+          firebase.firestore().collection('offers').doc(offerDoc).get().then((offer) => {
+            //console.log(offer.data());
+            console.log(doc.id, ' => \n Preço = ', doc.data().price, '\n Quantidade = ', doc.data().quantity);
+          });
+        });
+      }).catch((error) => {
+        console.log('Error getting documents: ', error);
+      });
+    res.render('success', { title: 'Sucesso', layout: 'layout' });
+  }
+  else {
+    console.log('Usuário não está logado');
+  }
 });
 
 /* ////////////////////////////
@@ -56,7 +78,7 @@ router.post('/login', (req, res, next) => {
     .then((user) => {
       res.redirect('/user');
     }).catch((error) => {
-      res.redirect('/cadastre-se');
+      res.redirect('/error');
     });
 });
 
@@ -64,7 +86,9 @@ router.post('/login', (req, res, next) => {
   BackEnd - RECOVER MY PASS
 //////////////////////////// */
 router.post('/recoverPassword', (req, res, next) => {
-  const mail = req.body.mail;
+  const {
+    mail
+  } = req.body;
 
   firebase.auth().sendPasswordResetEmail(mail).then(() => {
     res.redirect('/success');
@@ -83,6 +107,8 @@ router.post('/logout', (req, res, next) => {
   firebase.auth().signOut().then(() => {
     res.redirect('/home');
   }).catch((error) => {
+    console.log(error.code);
+    console.log(error.message);
     res.redirect('/error');
   });
 });
@@ -91,19 +117,21 @@ router.post('/logout', (req, res, next) => {
   BackEnd - CADASTRO
 ////////////////////////////// */
 router.post('/signup', (req, res, next) => {
-  const name = req.body.name;
-  const userType = req.body.userType;
-  const mail = req.body.mail;
-  const pass = req.body.pass;
-  const store = req.body.store;
-  const cpf = req.body.cpf;
-  const cnpj = req.body.cnpj;
+  const {
+    name,
+    userType,
+    mail,
+    pass,
+    store,
+    cpf,
+    cnpj
+  } = req.body;
   const created = firebase.database.ServerValue.TIMESTAMP;
 
   // Separa nome e sobrenome do cliente a partir da string name
   const position = name.indexOf(' ');
-  const first_name = name.slice(0, position);
-  const last_name = name.slice(position + 1);
+  const firstName = name.slice(0, position);
+  const lastName = name.slice(position + 1);
 
   const firestore = firebase.firestore();
   const settings = {
@@ -116,13 +144,13 @@ router.post('/signup', (req, res, next) => {
       firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
         firebase.auth().currentUser.sendEmailVerification().then(() => {
           firestore.collection('users').doc(user.uid).set({
-            first_name: first_name,
-            last_name: last_name,
-            CPF: cpf,
-            mail: mail,
-            userType: userType,
-            store: store,
-            created: created
+            firstName,
+            lastName,
+            cpf,
+            mail,
+            userType,
+            store,
+            created
           }).then(() => {
             res.redirect('/user');
           }).catch((error) => {
@@ -141,12 +169,12 @@ router.post('/signup', (req, res, next) => {
       firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
         firebase.auth().currentUser.sendEmailVerification().then(() => {
           firestore.collection('users').doc(user.uid).set({
-            first_name: first_name,
-            last_name: last_name,
-            CPF: cpf,
-            mail: mail,
-            userType: userType,
-            created: created
+            firstName,
+            lastName,
+            cpf,
+            mail,
+            userType,
+            created
           }).then(() => {
             res.redirect('/user');
           }).catch((error) => {
@@ -166,12 +194,12 @@ router.post('/signup', (req, res, next) => {
     firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
       firebase.auth().currentUser.sendEmailVerification().then(() => {
         firestore.collection('users').doc(user.uid).set({
-          first_name: first_name,
-          last_name: last_name,
-          CPF: cpf,
-          mail: mail,
-          userType: userType,
-          created: created
+          firstName,
+          lastName,
+          cnpj,
+          mail,
+          userType,
+          created
         }).then(() => {
           res.redirect('/user');
         }).catch((error) => {
@@ -192,20 +220,22 @@ router.post('/signup', (req, res, next) => {
   BackEnd - CADASTRO NA NEWSLETTER
 //////////////////////////////////// */
 router.post('/newsletter', (req, res, next) => {
-  const name = req.body.name;
-  const mail = req.body.mail;
+  const {
+    name,
+    mail
+  } = req.body;
   // Separa nome e sobrenome do cliente a partir da string name
   const position = name.indexOf(' ');
-  const first_name = name.slice(0, position);
-  const last_name = name.slice(position + 1);
+  const firstName = name.slice(0, position);
+  const lastName = name.slice(position + 1);
 
   const entered = firebase.database.ServerValue.TIMESTAMP;
 
   firebase.firestore().collection('newsletter').add({
-    first_name: first_name,
-    last_name: last_name,
-    mail: mail,
-    entered: entered
+    firstName,
+    lastName,
+    mail,
+    entered
   })
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);
@@ -220,10 +250,12 @@ router.post('/newsletter', (req, res, next) => {
   BackEnd - ENVIO DE EMAIL
 //////////////////////////// */
 router.post('/contact', (req, res, next) => {
-  const clientname = req.body.clientname;
-  const clientemail = req.body.email;
-  const content = req.body.content;
-  const clientsubject = req.body.clientsubject;
+  const {
+    clientname,
+    email: clientemail,
+    content,
+    clientsubject
+  } = req.body;
 
   var transporte = nodemailer.createTransport({
     host: 'mail.megapool.com.br',

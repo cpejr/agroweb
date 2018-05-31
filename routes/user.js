@@ -10,16 +10,16 @@ router.get('/', (req, res, next) => {
     if (user) {
       firebase.firestore().collection('users').doc(user.uid).get().then((doc) => {
         if (doc.data().userType === 'Franqueado') {
-          res.render('#', { title: '#', extraJS: ['navbar'], layout: 'layout' });
+          res.render('user', { title: 'Franqueado', extraJS: ['navbar'], layout: 'layout' });
         }
         else if (doc.data().userType === 'Indústria') {
-          res.render('#', { title: '#', extraJS: ['navbar'], layout: 'layout' });
+          res.render('user', { title: 'Indústria', extraJS: ['navbar'], layout: 'layout' });
         }
         else if (doc.data().userType === 'Produtor') {
-          res.render('#', { title: '#', extraJS: ['navbar'], layout: 'layout' });
+          res.render('user', { title: 'Produtor', extraJS: ['navbar'], layout: 'layout' });
         }
         else if (doc.data().userType === 'Revendedor') {
-          res.render('user', { title: 'Revenda', extraJS: ['navbar'], layout: 'layout' });
+          res.render('user', { title: 'Revendedor', extraJS: ['navbar'], layout: 'layout' });
         }
       }).catch((error) => {
         res.redirect('/error');
@@ -41,11 +41,13 @@ router.get('/results', (req, res, next) => {
   BackEnd - CADASTRO DE NOVOS PRODUTOS
 //////////////////////////////////// */
 router.post('/newproduct', (req, res, next) => {
-  const name = req.body.productname;
-  const category = req.body.category;
+  const {
+    name,
+    category
+  } = req.body;
 
   firebase.firestore().collection('categories').doc(category).set({
-    name: name
+    name
   })
     .then(() => {
       console.log('Document written!');

@@ -10,14 +10,6 @@ const firebase = require('firebase');
 const nodemailer = require('nodemailer');
 const firestore = require('firebase/firestore');
 
-const indexRouter = require('./routes/index');
-const userRouter = require('./routes/user');
-const maintenanceRouter = require('./routes/maintenance');
-const newsletterRouter = require('./routes/newsletterlist');
-const PDFgeneratorRouter = require('./routes/PDFgenerator');
-
-const app = express();
-
 const config = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
@@ -29,6 +21,13 @@ const config = {
 
 firebase.initializeApp(config);
 
+const indexRouter = require('./routes/index');
+const userRouter = require('./routes/user');
+const maintenanceRouter = require('./routes/maintenance');
+const newsletterRouter = require('./routes/newsletterlist');
+const PDFgeneratorRouter = require('./routes/PDFgenerator');
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

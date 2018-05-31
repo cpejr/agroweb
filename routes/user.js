@@ -35,6 +35,8 @@ router.get('/results', (req, res, next) => {
   res.render('results', { title: 'Resultado', extraJS: ['navbar'], layout: 'layout' });
 });
 
+
+
 /* ////////////////////////////////////
   BackEnd - CADASTRO DE NOVOS PRODUTOS
 //////////////////////////////////// */
@@ -43,7 +45,7 @@ router.post('/newproduct', (req, res, next) => {
   const category = req.body.category;
 
   firebase.firestore().collection('categories').doc(category).set({
-    name: `${name} Document written!`
+    name: name
   })
     .then(() => {
       console.log('Document written!');

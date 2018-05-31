@@ -28,7 +28,7 @@ router.get('/forgotPassword', (req, res, next) => {
 
 /* GET SUCCESS - TESTES */
 router.get('/success', (req, res, next) => {
-  res.render('Success', { title: 'Sucesso', layout: 'layout' });
+  res.render('success', { title: 'Sucesso', layout: 'layout' });
 });
 
 /* GET LOGIN - TESTES */
@@ -38,7 +38,12 @@ router.get('/login', (req, res, next) => {
 
 /* GET SIGNUP - TESTES */
 router.get('/signup', (req, res, next) => {
-  res.render('Signup', { title: 'Cadastro', layout: 'layout' });
+  res.render('signup', { title: 'Cadastro', extraJS: ['signup'], layout: 'layout' });
+});
+
+router.get('/teste', (req, res, next) => {
+  res.render('success', { title: 'Teste', extraJS: ['navbar'], layout: 'layout' });
+
 });
 
 /* ////////////////////////////

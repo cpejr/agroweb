@@ -6064,14 +6064,17 @@ body {
 .text-light {
   color: #dddddd !important; }
 
+.text-gray {
+  color: #939393 !important; }
+
 .text-button {
   color: #3b9939; }
 
 body {
   font-family: sans-serif; }
 
-button, h2, h4, h6, p, i {
-  font-family: 'Varela Round'; }
+button, h2, h4, h6, h7, p, i, a {
+  font-family: 'Dosis'; }
 
 h1, h3, h5, span {
   font-family: 'Montserrat'; }
@@ -6111,5 +6114,14 @@ nav .form-control {
   background-color: #EEE;
   padding: 0.5em;
   border-radius: 50%; }
+
+.badge {
+  width: 180px;
+  padding: 7px 25px 2px 25px;
+  border-radius: 20px;
+  margin: 2px; }
+
+.product-myOrders {
+  margin-top: 20px; }
 
 /*# sourceMappingURL=style.css.map */

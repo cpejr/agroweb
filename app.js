@@ -9,6 +9,7 @@ const sassMiddleware = require('node-sass-middleware');
 const firebase = require('firebase');
 const nodemailer = require('nodemailer');
 const firestore = require('firebase/firestore');
+const exphbs = require('express-handlebars');
 
 const config = {
   apiKey: process.env.API_KEY,
@@ -30,6 +31,19 @@ const PDFgeneratorRouter = require('./routes/PDFgenerator');
 const app = express();
 
 // view engine setup
+const hbs = exphbs.create({
+  defaultLayout: 'layout',
+  extname: '.hbs',
+  helpers: {
+    // Here we're declaring the #section that appears in layout/layout.hbs
+    section(name, options) {
+      if (!this._sections) this._sections = {};
+      this._sections[name] = options.fn(this);
+      return null;
+    }
+  }
+});
+app.engine('hbs', hbs.engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 

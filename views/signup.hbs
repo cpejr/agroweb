@@ -1,3 +1,6 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
 <header class="container img-responsive text-center">
     <img src="images/logo menor.png" alt="Logo do MegaPool">
 </header>
@@ -11,19 +14,19 @@
             <div class="form-group">
               <label for="name" class="">Nome</label>
               <div class="">
-                <input type="text" class="bg-light form-control" name="name" id="name">
+                <input type="text" class="bg-light form-control" name="user[name]" id="name">
               </div>
             </div>
             <div class="form-group">
               <label for="mail" class="">Email</label>
               <div class="">
-                <input type="text" class="bg-light form-control" name="mail" id="mail" placeholder="email@exemplo.com">
+                <input type="text" class="bg-light form-control" name="user[email]" id="mail" placeholder="email@exemplo.com">
               </div>
             </div>
             <div class="form-group">
               <label for="pass" class="">Senha</label>
               <div class="">
-                <input type="password" class="bg-light form-control" name="pass" id="pass">
+                <input type="password" class="bg-light form-control" name="user[password]" id="pass">
               </div>
             </div>
           </div>
@@ -34,16 +37,16 @@
               <div class="form-group" id="userType">
                 <div class="btn-group btn-group-toggle col-12 px-0 mx-0" data-toggle="buttons">
                   <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="userType" id="industry" value="Indústria">Indústria
+                    <input type="radio" name="user[type]" id="industry" value="Indústria">Indústria
                   </button>
                   <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="userType" id="producer" value="Produtor">Produtor
+                    <input type="radio" name="user[type]" id="producer" value="Produtor">Produtor
                   </button>
                   <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="userType" id="franchisee" value="Franqueado">Franq.
+                    <input type="radio" name="user[type]" id="franchisee" value="Franqueado">Franq.
                   </button>
                   <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="userType" id="dealer" value="Revendedor">Revenda
+                    <input type="radio" name="user[type]" id="dealer" value="Revendedor">Revenda
                   </button>
                 </div>
               </div>
@@ -54,12 +57,12 @@
             <div class="col-12">
               <div class="form-group producer-option franchisee-option dealer-option d-none">
                 <label for="cpf">CPF</label>
-                <input type="text" class="bg-light form-control" name="cpf" id="cpf">
+                <input type="text" class="bg-light form-control" name="user[cpf]" id="cpf">
               </div>
 
               <div class="form-group industry-option d-none">
                 <label for="cnpj">CNPJ</label>
-                <input type="text" class="bg-light form-control" name="cnpj" id="cnpj">
+                <input type="text" class="bg-light form-control" name="user[cnpj]" id="cnpj">
               </div>
 
 
@@ -67,13 +70,13 @@
                 <label for="storeRadios">Você tem loja?</label>
                 <div class="form-group" id="storeRadios">
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="store" id="storeRadio1" value="yes" checked>
+                    <input class="form-check-input" type="radio" name="user[store]" id="storeRadio1" value="1" checked>
                     <label class="form-check-label" for="exampleRadios1">
                       Sim
                     </label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="store" id="storeRadio2" value="no">
+                    <input class="form-check-input" type="radio" name="user[store]" id="storeRadio2" value="0">
                     <label class="form-check-label" for="storeRadios2">
                       Não
                     </label>
@@ -95,3 +98,7 @@
     </div>
   </div>
 </div>
+
+{{#section 'scripts'}}
+  <script src="/javascripts/signup.js"></script>
+{{/section}}

@@ -1,83 +1,84 @@
-var express = require('express');
+const express = require('express');
 const firebase = require('firebase');
-const firestore = require('firebase/firestore');
-var hbs = require('handlebars');
-var nodemailer = require('nodemailer');
+const User = require('../models/user.js');
+const auth = require('./middleware/auth');
+const nodemailer = require('nodemailer');
 
-var router = express.Router();
+const firestore = firebase.firestore();
+const router = express.Router();
 
 
 /* GET HOME - TESTES */
-router.get('/', (req, res, next) => {
-  res.render('home', { title: 'Página inicial', layout: 'layout' });
+router.get('/', (req, res) => {
+  res.render('index', { title: 'Página inicial', layout: 'layout' });
 });
 
 /* GET NEWSLETTER. - TESTES */
-router.get('/newsletter', (req, res, next) => {
+router.get('/newsletter', (req, res) => {
   res.render('newsletter', { title: 'Newsletter', layout: 'layout' });
-});
-/* GET NEWPRODUCT - TESTES. */
-router.get('/newproduct', (req, res, next) => {
-  res.render('newproduct', { title: 'Newsproduct', layout: 'layout' });
 });
 
 /* GET FORGOTPASSWORD - TESTES */
-router.get('/forgotPassword', (req, res, next) => {
+router.get('/forgotPassword', (req, res) => {
   res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });
 });
 
 /* GET SUCCESS - TESTES */
-router.get('/success', (req, res, next) => {
+router.get('/success', (req, res) => {
   res.render('success', { title: 'Sucesso', layout: 'layout' });
 });
 
 /* GET LOGIN - TESTES */
-router.get('/login', (req, res, next) => {
+router.get('/login', (req, res) => {
+  if ('userType' in req.session) {
+    if (req.session.userType === 'Administrador') {
+      res.redirect('/admin');
+    }
+    else {
+      res.redirect('/user');
+    }
+  }
   res.render('login', { title: 'Login', layout: 'layout' });
 });
 
 /* GET SIGNUP - TESTES */
-router.get('/signup', (req, res, next) => {
-  res.render('signup', { title: 'Cadastro', extraJS: ['signup'], layout: 'layout' });
+router.get('/signup', (req, res) => {
+  res.render('signup', { title: 'Cadastro', layout: 'layout' });
 });
 
-router.get('/teste', (req, res, next) => {
-  const user = firebase.auth().currentUser;
-  if (user) {
-    firebase.firestore().collection('users').doc(user.uid).collection('myOrders')
-      .get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.data().product.get().then((product) => {
-            console.log('====================================');
-            console.log(product.data());
-          });
-          const position = doc.data().product._key.path.offset + doc.data().product._key.path.len - 1;
-          const offerDoc = doc.data().product._key.path.segments[position];
-          firebase.firestore().collection('offers').doc(offerDoc).get().then((offer) => {
-            //console.log(offer.data());
-            console.log(doc.id, ' => \n Preço = ', doc.data().price, '\n Quantidade = ', doc.data().quantity);
-          });
-        });
-      }).catch((error) => {
-        console.log('Error getting documents: ', error);
-      });
+router.get('/teste', auth.isAuthenticated, (req, res) => {
+  User.getAllOrdersByUserId(req.session.userUid).then((orders) => {
+    console.log(orders);
     res.render('success', { title: 'Sucesso', layout: 'layout' });
-  }
-  else {
-    console.log('Usuário não está logado');
-  }
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/');
+  });
 });
 
 /* ////////////////////////////
   BackEnd - LOGIN
 //////////////////////////// */
-router.post('/login', (req, res, next) => {
-  const mail = req.body.mail;
-  const pass = req.body.pass;
+router.post('/login', (req, res) => {
+  const { mail, pass } = req.body;
   firebase.auth().signInWithEmailAndPassword(mail, pass)
     .then((user) => {
-      res.redirect('/user');
+      User.getById(user.uid).then((currentLogged) => {
+        req.session.userType = currentLogged.userType;
+        req.session.firstName = currentLogged.firstName;
+        req.session.userUid = user.uid;
+        if (req.session.userType === 'Administrador') {
+          res.redirect('/admin');
+        }
+        else {
+          res.redirect('/user');
+        }
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
     }).catch((error) => {
+      console.log(error);
       res.redirect('/error');
     });
 });
@@ -85,11 +86,8 @@ router.post('/login', (req, res, next) => {
 /* ////////////////////////////
   BackEnd - RECOVER MY PASS
 //////////////////////////// */
-router.post('/recoverPassword', (req, res, next) => {
-  const {
-    mail
-  } = req.body;
-
+router.post('/recoverPassword', (req, res) => {
+  const { mail } = req.body;
   firebase.auth().sendPasswordResetEmail(mail).then(() => {
     res.redirect('/success');
   }).catch((error) => {
@@ -103,9 +101,11 @@ router.post('/recoverPassword', (req, res, next) => {
 /* ////////////////////////////
   BackEnd - LOGOUT
 //////////////////////////// */
-router.post('/logout', (req, res, next) => {
+router.get('/logout', (req, res) => {
   firebase.auth().signOut().then(() => {
-    res.redirect('/home');
+    delete req.session.userType;
+    delete req.session.firstName;
+    res.redirect('/');
   }).catch((error) => {
     console.log(error.code);
     console.log(error.message);
@@ -116,42 +116,23 @@ router.post('/logout', (req, res, next) => {
 /* ///////////////////////////
   BackEnd - CADASTRO
 ////////////////////////////// */
-router.post('/signup', (req, res, next) => {
-  const {
-    name,
-    userType,
-    mail,
-    pass,
-    store,
-    cpf,
-    cnpj
-  } = req.body;
+router.post('/signup', (req, res) => {
+  const { userData } = req.body.user;
   const created = firebase.database.ServerValue.TIMESTAMP;
 
   // Separa nome e sobrenome do cliente a partir da string name
-  const position = name.indexOf(' ');
-  const firstName = name.slice(0, position);
-  const lastName = name.slice(position + 1);
-
-  const firestore = firebase.firestore();
-  const settings = {
-    timestampsInSnapshots: true
-  };
-  firestore.settings(settings);
-  console.log(userType);
-  if (userType === 'Produtor' || userType === 'Franqueado' || userType === 'Revendedor') {
-    if (userType === 'Revendedor') {
-      firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
+  const position = userData.name.indexOf(' ');
+  userData.firstName = userData.name.slice(0, position);
+  userData.lastName = userData.name.slice(position + 1);
+  let index = userData.indexOf(userData.name);
+  userData.splice(index, 1);
+  if (userData.userType === 'Produtor' || userData.userType === 'Franqueado' || userData.userType === 'Revendedor') {
+    if (userData.userType === 'Revendedor') {
+      firebase.auth().createUserWithEmailAndPassword(userData.mail, userData.pass).then((user) => {
         firebase.auth().currentUser.sendEmailVerification().then(() => {
-          firestore.collection('users').doc(user.uid).set({
-            firstName,
-            lastName,
-            cpf,
-            mail,
-            userType,
-            store,
-            created
-          }).then(() => {
+          index = userData.indexOf(userData.cnpj);
+          userData.splice(index, 1);
+          firestore.collection('users').doc(user.uid).set(userData).then(() => {
             res.redirect('/user');
           }).catch((error) => {
             res.redirect('/error');
@@ -166,16 +147,11 @@ router.post('/signup', (req, res, next) => {
       });
     }
     else {
-      firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
+      firebase.auth().createUserWithEmailAndPassword(userData.mail, userData.pass).then((user) => {
         firebase.auth().currentUser.sendEmailVerification().then(() => {
-          firestore.collection('users').doc(user.uid).set({
-            firstName,
-            lastName,
-            cpf,
-            mail,
-            userType,
-            created
-          }).then(() => {
+          index = userData.indexOf(userData.cnpj);
+          userData.splice(index, 1);
+          firestore.collection('users').doc(user.uid).set(userData).then(() => {
             res.redirect('/user');
           }).catch((error) => {
             res.redirect('/error');
@@ -191,16 +167,11 @@ router.post('/signup', (req, res, next) => {
     }
   }
   else {
-    firebase.auth().createUserWithEmailAndPassword(mail, pass).then((user) => {
+    firebase.auth().createUserWithEmailAndPassword(userData.mail, userData.pass).then((user) => {
       firebase.auth().currentUser.sendEmailVerification().then(() => {
-        firestore.collection('users').doc(user.uid).set({
-          firstName,
-          lastName,
-          cnpj,
-          mail,
-          userType,
-          created
-        }).then(() => {
+        index = userData.indexOf(userData.cpf);
+        userData.splice(index, 1);
+        firestore.collection('users').doc(user.uid).set(userData).then(() => {
           res.redirect('/user');
         }).catch((error) => {
           res.redirect('/error');
@@ -219,7 +190,7 @@ router.post('/signup', (req, res, next) => {
 /* ////////////////////////////////////
   BackEnd - CADASTRO NA NEWSLETTER
 //////////////////////////////////// */
-router.post('/newsletter', (req, res, next) => {
+router.post('/newsletter', (req, res) => {
   const {
     name,
     mail
@@ -249,7 +220,7 @@ router.post('/newsletter', (req, res, next) => {
 /* ////////////////////////////
   BackEnd - ENVIO DE EMAIL
 //////////////////////////// */
-router.post('/contact', (req, res, next) => {
+router.post('/contact', (req, res) => {
   const {
     clientname,
     email: clientemail,
@@ -295,9 +266,10 @@ router.post('/contact', (req, res, next) => {
 /* ////////////////////////////////////
   BackEnd - ENVIO DE EMAILS PARA NEWSLETTER
 //////////////////////////////////// */
-router.post('/newslettermail', (req, res, next) => {
+router.post('/newslettermail', (req, res) => {
   var clientList = firebase.firestore().collection('newsletter');
   var mailList = clientList.where('email', '==', true);
   console.log(mailList);
 });
+
 module.exports = router;

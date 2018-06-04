@@ -9,29 +9,29 @@ const router = express.Router();
 
 
 /* GET HOME - TESTES */
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.render('index', { title: 'Página inicial', layout: 'layout' });
 });
 
 /* GET NEWSLETTER. - TESTES */
-router.get('/newsletter', (req, res, next) => {
+router.get('/newsletter', (req, res) => {
   res.render('newsletter', { title: 'Newsletter', layout: 'layout' });
 });
 
 /* GET FORGOTPASSWORD - TESTES */
-router.get('/forgotPassword', (req, res, next) => {
+router.get('/forgotPassword', (req, res) => {
   res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });
 });
 
 /* GET SUCCESS - TESTES */
-router.get('/success', (req, res, next) => {
+router.get('/success', (req, res) => {
   res.render('success', { title: 'Sucesso', layout: 'layout' });
 });
 
 /* GET LOGIN - TESTES */
-router.get('/login', (req, res, next) => {
+router.get('/login', (req, res) => {
   if ('userType' in req.session) {
-    if (req.session.userType === 'admin') {
+    if (req.session.userType === 'Administrador') {
       res.redirect('/admin');
     }
     else {
@@ -42,21 +42,32 @@ router.get('/login', (req, res, next) => {
 });
 
 /* GET SIGNUP - TESTES */
-router.get('/signup', (req, res, next) => {
+router.get('/signup', (req, res) => {
   res.render('signup', { title: 'Cadastro', layout: 'layout' });
+});
+
+router.get('/teste', auth.isAuthenticated, (req, res) => {
+  User.getAllOrdersByUserId(req.session.userUid).then((orders) => {
+    console.log(orders);
+    res.render('success', { title: 'Sucesso', layout: 'layout' });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/');
+  });
 });
 
 /* ////////////////////////////
   BackEnd - LOGIN
 //////////////////////////// */
-router.post('/login', (req, res, next) => {
-  const { email, password } = req.body.user;
-  firebase.auth().signInWithEmailAndPassword(email, password)
+router.post('/login', (req, res) => {
+  const { mail, pass } = req.body;
+  firebase.auth().signInWithEmailAndPassword(mail, pass)
     .then((user) => {
       User.getById(user.uid).then((currentLogged) => {
         req.session.userType = currentLogged.userType;
         req.session.firstName = currentLogged.firstName;
-        if (req.session.userType === 'admin') {
+        req.session.userUid = user.uid;
+        if (req.session.userType === 'Administrador') {
           res.redirect('/admin');
         }
         else {
@@ -75,7 +86,7 @@ router.post('/login', (req, res, next) => {
 /* ////////////////////////////
   BackEnd - RECOVER MY PASS
 //////////////////////////// */
-router.post('/recoverPassword', (req, res, next) => {
+router.post('/recoverPassword', (req, res) => {
   const { mail } = req.body;
   firebase.auth().sendPasswordResetEmail(mail).then(() => {
     res.redirect('/success');
@@ -90,7 +101,7 @@ router.post('/recoverPassword', (req, res, next) => {
 /* ////////////////////////////
   BackEnd - LOGOUT
 //////////////////////////// */
-router.get('/logout', (req, res, next) => {
+router.get('/logout', (req, res) => {
   firebase.auth().signOut().then(() => {
     delete req.session.userType;
     delete req.session.firstName;
@@ -105,7 +116,7 @@ router.get('/logout', (req, res, next) => {
 /* ///////////////////////////
   BackEnd - CADASTRO
 ////////////////////////////// */
-router.post('/signup', (req, res, next) => {
+router.post('/signup', (req, res) => {
   const { userData } = req.body.user;
   const created = firebase.database.ServerValue.TIMESTAMP;
 
@@ -179,7 +190,7 @@ router.post('/signup', (req, res, next) => {
 /* ////////////////////////////////////
   BackEnd - CADASTRO NA NEWSLETTER
 //////////////////////////////////// */
-router.post('/newsletter', (req, res, next) => {
+router.post('/newsletter', (req, res) => {
   const {
     name,
     mail
@@ -209,7 +220,7 @@ router.post('/newsletter', (req, res, next) => {
 /* ////////////////////////////
   BackEnd - ENVIO DE EMAIL
 //////////////////////////// */
-router.post('/contact', (req, res, next) => {
+router.post('/contact', (req, res) => {
   const {
     clientname,
     email: clientemail,
@@ -255,7 +266,7 @@ router.post('/contact', (req, res, next) => {
 /* ////////////////////////////////////
   BackEnd - ENVIO DE EMAILS PARA NEWSLETTER
 //////////////////////////////////// */
-router.post('/newslettermail', (req, res, next) => {
+router.post('/newslettermail', (req, res) => {
   var clientList = firebase.firestore().collection('newsletter');
   var mailList = clientList.where('email', '==', true);
   console.log(mailList);

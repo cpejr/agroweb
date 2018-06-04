@@ -95,11 +95,20 @@ class User {
     return new Promise((resolve, reject) => {
       usersRef.doc(id).collection('myOrders').get().then((snapshot) => {
         const orders = snapshot.docs.map((doc) => {
-          const order = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return order;
+          doc.data.product.get().then((offer) => {
+            offer.data.product.get().then((product) => {
+              offer.data.offerter.get().then((offerter) => {
+                const order = {
+                  id: doc.id,
+                  price: doc.data.price,
+                  quantity: doc.data.quantity,
+                  ...product.data(),
+                  ...offerter.data()
+                };
+                return order;
+              });
+            });
+          });
         });
         resolve(orders);
       }).catch((err) => {

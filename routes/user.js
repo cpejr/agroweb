@@ -5,7 +5,7 @@ const auth = require('./middleware/auth');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', auth.isAuthenticated, (req, res, next) => {
+router.get('/', auth.isAuthenticated, (req, res) => {
   if (req.session.userType === 'Administrador') {
     res.redirect('/admin');
   }
@@ -23,14 +23,14 @@ router.get('/', auth.isAuthenticated, (req, res, next) => {
   }
 });
 
-router.get('/results', (req, res, next) => {
+router.get('/results', (req, res) => {
   res.render('results', { title: 'Resultado', layout: 'layout' });
 });
 
 /* ////////////////////////////////////
   BackEnd - CADASTRO DE NOVOS PRODUTOS
 //////////////////////////////////// */
-router.post('/newproduct', (req, res, next) => {
+router.post('/newproduct', (req, res) => {
   const {
     name,
     category

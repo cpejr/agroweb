@@ -21,15 +21,6 @@ const nodemailer = require('nodemailer');
 require('firebase/firestore');
 
 /**
- * Timestamp bug correction
- */
-const firestore = firebase.firestore();
-const settings = {
-  timestampsInSnapshots: true
-};
-firestore.settings(settings);
-
-/**
  * Firebase Setup
  */
 const config = {
@@ -41,6 +32,15 @@ const config = {
   messagingSenderId: process.env.MESSAGING_SENDER_ID
 };
 firebase.initializeApp(config);
+
+/**
+ * Timestamp bug correction
+ */
+const firestore = firebase.firestore();
+const settings = {
+  timestampsInSnapshots: true
+};
+firestore.settings(settings);
 
 /**
  * Routes

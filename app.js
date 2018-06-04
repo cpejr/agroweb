@@ -18,6 +18,7 @@ const methodOverride = require('method-override');
 const sassMiddleware = require('node-sass-middleware');
 const firebase = require('firebase');
 const nodemailer = require('nodemailer');
+const exphbs = require('express-handlebars');
 require('firebase/firestore');
 
 /**
@@ -58,9 +59,7 @@ const PDFgeneratorRouter = require('./routes/PDFgenerator');
  */
 const app = express();
 
-/**
- * View Engine Setup
- */
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 

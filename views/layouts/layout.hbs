@@ -5,9 +5,8 @@
     <title>{{ title }}</title>   <!-- título da aba da página*/ -->
     <link rel='stylesheet' href='/stylesheets/style.css'>
     <link rel='stylesheet' href='/stylesheets/estilos.css'>
-    {{#each extraCss}}
-    <link rel='stylesheet' href='/stylesheets/{{this}}.css'>
-    {{/each}}
+    {{{_sections.stylesheets}}}
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:600|Montserrat:700|Varela+Round">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
@@ -16,8 +15,6 @@
 
     <script src="/javascripts/jquery.js" charset="utf-8"></script>
     <script src="/bootstrap/js/bootstrap.bundle.min.js" charset="utf-8"></script>
-    {{#each extraJS}}  <!--  Se existir extraJS, execute esta linha -->
-    <script src="/javascripts/{{this}}.js"></script>
-    {{/each}}
+    {{{_sections.scripts}}}
   </body>
 </html>

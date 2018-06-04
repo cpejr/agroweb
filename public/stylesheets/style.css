@@ -6055,6 +6055,12 @@ body {
 .bg-green {
   background: #3b9939; }
 
+.bg-img1 {
+  background-image: url("../images/bg-g.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat; }
+
 .text-dark {
   color: #232323 !important; }
 
@@ -6114,6 +6120,15 @@ nav .form-control {
   background-color: #EEE;
   padding: 0.5em;
   border-radius: 50%; }
+
+img.navbar-brand {
+  width: 100px; }
+
+img.footer-brand {
+  width: 200px; }
+
+.grayscale {
+  filter: grayscale(100%); }
 
 .badge {
   width: 180px;

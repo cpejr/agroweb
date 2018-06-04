@@ -10,7 +10,7 @@ const router = express.Router();
 
 /* GET HOME - TESTES */
 router.get('/', (req, res) => {
-  res.render('index', { title: 'Página inicial', layout: 'layout' });
+  res.render('home', { title: 'Página inicial', layout: 'layout' });
 });
 
 /* GET NEWSLETTER. - TESTES */
@@ -60,8 +60,11 @@ router.get('/teste', auth.isAuthenticated, (req, res) => {
   BackEnd - LOGIN
 //////////////////////////// */
 router.post('/login', (req, res) => {
-  const { mail, pass } = req.body;
-  firebase.auth().signInWithEmailAndPassword(mail, pass)
+  console.log(req.body.user);
+  console.log("==========================================");
+  console.log(req.body);
+  const { email, password } = req.body;
+  firebase.auth().signInWithEmailAndPassword(email, password)
     .then((user) => {
       User.getById(user.uid).then((currentLogged) => {
         req.session.userType = currentLogged.userType;

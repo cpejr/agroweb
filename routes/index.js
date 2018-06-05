@@ -4,7 +4,6 @@ const User = require('../models/user.js');
 const auth = require('./middleware/auth');
 const nodemailer = require('nodemailer');
 
-const firestore = firebase.firestore();
 const router = express.Router();
 
 
@@ -46,6 +45,11 @@ router.get('/signup', (req, res) => {
   res.render('signup', { title: 'Cadastro', layout: 'layout' });
 });
 
+/* GET ORDERS - TESTES */
+router.get('/orders', (req, res) => {
+  res.render('orders/index', { title: 'Minhas compras', layout: 'layout' });
+});
+
 router.get('/teste', auth.isAuthenticated, (req, res) => {
   User.getAllOrdersByUserId(req.session.userUid).then((orders) => {
     console.log(orders);
@@ -60,15 +64,13 @@ router.get('/teste', auth.isAuthenticated, (req, res) => {
   BackEnd - LOGIN
 //////////////////////////// */
 router.post('/login', (req, res) => {
-  console.log(req.body.user);
-  console.log("==========================================");
-  console.log(req.body);
-  const { email, password } = req.body;
-  firebase.auth().signInWithEmailAndPassword(email, password)
+  const userData = req.body.user;
+  firebase.auth().signInWithEmailAndPassword(userData.email, userData.password)
     .then((user) => {
       User.getById(user.uid).then((currentLogged) => {
-        req.session.userType = currentLogged.userType;
+        req.session.userType = currentLogged.type;
         req.session.firstName = currentLogged.firstName;
+        req.session.lastName = currentLogged.lastName;
         req.session.userUid = user.uid;
         if (req.session.userType === 'Administrador') {
           res.redirect('/admin');
@@ -77,11 +79,11 @@ router.post('/login', (req, res) => {
           res.redirect('/user');
         }
       }).catch((error) => {
-        console.log(error);
+        console.log(error.message);
         res.redirect('/error');
       });
     }).catch((error) => {
-      console.log(error);
+      console.log(error.message);
       res.redirect('/error');
     });
 });
@@ -94,6 +96,7 @@ router.post('/recoverPassword', (req, res) => {
   firebase.auth().sendPasswordResetEmail(mail).then(() => {
     res.redirect('/success');
   }).catch((error) => {
+    console.log(error);
     res.redirect('/error');
   });
   const clientList = firebase.firestore().collection('newsletter');
@@ -108,6 +111,8 @@ router.get('/logout', (req, res) => {
   firebase.auth().signOut().then(() => {
     delete req.session.userType;
     delete req.session.firstName;
+    delete req.session.lastName;
+    delete req.session.userUid;
     res.redirect('/');
   }).catch((error) => {
     console.log(error.code);
@@ -120,71 +125,88 @@ router.get('/logout', (req, res) => {
   BackEnd - CADASTRO
 ////////////////////////////// */
 router.post('/signup', (req, res) => {
-  const { userData } = req.body.user;
   const created = firebase.database.ServerValue.TIMESTAMP;
+  const status = 'Ativo';
+  const userData = { ...req.body.user, created, status };
 
   // Separa nome e sobrenome do cliente a partir da string name
   const position = userData.name.indexOf(' ');
   userData.firstName = userData.name.slice(0, position);
   userData.lastName = userData.name.slice(position + 1);
-  let index = userData.indexOf(userData.name);
-  userData.splice(index, 1);
-  if (userData.userType === 'Produtor' || userData.userType === 'Franqueado' || userData.userType === 'Revendedor') {
-    if (userData.userType === 'Revendedor') {
-      firebase.auth().createUserWithEmailAndPassword(userData.mail, userData.pass).then((user) => {
+  delete userData.name;
+
+  if (userData.cpf === '') {
+    userData.doc = userData.cnpj;
+  }
+  else {
+    userData.doc = userData.cpf;
+  }
+  delete userData.cpf;
+  delete userData.cnpj;
+
+  req.session.userType = userData.type;
+  req.session.firstName = userData.firstName;
+  req.session.lastName = userData.lastName;
+
+  if (userData.type === 'Produtor' || userData.type === 'Franqueado' || userData.type === 'Revendedor') {
+    if (userData.type === 'Revendedor') {
+      firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
+        req.session.userUid = user.uid;
         firebase.auth().currentUser.sendEmailVerification().then(() => {
-          index = userData.indexOf(userData.cnpj);
-          userData.splice(index, 1);
-          firestore.collection('users').doc(user.uid).set(userData).then(() => {
+          delete userData.password;
+          User.create(userData, user.uid).then(() => {
             res.redirect('/user');
           }).catch((error) => {
+            console.log(error);
             res.redirect('/error');
           });
         }).catch((error) => {
+          console.log(error);
           res.redirect('/error');
         });
       }).catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        console.log(error);
         res.redirect('/error');
       });
     }
     else {
-      firebase.auth().createUserWithEmailAndPassword(userData.mail, userData.pass).then((user) => {
+      firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
+        req.session.userUid = user.uid;
         firebase.auth().currentUser.sendEmailVerification().then(() => {
-          index = userData.indexOf(userData.cnpj);
-          userData.splice(index, 1);
-          firestore.collection('users').doc(user.uid).set(userData).then(() => {
+          delete userData.password;
+          User.create(userData, user.uid).then(() => {
             res.redirect('/user');
           }).catch((error) => {
+            console.log(error);
             res.redirect('/error');
           });
         }).catch((error) => {
+          console.log(error);
           res.redirect('/error');
         });
       }).catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        console.log(error);
         res.redirect('/error');
       });
     }
   }
   else {
-    firebase.auth().createUserWithEmailAndPassword(userData.mail, userData.pass).then((user) => {
+    firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
+      req.session.userUid = user.uid;
       firebase.auth().currentUser.sendEmailVerification().then(() => {
-        index = userData.indexOf(userData.cpf);
-        userData.splice(index, 1);
-        firestore.collection('users').doc(user.uid).set(userData).then(() => {
+        delete userData.password;
+        User.create(userData, user.uid).then(() => {
           res.redirect('/user');
         }).catch((error) => {
+          console.log(error);
           res.redirect('/error');
         });
       }).catch((error) => {
+        console.log(error);
         res.redirect('/error');
       });
     }).catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      console.log(error);
       res.redirect('/error');
     });
   }
@@ -273,6 +295,7 @@ router.post('/newslettermail', (req, res) => {
   var clientList = firebase.firestore().collection('newsletter');
   var mailList = clientList.where('email', '==', true);
   console.log(mailList);
+  res.redirect('/success');
 });
 
 module.exports = router;

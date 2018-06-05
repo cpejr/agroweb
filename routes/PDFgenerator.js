@@ -1,23 +1,21 @@
-var express = require('express');
-var router = express.Router();
-var phantom = require('phantom');
+const express = require('express');
+
+const router = express.Router();
+const phantom = require('phantom');
 
 /* GET users listing. */
-router.get('/', (req, res, next) => {
-  res.render('PDF', { title: 'PDF Genarator'});
-  phantom.create().then(function(ph) {
-    ph.createPage().then(function(page) {
-        page.open("http://localhost:3000/PDFgenerator").then(function(status) {
-            page.render('TESTE.pdf').then(function() {
-                console.log('Page Rendered');
-                ph.exit();
-            });
+router.get('/', (req, res) => {
+  res.render('PDF', { title: 'PDF Genarator' });
+  phantom.create().then((ph) => {
+    ph.createPage().then((page) => {
+      page.open('http://localhost:3000/PDFgenerator').then((status) => {
+        page.render('TESTE.pdf').then(() => {
+          console.log('Page Rendered');
+          ph.exit();
         });
+      });
     });
+  });
 });
-
-})
-
-
 
 module.exports = router;

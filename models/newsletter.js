@@ -25,6 +25,48 @@ class Newsletter {
   }
 
   /**
+   * Get all active newsletters from database
+   * @returns {Array} Array of newsletters
+   */
+  static getAllActive() {
+    return new Promise((resolve, reject) => {
+      newslettersRef.where('status', '==', 'Ativo').get().then((snapshot) => {
+        const newsletters = snapshot.docs.map((doc) => {
+          const newsletter = {
+            id: doc.id,
+            ...doc.data()
+          };
+          return newsletter;
+        });
+        resolve(newsletters);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all inactive newsletters from database
+   * @returns {Array} Array of newsletters
+   */
+  static getAllInactive() {
+    return new Promise((resolve, reject) => {
+      newslettersRef.where('status', '==', 'Inativo').get().then((snapshot) => {
+        const newsletters = snapshot.docs.map((doc) => {
+          const newsletter = {
+            id: doc.id,
+            ...doc.data()
+          };
+          return newsletter;
+        });
+        resolve(newsletters);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
    * Get a newsletter by it's id
    * @param {string} id - Newsletter Id
    * @returns {Object} Newsletter Document Data
@@ -80,7 +122,7 @@ class Newsletter {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      newslettersRef.doc(id).delete().catch((err) => {
+      newslettersRef.doc(id).update({ status: 'Inativo' }).catch((err) => {
         reject(err);
       });
     });

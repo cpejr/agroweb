@@ -1,20 +1,16 @@
 var express = require('express');
-const firebase = require ('firebase');
+const Newsletter = require('../models/newsletter.js');
+
 var router = express.Router();
 
-
-
 /* GET users listing. */
-router.get('/', (req, res, next) => {
-  res.render('newsletterlist', { title: 'Newsletter'});
-  firebase.firestore().collection('newsletter').where("mail", "==", true).get()
-    .then(function(querySnapshot){
-      querySnapshot.forEach(function(doc){
-        console.log(doc.id, " => ", doc.data());
-      });
-    }).catch(function(error){
-      console.log("Error getting documents: ", error);
-    });
+router.get('/', (req, res) => {
+  Newsletter.getAll().then((users) => {
+    console.log(users);
+    res.render('newsletterlist', { title: 'Newsletter', users });
+  }).catch((err) => {
+    console.log(err);
+  });
 });
 
 

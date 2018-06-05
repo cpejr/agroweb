@@ -10,16 +10,16 @@ router.get('/', auth.isAuthenticated, (req, res) => {
     res.redirect('/admin');
   }
   else if (req.session.userType === 'Franqueado') {
-    res.render('user', { title: 'Franqueado', layout: 'layout' });
+    res.render('user', { title: 'Franqueado', layout: 'layout', ...req.session });
   }
   else if (req.session.userType === 'Indústria') {
-    res.render('user', { title: 'Indústria', layout: 'layout' });
+    res.render('user', { title: 'Indústria', layout: 'layout', ...req.session });
   }
   else if (req.session.userType === 'Produtor') {
-    res.render('user', { title: 'Produtor', layout: 'layout' });
+    res.render('user', { title: 'Produtor', layout: 'layout', ...req.session });
   }
   else if (req.session.userType === 'Revendedor') {
-    res.render('user', { title: 'Revendedor', layout: 'layout' });
+    res.render('user', { title: 'Revendedor', layout: 'layout', ...req.session });
   }
 });
 

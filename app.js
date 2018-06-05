@@ -51,6 +51,7 @@ const userRouter = require('./routes/user');
 const offersRouter = require('./routes/offers');
 const productsRouter = require('./routes/products');
 const maintenanceRouter = require('./routes/maintenance');
+const adminRouter = require('./routes/admin');
 const newsletterRouter = require('./routes/newsletterlist');
 const PDFgeneratorRouter = require('./routes/PDFgenerator');
 
@@ -102,6 +103,7 @@ app.use('/user', userRouter);
 app.use('/offers', offersRouter);
 app.use('/products', productsRouter);
 app.use('/maintenance', maintenanceRouter);
+app.use('/admin', adminRouter);
 app.use('/newsletterlist', newsletterRouter);
 app.use('/PDFgenerator', PDFgeneratorRouter);
 

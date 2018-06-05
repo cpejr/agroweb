@@ -1,6 +1,6 @@
 const firebase = require('firebase');
 
-const newslettersRef = firebase.firestore().collection('newsletters');
+const newslettersRef = firebase.firestore().collection('newsletter');
 
 class Newsletter {
   /**
@@ -10,13 +10,7 @@ class Newsletter {
   static getAll() {
     return new Promise((resolve, reject) => {
       newslettersRef.get().then((snapshot) => {
-        const newsletters = snapshot.docs.map((doc) => {
-          const newsletter = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return newsletter;
-        });
+        const newsletters = snapshot.docs.map(doc => doc.data());
         resolve(newsletters);
       }).catch((err) => {
         reject(err);
@@ -24,47 +18,47 @@ class Newsletter {
     });
   }
 
-  /**
-   * Get all active newsletters from database
-   * @returns {Array} Array of newsletters
-   */
-  static getAllActive() {
-    return new Promise((resolve, reject) => {
-      newslettersRef.where('status', '==', 'Ativo').get().then((snapshot) => {
-        const newsletters = snapshot.docs.map((doc) => {
-          const newsletter = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return newsletter;
-        });
-        resolve(newsletters);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Get all inactive newsletters from database
-   * @returns {Array} Array of newsletters
-   */
-  static getAllInactive() {
-    return new Promise((resolve, reject) => {
-      newslettersRef.where('status', '==', 'Inativo').get().then((snapshot) => {
-        const newsletters = snapshot.docs.map((doc) => {
-          const newsletter = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return newsletter;
-        });
-        resolve(newsletters);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
+  // /**
+  //  * Get all active newsletters from database
+  //  * @returns {Array} Array of newsletters
+  //  */
+  // static getAllActive() {
+  //   return new Promise((resolve, reject) => {
+  //     newslettersRef.where('status', '==', 'Ativo').get().then((snapshot) => {
+  //       const newsletters = snapshot.docs.map((doc) => {
+  //         const newsletter = {
+  //           id: doc.id,
+  //           ...doc.data()
+  //         };
+  //         return newsletter;
+  //       });
+  //       resolve(newsletters);
+  //     }).catch((err) => {
+  //       reject(err);
+  //     });
+  //   });
+  // }
+  //
+  // /**
+  //  * Get all inactive newsletters from database
+  //  * @returns {Array} Array of newsletters
+  //  */
+  // static getAllInactive() {
+  //   return new Promise((resolve, reject) => {
+  //     newslettersRef.where('status', '==', 'Inativo').get().then((snapshot) => {
+  //       const newsletters = snapshot.docs.map((doc) => {
+  //         const newsletter = {
+  //           id: doc.id,
+  //           ...doc.data()
+  //         };
+  //         return newsletter;
+  //       });
+  //       resolve(newsletters);
+  //     }).catch((err) => {
+  //       reject(err);
+  //     });
+  //   });
+  // }
 
   /**
    * Get a newsletter by it's id
@@ -93,9 +87,7 @@ class Newsletter {
    */
   static create(newsletter) {
     return new Promise((resolve, reject) => {
-      newslettersRef.add(newsletter).then((doc) => {
-        resolve(doc.id);
-      }).catch((err) => {
+      newslettersRef.doc(newsletter.email).set(newsletter).catch((err) => {
         reject(err);
       });
     });

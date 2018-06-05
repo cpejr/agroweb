@@ -107,7 +107,7 @@ router.post('/recoverPassword', (req, res) => {
 /* ////////////////////////////
   BackEnd - LOGOUT
 //////////////////////////// */
-router.get('/logout', (req, res) => {
+router.get('/logout', auth.isAuthenticated, (req, res) => {
   firebase.auth().signOut().then(() => {
     delete req.session.userType;
     delete req.session.firstName;

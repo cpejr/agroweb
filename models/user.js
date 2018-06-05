@@ -88,10 +88,11 @@ class User {
 
   /**
    * Create a new user
+   * @param {string} id - User Id
    * @param {Object} user - User Document Data
    * @returns {string} New user Id
    */
-  static create(user, id) {
+  static create(id, user) {
     return new Promise((resolve, reject) => {
       usersRef.doc(id).set(user).then(() => {
         resolve();
@@ -131,11 +132,11 @@ class User {
   /**
    * Get a user by it's id
    * @param {string} id - User Id
-   * @returns {Array} Array of orders
+   * @returns {Array} Array of transactions
    */
-  static getAllOrdersByUserId(id) {
+  static getAllTransactionsByUserId(id) {
     return new Promise((resolve, reject) => {
-      usersRef.doc(id).collection('myOrders').get().then((snapshot) => {
+      usersRef.doc(id).collection('myTransactions').get().then((snapshot) => {
         const orders = snapshot.docs.map((doc) => {
           const order = {
             id: doc.id,

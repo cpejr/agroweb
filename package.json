@@ -6,7 +6,7 @@
         "start": "nodemon ./bin/www"
     },
     "dependencies": {
-        "body-parser": "^1.18.2",
+        "body-parser": "^1.18.3",
         "cookie-parser": "~1.4.3",
         "debug": "~2.6.9",
         "dotenv": "^5.0.1",
@@ -41,7 +41,10 @@
                 "off"
             ],
             "max-len": [
-              "error", { "code": 120 }
+                "error",
+                {
+                    "code": 120
+                }
             ],
             "no-console": [
                 "off"

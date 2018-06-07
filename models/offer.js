@@ -1,15 +1,16 @@
 const firebase = require('firebase');
 
-const offersRef = firebase.firestore().collection('offers');
+const offersRef = firebase.firestore().collection('products');
 
 class Offer {
   /**
-   * Get all offers from database
+   * Get all offers of a product from database
+    * @param {string} id - Product Id
    * @returns {Array} Array of offers
    */
-  static getAll() {
+  static getAll(id) {
     return new Promise((resolve, reject) => {
-      offersRef.get().then((snapshot) => {
+      offersRef.doc(id).collection('offers').get().then((snapshot) => {
         const offers = snapshot.docs.map((doc) => {
           const offer = {
             id: doc.id,
@@ -26,12 +27,13 @@ class Offer {
 
   /**
    * Get a offer by it's id
-   * @param {string} id - Offer Id
+   * @param {string} idProduct - Product Id
+   * @param {string} idOffer - Offer Id
    * @returns {Object} Offer Document Data
    */
-  static getById(id) {
+  static getById(idProduct, idOffer) {
     return new Promise((resolve, reject) => {
-      offersRef.doc(id).get().then((doc) => {
+      offersRef.doc(idProduct).collection('offers').doc(idOffer).get().then((doc) => {
         if (!doc.exists) {
           resolve(null);
         }
@@ -45,13 +47,14 @@ class Offer {
   }
 
   /**
-   * Create a new offer
+   * Create a new offer by idProduct
    * @param {Object} offer - Offer Document Data
+   * @param {string} id - Product Id
    * @returns {string} New offer Id
    */
-  static create(offer) {
+  static create(id, offer) {
     return new Promise((resolve, reject) => {
-      offersRef.add(offer).then((doc) => {
+      offersRef.doc(id).collection('offers').add(offer).then((doc) => {
         resolve(doc.id);
       }).catch((err) => {
         reject(err);
@@ -61,13 +64,14 @@ class Offer {
 
   /**
    * Update a offer
+   * @param {string} idProduct - Product Id
    * @param {string} id - Offer Id
    * @param {Object} offer - Offer Document Data
    * @returns {null}
    */
-  static update(id, offer) {
+  static update(idProduct, id, offer) {
     return new Promise((resolve, reject) => {
-      offersRef.doc(id).update(offer).catch((err) => {
+      offersRef.doc(idProduct).collection('offers').doc(id).update(offer).catch((err) => {
         reject(err);
       });
     });
@@ -76,11 +80,12 @@ class Offer {
   /**
    * Delete a offer
    * @param {string} id - offer Id
+   * @param {string} idProduct - Product Id
    * @returns {null}
    */
-  static delete(id) {
+  static delete(id, idProduct) {
     return new Promise((resolve, reject) => {
-      offersRef.doc(id).delete().catch((err) => {
+      offersRef.doc(idProduct).collection('offers').doc(id).delete().catch((err) => {
         reject(err);
       });
     });

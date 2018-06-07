@@ -1,15 +1,16 @@
 const firebase = require('firebase');
 
-const groupsRef = firebase.firestore().collection('groups');
+const groupsRef = firebase.firestore().collection('products');
 
 class Group {
   /**
    * Get all groups from database
+   * @param {string} id - Product Id
    * @returns {Array} Array of groups
    */
-  static getAll() {
+  static getAll(id) {
     return new Promise((resolve, reject) => {
-      groupsRef.get().then((snapshot) => {
+      groupsRef.doc(id).collection('groups').get().then((snapshot) => {
         const groups = snapshot.docs.map((doc) => {
           const group = {
             id: doc.id,
@@ -26,12 +27,13 @@ class Group {
 
   /**
    * Get a group by it's id
-   * @param {string} id - Group Id
+   * @param {string} idProduct - Product Id
+   * @param {string} idGroup - Group Id
    * @returns {Object} Group Document Data
    */
-  static getById(id) {
+  static getById(idProduct, idGroup) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(id).get().then((doc) => {
+      groupsRef.doc(idProduct).collection('groups').doc(idGroup).get().then((doc) => {
         if (!doc.exists) {
           resolve(null);
         }
@@ -45,14 +47,41 @@ class Group {
   }
 
   /**
-   * Create a new group
+   * Get a buyingUsers group by it's id
+   * @param {string} idProduct - Product Id
+   * @param {string} idGroup - Group Id
+   * @returns {Object} Group Document Data
+   */
+  static getBuyingUsers(idProduct, idGroup) {
+    return new Promise((resolve, reject) => {
+      groupsRef.doc(idProduct).collection('groups').doc(idGroup).collection('buyingUsers').get().then((snapshot) => {
+        const buyingUsers = snapshot.docs.map((doc) => {
+          const buyingUser = {
+            id: doc.id,
+            ...doc.data()
+          };
+          return buyingUser;
+        });
+        resolve(buyingUsers);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Create a new group by ProductId
    * @param {Object} group - Group Document Data
+   * @param {string} id - Product id
+   * @param {Object} user - Group Document Data
    * @returns {string} New group Id
    */
-  static create(group) {
+  static create(group, id, user) {
     return new Promise((resolve, reject) => {
-      groupsRef.add(group).then((doc) => {
-        resolve(doc.id);
+      groupsRef.doc(id).collection('groups').add(group).then((doc) => {
+        groupsRef.doc(id).collection('groups').doc(doc.id).collection('buyingUsers').add(user).then((doc) => {
+          resolve(doc.id);
+        })
       }).catch((err) => {
         reject(err);
       });
@@ -61,13 +90,14 @@ class Group {
 
   /**
    * Update a group
-   * @param {string} id - Group Id
+   * @param {string} idProduct - Product Id
+   * @param {string} idGroup - Group Id
    * @param {Object} group - Group Document Data
    * @returns {null}
    */
-  static update(id, group) {
+  static update(idProduct, idGroup, group) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(id).update(group).catch((err) => {
+      groupsRef.doc(idProduct).collection('groups').doc(idGroup).update(group).catch((err) => {
         reject(err);
       });
     });
@@ -75,16 +105,16 @@ class Group {
 
   /**
    * Delete a group
-   * @param {string} id - Group Id
+   * @param {string} idGroup - Group Id
+   * @param {string} idProduct - Product Id
    * @returns {null}
    */
-  static delete(id) {
+  static delete(idGroup, idProduct) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(id).delete().catch((err) => {
+      groupsRef.doc(idProduct).collection('groups').doc(idGroup).delete().catch((err) => {
         reject(err);
       });
     });
   }
 }
-
 module.exports = Group;

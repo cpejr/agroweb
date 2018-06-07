@@ -53,6 +53,7 @@ const productsRouter = require('./routes/products');
 const maintenanceRouter = require('./routes/maintenance');
 const newsletterRouter = require('./routes/newsletterlist');
 const PDFgeneratorRouter = require('./routes/PDFgenerator');
+const groupsRouter = require('./routes/groups');
 
 /**
  * Application Initialization
@@ -104,6 +105,7 @@ app.use('/products', productsRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/newsletterlist', newsletterRouter);
 app.use('/PDFgenerator', PDFgeneratorRouter);
+app.use('/groups', groupsRouter);
 
 /**
  * Error Handling

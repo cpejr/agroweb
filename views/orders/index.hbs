@@ -19,7 +19,7 @@
 <div class="filters-header row justify-content-md-end justify-content-center mx-1 mt-2 mb-1">
   <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
     <div class="">
-      <h4 class="my-auto">Minhas compras</h4>
+      <h4 class="my-auto">{{title}}</h4>
     </div>
     <div class="">
       <button type="button" name="button" class="btn ml-1">
@@ -33,55 +33,58 @@
 </div>
 <!-- end Filters Header -->
 
-<!-- Orders -->
+<!-- OrdersList-->
+
 <div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
   <div class="col-12 col-md-8">
-
-    <div class="card mb-1">
-      <div class="card-body">
-        <div class="text-center">
-          <h7 class="card-title align-text-top text-gray">Compra #13252135 - 19/03/2018</h7>
-          <div class="w-100">
+    {{#each orders}}
+      {{#ifCond status 'Cancelado'}}
+      <div class="card mb-1">
+        <div class="card-body">
+          <div class="text-center">
+            <h7 class="card-title align-text-top text-gray">Compra #{{id}} - 19/03/2018</h7>
+            <div class="w-100">
+            </div>
+              <span class="badge badge-danger">
+                <h6>{{status}}</h6>
+              </span>
+            <p class="card-text align-text-bottom text-gray">Prazo para pagamento excedido</p>
           </div>
-            <span class="badge badge-primary">
-              <h6>Em andamento</h6>
-            </span>
-          <p class="card-text align-text-bottom text-gray">Prazo até dia 15/06/2018</p>
+          <h5 class="card-title align-text-top product-myOrders">{{name}}</h5>
         </div>
-        <h5 class="card-title align-text-top product-myOrders">Defensivo 56</h5>
       </div>
-    </div>
-
+  {{else ifCond status 'Em andamento'}}
     <div class="card mb-1">
       <div class="card-body">
         <div class="text-center">
-          <h7 class="card-title align-text-top text-gray">Compra #243423442 - 19/03/2018</h7>
+          <h7 class="card-title align-text-top text-gray">Compra #{{id}} - 19/03/2018</h7>
           <div class="w-100">
           </div>
-            <span class="badge badge-success">
-              <h6>Entregue</h6>
-            </span>
-          <p class="card-text align-text-bottom text-gray">Chegou dia 15/06/2018</p>
-        </div>
-        <h5 class="card-title align-text-top product-myOrders">Sementes FG59</h5>
-      </div>
-    </div>
-
-    <div class="card mb-1">
-      <div class="card-body">
-        <div class="text-center">
-          <h7 class="card-title align-text-top text-gray">Compra #43535435 - 19/03/2018</h7>
-          <div class="w-100">
-          </div>
-            <span class="badge badge-danger">
-              <h6>Cancelado</h6>
+            <span class="badge badge-primary" data-status = "{{status}}">
+              <h6>{{status}}</h6>
             </span>
           <p class="card-text align-text-bottom text-gray">Prazo para pagamento excedido</p>
         </div>
-        <h5 class="card-title align-text-top product-myOrders">Adubo 548C</h5>
+        <h5 class="card-title align-text-top product-myOrders">{{name}}</h5>
       </div>
     </div>
-
+  {{else ifCond status 'Entregue'}}
+      <div class="card mb-1">
+        <div class="card-body">
+          <div class="text-center">
+            <h7 class="card-title align-text-top text-gray">Compra #{{id}} - 19/03/2018</h7>
+            <div class="w-100">
+            </div>
+              <span class="badge badge-success" data-status = "{{status}}">
+                <h6>{{status}}</h6>
+              </span>
+            <p class="card-text align-text-bottom text-gray">Prazo para pagamento excedido</p>
+          </div>
+          <h5 class="card-title align-text-top product-myOrders">{{name}}</h5>
+        </div>
+      </div>
+      {{/ifCond}}
+    {{/each}}
   </div>
 </div>
-<!-- end Orders -->
+<!-- end OrdersList -->

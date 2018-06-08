@@ -1,9 +1,219 @@
-<h1>Cadastre-se na Nossa Lista de Email</h1>
+{{#section 'stylesheets'}}
+  <link rel='stylesheet' href='/stylesheets/EXEMPLO.css'>
+{{/section}}
 
-<form action="/newproduct" method="POST">
-  <p>Diga-nos o nome</p>
-  <input name="productname" type="text"></input>
-  <p>Digite a categoria</p>
-  <input name="category" type="text"></input>
-  <button class="btn" type="submit">Enviar</button>
-</form>
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
+
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+      <button class="btn btn-outline-dark " type="button">
+        <i class="fas fa-search fa-2x"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+<!-- end NavBar -->
+
+<!-- Add Product -->
+<div class="container text-dark">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-5">
+      <form action="/signup" method="post">
+        <fieldset>
+          <div class="row">
+            <div class="col-12">
+              <!-- Product Type -->
+              <label for="product-type">
+                <h5>Qual a categoria do produto?</h5>
+              </label>
+              <div class="form-group" id="product-type">
+                <div class="btn-group btn-group-toggle col-12 px-0 mx-0" data-toggle="buttons">
+                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                    <input type="radio" name="product[type]" id="defensive" value="Defensivos">
+                    Defensivos
+                  </button>
+                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                    <input type="radio" name="product[type]" id="seed" value="Sementes">
+                    Sementes
+                  </button>
+                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                    <input type="radio" name="product[type]" id="solid-fertilizer" value="Fertilizantes Sólidos">
+                    Fertilizantes Sólidos
+                  </button>
+                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                    <input type="radio" name="product[type]" id="liquid-fertilizer" value="Fertilizantes Líquidos">
+                    Fertilizantes Líquidos
+                  </button>
+                </div>
+              </div>
+              <!-- end Product Type -->
+            </div>
+          </div>
+
+          <div class="row mt-5">
+            <div class="col-12">
+              <!-- Product Characteristics -->
+              <label for="product-characteristics" class="">
+                <h5>Quais as características do produto?</h5>
+              </label>
+              <div class="form-group" id="product-characteristics">
+                <!-- Defensives and Liquid Fertilizes Forms -->
+                <div class="form-group defensive-option d-none">
+                  <label for="produtc-manufacturer">Fabricante</label>
+                  <input type="text" class="form-control" name="product[manufacturer]" id="produtc-manufacturer">
+                </div>
+
+                <div class="form-group defensive-option d-none">
+                  <label for="produtc-name">Nome comercial</label>
+                  <input type="text" class="form-control" name="product[name]" id="produtc-name">
+                </div>
+
+                <div class="form-group defensive-option d-none">
+                  <label for="produtc-ingredient">Ingredientes ativos</label>
+                  <input type="text" class="form-control" name="product[ingredient]" id="produtc-ingredient">
+                </div>
+
+                <div class="form-group defensive-option d-none">
+                  <label for="produtc-concentration">Concentração I.A.</label>
+                  <input type="text" class="form-control" name="product[concentration]" id="produtc-concentration">
+                </div>
+
+                <div class="form-group d-none">
+                  <label for="produtc-nature">Natureza Física</label>
+                  <select class="form-control" name="product[nature]" id="produtc-nature">
+                    <option>Líquido</option>
+                    <option>Sólido</option>
+                    <option>WG</option>
+                    <option>Pó solúvel</option>
+                    <option>Pó molhável</option>
+                    <option>Outro</option>
+                  </select>
+                </div>
+
+                <div class="form-group d-none">
+                  <label for="produtc-packing">Embalagem (L ou Kg)</label>
+                  <select class="form-control" name="product[packing]" id="produtc-packing">
+                    <option>1</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>50</option>
+                    <option>1000</option>
+                  </select>
+                </div>
+                <!-- end Defensives and Liquid Fertilizes Forms -->
+
+                <!-- Seeds Forms -->
+                <div class="form-group seed-option d-none">
+                  <label for="produtc-manufacturer">Sementeria</label>
+                  <input type="text" class="form-control" name="product[manufacturer]" id="produtc-manufacturer">
+                </div>
+
+                <div class="form-group seed-option d-none">
+                  <label for="produtc-variety">Variedade</label>
+                  <input type="text" class="form-control" name="product[variety]" id="produtc-variety">
+                </div>
+
+                <div class="form-group seed-option d-none">
+                  <label for="produtc-germplasm">Marca germoplasma</label>
+                  <input type="text" class="form-control" name="product[germplasm]" id="produtc-germplasm">
+                </div>
+
+                <div class="form-group seed-option d-none">
+                  <label for="produtc-pms">PMS ou VC</label> <!-- Weight of tousend seeds or,
+                                                                   in portuguese "Peso de Mil Semenstes (PMS)"-->
+                  <input type="text" class="form-control" name="product[pms]" id="produtc-pms">
+                </div>
+
+                <div class="form-group">
+                  <label for="produtc-observations">Observações</label>
+                  <select multiple class="form-control" name="product[observations]" id="produtc-observations">
+                    <option>IPRO royalties incluso</option>
+                    <option>IPRO royalties não incluso</option>
+                    <option>Encrustada</option>
+                    <option>Tratamento industrial</option>
+                    <option>RR</option>
+                    <option>Convencional</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="produtc-packing">Observações</label>
+                  <select class="form-control" name="product[packing]" id="produtc-packing">
+                    <option>Saco de 10Kg</option>
+                    <option>Saco de 20Kg</option>
+                    <option>Saco de 40Kg</option>
+                    <option>Big bag de 1000Kg</option>
+                    <option>Big bag de 5000 sementes</option>
+                  </select>
+                </div>
+                <!-- end Seeds Forms -->
+              </div>
+              <!-- end Product Characteristics -->
+            </div>
+          </div>
+
+          <div class="row mt-5">
+            <div class="col-12">
+              <!-- Product Price -->
+              <label for="product-prices" class="">
+                <h5>Quais os preços do produto?</h5>
+              </label>
+              <div class="form-group" id="product-prices">
+                <div class="form-group">
+                  <label for="produtc-price1">1º Preço</label>
+                  <input type="text" class="form-control" name="product[price1]" id="produtc-price1">
+                </div>
+
+                <div class="form-group">
+                  <label for="produtc-price2">2º Preço</label>
+                  <input type="text" class="form-control" name="product[price2]" id="produtc-price2">
+                </div>
+
+                <div class="form-group">
+                  <label for="produtc-price3">3º Preço</label>
+                  <input type="text" class="form-control" name="product[price3]" id="produtc-price3">
+                </div>
+              </div>
+              <!-- end Product Price -->
+            </div>
+          </div>
+
+          <div class="row mt-5">
+            <div class="col-12">
+              <!-- Product Amount -->
+              <label for="product-amount" class="">
+                <h5>Qual a quantidade que você tem disponível?</h5>
+              </label>
+              <div class="form-group" id="product-amount">
+                <div class="form-group">
+                  <label for="produtc-amount">Quantidade</label>
+                  <input type="text" class="form-control" name="product[amount]" id="produtc-amount">
+                </div>
+              </div>
+              <!-- end Product Amount -->
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="row justify-content-center d-none mt-4" id="form-buttons">
+          <div class="form-group col-12 row justify-content-between">
+            <button type="submit" class="col-6 btn btn-default bg-green text-dark mr-1">Enviar</button>
+            <button type="reset" class="col btn btn-default bg-light text-dark">Limpar</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end Add Product -->
+
+{{#section 'scripts'}}
+  <script src="/javascripts/navbar.js"></script>
+{{/section}}

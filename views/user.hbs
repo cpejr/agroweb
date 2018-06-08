@@ -1,5 +1,4 @@
 <!-- Header and NavBar -->
-{{userType}}
 <div class="pos-f-t">
   <div class="collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4">
@@ -68,7 +67,7 @@
 <!-- end Header and NavBar -->
 
 <!-- Buttons -->
-{{#ifCond userType 'Revenda'}}
+{{#ifCond userType 'Revendedor'}}
 <ul class="list-group list-group-flush">
   <li class="list-group-item">
     <i class="fas fa-shopping-cart fa-lg"></i>
@@ -154,7 +153,7 @@
   </li>
 </ul>
 
-{{else}}
+{{else ifCond userType 'Administrador'}}
 <ul class="list-group list-group-flush">
   <li class="list-group-item">
     <i class="fas fa-shopping-cart fa-lg"></i>

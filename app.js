@@ -69,6 +69,13 @@ const hbs = exphbs.create({
       if (!this._sections) this._sections = {};
       this._sections[name] = options.fn(this);
       return null;
+    },
+    // If variable equals...
+    ifCond(v1, v2, options) {
+      if (v1 === v2) {
+        return options.fn(this);
+      }
+      return options.inverse(this);
     }
   }
 });

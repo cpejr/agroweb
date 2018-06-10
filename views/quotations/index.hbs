@@ -40,28 +40,41 @@
 {{#each quotations}}
   <div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
     <div class="col-12 col-md-8">
-{{#ifCond productType 'Plantas'}}
+{{#ifCond productType 'Defensivos'}}
       <div class="card mb-1">
         <div class="card-body text-right">
-          <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+          <i class="card-icon fas fa-bug fa-3x float-left align-middle"></i>
           <h5 class="card-title align-text-top">{{name}}</h5>
-          <p class="card-text align-text-bottom">{{price}} un.</p>
+          <p class="card-text align-text-bottom">R$ {{price}} un.</p>
+          <p class="card-text align-text-bottom">Quantidade cotada: {{amount}}</p>
         </div>
       </div>
       {{else ifCond productType 'Sementes'}}
       <div class="card mb-1">
         <div class="card-body text-right">
-          <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
+          <i class="card-icon fas fa-dot-circle fa-3x float-left align-middle"></i>
           <h5 class="card-title align-text-top">{{name}}</h5>
-          <p class="card-text align-text-bottom">{{price}} un.</p>
+          <p class="card-text align-text-bottom">R$ {{price}} un.</p>
+          <p class="card-text align-text-bottom">Quantidade cotada: {{amount}}</p>
+
         </div>
       </div>
-      {{else ifCond productType 'Inseticidas'}}
+      {{else ifCond productType 'Fertilizantes'}}
       <div class="card mb-1">
         <div class="card-body text-right">
-          <i class="card-icon fas fa-bug fa-3x float-left align-middle"></i>
+          <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
           <h5 class="card-title align-text-top">{{name}}</h5>
-          <p class="card-text align-text-bottom">{{price}} un.</p>
+          <p class="card-text align-text-bottom">R$ {{price}} un.</p>
+          <p class="card-text align-text-bottom">Quantidade cotada: {{amount}}</p>
+        </div>
+      </div>
+      {{else ifCond productType 'Fertilizantes Líquidos'}}
+      <div class="card mb-1">
+        <div class="card-body text-right">
+          <i class="card-icon fas fa-tint fa-3x float-left align-middle"></i>
+          <h5 class="card-title align-text-top">{{name}}</h5>
+          <p class="card-text align-text-bottom">R$ {{price}} un.</p>
+          <p class="card-text align-text-bottom">Quantidade cotada: {{amount}}</p>
         </div>
       </div>
       {{/ifCond}}

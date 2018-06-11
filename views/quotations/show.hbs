@@ -18,15 +18,25 @@
 <div class="container">
   <div class="row justify-content-center mx-sm-auto mx-md-9">
     <!-- Product Title -->
-    <div class="col-12 ml-4 mb-5">
+    <div class="col-12 col-md-6">
       <i class="text-muted">Produto {{originalOrNot}}</i>
       <h2 class="my-0 py-0">{{name}}</h2>
       <h5 class="text-muted">R$ {{price}} un.</h5>
     </div>
     <!-- end Product Title -->
 
+    <div class="col-12 col-md-6 pb-2 mb-5">
+      <h4>Descrição</h4>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer volutpat lectus eu nunc efficitur, pharetra
+        vestibulum ligula laoreet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+        egestas. Pellentesque in nisi ornare, venenatis urna sed, pellentesque quam. Nunc molestie neque in lorem interdum,
+        ut tincidunt urna aliquam.
+      </p>
+    </div>
+
     <!-- Quotation  -->
-    <div class="col-12 pb-2 mb-5">
+    <div class="col-12 col-md-6 pb-2 mb-5">
       <form action="#" method="post">
         <div class="col-12 col-md-6 mb-5">
           <div class="mb-5">
@@ -34,31 +44,30 @@
             <p>{{activeIngredient}}</p>
           </div>
 
-          <div class="col-12 col-md-6 mb-5">
-            <div class="row">
-              <div class="col-6">
-                <dt>Entrega</dt>
-                <h4>{{delivery}}</h4>
-              </div>
-              <div class="col-6">
-                <dt>Quantidade</dt>
-                <h4>{{amount}}</h4>
-              </div>
-              <div class="col-6">
-                <dt>Preço total</dt>
-                <h2>{{totalPrice}}</h2>
-              </div>
+          <div class="row mb-3 ml-4">
+            <div class="col-6">
+              <dt class="text-gray">Entrega</dt>
+              <h4>{{deliver}}</h4>
+            </div>
+            <div class="col-6">
+              <dt class="text-gray">Quantidade</dt>
+              <h4>{{amount}}</h4>
+            </div>
+            <div class="col-6">
+              <dt class="text-gray">Preço total</dt>
+              <h2>R$ {{priceBought}}</h2>
             </div>
           </div>
-
-        </div>
-          <button class="w-100 col-10 col-md-6 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
-        <div class="text-center">
-          <a class="text-dark" href = "#" >Cancelar cotação</a>
-        </div>
-      </form>
     </div>
+
+  </div>
+    <button class="w-100 col-10 col-md-7 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
+    <div class="w-100">
+    </div>
+  <div class="text-center">
+    <a class="text-dark" href = "#" >Cancelar cotação</a>
+  </div>
+</form>
     <!-- end Quotation -->
   </div>
-
 </div>

@@ -22,6 +22,11 @@ router.get('/forgotPassword', (req, res) => {
   res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });
 });
 
+/* GET FORGOTPASSWORD - TESTES */
+router.get('/franchiseeOption', (req, res) => {
+  res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layout' });
+});
+
 /* GET SUCCESS - TESTES */
 router.get('/success', (req, res) => {
   res.render('success', { title: 'Sucesso', layout: 'layout' });

@@ -1,4 +1,7 @@
 $(document).ready(() => {
+  var password = document.getElementById('password'),
+    confirmPassword = document.getElementById('confirmPassword');
+
   $('#user-type input[type=radio]').on('change', () => {
     const selectedUserType = $('#user-type input[type=radio]:checked').val();
 
@@ -33,4 +36,16 @@ $(document).ready(() => {
 
     $('#form-buttons').removeClass('d-none').show(); // Classe bootstrap que esconde o elemento
   });
+
+  function validatePassword() {
+    if (password.value !== confirmPassword.value) {
+      confirmPassword.setCustomValidity("Passwords Don't Match");
+    }
+    else {
+      confirmPassword.setCustomValidity('');
+    }
+  }
+
+  password.onchange = validatePassword;
+  confirmPassword.onkeyup = validatePassword;
 });

@@ -16,11 +16,9 @@
 <!-- end NavBar -->
 
 <!-- Filters Header -->
-<div class="filters-header row justify-content-md-end justify-content-center mx-1 mt-2 mb-1">
+<div class="filters-header row justify-content-center mx-1 mt-2 mb-1">
   <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
-    <div class="">
-      <h4 class="my-auto">{{title}}</h4>
-    </div>
+      <h4 class="my-auto mx-auto">{{title}}</h4>
     <div class="">
       <button type="button" name="button" class="btn ml-1">
         <i class="fas fa-sort-amount-down "></i>
@@ -35,8 +33,8 @@
 
 <!-- OrdersList-->
 
-<div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
-  <div class="col-12 col-md-8">
+<div id="results-list" class="row justify-content-center mt-2 mx-0">
+  <div class="col-12 col-md-6">
     {{#each orders}}
       {{#ifCond status 'Cancelado'}}
       <div class="card mb-1">

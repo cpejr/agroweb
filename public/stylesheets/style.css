@@ -6079,7 +6079,7 @@ body {
 body {
   font-family: sans-serif; }
 
-button, h2, h4, h6, h7, p, i, a {
+button, h2, h4, h6, h7, p, i, a, dt {
   font-family: 'Dosis'; }
 
 h1, h3, h5, span {
@@ -6138,5 +6138,32 @@ img.footer-brand {
 
 .product-myOrders {
   margin-top: 20px; }
+
+.termsOfUse {
+  border: none;
+  padding: 5px;
+  width: 500px;
+  height: 100px;
+  overflow: scroll; }
+
+.info {
+  border: none;
+  width: 2000px;
+  height: 400px;
+  overflow: scroll;
+  /* Scrollbar styles */ }
+
+.info::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; }
+
+.info::-webkit-scrollbar-track {
+  border: 1px solid yellowgreen; }
+
+.info::-webkit-scrollbar-thumb {
+  background: yellowgreen; }
+
+.info::-webkit-scrollbar-thumb:hover {
+  background: #88ba1c; }
 
 /*# sourceMappingURL=style.css.map */

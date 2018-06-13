@@ -20,7 +20,7 @@
 
 <!-- Filters Header -->
 <div class="filters-header row justify-content-md-end justify-content-center mx-1 mt-2 mb-1">
-  <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
+  <div class="col-12 col-md-7 d-flex align-items-center justify-content-between">
     <div class="">
       <h4 class="my-auto">Minhas Cotações</h4>
     </div>
@@ -37,38 +37,31 @@
 <!-- end Filters Header -->
 
 <!-- QuotationsList -->
-{{#each quotations}}
-  <div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
-    <div class="col-12 col-md-8">
-{{#ifCond productType 'Plantas'}}
+<div class="justify-content-center">
+  <div id="results-list" class="row justify-content-left mt-2 mx-0">
+  {{#each quotations}}
+    <div class="col-12 col-md-5">
       <div class="card mb-1">
         <div class="card-body text-right">
-          <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+          {{#ifCond productType 'Defensivos'}}
+            <i class="card-icon fas fa-bug fa-3x float-left align-middle"></i>
+          {{else ifCond productType 'Sementes'}}
+            <i class="card-icon fas fa-dot-circle fa-3x float-left align-middle"></i>
+          {{else ifCond productType 'Fertilizantes'}}
+            <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
+          {{else ifCond productType 'Fertilizantes Líquidos'}}
+            <i class="card-icon fas fa-tint fa-3x float-left align-middle"></i>
+          {{/ifCond}}
           <h5 class="card-title align-text-top">{{name}}</h5>
-          <p class="card-text align-text-bottom">{{price}} un.</p>
+          <p class="card-text align-text-bottom">R$ {{price}} un.</p>
+          <p class="card-text align-text-bottom">Quantidade cotada: {{amount}}</p>
         </div>
       </div>
-      {{else ifCond productType 'Sementes'}}
-      <div class="card mb-1">
-        <div class="card-body text-right">
-          <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
-          <h5 class="card-title align-text-top">{{name}}</h5>
-          <p class="card-text align-text-bottom">{{price}} un.</p>
-        </div>
-      </div>
-      {{else ifCond productType 'Inseticidas'}}
-      <div class="card mb-1">
-        <div class="card-body text-right">
-          <i class="card-icon fas fa-bug fa-3x float-left align-middle"></i>
-          <h5 class="card-title align-text-top">{{name}}</h5>
-          <p class="card-text align-text-bottom">{{price}} un.</p>
-        </div>
-      </div>
-      {{/ifCond}}
-
+    </div>
+        {{/each}}
     </div>
   </div>
-{{/each}}
+
 <!-- end QuotationsList -->
 
 

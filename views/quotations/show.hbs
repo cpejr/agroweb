@@ -1,0 +1,69 @@
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
+
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+      <button class="btn btn-outline-dark " type="button">
+        <i class="fas fa-search fa-2x"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+<!-- end NavBar -->
+
+<div class="container">
+  <div class="justify-content-center mx-sm-auto mx-md-9">
+    <div class="row">
+      <!-- Product Title -->
+      <div class="col-12 col-md-6">
+        <i class="text-muted">Produto {{originalOrNot}}</i>
+        <h2 class="my-0 py-0">{{name}}</h2>
+        <h5 class="text-muted mt-3">R$ {{price}} un.</h5>
+      </div>
+      <!-- end Product Title -->
+
+      <!-- Product description -->
+      <div class="col-12 col-md-6 pb-2 mb-5">
+        <h4>Descrição</h4>
+        <p>{{description}}</p>
+      </div>
+      <!-- end Product description -->
+
+      <!-- Quotation info -->
+      <div class="col-12 col-md-6 pb-2 mb-5">
+        <form action="#" method="post">
+          <div class="col-12 col-md-6 mb-5">
+              <p class="text-muted">Ingrediente ativo</p>
+              <p>{{activeIngredient}}</p>
+      </div>
+    </div>
+    <div class="row mb-3 ml-1">
+      <div class="col-6">
+        <dt class="text-gray">Entrega</dt>
+        <h4>{{deliver}}</h4>
+      </div>
+      <div class="col-6">
+        <dt class="text-gray">Quantidade</dt>
+        <h4>{{amount}}</h4>
+      </div>
+      <div class="col-6">
+        <dt class="text-gray">Preço total</dt>
+        <h2>R$ {{priceBought}}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Quotation info -->
+
+  <button class="w-100 col-10 col-md-7 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
+  <div class="w-100">
+  </div>
+<div class="text-center">
+  <a class="text-dark" href = "#" >Cancelar cotação</a>
+</div>
+</form>
+</div>

@@ -39,7 +39,7 @@ $(document).ready(() => {
 
   function validatePassword() {
     if (password.value !== confirmPassword.value) {
-      confirmPassword.setCustomValidity("Passwords Don't Match");
+      confirmPassword.setCustomValidity('As senhas não coincidem!');
     }
     else {
       confirmPassword.setCustomValidity('');

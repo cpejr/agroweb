@@ -6055,6 +6055,9 @@ body {
 .bg-green {
   background: #3b9939; }
 
+.bg-green2 {
+  background: #537c00; }
+
 .bg-img1 {
   background-image: url("../images/bg-g.jpg");
   background-size: cover;
@@ -6079,7 +6082,7 @@ body {
 body {
   font-family: sans-serif; }
 
-button, h2, h4, h6, h7, p, i, a, dt {
+button, h2, h4, h6, h7, p, i, a, dt, li {
   font-family: 'Dosis'; }
 
 h1, h3, h5, span {

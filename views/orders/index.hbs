@@ -36,14 +36,19 @@
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
   <div class="col-12 col-md-6">
     {{#each orders}}
-      {{#ifCond status 'Cancelado'}}
       <div class="card mb-1">
         <div class="card-body">
           <div class="text-center">
             <h7 class="card-title align-text-top text-gray">Compra #{{id}} - 19/03/2018</h7>
             <div class="w-100">
             </div>
+            {{#ifCond status 'Cancelado'}}
               <span class="badge badge-danger">
+            {{else ifCond status 'Em andamento'}}
+              <span class="badge badge-primary">
+            {{else ifCond status 'Entregue'}}
+              <span class="badge badge-success">
+            {{/ifCond}}
                 <h6>{{status}}</h6>
               </span>
             <p class="card-text align-text-bottom text-gray">Prazo para pagamento excedido</p>
@@ -51,37 +56,6 @@
           <h5 class="card-title align-text-top product-myOrders">{{name}}</h5>
         </div>
       </div>
-  {{else ifCond status 'Em andamento'}}
-    <div class="card mb-1">
-      <div class="card-body">
-        <div class="text-center">
-          <h7 class="card-title align-text-top text-gray">Compra #{{id}} - 19/03/2018</h7>
-          <div class="w-100">
-          </div>
-            <span class="badge badge-primary" data-status = "{{status}}">
-              <h6>{{status}}</h6>
-            </span>
-          <p class="card-text align-text-bottom text-gray">Prazo para pagamento excedido</p>
-        </div>
-        <h5 class="card-title align-text-top product-myOrders">{{name}}</h5>
-      </div>
-    </div>
-  {{else ifCond status 'Entregue'}}
-      <div class="card mb-1">
-        <div class="card-body">
-          <div class="text-center">
-            <h7 class="card-title align-text-top text-gray">Compra #{{id}} - 19/03/2018</h7>
-            <div class="w-100">
-            </div>
-              <span class="badge badge-success" data-status = "{{status}}">
-                <h6>{{status}}</h6>
-              </span>
-            <p class="card-text align-text-bottom text-gray">Prazo para pagamento excedido</p>
-          </div>
-          <h5 class="card-title align-text-top product-myOrders">{{name}}</h5>
-        </div>
-      </div>
-      {{/ifCond}}
     {{/each}}
   </div>
 </div>

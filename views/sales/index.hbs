@@ -1,0 +1,103 @@
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
+
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+      <button class="btn btn-outline-dark " type="button">
+        <i class="fas fa-search fa-2x"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+<!-- end NavBar -->
+
+<!-- Filters Header -->
+<div class="filters-header row justify-content-center mx-1 mt-2 mb-1">
+  <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
+      <h4 class="my-auto mx-auto">Minhas vendas</h4>
+    <div class="">
+      <button type="button" name="button" class="btn ml-1">
+        <i class="fas fa-sort-amount-down "></i>
+      </button>
+      <button type="button" name="button" class="btn ml-1">
+        <i class="fas fa-filter "></i>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- end Filters Header -->
+
+<!-- OrdersList-->
+
+<div id="results-list" class="row justify-content-center mt-2 mx-0">
+  <div class="col-12 col-md-6">
+    {{#each orders}}
+      <div class="card mb-1">
+        <div class="card-body">
+          <div class="text-center">
+            <h7 class="card-title align-text-top text-gray">Venda #{{id}} - 19/03/2018</h7>
+            <div class="w-100">
+            </div>
+            <div class="row mt-3">
+              <div class="col-6">
+                {{#ifCond statusPayment 'Não pago'}}
+                  <span class="badge badge-danger mb-3">
+                {{else ifCond statusPayment 'Pago'}}
+                  <span class="badge badge-success mb-3">
+                {{/ifCond}}
+                    <h6>{{statusPayment}}</h6>
+                  </span>
+              </div>
+              <div class="col-6">
+                {{#ifCond statusDeliver 'Não entregue'}}
+                  <span class="badge badge-danger mb-3">
+                {{else ifCond statusDeliver 'Entregue'}}
+                  <span class="badge badge-success mb-3">
+                {{/ifCond}}
+                    <h6>{{statusDeliver}}</h6>
+                  </span>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div class="col-6">
+                <div class="form-check">
+                  <form id="status-payment-form" class="" action="#" method="get"> <!--sustituir # pela rota de mudança de status de pagamento-->
+                  {{#ifCond statusPayment 'Pago'}}
+                  <input type="checkbox" class="form-check-input" id="paid" checked disabled>
+                  {{else ifCond statusPayment 'Não pago'}}
+                  <input type="checkbox" class="form-check-input" id="paid">
+                  {{/ifCond}}
+
+                  <label class="form-check-label" for="exampleCheck1">Pago?</label>
+                </form>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-check">
+                  {{#ifCond statusDeliver 'Entregue'}}
+                  <input type="checkbox" class="form-check-input" id="delivered" checked disabled>
+                  {{else ifCond statusDeliver 'Não entregue'}}
+                  <input type="checkbox" class="form-check-input" id="delivered">
+                  {{/ifCond}}
+                  <label class="form-check-label" for="exampleCheck1">Entregue?</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <h5 class="card-title align-text-top product-myOrders">{{name}}</h5>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
+<!-- end OrdersList -->
+
+{{#section 'scripts'}}
+  <script src="/javascripts/sales.js"></script>
+{{/section}}

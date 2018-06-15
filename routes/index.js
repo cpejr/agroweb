@@ -51,9 +51,42 @@ router.get('/signup', (req, res) => {
 });
 
 /* GET ORDERS - TESTES */
-router.get('/orders', (req, res) => {
-  res.render('orders/index', { title: 'Minhas compras', layout: 'layout' });
+router.get('/sales', (req, res) => {
+  const product1 = {
+    id: 12312312,
+    name: 'produto1',
+    date: '19/03/2021',
+    statusPayment: 'Não pago',
+    statusDeliver: 'Não entregue'
+  };
+  const product2 = {
+    id: 53434223,
+    name: 'produto2',
+    date: '19/03/2021',
+    statusPayment: 'Pago',
+    statusDeliver: 'Não entregue'
+  };
+  const product3 = {
+    id: 232312314,
+    name: 'produto3',
+    date: '19/03/2021',
+    statusPayment: 'Pago',
+    statusDeliver: 'Entregue'
+  };
+  const orders = [product1, product2, product3];
+  res.render('sales/index', { title: 'Minhas compras', layout: 'layout', orders });
 });
+
+/* GET ORDERS - TESTES */
+router.get('/new', (req, res) => {
+  res.render('products/new', { title: 'Minhas compras', layout: 'layout' });
+});
+
+/* GET ORDERS - TESTES */
+router.get('/show', (req, res) => {
+  res.render('products/show', { title: 'Minhas compras', layout: 'layout' });
+});
+
 
 router.get('/teste', auth.isAuthenticated, (req, res) => {
   User.getAllOrdersByUserId(req.session.userUid).then((orders) => {

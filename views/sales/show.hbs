@@ -33,8 +33,8 @@
         <h6>{{status}}</h6>
       </span>
       <p class="align-text-bottom ml-3 text-gray">Prazo até dia {{deadline}}</p>
-      <h2>{{name}}</h2>
-      <h4 class="text-gray">R$ {{price}} un.</h4>
+      <h2>{{offer.product.name}}</h2>
+      <h4 class="text-gray">R$ {{unitPrice}} un.</h4>
     </div>
     <!-- end Sale Title -->
 
@@ -53,11 +53,11 @@
     <div class="row mb-3 ml-4">
       <div class="col-6">
         <dt class="text-gray">Entrega</dt>
-        <h4>{{deliver}}</h4>
+        <h4>{{delivery}}</h4>
       </div>
       <div class="col-6">
         <dt class="text-gray">Quantidade</dt>
-        <h4>{{amount}}</h4>
+        <h4>{{amountBought}}</h4>
       </div>
       <div class="col-6">
         <dt class="text-gray">Preço total</dt>

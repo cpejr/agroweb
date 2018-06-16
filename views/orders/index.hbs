@@ -39,7 +39,7 @@
       <div class="card mb-1">
         <div class="card-body">
           <div class="text-center">
-            <h7 class="card-title align-text-top text-gray">Compra #{{id}} - 19/03/2018</h7>
+            <h7 class="card-title align-text-top text-gray">Compra #{{_id}}</h7>
             <div class="w-100">
             </div>
             {{#ifCond status 'Cancelado'}}
@@ -49,11 +49,10 @@
             {{else ifCond status 'Entregue'}}
               <span class="badge badge-success">
             {{/ifCond}}
-                <h6>{{status}}</h6>
-              </span>
-            <p class="card-text align-text-bottom text-gray">Prazo para pagamento excedido</p>
+              <h6>{{status}}</h6>
+            </span>
           </div>
-          <h5 class="card-title align-text-top product-myOrders">{{name}}</h5>
+          <h5 class="card-title align-text-top product-myOrders">{{offer.product.name}}</h5>
         </div>
       </div>
     {{/each}}

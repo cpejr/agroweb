@@ -1,6 +1,5 @@
 $('#paid').click(function () {
   if (confirm('Tem certeza que deseja confirmar o pagamento?')) {
-    $(this).prop("disabled",true);
     $('#status-payment-form').submit();
   }
 });

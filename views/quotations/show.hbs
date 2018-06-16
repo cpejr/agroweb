@@ -20,16 +20,16 @@
     <div class="row">
       <!-- Product Title -->
       <div class="col-12 col-md-6">
-        <i class="text-muted">Produto {{originalOrNot}}</i>
-        <h2 class="my-0 py-0">{{name}}</h2>
-        <h5 class="text-muted mt-3">R$ {{price}} un.</h5>
+        <i class="text-muted">Produto {{offer.product.generic}}</i>
+        <h2 class="my-0 py-0">{{offer.product.name}}</h2>
+        <h5 class="text-muted mt-3">R$ {{unitPrice}} un.</h5>
       </div>
       <!-- end Product Title -->
 
       <!-- Product description -->
       <div class="col-12 col-md-6 pb-2 mb-5">
         <h4>Descrição</h4>
-        <p>{{description}}</p>
+        <p>{{offer.product.description}}</p>
       </div>
       <!-- end Product description -->
 
@@ -38,17 +38,17 @@
         <form action="#" method="post">
           <div class="col-12 col-md-6 mb-5">
               <p class="text-muted">Ingrediente ativo</p>
-              <p>{{activeIngredient}}</p>
+              <p>{{offer.product.chem.name}}</p>
       </div>
     </div>
     <div class="row mb-3 ml-1">
       <div class="col-6">
         <dt class="text-gray">Entrega</dt>
-        <h4>{{deliver}}</h4>
+        <h4>{{offer.delivery}}</h4>
       </div>
       <div class="col-6">
         <dt class="text-gray">Quantidade</dt>
-        <h4>{{amount}}</h4>
+        <h4>{{amountBought}}</h4>
       </div>
       <div class="col-6">
         <dt class="text-gray">Preço total</dt>

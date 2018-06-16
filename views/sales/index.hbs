@@ -44,11 +44,13 @@
             </div>
             <div class="row mt-3 justify-content-center">
                 {{#ifCond status 'Aguardando pagamento'}}
-                  <span class="badge badge-danger mb-3">
+                  <span class="badge badge-warning mb-3">
                 {{else ifCond status 'Pagamento confirmado'}}
                   <span class="badge badge-primary mb-3">
                 {{else ifCond status 'Produto enviado'}}
                       <span class="badge badge-success mb-3">
+                {{else ifCond status 'Cancelado'}}
+                      <span class="badge badge-danger mb-3">
                 {{/ifCond}}
                 <h6>{{status}}</h6>
               </span>

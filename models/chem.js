@@ -102,6 +102,22 @@ class Chem {
       });
     });
   }
+
+  /**
+   * Add a group
+   * @param {string} id - Chem Id
+   * @param {Object} group - Group Id
+   * @returns {null}
+   */
+  static addGroup(id, group) {
+    return new Promise((resolve, reject) => {
+      ChemModel.findByIdAndUpdate(id, { $push: { groups: group } }).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
 
 module.exports = Chem;

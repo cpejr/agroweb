@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   category: {
     type: String,
@@ -116,6 +115,22 @@ class Product {
     return new Promise((resolve, reject) => {
       ProductModel.find({ category: value }).populate('chem').then((result) => {
         resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Add a chem
+   * @param {string} id - Product Id
+   * @param {Object} chem - Chem Id
+   * @returns {null}
+   */
+  static addChem(id, chem) {
+    return new Promise((resolve, reject) => {
+      ProductModel.findByIdAndUpdate(id, { $push: { chems: chem } }).then(() => {
+        resolve();
       }).catch((err) => {
         reject(err);
       });

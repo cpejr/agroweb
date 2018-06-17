@@ -1,23 +1,46 @@
-const firebase = require('firebase');
+const mongoose = require('mongoose');
 
-const offersRef = firebase.firestore().collection('offers');
+const offerSchema = new mongoose.Schema({
+  stock: Number,
+  balance: Number,
+  price: {
+    low: Number,
+    average: Number,
+    high: Number
+  },
+  breakpoints: {
+    low: Number,
+    average: Number
+  },
+  minAmount: Number,
+  delivery: {
+    type: String,
+    enum: ['em até 48 horas', 'em até 31 dias', 'safra', 'safrinha']
+  },
+  seller: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
+  }
+}, { timestamps: true, strict: false });
+
+const OfferModel = mongoose.model('Offer', offerSchema);
 
 class Offer {
   /**
-   * Get all offers from database
-   * @returns {Array} Array of offers
+   * Get all Offers from database
+   * @returns {Array} Array of Offers
    */
   static getAll() {
     return new Promise((resolve, reject) => {
-      offersRef.get().then((snapshot) => {
-        const offers = snapshot.docs.map((doc) => {
-          const offer = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return offer;
-        });
-        resolve(offers);
+      OfferModel.find({}).populate({
+        path: 'seller product',
+        populate: { path: 'chem' }
+      }).exec().then((results) => {
+        resolve(results);
       }).catch((err) => {
         reject(err);
       });
@@ -25,19 +48,17 @@ class Offer {
   }
 
   /**
-   * Get a offer by it's id
+   * Get a Offer by it's id
    * @param {string} id - Offer Id
    * @returns {Object} Offer Document Data
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
-      offersRef.doc(id).get().then((doc) => {
-        if (!doc.exists) {
-          resolve(null);
-        }
-        else {
-          resolve(doc.data());
-        }
+      OfferModel.findById(id).populate({
+        path: 'seller product',
+        populate: { path: 'chem' }
+      }).exec().then((result) => {
+        resolve(result.toObject());
       }).catch((err) => {
         reject(err);
       });
@@ -45,14 +66,14 @@ class Offer {
   }
 
   /**
-   * Create a new offer
-   * @param {Object} offer - Offer Document Data
-   * @returns {string} New offer Id
+   * Create a new Offer
+   * @param {Object} project - Offer Document Data
+   * @returns {string} New Offer Id
    */
   static create(offer) {
     return new Promise((resolve, reject) => {
-      offersRef.add(offer).then((doc) => {
-        resolve(doc.id);
+      OfferModel.create(offer).then((result) => {
+        resolve(result._id);
       }).catch((err) => {
         reject(err);
       });
@@ -60,27 +81,27 @@ class Offer {
   }
 
   /**
-   * Update a offer
+   * Update a Offer
    * @param {string} id - Offer Id
-   * @param {Object} offer - Offer Document Data
+   * @param {Object} Offer - Offer Document Data
    * @returns {null}
    */
   static update(id, offer) {
     return new Promise((resolve, reject) => {
-      offersRef.doc(id).update(offer).catch((err) => {
+      OfferModel.findByIdAndUpdate(id, offer).catch((err) => {
         reject(err);
       });
     });
   }
 
   /**
-   * Delete a offer
-   * @param {string} id - offer Id
+   * Delete a Offer
+   * @param {string} id - Offer Id
    * @returns {null}
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      offersRef.doc(id).delete().catch((err) => {
+      OfferModel.findByIdAndDelete(id).catch((err) => {
         reject(err);
       });
     });

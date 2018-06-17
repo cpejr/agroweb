@@ -3,6 +3,7 @@ const firebase = require('firebase');
 const User = require('../models/user.js');
 const auth = require('./middleware/auth');
 const nodemailer = require('nodemailer');
+const Transaction = require('../models/transaction.js');
 
 const router = express.Router();
 
@@ -51,7 +52,7 @@ router.get('/orders', (req, res) => {
 });
 
 router.get('/teste', auth.isAuthenticated, (req, res) => {
-  User.getAllOrdersByUserId(req.session.userUid).then((orders) => {
+  User.getAllTransactionsByUserId(req.session.userUid).then((orders) => {
     console.log(orders);
     res.render('success', { title: 'Sucesso', layout: 'layout' });
   }).catch((error) => {
@@ -67,10 +68,11 @@ router.post('/login', (req, res) => {
   const userData = req.body.user;
   firebase.auth().signInWithEmailAndPassword(userData.email, userData.password)
     .then((user) => {
-      User.getById(user.uid).then((currentLogged) => {
+      User.getByUid(user.uid).then((currentLogged) => {
         req.session.userType = currentLogged.type;
         req.session.firstName = currentLogged.firstName;
-        req.session.lastName = currentLogged.lastName;
+        req.session.fullName = currentLogged.fullName;
+        req.session._id = currentLogged._id;
         req.session.userUid = user.uid;
         if (req.session.userType === 'Administrador') {
           res.redirect('/admin');
@@ -111,7 +113,8 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
   firebase.auth().signOut().then(() => {
     delete req.session.userType;
     delete req.session.firstName;
-    delete req.session.lastName;
+    delete req.session.fullName;
+    delete req.session._id;
     delete req.session.userUid;
     res.redirect('/');
   }).catch((error) => {
@@ -125,15 +128,12 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
   BackEnd - CADASTRO
 ////////////////////////////// */
 router.post('/signup', (req, res) => {
-  const created = firebase.database.ServerValue.TIMESTAMP;
   const status = 'Ativo';
-  const userData = { ...req.body.user, created, status };
+  const userData = { ...req.body.user, status };
 
   // Separa nome e sobrenome do cliente a partir da string name
-  const position = userData.name.indexOf(' ');
-  userData.firstName = userData.name.slice(0, position);
-  userData.lastName = userData.name.slice(position + 1);
-  delete userData.name;
+  const position = userData.fullName.indexOf(' ');
+  userData.firstName = userData.fullName.slice(0, position);
 
   if (userData.cpf === '') {
     userData.doc = userData.cnpj;
@@ -146,101 +146,48 @@ router.post('/signup', (req, res) => {
 
   req.session.userType = userData.type;
   req.session.firstName = userData.firstName;
-  req.session.lastName = userData.lastName;
+  req.session.fullName = userData.fullName;
 
-  if (userData.type === 'Produtor' || userData.type === 'Franqueado' || userData.type === 'Revendedor') {
-    if (userData.type === 'Revendedor') {
-      firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
-        req.session.userUid = user.uid;
-        firebase.auth().currentUser.sendEmailVerification().then(() => {
-          delete userData.password;
-          User.create(userData, user.uid).then(() => {
-            res.redirect('/user');
-          }).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
-          });
-        }).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
-        });
-      }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-    }
-    else {
-      firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
-        req.session.userUid = user.uid;
-        firebase.auth().currentUser.sendEmailVerification().then(() => {
-          delete userData.password;
-          User.create(userData, user.uid).then(() => {
-            res.redirect('/user');
-          }).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
-          });
-        }).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
-        });
-      }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-    }
-  }
-  else {
-    firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
-      req.session.userUid = user.uid;
-      firebase.auth().currentUser.sendEmailVerification().then(() => {
-        delete userData.password;
-        User.create(userData, user.uid).then(() => {
-          res.redirect('/user');
-        }).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
-        });
-      }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
+  firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
+    req.session.userUid = user.uid;
+    userData.uid = user.uid;
+    delete userData.password;
+    User.create(userData, user.uid).then(() => {
+      res.redirect('/user');
     }).catch((error) => {
       console.log(error);
       res.redirect('/error');
     });
-  }
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 /* ////////////////////////////////////
   BackEnd - CADASTRO NA NEWSLETTER
 //////////////////////////////////// */
-router.post('/newsletter', (req, res) => {
-  const {
-    name,
-    mail
-  } = req.body;
-  // Separa nome e sobrenome do cliente a partir da string name
-  const position = name.indexOf(' ');
-  const firstName = name.slice(0, position);
-  const lastName = name.slice(position + 1);
-
-  const entered = firebase.database.ServerValue.TIMESTAMP;
-
-  firebase.firestore().collection('newsletter').add({
-    firstName,
-    lastName,
-    mail,
-    entered
-  })
-    .then((docRef) => {
-      console.log('Document written with ID: ', docRef.id);
-      res.redirect('/home');
-    }).catch((error) => {
-      console.log('Error ading document: ', error);
-      res.redirect('/error');
-    });
-});
+// router.post('/newsletter', (req, res) => {
+//   const {
+//     fullName,
+//     mail
+//   } = req.body;
+//   // Separa nome e sobrenome do cliente a partir da string name
+//   const position = fullName.indexOf(' ');
+//   const firstName = fullName.slice(0, position);
+//   firebase.firestore().collection('newsletter').add({
+//     firstName,
+//     fullName,
+//     mail
+//   })
+//     .then((docRef) => {
+//       console.log('Document written with ID: ', docRef.id);
+//       res.redirect('/home');
+//     }).catch((error) => {
+//       console.log('Error ading document: ', error);
+//       res.redirect('/error');
+//     });
+// });
 
 /* ////////////////////////////
   BackEnd - ENVIO DE EMAIL

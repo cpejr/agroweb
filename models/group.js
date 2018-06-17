@@ -1,23 +1,38 @@
-const firebase = require('firebase');
+const mongoose = require('mongoose');
 
-const groupsRef = firebase.firestore().collection('groups');
+const groupSchema = new mongoose.Schema({
+  amount: Number,
+  users: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  offer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Offer'
+  },
+  active: {
+    type: Boolean,
+    default: true
+  }
+}, { timestamps: true, strict: false });
+
+const GroupModel = mongoose.model('Group', groupSchema);
 
 class Group {
   /**
-   * Get all groups from database
-   * @returns {Array} Array of groups
+   * Get all Groups from database
+   * @returns {Array} Array of Groups
    */
   static getAll() {
     return new Promise((resolve, reject) => {
-      groupsRef.get().then((snapshot) => {
-        const groups = snapshot.docs.map((doc) => {
-          const group = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return group;
-        });
-        resolve(groups);
+      GroupModel.find({}).populate({
+        path: 'users offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
+        }
+      }).exec().then((results) => {
+        resolve(results);
       }).catch((err) => {
         reject(err);
       });
@@ -25,19 +40,20 @@ class Group {
   }
 
   /**
-   * Get a group by it's id
+   * Get a Group by it's id
    * @param {string} id - Group Id
    * @returns {Object} Group Document Data
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(id).get().then((doc) => {
-        if (!doc.exists) {
-          resolve(null);
+      GroupModel.findById(id).populate({
+        path: 'users offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
         }
-        else {
-          resolve(doc.data());
-        }
+      }).exec().then((result) => {
+        resolve(result.toObject());
       }).catch((err) => {
         reject(err);
       });
@@ -45,14 +61,14 @@ class Group {
   }
 
   /**
-   * Create a new group
-   * @param {Object} group - Group Document Data
-   * @returns {string} New group Id
+   * Create a new Group
+   * @param {Object} project - Group Document Data
+   * @returns {string} New Group Id
    */
   static create(group) {
     return new Promise((resolve, reject) => {
-      groupsRef.add(group).then((doc) => {
-        resolve(doc.id);
+      GroupModel.create(group).then((result) => {
+        resolve(result._id);
       }).catch((err) => {
         reject(err);
       });
@@ -60,27 +76,27 @@ class Group {
   }
 
   /**
-   * Update a group
+   * Update a Group
    * @param {string} id - Group Id
-   * @param {Object} group - Group Document Data
+   * @param {Object} Group - Group Document Data
    * @returns {null}
    */
   static update(id, group) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(id).update(group).catch((err) => {
+      GroupModel.findByIdAndUpdate(id, group).catch((err) => {
         reject(err);
       });
     });
   }
 
   /**
-   * Delete a group
+   * Delete a Group
    * @param {string} id - Group Id
    * @returns {null}
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(id).delete().catch((err) => {
+      GroupModel.findByIdAndDelete(id).catch((err) => {
         reject(err);
       });
     });

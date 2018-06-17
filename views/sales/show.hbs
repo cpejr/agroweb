@@ -20,32 +20,32 @@
     <div class="row mx-sm-auto mx-md-9">
     <!-- Sale Title -->
     <div class="col-12 col-md-6 pl-5 mb-5 justify-content-center ">
-      <p class="ml-4">Compra#{{_id}}</p>
+      <p class="ml-4">Venda#{{_id}}</p>
       <div class="w-100">
       </div>
-      {{#ifCond status 'Cancelado'}}
+      {{#ifCond status 'Aguardando Pagamento'}}
         <span class="badge badge-danger">
-      {{else ifCond status 'Em andamento'}}
+      {{else ifCond status 'Pagamento confirmado'}}
         <span class="badge badge-primary">
-      {{else ifCond status 'Entregue'}}
+      {{else ifCond status 'Produto enviado'}}
         <span class="badge badge-success">
       {{/ifCond}}
         <h6>{{status}}</h6>
       </span>
-      <p class="align-text-bottom ml-3 text-gray">Prazo até dia {{deadline}}</p>
       <h2>{{name}}</h2>
-      <h4 class="text-gray">R$ {{price}} un.</h4>
+      <!-- offer.product.name -->
+      <h4 class="text-gray">R$ {{unitPrice}} un.</h4>
     </div>
     <!-- end Sale Title -->
 
     <!-- Seller info -->
-    <div class="col-12 col-md-6">
-      <h2>Dados do vendedor</h2>
-      <p class="text-gray">Empresa</p>
-      <h4>{{seller}}</h4>
+    <div class="col-12 col-md-6 ml-3">
+      <h2>Dados do comprador</h2>
+      <p class="text-gray">Nome</p>
+      <h4>{{user}}</h4>
       <p class="text-gray">Contato</p>
       <h4>{{phone}}</h4>
-      <h4>{{email}}</h4>
+      <h4 class="mb-5">{{email}}</h4>
     </div>
     <!-- end Seller info -->
 
@@ -53,11 +53,11 @@
     <div class="row mb-3 ml-4">
       <div class="col-6">
         <dt class="text-gray">Entrega</dt>
-        <h4>{{deliver}}</h4>
+        <h4>{{delivery}}</h4>
       </div>
       <div class="col-6">
-        <dt class="text-gray">Quantidade</dt>
-        <h4>{{amount}}</h4>
+        <dt class="text-gray">Quantidade vendida</dt>
+        <h4>{{amountBought}}</h4>
       </div>
       <div class="col-6">
         <dt class="text-gray">Preço total</dt>

@@ -74,6 +74,7 @@ router.post('/login', (req, res) => {
         req.session.fullName = currentLogged.fullName;
         req.session._id = currentLogged._id;
         req.session.userUid = user.uid;
+        req.session.email = currentLogged.email;
         if (req.session.userType === 'Administrador') {
           res.redirect('/admin');
         }
@@ -116,6 +117,7 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
     delete req.session.fullName;
     delete req.session._id;
     delete req.session.userUid;
+    delete req.session.email;
     res.redirect('/');
   }).catch((error) => {
     console.log(error.code);
@@ -128,8 +130,7 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
   BackEnd - CADASTRO
 ////////////////////////////// */
 router.post('/signup', (req, res) => {
-  const status = 'Ativo';
-  const userData = { ...req.body.user, status };
+  const userData = req.body.user;
 
   // Separa nome e sobrenome do cliente a partir da string name
   const position = userData.fullName.indexOf(' ');
@@ -147,12 +148,14 @@ router.post('/signup', (req, res) => {
   req.session.userType = userData.type;
   req.session.firstName = userData.firstName;
   req.session.fullName = userData.fullName;
+  req.session.email = userData.email;
 
   firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
     req.session.userUid = user.uid;
     userData.uid = user.uid;
     delete userData.password;
-    User.create(userData, user.uid).then(() => {
+    User.create(userData, user.uid).then((docId) => {
+      req.session._id = docId;
       res.redirect('/user');
     }).catch((error) => {
       console.log(error);
@@ -195,7 +198,7 @@ router.post('/signup', (req, res) => {
 router.post('/contact', (req, res) => {
   const {
     clientname,
-    email: clientemail,
+    clientemail,
     content,
     clientsubject
   } = req.body;

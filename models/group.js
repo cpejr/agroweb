@@ -62,7 +62,7 @@ class Group {
 
   /**
    * Create a new Group
-   * @param {Object} project - Group Document Data
+   * @param {Object} group - Group Document Data
    * @returns {string} New Group Id
    */
   static create(group) {

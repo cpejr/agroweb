@@ -1,3 +1,16 @@
-<h1>{{message}}</h1>
-<h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre>
+<div class="container text-light">
+  <div class="col-12">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-5 bg-dark rounded pt-2">
+        <div class="text-center">
+          <i class="fas fa-times-circle fa-5x"></i>
+        </div>
+        <h2 class="text-center col-12 mt-3">Erro!</h2>
+        <h4 class="text-center col-12 mb-5">Essa página não existe.</h4>
+        <h6>{{message}}</h6>
+        <h7 class="mb-5">{{error.status}}</h7>
+        <!-- <pre>{{error.stack}}</pre> -->
+      </div>
+    </div>
+  </div>
+</div>

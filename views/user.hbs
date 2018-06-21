@@ -1,4 +1,5 @@
 <!-- Header and NavBar -->
+{{userType}}
 <div class="pos-f-t">
   <div class="collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4">
@@ -66,6 +67,8 @@
 </div>
 <!-- end Header and NavBar -->
 
+<!-- Buttons -->
+{{#ifCond userType 'Revenda'}}
 <ul class="list-group list-group-flush">
   <li class="list-group-item">
     <i class="fas fa-shopping-cart fa-lg"></i>
@@ -93,3 +96,83 @@
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
 </ul>
+
+{{else ifCond userType 'Indústria'}}
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">
+    <i class="fas fa-external-link-alt fa-lg"></i>
+    <button onclick="location.href = '/offers/new'" class="btn">Oferecer produtos</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="fas fa-database fa-lg"></i>
+    <button onclick="location.href = '/success'" class="btn">Produtos oferecidos</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="fas fa-exclamation-circle fa-lg"></i>
+    <button onclick="location.href = '/success'" class="btn">Demandas</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+</ul>
+
+{{else ifCond userType 'Produtor'}}
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">
+    <i class="fas fa-shopping-cart fa-lg"></i>
+    <button onclick="location.href = '/success'" class="btn">Minhas cotações</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="fas fa-credit-card fa-lg"></i>
+    <button onclick="location.href = '/teste'" class="btn">Minhas compras</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="fas fa-external-link-alt fa-lg"></i>
+    <button onclick="location.href = '/offers/new'" class="btn">Ser franqueado</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+</ul>
+
+{{else ifCond userType 'Franqueado'}}
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">
+    <i class="fas fa-shopping-cart fa-lg"></i>
+    <button onclick="location.href = '/success'" class="btn">Minhas cotações</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="fas fa-credit-card fa-lg"></i>
+    <button onclick="location.href = '/teste'" class="btn">Minhas compras</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="fas fa-external-link-alt fa-lg"></i>
+    <button onclick="location.href = '/offers/new'" class="btn">Meus clientes</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+</ul>
+
+{{else}}
+<ul class="list-group list-group-flush">
+  <li class="list-group-item">
+    <i class="fas fa-shopping-cart fa-lg"></i>
+    <button onclick="location.href = '/success'" class="btn">Newsletter</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="fas fa-credit-card fa-lg"></i>
+    <button onclick="location.href = '/teste'" class="btn">Compras</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="fas fa-external-link-alt fa-lg"></i>
+    <button onclick="location.href = '/offers/new'" class="btn">A definir</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+</ul>
+
+{{/ifCond}}
+
+<!-- end Buttons -->

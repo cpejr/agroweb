@@ -1,23 +1,25 @@
-const firebase = require('firebase');
+const mongoose = require('mongoose');
 
-const newslettersRef = firebase.firestore().collection('newsletters');
+const newsletterSchema = new mongoose.Schema({
+  fullName: String,
+  email: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
+}, { timestamps: true, strict: false });
+
+const NewsletterModel = mongoose.model('Newsletter', newsletterSchema);
 
 class Newsletter {
   /**
-   * Get all newsletters from database
-   * @returns {Array} Array of newsletters
+   * Get all Newsletters from database
+   * @returns {Array} Array of Newsletters
    */
   static getAll() {
     return new Promise((resolve, reject) => {
-      newslettersRef.get().then((snapshot) => {
-        const newsletters = snapshot.docs.map((doc) => {
-          const newsletter = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return newsletter;
-        });
-        resolve(newsletters);
+      NewsletterModel.find({}).populate('user').exec().then((results) => {
+        resolve(results);
       }).catch((err) => {
         reject(err);
       });
@@ -25,61 +27,14 @@ class Newsletter {
   }
 
   /**
-   * Get all active newsletters from database
-   * @returns {Array} Array of newsletters
-   */
-  static getAllActive() {
-    return new Promise((resolve, reject) => {
-      newslettersRef.where('status', '==', 'Ativo').get().then((snapshot) => {
-        const newsletters = snapshot.docs.map((doc) => {
-          const newsletter = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return newsletter;
-        });
-        resolve(newsletters);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Get all inactive newsletters from database
-   * @returns {Array} Array of newsletters
-   */
-  static getAllInactive() {
-    return new Promise((resolve, reject) => {
-      newslettersRef.where('status', '==', 'Inativo').get().then((snapshot) => {
-        const newsletters = snapshot.docs.map((doc) => {
-          const newsletter = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return newsletter;
-        });
-        resolve(newsletters);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Get a newsletter by it's id
+   * Get a Newsletter by it's id
    * @param {string} id - Newsletter Id
    * @returns {Object} Newsletter Document Data
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
-      newslettersRef.doc(id).get().then((doc) => {
-        if (!doc.exists) {
-          resolve(null);
-        }
-        else {
-          resolve(doc.data());
-        }
+      NewsletterModel.findById(id).populate('user').exec().then((result) => {
+        resolve(result.toObject());
       }).catch((err) => {
         reject(err);
       });
@@ -87,14 +42,14 @@ class Newsletter {
   }
 
   /**
-   * Create a new newsletter
-   * @param {Object} newsletter - Newsletter Document Data
-   * @returns {string} New newsletter Id
+   * Create a new Newsletter
+   * @param {Object} project - Newsletter Document Data
+   * @returns {string} New Newsletter Id
    */
   static create(newsletter) {
     return new Promise((resolve, reject) => {
-      newslettersRef.add(newsletter).then((doc) => {
-        resolve(doc.id);
+      NewsletterModel.create(newsletter).then((result) => {
+        resolve(result._id);
       }).catch((err) => {
         reject(err);
       });
@@ -102,27 +57,27 @@ class Newsletter {
   }
 
   /**
-   * Update a newsletter
+   * Update a Newsletter
    * @param {string} id - Newsletter Id
-   * @param {Object} newsletter - Newsletter Document Data
+   * @param {Object} Newsletter - Newsletter Document Data
    * @returns {null}
    */
   static update(id, newsletter) {
     return new Promise((resolve, reject) => {
-      newslettersRef.doc(id).update(newsletter).catch((err) => {
+      NewsletterModel.findByIdAndUpdate(id, newsletter).catch((err) => {
         reject(err);
       });
     });
   }
 
   /**
-   * Delete a newsletter
+   * Delete a Newsletter
    * @param {string} id - Newsletter Id
    * @returns {null}
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      newslettersRef.doc(id).update({ status: 'Inativo' }).catch((err) => {
+      NewsletterModel.findByIdAndDelete(id).catch((err) => {
         reject(err);
       });
     });

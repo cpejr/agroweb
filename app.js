@@ -52,7 +52,7 @@ const offersRouter = require('./routes/offers');
 const productsRouter = require('./routes/products');
 const maintenanceRouter = require('./routes/maintenance');
 const newsletterRouter = require('./routes/newsletterlist');
-const PDFgeneratorRouter = require('./routes/PDFgenerator');
+const PDFRouter = require('./routes/PDF');
 const groupsRouter = require('./routes/groups');
 
 /**
@@ -104,7 +104,7 @@ app.use('/offers', offersRouter);
 app.use('/products', productsRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/newsletterlist', newsletterRouter);
-app.use('/PDFgenerator', PDFgeneratorRouter);
+app.use('/PDF', PDFRouter);
 app.use('/groups', groupsRouter);
 
 /**

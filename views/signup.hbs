@@ -7,95 +7,205 @@
 </header>
 
 <div class="container text-light">
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-8 col-md-6 col-lg-5 bg-dark rounded pt-2">
-      <form action="/signup" method="post">
-        <fieldset>
-          <div class="form-group">
+  <div class="info col-12">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-5 bg-dark rounded pt-2">
+        <form action="/signup" class="pure-form" method="post">
+          <fieldset>
             <div class="form-group">
-              <label for="name" class="">Nome</label>
-              <div class="">
-                <input type="text" class="bg-light form-control" name="user[name]" id="name">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="mail" class="">Email</label>
-              <div class="">
-                <input type="text" class="bg-light form-control" name="user[email]" id="mail" placeholder="email@exemplo.com">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="pass" class="">Senha</label>
-              <div class="">
-                <input type="password" class="bg-light form-control" name="user[password]" id="pass">
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12">
-              <label for="userType" class="">Tipo de usuário</label>
-              <div class="form-group" id="user-type">
-                <div class="btn-group btn-group-toggle col-12 px-0 mx-0" data-toggle="buttons">
-                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="user[type]" id="industry" value="Indústria">Indústria
-                  </button>
-                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="user[type]" id="producer" value="Produtor">Produtor
-                  </button>
-                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="user[type]" id="franchisee" value="Franqueado">Franq.
-                  </button>
-                  <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                    <input type="radio" name="user[type]" id="dealer" value="Revendedor">Revenda
-                  </button>
+              <div class="form-group">
+                <label for="name" class="">Nome</label>
+                <div class="">
+                  <input type="text" class="bg-light form-control" name="user[name]" id="name" required>
                 </div>
               </div>
+              <div class="form-group">
+                <label for="mail" class="">Email</label>
+                  <input type="text" class="bg-light form-control" name="user[email]" id="mail" placeholder="email@exemplo.com" required>
+              </div>
+                  <fieldset>
+                    <label for="password">Senha</label>
+                    <input type="password" placeholder="Password" class="bg-light form-control" name="user[password]" id="password" required>
+                    <label for="confirmPassword" class="mt-2">Confirme a senha</label>
+                    <input type="password" placeholder="Confirm Password" class="bg-light form-control" id="confirmPassword" required>
+                  </fieldset>
             </div>
-          </div>
 
-          <div class="row">
-            <div class="col-12">
-              <div class="form-group producer-option franchisee-option dealer-option d-none">
-                <label for="cpf">CPF</label>
-                <input type="text" class="bg-light form-control" name="user[cpf]" id="cpf">
-              </div>
-
-              <div class="form-group industry-option d-none">
-                <label for="cnpj">CNPJ</label>
-                <input type="text" class="bg-light form-control" name="user[cnpj]" id="cnpj">
-              </div>
-
-
-              <div class="franchisee-option d-none">
-                <label for="storeRadios">Você tem loja?</label>
-                <div class="form-group" id="storeRadios">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="user[store]" id="storeRadio1" value="true" >
-                    <label class="form-check-label" for="exampleRadios1">
-                      Sim
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="user[store]" id="storeRadio2" value="false" checked>
-                    <label class="form-check-label" for="storeRadios2">
-                      Não
-                    </label>
+            <div class="row">
+              <div class="col-12">
+                <label for="userType" class="">Tipo de usuário</label>
+                <div class="form-group" id="user-type">
+                  <div class="btn-group btn-group-toggle col-12 px-0 mx-0" data-toggle="buttons">
+                    <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                      <input type="radio" name="user[type]" id="industry" value="Indústria">Indústria
+                    </button>
+                    <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                      <input type="radio" name="user[type]" id="producer" value="Produtor">Produtor
+                    </button>
+                    <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                      <input type="radio" name="user[type]" id="franchisee" value="Franqueado">Franqueado
+                    </button>
+                    <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
+                      <input type="radio" name="user[type]" id="dealer" value="Revendedor">Revenda
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </fieldset>
 
-        <div class="row justify-content-center d-none mt-4" id="form-buttons">
-          <div class="form-group col-12 row justify-content-between">
-            <button type="submit" class="col-6 btn btn-default bg-green text-dark mr-1">Enviar</button>
-            <button type="reset" class="col btn btn-default bg-light text-dark">Limpar</button>
-          </div>
-        </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group producer-option d-none">
+                  <label for="farm" class="mt-3">Nome da fazenda</label>
+                  <input type="text" class="bg-light form-control" name="user[farm]" id="farm">
+                  <label for="dist" class="mt-3">Distância aproximada da cidade até a fazenda</label>
+                  <input type="dist" class="bg-light form-control" name="user[dist]" id="dist">
+                  <label for="script" class="mt-3">Roteiro de entrega</label>
+                  <input type="text" class="bg-light form-control" name="user[script]" id="script">
+                  <label for="area" class="mt-3">Área plantada (ha)</label>
+                  <input type="number" class="bg-light form-control" name="user[area]" id="area">
+                  <label for="soy" class="mt-3">Soja</label>
+                  <input type="number" class="bg-light form-control" name="user[soy]" id="soy">
+                  <label for="corn" class="mt-3">Milho</label>
+                  <input type="number" class="bg-light form-control" name="user[corn]" id="corn">
+                  <label for="cotton" class="mt-3">Algodão</label>
+                  <input type="number" class="bg-light form-control" name="user[cotton]" id="cotton">
+                  <label for="other" class="mt-3">Outras culturas</label>
+                  <input type="number" class="bg-light form-control" name="user[other]" id="other">
+                  <label for="cellphone" class="mt-3">Telefone celular</label>
+                  <input type="text" class="bg-light form-control" name="user[cellphone]" id="cellphone">
+                  <label for="farmNumber" class="mt-3">Telefone da fazenda</label>
+                  <input type="text" class="bg-light form-control" name="user[farmNumber]" id="farmNumber">
+                  <label for="wpp" class="mt-3">Pode se comunicar comigo por whatsapp?</label>
+                  <div class="radio">
+                    <label><input type="radio" name="user[wpp]">Sim</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="user[wpp]">Não</label>
+                  </div>
+                </div>
 
-      </form>
+
+<!-- Franchisee exclusive field -->
+                <div class="form-group franchisee-option d-none">
+                  <div class="text-center">
+                  <a type="button" class="btn bg-green px-5 text-dark" href="franchiseeOption" name="button">Mais informações</a>
+                  </div>
+                  <label for="cpfOrCnpj" class="mt-3">CPF/CNPJ</label>
+                  <input type="text" class="bg-light form-control" name="user[cpfOrCnpj]" id="cpfOrCnpj">
+                  <label for="activities"  class="mt-3">Faça um resumo de suas atividades profissionais atuais</label>
+                  <textarea class="form-control bg-light" rows="5" name="user[activities]" id="activities"></textarea>
+                  <label for="actualCustomers" class="mt-3">Já tem uma carteira de cliente que cotam produtos com você?</label>
+                  <div class="radio">
+                    <label><input type="radio" name="user[actualCustomers]">Sim</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="user[actualCustomers]">Não</label>
+                  </div>
+                  <label for="possibleCustomers" class="mt-3">Já tem uma carteira de cliente que podem vir a cotar produtos com você?</label>
+                  <div class="radio">
+                    <label><input type="radio" name="user[possibleCustomers]">Sim</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="user[possibleCustomers]">Não</label>
+                  </div>
+                  <label for="totalCustomers" class="mt-3">Total de clientes</label>
+                  <input type="number" class="bg-light form-control" name="user[totalCustomers]" id="totalCustomers">
+                  <label for="area" class="mt-3">Área total em Hectares</label>
+                  <input type="number" class="bg-light form-control" name="user[area]" id="area">
+                  <label for="important" class="mt-3">Faça um resumo de como a Megapool poderia ser importante para o seu negócio</label>
+                  <textarea class="form-control bg-light" rows="5" name="user[important]" id="important"></textarea>
+                </div>
+<!-- end Franchisee exclusive field -->
+
+                <div class="industry-option dealer-option d-none">
+                  <label for="cnpj" class="mt-3">CNPJ</label>
+                  <input type="text" class="bg-light form-control" name="user[cnpj]" id="cnpj">
+                  <label for="cpf" class="mt-3">CPF</label>
+                  <input type="text" class="bg-light form-control" name="user[cpf]" id="cpf">
+                </div>
+
+                <div class="producer-option d-none">
+                  <label for="stateRegistration" class="mt-3">Inscrição Estadual</label>
+                  <input type="text" class="bg-light form-control" name="user[stateRegistration]" id="stateRegistration">
+                </div>
+
+                <div class="industry-option producer-option franchisee-option dealer-option d-none">
+                  <div class="form-group">
+                    <label for="cep" class="mt-2">CEP</label>
+                      <input type="text" class="bg-light form-control" name="user[cep]" id="cep" placeholder="41945639" required>
+                      <label for="street" class="mt-2">Rua</label>
+                      <input type="text" class="bg-light form-control" name="user[street]" id="street" placeholder="Rua dos Cocais" required>
+                      <label for="number" class="mt-2">Número</label>
+                      <input type="text" class="bg-light form-control" name="user[number]" id="number" placeholder="6754" required>
+                      <label for="state">Estado</label>
+                      <div class="form-group">
+                        <select class="form-control" name="user[state]" required>
+                          <option disabled selected value> -- Selecione um estado -- </option>
+                          <option value="AC">Acre</option>
+                          <option value="AL">Alagoas</option>
+                          <option value="AP">Amapá</option>
+                          <option value="AM">Amazonas</option>
+                          <option value="BA">Bahia</option>
+                          <option value="CE">Ceará</option>
+                          <option value="DF">Distrito Federal</option>
+                          <option value="ES">Espírito Santo</option>
+                          <option value="GO">Goiás</option>
+                          <option value="MA">Maranhão</option>
+                          <option value="MT">Mato Grosso</option>
+                          <option value="MS">Mato Grosso do Sul</option>
+                          <option value="MG">Minas Gerais</option>
+                          <option value="PA">Pará</option>
+                          <option value="PB">Paraíba</option>
+                          <option value="PR">Paraná</option>
+                          <option value="PE">Pernambuco</option>
+                          <option value="PI">Piauí</option>
+                          <option value="RJ">Rio de Janeiro</option>
+                          <option value="RN">Rio Grande do Norte</option>
+                          <option value="RS">Rio Grande do Sul</option>
+                          <option value="RO">Rondônia</option>
+                          <option value="RR">Roraima</option>
+                          <option value="SC">Santa Catarina</option>
+                          <option value="SP">São Paulo</option>
+                          <option value="SE">Sergipe</option>
+                          <option value="TO">Tocantins</option>
+                        </select>
+                      </div>
+                      <label for="city">Cidade:</label>
+                      <input type="text" class="bg-light form-control" name="user[city]" id="city" required>
+                      </select>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="row justify-content-center d-none mt-4" id="form-buttons">
+            <div class="form-group col-12 row justify-content-between">
+              <div class="termsOfUse">
+                <div class="text-center">DIREITOS</div>
+                O comprador tem o direito a arrependimento do negócio em um prazo de 7 dias após o recebimento da mercadoria (mesmo tendo pago antecipado)  com o direito a receber todo o valor pago atualizado de acordo com a lei CDC 8079/90.
+                Todos os vendedores da Plataforma são empresas devidamente constituídas e registradas na junta comercial e devem fornecer notas fiscais, receituário Agronômico, local para descartes de embalagens e orientação  técnica sobre a utilização dos produtos.
+                Tem o direito de saber de qual empresa está comprando no momento da efetivação do pagamento do boleto.
+                O produtor rural tem o direito a escolher um franqueado,  para ajuda-lo nas tomadas de decisão, sem custo financeiro.
+                Receber relatórios atualizados periodicamente para acompanhar o andamento das cotações.
+
+                <div class="text-center">DEVERES</div>
+                Todas as compras feitas através da MEGA POOL, são para pagamentos á vista, realizados diretamente para o vendedor ou fabricante do produto, via boleto bancário.
+                Ter responsabilidade sobre os volumes cotados, pois todos produtores daquele grupo depende dos volumes cotados para ter poder de compra.
+                Após emitido o pedido e boleto de pagamento, realizar o pagamento no prazo determinado.
+
+              </div>
+                <input type="checkbox" class="mt-3" name="checkbox" value="check" id="agree" required> <h6 class="mt-3 mr-5">Eu li e concordo com os Termos de Uso</h6>
+                <button type="submit" class="pure-button pure-button-primary col-6 btn btn-default bg-green text-dark mr-1">Enviar</button>
+                <button type="reset" class="col btn btn-default bg-light text-dark">Limpar</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
     </div>
   </div>
 </div>

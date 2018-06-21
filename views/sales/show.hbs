@@ -1,0 +1,77 @@
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
+
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+      <button class="btn btn-outline-dark " type="button">
+        <i class="fas fa-search fa-2x"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+<!-- end NavBar -->
+
+<div class="container">
+  <!-- <div class="row justify-content-center mx-sm-auto mx-md-9"> -->
+    <div class="row mx-sm-auto mx-md-9">
+    <!-- Sale Title -->
+    <div class="col-12 col-md-6 pl-5 mb-5 justify-content-center ">
+      <p class="ml-4">Venda#{{_id}}</p>
+      <div class="w-100">
+      </div>
+      {{#ifCond status 'Aguardando Pagamento'}}
+        <span class="badge badge-danger">
+      {{else ifCond status 'Pagamento confirmado'}}
+        <span class="badge badge-primary">
+      {{else ifCond status 'Produto enviado'}}
+        <span class="badge badge-success">
+      {{/ifCond}}
+        <h6>{{status}}</h6>
+      </span>
+      <h2>{{name}}</h2>
+      <!-- offer.product.name -->
+      <h4 class="text-gray">R$ {{unitPrice}} un.</h4>
+    </div>
+    <!-- end Sale Title -->
+
+    <!-- Seller info -->
+    <div class="col-12 col-md-6 ml-3">
+      <h2>Dados do comprador</h2>
+      <p class="text-gray">Nome</p>
+      <h4>{{user}}</h4>
+      <p class="text-gray">Contato</p>
+      <h4>{{phone}}</h4>
+      <h4 class="mb-5">{{email}}</h4>
+    </div>
+    <!-- end Seller info -->
+
+    <!-- Product Description -->
+    <div class="row mb-3 ml-4">
+      <div class="col-6">
+        <dt class="text-gray">Entrega</dt>
+        <h4>{{delivery}}</h4>
+      </div>
+      <div class="col-6">
+        <dt class="text-gray">Quantidade vendida</dt>
+        <h4>{{amountBought}}</h4>
+      </div>
+      <div class="col-6">
+        <dt class="text-gray">Preço total</dt>
+        <h2>R$ {{priceBought}}</h2>
+      </div>
+      <div class="col-6">
+        <dt class="text-gray mb-1">Pagamento</dt>
+        <h4>{{payment}}</h4>
+      </div>
+    </div>
+    <!-- end Product Description -->
+
+    <!-- Product Characteristics -->
+    <!-- end Product Characteristics -->
+
+  </div>
+</div>

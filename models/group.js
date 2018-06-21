@@ -1,24 +1,38 @@
-const firebase = require('firebase');
+const mongoose = require('mongoose');
 
-const groupsRef = firebase.firestore().collection('products');
+const groupSchema = new mongoose.Schema({
+  amount: Number,
+  users: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  offer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Offer'
+  },
+  active: {
+    type: Boolean,
+    default: true
+  }
+}, { timestamps: true, strict: false });
+
+const GroupModel = mongoose.model('Group', groupSchema);
 
 class Group {
   /**
-   * Get all groups from database
-   * @param {string} id - Product Id
-   * @returns {Array} Array of groups
+   * Get all Groups from database
+   * @returns {Array} Array of Groups
    */
   static getAll(id) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(id).collection('groups').get().then((snapshot) => {
-        const groups = snapshot.docs.map((doc) => {
-          const group = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return group;
-        });
-        resolve(groups);
+      GroupModel.find({}).populate({
+        path: 'users offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
+        }
+      }).exec().then((results) => {
+        resolve(results);
       }).catch((err) => {
         reject(err);
       });
@@ -26,20 +40,20 @@ class Group {
   }
 
   /**
-   * Get a group by it's id
-   * @param {string} idProduct - Product Id
-   * @param {string} idGroup - Group Id
+   * Get a Group by it's id
+   * @param {string} id - Group Id
    * @returns {Object} Group Document Data
    */
   static getById(idProduct, idGroup) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(idProduct).collection('groups').doc(idGroup).get().then((doc) => {
-        if (!doc.exists) {
-          resolve(null);
+      GroupModel.findById(id).populate({
+        path: 'users offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
         }
-        else {
-          resolve(doc.data());
-        }
+      }).exec().then((result) => {
+        resolve(result.toObject());
       }).catch((err) => {
         reject(err);
       });
@@ -47,41 +61,14 @@ class Group {
   }
 
   /**
-   * Get a buyingUsers group by it's id
-   * @param {string} idProduct - Product Id
-   * @param {string} idGroup - Group Id
-   * @returns {Object} Group Document Data
-   */
-  static getBuyingUsers(idProduct, idGroup) {
-    return new Promise((resolve, reject) => {
-      groupsRef.doc(idProduct).collection('groups').doc(idGroup).collection('buyingUsers').get().then((snapshot) => {
-        const buyingUsers = snapshot.docs.map((doc) => {
-          const buyingUser = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return buyingUser;
-        });
-        resolve(buyingUsers);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Create a new group by ProductId
-   * @param {Object} group - Group Document Data
-   * @param {string} id - Product id
-   * @param {Object} user - Group Document Data
-   * @returns {string} New group Id
+   * Create a new Group
+   * @param {Object} project - Group Document Data
+   * @returns {string} New Group Id
    */
   static create(group, id, user) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(id).collection('groups').add(group).then((doc) => {
-        groupsRef.doc(id).collection('groups').doc(doc.id).collection('buyingUsers').add(user).then((doc) => {
-          resolve(doc.id);
-        })
+      GroupModel.create(group).then((result) => {
+        resolve(result._id);
       }).catch((err) => {
         reject(err);
       });
@@ -89,29 +76,27 @@ class Group {
   }
 
   /**
-   * Update a group
-   * @param {string} idProduct - Product Id
-   * @param {string} idGroup - Group Id
-   * @param {Object} group - Group Document Data
+   * Update a Group
+   * @param {string} id - Group Id
+   * @param {Object} Group - Group Document Data
    * @returns {null}
    */
   static update(idProduct, idGroup, group) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(idProduct).collection('groups').doc(idGroup).update(group).catch((err) => {
+      GroupModel.findByIdAndUpdate(id, group).catch((err) => {
         reject(err);
       });
     });
   }
 
   /**
-   * Delete a group
-   * @param {string} idGroup - Group Id
-   * @param {string} idProduct - Product Id
+   * Delete a Group
+   * @param {string} id - Group Id
    * @returns {null}
    */
   static delete(idGroup, idProduct) {
     return new Promise((resolve, reject) => {
-      groupsRef.doc(idProduct).collection('groups').doc(idGroup).delete().catch((err) => {
+      GroupModel.findByIdAndDelete(id).catch((err) => {
         reject(err);
       });
     });

@@ -1,23 +1,44 @@
-const firebase = require('firebase');
+const mongoose = require('mongoose');
 
-const transactionsRef = firebase.firestore().collection('transactions');
+const transactionSchema = new mongoose.Schema({
+  buyer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  priceBought: {
+    type: Number,
+    required: true
+  },
+  amountBought: {
+    type: Number,
+    required: true
+  },
+  unitPrice: {
+    type: Number,
+    required: true
+  },
+  offer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Offer'
+  },
+  status: {
+    type: String,
+    enum: ['Cotado', 'Boleto pendente', 'Pagamento confirmado', 'Produto a caminho', 'Entregue', 'Cancelado'],
+    default: 'Cotado'
+  }
+}, { timestamps: true, strict: false });
+
+const TransactionModel = mongoose.model('Transaction', transactionSchema);
 
 class Transaction {
   /**
-   * Get all transactions from database
-   * @returns {Array} Array of transactions
+   * Get all Transactions from database
+   * @returns {Array} Array of Transactions
    */
   static getAll() {
     return new Promise((resolve, reject) => {
-      transactionsRef.get().then((snapshot) => {
-        const transactions = snapshot.docs.map((doc) => {
-          const transaction = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return transaction;
-        });
-        resolve(transactions);
+      TransactionModel.find({}).populate('buyer offer').exec().then((results) => {
+        resolve(results);
       }).catch((err) => {
         reject(err);
       });
@@ -25,61 +46,14 @@ class Transaction {
   }
 
   /**
-   * Get all active transactions from database
-   * @returns {Array} Array of transactions
-   */
-  static getAllActive() {
-    return new Promise((resolve, reject) => {
-      transactionsRef.where('status', '==', 'Ativo').get().then((snapshot) => {
-        const transactions = snapshot.docs.map((doc) => {
-          const transaction = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return transaction;
-        });
-        resolve(transactions);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Get all inactive transactions from database
-   * @returns {Array} Array of transactions
-   */
-  static getAllInactive() {
-    return new Promise((resolve, reject) => {
-      transactionsRef.where('status', '==', 'Inativo').get().then((snapshot) => {
-        const transactions = snapshot.docs.map((doc) => {
-          const transaction = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return transaction;
-        });
-        resolve(transactions);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Get a transaction by it's id
+   * Get a Transaction by it's id
    * @param {string} id - Transaction Id
    * @returns {Object} Transaction Document Data
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
-      transactionsRef.doc(id).get().then((doc) => {
-        if (!doc.exists) {
-          resolve(null);
-        }
-        else {
-          resolve(doc.data());
-        }
+      TransactionModel.findById(id).populate('buyer offer').exec().then((result) => {
+        resolve(result.toObject());
       }).catch((err) => {
         reject(err);
       });
@@ -87,14 +61,15 @@ class Transaction {
   }
 
   /**
-   * Create a new transaction
-   * @param {Object} transaction - Transaction Document Data
+   * Create a new Transaction
+   * @param {Object} project - Transaction Document Data
    * @returns {string} New Transaction Id
    */
   static create(transaction) {
     return new Promise((resolve, reject) => {
-      transactionsRef.add(transaction).then((doc) => {
-        resolve(doc.id);
+      const newTransaction = new TransactionModel(transaction);
+      newTransaction.save().then((result) => {
+        resolve(result._id);
       }).catch((err) => {
         reject(err);
       });
@@ -102,27 +77,42 @@ class Transaction {
   }
 
   /**
-   * Update a transaction
+   * Update a Transaction
    * @param {string} id - Transaction Id
-   * @param {Object} transaction - Transaction Document Data
+   * @param {Object} Transaction - Transaction Document Data
    * @returns {null}
    */
   static update(id, transaction) {
     return new Promise((resolve, reject) => {
-      transactionsRef.doc(id).update(transaction).catch((err) => {
+      TransactionModel.findByIdAndUpdate(id, transaction).catch((err) => {
         reject(err);
       });
     });
   }
 
   /**
-   * Delete a transaction
+   * Delete a Transaction
    * @param {string} id - Transaction Id
    * @returns {null}
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      transactionsRef.doc(id).update({ status: 'Inativo' }).catch((err) => {
+      TransactionModel.findByIdAndDelete(id).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all Transactions that match the desired status value
+   * @param {string} value - Status value
+   * @returns {Object} Transaction Document Data
+   */
+  static getAllByStatus(value) {
+    return new Promise((resolve, reject) => {
+      TransactionModel.find({ status: value }).populate('buyer offer').then((result) => {
+        resolve(result);
+      }).catch((err) => {
         reject(err);
       });
     });

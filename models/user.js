@@ -1,23 +1,67 @@
-const firebase = require('firebase');
+const mongoose = require('mongoose');
 
-const usersRef = firebase.firestore().collection('users');
+const userSchema = new mongoose.Schema({
+  uid: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  fullName: {
+    type: String,
+    required: true
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  doc: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  email: {
+    type: String,
+    lowercase: true,
+    required: true,
+    unique: true
+  },
+  type: {
+    type: String,
+    enum: ['Administrador', 'Indústria', 'Revendedor', 'Franqueado', 'Produtor']
+  },
+  address: {
+    cep: Number,
+    street: String,
+    number: Number,
+    city: String,
+    state: String
+  },
+  store: {
+    type: Boolean,
+    default: false
+  },
+  active: {
+    type: Boolean,
+    default: true,
+    required: true
+  },
+  transactions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
+  }]
+}, { timestamps: true, static: false });
+
+const UserModel = mongoose.model('User', userSchema);
 
 class User {
   /**
-   * Get all users from database
-   * @returns {Array} Array of users
+   * Get all Users from database
+   * @returns {Array} Array of Users
    */
   static getAll() {
     return new Promise((resolve, reject) => {
-      usersRef.get().then((snapshot) => {
-        const users = snapshot.docs.map((doc) => {
-          const user = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return user;
-        });
-        resolve(users);
+      UserModel.find({}).exec().then((results) => {
+        resolve(results);
       }).catch((err) => {
         reject(err);
       });
@@ -25,61 +69,14 @@ class User {
   }
 
   /**
-   * Get all active users from database
-   * @returns {Array} Array of users
-   */
-  static getAllActive() {
-    return new Promise((resolve, reject) => {
-      usersRef.where('status', '==', 'Ativo').get().then((snapshot) => {
-        const users = snapshot.docs.map((doc) => {
-          const user = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return user;
-        });
-        resolve(users);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Get all inactive users from database
-   * @returns {Array} Array of users
-   */
-  static getAllInactive() {
-    return new Promise((resolve, reject) => {
-      usersRef.where('status', '==', 'Inativo').get().then((snapshot) => {
-        const users = snapshot.docs.map((doc) => {
-          const user = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return user;
-        });
-        resolve(users);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Get a user by it's id
+   * Get a User by it's id
    * @param {string} id - User Id
    * @returns {Object} User Document Data
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
-      usersRef.doc(id).get().then((doc) => {
-        if (!doc.exists) {
-          resolve(null);
-        }
-        else {
-          resolve(doc.data());
-        }
+      UserModel.findById(id).exec().then((result) => {
+        resolve(result);
       }).catch((err) => {
         reject(err);
       });
@@ -87,13 +84,57 @@ class User {
   }
 
   /**
-   * Create a new user
+   * Create a new User
    * @param {Object} user - User Document Data
-   * @returns {string} New user Id
+   * @returns {string} New User Id
    */
-  static create(user, id) {
+  static create(user) {
     return new Promise((resolve, reject) => {
-      usersRef.doc(id).set(user).then(() => {
+      UserModel.create(user).then((result) => {
+        console.log('criou');
+        resolve(result._id);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Update a User
+   * @param {string} id - User Id
+   * @param {Object} User - User Document Data
+   * @returns {null}
+   */
+  static update(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, user).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Delete a User
+   * @param {string} id - User Id
+   * @returns {null}
+   */
+  static delete(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { active: false }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Add a transaction
+   * @param {string} id - User Id
+   * @param {Object} transaction - Transaction Id
+   * @returns {null}
+   */
+  static addTransaction(id, transaction) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { transactions: transaction } }).then(() => {
         resolve();
       }).catch((err) => {
         reject(err);
@@ -102,48 +143,32 @@ class User {
   }
 
   /**
-   * Update a user
-   * @param {string} id - User Id
-   * @param {Object} user - User Document Data
-   * @returns {null}
-   */
-  static update(id, user) {
-    return new Promise((resolve, reject) => {
-      usersRef.doc(id).update(user).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Delete a user
-   * @param {string} id - User Id
-   * @returns {null}
-   */
-  static delete(id) {
-    return new Promise((resolve, reject) => {
-      usersRef.doc(id).update({ status: 'Inativo' }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
    * Get a user by it's id
    * @param {string} id - User Id
-   * @returns {Array} Array of orders
+   * @returns {Array} Array of transactions
    */
-  static getAllOrdersByUserId(id) {
+  static getAllTransactionsByUserId(id) {
     return new Promise((resolve, reject) => {
-      usersRef.doc(id).collection('myOrders').get().then((snapshot) => {
-        const orders = snapshot.docs.map((doc) => {
-          const order = {
-            id: doc.id,
-            ...doc.data()
-          };
-          return order;
-        });
-        resolve(orders);
+      UserModel.findById(id).populate({
+        path: 'transactions',
+        populate: { path: 'buyer offer' }
+      }).exec().then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get a User by it's uid
+   * @param {string} id - User Uid
+   * @returns {Object} User Document Data
+   */
+  static getByUid(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.find({ uid: id }).exec().then((result) => {
+        resolve(result);
       }).catch((err) => {
         reject(err);
       });

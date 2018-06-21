@@ -19,7 +19,8 @@ const sassMiddleware = require('node-sass-middleware');
 const firebase = require('firebase');
 const nodemailer = require('nodemailer');
 const exphbs = require('express-handlebars');
-require('firebase/firestore');
+const mongoose = require('mongoose');
+const flash = require('express-flash');
 
 /**
  * Firebase Setup
@@ -35,13 +36,9 @@ const config = {
 firebase.initializeApp(config);
 
 /**
- * Timestamp bug correction
+ * Mongoose Setup
  */
-const firestore = firebase.firestore();
-const settings = {
-  timestampsInSnapshots: true
-};
-firestore.settings(settings);
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_SERVER}/${process.env.MONGO_DATABASE}?${process.env.MONGO_OPTIONS}`);
 
 /**
  * Routes
@@ -51,6 +48,7 @@ const userRouter = require('./routes/user');
 const offersRouter = require('./routes/offers');
 const productsRouter = require('./routes/products');
 const maintenanceRouter = require('./routes/maintenance');
+const adminRouter = require('./routes/admin');
 const newsletterRouter = require('./routes/newsletterlist');
 const PDFRouter = require('./routes/PDF');
 const groupsRouter = require('./routes/groups');
@@ -60,10 +58,11 @@ const groupsRouter = require('./routes/groups');
  */
 const app = express();
 
-// view engine setup
-const hbs = exphbs.create({
+// View Engine Setup
+app.engine('hbs', exphbs({
   defaultLayout: 'layout',
   extname: '.hbs',
+  partialsDir: 'views/partials',
   helpers: {
     // Here we're declaring the #section that appears in layout/layout.hbs
     section(name, options) {
@@ -72,12 +71,13 @@ const hbs = exphbs.create({
       return null;
     }
   }
-});
-
-app.engine('hbs', hbs.engine);
+}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+/**
+ * Application Configuration
+ */
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -93,7 +93,9 @@ app.use(sassMiddleware({
   indentedSyntax: true, // true = .sass and false = .scss
   sourceMap: true
 }));
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
 /**
  * Routes Setup
@@ -103,6 +105,7 @@ app.use('/user', userRouter);
 app.use('/offers', offersRouter);
 app.use('/products', productsRouter);
 app.use('/maintenance', maintenanceRouter);
+app.use('/admin', adminRouter);
 app.use('/newsletterlist', newsletterRouter);
 app.use('/PDF', PDFRouter);
 app.use('/groups', groupsRouter);

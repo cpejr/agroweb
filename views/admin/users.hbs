@@ -22,7 +22,7 @@
 <div class="filters-header row justify-content-md-end justify-content-center mx-1 mt-2 mb-1">
   <div class="col-12 col-md-7 d-flex align-items-center justify-content-between">
     <div class="">
-      <h4 class="my-auto">Produtos disponíveis</h4>
+      <h4 class="my-auto">Usuários</h4>
     </div>
     <div class="">
       <button type="button" name="button" class="btn ml-1">
@@ -36,26 +36,24 @@
 </div>
 <!-- end Filters Header -->
 
-<!-- ProductsList -->
+<!-- UsersList -->
 <div class="justify-content-center">
   <div id="results-list" class="row justify-content-left mt-2 mx-0">
-  {{#each products}}
-    <div class="col-12 col-md-5">
+  {{#each users}}
+    <div class="col-12 col-md-3">
       <div class="card mb-1">
         <div class="card-body text-right">
-          {{#ifCond category 'Defensivos'}}
-          <!-- offer.product.category -->
-            <i class="card-icon fas fa-bug fa-3x float-left align-middle"></i>
-          {{else ifCond category 'Sementes'}}
-            <i class="card-icon fas fa-dot-circle fa-3x float-left align-middle"></i>
-          {{else ifCond category 'Fertilizantes'}}
-            <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
-          {{else ifCond category 'Fertilizantes Líquidos'}}
-            <i class="card-icon fas fa-tint fa-3x float-left align-middle"></i>
+          {{#ifCond user 'Produtor'}}
+            <i class="card-icon fas fa-warehouse fa-2x float-left align-middle"></i>
+          {{else ifCond user 'Indústria'}}
+            <i class="card-icon fas fa-industry fa-2x float-left align-middle"></i>
+          {{else ifCond user 'Franqueado'}}
+            <i class="card-icon fas fa-handshake fa-2x float-left align-middle"></i>
+          {{else ifCond user 'Revenda'}}
+            <i class="card-icon fas fa-hand-holding-usd fa-2x float-left align-middle"></i>
           {{/ifCond}}
-          <h5 class="card-title align-text-top">{{offer.product.name}}</h5>
-          <p class="card-text align-text-bottom">R$ {{unitPrice}} un.</p>
-          <p class="card-text align-text-bottom">Ingrediente ativo: {{active}}</p>
+          <h5 class="card-title align-text-top">{{name}}</h5>
+          <p class="card-text align-text-bottom">{{user}}</p>
         </div>
       </div>
     </div>
@@ -63,7 +61,7 @@
     </div>
   </div>
 
-<!-- end QuotationsList -->
+<!-- end UsersList -->
 
 
 {{#section 'scripts'}}

@@ -41,10 +41,7 @@
                 "off"
             ],
             "max-len": [
-                "error",
-                {
-                    "code": 120
-                }
+              "error", { "code": 120 }
             ],
             "no-console": [
                 "off"

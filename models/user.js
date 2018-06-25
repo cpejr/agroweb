@@ -71,7 +71,7 @@ class User {
   /**
    * Get a User by it's id
    * @param {string} id - User Id
-   * @returns {Object} User Document Data
+   * @returns {Object} - User Document Data
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
@@ -86,12 +86,11 @@ class User {
   /**
    * Create a new User
    * @param {Object} user - User Document Data
-   * @returns {string} New User Id
+   * @returns {string} - New User Id
    */
   static create(user) {
     return new Promise((resolve, reject) => {
       UserModel.create(user).then((result) => {
-        console.log('criou');
         resolve(result._id);
       }).catch((err) => {
         reject(err);
@@ -129,7 +128,7 @@ class User {
   /**
    * Add a transaction
    * @param {string} id - User Id
-   * @param {Object} transaction - Transaction Id
+   * @param {string} transaction - Transaction Id
    * @returns {null}
    */
   static addTransaction(id, transaction) {
@@ -145,7 +144,7 @@ class User {
   /**
    * Get a user by it's id
    * @param {string} id - User Id
-   * @returns {Array} Array of transactions
+   * @returns {Array} - Array of transactions
    */
   static getAllTransactionsByUserId(id) {
     return new Promise((resolve, reject) => {
@@ -163,7 +162,7 @@ class User {
   /**
    * Get a User by it's uid
    * @param {string} id - User Uid
-   * @returns {Object} User Document Data
+   * @returns {Object} - User Document Data
    */
   static getByUid(id) {
     return new Promise((resolve, reject) => {

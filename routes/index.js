@@ -4,6 +4,8 @@ const User = require('../models/user.js');
 const auth = require('./middleware/auth');
 const nodemailer = require('nodemailer');
 const Transaction = require('../models/transaction.js');
+const Email = require('../models/email.js');
+const Newsletter = require('../models/newsletter.js');
 
 const router = express.Router();
 
@@ -11,11 +13,6 @@ const router = express.Router();
 /* GET HOME - TESTES */
 router.get('/', (req, res) => {
   res.render('home', { title: 'Página inicial', layout: 'layout' });
-});
-
-/* GET NEWSLETTER. - TESTES */
-router.get('/newsletter', (req, res) => {
-  res.render('newsletter', { title: 'Newsletter', layout: 'layout' });
 });
 
 /* GET FORGOTPASSWORD - TESTES */
@@ -78,25 +75,17 @@ router.get('/sales', (req, res) => {
   res.render('sales/index', { title: 'Minhas compras', layout: 'layout', orders });
 });
 
-/* GET ORDERS - TESTES */
-router.get('/new', (req, res) => {
-  res.render('products/new', { title: 'Minhas compras', layout: 'layout' });
+router.get('/teste', (req, res) => {
+  const user = {
+    fullName: 'Ariel Ribeiro',
+    email: 'arielribeiro@cpejr.com.br'
+  };
+  Newsletter.create(user).then(() => {
+    console.log('criou usuário');
+  }).catch(err => console.log(err));
+  res.render('', { title: 'Teste' });
 });
 
-/* GET ORDERS - TESTES */
-router.get('/show', (req, res) => {
-  res.render('products/show', { title: 'Minhas compras', layout: 'layout' });
-});
-
-
-router.get('/teste', auth.isAuthenticated, (req, res) => {
-  User.getAllTransactionsByUserId(req.session.userUid).then((orders) => {
-    console.log(orders);
-    res.render('success', { title: 'Sucesso', layout: 'layout' });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/');
-  });
 });
 
 /* ////////////////////////////
@@ -168,8 +157,7 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
   BackEnd - CADASTRO
 ////////////////////////////// */
 router.post('/signup', (req, res) => {
-  const status = 'Ativo';
-  const userData = { ...req.body.user, status };
+  const userData = req.body.user;
 
   // Separa nome e sobrenome do cliente a partir da string name
   const position = userData.fullName.indexOf(' ');
@@ -187,12 +175,14 @@ router.post('/signup', (req, res) => {
   req.session.userType = userData.type;
   req.session.firstName = userData.firstName;
   req.session.fullName = userData.fullName;
+  req.session.email = userData.email;
 
   firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
     req.session.userUid = user.uid;
     userData.uid = user.uid;
     delete userData.password;
-    User.create(userData, user.uid).then(() => {
+    User.create(userData, user.uid).then((docId) => {
+      req.session._id = docId;
       res.redirect('/user');
     }).catch((error) => {
       console.log(error);
@@ -233,46 +223,12 @@ router.post('/signup', (req, res) => {
   BackEnd - ENVIO DE EMAIL
 //////////////////////////// */
 router.post('/contact', (req, res) => {
-  const {
-    clientname,
-    email: clientemail,
-    content,
-    clientsubject
-  } = req.body;
-
-  var transporte = nodemailer.createTransport({
-    host: 'mail.megapool.com.br',
-    port: '587',
-    secure: false,
-    auth: {
-      user: 'admcpejr@megapool.com.br',
-      pass: 'Cpejr@2018'
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-  });
-  // Algumas configurações padrões para nossos e-mails
-  var config = {
-    from: 'admcpejr@megapool.com.br',
-    to: clientemail,
-    subject: clientsubject,
-    text: content
-  };
-    // Hora de disparar o e-mail usando as configurações pré
-    // definidas e as informações pessoas do usuário
-  transporte.sendMail(config, (error, info) => {
-    if (error) {
-      console.log(error);
-    }
-    else {
-      console.log(`Email enviado ${info.response}`);
-      res.redirect('/success');
-    }
-  });
-
-  // Precisamos chamar a função que criamos
-  // passando o primeiro lugar da fila no array
+  const emailData = req.body.data;
+  console.log(req.body.data);
+  Email.sendEmail(emailData).then((info) => {
+    console.log(info);
+    res.redirect('/success');
+  }).catch(err => console.log(err));
 });
 
 /* ////////////////////////////////////

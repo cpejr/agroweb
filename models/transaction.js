@@ -67,8 +67,7 @@ class Transaction {
    */
   static create(transaction) {
     return new Promise((resolve, reject) => {
-      const newTransaction = new TransactionModel(transaction);
-      newTransaction.save().then((result) => {
+      TransactionModel.create(transaction).then((result) => {
         resolve(result._id);
       }).catch((err) => {
         reject(err);

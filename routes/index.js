@@ -13,11 +13,6 @@ router.get('/', (req, res) => {
   res.render('home', { title: 'Página inicial', layout: 'layout' });
 });
 
-/* GET NEWSLETTER. - TESTES */
-router.get('/newsletter', (req, res) => {
-  res.render('newsletter', { title: 'Newsletter', layout: 'layout' });
-});
-
 /* GET FORGOTPASSWORD - TESTES */
 router.get('/forgotPassword', (req, res) => {
   res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });

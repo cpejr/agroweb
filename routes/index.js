@@ -5,6 +5,7 @@ const auth = require('./middleware/auth');
 const nodemailer = require('nodemailer');
 const Transaction = require('../models/transaction.js');
 const Email = require('../models/email.js');
+const Newsletter = require('../models/newsletter.js');
 
 const router = express.Router();
 
@@ -74,14 +75,15 @@ router.get('/sales', (req, res) => {
   res.render('sales/index', { title: 'Minhas compras', layout: 'layout', orders });
 });
 
-/* GET ORDERS - TESTES */
-router.get('/new', (req, res) => {
-  res.render('products/new', { title: 'Minhas compras', layout: 'layout' });
-});
-
-/* GET ORDERS - TESTES */
-router.get('/show', (req, res) => {
-  res.render('products/show', { title: 'Minhas compras', layout: 'layout' });
+router.get('/teste', (req, res) => {
+  const user = {
+    fullName: 'Ariel Ribeiro',
+    email: 'arielribeiro@cpejr.com.br'
+  };
+  Newsletter.create(user).then(() => {
+    console.log('criou usuário');
+  }).catch(err => console.log(err));
+  res.render('', { title: 'Teste' });
 });
 
 router.get('/contact', (req, res) => {

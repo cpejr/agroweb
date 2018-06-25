@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const newsletterSchema = new mongoose.Schema({
   fullName: String,
-  email: String,
+  email: {
+    type: String,
+    unique: true
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

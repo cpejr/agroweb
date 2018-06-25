@@ -1,4 +1,4 @@
-chemconst mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const chemSchema = new mongoose.Schema({
   name: {
@@ -8,7 +8,7 @@ const chemSchema = new mongoose.Schema({
   groups: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Group'
-  }],
+  }]
 }, { timestamps: true, strict: false });
 
 const ChemModel = mongoose.model('Chem', chemSchema);
@@ -44,7 +44,7 @@ class Chem {
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
-      ChemModel.findById(id)populate({
+      ChemModel.findById(id).populate({
         path: 'groups',
         populate: {
           path: 'users offer',

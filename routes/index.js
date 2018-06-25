@@ -4,6 +4,7 @@ const User = require('../models/user.js');
 const auth = require('./middleware/auth');
 const nodemailer = require('nodemailer');
 const Transaction = require('../models/transaction.js');
+const Email = require('../models/email.js');
 
 const router = express.Router();
 
@@ -83,15 +84,9 @@ router.get('/show', (req, res) => {
   res.render('products/show', { title: 'Minhas compras', layout: 'layout' });
 });
 
-
-router.get('/teste', auth.isAuthenticated, (req, res) => {
-  User.getAllTransactionsByUserId(req.session.userUid).then((orders) => {
-    console.log(orders);
-    res.render('success', { title: 'Sucesso', layout: 'layout' });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/');
-  });
+router.get('/contact', (req, res) => {
+  res.render('contact', { title: 'Contato' });
+  // res.send('respond with a resource');
 });
 
 /* ////////////////////////////
@@ -229,46 +224,12 @@ router.post('/signup', (req, res) => {
   BackEnd - ENVIO DE EMAIL
 //////////////////////////// */
 router.post('/contact', (req, res) => {
-  const {
-    clientname,
-    clientemail,
-    content,
-    clientsubject
-  } = req.body;
-
-  var transporte = nodemailer.createTransport({
-    host: 'mail.megapool.com.br',
-    port: '587',
-    secure: false,
-    auth: {
-      user: 'admcpejr@megapool.com.br',
-      pass: 'Cpejr@2018'
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-  });
-  // Algumas configurações padrões para nossos e-mails
-  var config = {
-    from: 'admcpejr@megapool.com.br',
-    to: clientemail,
-    subject: clientsubject,
-    text: content
-  };
-    // Hora de disparar o e-mail usando as configurações pré
-    // definidas e as informações pessoas do usuário
-  transporte.sendMail(config, (error, info) => {
-    if (error) {
-      console.log(error);
-    }
-    else {
-      console.log(`Email enviado ${info.response}`);
-      res.redirect('/success');
-    }
-  });
-
-  // Precisamos chamar a função que criamos
-  // passando o primeiro lugar da fila no array
+  const emailData = req.body.data;
+  console.log(req.body.data);
+  Email.sendEmail(emailData).then((info) => {
+    console.log(info);
+    res.redirect('/success');
+  }).catch(err => console.log(err));
 });
 
 /* ////////////////////////////////////

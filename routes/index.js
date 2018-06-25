@@ -86,9 +86,6 @@ router.get('/teste', (req, res) => {
   res.render('', { title: 'Teste' });
 });
 
-router.get('/contact', (req, res) => {
-  res.render('contact', { title: 'Contato' });
-  // res.send('respond with a resource');
 });
 
 /* ////////////////////////////

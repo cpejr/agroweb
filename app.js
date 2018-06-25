@@ -50,7 +50,11 @@ const productsRouter = require('./routes/products');
 const maintenanceRouter = require('./routes/maintenance');
 const adminRouter = require('./routes/admin');
 const newsletterRouter = require('./routes/newsletterlist');
-const PDFgeneratorRouter = require('./routes/PDFgenerator');
+const PDFRouter = require('./routes/PDF');
+const groupsRouter = require('./routes/groups');
+const quotationRouter = require('./routes/quotations');
+const productRouter = require('./routes/products');
+const transactionRouter = require('./routes/transaction');
 
 /**
  * Application Initialization
@@ -113,8 +117,11 @@ app.use('/products', productsRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/admin', adminRouter);
 app.use('/newsletterlist', newsletterRouter);
-app.use('/PDFgenerator', PDFgeneratorRouter);
-
+app.use('/PDF', PDFRouter);
+app.use('/groups', groupsRouter);
+app.use('/quotations', quotationRouter);
+app.use('/products', productRouter);
+app.use('/transaction', transactionRouter);
 /**
  * Error Handling
  */

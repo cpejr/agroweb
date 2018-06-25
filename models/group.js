@@ -101,6 +101,37 @@ class Group {
       });
     });
   }
-}
 
+  /**
+   * Add a new User
+   * @param {string} id - Group Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static addUser(id, user) {
+    return new Promise((resolve, reject) => {
+      GroupModel.findByIdAndUpdate(id, { $push: { users: user } }).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Delete a new User
+   * @param {string} id - Group Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static deleteUser(id, user) {
+    return new Promise((resolve, reject) => {
+      GroupModel.findByIdAndUpdate(id, { $pop: { users: user } }).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+}
 module.exports = Group;

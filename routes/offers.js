@@ -8,7 +8,7 @@ const router = express.Router();
  * GET Index - Show all offers
  */
 router.get('/', (req, res) => {
-  Offer.getAll().then((offers) => {
+  Offer.getAll('modelo').then((offers) => {
     console.log(offers);
     res.render('offers/index', { title: 'Oferta', offers });
   }).catch((err) => {
@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
     name: req.body.name,
     price: req.body.price
   };
-  Offer.create(offer).then((id) => {
+  Offer.create( modelo, offer).then((id) => {
     console.log(`Created new offer with id: ${id}`);
     res.redirect(`/offers/${id}`);
   }).catch((err) => {

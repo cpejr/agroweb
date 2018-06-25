@@ -8,7 +8,7 @@ const offerSchema = new mongoose.Schema({
     average: Number,
     high: Number
   },
-  breakpoints: {
+  breakpoints: { // Quantidade de Produto pro preço mudar
     low: Number,
     average: Number
   },
@@ -67,7 +67,7 @@ class Offer {
 
   /**
    * Create a new Offer
-   * @param {Object} project - Offer Document Data
+   * @param {Object} offer - Offer Document Data
    * @returns {string} New Offer Id
    */
   static create(offer) {

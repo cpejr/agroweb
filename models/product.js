@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  //fields:
+  // fields:
   chem: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Chem'

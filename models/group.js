@@ -23,7 +23,7 @@ class Group {
    * Get all Groups from database
    * @returns {Array} Array of Groups
    */
-  static getAll(id) {
+  static getAll() {
     return new Promise((resolve, reject) => {
       GroupModel.find({}).populate({
         path: 'users offer',
@@ -44,7 +44,7 @@ class Group {
    * @param {string} id - Group Id
    * @returns {Object} Group Document Data
    */
-  static getById(idProduct, idGroup) {
+  static getById(id) {
     return new Promise((resolve, reject) => {
       GroupModel.findById(id).populate({
         path: 'users offer',
@@ -62,10 +62,10 @@ class Group {
 
   /**
    * Create a new Group
-   * @param {Object} project - Group Document Data
+   * @param {Object} group - Group Document Data
    * @returns {string} New Group Id
    */
-  static create(group, id, user) {
+  static create(group) {
     return new Promise((resolve, reject) => {
       GroupModel.create(group).then((result) => {
         resolve(result._id);
@@ -81,7 +81,7 @@ class Group {
    * @param {Object} Group - Group Document Data
    * @returns {null}
    */
-  static update(idProduct, idGroup, group) {
+  static update(id, group) {
     return new Promise((resolve, reject) => {
       GroupModel.findByIdAndUpdate(id, group).catch((err) => {
         reject(err);
@@ -94,9 +94,41 @@ class Group {
    * @param {string} id - Group Id
    * @returns {null}
    */
-  static delete(idGroup, idProduct) {
+  static delete(id) {
     return new Promise((resolve, reject) => {
       GroupModel.findByIdAndDelete(id).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Add a new User
+   * @param {string} id - Group Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static addUser(id, user) {
+    return new Promise((resolve, reject) => {
+      GroupModel.findByIdAndUpdate(id, { $push: { users: user } }).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Delete a new User
+   * @param {string} id - Group Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static deleteUser(id, user) {
+    return new Promise((resolve, reject) => {
+      GroupModel.findByIdAndUpdate(id, { $pop: { users: user } }).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

@@ -112,6 +112,7 @@ router.post('/login', (req, res) => {
         req.session.fullName = currentLogged.fullName;
         req.session._id = currentLogged._id;
         req.session.userUid = user.uid;
+        req.session.email = currentLogged.email;
         if (req.session.userType === 'Administrador') {
           res.redirect('/admin');
         }
@@ -154,6 +155,7 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
     delete req.session.fullName;
     delete req.session._id;
     delete req.session.userUid;
+    delete req.session.email;
     res.redirect('/');
   }).catch((error) => {
     console.log(error.code);

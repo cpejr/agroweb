@@ -153,7 +153,7 @@ class User {
         path: 'transactions',
         populate: { path: 'buyer offer' }
       }).exec().then((result) => {
-        resolve(result);
+        resolve(result.transactions);
       }).catch((err) => {
         reject(err);
       });
@@ -167,7 +167,7 @@ class User {
    */
   static getByUid(id) {
     return new Promise((resolve, reject) => {
-      UserModel.find({ uid: id }).exec().then((result) => {
+      UserModel.findOne({ uid: id }).exec().then((result) => {
         resolve(result);
       }).catch((err) => {
         reject(err);

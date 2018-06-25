@@ -29,7 +29,10 @@ router.get('/new', auth.isIndustry, auth.isDealer, (req, res) => {
 router.post('/', (req, res) => {
   const product = {
     name: req.body.name,
-    price: req.body.price
+    category: req.body.category,
+    manufacturer: req.body.manufacturer,
+    description: req.body.description,
+    unit: req.body.unit
   };
   Product.create(product).then((id) => {
     console.log(`Created new product with id: ${id}`);
@@ -84,7 +87,10 @@ router.get('/:id/edit', auth.isIndustry, auth.isDealer, (req, res) => {
 router.put('/:id', (req, res) => {
   const product = {
     name: req.body.name,
-    price: req.body.price
+    category: req.body.category,
+    manufacturer: req.body.manufacturer,
+    description: req.body.description,
+    unit: req.body.unit
   };
   Product.update(req.params.id, product).catch((err) => {
     console.log(err);

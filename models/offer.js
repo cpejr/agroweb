@@ -8,7 +8,7 @@ const offerSchema = new mongoose.Schema({
     average: Number,
     high: Number
   },
-  breakpoints: {
+  breakpoints: { // Quantidade de Produto pro preço mudar
     low: Number,
     average: Number
   },
@@ -34,7 +34,7 @@ class Offer {
    * Get all Offers from database
    * @returns {Array} Array of Offers
    */
-  static getAll(id) {
+  static getAll() {
     return new Promise((resolve, reject) => {
       OfferModel.find({}).populate({
         path: 'seller product',
@@ -52,7 +52,7 @@ class Offer {
    * @param {string} id - Offer Id
    * @returns {Object} Offer Document Data
    */
-  static getById(idProduct, idOffer) {
+  static getById(id) {
     return new Promise((resolve, reject) => {
       OfferModel.findById(id).populate({
         path: 'seller product',
@@ -67,10 +67,10 @@ class Offer {
 
   /**
    * Create a new Offer
-   * @param {Object} project - Offer Document Data
+   * @param {Object} offer - Offer Document Data
    * @returns {string} New Offer Id
    */
-  static create(id, offer) {
+  static create(offer) {
     return new Promise((resolve, reject) => {
       OfferModel.create(offer).then((result) => {
         resolve(result._id);
@@ -86,7 +86,7 @@ class Offer {
    * @param {Object} Offer - Offer Document Data
    * @returns {null}
    */
-  static update(idProduct, id, offer) {
+  static update(id, offer) {
     return new Promise((resolve, reject) => {
       OfferModel.findByIdAndUpdate(id, offer).catch((err) => {
         reject(err);
@@ -99,7 +99,7 @@ class Offer {
    * @param {string} id - Offer Id
    * @returns {null}
    */
-  static delete(id, idProduct) {
+  static delete(id) {
     return new Promise((resolve, reject) => {
       OfferModel.findByIdAndDelete(id).catch((err) => {
         reject(err);

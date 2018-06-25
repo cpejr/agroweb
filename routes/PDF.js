@@ -13,6 +13,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/createPDF', (req, res) => {
+  const mail = req.session.email;
+
   function writePDF(name) {
     fileName = './budget/' + name + '.pdf';
     // Create a document
@@ -69,8 +71,8 @@ router.post('/createPDF', (req, res) => {
       });
     });
   };
-  writePDF('sayuriyamaguchi22@gmail.com', 'TESTE1');
-  sendingMail('sayuriyamaguchi22@gmail.com','TESTE1');
+  writePDF(mail, 'TESTE1');
+  sendingMail(mail,'TESTE1');
 });
 
 module.exports = router;

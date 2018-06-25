@@ -52,6 +52,9 @@ const adminRouter = require('./routes/admin');
 const newsletterRouter = require('./routes/newsletterlist');
 const PDFRouter = require('./routes/PDF');
 const groupsRouter = require('./routes/groups');
+const quotationRouter = require('./routes/quotations');
+const productRouter = require('./routes/products');
+const transactionRouter = require('./routes/transaction');
 
 /**
  * Application Initialization
@@ -116,7 +119,9 @@ app.use('/admin', adminRouter);
 app.use('/newsletterlist', newsletterRouter);
 app.use('/PDF', PDFRouter);
 app.use('/groups', groupsRouter);
-
+app.use('/quotations', quotationRouter);
+app.use('/products', productRouter);
+app.use('/transaction', transactionRouter);
 /**
  * Error Handling
  */

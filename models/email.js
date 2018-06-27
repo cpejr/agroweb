@@ -38,6 +38,28 @@ class Email {
       });
     });
   }
+
+  /**
+   * Send an update email
+   * @param {Object} data - Email Document Data
+   * @param {String} status - Transaction's new status
+   * @returns {Object} Information
+   */
+  static updateEmail(data, status) {
+    const text = `Prezado ${data.name},
+    o status do seu pedido foi atualizado para "${status}"`;
+    const subject = 'Atualização no status do seu pedido';
+    const emailContent = {
+      ...data,
+      text,
+      subject
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
 }
 
 module.exports = Email;

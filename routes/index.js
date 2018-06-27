@@ -86,8 +86,6 @@ router.get('/teste', (req, res) => {
   res.render('', { title: 'Teste' });
 });
 
-});
-
 /* ////////////////////////////
   BackEnd - LOGIN
 //////////////////////////// */

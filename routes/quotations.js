@@ -11,7 +11,7 @@ var router = express.Router();
 router.get('/', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
   User.getAllTransactionsByUserId(userId).then((quotations) => {
-    console.log('Cotações: %s\n',quotations);
+    console.log(`Cotações: ${quotations}`);
     res.render('quotations/index', { title: 'Cotações', layout: 'layout', quotations});
   });
 });

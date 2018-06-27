@@ -9,15 +9,9 @@ const router = express.Router();
  * GET Index - Show all groups
  */
 router.get('/', (req, res) => {
-//<<<<<<< Brenda
-  Offer.getAll('modelo').then((groups) => {
-    console.log(groups);
-    res.render('groups/index', { title: 'Groups', groups });
-//=======
   Group.getAll().then((groups) => {
     console.log(groups);
     res.render('groups/index', { title: 'Grupos', groups });
-//>>>>>>> transactionsLogic
   }).catch((err) => {
     console.log(err);
   });

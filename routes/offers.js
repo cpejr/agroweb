@@ -8,7 +8,7 @@ const router = express.Router();
  * GET Index - Show all offers
  */
 router.get('/', (req, res) => {
-  Offer.getAll('modelo').then((offers) => {
+  Offer.getAll().then((offers) => {
     console.log(offers);
     res.render('offers/index', { title: 'Oferta', offers });
   }).catch((err) => {

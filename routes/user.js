@@ -1,5 +1,6 @@
 const express = require('express');
 const firebase = require('firebase');
+const User = require('../models/user.js');
 const auth = require('./middleware/auth');
 
 var router = express.Router();
@@ -22,6 +23,22 @@ router.get('/', auth.isAuthenticated, (req, res) => {
     res.render('user', { title: 'Revendedor', layout: 'layout', ...req.session });
   }
 });
+
+router.get('/update', auth.isAuthenticated, (req, res) => {
+  const userData = req.body.user;
+  User.update(req.session.userUid, userData).catch((error) => {
+    console.log(error.message);
+    res.redirect('/error');
+  });
+  User.getById(req.session.userUid).then((currentUser) => {
+    console.log(currentUser);
+    res.redirect('/user');
+  }).catch((error) => {
+    console.log(error.message);
+    res.redirect('/error');
+  });
+});
+
 
 router.get('/results', (req, res) => {
   res.render('results', { title: 'Resultado', layout: 'layout' });

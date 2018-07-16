@@ -44,16 +44,17 @@
       <div class="card mb-1">
         <div class="card-body text-right">
           {{#ifCond user 'Produtor'}}
-            <i class="card-icon fas fa-warehouse fa-2x float-left align-middle"></i>
+            <i class="card-icon fas fa-warehouse fa-2x float-left align-middle" id="icon"></i>
           {{else ifCond user 'Indústria'}}
-            <i class="card-icon fas fa-industry fa-2x float-left align-middle"></i>
+            <i class="card-icon fas fa-industry fa-2x float-left align-middle" id="icon"></i>
           {{else ifCond user 'Franqueado'}}
-            <i class="card-icon fas fa-handshake fa-2x float-left align-middle"></i>
+            <i class="card-icon fas fa-handshake fa-2x float-left align-middle" id="icon"></i>
           {{else ifCond user 'Revenda'}}
-            <i class="card-icon fas fa-hand-holding-usd fa-2x float-left align-middle"></i>
+            <i class="card-icon fas fa-hand-holding-usd fa-2x float-left align-middle" id="icon"></i>
           {{/ifCond}}
-          <h5 class="card-title align-text-top">{{name}}</h5>
+          <h5 class="card-title align-text-top name-c" id="name" data-name="{{name}}">{{name}}</h5>
           <p class="card-text align-text-bottom">{{user}}</p>
+          <button type="submit" id="{{name}}" class="btn btn-danger d-none">Excluir</button>
         </div>
       </div>
     </div>
@@ -62,8 +63,3 @@
   </div>
 
 <!-- end UsersList -->
-
-
-{{#section 'scripts'}}
-  <script src="/javascripts/navbar.js"></script>
-{{/section}}

@@ -40,7 +40,9 @@ router.get('/login', (req, res) => {
       res.redirect('/user');
     }
   }
-  res.render('login', { title: 'Login', layout: 'layout' });
+  else {
+    res.render('login', { title: 'Login', layout: 'layout' });
+  }
 });
 
 /* GET SIGNUP - TESTES */
@@ -91,29 +93,28 @@ router.get('/teste', (req, res) => {
 //////////////////////////// */
 router.post('/login', (req, res) => {
   const userData = req.body.user;
-  firebase.auth().signInWithEmailAndPassword(userData.email, userData.password)
-    .then((user) => {
-      User.getByUid(user.uid).then((currentLogged) => {
-        req.session.userType = currentLogged.type;
-        req.session.firstName = currentLogged.firstName;
-        req.session.fullName = currentLogged.fullName;
-        req.session._id = currentLogged._id;
-        req.session.userUid = user.uid;
-        req.session.email = currentLogged.email;
-        if (req.session.userType === 'Administrador') {
-          res.redirect('/admin');
-        }
-        else {
-          res.redirect('/user');
-        }
-      }).catch((error) => {
-        console.log(error.message);
-        res.redirect('/error');
-      });
+  firebase.auth().signInWithEmailAndPassword(userData.email, userData.password).then((user) => {
+    User.getByUid(user.uid).then((currentLogged) => {
+      req.session.userType = currentLogged.type;
+      req.session.firstName = currentLogged.firstName;
+      req.session.fullName = currentLogged.fullName;
+      req.session._id = currentLogged._id;
+      req.session.userUid = user.uid;
+      req.session.email = currentLogged.email;
+      if (req.session.userType === 'Administrador') {
+        res.redirect('/admin');
+      }
+      else {
+        res.redirect('/user');
+      }
     }).catch((error) => {
       console.log(error.message);
       res.redirect('/error');
     });
+  }).catch((error) => {
+    console.log(error.message);
+    res.redirect('/error');
+  });
 });
 
 /* ////////////////////////////

@@ -6084,6 +6084,9 @@ body {
 .text-button {
   color: #3b9939; }
 
+.text-red {
+  color: #db4437 !important; }
+
 body {
   font-family: sans-serif; }
 
@@ -6151,7 +6154,7 @@ img.footer-brand {
   border: none;
   padding: 5px;
   width: 500px;
-  height: 100px;
+  height: 150px;
   overflow: scroll; }
 
 .info {

@@ -1,3 +1,6 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
 <!-- NavBar -->
 <div class="pos-f-t">
   <nav class="navbar navbar-dark">
@@ -17,7 +20,7 @@
 
 <!-- Filters Header -->
 <div class="filters-header row justify-content-md-end justify-content-center mx-1 mt-2 mb-1">
-  <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
+  <div class="col-12 col-md-7 d-flex align-items-center justify-content-between">
     <div class="">
       <h4 class="my-auto">Usuários</h4>
     </div>
@@ -33,26 +36,30 @@
 </div>
 <!-- end Filters Header -->
 
-<!-- Orders -->
-<div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
-  <div class="col-12 col-md-8">
-    {{#each users}}
-    <div class="card mb-1" data-status="{{status}}">
-      <div class="card-body">
-        <div class="text-center">
-          <h7 class="card-title align-text-top text-gray">Usuário - {{firstName}} {{lastName}}</h7>
-          <div class="w-100">
-          </div>
-            <span class="badge badge-primary">
-              <h6>{{type}}</h6>
-            </span>
-          <p class="card-text align-text-bottom text-gray">{{email}}</p>
+<!-- UsersList -->
+<div class="justify-content-center">
+  <div id="results-list" class="row justify-content-left mt-2 mx-0">
+  {{#each users}}
+    <div class="col-12 col-md-3">
+      <div class="card mb-1">
+        <div class="card-body text-right">
+          {{#ifCond user 'Produtor'}}
+            <i class="card-icon fas fa-warehouse fa-2x float-left align-middle" id="icon"></i>
+          {{else ifCond user 'Indústria'}}
+            <i class="card-icon fas fa-industry fa-2x float-left align-middle" id="icon"></i>
+          {{else ifCond user 'Franqueado'}}
+            <i class="card-icon fas fa-handshake fa-2x float-left align-middle" id="icon"></i>
+          {{else ifCond user 'Revenda'}}
+            <i class="card-icon fas fa-hand-holding-usd fa-2x float-left align-middle" id="icon"></i>
+          {{/ifCond}}
+          <h5 class="card-title align-text-top name-c" id="name" data-name="{{name}}">{{name}}</h5>
+          <p class="card-text align-text-bottom">{{user}}</p>
+          <button type="submit" id="{{name}}" class="btn btn-danger d-none">Excluir</button>
         </div>
-        <h5 class="card-title align-text-top product-myOrders">{{doc}}</h5>
       </div>
     </div>
-    {{/each}}
-
+        {{/each}}
+    </div>
   </div>
-</div>
-<!-- end Orders -->
+
+<!-- end UsersList -->

@@ -1,3 +1,7 @@
+{{#section 'stylesheets'}}
+  <link rel='stylesheet' href='/stylesheets/maintenance.css'>
+{{/section}}
+
 <main role="main" class="container">
   <div id="row myCarousel" class="carousel vert slide" data-interval="3000" data-ride="carousel">
     <div class="carousel-inner text-center">
@@ -36,19 +40,19 @@
           </p>
         </div>
     </div>
-    <form>
+    <form action="/maintenance/newsletter" method="post">
       <div class="row justify-content-center form-row" id="form-nl">
         <div class="col-6 col-md-2">
-          <select value="Selecione" class="form-control"  class="form-control">
-            <option value="" selected disabled hidden>Selecione</option>
-            <option name="type" >Indústria</option>
-            <option name="type" >Produtor</option>
-            <option name="type" >Franqueado</option>
-            <option name="type" >Revendedor</option>
+          <select name="newsletter[type]" class="form-control"  class="form-control">
+            <option selected disabled hidden>Selecione</option>
+            <option value="Indústria">Indústria</option>
+            <option value="Produtor">Produtor</option>
+            <option value="Franqueado">Franqueado</option>
+            <option value="Revendedor">Revendedor</option>
           </select>
         </div>
         <div class="col-6 col-md-4">
-          <input type="email" placeholder="email@exemplo.com" class="form-control" name="email" id="mail">
+          <input type="email" placeholder="email@exemplo.com" class="form-control" name="newsletter[email]" id="mail">
         </div>
         <div class="col-12 col-md-2">
           <button type="submit" class="btn btn-primary btn-block">Cadastre-se</button>

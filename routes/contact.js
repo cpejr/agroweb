@@ -6,7 +6,8 @@ var nodemailer = require('nodemailer');
 
 /* GET home page. */
 router.get('/', function(req, res, next){
-  res.send('respond with a resource');
+  res.render('contact', { title: 'Contato'});
+  //res.send('respond with a resource');
 });
 
 router.get('/success', (req, res, next) => {

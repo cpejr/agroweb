@@ -7,7 +7,7 @@ var router = express.Router();
 router.get('/', (req, res) => {
   Newsletter.getAll().then((users) => {
     console.log(users);
-    res.render('newsletterlist', { title: 'Newsletter', users });
+    res.render('admin/newsletter', { title: 'Newsletter', layout: 'layout', users });
   }).catch((err) => {
     console.log(err);
   });

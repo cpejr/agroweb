@@ -13,7 +13,7 @@ const router = express.Router();
 /**
  * GET Index - Show all transactions
  */
-router.get('/', auth.isAuthenticated, (req, res) => {
+router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAll().then((transactions) => {
     console.log(transactions);
     res.render('quotations/index', { title: 'Transações', transactions });
@@ -28,7 +28,7 @@ router.get('/', auth.isAuthenticated, (req, res) => {
 router.post('/', auth.isAuthenticated, (req, res) => {
   res.render('/success', { title: 'Sua transação foi efetuada com sucesso!' });
   const buyer = req.session._id;
-  const amountBought = req.body.amountBought;
+  const { amountBought } = req.body;
 
   const transactionData = {
     buyer,
@@ -41,7 +41,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
   console.log(transactionData);
   // Create a new transaction
   Transaction.create(transactionData).then((transaction) => {
-    const group = Group.getById(groupId).then(() => {
+    Group.getById(groupId).then((group) => {
       const amountGroup = group.amount - amountBought;
       const groupData = {
         amount: amountGroup
@@ -50,7 +50,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
       Group.deleteUser(groupId, buyer); // delete a user
     });
 
-    const offer = Offer.getById(offerId).then(() => {
+    Offer.getById(offerId).then((offer) => {
       const stockOffer = offer.stock - amountBought;
       const offerData = {
         stock: stockOffer

@@ -94,8 +94,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({
   secret: 'some-private-cpe-key',
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true
 }));
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),

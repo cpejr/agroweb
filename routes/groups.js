@@ -8,7 +8,7 @@ const router = express.Router();
 /**
  * GET Index - Show all groups
  */
-router.get('/', (req, res) => {
+router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Group.getAll().then((groups) => {
     console.log(groups);
     res.render('groups/index', { title: 'Grupos', groups });
@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
     }
     else {
       console.log('Group not found!');
-      res.redirect('/user');
+      res.redirect('/home');
     }
   }).catch((err) => {
     console.log(err);

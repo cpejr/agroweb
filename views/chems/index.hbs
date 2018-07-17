@@ -33,20 +33,23 @@
       <thead>
         <tr>
           <th scope="col">Nome</th>
-          <th scope="col">Opções</th>
+          <th scope="col">Editar</th>
+          <th scope="col">Excluir</th>
         </tr>
       </thead>
       <tbody>
       {{#each chems}}
         <tr>
           <th scope="row">{{name}}</th>
-          <td class="row">
+          <th scope="row">
+            <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
+          </th>
+          <th scope="row">
             <form method="post">
             <!-- <form action="/chems/{{id}}?_method=DELETE" method="POST"> -->
-              <button type="submit" class="btn btn-outline-danger mr-2">Excluir</button>
+              <button type="submit" class="btn btn-outline-danger">Excluir</button>
             </form>
-            <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
-          </td>
+          </th>
         </tr>
       {{/each}}
       </tbody>

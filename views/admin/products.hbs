@@ -36,7 +36,9 @@
           <th scope="col">Nome</th>
           <th scope="col">Categoria</th>
           <th scope="col">Fabricante</th>
-          <th scope="col">Opções</th>
+          <th scope="col">Ver</th>
+          <th scope="col">Editar</th>
+          <th scope="col">Excluir</th>
         </tr>
       </thead>
       <tbody>
@@ -45,13 +47,18 @@
           <th scope="row">{{name}}</th>
           <th scope="row">{{category}}</th>
           <th scope="row">{{manufacturer}}</th>
-          <td class="row">
+          <th scope="row">
+            <button onclick="location.href='/products/{{id}}'" class="btn btn-outline-success">Ver</button>
+          </th>
+          <th scope="row">
+            <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
+          </th>
+          <th scope="row">
             <form method="post">
             <!-- <form action="/products/{{id}}?_method=DELETE" method="POST"> -->
-              <button type="submit" class="btn btn-outline-danger mr-2">Excluir</button>
+              <button type="submit" class="btn btn-outline-danger">Excluir</button>
             </form>
-            <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
-          </td>
+          </th>
         </tr>
       {{/each}}
       </tbody>

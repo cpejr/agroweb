@@ -14,30 +14,72 @@
           <fieldset>
             <div class="form-group">
               <div class="form-group">
-                <label for="name" class="">Nome</label>
-                <div class="">
-                  <input type="text" class="bg-light form-control" name="user[fullName]" id="name" required>
-                </div>
+                <label for="name" class="">Nome<span class="text-red"> *</span></label>
+                <input type="text" class="bg-light form-control" name="user[name]" id="name" required>
               </div>
               <div class="form-group">
-                <label for="mail" class="">Email</label>
-                  <input type="text" class="bg-light form-control" name="user[email]" id="mail" placeholder="email@exemplo.com" required>
+                <label for="mail" class="">Email<span class="text-red"> *</span></label>
+                  <input type="email" class="bg-light form-control" name="user[email]" id="mail" placeholder="email@exemplo.com" required>
               </div>
-                  <fieldset>
-                    <label for="password">Senha</label>
-                    <input type="password" placeholder="Password" class="bg-light form-control" name="user[password]" id="password" required>
-                    <label for="confirmPassword" class="mt-2">Confirme a senha</label>
-                    <input type="password" placeholder="Confirm Password" class="bg-light form-control" id="confirmPassword" required>
-                  </fieldset>
+              <fieldset>
+                <label for="password">Senha<span class="text-red"> *</span></label>
+                <input type="password" class="bg-light form-control" name="user[password]" id="password" required>
+                <label for="confirmPassword" class="mt-2">Confirme a senha<span class="text-red"> *</span></label>
+                <input type="password" class="bg-light form-control" id="confirmPassword" required>
+              </fieldset>
+              <div class="form-group">
+                <label for="cep" class="mt-2">CEP<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[cep]" id="cep" placeholder="apenas números" required>
+                  <label for="street" class="mt-2">Rua<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[street]" id="street" required>
+                  <label for="number" class="mt-2">Número<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[number]" id="number" required>
+                  <label for="state">Estado<span class="text-red"> *</span></label>
+                  <div class="form-group">
+                    <select class="form-control" name="user[state]" id="state" required>
+                      <option disabled selected value> -- Selecione um estado -- </option>
+                      <option value="AC">Acre</option>
+                      <option value="AL">Alagoas</option>
+                      <option value="AP">Amapá</option>
+                      <option value="AM">Amazonas</option>
+                      <option value="BA">Bahia</option>
+                      <option value="CE">Ceará</option>
+                      <option value="DF">Distrito Federal</option>
+                      <option value="ES">Espírito Santo</option>
+                      <option value="GO">Goiás</option>
+                      <option value="MA">Maranhão</option>
+                      <option value="MT">Mato Grosso</option>
+                      <option value="MS">Mato Grosso do Sul</option>
+                      <option value="MG">Minas Gerais</option>
+                      <option value="PA">Pará</option>
+                      <option value="PB">Paraíba</option>
+                      <option value="PR">Paraná</option>
+                      <option value="PE">Pernambuco</option>
+                      <option value="PI">Piauí</option>
+                      <option value="RJ">Rio de Janeiro</option>
+                      <option value="RN">Rio Grande do Norte</option>
+                      <option value="RS">Rio Grande do Sul</option>
+                      <option value="RO">Rondônia</option>
+                      <option value="RR">Roraima</option>
+                      <option value="SC">Santa Catarina</option>
+                      <option value="SP">São Paulo</option>
+                      <option value="SE">Sergipe</option>
+                      <option value="TO">Tocantins</option>
+                    </select>
+                  </div>
+                  <label for="city">Cidade:<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[city]" id="city" required>
+                  </select>
+              </div>
             </div>
 
             <div class="row">
               <div class="col-12">
-                <label for="userType" class="">Tipo de usuário</label>
+                <label for="userType" class="">Tipo de usuário<span class="text-red"> *</span></label>
                 <div class="form-group" id="user-type">
                   <div class="btn-group btn-group-toggle col-12 px-0 mx-0" data-toggle="buttons">
                     <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                      <input type="radio" name="user[type]" id="industry" value="Indústria">Indústria
+                      <input type="radio" name="user[type]" id="industry" value="Indústria" required>Indústria
                     </button>
                     <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
                       <input type="radio" name="user[type]" id="producer" value="Produtor">Produtor
@@ -46,7 +88,7 @@
                       <input type="radio" name="user[type]" id="franchisee" value="Franqueado">Franqueado
                     </button>
                     <button class="col-3 btn btn-secondary btn btn-sm border border-dark">
-                      <input type="radio" name="user[type]" id="dealer" value="Revendedor">Revenda
+                      <input type="radio" name="user[type]" id="dealer" -checkedvalue="Revendedor">Revenda
                     </button>
                   </div>
                 </div>
@@ -55,154 +97,343 @@
 
             <div class="row">
               <div class="col-12">
+
+<!-- Dealer, Producer and Industry ordinary field -->
+                <div class="form-group dealer-option producer-option industry-option d-none">
+                  <label for="phone" class="mt-3">Telefone fixo<span class="text-red"> *</span></label>
+                  <input type="tel" class="bg-light form-control" name="user[phone]"id="phone" required>
+                  <label for="cellphone" class="mt-3">Celular<span class="text-red"> *</span></label>
+                  <input type="tel" class="bg-light form-control" name="user[cellphone]"id="cellphone" required>
+                </div>
+<!-- end Dealer, Producer and Industry ordinary field -->
+
+<!-- Producer exclusive field -->
                 <div class="form-group producer-option d-none">
-                  <label for="farm" class="mt-3">Nome da fazenda</label>
-                  <input type="text" class="bg-light form-control" name="user[farm]" id="farm">
-                  <label for="dist" class="mt-3">Distância aproximada da cidade até a fazenda</label>
-                  <input type="dist" class="bg-light form-control" name="user[dist]" id="dist">
-                  <label for="script" class="mt-3">Roteiro de entrega</label>
-                  <input type="text" class="bg-light form-control" name="user[script]" id="script">
-                  <label for="area" class="mt-3">Área plantada (ha)</label>
-                  <input type="number" class="bg-light form-control" name="user[area]" id="area">
-                  <label for="soy" class="mt-3">Soja</label>
-                  <input type="number" class="bg-light form-control" name="user[soy]" id="soy">
-                  <label for="corn" class="mt-3">Milho</label>
-                  <input type="number" class="bg-light form-control" name="user[corn]" id="corn">
-                  <label for="cotton" class="mt-3">Algodão</label>
-                  <input type="number" class="bg-light form-control" name="user[cotton]" id="cotton">
+                  <label for="farm" class="mt-3">Nome da fazenda<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[farm[name]]" id="farm" required>
+                  <label for="dist" class="mt-3">Distância aproximada da cidade até a fazenda<span class="text-red"> *</span></label>
+                  <input type="dist" class="bg-light form-control" name="user[farm[distanceToCity]]" id="dist" required>
+                  <label for="script" class="mt-3">Roteiro de entrega<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[farm[deliveryScript]]" id="script" required>
+                  <label for="areaha" class="mt-3">Área plantada (ha)<span class="text-red"> *</span></label>
+                  <input type="number" class="bg-light form-control" name="user[farm[area]]" id="areaha" required>
+                  <label for="soy" class="mt-3">Soja<span class="text-red"> *</span></label>
+                  <input type="number" class="bg-light form-control" name="user[farm[soy]]" id="soy" required>
+                  <label for="corn" class="mt-3">Milho<span class="text-red"> *</span></label>
+                  <input type="number" class="bg-light form-control" name="user[farm[corn]]" id="corn" required>
+                  <label for="cotton" class="mt-3">Algodão<span class="text-red"> *</span></label>
+                  <input type="number" class="bg-light form-control" name="user[farm[cotton]]" id="cotton" required>
                   <label for="other" class="mt-3">Outras culturas</label>
-                  <input type="number" class="bg-light form-control" name="user[other]" id="other">
-                  <label for="cellphone" class="mt-3">Telefone celular</label>
-                  <input type="text" class="bg-light form-control" name="user[cellphone]" id="cellphone">
-                  <label for="farmNumber" class="mt-3">Telefone da fazenda</label>
-                  <input type="text" class="bg-light form-control" name="user[farmNumber]" id="farmNumber">
-                  <label for="wpp" class="mt-3">Pode se comunicar comigo por whatsapp?</label>
+                  <input type="number" class="bg-light form-control" name="user[farm[otherCultivations]]" id="other">
+                  <label for="wpp" class="mt-3">Pode se comunicar comigo por whatsapp?<span class="text-red"> *</span>
                   <div class="radio">
-                    <label><input type="radio" name="user[wpp]">Sim</label>
+                    <label><input type="radio" name="user[wpp]" required>Sim</label>
                   </div>
                   <div class="radio">
                     <label><input type="radio" name="user[wpp]">Não</label>
                   </div>
+                  <label for="stateRegistration" class="mt-3">Inscrição Estadual<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[stateRegistration]" id="stateRegistration" required>
                 </div>
-
+<!-- end Producer exclusive field -->
 
 <!-- Franchisee exclusive field -->
                 <div class="form-group franchisee-option d-none">
                   <div class="text-center">
                   <a type="button" class="btn bg-green px-5 text-dark" href="franchiseeOption" name="button">Mais informações</a>
                   </div>
-                  <label for="cpfOrCnpj" class="mt-3">CPF/CNPJ</label>
-                  <input type="text" class="bg-light form-control" name="user[doc]" id="cpfOrCnpj">
-                  <label for="activities"  class="mt-3">Faça um resumo de suas atividades profissionais atuais</label>
-                  <textarea class="form-control bg-light" rows="5" name="user[activities]" id="activities"></textarea>
-                  <label for="actualCustomers" class="mt-3">Já tem uma carteira de cliente que cotam produtos com você?</label>
+                  <label for="cpfOrCnpj" class="mt-3">CPF/CNPJ<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" placeholder="apenas números" name="user[doc]" id="cpfOrCnpj" required>
+                  <label for="activities"  class="mt-3">Faça um resumo de suas atividades profissionais atuais<span class="text-red"> *</span></label>
+                  <textarea class="form-control bg-light" rows="5" name="user[activities]" id="activities" required></textarea>
+                  <label for="actualCustomers" class="mt-3">Já tem uma carteira de cliente que cotam produtos com você?<span class="text-red"> *</span></label>
                   <div class="radio">
-                    <label><input type="radio" name="user[actualCustomers]">Sim</label>
+                    <label><input type="radio" name="user[actualCustomers]" required>Sim</label>
                   </div>
                   <div class="radio">
                     <label><input type="radio" name="user[actualCustomers]">Não</label>
                   </div>
-                  <label for="possibleCustomers" class="mt-3">Já tem uma carteira de cliente que podem vir a cotar produtos com você?</label>
+                  <label for="possibleCustomers" class="mt-3">Já tem uma carteira de cliente que podem vir a cotar produtos com você?<span class="text-red"> *</span></label>
                   <div class="radio">
-                    <label><input type="radio" name="user[possibleCustomers]">Sim</label>
+                    <label><input type="radio" name="user[possibleCustomers]" required>Sim</label>
                   </div>
                   <div class="radio">
                     <label><input type="radio" name="user[possibleCustomers]">Não</label>
                   </div>
-                  <label for="totalCustomers" class="mt-3">Total de clientes</label>
-                  <input type="number" class="bg-light form-control" name="user[totalCustomers]" id="totalCustomers">
-                  <label for="area" class="mt-3">Área total em Hectares</label>
-                  <input type="number" class="bg-light form-control" name="user[area]" id="area">
-                  <label for="important" class="mt-3">Faça um resumo de como a Megapool poderia ser importante para o seu negócio</label>
-                  <textarea class="form-control bg-light" rows="5" name="user[important]" id="important"></textarea>
+                  <label for="totalCustomers" class="mt-3">Total de clientes<span class="text-red"> *</span></label>
+                  <input type="number" class="bg-light form-control" name="user[totalCustomers]" id="totalCustomers" required>
+                  <label for="areahec" class="mt-3">Área total em Hectares<span class="text-red"> *</span></label>
+                  <input type="number" class="bg-light form-control" name="user[area]" id="areahec" required>
+                  <label for="important" class="mt-3">Faça um resumo de como a Megapool poderia ser importante para o seu negócio</label><span class="text-red"> *</span>
+                  <textarea class="form-control bg-light" rows="5" name="user[whyIsMegapoolImportant]" id="important" required></textarea>
+                  <div class="form-group col-12 row justify-content-between mx-auto">
+                    <label class="mt-3 ml-2"><input type="checkbox" class="mr-4" name="checkbox" value="check" required>Eu li a aba "Mais Informações" e concordo com os Termos de Uso</label>
+                    <button type="submit" class="pure-button pure-button-primary col-6 btn btn-default bg-green text-dark mr-1">Enviar</button>
+                    <button type="reset" class="col btn btn-default bg-light text-dark">Limpar</button>
+                  </div>
                 </div>
 <!-- end Franchisee exclusive field -->
 
-                <div class="industry-option dealer-option d-none">
-                  <label for="cnpj" class="mt-3">CNPJ</label>
-                  <input type="text" class="bg-light form-control" name="user[cnpj]" id="cnpj">
-                  <label for="cpf" class="mt-3">CPF</label>
-                  <input type="text" class="bg-light form-control" name="user[cpf]" id="cpf">
+<!-- Dealer and Industry ordinary field -->
+                <div class="form-group dealer-option industry-option d-none">
+                  <label for="Fname" class="mt-3">Nome de fantasia<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[fantasyName]" id="Fname" required>
+                  <label for="otherEmail" class="mt-3">E-mail de contato<span class="text-red"> *</span></label>
+                  <input type="email" class="bg-light form-control" name="user[secondaryEmail]"id="otherEmail" required>
+                </div>
+<!-- end Dealer and Industry ordinary field -->
+
+<!-- Dealer exclusive field -->
+                <div class="dealer-option industry-option d-none">
+                  <label for="responsible" class="mt-3">Quem ficará responsável pela conta Mega Pool<span class="text-red"> *</span></label>
+                  <input type="tel" class="bg-light form-control" name="user[responsible[name]]"id="responsible" required>
+                  <h5 class="mt-4 mb-4 text-center">Revendas devem fazer o cadastro separado de cada filial</h5>
+                  <label class="mt-3">Tem condições de atender demandas imediatas (estoque)?<span class="text-red"> *</span></label>
+                  <label><input type="radio" name="user[delivery[stock]]" required>Sim</label>
+                  <label><input type="radio" name="user[delivery[stock]]">Não</label>
+                  <label for="acceptDeliver" class="mt-3">Aceita entregar a uma distância de até (em KM)<span class="text-red"> *</span></label>
+                  <input type="number" class="bg-light form-control" name="user[delivery[maxDistance]]" min="0" step="50" id="acceptDeliver">
+                  <label for="Lphone" class="mt-3">Telefone do responsável pela logística<span class="text-red"> *</span></label>
+                  <input type="tel" class="bg-light form-control" name="user[logistics[phone]]"id="Lphone" required>
+                  <label for="Lemail" class="mt-3">E-mail logística<span class="text-red"> *</span></label>
+                  <input type="email" class="bg-light form-control" name="user[logistics[email]]"id="Lemail" required>
+                </div>
+<!-- end Dealer exclusive field -->
+
+<!-- Industry exclusive field -->
+                <div class="form-group industry-option d-none">
+                  <label for="headquarter" class="mt-3">Município sede da matriz<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[headquarter]" id="headquarter" required>
+                  <label for="regionalResponsible" class="mt-3">Responsável pela empresa na região<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[regionalResponsible]" id="regionalResponsible">
+                  <label for="Rphone" class="mt-3">Telefone fixo do Responsável pela conta Mega Pool<span class="text-red"> *</span></label>
+                  <input type="tel" class="bg-light form-control" name="user[responsible[phone]"id="Rphone" required>
+                  <label for="Rcellphone" class="mt-3">Celular do Responsável pela conta Mega Pool<span class="text-red"> *</span></label>
+                  <input type="tel" class="bg-light form-control" name="user[responsible[cellphone]]"id="Rcellphone" required>
+                  <label for="whereIsStock" class="mt-3">Onde possui o estoque físico mais próximo? <span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" placeholder="Nome do município" name="user[whereIsStock]"id="whereIsStock" required>
+                  <label for="Istate">Quais estados tem interesse e condições de atender?<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[interestedStates]"id="Istate" required>
+                  <label class="mt-3">Tem interesse em atender clientes diretos (com entregas fracionadas)?<span class="text-red"> *</span></label>
+                  <label><input type="radio" name="user[delivery[fractional]]" required>Sim</label>
+                  <label><input type="radio" name="user[delivery[fractional]]">Não</label>
+                  <label class="mt-3">Tem interesse em atender revendas?<span class="text-red"> *</span></label>
+                  <label><input type="radio" name="user[delivery[dealer]]" required>Sim</label>
+                  <label><input type="radio" name="user[delivery[dealer]]">Não</label>
+                  <label class="mt-3">Tem interesse em atender grupos de compras?<span class="text-red"> *</span></label>
+                  <label><input type="radio" name="user[delivery[groups]" required>Sim</label>
+                  <label><input type="radio" name="user[delivery[groups]">Não</label>
+                  <label class="mt-3">Tem inteesse em atender repiques com entregas no máximo até 30 dias?<span class="text-red"> *</span></label>
+                      <label><input type="radio" name="user[delivery[repechage]]" required>Sim</label>
+                      <label><input type="radio" name="user[delivery[repechage]]">Não</label>
                 </div>
 
-                <div class="producer-option d-none">
-                  <label for="stateRegistration" class="mt-3">Inscrição Estadual</label>
-                  <input type="text" class="bg-light form-control" name="user[stateRegistration]" id="stateRegistration">
-                </div>
+<!-- end Industry exclusive field -->
 
-                <div class="industry-option producer-option franchisee-option dealer-option d-none">
-                  <div class="form-group">
-                    <label for="cep" class="mt-2">CEP</label>
-                      <input type="text" class="bg-light form-control" name="user[cep]" id="cep" placeholder="41945639" required>
-                      <label for="street" class="mt-2">Rua</label>
-                      <input type="text" class="bg-light form-control" name="user[street]" id="street" placeholder="Rua dos Cocais" required>
-                      <label for="number" class="mt-2">Número</label>
-                      <input type="text" class="bg-light form-control" name="user[number]" id="number" placeholder="6754" required>
-                      <label for="state">Estado</label>
-                      <div class="form-group">
-                        <select class="form-control" name="user[state]" required>
-                          <option disabled selected value> -- Selecione um estado -- </option>
-                          <option value="AC">Acre</option>
-                          <option value="AL">Alagoas</option>
-                          <option value="AP">Amapá</option>
-                          <option value="AM">Amazonas</option>
-                          <option value="BA">Bahia</option>
-                          <option value="CE">Ceará</option>
-                          <option value="DF">Distrito Federal</option>
-                          <option value="ES">Espírito Santo</option>
-                          <option value="GO">Goiás</option>
-                          <option value="MA">Maranhão</option>
-                          <option value="MT">Mato Grosso</option>
-                          <option value="MS">Mato Grosso do Sul</option>
-                          <option value="MG">Minas Gerais</option>
-                          <option value="PA">Pará</option>
-                          <option value="PB">Paraíba</option>
-                          <option value="PR">Paraná</option>
-                          <option value="PE">Pernambuco</option>
-                          <option value="PI">Piauí</option>
-                          <option value="RJ">Rio de Janeiro</option>
-                          <option value="RN">Rio Grande do Norte</option>
-                          <option value="RS">Rio Grande do Sul</option>
-                          <option value="RO">Rondônia</option>
-                          <option value="RR">Roraima</option>
-                          <option value="SC">Santa Catarina</option>
-                          <option value="SP">São Paulo</option>
-                          <option value="SE">Sergipe</option>
-                          <option value="TO">Tocantins</option>
-                        </select>
-                      </div>
-                      <label for="city">Cidade:</label>
-                      <input type="text" class="bg-light form-control" name="user[city]" id="city" required>
-                      </select>
-                  </div>
-                </div>
-
-
-              </div>
-            </div>
-          </fieldset>
-
-          <div class="row justify-content-center d-none mt-4" id="form-buttons">
-            <div class="form-group col-12 row justify-content-between">
-              <div class="termsOfUse">
-                <div class="text-center">DIREITOS</div>
-                O comprador tem o direito a arrependimento do negócio em um prazo de 7 dias após o recebimento da mercadoria (mesmo tendo pago antecipado)  com o direito a receber todo o valor pago atualizado de acordo com a lei CDC 8079/90.
-                Todos os vendedores da Plataforma são empresas devidamente constituídas e registradas na junta comercial e devem fornecer notas fiscais, receituário Agronômico, local para descartes de embalagens e orientação  técnica sobre a utilização dos produtos.
-                Tem o direito de saber de qual empresa está comprando no momento da efetivação do pagamento do boleto.
-                O produtor rural tem o direito a escolher um franqueado,  para ajuda-lo nas tomadas de decisão, sem custo financeiro.
-                Receber relatórios atualizados periodicamente para acompanhar o andamento das cotações.
-
-                <div class="text-center">DEVERES</div>
-                Todas as compras feitas através da MEGA POOL, são para pagamentos á vista, realizados diretamente para o vendedor ou fabricante do produto, via boleto bancário.
-                Ter responsabilidade sobre os volumes cotados, pois todos produtores daquele grupo depende dos volumes cotados para ter poder de compra.
-                Após emitido o pedido e boleto de pagamento, realizar o pagamento no prazo determinado.
-
-              </div>
-                <input type="checkbox" class="mt-3" name="checkbox" value="check" id="agree" required> <h6 class="mt-3 mr-5">Eu li e concordo com os Termos de Uso</h6>
-                <button type="submit" class="pure-button pure-button-primary col-6 btn btn-default bg-green text-dark mr-1">Enviar</button>
-                <button type="reset" class="col btn btn-default bg-light text-dark">Limpar</button>
             </div>
           </div>
+        </fieldset>
+
+<!-- Producer terms field -->
+          <div class="producer-option d-none">
+            <div class="row justify-content-center d-none mt-4" id="form-buttons">
+              <div class="form-group col-12 row justify-content-between">
+                <div class="termsOfUse">
+                  <div class="text-center">DIREITOS</div>
+                  O comprador tem o direito a arrependimento do negócio em um prazo de 7 dias após o recebimento da mercadoria (mesmo tendo pago antecipado)  com o direito a receber todo o valor pago atualizado de acordo com a lei CDC 8079/90.
+                  Todos os vendedores da Plataforma são empresas devidamente constituídas e registradas na junta comercial e devem fornecer notas fiscais, receituário Agronômico, local para descartes de embalagens e orientação  técnica sobre a utilização dos produtos.
+                  Tem o direito de saber de qual empresa está comprando no momento da efetivação do pagamento do boleto.
+                  O produtor rural tem o direito a escolher um franqueado,  para ajuda-lo nas tomadas de decisão, sem custo financeiro.
+                  Receber relatórios atualizados periodicamente para acompanhar o andamento das cotações.
+
+                  <div class="text-center">DEVERES</div>
+                  Todas as compras feitas através da MEGA POOL, são para pagamentos á vista, realizados diretamente para o vendedor ou fabricante do produto, via boleto bancário.
+                  Ter responsabilidade sobre os volumes cotados, pois todos produtores daquele grupo depende dos volumes cotados para ter poder de compra.
+                  Após emitido o pedido e boleto de pagamento, realizar o pagamento no prazo determinado.
+
+                </div>
+                  <label class="mt-3 ml-2"><input type="checkbox" class="mr-4" name="checkbox" value="check" required>Eu li e concordo com os Termos de Uso</label>
+                  <button type="submit" class="pure-button pure-button-primary col-6 btn btn-default bg-green text-dark mr-1">Enviar</button>
+                  <button type="reset" class="col btn btn-default bg-light text-dark">Limpar</button>
+              </div>
+            </div>
+          </div>
+<!-- end Producer terms field -->
+
+<!-- Dealer terms field -->
+          <div class="dealer-option d-none">
+            <div class="row justify-content-center mt-4">
+              <div class="form-group col-12 row justify-content-between">
+                <div class="termsOfUse">
+                  <div class="text-center">DIREITOS</div>
+                  <ul>
+                    <li>Todos os pagamentos serão adiantados, antes da entrega, diretamente do cliente para a revenda, seguindo todos os passos necessários: proposta,
+                    pedido, pagamento do boleto, confirmação do pagamento e entregas dos produtos.</li>
+                    <li>Todas as revendas  cadastrada na plataforma terão o mesmo direito de anunciar seus produtos,  o que vai determinar a escolha será o produto que
+                    estará sendo ofertado e o preço oferecido, (o menor preço aparece na frente)  em caso de ofertas no mesmo preço, irá aparecer todas as opções com
+                    mesmo preço, porém a ordem é determinada por uma avaliação de grau de reputação do vendedor, apara auxiliar o comprador a escolher, já que nesse
+                    momento o comprador ainda não tem o nome da revenda.</li>
+                    <li>A revenda sempre saberá quem são os compradores no momento do pedido, bem como outras informações que sejam relevantes podem ser solicitadas á
+                    plataforma, para promover um pós-venda e tentar fidelizar o cliente.</li>
+                    <li>Somente as revendas tem o direito de ofertar seus produtos para o mercado de demanda imediata utilizando seu estoque, para entregas em até 48 h
+                    após o pagamento, podendo também participar das vendas para entregas em até 30 dias, nesse caso algumas indústrias também podem participar, cotações
+                    para safra e safrinha  as revendas podem participar somente se a revenda for distribuidor exclusivo para a região e o fabricante não tenham vendas
+                    diretas, neste caso deverá avisar a plataforma que analisará caso a caso.</li>
+                    <li>As revendas também podem comprar pela plataforma, inserindo suas demandas e somando aos volumes de todo o Brasil para a negociação com a indústria.</li>
+                    <li>Tem o direito de participar do programa MEGA OPORTUNIDADE, conheça mais esse programa mais abaixo.</li>
+                    <li>Tem o direito de receber relatórios periódicos de como anda suas operações na plataforma:  ofertas, demandas e cotações de seus produtos, bem
+                    como algumas informações gerais que serão passadas pela plataforma, sobre o mercado de insumos na região.</li>
+                  </ul>
+
+                  <div class="text-center">DEVERES</div>
+                  <ul>
+                    <li>A revenda tem o dever de cumprir com o que ofertar na plataforma: sob pena de lei, itens como; preços, volumes, entregas, além de manter
+                    sempre atualizado as ofertas dos produtos e confirmar o estoque a cada efetivação de pedido, etc.</li>
+                    <li>Tem o dever de entregar os produtos diretamente aos clientes (sem custo adicional ao cliente), com notas fiscais, receituário agronômico e
+                    orientação sobre local de devolução de embalagens vazias, além de se responsabilizar pelo pós venda e assistência técnica se for necessário.</li>
+                    <li>Somente em caso de escolha do cliente em retirar o produto na revenda, não será obrigatória a entrega.</li>
+                    <li>Preços anunciados em DÓLAR deverá ser convertido e atualizado em REAIS no momento da emissão do boleto para pagamento, respeitando a cotação
+                    do PTAX fornecido pelo banco Central.</li>
+                    <li>Todos os lotes de produtos deverão aparecer na nota fiscal e será rastreado para evitar ofertas de produtos de origem ilícita, caso seja
+                    encontrado irregularidades sobre no lote do produto a queixa seguirá diretamente as autoridades policiais, a revenda é totalmente responsável
+                    pela origem e qualidade dos produtos comercializados.</li>
+                    <li>No caso das compras, a revenda não pode utilizar a plataforma somente para especulação, adicionando suas demandas e retirando no momento do
+                    fechamento somente para ter acesso a preços, sem motivo justificável, isso prejudica outros revendedores que estavam dependendo do seu volume
+                    para ter poder de barganha e pode prejudicar todo o setor, essa ação pode remeter a penalidades além de pesar negativamente em sua reputação
+                    como vendedor.</li>
+                    <li>Deve estar ciente a regras que se aplica a vendas pela internet, de acordo com o código de defesa do consumidor: segue abaixo:
+                      <p>O comprador tem o direito a arrependimento do negócio em um prazo de 7 dias após o recebimento da mercadoria (mesmo tendo pago antecipado) com
+                      o direito a receber todo o valor pago e sem burocracia, de acordo com o art: 49 da lei CDC 8078/90.</p></li>
+                  </ul>
+                  <p>A plataforma cobrará uma comissão sobre as vendas efetivadas:</p>
+                  <p>AS COMISSÕES PAGAS Á PLATAFORMA, SERÃO SOBRE O VOLUME DE VENDAS EFETIVADOS, OS PAGAMENTOS SÃO REALIZADOS ATRAVÉS DE BOLETOS E EMITIDOS NO
+                  MOMENTO DO PAGAMENTO REALIZADO PELO CLIENTE A REVENDA, SUJEITO A PROTESTO E NEGATIVAÇÃO.</p>
+                  <p>A PLATAFORMA EMITIRÁ NOTA FISCAL PARA RECEBIMENTO DAS COMISSÕES:<p>
+
+
+                  <table class="table table-striped table-dark text-center">
+                    <thead>
+                      <tr class="bg-green2 text-light">
+                        <th scope="col">Categoria produto</th>
+                        <th scope="col">Comissão</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Defensivos agrícolas/Agroquímicos</td>
+                        <td>1%</td>
+                      </tr>
+                      <tr>
+                        <td>Sementes em geral</td>
+                        <td>2%</td>
+                      </tr>
+                      <tr>
+                        <td>Fertilizantes sólidos de base</td>
+                        <td>0,65%</td>
+                      </tr>
+                      <tr>
+                        <td>Fertilizantes líquidos/adjuvantes/biológicos</td>
+                        <td>3%</td>
+                      </tr>
+                      <tr>
+                        <td>Produtos Mega Oportunidade</td>
+                        <td>3%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>*PRODUTOS QUE NÃO SE ENCAIXAM NESSA CATEGORIAS ACIMA, DEVERÃO SER ENVIADOS PARA NOSSA AVALIAÇÃO PARA O E-MAIL: produto@megapool.com.br.</p>
+                  <p>*PARA FERTLIZANTES SÓLIDOS DE BASE (ESPECIAIS), ex: proteção ou liberação programada, adição de ácidos húmicos, organominerais, etc, a taxa cobrada
+                  será (COMISSÃO de 1%).</p>
+                  <p>* AS COMISSÕES SÓ SERÃO COBRADAS APÓS O NEGÓCIO SER EFETIVADO E PAGO PELO CLIENTE.</p>
+                </div>
+                <div class="form-group col-12 row justify-content-between mx-auto">
+                  <label class="mt-3 ml-2"><input type="checkbox" class="mr-4" name="checkbox" value="check" required>Eu li e concordo com os Termos de Uso</label>
+                  <button type="submit" class="pure-button pure-button-primary col-6 btn btn-default bg-green text-dark mr-1">Enviar</button>
+                  <button type="reset" class="col btn btn-default bg-light text-dark">Limpar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+<!-- end Dealer terms field -->
+
+<!-- Industry terms field -->
+          <div class="industry-option d-none">
+            <div class="row justify-content-center mt-4" id="form-buttons">
+              <div class="form-group col-12 row justify-content-between">
+                <div class="termsOfUse">
+                  <div class="text-center">DIREITOS</div>
+                  <ul>
+                    <li>Todas as indústrias cadastradas na plataforma terão o mesmo direito de anunciar seus produtos, o que vai determinar a escolha será o produto
+                    que estará sendo ofertado e o preço oferecido, em caso de ofertas no mesmo preço, irá aparecer todas.</li>
+                    <li>Todos os pagamentos serão adiantados, antes da entrega, diretamente do cliente para a indústria, seguindo todos os passos necessários: proposta,
+                    pedido, pagamento do boleto, envio do recibo e entregas dos produtos.</li>
+                    <li>A indústria sempre saberá quem são os compradores no momento do pedido, bem como outras informações que sejam relevantes podem ser solicitadas à
+                    plataforma, para promover um pós venda e tentar fidelizar o cliente.</li>
+                    <li>A Industria tem o direito escolher se irá vender para clientes diretos, canais e grupos de compra, além disso se quer participar de vendas com
+                    entregas rápidas em até 30 dias, safra ou safrinha de acordo com sua capacidade de fabricação e logística.</li>
+                    <li>Tem o direito de participar dos programas MEGA OPORTUNIDADE e MEGA PREMIO, sem custo, conheça mais desses programas mais abaixo.</li>
+                    <li>Tem o direito de receber relatórios periódicos de como anda suas operações na plataforma:  ofertas, demandas e cotações de seus produtos, bem
+                    como algumas informações gerais que serão passadas pela plataforma (Pesquisa de Mercado).</li>
+                  </ul>
+
+                  <div class="text-center">DEVERES</div>
+                  <ul>
+                    <li>A indústria tem o dever de cumprir com o que ofertar na plataforma: sob pena de lei, itens como; preços, volumes, entregas, além de manter sempre
+                    atualizado as ofertas dos produtos e confirmar o estoque a cada efetivação de pedido, etc.</li>
+                    <li>Tem o dever de entregar os produtos diretamente aos clientes, com notas fiscais, receituário agronômico e orientação sobre local de devolução de
+                    embalagens vazias, além de se responsabilizar pelo pós venda.</li>
+                    <li>Preços anunciados em DÓLAR deverá ser convertido e atualizado em REAIS no momento da emissão do boleto para pagamento, respeitando a cotação do PTAX
+                    fornecido pelo banco Central.</li>
+                    <li>Dever estar ciente a regras que se aplica a vendas pela internet, de acordo com o código de defesa do consumidor:</li>
+                    <p>O comprador tem o direito a arrependimento do negócio em um prazo de 7 dias após o recebimento da mercadoria (mesmo tendo pago antecipado) com o direito a
+                    receber todo o valor pago, sem burocracia, de acordo com o art: 49 da  lei CDC 8078/90.</p>
+                    <p>A plataforma cobrará uma comissão sobre as vendas efetivadas:</p>
+                    <p>PAGAR AS COMISSÕES Á PLATAFORMA, SOBRE O VOLUME DE VENDAS EFETIVADO, OS PAGAMENTOS SÃO REALIZADOS ATRAVÉS DE BOLETOS EMITIDOS NO MOMENTO DO PAGAMENTO REALIZADO
+                    PELO CLIENTE Á INDUSTRIA, SUJEITO A PROTESTO E NEGATIVAÇÃO.</p>
+                    <p>A PLATAFORMA EMITIRÁ NOTA FISCAL PARA RECEBIMENTO DAS COMISSÕES:</p>
+                  </ul>
+                  <table class="table table-striped table-dark text-center">
+                    <thead>
+                      <tr class="bg-green2 text-light">
+                        <th scope="col">Categoria produto</th>
+                        <th scope="col">Comissão</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Defensivos agrícolas/Agroquímicos</td>
+                        <td>1%</td>
+                      </tr>
+                      <tr>
+                        <td>Sementes em geral</td>
+                        <td>2%</td>
+                      </tr>
+                      <tr>
+                        <td>Fertilizantes sólidos de base</td>
+                        <td>0,65%</td>
+                      </tr>
+                      <tr>
+                        <td>Fertilizantes líquidos/adjuvantes/biológicos</td>
+                        <td>3%</td>
+                      </tr>
+                      <tr>
+                        <td>Produtos Mega Oportunidade</td>
+                        <td>3%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>*PRODUTOS QUE NÃO SE ENCAIXAM NESSA CATEGORIAS ACIMA, DEVERÃO SER ENVIADOS PARA NOSSA AVALIAÇÃO PARA O E-MAIL: produto@megapool.com.br.</p>
+                  <p>*PARA FERTLIZANTES SÓLIDOS DE BASE (ESPECIAIS), ex: proteção ou liberação programada, adição de ácidos húmicos, organominerais, etc, á taxa cobrada será (COMISSÃO de 1%).</p>
+                  <p>*AS COMISSÕES SÓ SERÃO COBRADAS APÓS O NEGÓCIO SER EFETIVADO E PAGO PELO CLIENTE.</p>
+
+                </div>
+                  <label class="mt-3 ml-2"><input type="checkbox" class="mr-4" name="checkbox" value="check" required>Eu li e concordo com os Termos de Uso</label>
+                  <button type="submit" class="pure-button pure-button-primary col-6 btn btn-default bg-green text-dark mr-1">Enviar</button>
+                  <button type="reset" class="col btn btn-default bg-light text-dark">Limpar</button>
+              </div>
+            </div>
+          </div>
+<!-- end Industry terms field -->
 
         </form>
       </div>

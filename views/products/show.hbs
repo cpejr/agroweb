@@ -20,8 +20,7 @@
     <!-- Product Title -->
     <div class="col-12 col-md-6 mb-5">
       <i class="text-muted">Produto {{generic}}</i>
-      <h2 class="my-0 py-0">Adubo NPK 5000 colorido</h2>
-      <h5 class="text-muted">R$ 500,00 un.</h5>
+      <h2 class="my-0 py-0">{{name}}</h2>
     </div>
     <!-- end Product Title -->
 
@@ -30,21 +29,11 @@
       <form action="#" method="post">
         <div class="row mb-3">
           <div class="form-group col">
-            <label class="text-muted" for="delivery">Entrega</label>
-            <select class="form-control" id="delivery" name="delivery">
-              <option value="48hours">Até 48 horas</option>
-              <option value="31days">Até 31 dias</option>
-              <option value="crop">Safra</option>
-              <option value="littlecrop">Safrinha</option>
-            </select>
-          </div>
-
-          <div class="form-group col">
             <label class="text-muted" for="amount">Quantidade</label>
             <div class="input-group">
               <input class="form-control" type="number" name="amount" id="amount" value="1">
               <div class="input-group-prepend">
-                <div class="input-group-text">un.</div>
+                <div class="input-group-text">{{unit}}</div>
               </div>
             </div>
           </div>
@@ -60,10 +49,7 @@
     <div class="col-12 col-md-6 mb-5">
       <h4>Descrição</h4>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer volutpat lectus eu nunc efficitur, pharetra
-        vestibulum ligula laoreet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
-        egestas. Pellentesque in nisi ornare, venenatis urna sed, pellentesque quam. Nunc molestie neque in lorem interdum,
-        ut tincidunt urna aliquam.
+        {{description}}
       </p>
     </div>
     <!-- end Product Description -->
@@ -90,7 +76,7 @@
         </div>
         <div class="col-6">
           <dt>Ingrediente ativo</dt>
-          <dd>[8]-E-dadacemal, paracetamol, outros</dd>
+          <dd>{{chem}}</dd>
         </div>
       </div>
     </div>

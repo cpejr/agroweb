@@ -167,14 +167,6 @@ router.post('/signup', (req, res) => {
   const position = userData.fullName.indexOf(' ');
   userData.firstName = userData.fullName.slice(0, position);
 
-  if (userData.cpf === '') {
-    userData.doc = userData.cnpj;
-  }
-  else {
-    userData.doc = userData.cpf;
-  }
-  delete userData.cpf;
-  delete userData.cnpj;
 
   req.session.userType = userData.type;
   req.session.firstName = userData.firstName;

@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "start": "node ./bin/www",
-        "teste": "nodemon ./bin/www"
+        "test": "nodemon ./bin/www"
     },
     "dependencies": {
         "blob-stream": "^0.1.3",

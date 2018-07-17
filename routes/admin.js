@@ -2,6 +2,7 @@ const express = require('express');
 const firebase = require('firebase');
 const User = require('../models/user.js');
 const Newsletter = require('../models/newsletter.js');
+const Product = require('../models/product.js');
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -17,6 +18,17 @@ router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
     res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
   }).catch((err) => {
     console.log(err);
+  });
+});
+
+/* GET Products - Show all products docs */
+router.get('/products', (req, res) => {
+  Product.getAll().then((products) => {
+    console.log(products);
+    res.render('admin/products', { title: 'Produtos', products });
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/error');
   });
 });
 

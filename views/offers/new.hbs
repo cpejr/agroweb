@@ -1,8 +1,28 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
+
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+      <button class="btn btn-outline-dark " type="button">
+        <i class="fas fa-search fa-2x"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+<!-- end NavBar -->
+
 <h1>Nova Oferta</h1>
 
 <form action="/offers/new" method="POST">
   <p>Categoria do produto</p>
-  <select class="form-control col-2" name="offer[category]">
+  <select class="form-control col-2" name="offer[category]" id="category">
     <option disabled selected value> -- Selecione uma opção -- </option>
     <option value="Fertilizantes sólidos">Fertilizantes sólidos</option>
     <option value="Defensivos agrícolas/agrotóxicos">Defensivos agrícolas/agrotóxicos</option>
@@ -10,9 +30,11 @@
     <option value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
   </select>
   <p>Nome do produto</p>
-  <select class="form-control col-2" name="offer[product]">
-    <option disabled selected value> -- Selecione uma opção -- </option>
-  </select>
+  <div id="product-selector">
+    <select class="form-control col-2" name="offer[product]" >
+      <option disabled selected value> -- Selecione uma opção -- </option>
+    </select>
+  </div>
   <p>Quantidade em estoque</p>
   <input type="number" name="offer[stock]">
   <p>Quantidade mínima a ser comprada</p>
@@ -38,6 +60,14 @@
       <option value="safrinha">Safrinha</option>
     </select>
   <div>
-      <button class="btn" type="submit">Enviar</button>
+    <button class="btn" type="submit">Enviar</button>
   </div>
 </form>
+
+{{#section 'scripts'}}
+<script type="text/javascript">
+  $("#category").change(function() {
+    $("#product-selector").load("teste/"+$('#category').val());
+  });
+</script>
+{{/section}}

@@ -1,37 +1,92 @@
-<h1>Novo Produto</h1>
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
 
-<form action="/products" method="POST">
-  <p>Nome do produto</p>
-  <input name="product[name]" type="text"></input>
-  <p>Categoria</p>
-  <select class="form-control col-2" name="product[category]">
-    <option disabled selected value> -- Selecione uma opção -- </option>
-    <option value="Fertilizantes sólidos">Fertilizantes sólidos</option>
-    <option value="Defensivos agrícolas/agrotóxicos">Defensivos agrícolas/agrotóxicos</option>
-    <option value="Sementes">Sementes</option>
-    <option value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
-  </select>
-  <p>Fabricante</p>
-  <input name="product[manufacturer]" type="text"></input>
-  <div class="col-12">
-    <input type="radio" name="product[generic]" value="Original"></input>
-    <label>Produto não genérico</label>
-  </div>
-  <p>Descrição</p>
-  <input name="product[description]" type="text"></input>
-  <p>Unidade</p>
-  <select class="form-control col-2" name="product[unit]">
-    <option disabled selected value> -- Selecione uma opção -- </option>
-    <option value="kg">Kilogramas</option>
-    <option value="unidade">Unidade</option>
-  </select>
-  <p>Princípio Ativo</p>
-    {{#each chems}}
-      <input type="checkbox" name="product[chem][]" value="{{_id}}">
-      <label>{{name}}</label>
-    {{/each}}
-  </select>
-  <div>
-      <button class="btn" type="submit">Enviar</button>
-  </div>
-</form>
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+      <button class="btn btn-outline-dark " type="button">
+        <i class="fas fa-search fa-2x"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+<!-- end NavBar -->
+<h4 class="mt-3 text-center">Novo Produto</h4>
+  <form action="/products" method="POST">
+    <div class="row d-flex justify-content-between">
+      <div class="form-group col-md-3 mx-4 my-2">
+        <label for="name" class="sr-only">Nome do produto</label>
+        <div class="input-group mb-2">
+         <div class="input-group-prepend">
+           <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+         </div>
+         <input name="product[name]" type="text" class="form-control" placeholder="Nome do produto" id="name"></input>
+        </div>
+      </div>
+      <div class="form-group col-md-3 mx-4 my-2">
+        <label for="category" class="sr-only">Categoria</label>
+        <div class="input-group mb-2">
+         <div class="input-group-prepend">
+           <div class="input-group-text"><i class="fas fa-boxes"></i></div>
+         </div>
+         <select class="form-control" name="product[category]" id="category">
+           <option disabled selected value> -- Categoria -- </option>
+           <option value="Fertilizantes sólidos">Fertilizantes sólidos</option>
+           <option value="Defensivos agrícolas/agrotóxicos">Defensivos agrícolas/agrotóxicos</option>
+           <option value="Sementes">Sementes</option>
+           <option value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
+         </select>
+        </div>
+      </div>
+
+      <div class="form-group col-md-3 mx-4  my-2">
+        <div class="input-group mb-2">
+         <div class="input-group-prepend">
+           <div class="input-group-text"><i class="fas fa-industry"></i></div>
+         </div>
+         <input name="product[manufacturer]" type="text" placeholder="Fabricante" class="form-control" id="manufacturer"></input>
+        </div>
+         <input type="radio" name="product[generic]" value="Original"></input>
+        <label>Produto não genérico</label>
+      </div>
+    </div>
+
+      <div class="row d-flex justify-content-center">
+        <div class="form-group col-md-3 mx-4  my-2">
+          <div class="input-group mb-2">
+           <div class="input-group-prepend">
+             <div class="input-group-text"><i class="fas fa-newspaper"></i></div>
+           </div>
+           <input name="product[description]" placeholder="Descrição" type="text" class="form-control" id="description"></input>
+          </div>
+        </div>
+
+        <div class="form-group col-md-3 mx-4  my-2">
+          <div class="input-group mb-2">
+           <div class="input-group-prepend">
+             <div class="input-group-text"><i class="fas fa-balance-scale"></i></div>
+           </div>
+           <select class="form-control" name="product[unit]" id="un">
+             <option disabled selected value> -- Unidade -- </option>
+             <option value="kg">Kilogramas</option>
+             <option value="unidade">Unidade</option>
+           </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row d-flex justify-content-between">
+        <div class="form-group col-md-12 mx-4 my-2">
+          <label for="activeIng" class="rounded bg-black"><i class="fas fa-flask fa-sm mr-2"></i>Princípio Ativo</label>
+          <div class="row">
+            {{#each chems}}
+              <label class="d-block col-3"><input type="checkbox" name="product[chem][]" class="mr-1" value="{{_id}}" id="activeIng">{{name}}</label>
+            {{/each}}
+          </div>
+        </div>
+    </div>
+    <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Enviar</button>
+  </form>

@@ -1,0 +1,43 @@
+<h1>Nova Oferta</h1>
+
+<form action="/offers/new" method="POST">
+  <p>Categoria do produto</p>
+  <select class="form-control col-2" name="offer[category]">
+    <option disabled selected value> -- Selecione uma opção -- </option>
+    <option value="Fertilizantes sólidos">Fertilizantes sólidos</option>
+    <option value="Defensivos agrícolas/agrotóxicos">Defensivos agrícolas/agrotóxicos</option>
+    <option value="Sementes">Sementes</option>
+    <option value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
+  </select>
+  <p>Nome do produto</p>
+  <select class="form-control col-2" name="offer[product]">
+    <option disabled selected value> -- Selecione uma opção -- </option>
+  </select>
+  <p>Quantidade em estoque</p>
+  <input type="number" name="offer[stock]">
+  <p>Quantidade mínima a ser comprada</p>
+  <input type="number" name="offer[minAmount]">
+  <p>Preços:</p>
+  <label>Baixo</label>
+    <input type="number" name="offer[price][low]">
+  <label>Médio</label>
+    <input type="number" name="offer[price][average]">
+  <label>Alto</label>
+    <input type="number" name="offer[price][high]">
+  <p>Quantidade para mudança de preço</p>
+  <label>Muda para o preço médio</label>
+    <input type="number" name="offer[breakpoints][average]">
+  <label>Muda para o preço baixo</label>
+    <input type="number" name="offer[breakpoints][low]">
+  <p>Forma de entrega</p>
+    <select class="form-control col-2" name="offer[delivery]">
+      <option disabled selected value> -- Selecione uma opção -- </option>
+      <option value="em até 48 horas">Em até 48 horas</option>
+      <option value="em até 31 dias">Em até 31 dias</option>
+      <option value="safra">Safra</option>
+      <option value="safrinha">Safrinha</option>
+    </select>
+  <div>
+      <button class="btn" type="submit">Enviar</button>
+  </div>
+</form>

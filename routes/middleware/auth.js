@@ -7,7 +7,6 @@ module.exports = {
   isAuthenticated: (req, res, next) => {
     const user = firebase.auth().currentUser;
     if (user !== null) {
-      req.user = user;
       next();
     }
     else {
@@ -44,6 +43,15 @@ module.exports = {
   isDealer: (req, res, next) => {
     const { userType } = req.session;
     if (userType === 'Revendedor') {
+      next();
+    }
+    else {
+      res.redirect('/user');
+    }
+  },
+  canSell: (req, res, next) => {
+    const { userType } = req.session;
+    if (userType === 'Revendedor' || userType === 'Indústria' || userType === 'Administrador') {
       next();
     }
     else {

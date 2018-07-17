@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 /**
  * GET New - Show form to create new offer
  */
-router.get('/new', auth.isIndustry, auth.isDealer, (req, res) => {
+router.get('/new', auth.canSell, (req, res) => {
   res.render('offers/new', { title: 'Nova Oferta' });
 });
 
@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
     name: req.body.name,
     price: req.body.price
   };
-  Offer.create( modelo, offer).then((id) => {
+  Offer.create(modelo, offer).then((id) => {
     console.log(`Created new offer with id: ${id}`);
     res.redirect(`/offers/${id}`);
   }).catch((err) => {
@@ -62,7 +62,7 @@ router.get('/:id', (req, res) => {
 /**
  * GET Edit - Show the offer edit form
  */
-router.get('/:id/edit', auth.isIndustry, auth.isDealer, (req, res) => {
+router.get('/:id/edit', auth.canSell, (req, res) => {
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);

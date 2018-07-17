@@ -4,13 +4,16 @@ const Newsletter = require('../models/newsletter.js');
 
 const router = express.Router();
 
-
-/* GET maintenance page. */
+/**
+ * GET Maintenance page
+ */
 router.get('/', (req, res) => {
   res.render('maintenance', { title: 'Manutenção', layout: 'layout' });
 });
 
-/* POST newsletter database. */
+/**
+ * POST maintenance/newsletter request
+ */
 router.post('/newsletter', (req, res) => {
   const newsletterData = req.body.newsletter;
   console.log(newsletterData);

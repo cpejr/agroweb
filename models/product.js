@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
   },
   generic: {
     type: String,
-    default: 'Genérico'
+    default: 'Similar'
   },
   manufacturer: String,
   description: String,

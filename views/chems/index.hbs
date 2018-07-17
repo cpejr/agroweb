@@ -41,8 +41,9 @@
         <tr>
           <th scope="row">{{name}}</th>
           <td class="row">
-            <form action="/chems/{{id}}?_method=DELETE" method="POST">
-              <input type="submit" class="btn btn-outline-danger mr-2" value="Excluir">
+            <form method="post">
+            <!-- <form action="/chems/{{id}}?_method=DELETE" method="POST"> -->
+              <button type="submit" class="btn btn-outline-danger mr-2">Excluir</button>
             </form>
             <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
           </td>

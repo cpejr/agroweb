@@ -46,8 +46,9 @@
           <th scope="row">{{category}}</th>
           <th scope="row">{{manufacturer}}</th>
           <td class="row">
-            <form action="/products/{{id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-outline-danger mr-2" value="Excluir">
+            <form method="post">
+            <!-- <form action="/products/{{id}}?_method=DELETE" method="POST"> -->
+              <button type="submit" class="btn btn-outline-danger mr-2">Excluir</button>
             </form>
             <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
           </td>

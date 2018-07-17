@@ -76,7 +76,9 @@
         </div>
         <div class="col-6">
           <dt>Ingrediente ativo</dt>
-          <dd>{{chem}}</dd>
+          {{#each chem}}
+            <dd>{{name}}</dd>
+          {{/each}}
         </div>
       </div>
     </div>

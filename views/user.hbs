@@ -1,5 +1,4 @@
 <!-- Header and NavBar -->
-{{userType}}
 <div class="pos-f-t">
   <div class="collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4">
@@ -22,7 +21,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">
-            <i class="fas fa-wrench fa-sm"></i>Logout
+            <i class="fas fa-sign-out-alt fa-sm"></i>Logout
           </a>
         </li>
 
@@ -72,12 +71,12 @@
 <ul class="list-group list-group-flush">
   <li class="list-group-item">
     <i class="fas fa-shopping-cart fa-lg"></i>
-    <button onclick="location.href = '/success'" class="btn">Minhas cotações</button>
+    <button onclick="location.href = '/quotations'" class="btn">Minhas cotações</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
     <i class="fas fa-credit-card fa-lg"></i>
-    <button onclick="location.href = '/teste'" class="btn">Minhas compras</button>
+    <button onclick="location.href = '/transactions'" class="btn">Minhas compras</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
@@ -91,7 +90,7 @@
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
-    <i class="fas fa-exclamation-circle fa-lg"></i>
+    <i class="fas fa-file-alt fa-lg"></i>
     <button onclick="location.href = '/orders'" class="btn">Demandas</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
@@ -110,7 +109,7 @@
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
-    <i class="fas fa-exclamation-circle fa-lg"></i>
+    <i class="fas fa-file-alt fa-lg"></i>
     <button onclick="location.href = '/orders'" class="btn">Demandas</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
@@ -120,7 +119,7 @@
 <ul class="list-group list-group-flush">
   <li class="list-group-item">
     <i class="fas fa-shopping-cart fa-lg"></i>
-    <button onclick="location.href = '/success'" class="btn">Minhas cotações</button>
+    <button onclick="location.href = '/quotations'" class="btn">Minhas cotações</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
@@ -130,7 +129,7 @@
   </li>
   <li class="list-group-item">
     <i class="fas fa-external-link-alt fa-lg"></i>
-    <button onclick="location.href = '/offers/new'" class="btn">Ser franqueado</button>
+    <button onclick="location.href = '/success'" class="btn">Ser franqueado</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
 </ul>
@@ -139,7 +138,7 @@
 <ul class="list-group list-group-flush">
   <li class="list-group-item">
     <i class="fas fa-shopping-cart fa-lg"></i>
-    <button onclick="location.href = '/success'" class="btn">Minhas cotações</button>
+    <button onclick="location.href = '/quotations'" class="btn">Minhas cotações</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
@@ -149,12 +148,12 @@
   </li>
   <li class="list-group-item">
     <i class="fas fa-external-link-alt fa-lg"></i>
-    <button onclick="location.href = '/'" class="btn">Meus clientes</button>
+    <button onclick="location.href = '/succes'" class="btn">Meus clientes</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
 </ul>
 
-{{else}}
+<!-- {{else}}
 <ul class="list-group list-group-flush">
   <li class="list-group-item">
     <i class="fas fa-shopping-cart fa-lg"></i>
@@ -171,7 +170,7 @@
     <button onclick="location.href = '/offers/new'" class="btn">A definir</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
-</ul>
+</ul> -->
 
 {{/ifCond}}
 

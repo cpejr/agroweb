@@ -21,7 +21,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">
-            <i class="fas fa-wrench fa-sm"></i>Logout
+            <i class="fas fa-sign-out-alt fa-sm"></i>Logout
           </a>
         </li>
 
@@ -66,30 +66,33 @@
 </div>
 <!-- end Header and NavBar -->
 
-<ul class="list-group list-group-flush">
+<ul class="list-group list-group-flush d-block">
+  <li class="list-group-item">
+    <i class="fas fa-barcode fa-lg mr-4"><button onclick="location.href = '/transactions'" class="btn">Boletos pendentes</button></i>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="far fa-address-card fa-lg mr-4 "><button onclick="location.href = '/admin/users'" class="btn">Usuários</button></i>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
   <li class="list-group-item">
     <i class="fas fa-shopping-cart fa-lg"></i>
-    <button onclick="location.href = '/transactions'" class="btn">Boletos pendentes</button>
+    <button onclick="location.href = '/admin/products'" class="btn">Produtos</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
-    <i class="fas fa-credit-card fa-lg"></i>
-    <button onclick="location.href = '/admin/users'" class="btn">Usuários</button>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-  <li class="list-group-item">
-    <i class="fas fa-external-link-alt fa-lg"></i>
-    <button onclick="location.href = '/products'" class="btn">Produtos</button>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-  <li class="list-group-item">
-    <i class="fas fa-database fa-lg"></i>
+    <i class="fas fa-users fa-lg mr-4 "></i>
     <button onclick="location.href = '/groups'" class="btn">Grupos</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
-    <i class="fas fa-exclamation-circle fa-lg"></i>
-    <button onclick="location.href = '/newsletter'" class="btn">Newsletter</button>
+    <i class="fas fa-flask fa-lg mr-4 "></i>
+    <button onclick="location.href = '/chems'" class="btn">Princípios ativos</button>
+    <i class="fas fa-angle-right fa-lg float-right"></i>
+  </li>
+  <li class="list-group-item">
+    <i class="far fa-envelope fa-lg mr-4 "></i>
+    <button onclick="location.href = '/newsletterlist'" class="btn">Newsletter</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
 </ul>

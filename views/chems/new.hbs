@@ -18,36 +18,15 @@
 </div>
 <!-- end NavBar -->
 
-<div class="card text-center">
-  <div class="card-body">
-    <h3 class="card-title">Usuários cadastrados na Newsletter</h3>
-  </div>
-</div>
+<h1>Novo Princípio Ativo</h1>
 
-<table class="table table-dark text-center">
-  <thead>
-    <tr>
-      <th scope="col">Nome</th>
-      <th scope="col">Email</th>
-      <th scope="col">Tipo de Usuário</th>
-      <th scope="col">Excluir</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each users}}
-    <tr>
-      <td>{{fullName}}</td>
-      <td>{{email}}</td>
-      <td>Tipo de usuário</td>
-      <td>
-        <button type="button" class="btn btn-outline-danger">
-          <i class="fas fa-minus-circle"></i>
-        </button>
-      </td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+<form action="/chems" method="POST">
+  <p>Nome do princípio ativo</p>
+  <input name="chem[name]" type="text"></input>
+  <div>
+    <button class="btn" type="submit">Enviar</button>
+  </div>
+</form>
 
 {{#section 'scripts'}}
   <script src="/javascripts/navbar.js"></script>

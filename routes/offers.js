@@ -1,5 +1,6 @@
 const express = require('express');
 const Offer = require('../models/offer.js');
+const Product = require('../models/product.js');
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -17,9 +18,22 @@ router.get('/', (req, res) => {
 });
 
 /**
+ * GET Teste - Get all products from a category
+ */
+router.get('/teste/:category', auth.canSell, (req, res) => {
+  console.log(req.params);
+  Product.getAllByCategory(req.params.category).then((products) => {
+    console.log(products);
+    res.render('offers/productSelector', { products });
+  }).catch((err) => {
+    console.log(err);
+  });
+});
+
+/**
  * GET New - Show form to create new offer
  */
-router.get('/new', auth.isIndustry, auth.isDealer, (req, res) => {
+router.get('/new', auth.canSell, (req, res) => {
   res.render('offers/new', { title: 'Nova Oferta' });
 });
 
@@ -27,10 +41,7 @@ router.get('/new', auth.isIndustry, auth.isDealer, (req, res) => {
  * POST Create - Add new offer to DB
  */
 router.post('/', (req, res) => {
-  const offer = {
-    name: req.body.name,
-    price: req.body.price
-  };
+  const { offer } = req.body;
   Offer.create(offer).then((id) => {
     console.log(`Created new offer with id: ${id}`);
     res.redirect(`/offers/${id}`);
@@ -62,7 +73,7 @@ router.get('/:id', (req, res) => {
 /**
  * GET Edit - Show the offer edit form
  */
-router.get('/:id/edit', auth.isIndustry, auth.isDealer, (req, res) => {
+router.get('/:id/edit', auth.canSell, (req, res) => {
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);
@@ -82,10 +93,7 @@ router.get('/:id/edit', auth.isIndustry, auth.isDealer, (req, res) => {
  * PUT Update - Update a offer in the database
  */
 router.put('/:id', (req, res) => {
-  const offer = {
-    name: req.body.name,
-    price: req.body.price
-  };
+  const { offer } = req.body;
   Offer.update(req.params.id, offer).catch((err) => {
     console.log(err);
   });

@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
   },
   generic: {
     type: String,
-    default: 'Genérico'
+    default: 'Similar'
   },
   manufacturer: String,
   description: String,
@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  //fields:
+  // fields:
   chem: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Chem'
@@ -107,11 +107,11 @@ class Product {
   }
 
   /**
-   * Get all Prdoducts that match the desired category value
+   * Get all Products that match the desired category value
    * @param {string} value - Category value
    * @returns {Object} Product Document Data
    */
-  static getAllByStatus(value) {
+  static getAllByCategory(value) {
     return new Promise((resolve, reject) => {
       ProductModel.find({ category: value }).populate('chem').then((result) => {
         resolve(result);

@@ -5,31 +5,41 @@ const auth = require('./middleware/auth');
 const nodemailer = require('nodemailer');
 const Transaction = require('../models/transaction.js');
 const Email = require('../models/email.js');
+const Newsletter = require('../models/newsletter.js');
 
 const router = express.Router();
 
-
-/* GET HOME - TESTES */
+/**
+ * GET Home page
+ */
 router.get('/', (req, res) => {
   res.render('home', { title: 'Página inicial', layout: 'layout' });
 });
 
-/* GET FORGOTPASSWORD - TESTES */
+/**
+ * GET ForgotPassword page
+ */
 router.get('/forgotPassword', (req, res) => {
   res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });
 });
 
-/* GET FORGOTPASSWORD - TESTES */
+/**
+ * GET FranchiseeOption page - TESTES
+ */
 router.get('/franchiseeOption', (req, res) => {
   res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layout' });
 });
 
-/* GET SUCCESS - TESTES */
+/**
+ * GET SUCCESS - TESTES
+ */
 router.get('/success', (req, res) => {
   res.render('success', { title: 'Sucesso', layout: 'layout' });
 });
 
-/* GET LOGIN - TESTES */
+/**
+ * GET Login page
+ */
 router.get('/login', (req, res) => {
   if ('userType' in req.session) {
     if (req.session.userType === 'Administrador') {
@@ -39,15 +49,21 @@ router.get('/login', (req, res) => {
       res.redirect('/user');
     }
   }
-  res.render('login', { title: 'Login', layout: 'layout' });
+  else {
+    res.render('login', { title: 'Login', layout: 'layout' });
+  }
 });
 
-/* GET SIGNUP - TESTES */
+/**
+ * GET Signup page
+ */
 router.get('/signup', (req, res) => {
   res.render('signup', { title: 'Cadastro', layout: 'layout' });
 });
 
-/* GET ORDERS - TESTES */
+/**
+ * GET Sales/index page  - TESTES
+ */
 router.get('/sales', (req, res) => {
   const product1 = {
     id: 12312312,
@@ -74,29 +90,14 @@ router.get('/sales', (req, res) => {
   res.render('sales/index', { title: 'Minhas compras', layout: 'layout', orders });
 });
 
-/* GET ORDERS - TESTES */
-router.get('/new', (req, res) => {
-  res.render('products/new', { title: 'Minhas compras', layout: 'layout' });
-});
-
-/* GET ORDERS - TESTES */
-router.get('/show', (req, res) => {
-  res.render('products/show', { title: 'Minhas compras', layout: 'layout' });
-});
-
-router.get('/contact', (req, res) => {
-  res.render('contact', { title: 'Contato' });
-  // res.send('respond with a resource');
-});
-
-/* ////////////////////////////
-  BackEnd - LOGIN
-//////////////////////////// */
+/**
+ * POST Login Request
+ */
 router.post('/login', (req, res) => {
   const userData = req.body.user;
-  firebase.auth().signInWithEmailAndPassword(userData.email, userData.password)
-    .then((user) => {
-      User.getByUid(user.uid).then((currentLogged) => {
+  firebase.auth().signInWithEmailAndPassword(userData.email, userData.password).then((user) => {
+    User.getByUid(user.uid).then((currentLogged) => {
+      if (currentLogged) {
         req.session.userType = currentLogged.type;
         req.session.firstName = currentLogged.firstName;
         req.session.fullName = currentLogged.fullName;
@@ -109,19 +110,24 @@ router.post('/login', (req, res) => {
         else {
           res.redirect('/user');
         }
-      }).catch((error) => {
-        console.log(error.message);
+      }
+      else {
+        console.log('Document not found');
         res.redirect('/error');
-      });
+      }
     }).catch((error) => {
       console.log(error.message);
       res.redirect('/error');
     });
+  }).catch((error) => {
+    console.log(error.message);
+    res.redirect('/error');
+  });
 });
 
-/* ////////////////////////////
-  BackEnd - RECOVER MY PASS
-//////////////////////////// */
+/**
+ * POST RecoverPassword Request
+ */
 router.post('/recoverPassword', (req, res) => {
   const { mail } = req.body;
   firebase.auth().sendPasswordResetEmail(mail).then(() => {
@@ -130,14 +136,11 @@ router.post('/recoverPassword', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  const clientList = firebase.firestore().collection('newsletter');
-  const mailList = clientList.where('mail', '==', true);
-  console.log(mailList);
 });
 
-/* ////////////////////////////
-  BackEnd - LOGOUT
-//////////////////////////// */
+/**
+ * GET Logout Request
+ */
 router.get('/logout', auth.isAuthenticated, (req, res) => {
   firebase.auth().signOut().then(() => {
     delete req.session.userType;
@@ -154,24 +157,16 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
   });
 });
 
-/* ///////////////////////////
-  BackEnd - CADASTRO
-////////////////////////////// */
+/**
+ * POST Signup Request
+ */
 router.post('/signup', (req, res) => {
   const userData = req.body.user;
 
-  // Separa nome e sobrenome do cliente a partir da string name
+  // Separates the first name from the rest
   const position = userData.fullName.indexOf(' ');
   userData.firstName = userData.fullName.slice(0, position);
 
-  if (userData.cpf === '') {
-    userData.doc = userData.cnpj;
-  }
-  else {
-    userData.doc = userData.cpf;
-  }
-  delete userData.cpf;
-  delete userData.cnpj;
 
   req.session.userType = userData.type;
   req.session.firstName = userData.firstName;
@@ -182,7 +177,7 @@ router.post('/signup', (req, res) => {
     req.session.userUid = user.uid;
     userData.uid = user.uid;
     delete userData.password;
-    User.create(userData, user.uid).then((docId) => {
+    User.create(userData).then((docId) => {
       req.session._id = docId;
       res.redirect('/user');
     }).catch((error) => {
@@ -195,34 +190,9 @@ router.post('/signup', (req, res) => {
   });
 });
 
-/* ////////////////////////////////////
-  BackEnd - CADASTRO NA NEWSLETTER
-//////////////////////////////////// */
-// router.post('/newsletter', (req, res) => {
-//   const {
-//     fullName,
-//     mail
-//   } = req.body;
-//   // Separa nome e sobrenome do cliente a partir da string name
-//   const position = fullName.indexOf(' ');
-//   const firstName = fullName.slice(0, position);
-//   firebase.firestore().collection('newsletter').add({
-//     firstName,
-//     fullName,
-//     mail
-//   })
-//     .then((docRef) => {
-//       console.log('Document written with ID: ', docRef.id);
-//       res.redirect('/home');
-//     }).catch((error) => {
-//       console.log('Error ading document: ', error);
-//       res.redirect('/error');
-//     });
-// });
-
-/* ////////////////////////////
-  BackEnd - ENVIO DE EMAIL
-//////////////////////////// */
+/**
+ * POST Contact Request
+ */
 router.post('/contact', (req, res) => {
   const emailData = req.body.data;
   console.log(req.body.data);
@@ -232,9 +202,9 @@ router.post('/contact', (req, res) => {
   }).catch(err => console.log(err));
 });
 
-/* ////////////////////////////////////
-  BackEnd - ENVIO DE EMAILS PARA NEWSLETTER
-//////////////////////////////////// */
+/**
+ * POST NewsletterMail Request
+ */
 router.post('/newslettermail', (req, res) => {
   var clientList = firebase.firestore().collection('newsletter');
   var mailList = clientList.where('email', '==', true);

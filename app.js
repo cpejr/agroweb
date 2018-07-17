@@ -26,12 +26,12 @@ const flash = require('express-flash');
  * Firebase Setup
  */
 const config = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: process.env.DATABASE_URL,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID
 };
 firebase.initializeApp(config);
 
@@ -50,7 +50,13 @@ const productsRouter = require('./routes/products');
 const maintenanceRouter = require('./routes/maintenance');
 const adminRouter = require('./routes/admin');
 const newsletterRouter = require('./routes/newsletterlist');
-const PDFgeneratorRouter = require('./routes/PDFgenerator');
+const PDFRouter = require('./routes/PDF');
+const groupsRouter = require('./routes/groups');
+const quotationRouter = require('./routes/quotations');
+const productRouter = require('./routes/products');
+const transactionRouter = require('./routes/transaction');
+const chemRouter = require('./routes/chems');
+const testRouter = require('./routes/test');
 
 /**
  * Application Initialization
@@ -90,8 +96,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({
   secret: 'some-private-cpe-key',
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true
 }));
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
@@ -113,7 +119,13 @@ app.use('/products', productsRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/admin', adminRouter);
 app.use('/newsletterlist', newsletterRouter);
-app.use('/PDFgenerator', PDFgeneratorRouter);
+app.use('/PDF', PDFRouter);
+app.use('/groups', groupsRouter);
+app.use('/quotations', quotationRouter);
+app.use('/products', productRouter);
+app.use('/transaction', transactionRouter);
+app.use('/chems', chemRouter);
+app.use('/test', testRouter);
 
 /**
  * Error Handling

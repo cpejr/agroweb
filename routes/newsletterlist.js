@@ -3,7 +3,9 @@ const Newsletter = require('../models/newsletter.js');
 
 var router = express.Router();
 
-/* GET users listing. */
+/**
+ * GET newsletter listing
+ */
 router.get('/', (req, res) => {
   Newsletter.getAll().then((users) => {
     console.log(users);

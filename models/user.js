@@ -126,6 +126,21 @@ class User {
   }
 
   /**
+   * Get a User by it's uid
+   * @param {string} id - User Uid
+   * @returns {Object} - User Document Data
+   */
+  static getByUid(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOne({ uid: id }).exec().then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
    * Add a transaction
    * @param {string} id - User Id
    * @param {string} transaction - Transaction Id
@@ -142,8 +157,8 @@ class User {
   }
 
   /**
-   * Get a user by it's id
-   * @param {string} id - User Id
+   * Get all transactions from a user by its id
+   * @param {string} id - User uid
    * @returns {Array} - Array of transactions
    */
   static getAllTransactionsByUserId(id) {
@@ -160,14 +175,18 @@ class User {
   }
 
   /**
-   * Get a User by it's uid
-   * @param {string} id - User Uid
-   * @returns {Object} - User Document Data
+   * Get all quotations from a user by its uid
+   * @param {string} id - User uid
+   * @returns {Array} - Array of transactions
    */
-  static getByUid(id) {
+  static getAllQuotationsByUserId(id) {
     return new Promise((resolve, reject) => {
-      UserModel.findOne({ uid: id }).exec().then((result) => {
-        resolve(result);
+      UserModel.findById(id).populate({
+        path: 'transactions',
+        match: { status: 'Cotado' },
+        populate: { path: 'buyer offer' }
+      }).exec().then((result) => {
+        resolve(result.transactions);
       }).catch((err) => {
         reject(err);
       });

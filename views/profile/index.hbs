@@ -1,0 +1,244 @@
+<!-- Here you can add extra CSS files to the page -->
+{{#section 'stylesheets'}}
+  <link rel='stylesheet' href='/stylesheets/style.css'>
+{{/section}}
+
+<!-- Here you can write your beautiful HTML code -->
+<body>
+  <!-- Header and NavBar -->
+  <div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        <h4 class="text-white">{{firstName}} {{lastName}}</h4>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              <i class="fas fa-user fa-sm"></i>Minha conta
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fas fa-hdd fa-sm"></i>Histórico
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fas fa-wrench fa-sm"></i>Ser franqueado
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="fas fa-sign-out-alt fa-sm"></i>Logout
+            </a>
+          </li>
+
+          <i class="text-light pb-2">_</i>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              Suporte e contato
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              Dúvidas frequentes
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              Termos de uso
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              Curta nossa página
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-dark">
+      <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars fa-2x"></i>
+      </button>
+
+      <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+        <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+        <button class="btn btn-outline-dark " type="button">
+          <i class="fas fa-search fa-2x"></i>
+        </button>
+      </form>
+    </nav>
+  </div>
+  <!-- end Header and NavBar -->
+
+  <div class="container">
+    <h1 align="center">Dados do perfil</h1>
+  </div>
+
+<div class="container p-2">
+  <div class="container">
+    <p class="row col" align="justify">Nome:</p>
+    <p class="row col" align="justify">Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael Gonzaga</p>
+  </div>
+
+  <div class="container">
+    <p class="row col" align="justify">Email:</p>
+    <p class="row col" align="justify">dompedro_2@gmail.com</p>
+  </div>
+
+  <div class="container">
+    <p class="row col" align="justify">Senha atual:</p>
+    <p class="row col" align="justify">12345678</p>
+  </div>
+
+  <div class="container">
+    <p class="row col" align="justify">CEP:</p>
+    <p class="row col" align="justify">123456-789</p>
+  </div>
+
+  <div class="container">
+    <p class="row col" align="justify">Rua:</p>
+    <p class="row col" align="justify">Rua dos Salentinos</p>
+  </div>
+
+  <div class="container">
+    <p class="row col" align="justify">Número:</p>
+    <p class="row col" align="justify">12</p>
+  </div>
+
+  <div class="container">
+    <p class="row col" align="justify">Cidade:</p>
+    <p class="row col" align="justify">Manaus</p>
+  </div>
+
+  <div class="container">
+    <p class="row col" align="justify">Estado:</p>
+    <p class="row col" align="justify">Amazonas</p>
+  </div>
+
+  <div class="container">
+    <p class="row col" align="justify">Tipo de usuário:</p>
+    <p class="row col" align="justify" id="type">Franqueado</p>
+  </div>
+</div>
+
+<!-- Dealer, Producer and Industry ordinary field -->
+{{#ifCond userType 'Franqueado'}}
+<div class="form-group">
+  <div class="container">
+    <p class="row col" align="justify">Telefone fixo:</p>
+    <p class="row col" align="justify">3333-3333</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Celular:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+</div>
+
+{{else ifCond userType 'Revenda'}}
+<div class="form-group">
+  <div class="container">
+    <p class="row col" align="justify">Telefone fixo:</p>
+    <p class="row col" align="justify">3333-3333</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Celular:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+</div>
+
+{{else ifCond userType 'Produtor'}}
+<div class="form-group">
+  <div class="container">
+    <p class="row col" align="justify">Telefone fixo:</p>
+    <p class="row col" align="justify">3333-3333</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Celular:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+</div>
+
+{{else ifCond userType 'Indústria'}}
+<div class="form-group">
+  <div class="container">
+    <p class="row col" align="justify">Telefone fixo:</p>
+    <p class="row col" align="justify">3333-3333</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Celular:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Nome de fantasia:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Email de contato:</p>
+    <p class="row col" align="justify">ola@cpejr.com.br</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Responsável pela conta:</p>
+    <p class="row col" align="justify">José</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
+    <p class="row col" align="justify">Sim</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Aceitas encomendas de até:</p>
+    <p class="row col" align="justify">100km</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Telefone do responsável pela logística:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Email da logística:</p>
+    <p class="row col" align="justify">logistica@logistica.com.br</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Município sede da matriz:</p>
+    <p class="row col" align="justify">Belo Horizonte</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Responsável pela empresa na região:</p>
+    <p class="row col" align="justify">Geraldo</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Estoque físico mais próximo:</p>
+    <p class="row col" align="justify">Rio Branco</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Interesse de atender quais estados:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+    <p class="row col" align="justify">99999-9999</p>
+  </div>
+
+
+</div>
+
+{{/ifCond}}
+<!-- end Dealer, Producer and Industry ordinary field -->
+
+<button type="edit" class="pure-button pure-button-primary col btn btn-default bg-green text-dark mr-1">Editar dados</button>
+
+</body>
+
+<!-- Here you can add extra javascripts files to the page -->
+{{#section 'scripts'}}
+  <script src="/javascripts/navbar.js"></script>
+{{/section}}

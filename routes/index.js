@@ -16,6 +16,10 @@ router.get('/', (req, res) => {
   res.render('home', { title: 'Página inicial', layout: 'layout' });
 });
 
+router.get('/profile', (req, res) => {
+  res.render('profile/index', { title: 'Seu perfil', layout: 'layout' });
+});
+
 /**
  * GET ForgotPassword page
  */

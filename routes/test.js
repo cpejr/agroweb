@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
   Newsletter.create(user).then(() => {
     console.log('criou usuário');
   }).catch(err => console.log(err));
-  res.render('teste', { title: 'Teste' });
+  res.render('profile', { title: 'Teste' });
 });
 
 module.exports = router;

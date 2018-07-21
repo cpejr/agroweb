@@ -120,32 +120,72 @@
 
   <div class="container">
     <p class="row col" align="justify">Tipo de usuário:</p>
-    <p class="row col" align="justify" id="type">Franqueado</p>
+    <p class="row col" align="justify">Franqueado</p>
   </div>
 </div>
 
-<!-- Dealer, Producer and Industry ordinary field -->
+<!-- ordinary fields -->
 {{#ifCond userType 'Franqueado'}}
 <div class="form-group">
   <div class="container">
-    <p class="row col" align="justify">Telefone fixo:</p>
+    <p class="row col" align="justify">CPF/CNPJ:</p>
     <p class="row col" align="justify">3333-3333</p>
   </div>
   <div class="container">
-    <p class="row col" align="justify">Celular:</p>
+    <p class="row col" align="justify">Resumo das atividades profissionais atuais:</p>
     <p class="row col" align="justify">99999-9999</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Possui carteira de cliente que cotam produtos:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Total de clientes:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Área total(ha):</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Como a Megapool poderia ser importante para seu négocio:</p>
+    <p class="row col" align="justify">Não</p>
   </div>
 </div>
 
 {{else ifCond userType 'Revenda'}}
 <div class="form-group">
   <div class="container">
-    <p class="row col" align="justify">Telefone fixo:</p>
+    <p class="row col" align="justify">CPF/CNPJ:</p>
     <p class="row col" align="justify">3333-3333</p>
   </div>
   <div class="container">
-    <p class="row col" align="justify">Celular:</p>
+    <p class="row col" align="justify">Resumo das atividades profissionais atuais:</p>
     <p class="row col" align="justify">99999-9999</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Possui carteira de cliente que cotam produtos:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Total de clientes:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Área total(ha):</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Como a Megapool poderia ser importante para seu négocio:</p>
+    <p class="row col" align="justify">Não</p>
   </div>
 </div>
 
@@ -159,6 +199,47 @@
     <p class="row col" align="justify">Celular:</p>
     <p class="row col" align="justify">99999-9999</p>
   </div>
+  <div class="container">
+    <p class="row col" align="justify">Nome da fazenda:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Distância aproximadada cidade até a fazenda:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Roteiro de entrega:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Área plantada(ha):</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Soja:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Milho:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Algodão:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Outras culturas:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Pode se comunicar por Whatsapp:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Inscrição Estadual:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+
 </div>
 
 {{else ifCond userType 'Indústria'}}
@@ -188,7 +269,7 @@
     <p class="row col" align="justify">Sim</p>
   </div>
   <div class="container">
-    <p class="row col" align="justify">Aceitas encomendas de até:</p>
+    <p class="row col" align="justify">Aceita entregar encomendas em até:</p>
     <p class="row col" align="justify">100km</p>
   </div>
   <div class="container">
@@ -221,18 +302,28 @@
   </div>
   <div class="container">
     <p class="row col" align="justify">Interesse de atender quais estados:</p>
-    <p class="row col" align="justify">99999-9999</p>
+    <p class="row col" align="justify">MG</p>
   </div>
   <div class="container">
-    <p class="row col" align="justify">Celular do Responsável pela conta Mega Pool:</p>
-    <p class="row col" align="justify">99999-9999</p>
+    <p class="row col" align="justify">Interesse em atender clientes diretos:</p>
+    <p class="row col" align="justify">Não</p>
   </div>
-
-
+  <div class="container">
+    <p class="row col" align="justify">Interesse em atender revendas:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
+  <div class="container">
+    <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
+    <p class="row col" align="justify">Não</p>
+  </div>
 </div>
 
 {{/ifCond}}
-<!-- end Dealer, Producer and Industry ordinary field -->
+<!-- end ordinary fields -->
 
 <button type="edit" class="pure-button pure-button-primary col btn btn-default bg-green text-dark mr-1">Editar dados</button>
 

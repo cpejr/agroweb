@@ -19,11 +19,11 @@
   <!-- <div class="row justify-content-center mx-sm-auto mx-md-9"> -->
     <div class="row mx-sm-auto mx-md-9">
     <!-- Sale Title -->
-    <div class="col-12 col-md-6 pl-5 mb-5 justify-content-center ">
-      <p class="ml-4">Venda#{{_id}}</p>
+    <div class="col-12 col-md-6 mb-5 justify-content-center">
+      <p class="ml-4">Venda#{{_id}}3231321</p>
       <div class="w-100">
       </div>
-      {{#ifCond status 'Aguardando Pagamento'}}
+      <!-- {{#ifCond status 'Aguardando Pagamento'}}
         <span class="badge badge-danger">
       {{else ifCond status 'Pagamento confirmado'}}
         <span class="badge badge-primary">
@@ -31,44 +31,44 @@
         <span class="badge badge-success">
       {{/ifCond}}
         <h6>{{status}}</h6>
-      </span>
-      <h2>{{name}}</h2>
-      <!-- offer.product.name -->
-      <h4 class="text-gray">R$ {{unitPrice}} un.</h4>
+      </span> -->
+      <span class="badge badge-primary"><h6>Pagamento confirmado</h6></span>
+      <h2>{{offer.product.name}}lalala</h2>
+      <h4 class="text-gray">R$ {{unitPrice}} 500 un.</h4>
     </div>
     <!-- end Sale Title -->
 
-    <!-- Seller info -->
-    <div class="col-12 col-md-6 ml-3">
-      <h2>Dados do comprador</h2>
-      <p class="text-gray">Nome</p>
-      <h4>{{user}}</h4>
-      <p class="text-gray">Contato</p>
-      <h4>{{phone}}</h4>
-      <h4 class="mb-5">{{email}}</h4>
-    </div>
-    <!-- end Seller info -->
-
     <!-- Product Description -->
-    <div class="row mb-3 ml-4">
+    <div class="row m-1">
       <div class="col-6">
         <dt class="text-gray">Entrega</dt>
-        <h4>{{delivery}}</h4>
+        <h4>{{delivery}}nunca</h4>
       </div>
       <div class="col-6">
         <dt class="text-gray">Quantidade vendida</dt>
-        <h4>{{amountBought}}</h4>
+        <h4>{{amountBought}}838298392</h4>
       </div>
       <div class="col-6">
         <dt class="text-gray">Preço total</dt>
-        <h2>R$ {{priceBought}}</h2>
+        <h2>R$ {{priceBought}}324342</h2>
       </div>
       <div class="col-6">
         <dt class="text-gray mb-1">Pagamento</dt>
-        <h4>{{payment}}</h4>
+        <h4>{{payment}}boleto</h4>
       </div>
     </div>
     <!-- end Product Description -->
+
+    <!-- Seller info -->
+    <div class="col-12 col-md-6 mb-5 justify-content-center">
+      <h2>Dados do comprador</h2>
+      <p class="text-gray">Nome</p>
+      <h4 class="mb-2">{{user}} josé</h4>
+      <p class="text-gray">Contato</p>
+      <h4>{{phone}}423432</h4>
+      <h4 class="mb-5">{{email}}jse@pai.com</h4>
+    </div>
+    <!-- end Seller info -->
 
     <!-- Product Characteristics -->
     <!-- end Product Characteristics -->

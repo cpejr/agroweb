@@ -16,7 +16,7 @@
 <!-- end NavBar -->
 
 <div class="container">
-  <div class="justify-content-center mx-sm-auto mx-md-9">
+  <div class="justify-content-center mx-sm-auto">
     <div class="row">
       <!-- Product Title -->
       <div class="col-12 col-md-6">
@@ -26,21 +26,7 @@
       </div>
       <!-- end Product Title -->
 
-      <!-- Product description -->
-      <div class="col-12 col-md-6 pb-2 mb-5">
-        <h4>Descrição</h4>
-        <p>{{offer.product.description}}</p>
-      </div>
-      <!-- end Product description -->
-
       <!-- Quotation info -->
-      <div class="col-12 col-md-6 pb-2 mb-5">
-        <form action="#" method="post">
-          <div class="col-12 col-md-6 mb-5">
-              <p class="text-muted">Ingrediente ativo</p>
-              <p>{{offer.product.chem.name}}</p>
-      </div>
-    </div>
     <div class="row mb-3 ml-1">
       <div class="col-6">
         <dt class="text-gray">Entrega</dt>
@@ -54,10 +40,21 @@
         <dt class="text-gray">Preço total</dt>
         <h2>R$ {{priceBought}}</h2>
       </div>
+      <div class="col-6">
+        <dt class="text-gray">Ingrediente ativo</dt>
+        <h2>{{offer.product.chem.name}}</h2>
+      </div>
+    </div>
+<!-- end Quotation info -->
+
+      <!-- Product description -->
+      <div class="col-6 pb-2 mb-5">
+        <h4>Descrição</h4>
+        <p>{{offer.product.description}}</p>
+      </div>
+      <!-- end Product description -->
     </div>
   </div>
-</div>
-<!-- end Quotation info -->
 
   <button class="w-100 col-10 col-md-7 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
   <div class="w-100">

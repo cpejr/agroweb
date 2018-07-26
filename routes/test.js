@@ -9,7 +9,7 @@ var router = express.Router();
 /**
  * GET Test Home page
  */
-router.get('/', (req, res) => {
+router.get('/testando', (req, res) => {
   const user = {
     fullName: 'Ariel Ribeiro',
     email: 'arielribeiro@cpejr.com.br'
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
   Newsletter.create(user).then(() => {
     console.log('criou usuário');
   }).catch(err => console.log(err));
-  res.render('profile', { title: 'Teste' });
+  res.render('profile/index', { title: 'Teste' });
 });
 
 module.exports = router;

@@ -5,7 +5,9 @@ const auth = require('./middleware/auth');
 
 var router = express.Router();
 
-/* GET users listing. */
+/**
+ * GET User Home page
+ */
 router.get('/', auth.isAuthenticated, (req, res) => {
   if (req.session.userType === 'Administrador') {
     res.redirect('/admin');
@@ -14,6 +16,7 @@ router.get('/', auth.isAuthenticated, (req, res) => {
     res.render('user', { title: 'Franqueado', layout: 'layout', ...req.session });
   }
   else if (req.session.userType === 'Indústria') {
+    console.log(req);
     res.render('user', { title: 'Indústria', layout: 'layout', ...req.session });
   }
   else if (req.session.userType === 'Produtor') {
@@ -24,7 +27,48 @@ router.get('/', auth.isAuthenticated, (req, res) => {
   }
 });
 
-router.get('/update', auth.isAuthenticated, (req, res) => {
+/**
+ * GET Profile/index - Show all user's details
+ */
+router.get('/profile', auth.canSell, (req, res) => {
+  User.getById(req.session._id).then((user) => {
+    if (user) {
+      console.log(user);
+      res.render('profile/index', { title: 'Perfil' });
+    }
+    else {
+      console.log('User not found!');
+      res.redirect('/user');
+    }
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/user');
+  });
+});
+
+/**
+ * GET Edit - Show the user edit form
+ */
+router.get('/profile/edit', auth.canSell, (req, res) => {
+  User.getById(req.session._id).then((user) => {
+    if (user) {
+      console.log(user);
+      res.render('profile/edit', { title: `Editar ${user.name}`, ...user });
+    }
+    else {
+      console.log('User not found!');
+      res.redirect('/user');
+    }
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/user');
+  });
+});
+
+/**
+ * PUT Update - Update a user in the database
+ */
+router.put('/update', auth.isAuthenticated, (req, res) => {
   const userData = req.body.user;
   User.update(req.session.userUid, userData).catch((error) => {
     console.log(error.message);
@@ -37,32 +81,6 @@ router.get('/update', auth.isAuthenticated, (req, res) => {
     console.log(error.message);
     res.redirect('/error');
   });
-});
-
-
-router.get('/results', (req, res) => {
-  res.render('results', { title: 'Resultado', layout: 'layout' });
-});
-
-/* ////////////////////////////////////
-  BackEnd - CADASTRO DE NOVOS PRODUTOS
-//////////////////////////////////// */
-router.post('/newproduct', (req, res) => {
-  const {
-    name,
-    category
-  } = req.body;
-
-  firebase.firestore().collection('categories').doc(category).set({
-    name
-  })
-    .then(() => {
-      console.log('Document written!');
-      res.redirect('/');
-    }).catch((error) => {
-      console.log('Error ading document: ', error);
-      res.redirect('/error');
-    });
 });
 
 module.exports = router;

@@ -5,70 +5,43 @@ const Group = require('../models/group.js');
 const Offer = require('../models/offer.js');
 const User = require('../models/user.js');
 const Product = require('../models/product.js');
+const Email = require('../models/email.js');
 
 const router = express.Router();
 
-/**
- * GET Index - Create newTransation
- */
-router.get('/', auth.isAuthenticated, (req, res) => {
-// const product = {
-//   name: 'TESTE2',
-//   category: 'Sementes',
-//   manufacturer: 'Não soube preencher esse campo',
-//   description: 'Esse produto é incrívelmente perfeito',
-//   unit: 'kg'
-// };
-//
-// Product.create(product).then((newProduct) =>{
-//   console.log (newProduct);
-// }).then((error) =>{
-//   console.log(error);
-// });
-  // const offer = {
-  //   stock: '10',
-  //   balance: '500',
-  //   price: {
-  //     low: 10,
-  //     average: 50,
-  //     high: 500
-  //   },
-  //   breakpoints: {
-  //     low: 15,
-  //     average: 50
-  //   },
-  //   minAmount: 36,
-  //   delivery: 'em até 48 horas',
-  //   seller: '5b2562e2d4d4ee20245f6bc4',
-  //   product: '5b2c0bd6e9ffc144807967b0'
-  // };
-  //
-  // Offer.create(offer).then((newOffer) => {
-  //   console.log(newOffer);
-  // }).catch((error) => {
-  //   console.log(error);
-  // });
 
-  res.render('teste', { title: 'Efetue sua Transação!'});
+/**
+ * GET Index - Show all transactions
+ */
+router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Transaction.getAll().then((transactions) => {
+    console.log(transactions);
+    res.render('quotations/index', { title: 'Transações', transactions });
+  }).catch((err) => {
+    console.log(err);
+  });
 });
 
-router.post('/transaction', auth.isAuthenticated, (req, res) => {
-  res.render('/success', { title: 'Sua transação foi efetuada com sucesso!'});
+/**
+ * POST Create - Add new transaction to DB
+ */
+router.post('/', auth.isAuthenticated, (req, res) => {
+  res.render('/success', { title: 'Sua transação foi efetuada com sucesso!' });
   const buyer = req.session._id;
-  const amountBought = req.body.amountBought;
+  const { amountBought } = req.body;
 
   const transactionData = {
-    buyer: buyer,
+    buyer,
     priceBought: req.body.priceBought,
-    amountBought: amountBought,
+    amountBought,
     unitPrice: req.body.unitPrice,
     offer: null
   };
 
   console.log(transactionData);
-  // Create a new transation
+  // Create a new transaction
   Transaction.create(transactionData).then((transaction) => {
-    const group = Group.getById(groupId).then(() => {
+    Group.getById(groupId).then((group) => {
       const amountGroup = group.amount - amountBought;
       const groupData = {
         amount: amountGroup
@@ -77,7 +50,7 @@ router.post('/transaction', auth.isAuthenticated, (req, res) => {
       Group.deleteUser(groupId, buyer); // delete a user
     });
 
-    const offer = Offer.getById(offerId).then(() => {
+    Offer.getById(offerId).then((offer) => {
       const stockOffer = offer.stock - amountBought;
       const offerData = {
         stock: stockOffer
@@ -88,7 +61,56 @@ router.post('/transaction', auth.isAuthenticated, (req, res) => {
     User.addTransaction(buyer, transaction);
   }).catch((error) => {
     console.log(error);
+    res.redirect('/transaction');
   });
+});
+
+/**
+ * GET Show - Show details of a transaction
+ */
+router.get('/:id', (req, res) => {
+  Transaction.getById(req.params.id).then((transaction) => {
+    if (transaction) {
+      console.log(transaction);
+      res.render('quotations/show', { title: transaction.offer.product.name, id: req.params.id, ...transaction });
+    }
+    else {
+      console.log('Transaction not found!');
+      res.redirect('/user');
+    }
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/transaction');
+  });
+});
+
+/**
+ * PUT Update - Update a transaction in the database
+ */
+router.put('/:id', (req, res) => {
+  const { transaction } = req.body;
+  const data = {
+    name: req.session.firstName,
+    email: req.session.email
+  };
+  Transaction.update(req.params.id, transaction).then(() => {
+    Email.updateEmail(data, transaction.status).then((info) => {
+      console.log(info);
+    }).catch(err => console.log(err));
+  }).catch((err) => {
+    console.log(err);
+  });
+  res.redirect(`/transaction/${req.params.id}`);
+});
+
+/**
+ * DELETE Destroy - Removes a transaction from the databse
+ */
+router.delete('/:id', (req, res) => {
+  Transaction.delete(req.params.id).catch((err) => {
+    console.log(err);
+  });
+  res.redirect('/transaction');
 });
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const express = require('express');
+const Chem = require('../models/chem.js');
 const Product = require('../models/product.js');
 const auth = require('./middleware/auth');
 
@@ -13,27 +14,28 @@ router.get('/', (req, res) => {
     res.render('products/index', { title: 'Produtos', products });
   }).catch((err) => {
     console.log(err);
+    res.redirect('/error');
   });
 });
 
 /**
  * GET New - Show form to create new product
  */
-router.get('/new', auth.isIndustry, auth.isDealer, (req, res) => {
-  res.render('products/new', { title: 'Novo Produto' });
+router.get('/new', auth.canSell, (req, res) => {
+  Chem.getAll().then((chems) => {
+    res.render('products/new', { title: 'Novo Produto', chems });
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/error');
+  });
 });
 
 /**
  * POST Create - Add new product to DB
  */
 router.post('/', (req, res) => {
-  const product = {
-    name: req.body.name,
-    category: req.body.category,
-    manufacturer: req.body.manufacturer,
-    description: req.body.description,
-    unit: req.body.unit
-  };
+  const { product } = req.body;
+  console.log(product);
   Product.create(product).then((id) => {
     console.log(`Created new product with id: ${id}`);
     res.redirect(`/products/${id}`);
@@ -65,7 +67,7 @@ router.get('/:id', (req, res) => {
 /**
  * GET Edit - Show the product edit form
  */
-router.get('/:id/edit', auth.isIndustry, auth.isDealer, (req, res) => {
+router.get('/:id/edit', auth.canSell, (req, res) => {
   Product.getById(req.params.id).then((product) => {
     if (product) {
       console.log(product);

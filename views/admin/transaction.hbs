@@ -1,0 +1,55 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
+
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+      <button class="btn btn-outline-dark " type="button">
+        <i class="fas fa-search fa-2x"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+<!-- end NavBar -->
+
+<div class="card text-center">
+  <div class="card-body">
+    <h3 class="card-title">Boletos Pendentes</h3>
+  </div>
+</div>
+
+<table class="table table-dark text-center">
+  <thead>
+    <tr>
+      <th scope="col">Código da Compra</th>
+      <th scope="col">Comprador</th>
+      <th scope="col">Preço</th>
+      <!-- <th scope="col">Vendendor</th> -->
+      <th scope="col">Pago</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each transactions}}
+    <tr>
+      <td>{{buyer.doc}}</td>
+      <td>{{buyer.fullName}}</td>
+      <td>{{priceBought}}</td>
+      <td>
+        <button type="button" class="btn btn-outline-success">
+          <i class="fas fa-user-check"></i>
+        </button>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{#section 'scripts'}}
+  <script src="/javascripts/navbar.js"></script>
+{{/section}}

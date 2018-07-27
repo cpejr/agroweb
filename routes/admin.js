@@ -4,6 +4,8 @@ const User = require('../models/user.js');
 const Newsletter = require('../models/newsletter.js');
 const Product = require('../models/product.js');
 const auth = require('./middleware/auth');
+const Offer = require('../models/offer.js');
+const Transaction = require('../models/transaction.js');
 
 const router = express.Router();
 
@@ -44,7 +46,20 @@ router.get('/newsletter', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 
 /* GET Offers - Show all offers */
 router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('admin/index', { title: 'Administrador', layout: 'layout' });
+  Offer.getAll().then((offers) => {
+    res.render('admin/offer', { title: 'Administrador', layout: 'layout', offers });
+  }).catch((err) => {
+    console.log(err);
+  });
+});
+
+/* GET Tickets - Show all pending tickets */
+router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Transaction.getAllByStatus('Boleto pendente').then((transactions) => {
+    res.render('admin/transaction', { title: 'Administrador', layout: 'layout', transactions });
+  }).catch((err) => {
+    console.log(err);
+  });
 });
 
 module.exports = router;

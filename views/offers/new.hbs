@@ -19,7 +19,6 @@
 <!-- end NavBar -->
 
 <h4 class="mt-3 text-center">Nova oferta</h4>
-
 <form action="/offers/new" method="POST">
   <div class="row d-flex justify-content-between">
     <div class="form-group col-md-3 mx-4 my-2">
@@ -35,7 +34,7 @@
         <select class="form-control" name="offer[product]" >
           <option disabled selected value> Nome do produto </option>
           {{#each products}}
-            <option value="product[name]">{{name}}</option>
+            <option value="offer[name]">{{name}}</option>
           {{/each}}
         </select>
       </div>
@@ -50,7 +49,7 @@
         </div>
       </div>
       <div class="form-group col-md-3 mx-4 my-2">
-        <label for="price" class="rounded bg-black"><i class="fas fa-flask fa-sm mr-2"></i> Preços </label>
+        <label for="price" class="rounded bg-black"><i class="fas fa-dollar-sign fa-sm mr-2"></i> Preços: </label>
       </div>
       <div class="form-group col-md-3 mx-4 my-2">
         <div class="input-group">
@@ -68,7 +67,7 @@
         </div>
       </div>
       <div class="form-group col-md-3 mx-4 my-2">
-        <label for="price" class="rounded bg-black"><i class="fas fa-flask fa-sm mr-2"></i> Quantidade para mudança de preço </label>
+        <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Quantidade para mudança de preço: </label>
       </div>
       <div class="form-group col-md-3 mx-4 my-2">
         <div class="input-group">

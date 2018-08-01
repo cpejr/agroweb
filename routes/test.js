@@ -73,4 +73,15 @@ router.get('/search', (req, res) => {
   // });
 });
 
+router.get('/testando', (req, res) => {
+  const user = {
+    fullName: 'Ariel Ribeiro',
+    email: 'arielribeiro@cpejr.com.br'
+  };
+  Newsletter.create(user).then(() => {
+    console.log('criou usuário');
+  }).catch(err => console.log(err));
+  res.render('profile/index', { title: 'Teste' });
+});
+
 module.exports = router;

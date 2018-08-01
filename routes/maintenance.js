@@ -1,6 +1,6 @@
-var nodemailer = require('nodemailer');
 const express = require('express');
-const Newsletter = require('../models/newsletter.js');
+const nodemailer = require('nodemailer');
+const Newsletter = require('../models/newsletter');
 
 const router = express.Router();
 

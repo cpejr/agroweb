@@ -1,5 +1,5 @@
 var express = require('express');
-const Newsletter = require('../models/newsletter.js');
+const Newsletter = require('../models/newsletter');
 
 var router = express.Router();
 

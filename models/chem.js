@@ -118,6 +118,31 @@ class Chem {
       });
     });
   }
+
+  /**
+   * Get all Chems that match the desired query
+   * @param {Object} query - Object that defines the filter
+   * @param {Object} sort - Object that defines the sort method
+   * @returns {Array} Array of Chems
+   */
+  static getByQuerySorted(query, sort) {
+    return new Promise((resolve, reject) => {
+      ChemModel.find(query).sort(sort).populate({
+        path: 'groups',
+        populate: {
+          path: 'users offer',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
+      }).exec().then((results) => {
+        resolve(results);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
 
 module.exports = Chem;

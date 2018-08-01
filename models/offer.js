@@ -106,6 +106,25 @@ class Offer {
       });
     });
   }
+
+  /**
+   * Get all Offers that match the desired query
+   * @param {Object} query - Object that defines the filter
+   * @param {Object} sort - Object that defines the sort method
+   * @returns {Object} Product Document Data
+   */
+  static getByQuerySorted(query, sort) {
+    return new Promise((resolve, reject) => {
+      OfferModel.find(query).sort(sort).populate({
+        path: 'seller product',
+        populate: { path: 'chem' }
+      }).exec().then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
 
 module.exports = Offer;

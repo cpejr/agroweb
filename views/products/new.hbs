@@ -1,19 +1,6 @@
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
+{{#section 'stylesheets'}}
+{{/section}}
 
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end NavBar -->
 <h4 class="mt-3 text-center">Novo Produto</h4>
   <form action="/products" method="POST">
     <div class="row d-flex justify-content-between">
@@ -90,3 +77,6 @@
     </div>
     <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Enviar</button>
   </form>
+
+  {{#section 'scripts'}}
+  {{/section}}

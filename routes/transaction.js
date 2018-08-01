@@ -1,11 +1,12 @@
 const express = require('express');
+const Email = require('../models/email');
+const Group = require('../models/group');
+const Offer = require('../models/offer');
+const Product = require('../models/product');
+const Transaction = require('../models/transaction');
+const User = require('../models/user');
 const auth = require('./middleware/auth');
-const Transaction = require('../models/transaction.js');
-const Group = require('../models/group.js');
-const Offer = require('../models/offer.js');
-const User = require('../models/user.js');
-const Product = require('../models/product.js');
-const Email = require('../models/email.js');
+
 
 const router = express.Router();
 

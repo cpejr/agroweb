@@ -1,77 +1,97 @@
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end NavBar -->
+{{#section 'stylesheets'}}
+{{/section}}
 
 <div class="container">
-  <!-- <div class="row justify-content-center mx-sm-auto mx-md-9"> -->
-    <div class="row mx-sm-auto mx-md-9">
-    <!-- Sale Title -->
-    <div class="col-12 col-md-6 pl-5 mb-5 justify-content-center ">
-      <p class="ml-4">Venda#{{_id}}</p>
-      <div class="w-100">
-      </div>
-      {{#ifCond status 'Aguardando Pagamento'}}
-        <span class="badge badge-danger">
-      {{else ifCond status 'Pagamento confirmado'}}
-        <span class="badge badge-primary">
-      {{else ifCond status 'Produto enviado'}}
-        <span class="badge badge-success">
-      {{/ifCond}}
-        <h6>{{status}}</h6>
-      </span>
-      <h2>{{name}}</h2>
-      <!-- offer.product.name -->
-      <h4 class="text-gray">R$ {{unitPrice}} un.</h4>
-    </div>
-    <!-- end Sale Title -->
+  <div class="row justify-content-center mx-sm-auto mx-md-9">
+    <!-- Product Title -->
+    <div class="col-12 col-md-6 mb-5">
+      <i class="text-muted">Produto {{generic}}</i>
+      <h2 class="my-0 py-0">{{product.name}}</h2>
+      <h5 class="text-muted">R$ {{price.high}} / {{product.unit}}</h5>
+      <small class="text-muted">O preço do produto muda de acordo com a quantidade cotada.</small>
 
-    <!-- Seller info -->
-    <div class="col-12 col-md-6 ml-3">
-      <h2>Dados do comprador</h2>
-      <p class="text-gray">Nome</p>
-      <h4>{{user}}</h4>
-      <p class="text-gray">Contato</p>
-      <h4>{{phone}}</h4>
-      <h4 class="mb-5">{{email}}</h4>
+      <!-- Product Description -->
+      <h4 class="mt-3">Descrição</h4>
+      <p>
+        {{product.description}}
+      </p>
+      <!-- end Product Description -->
     </div>
-    <!-- end Seller info -->
+    <!-- end Product Title -->
 
-    <!-- Product Description -->
-    <div class="row mb-3 ml-4">
-      <div class="col-6">
-        <dt class="text-gray">Entrega</dt>
-        <h4>{{delivery}}</h4>
-      </div>
-      <div class="col-6">
-        <dt class="text-gray">Quantidade vendida</dt>
-        <h4>{{amountBought}}</h4>
-      </div>
-      <div class="col-6">
-        <dt class="text-gray">Preço total</dt>
-        <h2>R$ {{priceBought}}</h2>
-      </div>
-      <div class="col-6">
-        <dt class="text-gray mb-1">Pagamento</dt>
-        <h4>{{payment}}</h4>
-      </div>
+    <!-- Quotation -->
+    <div class="col-12 col-md-6 pb-2 mb-5">
+      <form action="#" method="post">
+        <div class="row mb-3">
+          <div class="form-group col">
+            <label class="text-muted" for="amount">Quantidade</label>
+            <div class="input-group">
+              <input class="form-control" type="number" name="amount" id="amount" value="1" min="1">
+              <div class="input-group-prepend">
+                <div class="input-group-text">{{product.unit}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group my-auto col">
+            <label class="text-muted" for="delivery">Entrega: </label>
+            <h7 id="delivery">{{delivery}}</h7>
+          </div>
+        </div>
+
+        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+        <button class="w-100 text-white btn btn-default bg-dark" type="button" name="button">Cotar similar</button>
+      </form>
     </div>
-    <!-- end Product Description -->
+    <!-- end Quotation -->
 
     <!-- Product Characteristics -->
+    <div class="col-12 col-md-6 mb-5">
+      <h4>Características</h4>
+      <div class="row">
+        <div class="col-6">
+          <dt>C. agronômica</dt>
+          <dd>Feromônio</dd>
+        </div>
+        <div class="col-6">
+          <dt>Toxicologia</dt>
+          <dd>Pouco tóxico</dd>
+        </div>
+        <div class="col-6">
+          <dt>Inflamabilidade</dt>
+          <dd>Inflamável</dd>
+        </div>
+        <div class="col-6">
+          <dt>Formulação</dt>
+          <dd>Comprimidos e sachês</dd>
+        </div>
+        <div class="col-6">
+          <dt>Ingrediente ativo</dt>
+          {{#each product.chem}}
+            <dd>{{name}}</dd>
+          {{/each}}
+        </div>
+        <div class="col-6">
+          <dt>Fabricante</dt>
+          <dd>{{product.manufacturer}}</dd>
+        </div>
+      </div>
+    </div>
     <!-- end Product Characteristics -->
+
+    <!-- Payment Options -->
+    <div class="col-12 col-md-6">
+      <h4>Formas de pagamento</h4>
+      <div class="">
+        <i class="fab fa-cc-visa fa-4x mr-2 text-info"></i>
+        <i class="fab fa-cc-mastercard fa-4x mr-2 text-danger"></i>
+        <i class="fas fa-barcode fa-4x mr-2"></i>
+      </div>
+      <a class="tex-muted" href="#"><small>Mais informações</small></a>
+    </div>
+    <!-- end Payment Options -->
 
   </div>
 </div>
+
+{{#section 'scripts'}}
+{{/section}}

@@ -122,6 +122,22 @@ class Product {
   }
 
   /**
+   * Get all Products that match the desired query
+   * @param {Object} query - Object that defines the filter
+   * @param {Object} sort - Object that defines the sort method
+   * @returns {Object} Product Document Data
+   */
+  static getByQuerySorted(query, sort) {
+    return new Promise((resolve, reject) => {
+      ProductModel.find(query).sort(sort).populate('chem').then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
    * Add a chem
    * @param {string} id - Product Id
    * @param {Object} chem - Chem Id

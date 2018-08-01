@@ -1,19 +1,5 @@
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end NavBar -->
+{{#section 'stylesheets'}}
+{{/section}}
 
 <div class="container">
   <div class="justify-content-center mx-sm-auto mx-md-9">
@@ -37,26 +23,26 @@
       <div class="col-12 col-md-6 pb-2 mb-5">
         <form action="#" method="post">
           <div class="col-12 col-md-6 mb-5">
-              <p class="text-muted">Ingrediente ativo</p>
-              <p>{{offer.product.chem.name}}</p>
+            <p class="text-muted">Ingrediente ativo</p>
+            <p>{{offer.product.chem.name}}</p>
+          </div>
       </div>
-    </div>
-    <div class="row mb-3 ml-1">
-      <div class="col-6">
-        <dt class="text-gray">Entrega</dt>
-        <h4>{{offer.delivery}}</h4>
-      </div>
-      <div class="col-6">
-        <dt class="text-gray">Quantidade</dt>
-        <h4>{{amountBought}}</h4>
-      </div>
-      <div class="col-6">
-        <dt class="text-gray">Preço total</dt>
-        <h2>R$ {{priceBought}}</h2>
+      <div class="row mb-3 ml-1">
+        <div class="col-6">
+          <dt class="text-gray">Entrega</dt>
+          <h4>{{offer.delivery}}</h4>
+        </div>
+        <div class="col-6">
+          <dt class="text-gray">Quantidade</dt>
+          <h4>{{amountBought}}</h4>
+        </div>
+        <div class="col-6">
+          <dt class="text-gray">Preço total</dt>
+          <h2>R$ {{priceBought}}</h2>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <!-- end Quotation info -->
 
   <button class="w-100 col-10 col-md-7 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
@@ -67,3 +53,6 @@
 </div>
 </form>
 </div>
+
+{{#section 'scripts'}}
+{{/section}}

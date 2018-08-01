@@ -1,8 +1,9 @@
 const express = require('express');
 const firebase = require('firebase');
-const User = require('../models/user.js');
-const Newsletter = require('../models/newsletter.js');
-const Product = require('../models/product.js');
+const Newsletter = require('../models/newsletter');
+const Product = require('../models/product');
+const Offer = require('../models/offer');
+const User = require('../models/user');
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -44,7 +45,13 @@ router.get('/newsletter', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 
 /* GET Offers - Show all offers */
 router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('admin/index', { title: 'Administrador', layout: 'layout' });
+  Offer.getAll().then((offers) => {
+    console.log(offers);
+    res.render('admin/offers', { title: 'Ofertas', layout: 'layout', offers });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 module.exports = router;

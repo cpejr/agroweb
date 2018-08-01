@@ -1,26 +1,19 @@
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end NavBar -->
+{{#section 'stylesheets'}}
+{{/section}}
 
 <div class="container">
   <div class="row justify-content-center mx-sm-auto mx-md-9">
     <!-- Product Title -->
     <div class="col-12 col-md-6 mb-5">
       <i class="text-muted">Produto {{generic}}</i>
-      <h2 class="my-0 py-0">{{name}}</h2>
+      <h2 class="my-0 py-0 mb-4">{{name}}</h2>
+
+      <!-- Product Description -->
+      <h4>Descrição</h4>
+      <p>
+        {{description}}
+      </p>
+      <!-- end Product Description -->
     </div>
     <!-- end Product Title -->
 
@@ -38,21 +31,11 @@
             </div>
           </div>
         </div>
-
         <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
         <button class="w-100 text-white btn btn-default bg-dark" type="button" name="button">Cotar similar</button>
       </form>
     </div>
     <!-- end Quotation -->
-
-    <!-- Product Description -->
-    <div class="col-12 col-md-6 mb-5">
-      <h4>Descrição</h4>
-      <p>
-        {{description}}
-      </p>
-    </div>
-    <!-- end Product Description -->
 
     <!-- Product Characteristics -->
     <div class="col-12 col-md-6 mb-5">
@@ -80,12 +63,16 @@
             <dd>{{name}}</dd>
           {{/each}}
         </div>
+        <div class="col-6">
+          <dt>Fabricante</dt>
+          <dd>{{manufacturer}}</dd>
+        </div>
       </div>
     </div>
     <!-- end Product Characteristics -->
 
     <!-- Payment Options -->
-    <div class="col-12 col-md-12">
+    <div class="col-12 col-md-6 mb-5">
       <h4>Formas de pagamento</h4>
       <div class="">
         <i class="fab fa-cc-visa fa-4x mr-2 text-info"></i>
@@ -95,6 +82,9 @@
       <a class="tex-muted" href="#"><small>Mais informações</small></a>
     </div>
     <!-- end Payment Options -->
-  </div>
 
+  </div>
 </div>
+
+{{#section 'scripts'}}
+{{/section}}

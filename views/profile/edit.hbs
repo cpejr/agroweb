@@ -1,0 +1,362 @@
+<!-- Here you can add extra CSS files to the page -->
+{{#section 'stylesheets'}}
+  <link rel='stylesheet' href='/stylesheets/style.css'>
+{{/section}}
+
+<!-- Here you can write your beautiful HTML code -->
+<body>
+
+<h4 class="mt-3 text-center">Editar dados do perfil</h4>
+
+<form action="/update" method="PUT">
+  <div class="row d-flex justify-content-between">
+    <div class="form-group col-md-3 mx-4 my-2">
+
+      <div class="container">
+        <p class="row col" align="justify">Nome:</p>
+        <input name="user[fullName]" type="text" class="form-control" value="{{user.fullName}}"></input>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Email:</p>
+        <input name="user[email]" type="text" class="form-control" value="{{user.email}}"></input>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Senha atual:</p>
+        <input name="user[password]" type="text" class="form-control" value="{{user.password}}"></input>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">CEP:</p>
+        <input name="user[address][cep]" type="text" class="form-control" value="{{user.address.cep}}"></input>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Rua:</p>
+        <input name="user[address][street]" type="text" class="form-control" value="{{user.address.street}}"></input>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Número:</p>
+        <input name="user[address][number]" type="text" class="form-control" value="{{user.address.number}}"></input>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Cidade:</p>
+        <input name="user[address][city]" type="text" class="form-control" value="{{user.address.city}}"></input>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Estado:</p>
+        <select class="form-control" name="user[address][state]" id="state" required>
+          <option disabled selected value> {{user.address.state}} </option>
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="RO">Rondônia</option>
+          <option value="RR">Roraima</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
+        </select>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Tipo de usuário:</p>
+        <select class="form-control" name="user[type]" id="type" required>
+          <option disabled selected value> {{user.type}} </option>
+          {{#ifCond user.type 'Franqueado'}}
+            <option value="Indústria">Indústria</option>
+            <option value="Produtor">Produtor</option>
+            <option value="Revenda">Revenda</option>
+          {{else ifCond user.type 'Revenda'}}
+            <option value="Indústria">Indústria</option>
+            <option value="Produtor">Produtor</option>
+            <option value="Franqueado">Franqueado</option>
+          {{else ifCond user.type 'Indústria'}}
+            <option value="Franqueado">Franqueado</option>
+            <option value="Produtor">Produtor</option>
+            <option value="Revenda">Revenda</option>
+          {{else ifCond user.type 'Produtor'}}
+            <option value="Indústria">Indústria</option>
+            <option value="Franqueado">Produtor</option>
+            <option value="Revenda">Revenda</option>
+          {{/ifCond}}
+        </select>
+      </div>
+
+    <!-- ordinary fields -->
+    {{#ifCond user.type 'Franqueado'}}
+    <div class="form-group">
+      <div class="container">
+        <p class="row col" align="justify">CPF/CNPJ:</p>
+        <input name="user[doc]" type="text" class="form-control" value="{{user.doc}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Resumo das atividades profissionais atuais:</p>
+        <input name="user[activities]" type="text" class="form-control" value="{{user.activities}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Possui carteira de cliente que cotam produtos:</p>
+        <input name="user[actualCustomers]" type="text" class="form-control" value="{{user.actualCustomers}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
+        <input name="user[possibleCustomers]" type="text" class="form-control" value="{{user.possibleCustomers}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Total de clientes:</p>
+        <input name="user[totalCustomers]" type="text" class="form-control" value="{{user.totalCustomers}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Área total(ha):</p>
+        <input name="user[area]" type="text" class="form-control" value="{{user.area}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Como a Megapool poderia ser importante para seu négocio:</p>
+        <input name="user[whyIsMegapoolImportant]" type="text" class="form-control" value="{{user.whyIsMegapoolImportant}}"></input>
+      </div>
+
+    {{else ifCond user.type 'Revenda'}}
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo:</p>
+        <input name="user[phone]" type="text" class="form-control" value="{{user.phone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular:</p>
+        <input name="user[cellphone]" type="text" class="form-control" value="{{user.cellphone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Nome fantasia:</p>
+        <input name="user[fantasyName]" type="text" class="form-control" value="{{user.fantasyName}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Email de contato:</p>
+        <input name="user[secondaryEmail]" type="text" class="form-control" value="{{user.secondaryEmail}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Responsável pela conta:</p>
+        <input name="user[responsible][name]" type="text" class="form-control" value="{{user.responsible.name}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
+        <input name="user[delivery][stock]" type="text" class="form-control" value="{{user.delivery.stock}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Aceita entregar encomendas em até:</p>
+        <input name="user[delivery][maxDistance]" type="text" class="form-control" value="{{user.delivery.maxDistance}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Telefone do responsável pela logística:</p>
+        <input name="user[logistics][phone]" type="text" class="form-control" value="{{user.logistics.phone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Email da logística:</p>
+        <input name="user[logistics][email]" type="text" class="form-control" value="{{user.logistics.email}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Município sede da matriz:</p>
+        <input name="user[headquarter]" type="text" class="form-control" value="{{user.headquarter}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Responsável pela empresa na região:</p>
+        <input name="user[regionalResponsible]" type="text" class="form-control" value="{{user.regionalResponsible}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
+        <input name="user[responsible][phone]" type="text" class="form-control" value="{{user.responsible.phone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+        <input name="user[responsible][cellphone]" type="text" class="form-control" value="{{user.responsible.cellphone}}"></input>
+        <p class="row col" align="justify">{{user.responsible.cellphone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Estoque físico mais próximo:</p>
+        <input name="user[whereIsStock]" type="text" class="form-control" value="{{user.whereIsStock}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse de atender quais estados:</p>
+        <input name="user[interestedStates]" type="text" class="form-control" value="{{user.interestedStates}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
+        <input name="user[delivery][fractional]" type="text" class="form-control" value="{{user.delivery.fractional}}"></input>
+        <p class="row col" align="justify">{{user.delivery.fractional}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender revendas:</p>
+        <input name="user[delivery][dealer]" type="text" class="form-control" value="{{user.delivery.dealer}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
+        <input name="user[delivery][groups]" type="text" class="form-control" value="{{user.delivery.groups}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
+        <input name="user[delivery][repechage]" type="text" class="form-control" value="{{user.delivery.repechage}}"></input>
+      </div>
+    </div>
+
+    {{else ifCond user.type 'Produtor'}}
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo:</p>
+        <input name="user[phone]" type="text" class="form-control" value="{{user.phone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular:</p>
+        <input name="user[cellphone]" type="text" class="form-control" value="{{user.cellphone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Nome da fazenda:</p>
+        <input name="user[farm][name]" type="text" class="form-control" value="{{user.farm.name}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Distância aproximadada cidade até a fazenda:</p>
+        <input name="user[farm][distanceToCity]" type="text" class="form-control" value="{{user.farm.distanceToCity}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Roteiro de entrega:</p>
+        <input name="user[farm][deliveryScript]" type="text" class="form-control" value="{{user.farm.deliveryScript}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Área plantada(ha):</p>
+        <input name="user[farm][area]" type="text" class="form-control" value="{{user.farm.area}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Soja:</p>
+        <input name="user[farm][soy]" type="text" class="form-control" value="{{user.farm.soy}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Milho:</p>
+        <input name="user[farm][corn]" type="text" class="form-control" value="{{user.farm.corn}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Algodão:</p>
+        <input name="user[farm][cotton]" type="text" class="form-control" value="{{user.farm.cotton}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Outras culturas:</p>
+        <input name="user[farm][otherCultivations]" type="text" class="form-control" value="{{user.farm.otherCultivations}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Pode se comunicar por Whatsapp:</p>
+        <input name="user[wpp]" type="text" class="form-control" value="{{user.wpp}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Inscrição Estadual:</p>
+        <input name="user[stateRegistration]" type="text" class="form-control" value="{{user.stateRegistration}}"></input>
+      </div>
+
+    {{else ifCond user.type 'Indústria'}}
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo:</p>
+        <input name="user[phone]" type="text" class="form-control" value="{{user.phone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular:</p>
+        <input name="user[cellphone]" type="text" class="form-control" value="{{user.cellphone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Nome de fantasia:</p>
+        <input name="user[fantasyName]" type="text" class="form-control" value="{{user.fantasyName}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Email de contato:</p>
+        <input name="user[secondaryEmail]" type="text" class="form-control" value="{{user.secondaryEmail}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Responsável pela conta:</p>
+        <input name="user[responsible][name]" type="text" class="form-control" value="{{user.responsible.name}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
+        <input name="user[delivery][stock]" type="text" class="form-control" value="{{user.delivery.stock}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Aceita entregar encomendas em até:</p>
+        <input name="user[delivery][maxDistance]" type="text" class="form-control" value="{{user.delivery.maxDistance}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Telefone do responsável pela logística:</p>
+        <input name="user[logistics][phone]" type="text" class="form-control" value="{{user.logistics.phone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Email da logística:</p>
+        <input name="user[logistics][email]" type="text" class="form-control" value="{{user.logistics.email}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Município sede da matriz:</p>
+        <input name="user[headquarter]" type="text" class="form-control" value="{{user.headquarter}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Responsável pela empresa na região:</p>
+        <input name="user[regionalResponsible]" type="text" class="form-control" value="{{user.regionalResponsible}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
+        <input name="user[responsible][phone]" type="text" class="form-control" value="{{user.responsible.phone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+        <input name="user[responsible][cellphone]" type="text" class="form-control" value="{{user.responsible.cellphone}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Estoque físico mais próximo:</p>
+        <input name="user[whereIsStock]" type="text" class="form-control" value="{{user.whereIsStock}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse de atender quais estados:</p>
+        <input name="user[interestedStates]" type="text" class="form-control" value="{{user.interestedStates}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
+        <input name="user[delivery][fractional]" type="text" class="form-control" value="{{user.delivery.fractional}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender revendas:</p>
+        <input name="user[delivery][dealer]" type="text" class="form-control" value="{{user.delivery.dealer}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
+        <input name="user[delivery][groups]" type="text" class="form-control" value="{{user.delivery.groups}}"></input>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
+        <input name="user[delivery][repechage]" type="text" class="form-control" value="{{user.delivery.repechage}}"></input>
+      </div>
+      {{/ifCond}}
+    </div>
+  </div>
+  <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="edit">Salvar</button>
+</form>
+
+<!-- end ordinary fields -->
+<!-- onclick="location.href = '/user/profile'" -->
+
+</body>
+
+<!-- Here you can add extra javascripts files to the page -->
+{{#section 'scripts'}}
+  <script src="/javascripts/navbar.js"></script>
+{{/section}}

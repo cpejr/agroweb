@@ -150,7 +150,15 @@ router.post('/signup', (req, res) => {
     delete userData.password;
     User.create(userData).then((docId) => {
       req.session._id = docId;
-      res.redirect('/user');
+      if(userType == 'Indústria'){
+        res.redirect('/industryMegaPremio');
+      }
+      else if(userType == 'Revenda'){
+        res.redirect('/dealerMegaOportunidade');
+      }
+      else{
+        res.redirect('/user');
+      }
     }).catch((error) => {
       console.log(error);
       res.redirect('/error');

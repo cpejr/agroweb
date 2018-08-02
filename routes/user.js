@@ -53,7 +53,7 @@ router.get('/profile/edit', auth.canSell, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       console.log(user);
-      res.render('profile/edit', { title: `Editar ${user.name}`, ...user });
+      res.render('profile/edit', { title: 'Editar', user });
     }
     else {
       console.log('User not found!');

@@ -150,13 +150,13 @@ router.post('/signup', (req, res) => {
     delete userData.password;
     User.create(userData).then((docId) => {
       req.session._id = docId;
-      if(userType == 'Indústria'){
-        res.redirect('/industryMegaPremio');
+      if (req.session.userType === 'Indústria') {
+        res.render('industryMegaPremio', { title: 'Indústria', layout: 'layout' });
       }
-      else if(userType == 'Revenda'){
-        res.redirect('/dealerMegaOportunidade');
+      else if (req.session.userType === 'Revenda'){
+        res.render('dealerMegaOportunidade', { title: 'Revenda', layout: 'layout' });
       }
-      else{
+      else {
         res.redirect('/user');
       }
     }).catch((error) => {
@@ -172,15 +172,15 @@ router.post('/signup', (req, res) => {
 // /**
 //  * POST Contact Request
 //  */
-// router.post('/contact', (req, res) => {
-//   const emailData = req.body.data;
-//   console.log(req.body.data);
-//   Email.sendEmail(emailData).then((info) => {
-//     console.log(info);
-//     res.redirect('/success');
-//   }).catch(err => console.log(err));
-// });
-//
+router.post('/contact', (req, res) => {
+  const emailData = req.body.user;
+  console.log(req.body.user);
+  Email.sendEmail(emailData).then((user) => {
+    console.log(user);
+    res.redirect('/success');
+  }).catch(err => console.log(err));
+});
+
 // /**
 //  * POST NewsletterMail Request
 //  */

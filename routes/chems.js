@@ -1,5 +1,5 @@
 const express = require('express');
-const Chem = require('../models/chem.js');
+const Chem = require('../models/chem');
 const auth = require('./middleware/auth');
 
 const router = express.Router();

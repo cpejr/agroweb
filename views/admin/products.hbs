@@ -1,24 +1,6 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end NavBar -->
-
-
 <div class="card text-center">
   <div class="row mx-auto card-body">
     <h3 class="card-title">Produtos disponíveis</h3>
@@ -36,7 +18,9 @@
           <th scope="col">Nome</th>
           <th scope="col">Categoria</th>
           <th scope="col">Fabricante</th>
-          <th scope="col">Opções</th>
+          <th scope="col">Ver</th>
+          <th scope="col">Editar</th>
+          <th scope="col">Excluir</th>
         </tr>
       </thead>
       <tbody>
@@ -45,12 +29,18 @@
           <th scope="row">{{name}}</th>
           <th scope="row">{{category}}</th>
           <th scope="row">{{manufacturer}}</th>
-          <td class="row">
-            <form action="/products/{{id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-outline-danger mr-2" value="Excluir">
-            </form>
+          <th scope="row">
+            <button onclick="location.href='/products/{{id}}'" class="btn btn-outline-success">Ver</button>
+          </th>
+          <th scope="row">
             <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
-          </td>
+          </th>
+          <th scope="row">
+            <form method="post">
+            <!-- <form action="/products/{{id}}?_method=DELETE" method="POST"> -->
+              <button type="submit" class="btn btn-outline-danger">Excluir</button>
+            </form>
+          </th>
         </tr>
       {{/each}}
       </tbody>
@@ -60,5 +50,4 @@
 <!-- end chems list -->
 
 {{#section 'scripts'}}
-  <script src="/javascripts/navbar.js"></script>
 {{/section}}

@@ -1,11 +1,11 @@
 const express = require('express');
 const firebase = require('firebase');
-const User = require('../models/user.js');
-const auth = require('./middleware/auth');
 const nodemailer = require('nodemailer');
-const Transaction = require('../models/transaction.js');
-const Email = require('../models/email.js');
-const Newsletter = require('../models/newsletter.js');
+const Email = require('../models/email');
+const Newsletter = require('../models/newsletter');
+const Transaction = require('../models/transaction');
+const User = require('../models/user');
+const auth = require('./middleware/auth');
 
 const router = express.Router();
 
@@ -13,18 +13,18 @@ const router = express.Router();
  * GET Home page
  */
 router.get('/', (req, res) => {
-  res.render('home', { title: 'Página inicial', layout: 'layout' });
+  res.render('home', { title: 'Página inicial', layout: 'layoutHome' });
 });
 
 /**
- * GET ForgotPassword page
+ * GET Forgot my Password page
  */
 router.get('/forgotPassword', (req, res) => {
-  res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layout' });
+  res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layoutHome' });
 });
 
 /**
- * GET FranchiseeOption page - TESTES
+ * GET Franchisee Option page - TESTES
  */
 router.get('/franchiseeOption', (req, res) => {
   res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layout' });
@@ -50,7 +50,7 @@ router.get('/login', (req, res) => {
     }
   }
   else {
-    res.render('login', { title: 'Login', layout: 'layout' });
+    res.render('login', { title: 'Login', layout: 'layoutHome' });
   }
 });
 
@@ -58,36 +58,7 @@ router.get('/login', (req, res) => {
  * GET Signup page
  */
 router.get('/signup', (req, res) => {
-  res.render('signup', { title: 'Cadastro', layout: 'layout' });
-});
-
-/**
- * GET Sales/index page  - TESTES
- */
-router.get('/sales', (req, res) => {
-  const product1 = {
-    id: 12312312,
-    name: 'produto1',
-    date: '19/03/2021',
-    statusPayment: 'Não pago',
-    statusDeliver: 'Não entregue'
-  };
-  const product2 = {
-    id: 53434223,
-    name: 'produto2',
-    date: '19/03/2021',
-    statusPayment: 'Pago',
-    statusDeliver: 'Não entregue'
-  };
-  const product3 = {
-    id: 232312314,
-    name: 'produto3',
-    date: '19/03/2021',
-    statusPayment: 'Pago',
-    statusDeliver: 'Entregue'
-  };
-  const orders = [product1, product2, product3];
-  res.render('sales/index', { title: 'Minhas compras', layout: 'layout', orders });
+  res.render('signup', { title: 'Cadastro', layout: 'layoutHome' });
 });
 
 /**
@@ -190,26 +161,26 @@ router.post('/signup', (req, res) => {
   });
 });
 
-/**
- * POST Contact Request
- */
-router.post('/contact', (req, res) => {
-  const emailData = req.body.data;
-  console.log(req.body.data);
-  Email.sendEmail(emailData).then((info) => {
-    console.log(info);
-    res.redirect('/success');
-  }).catch(err => console.log(err));
-});
-
-/**
- * POST NewsletterMail Request
- */
-router.post('/newslettermail', (req, res) => {
-  var clientList = firebase.firestore().collection('newsletter');
-  var mailList = clientList.where('email', '==', true);
-  console.log(mailList);
-  res.redirect('/success');
-});
+// /**
+//  * POST Contact Request
+//  */
+// router.post('/contact', (req, res) => {
+//   const emailData = req.body.data;
+//   console.log(req.body.data);
+//   Email.sendEmail(emailData).then((info) => {
+//     console.log(info);
+//     res.redirect('/success');
+//   }).catch(err => console.log(err));
+// });
+//
+// /**
+//  * POST NewsletterMail Request
+//  */
+// router.post('/newslettermail', (req, res) => {
+//   var clientList = firebase.firestore().collection('newsletter');
+//   var mailList = clientList.where('email', '==', true);
+//   console.log(mailList);
+//   res.redirect('/success');
+// });
 
 module.exports = router;

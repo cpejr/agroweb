@@ -1,6 +1,6 @@
 const express = require('express');
-const Offer = require('../models/group.js');
-const Group = require('../models/group.js');
+const Group = require('../models/group');
+const Offer = require('../models/offer');
 const auth = require('./middleware/auth');
 
 const router = express.Router();

@@ -243,7 +243,9 @@ readers do not read off random characters that represent icons */
 
 .fa-american-sign-language-interpreting:before {
   content: "\f2a3"; }
-
+.fa-money:before{
+  content: "\f0d6"
+}
 .fa-amilia:before {
   content: "\f36d"; }
 

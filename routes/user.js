@@ -16,7 +16,7 @@ router.get('/', auth.isAuthenticated, (req, res) => {
     res.render('user', { title: 'Franqueado', layout: 'layout', ...req.session });
   }
   else if (req.session.userType === 'Indústria') {
-    console.log(req);
+    // console.log(req);
     res.render('user', { title: 'Indústria', layout: 'layout', ...req.session });
   }
   else if (req.session.userType === 'Produtor') {
@@ -34,7 +34,7 @@ router.get('/profile', auth.canSell, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       console.log(user);
-      res.render('profile/index', { title: 'Perfil' });
+      res.render('profile', { title: 'Perfil', user });
     }
     else {
       console.log('User not found!');

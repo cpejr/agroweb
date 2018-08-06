@@ -3,7 +3,7 @@
 
 <h1>Nova Oferta</h1>
 
-<form action="/offers/new" method="POST">
+<form action="/offers" method="POST">
   <p>Categoria do produto</p>
   <select class="form-control col-2" name="offer[category]" id="category">
     <option disabled selected value> -- Selecione uma opção -- </option>
@@ -49,8 +49,12 @@
 
 {{#section 'scripts'}}
 <script type="text/javascript">
-  $("#category").change(function() {
-    $("#product-selector").load("teste/"+$('#category').val());
+  $(document).ready(() => {
+    $("#category").change(() => {
+      $.get("teste", { category: $('#category').val() }, (result) => {
+        $("#product-selector").html(result);
+      });
+    });
   });
 </script>
 {{/section}}

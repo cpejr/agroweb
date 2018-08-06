@@ -1,0 +1,377 @@
+<!-- Here you can add extra CSS files to the page -->
+{{#section 'stylesheets'}}
+  <link rel='stylesheet' href='/stylesheets/style.css'>
+{{/section}}
+
+<!-- Here you can write your beautiful HTML code -->
+<body>
+  <!-- Header and NavBar -->
+  <div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        <h4 class="text-white">{{firstName}} {{lastName}}</h4>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              <i class="fas fa-user fa-sm"></i>Minha conta
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fas fa-hdd fa-sm"></i>Histórico
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fas fa-wrench fa-sm"></i>Ser franqueado
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="fas fa-sign-out-alt fa-sm"></i>Logout
+            </a>
+          </li>
+
+          <i class="text-light pb-2">_</i>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              Suporte e contato
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              Dúvidas frequentes
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              Termos de uso
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">
+              Curta nossa página
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-dark">
+      <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars fa-2x"></i>
+      </button>
+
+      <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+        <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+        <button class="btn btn-outline-dark " type="button">
+          <i class="fas fa-search fa-2x"></i>
+        </button>
+      </form>
+    </nav>
+  </div>
+  <!-- end Header and NavBar -->
+<h4 class="mt-3 text-center">Dados do perfil</h4>
+
+<form action="/profile" method="POST">
+  <div class="row d-flex justify-content-between">
+    <div class="form-group col-md-3 mx-4 my-2">
+
+      <div class="container">
+        <p class="row col" align="justify">Nome:</p>
+        <p class="row col" align="justify">{{user.fullName}}</p>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Email:</p>
+        <p class="row col" align="justify">{{user.email}}</p>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Senha atual:</p>
+        <p class="row col" align="justify">{{user.password}}</p>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">CEP:</p>
+        <p class="row col" align="justify">{{user.address.cep}}</p>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Rua:</p>
+        <p class="row col" align="justify">{{user.address.street}}</p>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Número:</p>
+        <p class="row col" align="justify">{{user.address.number}}</p>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Cidade:</p>
+        <p class="row col" align="justify">{{user.address.city}}</p>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Estado:</p>
+        <p class="row col" align="justify">{{user.address.state}}</p>
+      </div>
+
+      <div class="container">
+        <p class="row col" align="justify">Tipo de usuário:</p>
+        <p class="row col" align="justify">{{user.type}}</p>
+      </div>
+
+    <!-- ordinary fields -->
+    {{#ifCond user.type 'Franqueado'}}
+    <div class="form-group">
+      <div class="container">
+        <p class="row col" align="justify">CPF/CNPJ:</p>
+        <p class="row col" align="justify">{{user.doc}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Resumo das atividades profissionais atuais:</p>
+        <p class="row col" align="justify">{{user.activities}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Possui carteira de cliente que cotam produtos:</p>
+        <p class="row col" align="justify">{{user.actualCustomers}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
+        <p class="row col" align="justify">{{user.possibleCustomers}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Total de clientes:</p>
+        <p class="row col" align="justify">{{user.totalCustomers}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Área total(ha):</p>
+        <p class="row col" align="justify">{{user.area}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Como a Megapool poderia ser importante para seu négocio:</p>
+        <p class="row col" align="justify">{{user.whyIsMegapoolImportant}}</p>
+      </div>
+
+    {{else ifCond user.type 'Revenda'}}
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo:</p>
+        <p class="row col" align="justify">{{user.phone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular:</p>
+        <p class="row col" align="justify">{{user.cellphone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Nome fantasia:</p>
+        <p class="row col" align="justify">{{user.fantasyName}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Email de contato:</p>
+        <p class="row col" align="justify">{{user.secondaryEmail}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Responsável pela conta:</p>
+        <p class="row col" align="justify">{{user.responsible.name}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
+        <p class="row col" align="justify">{{user.delivery.stock}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Aceita entregar encomendas em até:</p>
+        <p class="row col" align="justify">{{user.delivery.maxDistance}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Telefone do responsável pela logística:</p>
+        <p class="row col" align="justify">{{user.logistics.phone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Email da logística:</p>
+        <p class="row col" align="justify">{{user.logistics.email}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Município sede da matriz:</p>
+        <p class="row col" align="justify">{{user.headquarter}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Responsável pela empresa na região:</p>
+        <p class="row col" align="justify">{{user.regionalResponsible}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
+        <p class="row col" align="justify">{{user.responsible.phone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+        <p class="row col" align="justify">{{user.responsible.cellphone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Estoque físico mais próximo:</p>
+        <p class="row col" align="justify">{{user.whereIsStock}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse de atender quais estados:</p>
+        <p class="row col" align="justify">{{user.interestedStates}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
+        <p class="row col" align="justify">{{user.delivery.fractional}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender revendas:</p>
+        <p class="row col" align="justify">{{user.delivery.dealer}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
+        <p class="row col" align="justify">{{user.delivery.groups}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
+        <p class="row col" align="justify">{{user.delivery.repechage}}</p>
+      </div>
+    </div>
+
+    {{else ifCond user.type 'Produtor'}}
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo:</p>
+        <p class="row col" align="justify">{{user.phone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular:</p>
+        <p class="row col" align="justify">{{user.cellphone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Nome da fazenda:</p>
+        <p class="row col" align="justify">{{user.farm.name}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Distância aproximadada cidade até a fazenda:</p>
+        <p class="row col" align="justify">{{user.farm.distanceToCity}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Roteiro de entrega:</p>
+        <p class="row col" align="justify">{{user.farm.deliveryScript}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Área plantada(ha):</p>
+        <p class="row col" align="justify">{{user.farm.area}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Soja:</p>
+        <p class="row col" align="justify">{{user.farm.soy}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Milho:</p>
+        <p class="row col" align="justify">{{user.farm.corn}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Algodão:</p>
+        <p class="row col" align="justify">{{user.farm.cotton}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Outras culturas:</p>
+        <p class="row col" align="justify">{{user.farm.otherCultivations}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Pode se comunicar por Whatsapp:</p>
+        <p class="row col" align="justify">{{user.wpp}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Inscrição Estadual:</p>
+        <p class="row col" align="justify">{{user.stateRegistration}}</p>
+      </div>
+
+    {{else ifCond user.type 'Indústria'}}
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo:</p>
+        <p class="row col" align="justify">{{user.phone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular:</p>
+        <p class="row col" align="justify">{{user.cellphone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Nome de fantasia:</p>
+        <p class="row col" align="justify">{{user.fantasyName}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Email de contato:</p>
+        <p class="row col" align="justify">{{user.secondaryEmail}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Responsável pela conta:</p>
+        <p class="row col" align="justify">{{user.responsible.name}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
+        <p class="row col" align="justify">{{user.delivery.stock}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Aceita entregar encomendas em até:</p>
+        <p class="row col" align="justify">{{user.delivery.maxDistance}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Telefone do responsável pela logística:</p>
+        <p class="row col" align="justify">{{user.logistics.phone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Email da logística:</p>
+        <p class="row col" align="justify">{{user.logistics.email}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Município sede da matriz:</p>
+        <p class="row col" align="justify">{{user.headquarter}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Responsável pela empresa na região:</p>
+        <p class="row col" align="justify">{{user.regionalResponsible}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
+        <p class="row col" align="justify">{{user.responsible.phone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+        <p class="row col" align="justify">{{user.responsible.cellphone}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Estoque físico mais próximo:</p>
+        <p class="row col" align="justify">{{user.whereIsStock}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse de atender quais estados:</p>
+        <p class="row col" align="justify">{{user.interestedStates}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
+        <p class="row col" align="justify">{{user.delivery.fractional}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender revendas:</p>
+        <p class="row col" align="justify">{{user.delivery.dealer}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
+        <p class="row col" align="justify">{{user.delivery.groups}}</p>
+      </div>
+      <div class="container">
+        <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
+        <p class="row col" align="justify">{{user.delivery.repechage}}</p>
+      </div>
+      {{/ifCond}}
+    </div>
+  </div>
+</form>
+
+<!-- end ordinary fields -->
+<button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="edit" href="user/profile/edit">Editar dados</button>
+
+</body>
+
+<!-- Here you can add extra javascripts files to the page -->
+{{#section 'scripts'}}
+  <script src="/javascripts/navbar.js"></script>
+{{/section}}

@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
   });
 });
 
+
 /**
  * GET New - Show form to create new chem
  */
@@ -78,12 +79,20 @@ router.get('/:id/edit', auth.isAdmin, (req, res) => {
 /**
  * PUT Update - Update a chem in the database
  */
-router.put('/:id', auth.isAdmin, (req, res) => {
-  const { chem } = req.body;
+router.post('/:id', auth.isAdmin, (req, res) => {
+  //console.log(req.params.id);
+  const  chem  = {
+    name: req.body.name
+  };
+  console.log(req.body.name);
+  //console.log('1 = ');
+  //console.log(chem);
   Chem.update(req.params.id, chem).catch((err) => {
     console.log(err);
+    //console.log(chem);
   });
-  res.redirect(`/chems/${req.params.id}`);
+  //console.log(chem);
+  res.redirect(`/chems`);
 });
 
 /**

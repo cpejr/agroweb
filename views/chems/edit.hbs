@@ -1,0 +1,25 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <div class="align-middle">
+        <form action="/chems/{{id}}" method="POST">
+          <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="Novo Nome" id="name">
+          </div>
+          <button class="btn" type="submit">Salvar</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+
+{{#section 'scripts'}}
+  <script src="/javascripts/NavBar.js"></script>
+{{/section}}

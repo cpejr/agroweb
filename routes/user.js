@@ -68,19 +68,13 @@ router.get('/profile/edit', auth.canSell, (req, res) => {
 /**
  * PUT Update - Update a user in the database
  */
-router.put('/update', auth.isAuthenticated, (req, res) => {
+router.post('/update', auth.isAuthenticated, (req, res) => {
+  console.log(req.session);
   const userData = req.body.user;
-  User.update(req.session.userUid, userData).catch((error) => {
-    console.log(error.message);
-    res.redirect('/error');
+  User.update(req.session._id, userData).catch((err) => {
+    console.log(err);
   });
-  User.getById(req.session.userUid).then((currentUser) => {
-    console.log(currentUser);
-    res.redirect('/user');
-  }).catch((error) => {
-    console.log(error.message);
-    res.redirect('/error');
-  });
+  res.redirect(`/user/profile`);
 });
 
 module.exports = router;

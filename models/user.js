@@ -48,7 +48,11 @@ const userSchema = new mongoose.Schema({
   transactions: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Transaction'
-  }]
+  }],
+  phone: {
+    type: Number,
+    required: true
+  }
 }, { timestamps: true, static: false });
 
 const UserModel = mongoose.model('User', userSchema);

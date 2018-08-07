@@ -110,27 +110,25 @@
 <!-- Producer exclusive field -->
                 <div class="form-group producer-option d-none">
                   <label for="farm" class="mt-3">Nome da fazenda<span class="text-red"> *</span></label>
-                  <input type="text" class="bg-light form-control" name="user[farm[name]]" id="farm" required>
+                  <input type="text" class="bg-light form-control" name="user[farm][name]" id="farm" required>
                   <label for="dist" class="mt-3">Distância aproximada da cidade até a fazenda<span class="text-red"> *</span></label>
-                  <input type="dist" class="bg-light form-control" name="user[farm[distanceToCity]]" id="dist" required>
+                  <input type="dist" class="bg-light form-control" name="user[farm][distanceToCity]" id="dist" required>
                   <label for="script" class="mt-3">Roteiro de entrega<span class="text-red"> *</span></label>
-                  <input type="text" class="bg-light form-control" name="user[farm[deliveryScript]]" id="script" required>
+                  <input type="text" class="bg-light form-control" name="user[farm][deliveryScript]" id="script" required>
                   <label for="areaha" class="mt-3">Área plantada (ha)<span class="text-red"> *</span></label>
-                  <input type="number" class="bg-light form-control" name="user[farm[area]]" id="areaha" required>
+                  <input type="number" class="bg-light form-control" name="user[farm][area]" id="areaha" required>
                   <label for="soy" class="mt-3">Soja<span class="text-red"> *</span></label>
-                  <input type="number" class="bg-light form-control" name="user[farm[soy]]" id="soy" required>
+                  <input type="number" class="bg-light form-control" name="user[farm][soy]" id="soy" required>
                   <label for="corn" class="mt-3">Milho<span class="text-red"> *</span></label>
-                  <input type="number" class="bg-light form-control" name="user[farm[corn]]" id="corn" required>
+                  <input type="number" class="bg-light form-control" name="user[farm][corn]" id="corn" required>
                   <label for="cotton" class="mt-3">Algodão<span class="text-red"> *</span></label>
-                  <input type="number" class="bg-light form-control" name="user[farm[cotton]]" id="cotton" required>
+                  <input type="number" class="bg-light form-control" name="user[farm][cotton]" id="cotton" required>
                   <label for="other" class="mt-3">Outras culturas</label>
-                  <input type="number" class="bg-light form-control" name="user[farm[otherCultivations]]" id="other">
+                  <input type="number" class="bg-light form-control" name="user[farm][otherCultivations]" id="other">
                   <label for="wpp" class="mt-3">Pode se comunicar comigo por whatsapp?<span class="text-red"> *</span>
-                  <div class="radio">
+                  <div class="d-block text-center">
                     <label><input type="radio" name="user[wpp]" required>Sim</label>
-                  </div>
-                  <div class="radio">
-                    <label><input type="radio" name="user[wpp]">Não</label>
+                    <label><input type="radio" class="ml-5" name="user[wpp]">Não</label>
                   </div>
                   <label for="stateRegistration" class="mt-3">Inscrição Estadual<span class="text-red"> *</span></label>
                   <input type="text" class="bg-light form-control" name="user[stateRegistration]" id="stateRegistration" required>
@@ -186,17 +184,19 @@
 <!-- Dealer exclusive field -->
                 <div class="dealer-option industry-option d-none">
                   <label for="responsible" class="mt-3">Quem ficará responsável pela conta Mega Pool<span class="text-red"> *</span></label>
-                  <input type="tel" class="bg-light form-control" name="user[responsible[name]]"id="responsible" required>
+                  <input type="tel" class="bg-light form-control" name="user[responsible][name]"id="responsible" required>
                   <h5 class="mt-4 mb-4 text-center">Revendas devem fazer o cadastro separado de cada filial</h5>
                   <label class="mt-3">Tem condições de atender demandas imediatas (estoque)?<span class="text-red"> *</span></label>
-                  <label><input type="radio" name="user[delivery[stock]]" required>Sim</label>
-                  <label><input type="radio" name="user[delivery[stock]]">Não</label>
+                  <div class="d-block text-center">
+                    <label><input type="radio" name="user[delivery][stock]" required>Sim</label>
+                    <label><input type="radio" class="ml-5" name="user[delivery][stock]">Não</label>
+                  </div>
                   <label for="acceptDeliver" class="mt-3">Aceita entregar a uma distância de até (em KM)<span class="text-red"> *</span></label>
-                  <input type="number" class="bg-light form-control" name="user[delivery[maxDistance]]" min="0" step="50" id="acceptDeliver">
+                  <input type="number" class="bg-light form-control" name="user[delivery][maxDistance]" min="0" step="50" id="acceptDeliver">
                   <label for="Lphone" class="mt-3">Telefone do responsável pela logística<span class="text-red"> *</span></label>
-                  <input type="tel" class="bg-light form-control" name="user[logistics[phone]]"id="Lphone" required>
+                  <input type="tel" class="bg-light form-control" name="user[logistics][phone]"id="Lphone" required>
                   <label for="Lemail" class="mt-3">E-mail logística<span class="text-red"> *</span></label>
-                  <input type="email" class="bg-light form-control" name="user[logistics[email]]"id="Lemail" required>
+                  <input type="email" class="bg-light form-control" name="user[logistics][email]"id="Lemail" required>
                 </div>
 <!-- end Dealer exclusive field -->
 
@@ -209,23 +209,31 @@
                   <label for="Rphone" class="mt-3">Telefone fixo do Responsável pela conta Mega Pool<span class="text-red"> *</span></label>
                   <input type="tel" class="bg-light form-control" name="user[responsible[phone]"id="Rphone" required>
                   <label for="Rcellphone" class="mt-3">Celular do Responsável pela conta Mega Pool<span class="text-red"> *</span></label>
-                  <input type="tel" class="bg-light form-control" name="user[responsible[cellphone]]"id="Rcellphone" required>
+                  <input type="tel" class="bg-light form-control" name="user[responsible][cellphone]"id="Rcellphone" required>
                   <label for="whereIsStock" class="mt-3">Onde possui o estoque físico mais próximo? <span class="text-red"> *</span></label>
                   <input type="text" class="bg-light form-control" placeholder="Nome do município" name="user[whereIsStock]"id="whereIsStock" required>
                   <label for="Istate">Quais estados tem interesse e condições de atender?<span class="text-red"> *</span></label>
                   <input type="text" class="bg-light form-control" name="user[interestedStates]"id="Istate" required>
                   <label class="mt-3">Tem interesse em atender clientes diretos (com entregas fracionadas)?<span class="text-red"> *</span></label>
-                  <label><input type="radio" name="user[delivery[fractional]]" required>Sim</label>
-                  <label><input type="radio" name="user[delivery[fractional]]">Não</label>
+                  <div class="d-block text-center">
+                    <label><input type="radio" name="user[delivery][fractional]" required>Sim</label>
+                    <label><input type="radio" class="ml-5" name="user[delivery][fractional]">Não</label>
+                  </div>
                   <label class="mt-3">Tem interesse em atender revendas?<span class="text-red"> *</span></label>
-                  <label><input type="radio" name="user[delivery[dealer]]" required>Sim</label>
-                  <label><input type="radio" name="user[delivery[dealer]]">Não</label>
+                  <div class="d-block text-center">
+                    <label><input type="radio" name="user[delivery][dealer]" required>Sim</label>
+                    <label><input type="radio" class="ml-5" name="user[delivery][dealer]">Não</label>
+                  </div>
                   <label class="mt-3">Tem interesse em atender grupos de compras?<span class="text-red"> *</span></label>
-                  <label><input type="radio" name="user[delivery[groups]" required>Sim</label>
-                  <label><input type="radio" name="user[delivery[groups]">Não</label>
-                  <label class="mt-3">Tem inteesse em atender repiques com entregas no máximo até 30 dias?<span class="text-red"> *</span></label>
-                      <label><input type="radio" name="user[delivery[repechage]]" required>Sim</label>
-                      <label><input type="radio" name="user[delivery[repechage]]">Não</label>
+                  <div class="d-block text-center">
+                    <label><input type="radio" name="user[delivery][groups]" required>Sim</label>
+                    <label><input type="radio" class="ml-5" name="user[delivery][groups]">Não</label>
+                  </div>
+                  <label class="mt-3">Tem interesse em atender repiques com entregas no máximo até 30 dias?<span class="text-red"> *</span></label>
+                  <div class="d-block text-center">
+                    <label><input type="radio" name="user[delivery][repechage]" required>Sim</label>
+                    <label><input type="radio" class="ml-5" name="user[delivery][repechage]">Não</label>
+                  </div>
                 </div>
 
 <!-- end Industry exclusive field -->

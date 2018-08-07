@@ -79,20 +79,14 @@ router.get('/:id/edit', auth.isAdmin, (req, res) => {
 /**
  * PUT Update - Update a chem in the database
  */
-router.post('/:id', auth.isAdmin, (req, res) => {
-  //console.log(req.params.id);
-  const  chem  = {
+router.put('/:id', auth.isAdmin, (req, res) => {
+  const chem = {
     name: req.body.name
   };
-  console.log(req.body.name);
-  //console.log('1 = ');
-  //console.log(chem);
   Chem.update(req.params.id, chem).catch((err) => {
     console.log(err);
-    //console.log(chem);
   });
-  //console.log(chem);
-  res.redirect(`/chems`);
+  res.redirect('/chems');
 });
 
 /**

@@ -9,7 +9,7 @@
       <div class="align-middle">
         <form action="/chems/{{id}}?_method=PUT" method="POST">
           <div class="form-group">
-            <input type="text" name="name" class="form-control" placeholder="Novo Nome" id="name">
+            <input type="text" name="name" class="form-control" value="{{name}}" placeholder="{{name}}" id="name">
           </div>
           <button class="btn" type="submit">Salvar</button>
         </form>
@@ -21,5 +21,4 @@
 </div>
 
 {{#section 'scripts'}}
-  <script src="/javascripts/NavBar.js"></script>
 {{/section}}

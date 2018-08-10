@@ -41,8 +41,8 @@
 
       <div class="container">
         <p class="row col" align="justify">Estado:</p>
-        <select class="form-control" name="user[address][state]" id="state" required>
-          <option disabled selected value> {{user.address.state}} </option>
+        <select class="form-control" name="user[address][state]" id="state">
+          <option selected value> {{user.address.state}} </option>
           <option value="Acre">Acre</option>
           <option value="Alagoas">Alagoas</option>
           <option value="Amapá">Amapá</option>
@@ -88,19 +88,19 @@
 
       <div class="container">
         <p class="row col" align="justify">Possui carteira de cliente que cotam produtos:</p>
-        <select class="form-control" name="user[actualCustomers]" id="type" required>
+        <select class="form-control" name="user[actualCustomers]" id="type">
           <option disabled selected value> {{user.actualCustomers}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
       <div class="container">
         <p class="row col" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
-        <select class="form-control" name="user[possibleCustomers]" id="type" required>
+        <select class="form-control" name="user[possibleCustomers]" id="type">
           <option disabled selected value> {{user.possibleCustomers}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
@@ -147,15 +147,15 @@
 
       <div class="container">
         <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
-        <select class="form-control" name="user[delivery][stock]" id="type" required>
+        <select class="form-control" name="user[delivery][stock]" id="type">
           <option disabled selected value> {{user.delivery.stock}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
       <div class="container">
-        <p class="row col" align="justify">Aceita entregar encomendas em até:</p>
+        <p class="row col" align="justify">Aceita entregar encomendas em até: (km)</p>
         <input name="user[delivery][maxDistance]" type="text" class="form-control" value="{{user.delivery.maxDistance}}"></input>
       </div>
 
@@ -202,37 +202,37 @@
 
       <div class="container">
         <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
-        <select class="form-control" name="user[delivery][fractional]" id="type" required>
+        <select class="form-control" name="user[delivery][fractional]" id="type">
           <option disabled selected value> {{user.delivery.fractional}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
       <div class="container">
         <p class="row col" align="justify">Interesse em atender revendas:</p>
-        <select class="form-control" name="user[delivery][dealer]" id="type" required>
+        <select class="form-control" name="user[delivery][dealer]" id="type">
           <option disabled selected value> {{user.delivery.dealer}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
       <div class="container">
         <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
-        <select class="form-control" name="user[delivery][groups]" id="type" required>
+        <select class="form-control" name="user[delivery][groups]" id="type">
           <option disabled selected value> {{user.delivery.groups}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
       <div class="container">
         <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
-        <select class="form-control" name="user[delivery][repechage]" id="type" required>
+        <select class="form-control" name="user[delivery][repechage]" id="type">
           <option disabled selected value> {{user.delivery.repechage}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
     </div>
@@ -290,10 +290,10 @@
 
       <div class="container">
         <p class="row col" align="justify">Pode se comunicar por Whatsapp:</p>
-        <select class="form-control" name="user[wpp]" id="type" required>
+        <select class="form-control" name="user[wpp]" id="type">
           <option disabled selected value> {{user.wpp}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
@@ -330,15 +330,15 @@
 
       <div class="container">
         <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
-        <select class="form-control" name="user[delivery][stock]" id="type" required>
+        <select class="form-control" name="user[delivery][stock]" id="type">
           <option disabled selected value> {{user.delivery.stock}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
       <div class="container">
-        <p class="row col" align="justify">Aceita entregar encomendas em até:</p>
+        <p class="row col" align="justify">Aceita entregar encomendas em até: (km)</p>
         <input name="user[delivery][maxDistance]" type="text" class="form-control" value="{{user.delivery.maxDistance}}"></input>
       </div>
 
@@ -384,37 +384,37 @@
 
       <div class="container">
         <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
-        <select class="form-control" name="user[delivery][fractional]" id="type" required>
+        <select class="form-control" name="user[delivery][fractional]" id="type">
           <option disabled selected value> {{user.delivery.fractional}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
       <div class="container">
         <p class="row col" align="justify">Interesse em atender revendas:</p>
-        <select class="form-control" name="user[delivery][dealer]" id="type" required>
+        <select class="form-control" name="user[delivery][dealer]" id="type">
           <option disabled selected value> {{user.delivery.dealer}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
       <div class="container">
         <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
-        <select class="form-control" name="user[delivery][groups]" id="type" required>
+        <select class="form-control" name="user[delivery][groups]" id="type">
           <option disabled selected value> {{user.delivery.groups}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
 
       <div class="container">
         <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
-        <select class="form-control" name="user[delivery][repechage]" id="type" required>
+        <select class="form-control" name="user[delivery][repechage]" id="type">
           <option disabled selected value> {{user.delivery.repechage}} </option>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
         </select>
       </div>
       {{/ifCond}}

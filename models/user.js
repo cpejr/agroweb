@@ -52,6 +52,93 @@ const userSchema = new mongoose.Schema({
   phone: {
     type: Number,
     required: true
+  },
+  cellphone: {
+    type: Number,
+    required: true
+  },
+  fantasyName: {
+    type: String,
+    required: true
+  },
+  secondaryEmail: {
+    type: String,
+    required: true
+  },
+  responsible: {
+    name: String,
+    phone: Number,
+    cellphone: Number
+  },
+  delivery: {
+    stock: String,
+    maxDistance: Number,
+    dealer: String,
+    groups: String,
+    repechage: String,
+    fractional: String
+  },
+  logistics: {
+    phone: Number,
+    email: String
+  },
+  headquarter: {
+    type: String,
+    required: true
+  },
+  regionalResponsible: {
+    type: String,
+    required: true
+  },
+  whereIsStock: {
+    type: String,
+    required: true
+  },
+  interestedStates: {
+    type: String,
+    required: true
+  },
+  activities: {
+    type: String,
+    required: true
+  },
+  actualCustomers: {
+    type: String,
+    required: true
+  },
+  possibleCustomers: {
+    type: String,
+    required: true
+  },
+  totalCustomers: {
+    type: String,
+    required: true
+  },
+  area: {
+    type: Number,
+    required: true
+  },
+  whyIsMegapoolImportant: {
+    type: String,
+    required: true
+  },
+  farm: {
+    name: String,
+    distanceToCity: Number,
+    deliveryScript: String,
+    area: Number,
+    soy: Number,
+    corn: Number,
+    cotton: Number,
+    otherCultivations: Number
+  },
+  wpp: {
+    type: Number,
+    required: true
+  },
+  stateRegistration: {
+    type: Number,
+    required: true
   }
 }, { timestamps: true, static: false });
 

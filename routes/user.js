@@ -71,6 +71,11 @@ router.get('/profile/edit', auth.canSell, (req, res) => {
 router.post('/update', auth.isAuthenticated, (req, res) => {
   console.log(req.session);
   const userData = req.body.user;
+
+  // Separates the first name from the rest
+  const position = userData.fullName.indexOf(' ');
+  userData.firstName = userData.fullName.slice(0, position);
+
   User.update(req.session._id, userData).catch((err) => {
     console.log(err);
   });

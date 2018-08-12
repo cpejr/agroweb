@@ -42,34 +42,34 @@
       <div class="container">
         <p class="row col" align="justify">Estado:</p>
         <select class="form-control" name="user[address][state]" id="state">
-          <option selected value> {{user.address.state}} </option>
-          <option value="Acre">Acre</option>
-          <option value="Alagoas">Alagoas</option>
-          <option value="Amapá">Amapá</option>
-          <option value="Amazonas">Amazonas</option>
-          <option value="Bahia">Bahia</option>
-          <option value="Ceará">Ceará</option>
-          <option value="Distrito Federal">Distrito Federal</option>
-          <option value="Espírito Santo">Espírito Santo</option>
-          <option value="Goiás">Goiás</option>
-          <option value="Maranhão">Maranhão</option>
-          <option value="Mato Grosso">Mato Grosso</option>
-          <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-          <option value="Minas Gerais">Minas Gerais</option>
-          <option value="Pará">Pará</option>
-          <option value="Paraíba">Paraíba</option>
-          <option value="Paraná">Paraná</option>
-          <option value="Pernambuco">Pernambuco</option>
-          <option value="Piauí">Piauí</option>
-          <option value="Rio de Janeiro">Rio de Janeiro</option>
-          <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-          <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-          <option value="Rondônia">Rondônia</option>
-          <option value="Roraima">Roraima</option>
-          <option value="Santa Catarina">Santa Catarina</option>
-          <option value="São Paulo">São Paulo</option>
-          <option value="Sergipe">Sergipe</option>
-          <option value="Tocantins">Tocantins</option>
+          <option selected value = {{user.address.state}}> {{user.address.state}} </option>
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="RO">Rondônia</option>
+          <option value="RR">Roraima</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
         </select>
       </div>
 
@@ -89,7 +89,7 @@
       <div class="container">
         <p class="row col" align="justify">Possui carteira de cliente que cotam produtos:</p>
         <select class="form-control" name="user[actualCustomers]" id="type">
-          <option disabled selected value> {{user.actualCustomers}} </option>
+          <option selected value = {{user.actualCustomers}}> {{user.actualCustomers}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -98,7 +98,7 @@
       <div class="container">
         <p class="row col" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
         <select class="form-control" name="user[possibleCustomers]" id="type">
-          <option disabled selected value> {{user.possibleCustomers}} </option>
+          <option selected value = {{user.possibleCustomers}}> {{user.possibleCustomers}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -148,7 +148,7 @@
       <div class="container">
         <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
         <select class="form-control" name="user[delivery][stock]" id="type">
-          <option disabled selected value> {{user.delivery.stock}} </option>
+          <option selected value = {{user.delivery.stock}}> {{user.delivery.stock}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -203,7 +203,7 @@
       <div class="container">
         <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
         <select class="form-control" name="user[delivery][fractional]" id="type">
-          <option disabled selected value> {{user.delivery.fractional}} </option>
+          <option selected value = {{user.delivery.fractional}}> {{user.delivery.fractional}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -212,7 +212,7 @@
       <div class="container">
         <p class="row col" align="justify">Interesse em atender revendas:</p>
         <select class="form-control" name="user[delivery][dealer]" id="type">
-          <option disabled selected value> {{user.delivery.dealer}} </option>
+          <option selected value = {{user.delivery.dealer}}> {{user.delivery.dealer}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -221,7 +221,7 @@
       <div class="container">
         <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
         <select class="form-control" name="user[delivery][groups]" id="type">
-          <option disabled selected value> {{user.delivery.groups}} </option>
+          <option selected value = {{user.delivery.groups}}> {{user.delivery.groups}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -230,7 +230,7 @@
       <div class="container">
         <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
         <select class="form-control" name="user[delivery][repechage]" id="type">
-          <option disabled selected value> {{user.delivery.repechage}} </option>
+          <option selected value = {{user.delivery.repechage}}> {{user.delivery.repechage}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -291,7 +291,7 @@
       <div class="container">
         <p class="row col" align="justify">Pode se comunicar por Whatsapp:</p>
         <select class="form-control" name="user[wpp]" id="type">
-          <option disabled selected value> {{user.wpp}} </option>
+          <option selected value = {{user.wpp}}> {{user.wpp}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -331,7 +331,7 @@
       <div class="container">
         <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
         <select class="form-control" name="user[delivery][stock]" id="type">
-          <option disabled selected value> {{user.delivery.stock}} </option>
+          <option selected value = {{user.delivery.stock}}> {{user.delivery.stock}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -385,7 +385,7 @@
       <div class="container">
         <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
         <select class="form-control" name="user[delivery][fractional]" id="type">
-          <option disabled selected value> {{user.delivery.fractional}} </option>
+          <option selected value = {{user.delivery.fractional}}> {{user.delivery.fractional}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -394,7 +394,7 @@
       <div class="container">
         <p class="row col" align="justify">Interesse em atender revendas:</p>
         <select class="form-control" name="user[delivery][dealer]" id="type">
-          <option disabled selected value> {{user.delivery.dealer}} </option>
+          <option selected value = {{user.delivery.dealer}}> {{user.delivery.dealer}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -403,7 +403,7 @@
       <div class="container">
         <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
         <select class="form-control" name="user[delivery][groups]" id="type">
-          <option disabled selected value> {{user.delivery.groups}} </option>
+          <option selected value = {{user.delivery.groups}}> {{user.delivery.groups}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -412,7 +412,7 @@
       <div class="container">
         <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
         <select class="form-control" name="user[delivery][repechage]" id="type">
-          <option disabled selected value> {{user.delivery.repechage}} </option>
+          <option selected value = {{user.delivery.repechage}}> {{user.delivery.repechage}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>

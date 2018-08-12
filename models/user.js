@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema({
   },
   doc: {
     type: String,
-    required: true,
     unique: true
   },
   email: {
@@ -49,22 +48,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Transaction'
   }],
-  phone: {
-    type: Number,
-    required: true
-  },
-  cellphone: {
-    type: Number,
-    required: true
-  },
-  fantasyName: {
-    type: String,
-    required: true
-  },
-  secondaryEmail: {
-    type: String,
-    required: true
-  },
+  phone: Number,
+  cellphone: Number,
+  fantasyName: String,
+  secondaryEmail: String,
   responsible: {
     name: String,
     phone: Number,
@@ -82,46 +69,16 @@ const userSchema = new mongoose.Schema({
     phone: Number,
     email: String
   },
-  headquarter: {
-    type: String,
-    required: true
-  },
-  regionalResponsible: {
-    type: String,
-    required: true
-  },
-  whereIsStock: {
-    type: String,
-    required: true
-  },
-  interestedStates: {
-    type: String,
-    required: true
-  },
-  activities: {
-    type: String,
-    required: true
-  },
-  actualCustomers: {
-    type: String,
-    required: true
-  },
-  possibleCustomers: {
-    type: String,
-    required: true
-  },
-  totalCustomers: {
-    type: String,
-    required: true
-  },
-  area: {
-    type: Number,
-    required: true
-  },
-  whyIsMegapoolImportant: {
-    type: String,
-    required: true
-  },
+  headquarter: String,
+  regionalResponsible: String,
+  whereIsStock: String,
+  interestedStates: String,
+  activities: String,
+  actualCustomers: String,
+  possibleCustomers: String,
+  totalCustomers: String,
+  area: Number,
+  whyIsMegapoolImportant: String,
   farm: {
     name: String,
     distanceToCity: Number,
@@ -132,14 +89,8 @@ const userSchema = new mongoose.Schema({
     cotton: Number,
     otherCultivations: Number
   },
-  wpp: {
-    type: Number,
-    required: true
-  },
-  stateRegistration: {
-    type: Number,
-    required: true
-  }
+  wpp: Number,
+  stateRegistration: Number,
 }, { timestamps: true, static: false });
 
 const UserModel = mongoose.model('User', userSchema);

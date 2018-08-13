@@ -2,47 +2,55 @@
 {{/section}}
 
 <div class="container">
-  <div class="row justify-content-center mx-sm-auto mx-md-9">
-    <!-- Product Title -->
-    <div class="col-12 col-md-6 mb-5">
-      <i class="text-muted">Produto {{generic}}</i>
-      <h2 class="my-0 py-0">{{product.name}}</h2>
-      <h5 class="text-muted">R$ {{price.high}} / {{product.unit}}</h5>
-      <small class="text-muted">O preço do produto muda de acordo com a quantidade cotada.</small>
-
-      <!-- Product Description -->
-      <h4 class="mt-3">Descrição</h4>
-      <p>
-        {{product.description}}
-      </p>
-      <!-- end Product Description -->
+    <div class="row mx-sm-auto mx-md-9">
+    <!-- Sale Title -->
+    <div class="col-12 col-md-6 mb-5 justify-content-center">
+      <p class="ml-4">Venda#{{_id}}</p>
+      <div class="w-100">
+      </div>
+      {{#ifCond status 'Aguardando Pagamento'}}
+        <span class="badge badge-danger">
+      {{else ifCond status 'Pagamento confirmado'}}
+        <span class="badge badge-primary">
+      {{else ifCond status 'Produto enviado'}}
+        <span class="badge badge-success">
+      {{/ifCond}}
+        <h6>{{status}}</h6>
+      </span>
+      <h2>{{offer.product.name}}</h2>
+      <h4 class="text-gray">R$ {{unitPrice}}</h4>
     </div>
-    <!-- end Product Title -->
+    <!-- end Sale Title -->
 
-    <!-- Quotation -->
-    <div class="col-12 col-md-6 pb-2 mb-5">
-      <form action="#" method="post">
-        <div class="row mb-3">
-          <div class="form-group col">
-            <label class="text-muted" for="amount">Quantidade</label>
-            <div class="input-group">
-              <input class="form-control" type="number" name="amount" id="amount" value="1" min="1">
-              <div class="input-group-prepend">
-                <div class="input-group-text">{{product.unit}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group my-auto col">
-            <label class="text-muted" for="delivery">Entrega: </label>
-            <h7 id="delivery">{{delivery}}</h7>
-          </div>
-        </div>
+    <!-- Product Description -->
+    <div class="row m-1">
+      <div class="col-6">
+        <dt class="text-gray">Entrega</dt>
+        <h4>{{delivery}}</h4>
+      </div>
+      <div class="col-6">
+        <dt class="text-gray">Quantidade vendida</dt>
+        <h4>{{amountBought}}</h4>
+      </div>
+      <div class="col-6">
+        <dt class="text-gray">Preço total</dt>
+        <h2>R$ {{priceBought}}</h2>
+      </div>
+      <div class="col-6">
+        <dt class="text-gray mb-1">Pagamento</dt>
+        <h4>{{payment}}</h4>
+      </div>
 
-        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-        <button class="w-100 text-white btn btn-default bg-dark" type="button" name="button">Cotar similar</button>
-      </form>
+    <!-- Seller info -->
+    <div class="col-12 col-md-6 mb-5 justify-content-center">
+      <h2>Dados do comprador</h2>
+      <p class="text-gray">Nome</p>
+      <h4 class="mb-2">{{user}}</h4>
+      <p class="text-gray">Contato</p>
+      <h4>{{phone}}</h4>
+      <h4 class="mb-5">{{email}}</h4>
     </div>
-    <!-- end Quotation -->
+    <!-- end Seller info -->
 
     <!-- Product Characteristics -->
     <div class="col-12 col-md-6 mb-5">

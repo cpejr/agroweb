@@ -29,11 +29,11 @@
             <div class="w-100">
             </div>
             {{#ifCond status 'Cancelado'}}
-              <span class="badge badge-danger">
+              <span class="badge badge-danger mt-2">
             {{else ifCond status 'Em andamento'}}
-              <span class="badge badge-primary">
+              <span class="badge badge-primary mt-2">
             {{else ifCond status 'Entregue'}}
-              <span class="badge badge-success">
+              <span class="badge badge-success mt-2">
             {{/ifCond}}
               <h6>{{status}}</h6>
             </span>

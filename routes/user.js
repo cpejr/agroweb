@@ -33,7 +33,6 @@ router.get('/', auth.isAuthenticated, (req, res) => {
 router.get('/profile', auth.canSell, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
-      console.log(user);
       res.render('profile', { title: 'Perfil', user });
     }
     else {
@@ -52,8 +51,7 @@ router.get('/profile', auth.canSell, (req, res) => {
 router.get('/profile/edit', auth.canSell, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
-      console.log(user);
-      res.render('profile/edit', { title: `Editar ${user.name}`, ...user });
+      res.render('profile/edit', { title: 'Editar', user });
     }
     else {
       console.log('User not found!');
@@ -68,19 +66,17 @@ router.get('/profile/edit', auth.canSell, (req, res) => {
 /**
  * PUT Update - Update a user in the database
  */
-router.put('/update', auth.isAuthenticated, (req, res) => {
+router.post('/update', auth.isAuthenticated, (req, res) => {
   const userData = req.body.user;
-  User.update(req.session.userUid, userData).catch((error) => {
-    console.log(error.message);
-    res.redirect('/error');
+
+  // Separates the first name from the rest
+  const position = userData.fullName.indexOf(' ');
+  userData.firstName = userData.fullName.slice(0, position);
+
+  User.update(req.session._id, userData).catch((err) => {
+    console.log(err);
   });
-  User.getById(req.session.userUid).then((currentUser) => {
-    console.log(currentUser);
-    res.redirect('/user');
-  }).catch((error) => {
-    console.log(error.message);
-    res.redirect('/error');
-  });
+  res.redirect(`/user/profile`);
 });
 
 module.exports = router;

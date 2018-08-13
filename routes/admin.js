@@ -5,7 +5,6 @@ const Product = require('../models/product');
 const Offer = require('../models/offer');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
-const Offer = require('../models/offer.js');
 const Transaction = require('../models/transaction.js');
 
 const router = express.Router();

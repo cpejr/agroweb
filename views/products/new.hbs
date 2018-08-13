@@ -1,38 +1,26 @@
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end NavBar -->
 <h4 class="mt-3 text-center">Novo Produto</h4>
   <form action="/products" method="POST">
     <div class="row d-flex justify-content-between">
-      <div class="form-group col-md-3 mx-4 my-2">
-        <label for="name" class="sr-only">Nome do produto</label>
-        <div class="input-group mb-2">
-         <div class="input-group-prepend">
-           <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
-         </div>
-         <input name="product[name]" type="text" class="form-control" placeholder="Nome do produto" id="name"></input>
+      <div class="form-group col-md-3 col-10 mx-4 my-2">
+        <div class="user-input">
+          <br/>
+          <div class="input-group mb-2">
+           <div class="input-group-prepend">
+             <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+           </div>
+          <input name="product[name]" type="text" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Nome do Produto</label>
+            </div>
         </div>
       </div>
-      <div class="form-group col-md-3 mx-4 my-2">
+      <div class="form-group col-md-3 col-10 mx-4 my-2">
+        <br/>
         <label for="category" class="sr-only">Categoria</label>
         <div class="input-group mb-2">
          <div class="input-group-prepend">
            <div class="input-group-text"><i class="fas fa-boxes"></i></div>
          </div>
-         <select class="form-control" name="product[category]" id="category">
+         <select class="form-control new-shadow" name="product[category]" id="category">
            <option disabled selected value> -- Categoria -- </option>
            <option value="Fertilizantes sólidos">Fertilizantes sólidos</option>
            <option value="Defensivos agrícolas/agrotóxicos">Defensivos agrícolas/agrotóxicos</option>
@@ -41,40 +29,51 @@
          </select>
         </div>
       </div>
-
-      <div class="form-group col-md-3 mx-4  my-2">
-        <div class="input-group mb-2">
-         <div class="input-group-prepend">
-           <div class="input-group-text"><i class="fas fa-industry"></i></div>
-         </div>
-         <input name="product[manufacturer]" type="text" placeholder="Fabricante" class="form-control" id="manufacturer"></input>
-        </div>
-         <input type="radio" name="product[generic]" value="Original"></input>
-        <label>Produto não genérico</label>
-      </div>
-    </div>
-
-      <div class="row d-flex justify-content-center">
-        <div class="form-group col-md-3 mx-4  my-2">
+      <div class="form-group col-md-3 col-10 mx-4 my-2">
+        <div class="user-input">
+          <br/>
           <div class="input-group mb-2">
            <div class="input-group-prepend">
              <div class="input-group-text"><i class="fas fa-newspaper"></i></div>
            </div>
-           <input name="product[description]" placeholder="Descrição" type="text" class="form-control" id="description"></input>
+           <textarea rows="4" name="product[description]" class="form-control input-text" required/></textarea>
+           <label class="floating-label text-dark2">Descrição</label>
+           </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="row d-flex justify-content-between">
+        <div class="form-group col-md-3 col-10 mx-4 my-2">
+          <div class="user-input">
+            <br/>
+            <div class="input-group mb-2">
+             <div class="input-group-prepend">
+               <div class="input-group-text"><i class="fas fa-industry"></i></div>
+             </div>
+             <input name="product[manufacturer]" type="text" class="form-control input-text" required/>
+             <label class="floating-label text-dark2">Fabricante</label>
+            </div>
+             <input type="radio" name="product[generic]" value="Original"></input>
+            <label>Produto não genérico</label>
           </div>
         </div>
 
-        <div class="form-group col-md-3 mx-4  my-2">
+        <div class="form-group col-md-3 col-10 mx-4 my-2">
+          <br/>
           <div class="input-group mb-2">
            <div class="input-group-prepend">
              <div class="input-group-text"><i class="fas fa-balance-scale"></i></div>
            </div>
-           <select class="form-control" name="product[unit]" id="un">
+           <select class="form-control new-shadow" name="product[unit]" id="un">
              <option disabled selected value> -- Unidade -- </option>
              <option value="kg">Kilogramas</option>
              <option value="unidade">Unidade</option>
            </select>
           </div>
+        </div>
+        <div class="form-group col-md-3 col-10 mx-4  my-2">
+          <p hidden>Hidden paragraph for alignment purposes.</p>
         </div>
       </div>
 
@@ -83,10 +82,13 @@
           <label for="activeIng" class="rounded bg-black"><i class="fas fa-flask fa-sm mr-2"></i>Princípio Ativo</label>
           <div class="row">
             {{#each chems}}
-              <label class="d-block col-3"><input type="checkbox" name="product[chem][]" class="mr-1" value="{{_id}}" id="activeIng">{{name}}</label>
+              <label class="d-block col-md-3 col-6"><input type="checkbox" name="product[chem][]" class="mr-1" value="{{_id}}" id="activeIng">{{name}}</label>
             {{/each}}
           </div>
         </div>
     </div>
     <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Enviar</button>
   </form>
+
+  {{#section 'scripts'}}
+  {{/section}}

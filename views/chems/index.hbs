@@ -1,35 +1,18 @@
 {{#section 'stylesheets'}}
 {{/section}}
-
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end NavBar -->
-
-<div class="card text-center">
-  <div class="row mx-auto card-body">
+<div class="card ">
+  <div class="row mx-auto card-body text-center">
     <h3 class="card-title">Princípios ativos</h3>
-    <span class="float-right pull-right">
-      <button onclick="location.href='/chems/new'" class="btn btn-outline-info">Novo</button>
-    </span>
   </div>
+  <span class="float-right pull-right mb-2 ml-2">
+    <button onclick="location.href='/chems/new'" class="btn btn-outline-info">Adicionar novo princípio ativo</button>
+  </span>
 </div>
+
 <!-- Chems list -->
-<div id="results-list" class="row justify-content-center mt-2 mx-0">
+<div id="results-list" class="row justify-content-center mt-2 mx-0 ">
   <div class="text-center">
-    <table class="table table-responsive table-striped table-dark col-md-12">
+    <table class="table table-responsive table-striped table-dark  ">
       <thead>
         <tr>
           <th scope="col">Nome</th>
@@ -59,5 +42,5 @@
 <!-- end chems list -->
 
 {{#section 'scripts'}}
-  <script src="/javascripts/navbar.js"></script>
+  <script src="/javascripts/NavBar.js"></script>
 {{/section}}

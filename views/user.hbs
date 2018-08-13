@@ -1,70 +1,5 @@
-<!-- Header and NavBar -->
-<div class="pos-f-t">
-  <div class="collapse" id="navbarToggleExternalContent">
-    <div class="bg-dark p-4">
-      <h4 class="text-white">{{firstName}} {{lastName}}</h4>
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active">
-          <a class="nav-link" href="/user/show">
-            <i class="fas fa-user fa-sm"></i>Minha conta
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="fas fa-hdd fa-sm"></i>Histórico
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="fas fa-wrench fa-sm"></i>Ser franqueado
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">
-            <i class="fas fa-sign-out-alt fa-sm"></i>Logout
-          </a>
-        </li>
-
-        <i class="text-light pb-2">_</i>
-
-        <li class="nav-item active">
-          <a class="nav-link" href="#">
-            Suporte e contato
-          </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#">
-            Dúvidas frequentes
-          </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#">
-            Termos de uso
-          </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#">
-            Curta nossa página
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-bars fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end Header and NavBar -->
+{{#section 'stylesheets'}}
+{{/section}}
 
 <!-- Buttons -->
 {{#ifCond userType 'Revenda'}}
@@ -175,3 +110,6 @@
 {{/ifCond}}
 
 <!-- end Buttons -->
+
+{{#section 'scripts'}}
+{{/section}}

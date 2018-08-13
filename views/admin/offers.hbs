@@ -1,0 +1,50 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
+
+  </nav>
+</div>
+<!-- end NavBar -->
+
+<div class="card text-center">
+  <div class="card-body">
+    <h3 class="card-title">Ofertas cadastradas</h3>
+  </div>
+</div>
+
+<table class="table table-dark text-center">
+  <thead>
+    <tr>
+      <th scope="col">Produto</th>
+      <th scope="col">Ofertante</th>
+      <th scope="col">Data</th>
+      <th scope="col">Preço</th>
+      <th scope="col">Excluir</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+    <tr>
+      <td>{{sales}}</td>
+      <td>{{dealer}}</td>
+      <td>{{date}}</td>
+      <td>{{price}}</td>
+      <td>
+        <button type="button" class="btn btn-outline-danger">
+          <i class="fas fa-minus-circle"></i>
+        </button>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{#section 'scripts'}}
+  <script src="/javascripts/script.js"></script>
+{{/section}}

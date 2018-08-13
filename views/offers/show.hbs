@@ -1,25 +1,10 @@
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end NavBar -->
+{{#section 'stylesheets'}}
+{{/section}}
 
 <div class="container">
-  <!-- <div class="row justify-content-center mx-sm-auto mx-md-9"> -->
     <div class="row mx-sm-auto mx-md-9">
     <!-- Sale Title -->
-    <div class="col-12 col-md-6 pl-5 mb-5 justify-content-center ">
+    <div class="col-12 col-md-6 mb-5 justify-content-center">
       <p class="ml-4">Venda#{{_id}}</p>
       <div class="w-100">
       </div>
@@ -32,25 +17,13 @@
       {{/ifCond}}
         <h6>{{status}}</h6>
       </span>
-      <h2>{{name}}</h2>
-      <!-- offer.product.name -->
-      <h4 class="text-gray">R$ {{unitPrice}} un.</h4>
+      <h2>{{offer.product.name}}</h2>
+      <h4 class="text-gray">R$ {{unitPrice}}</h4>
     </div>
     <!-- end Sale Title -->
 
-    <!-- Seller info -->
-    <div class="col-12 col-md-6 ml-3">
-      <h2>Dados do comprador</h2>
-      <p class="text-gray">Nome</p>
-      <h4>{{user}}</h4>
-      <p class="text-gray">Contato</p>
-      <h4>{{phone}}</h4>
-      <h4 class="mb-5">{{email}}</h4>
-    </div>
-    <!-- end Seller info -->
-
     <!-- Product Description -->
-    <div class="row mb-3 ml-4">
+    <div class="row m-1">
       <div class="col-6">
         <dt class="text-gray">Entrega</dt>
         <h4>{{delivery}}</h4>
@@ -67,11 +40,66 @@
         <dt class="text-gray mb-1">Pagamento</dt>
         <h4>{{payment}}</h4>
       </div>
+
+    <!-- Seller info -->
+    <div class="col-12 col-md-6 mb-5 justify-content-center">
+      <h2>Dados do comprador</h2>
+      <p class="text-gray">Nome</p>
+      <h4 class="mb-2">{{user}}</h4>
+      <p class="text-gray">Contato</p>
+      <h4>{{phone}}</h4>
+      <h4 class="mb-5">{{email}}</h4>
     </div>
-    <!-- end Product Description -->
+    <!-- end Seller info -->
 
     <!-- Product Characteristics -->
+    <div class="col-12 col-md-6 mb-5">
+      <h4>Características</h4>
+      <div class="row">
+        <div class="col-6">
+          <dt>C. agronômica</dt>
+          <dd>Feromônio</dd>
+        </div>
+        <div class="col-6">
+          <dt>Toxicologia</dt>
+          <dd>Pouco tóxico</dd>
+        </div>
+        <div class="col-6">
+          <dt>Inflamabilidade</dt>
+          <dd>Inflamável</dd>
+        </div>
+        <div class="col-6">
+          <dt>Formulação</dt>
+          <dd>Comprimidos e sachês</dd>
+        </div>
+        <div class="col-6">
+          <dt>Ingrediente ativo</dt>
+          {{#each product.chem}}
+            <dd>{{name}}</dd>
+          {{/each}}
+        </div>
+        <div class="col-6">
+          <dt>Fabricante</dt>
+          <dd>{{product.manufacturer}}</dd>
+        </div>
+      </div>
+    </div>
     <!-- end Product Characteristics -->
+
+    <!-- Payment Options -->
+    <div class="col-12 col-md-6">
+      <h4>Formas de pagamento</h4>
+      <div class="">
+        <i class="fab fa-cc-visa fa-4x mr-2 text-info"></i>
+        <i class="fab fa-cc-mastercard fa-4x mr-2 text-danger"></i>
+        <i class="fas fa-barcode fa-4x mr-2"></i>
+      </div>
+      <a class="tex-muted" href="#"><small>Mais informações</small></a>
+    </div>
+    <!-- end Payment Options -->
 
   </div>
 </div>
+
+{{#section 'scripts'}}
+{{/section}}

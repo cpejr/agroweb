@@ -1,23 +1,6 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
-<!-- end NavBar -->
-
 <!-- Filters Header -->
 <div class="filters-header row justify-content-md-end justify-content-center mx-1 mt-2 mb-1">
   <div class="col-12 col-md-7 d-flex align-items-center justify-content-between">
@@ -38,9 +21,9 @@
 
 <!-- QuotationsList -->
 <div class="justify-content-center">
-  <div id="results-list" class="row justify-content-left mt-2 mx-0">
+  <div id="results-list" class="row d-flex justify-content-around mt-2 mx-md-4">
   {{#each quotations}}
-    <div class="col-12 col-md-5">
+    <div class="col-12 col-md-4">
       <div class="card mb-1">
         <div class="card-body text-right">
           {{#ifCond offer.product.category 'Defensivos'}}
@@ -61,10 +44,7 @@
   {{/each}}
   </div>
 </div>
-
 <!-- end QuotationsList -->
 
-
 {{#section 'scripts'}}
-  <script src="/javascripts/navbar.js"></script>
 {{/section}}

@@ -1,8 +1,8 @@
 const express = require('express');
 const firebase = require('firebase');
-const User = require('../models/user.js');
+const Product = require('../models/product');
+const User = require('../models/user');
 const auth = require('./middleware/auth');
-const Product = require('../models/product.js');
 
 var router = express.Router();
 

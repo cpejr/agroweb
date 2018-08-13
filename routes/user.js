@@ -33,7 +33,6 @@ router.get('/', auth.isAuthenticated, (req, res) => {
 router.get('/profile', auth.canSell, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
-      console.log(user);
       res.render('profile', { title: 'Perfil', user });
     }
     else {
@@ -52,7 +51,6 @@ router.get('/profile', auth.canSell, (req, res) => {
 router.get('/profile/edit', auth.canSell, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
-      console.log(user);
       res.render('profile/edit', { title: 'Editar', user });
     }
     else {
@@ -69,7 +67,6 @@ router.get('/profile/edit', auth.canSell, (req, res) => {
  * PUT Update - Update a user in the database
  */
 router.post('/update', auth.isAuthenticated, (req, res) => {
-  console.log(req.session);
   const userData = req.body.user;
 
   // Separates the first name from the rest

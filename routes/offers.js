@@ -32,8 +32,13 @@ router.get('/teste?:category', (req, res) => {
 /**
  * GET New - Show form to create new offer
  */
-router.get('/new', (req, res) => {
-  res.render('offers/new', { title: 'Nova Oferta' });
+router.get('/new', auth.canSell, (req, res) => {
+  Product.getAll().then((products) => {
+    res.render('offers/new', { title: 'Nova Oferta', products });
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/error');
+  });
 });
 
 /**

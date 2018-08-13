@@ -21,15 +21,6 @@
 <h4 class="mt-3 text-center">Nova oferta</h4>
 <form action="/offers/" method="POST">
   <div class="row d-flex justify-content-between">
-    <div class="form-group col-md-3 mx-4 my-2">
-        <select class="form-control" name="offer[category]">
-          <option disabled selected value> Categoria do produto </option>
-          <option value="Fertilizantes sólidos"> Fertilizantes sólidos </option>
-          <option value="Defensivos agrícolas/agrotóxicos">Defensivos agrícolas/agrotóxicos</option>
-          <option value="Sementes">Sementes</option>
-          <option value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
-        </select>
-      </div>
       <div class="form-group col-md-3 mx-4 my-2">
         <select class="form-control" name="offer[product]" >
           <option disabled selected value> Nome do produto </option>
@@ -40,7 +31,7 @@
       </div>
       <div class="form-group col-md-3 mx-4 my-2">
         <div class="input-group">
-         <input name="offer[stock]" type="text" class="form-control" placeholder="Quantidade em estoque" id="quantity"></input>
+         <input name="offer[stock]" type="text" class="form-control" placeholder="Quantidade em estoque"></input>
         </div>
       </div>
       <div class="form-group col-md-3 mx-4 my-2">

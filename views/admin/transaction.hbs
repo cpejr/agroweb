@@ -37,11 +37,11 @@
   <tbody>
     {{#each transactions}}
     <tr>
-      <td>{{buyer.doc}}</td>
+      <td>{{_id}}</td>
       <td>{{buyer.fullName}}</td>
       <td>{{priceBought}}</td>
       <td>
-        <button type="button" class="btn btn-outline-success">
+        <button   <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success">
           <i class="fas fa-user-check"></i>
         </button>
       </td>

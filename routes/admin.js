@@ -53,13 +53,36 @@ router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
-/* GET Tickets - Show all pending tickets */
+/**
+ * GET DeleteOffer - Delete a Offer in the database
+ */
+router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Offer.delete(req.params.id).catch((err) => {
+    console.log(err);
+  });
+  res.redirect('/admin/offers');
+});
+
+/* GET Transaction - Show all pending tickets */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAllByStatus('Boleto pendente').then((transactions) => {
     res.render('admin/transaction', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((err) => {
     console.log(err);
   });
+});
+
+/**
+ * GET updateTransaction - Update a Transaction in the database
+ */
+router.get('/:id/updateTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  const transaction = {
+    status: 'Pagamento confirmado'
+  };
+  Transaction.update(req.params.id, transaction).catch((err) => {
+    console.log(err);
+  });
+  res.redirect('/admin/transaction');
 });
 
 module.exports = router;

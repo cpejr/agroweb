@@ -20,7 +20,7 @@
 
 <div class="card text-center">
   <div class="card-body">
-    <h3 class="card-title">Boletos Pendentes</h3>
+    <h3 class="card-title">Ofertas Atuais</h3>
   </div>
 </div>
 
@@ -45,7 +45,7 @@
       <td>{{seller.fullName}}</td>
       <td>{{product.name}}</td>
       <td>
-        <button type="button" class="btn btn-outline-danger">
+        <button onclick="location.href='/admin/{{id}}/deleteOffer'" class="btn btn-outline-danger">
           <i class="fas fa-minus-circle"></i>
         </button>
       </td>

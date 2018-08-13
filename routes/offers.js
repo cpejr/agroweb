@@ -1,6 +1,6 @@
 const express = require('express');
-const Offer = require('../models/offer.js');
-const Product = require('../models/product.js');
+const Offer = require('../models/offer');
+const Product = require('../models/product');
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -20,9 +20,8 @@ router.get('/', (req, res) => {
 /**
  * GET Teste - Get all products from a category
  */
-router.get('/teste/:category', auth.canSell, (req, res) => {
-  console.log(req.params);
-  Product.getAllByCategory(req.params.category).then((products) => {
+router.get('/teste?:category', (req, res) => {
+  Product.getByQuery(req.query).then((products) => {
     console.log(products);
     res.render('offers/productSelector', { products });
   }).catch((err) => {
@@ -33,7 +32,7 @@ router.get('/teste/:category', auth.canSell, (req, res) => {
 /**
  * GET New - Show form to create new offer
  */
-router.get('/new', auth.canSell, (req, res) => {
+router.get('/new', (req, res) => {
   res.render('offers/new', { title: 'Nova Oferta' });
 });
 

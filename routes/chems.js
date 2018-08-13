@@ -1,5 +1,5 @@
 const express = require('express');
-const Chem = require('../models/chem.js');
+const Chem = require('../models/chem');
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
     console.log(err);
   });
 });
+
 
 /**
  * GET New - Show form to create new chem
@@ -79,11 +80,13 @@ router.get('/:id/edit', auth.isAdmin, (req, res) => {
  * PUT Update - Update a chem in the database
  */
 router.put('/:id', auth.isAdmin, (req, res) => {
-  const { chem } = req.body;
+  const chem = {
+    name: req.body.name
+  };
   Chem.update(req.params.id, chem).catch((err) => {
     console.log(err);
   });
-  res.redirect(`/chems/${req.params.id}`);
+  res.redirect('/chems');
 });
 
 /**

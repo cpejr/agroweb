@@ -1,6 +1,6 @@
 const express = require('express');
-const Chem = require('../models/chem.js');
-const Product = require('../models/product.js');
+const Chem = require('../models/chem');
+const Product = require('../models/product');
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -21,8 +21,9 @@ router.get('/', (req, res) => {
 /**
  * GET New - Show form to create new product
  */
-router.get('/new', auth.canSell, (req, res) => {
-  Chem.getAll().then((chems) => {
+router.get('/new', (req, res) => {
+  Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
+    console.log(chems[0]);
     res.render('products/new', { title: 'Novo Produto', chems });
   }).catch((err) => {
     console.log(err);

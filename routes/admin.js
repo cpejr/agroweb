@@ -1,8 +1,9 @@
 const express = require('express');
 const firebase = require('firebase');
-const User = require('../models/user.js');
-const Newsletter = require('../models/newsletter.js');
-const Product = require('../models/product.js');
+const Newsletter = require('../models/newsletter');
+const Product = require('../models/product');
+const Offer = require('../models/offer');
+const User = require('../models/user');
 const auth = require('./middleware/auth');
 const Offer = require('../models/offer.js');
 const Transaction = require('../models/transaction.js');
@@ -64,9 +65,9 @@ router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) =>
 });
 
 /* GET Transaction - Show all pending tickets */
-router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.get('/tickets', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAllByStatus('Boleto pendente').then((transactions) => {
-    res.render('admin/transaction', { title: 'Administrador', layout: 'layout', transactions });
+    res.render('admin/tickets', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((err) => {
     console.log(err);
   });
@@ -82,7 +83,8 @@ router.get('/:id/updateTransaction', auth.isAuthenticated, auth.isAdmin, (req, r
   Transaction.update(req.params.id, transaction).catch((err) => {
     console.log(err);
   });
-  res.redirect('/admin/transaction');
+  res.redirect('/admin/tickets');
+
 });
 
 module.exports = router;

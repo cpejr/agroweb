@@ -10,6 +10,10 @@ const groupSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Offer'
   },
+  price: {
+    type: Number,
+    required: true
+  },
   active: {
     type: Boolean,
     default: true
@@ -133,5 +137,28 @@ class Group {
       });
     });
   }
+
+  /**
+   * Get all Groups that match the desired query
+   * @param {Object} query - Object that defines the filter
+   * @param {Object} sort - Object that defines the sort method
+   * @returns {Object} Product Document Data
+   */
+  static getByQuerySorted(query, sort) {
+    return new Promise((resolve, reject) => {
+      GroupModel.find(query).populate({
+        path: 'users offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
+        }
+      }).exec().sort(sort).then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
+
 module.exports = Group;

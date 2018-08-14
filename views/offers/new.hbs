@@ -8,7 +8,7 @@
         <select class="form-control" name="offer[product]" >
           <option disabled selected value> Nome do produto </option>
           {{#each products}}
-            <option value="offer[name]">{{name}}</option>
+            <option name="offer[product]" value={{_id}}>{{name}}</option>
           {{/each}}
         </select>
       </div>

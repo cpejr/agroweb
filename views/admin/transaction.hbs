@@ -1,21 +1,6 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<!-- NavBar -->
-<div class="pos-f-t">
-  <nav class="navbar navbar-dark">
-    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
-      <i class="fas fa-arrow-left fa-2x"></i>
-    </button>
-
-    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
-      <button class="btn btn-outline-dark " type="button">
-        <i class="fas fa-search fa-2x"></i>
-      </button>
-    </form>
-  </nav>
-</div>
 <!-- end NavBar -->
 
 <div class="card text-center">
@@ -31,7 +16,7 @@
       <th scope="col">Comprador</th>
       <th scope="col">Preço</th>
       <!-- <th scope="col">Vendendor</th> -->
-      <th scope="col">Pago</th>
+      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -40,10 +25,30 @@
       <td>{{_id}}</td>
       <td>{{buyer.fullName}}</td>
       <td>{{priceBought}}</td>
-      <td>
-        <button   <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success">
-          <i class="fas fa-user-check"></i>
-        </button>
+      <td>   <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      status
+    </button>
+    <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-success">Pagamento confirmado
+        <i class="fas fa-user-check"></i>
+      </button></a>
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-primary">Cotado
+        <i class="fas fa-hand-holding-usd"></i>
+      </button></a>
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-info">Produto a caminho
+        <i class="fas fa-truck-moving"></i>
+      </button></a>
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-danger">Entregue
+      <i class="fas fa-cube"></i>
+      </button></a>
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-danger">Cancelado
+        <i class="fas fa-user-times"></i>
+      </button></a>
+    </div>
+  </div>
+
       </td>
     </tr>
     {{/each}}

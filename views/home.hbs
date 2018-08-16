@@ -69,8 +69,16 @@
 <!-- end Banner -->
 
 <div class="container mb-5">
-	<div class="row mb-5" id="about">
+  <div class="row mb-5" id="about">
 		<div class="col-12">
+      <h5>O CADASTRO É OBRIGATÓRIO PARA OPERAR NA PLAFORMA MEGAPOOL.</h5>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Atenção: A plataforma MegaPool é destina exclusivamente para produtores rurais, indústrias fabricantes de insumos agropecuários, distribuidores e profissionais do ramo.</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Portanto não está disponível para o público urbano e pessoas físicas em geral.</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Atendendo as leis: 7.802/89 e 9.294/96</p>
+    </div>
+  </div>
+	<div class="row mb-5" id="about">
+		<div class="col-12">      
 			<h2>Sobre a MegaPool</h2>
 			<h5>Nossa Empresa</h5>
       <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A MEGAPOOL, nasce de um sonho de valorizar a pessoa mais simples de todo o processo produtivo, o produtor rural, as fusões de grandes indústrias fabricantes de insumos ocorridas atualmente mostram a todo o setor agrícola toda a força que tem quando se é grande, porém o produtor rural mesmo sendo a peça mais importante de toda a cadeia, quando está sozinho tem pouca força nesse mercado.</p>
@@ -113,18 +121,22 @@
 			<h2>Contato</h2>
 
 			<!-- Contact Form -->
-			<form action="/sendEmail" method="post" novalidate>
+			<form action="/contact" method="post" novalidate>
 				<div class="form-group">
           <label for="name" class="">Nome</label>
           <input type="text" class="col-12 col-md-4 form-control" placeholder="Nome completo" id="name" name="user[name]" required>
         </div>
 				<div class="form-group">
           <label for="email" class="">E-mail</label>
-          <input type="email" class="col-12 col-md-4 form-control" placeholder="Email" id="email" name="user[email]" required>
+          <input type="email" class="col-12 col-md-4 form-control" placeholder="Email" id="email" name="user[clientemail]" required>
         </div>
         <div class="form-group">
-          <label for="message" class="">Senha</label>
-					<textarea class="form-control" id="message" rows="3" name="user[message]" required></textarea>
+          <label for="name" class="">Assunto</label>
+          <input type="text" class="col-12 col-md-4 form-control" placeholder="Assunto" id="subject" name="user[subject]" required>
+        </div>
+        <div class="form-group">
+          <label for="message" class="">Mensagem</label>
+					<textarea class="form-control" id="message" rows="3" name="user[content]" required></textarea>
         </div>
 
         <div class="row">

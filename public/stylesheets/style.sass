@@ -172,7 +172,7 @@ img.footer-brand
 .info
   border: none
   width: 2000px
-  height: 400px
+  height: 370px
   overflow: scroll
 
 
@@ -192,3 +192,47 @@ img.footer-brand
 
 .info::-webkit-scrollbar-thumb:hover
   background: #88ba1c
+
+.user-input
+	position: relative
+
+.user-input .input-text:invalid
+	box-shadow: none !important
+
+.user-input .input-text:focus
+	border-color: black
+	border-width: medium medium 2px
+
+.user-input .floating-label
+	position: absolute
+	pointer-events: none
+	top: 7px
+	left: 50px
+	transition: 0.2s ease all
+
+.user-input input:focus ~ .floating-label,
+.user-input input:not(:focus):valid ~ .floating-label
+	top: -20px
+	left: 10px
+	font-size: 13px
+  opacity: 1
+
+.new-shadow
+	box-shadow: none !important
+
+.new-shadow:focus
+  border-color: black
+  border-width: medium medium 2px
+
+.user-input textarea:focus ~ .floating-label,
+.user-input textarea:not(:focus):valid ~ .floating-label
+	top: -20px
+	left: 10px
+	font-size: 13px
+  opacity: 1
+
+.editlabel
+  	top: -20px
+  	left: 10px
+  	font-size: 13px
+    opacity: 1

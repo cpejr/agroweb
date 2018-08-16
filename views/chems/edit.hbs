@@ -1,0 +1,24 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <div class="align-middle">
+        <form action="/chems/{{id}}?_method=PUT" method="POST">
+          <div class="form-group">
+            <input type="text" name="name" class="form-control" value="{{name}}" placeholder="{{name}}" id="name">
+          </div>
+          <button class="btn" type="submit">Salvar</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+
+{{#section 'scripts'}}
+{{/section}}

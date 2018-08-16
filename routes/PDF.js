@@ -13,29 +13,31 @@ router.get('/', (req, res) => {
 });
 
 router.post('/createPDF', (req, res) => {
-  const mail = req.session.email;
+  // const mail = req.session.email;
+  const email = 'sayuriyamaguchi22@gmail.com';
+  const teste = 'TESTE2'
 
   function writePDF(name) {
-    fileName = './budget/' + name + '.pdf';
+    const fileName = './budget/' + name + '.pdf';
     // Create a document
     const pdf = new PDFDocument({ size: 'LEGAL' });
     // Write PDF content
-    pdf.text('X-minions é foda!');
+    pdf.text(req.body.name);
     // Close PDF.
     pdf.end();
     // Stream contents to a file
-    pdf.pipe(fs.createWriteStream(fileName)).on('finish', function () {
+    pdf.pipe(fs.createWriteStream(fileName)).on('finish', () => {
       const data = fs.readFileSync(fileName);
-      res.contentType("application/pdf");
+      res.contentType('application/pdf');
       res.send(data);
     });
   }
-  //Buscar no BD o email do cliente
+  // Buscar no BD o email do cliente
   function sendingMail(mail, name) {
     const fileName = './budget/' + name + '.pdf';
-    fs.readFile(fileName, function (err, data) {
+    fs.readFile(fileName, (err, data) => {
       if (err) throw err;
-      const content = "Thanks for your preference!";
+      const content = 'Thanks for your preference!';
 
       const transporte = nodemailer.createTransport({
         host: 'mail.megapool.com.br',
@@ -62,17 +64,18 @@ router.post('/createPDF', (req, res) => {
         }]
       };
 
-      transporte.sendMail(config, function (error, info) {
+      transporte.sendMail(config, (error, info) => {
         if (error) {
           console.log(error);
-        } else {
-        console.log('Email enviado' + info.response);
+        }
+        else {
+          console.log('Email enviado' + info.response);
         }
       });
     });
-  };
-  writePDF(mail, 'TESTE1');
-  sendingMail(mail,'TESTE1');
+  }
+  writePDF(teste);
+  sendingMail(email, 'TESTE2');
 });
 
 module.exports = router;

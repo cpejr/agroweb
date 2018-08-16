@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema({
   },
   doc: {
     type: String,
-    required: true,
     unique: true
   },
   email: {
@@ -48,7 +47,50 @@ const userSchema = new mongoose.Schema({
   transactions: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Transaction'
-  }]
+  }],
+  phone: Number,
+  cellphone: Number,
+  fantasyName: String,
+  secondaryEmail: String,
+  responsible: {
+    name: String,
+    phone: Number,
+    cellphone: Number
+  },
+  delivery: {
+    stock: String,
+    maxDistance: Number,
+    dealer: String,
+    groups: String,
+    repechage: String,
+    fractional: String
+  },
+  logistics: {
+    phone: Number,
+    email: String
+  },
+  headquarter: String,
+  regionalResponsible: String,
+  whereIsStock: String,
+  interestedStates: String,
+  activities: String,
+  actualCustomers: String,
+  possibleCustomers: String,
+  totalCustomers: String,
+  area: Number,
+  whyIsMegapoolImportant: String,
+  farm: {
+    name: String,
+    distanceToCity: Number,
+    deliveryScript: String,
+    area: Number,
+    soy: Number,
+    corn: Number,
+    cotton: Number,
+    otherCultivations: Number
+  },
+  wpp: Number,
+  stateRegistration: Number,
 }, { timestamps: true, static: false });
 
 const UserModel = mongoose.model('User', userSchema);

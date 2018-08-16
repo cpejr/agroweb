@@ -1,6 +1,7 @@
 const express = require('express');
 const Offer = require('../models/offer');
 const Product = require('../models/product');
+const User = require('../models/user');
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -46,12 +47,17 @@ router.get('/new', auth.canSell, (req, res) => {
  */
 router.post('/', (req, res) => {
   const { offer } = req.body;
-  Offer.create(offer).then((id) => {
-    console.log(`Created new offer with id: ${id}`);
-    res.redirect(`/offers/${id}`);
+  User.getById(req.session._id).then((user) => {
+    offer.seller = user;
+    Offer.create(offer).then((id) => {
+      console.log(`Created new offer with id: ${id}`);
+      res.redirect(`/offers/${id}`);
+    }).catch((err) => {
+      console.log(err);
+      res.redirect('/offers');
+    });
   }).catch((err) => {
     console.log(err);
-    res.redirect('/offers');
   });
 });
 

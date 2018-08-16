@@ -26,24 +26,24 @@
       <td>{{buyer.fullName}}</td>
       <td>{{priceBought}}</td>
       <td>   <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button name="status" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       status
     </button>
     <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-success">Pagamento confirmado
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-success col-12" name="status" buttonvalue="Pagamento Confirmado" button onclick="location.href='/admin/{{id}}/updateTransaction'">Pagamento confirmado
         <i class="fas fa-user-check"></i>
       </button></a>
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-primary">Cotado
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-primary col-12"name="status" buttonvalue="Cotado" button onclick="location.href='/admin/{{id}}/updateTransaction'" >Cotado
         <i class="fas fa-hand-holding-usd"></i>
       </button></a>
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-info">Produto a caminho
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-info col-12" name="status"buttonvalue="Produto a caminho" button onclick="location.href='/admin/{{id}}/updateTransaction'">Produto a caminho
         <i class="fas fa-truck-moving"></i>
       </button></a>
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-danger">Entregue
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-warning col-12"name="status" buttonvalue="Entregue" button onclick="location.href='/admin/{{id}}/updateTransaction'">Entregue
       <i class="fas fa-cube"></i>
       </button></a>
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-danger">Cancelado
+      <a class="dropdown-item" href="#"><button class="btn btn-outline-danger col-12" name="status"buttonvalue="Cancelado"button onclick="location.href='/admin/{{id}}/updateTransaction'">Cancelado
         <i class="fas fa-user-times"></i>
       </button></a>
     </div>

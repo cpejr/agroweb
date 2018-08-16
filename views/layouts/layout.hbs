@@ -62,23 +62,31 @@
         </div>
       </div>
 
-      <nav class="navbar navbar-dark">
+      <nav class="navbar navbar-dark py-3">
         <row>
-        <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button id="menu" class="btn btn-outline-dark float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars fa-2x"></i>
         </button>
-        <button class="btn btn-outline-dark ml-3" type="button" onclick="history.back()">
+        <button class="btn btn-outline-dark float-left" type="button" onclick="history.back()">
           <i class="fas fa-arrow-left fa-2x "></i>
         </button>
       </row>
+
         <form id="navbar-form" action="test/search" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-          <input class="form-control my-2 my-sm-0 float-left" type="search" name="filter" placeholder="Buscar">
-          <button class="btn btn-outline-dark " type="button">
+          <row>
+          <input class="form-control my-2 my-sm-0 pr-4 float-right col-9" type="search" name="filter" placeholder="Buscar">
+          <button class="btn btn-outline-dark " type="button" id="show">
             <i class="fas fa-search fa-2x"></i>
           </button>
+          <button class="btn btn-outline-dark d-none float-left" type="submit" id="search">
+            <i class="fas fa-search fa-2x"></i>
+          </button>
+        </row>
         </form>
+
       </nav>
     </div>
+
     <!-- end Header and NavBar -->
 
     {{{ body }}}

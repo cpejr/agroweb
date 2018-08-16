@@ -76,6 +76,7 @@ router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
  * GET updateTransaction - Update a Transaction in the database
  */
 router.get('/:id/updateTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  console.log(req.body.status);
   const transaction = {
     status: 'Pagamento confirmado'
   };

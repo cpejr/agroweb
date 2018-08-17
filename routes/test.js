@@ -10,7 +10,11 @@ const Transaction = require('../models/transaction');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
 
-var router = express.Router();
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.render('test', { title: 'Termos', layout: 'layout' });
+});
 
 /**
  * GET Search Results page
@@ -55,6 +59,4 @@ router.get('/search', (req, res) => {
   });
 });
 
-router.get('/', (req, res) => {
-    res.render('test', { title: 'Termos', layout: 'layout', termos });
-});
+module.exports = router;

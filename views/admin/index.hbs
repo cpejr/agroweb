@@ -2,19 +2,19 @@
 {{/section}}
 
 <ul class="list-group list-group-flush d-block">
-    <i class="fas fa-barcode fa-lg mr-4"><button onclick="location.href = '/admin/tickets'" class="btn">Boletos pendentes</button></i>
+  <li class="list-group-item">
+    <i class="fas fa-barcode fa-lg mr-4"></i>
+    <button onclick="location.href = '/admin/transaction'" class="btn">Boletos pendentes</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
-    <i class="far fa-address-card fa-lg mr-4 "><button onclick="location.href = '/admin/users'" class="btn">Usuários</button></i>
+    <i class="far fa-address-card fa-lg mr-4 "></i>
+    <button onclick="location.href = '/admin/users'" class="btn">Usuários</button>
+    </i>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
-    <i class="fa fa-money fa-lg mr-4 "><button onclick="location.href = '/admin/offers'" class="btn">Ofertas</button></i>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-  <li class="list-group-item">
-    <i class="fas fa-shopping-cart fa-lg"></i>
+    <i class="fas fa-shopping-cart fa-lg mr-4"></i>
     <button onclick="location.href = '/admin/products'" class="btn">Produtos</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
@@ -34,11 +34,12 @@
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
   <li class="list-group-item">
-    <i class="fas fa-shopping-cart fa-lg mr-4 "></i>
+    <i class="fas fa-money-bill fa-lg mr-4 "></i>
     <button onclick="location.href = 'admin/offers'" class="btn">Ofertas</button>
     <i class="fas fa-angle-right fa-lg float-right"></i>
   </li>
 </ul>
 
 {{#section 'scripts'}}
+  <script src="/javascripts/navbar.js"></script>
 {{/section}}

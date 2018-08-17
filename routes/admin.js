@@ -64,9 +64,9 @@ router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) =>
 });
 
 /* GET Transaction - Show all pending tickets */
-router.get('/tickets', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAllByStatus('Boleto pendente').then((transactions) => {
-    res.render('admin/tickets', { title: 'Administrador', layout: 'layout', transactions });
+    res.render('admin/transaction', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((err) => {
     console.log(err);
   });
@@ -76,13 +76,14 @@ router.get('/tickets', auth.isAuthenticated, auth.isAdmin, (req, res) => {
  * GET updateTransaction - Update a Transaction in the database
  */
 router.get('/:id/updateTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  console.log(req.body.status);
   const transaction = {
     status: 'Pagamento confirmado'
   };
   Transaction.update(req.params.id, transaction).catch((err) => {
     console.log(err);
   });
-  res.redirect('/admin/tickets');
+  res.redirect('/admin/transaction');
 
 });
 

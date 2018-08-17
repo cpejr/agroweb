@@ -16,7 +16,6 @@ router.get('/', auth.isAuthenticated, (req, res) => {
     res.render('user', { title: 'Franqueado', layout: 'layout', ...req.session });
   }
   else if (req.session.userType === 'Indústria') {
-    // console.log(req);
     res.render('user', { title: 'Indústria', layout: 'layout', ...req.session });
   }
   else if (req.session.userType === 'Produtor') {
@@ -76,7 +75,7 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
   User.update(req.session._id, userData).catch((err) => {
     console.log(err);
   });
-  res.redirect(`/user/profile`);
+  res.redirect('/user/profile');
 });
 
 module.exports = router;

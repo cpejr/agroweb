@@ -23,13 +23,14 @@
 <div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
   <div class="col-12 col-md-8">
     {{#each offers}}
-    <div class="card mb-1">
-      <div class="card-body text-right">
-        <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
-        <h5 class="card-title align-text-top">{{product.name}}</h5>
-        <p class="card-text align-text-bottom">{{price.low}} {{product.unit}}</p>
+      <div class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
+        <div class="card-body text-right">
+          <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+          <h5 class="card-title align-text-top">{{product.name}}</h5>
+          <p class="card-text align-text-bottom">Preço: {{price.low}} {{product.unit}}</p>
+          <p class="card-text align-text-bottom">Entrega: {{delivery}}</p>
+        </div>
       </div>
-    </div>
     {{/each}}
   </div>
 </div>

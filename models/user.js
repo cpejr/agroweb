@@ -90,7 +90,7 @@ const userSchema = new mongoose.Schema({
     otherCultivations: Number
   },
   wpp: Number,
-  stateRegistration: Number,
+  stateRegistration: Number
 }, { timestamps: true, static: false });
 
 const UserModel = mongoose.model('User', userSchema);

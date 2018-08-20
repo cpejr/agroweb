@@ -8,10 +8,6 @@ const auth = require('./middleware/auth');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  terms.getAll().then((terms) => {
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
+  res.render('terms', { title: 'Termos', layout: 'layout' });
 });
 module.exports = router;

@@ -63,6 +63,7 @@ const productRouter = require('./routes/products');
 const transactionRouter = require('./routes/transaction');
 const chemRouter = require('./routes/chems');
 const testRouter = require('./routes/test');
+const termsRouter = require('./routes/terms');
 
 
 /**
@@ -133,6 +134,7 @@ app.use('/products', productRouter);
 app.use('/transaction', transactionRouter);
 app.use('/chems', chemRouter);
 app.use('/test', testRouter);
+app.use('/terms', termsRouter);
 /**
  * Error Handling
  */

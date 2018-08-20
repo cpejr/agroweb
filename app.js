@@ -64,6 +64,7 @@ const transactionRouter = require('./routes/transaction');
 const chemRouter = require('./routes/chems');
 const testRouter = require('./routes/test');
 
+
 /**
  * Application Initialization
  */
@@ -132,7 +133,6 @@ app.use('/products', productRouter);
 app.use('/transaction', transactionRouter);
 app.use('/chems', chemRouter);
 app.use('/test', testRouter);
-
 /**
  * Error Handling
  */

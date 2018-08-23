@@ -23,7 +23,7 @@ const transactionSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Cotado', 'Boleto pendente', 'Pagamento confirmado', 'Produto a caminho', 'Entregue', 'Cancelado'],
+    enum: ['Cotado', 'Boleto pendente', 'Boleto gerado', 'Pagamento confirmado', 'Produto a caminho', 'Entregue', 'Cancelado'],
     default: 'Cotado'
   }
 }, { timestamps: true, strict: false });
@@ -37,7 +37,13 @@ class Transaction {
    */
   static getAll() {
     return new Promise((resolve, reject) => {
-      TransactionModel.find({}).populate('buyer offer').exec().then((results) => {
+      TransactionModel.find({}).populate({
+        path: 'buyer offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
+        }
+      }).exec().then((results) => {
         resolve(results);
       }).catch((err) => {
         reject(err);
@@ -52,7 +58,13 @@ class Transaction {
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
-      TransactionModel.findById(id).populate('buyer offer').exec().then((result) => {
+      TransactionModel.findById(id).populate({
+        path: 'buyer offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
+        }
+      }).exec().then((result) => {
         resolve(result.toObject());
       }).catch((err) => {
         reject(err);
@@ -109,7 +121,13 @@ class Transaction {
    */
   static getAllByStatus(value) {
     return new Promise((resolve, reject) => {
-      TransactionModel.find({ status: value }).populate('buyer offer').then((result) => {
+      TransactionModel.find({ status: value }).populate({
+        path: 'buyer offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
+        }
+      }).then((result) => {
         resolve(result);
       }).catch((err) => {
         reject(err);

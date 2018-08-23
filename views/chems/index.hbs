@@ -28,8 +28,7 @@
             <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
           </th>
           <th scope="row">
-            <form method="post">
-            <!-- <form action="/chems/{{id}}?_method=DELETE" method="POST"> -->
+            <form action="/chems/{{id}}?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-outline-danger">Excluir</button>
             </form>
           </th>
@@ -42,5 +41,4 @@
 <!-- end chems list -->
 
 {{#section 'scripts'}}
-  <script src="/javascripts/NavBar.js"></script>
 {{/section}}

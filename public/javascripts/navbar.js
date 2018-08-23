@@ -8,8 +8,6 @@ $('#navbar-form').on('click', (e) => {
   $('nav .form-control').addClass('d-inline');
   $('#menu').removeClass('d-inline');
   $('#menu').addClass('d-none');
-
-
 });
 
 $(document).on('click', () => {
@@ -23,6 +21,4 @@ $(document).on('click', () => {
   $('nav .form-control').addClass('d-none');
   $('#menu').removeClass('d-none');
   $('#menu').addClass('d-inline');
-
-  console.log('TESTE');
 });

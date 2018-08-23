@@ -11,7 +11,7 @@ const router = express.Router();
 
 /* GET Admin Home page */
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('admin/index', { title: 'Administrador', layout: 'layoutDashboard' });
+  res.render('admin/index', { title: 'Administrador', layout: 'layout' });
 });
 
 /* GET Users - Show all users */
@@ -27,7 +27,7 @@ router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 router.get('/products', (req, res) => {
   Product.getAll().then((products) => {
     console.log(products);
-    res.render('admin/products', { title: 'Produtos', products });
+    res.render('admin/products', { title: 'Produtos', layout: 'layout', products });
   }).catch((err) => {
     console.log(err);
     res.redirect('/error');

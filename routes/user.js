@@ -149,4 +149,18 @@ router.post('/buy', auth.isAuthenticated, (req, res) => {
   });
 });
 
+router.get('/orders', auth.isAuthenticated, (req, res) => {
+  User.getAllTransactionsByUserId(req.session._id).then((orders) => {
+    if (req.session.userType === 'Indústria') {
+      console.log(orders);
+      res.render('orders', { title: 'Demandas', layout: 'layout', orders });
+    }
+    else {
+      res.render('orders', { title: 'Minhas compras', layout: 'layout', orders });
+    }
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/user');
+  });
+});
 module.exports = router;

@@ -6,10 +6,6 @@
   <div class="row d-flex justify-content-between">
     <div class="col-md-4">
       <div class="form-group mx-4 my-2">
-        <label for="price" class="rounded bg-black"><i class="fa-sm mr-2"></i> </label>
-      </div>
-
-      <div class="form-group mx-4 my-2">
         <div class="input-group">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-box"></i></div>
@@ -28,7 +24,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-archive"></i></div>
           </div>
-          <input name="offer[stock]" type="text" class="form-control" placeholder="Quantidade em estoque"></input>
+          <input name="offer[stock]" type="number" class="form-control" placeholder="Quantidade em estoque"></input>
         </div>
       </div>
 
@@ -38,6 +34,19 @@
             <div class="input-group-text"><i class="fas fa-archive"></i></div>
           </div>
           <input name="offer[minAmount]" type="number" class="form-control" placeholder="Quantidade mínima a ser comprada"></input>
+        </div>
+      </div>
+
+      <div class="form-group mx-4 my-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+          </div>
+          <select class="form-control" name="offer[usd]">
+            <option disabled selected value> Deseja variar o valor com o dólar? </option>
+            <option value=1>Sim</option>
+            <option value=0>Não</option>
+          </select>
         </div>
       </div>
     </div>

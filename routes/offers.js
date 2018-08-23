@@ -68,7 +68,7 @@ router.get('/:id', (req, res) => {
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);
-      res.render('offers/show', { title: offer.name, id: req.params.id, ...offer });
+      res.render('offers/show', { title: offer.product.name, id: req.params.id, ...offer });
     }
     else {
       console.log('Offer not found!');

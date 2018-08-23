@@ -20,23 +20,23 @@
               <div class="form-group">
                 <label for="mail" class="">Email<span class="text-red"> *</span></label>
                   <input type="email" class="bg-light form-control" name="user[email]" id="mail" placeholder="email@exemplo.com" required>
-              </div>
-              <fieldset>
-                <label for="password">Senha<span class="text-red"> *</span></label>
-                <input type="password" class="bg-light form-control" name="user[password]" id="password" required>
-                <label for="confirmPassword" class="mt-2">Confirme a senha<span class="text-red"> *</span></label>
-                <input type="password" class="bg-light form-control" id="confirmPassword" required>
-              </fieldset>
-              <div class="form-group">
-                <label for="cep" class="mt-2">CEP<span class="text-red"> *</span></label>
-                  <input type="text" class="bg-light form-control" name="user[cep]" id="cep" placeholder="apenas números" required>
+                </div>
+                <fieldset>
+                  <label for="password">Senha<span class="text-red"> *</span></label>
+                  <input type="password" class="bg-light form-control" name="user[password]" id="password" required>
+                  <label for="confirmPassword" class="mt-2">Confirme a senha<span class="text-red"> *</span></label>
+                  <input type="password" class="bg-light form-control" id="confirmPassword" required>
+                </fieldset>
+                <div class="form-group">
+                  <label for="cep" class="mt-2">CEP<span class="text-red"> *</span></label>
+                  <input type="text" class="bg-light form-control" name="user[address][cep]" id="cep" placeholder="Apenas números" required>
                   <label for="street" class="mt-2">Rua<span class="text-red"> *</span></label>
-                  <input type="text" class="bg-light form-control" name="user[street]" id="street" required>
+                  <input type="text" class="bg-light form-control" name="user[address][street]" id="street" required>
                   <label for="number" class="mt-2">Número<span class="text-red"> *</span></label>
-                  <input type="text" class="bg-light form-control" name="user[number]" id="number" required>
+                  <input type="text" class="bg-light form-control" name="user[address][number]" id="number" required>
                   <label for="state">Estado<span class="text-red"> *</span></label>
                   <div class="form-group">
-                    <select class="form-control" name="user[state]" id="state" required>
+                    <select class="form-control" name="user[address][state]" id="state" required>
                       <option disabled selected value> -- Selecione um estado -- </option>
                       <option value="AC">Acre</option>
                       <option value="AL">Alagoas</option>
@@ -68,8 +68,8 @@
                     </select>
                   </div>
                   <label for="city">Cidade:<span class="text-red"> *</span></label>
-                  <input type="text" class="bg-light form-control" name="user[city]" id="city" required>
-                  </select>
+                  <input type="text" class="bg-light form-control" name="user[address][city]" id="city" required>
+                </select>
               </div>
             </div>
 

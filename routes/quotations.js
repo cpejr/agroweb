@@ -1,6 +1,7 @@
 const express = require('express');
 const firebase = require('firebase');
 const Product = require('../models/product');
+const Transaction = require('../models/transaction');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
 
@@ -17,14 +18,24 @@ router.get('/', auth.isAuthenticated, (req, res) => {
   });
 });
 
-/**
- * GET Results - Show details of a quotation
- */
-router.get('/results', auth.isAuthenticated, (req, res) => {
-  Product.getById(productId).then((product) => {
-    res.render('quotations/show', { title: 'Cotações', layout: 'layout', product });
-  });
-});
+// /**
+//  * GET Show - Show details of a quotation
+//  */
+// router.get('/:id', auth.isAuthenticated, (req, res) => {
+//   Transaction.getById(req.params.id).then((transaction) => {
+//     if (transaction) {
+//       console.log(transaction);
+//       res.render('products/show', { title: , id: req.params.id, ...transaction });
+//     }
+//     else {
+//       console.log('Product not found!');
+//       res.redirect('/user');
+//     }
+//   }).catch((err) => {
+//     console.log(err);
+//     res.redirect('/products');
+//   });
+// });
 
 
 module.exports = router;

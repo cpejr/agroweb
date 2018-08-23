@@ -13,7 +13,7 @@ const auth = require('./middleware/auth');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('test', { title: 'Termos', layout: 'layout' });
+  res.render('dealerMegaOportunidade', { title: 'dealerMegaOportunidade', layout: 'layout' });
 });
 
 /**

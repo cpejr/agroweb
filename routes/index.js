@@ -165,15 +165,15 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
  */
 router.post('/signup', (req, res) => {
   const userData = req.body.user;
+  console.log(req.body.user);
 
   // Separates the first name from the rest
-  const position = userData.fullName.indexOf(' ');
-  userData.firstName = userData.fullName.slice(0, position);
-
+  const position = userData.name.indexOf(' ');
+  userData.firstName = userData.name.slice(0, position);
 
   req.session.userType = userData.type;
   req.session.firstName = userData.firstName;
-  req.session.fullName = userData.fullName;
+  req.session.fullName = userData.name;
   req.session.email = userData.email;
 
   firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
@@ -185,7 +185,7 @@ router.post('/signup', (req, res) => {
       if (req.session.userType === 'Indústria') {
         res.render('industryMegaPremio', { title: 'Indústria', layout: 'layout' });
       }
-      else if (req.session.userType === 'Revenda'){
+      else if (req.session.userType === 'Revenda') {
         res.render('dealerMegaOportunidade', { title: 'Revenda', layout: 'layout' });
       }
       else {
@@ -201,9 +201,9 @@ router.post('/signup', (req, res) => {
   });
 });
 
-// /**
-//  * POST Contact Request
-//  */
+/**
+ * POST Contact Request
+ */
 router.post('/contact', (req, res) => {
   const emailData = req.body.user;
   console.log(req.body.user);

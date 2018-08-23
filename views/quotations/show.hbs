@@ -8,16 +8,11 @@
       <div class="col-12 col-md-6">
         <i class="text-muted">Produto {{offer.product.generic}}</i>
         <h2 class="my-0 py-0">{{offer.product.name}}</h2>
-        <h5 class="text-muted mt-3">R$ {{unitPrice}} un.</h5>
+        <h5 class="text-muted mt-3">R$ {{unitPrice}} / {{offer.product.unit}}</h5>
       </div>
       <!-- end Product Title -->
 
       <!-- Quotation info -->
-    <div class="row mb-3 ml-1">
-      <div class="col-6">
-        <dt class="text-gray">Entrega</dt>
-        <h4>{{offer.delivery}}</h4>
-      </div>
       <div class="row mb-3 ml-1">
         <div class="col-6">
           <dt class="text-gray">Entrega</dt>
@@ -25,7 +20,7 @@
         </div>
         <div class="col-6">
           <dt class="text-gray">Quantidade</dt>
-          <h4>{{amountBought}}</h4>
+          <h4>{{amountBought}} {{offer.product.unit}}</h4>
         </div>
         <div class="col-6">
           <dt class="text-gray">Preço total</dt>
@@ -33,8 +28,10 @@
         </div>
       </div>
       <div class="col-6">
-        <dt class="text-gray">Ingrediente ativo</dt>
-        <h2>{{offer.product.chem.name}}</h2>
+        <dt class="text-gray">Ingredientes ativos</dt>
+        {{#each offer.product.chem}}
+          <dd>{{name}}</dd>
+        {{/each}}
       </div>
     </div>
 <!-- end Quotation info -->
@@ -48,11 +45,12 @@
     </div>
   </div>
 
-  <button class="w-100 col-10 col-md-7 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
+  <button class="w-100 col-10 col-md-7 text-white btn btn-default bg-green mx-auto d-block my-2" onclick="location.href = '/quotations'" name="button">Confirmar cotação</button>
   <div class="w-100">
   </div>
 <div class="text-center">
-  <a class="text-dark" href = "#" >Cancelar cotação</a>
+  <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete"></form>
+  <a class="text-dark" onclick="document.getElementById('form-delete').submit();" href="" >Cancelar cotação</a>
 </div>
 </form>
 </div>

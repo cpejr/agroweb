@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  fullName: {
+  name: {
     type: String,
     required: true
   },
@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   transactions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
+  }],
+  myCart: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Transaction'
   }],
@@ -190,9 +194,49 @@ class User {
    */
   static addTransaction(id, transaction) {
     return new Promise((resolve, reject) => {
-      UserModel.findByIdAndUpdate(id, { $push: { transactions: transaction } }).then(() => {
-        resolve();
-      }).catch((err) => {
+      UserModel.findByIdAndUpdate(id, { $push: { transactions: transaction } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Remove a transaction
+   * @param {string} id - User Id
+   * @param {string} transaction - Transaction Id
+   * @returns {null}
+   */
+  static removeTransaction(id, transaction) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { transactions: transaction } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Add to myCart
+   * @param {string} id - User Id
+   * @param {string} transaction - Transaction Id
+   * @returns {null}
+   */
+  static addToMyCart(id, transaction) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { myCart: transaction } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Remove from myCart
+   * @param {string} id - User Id
+   * @param {string} transaction - Transaction Id
+   * @returns {null}
+   */
+  static removeFromMyCart(id, transaction) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { myCart: transaction } }).catch((err) => {
         reject(err);
       });
     });
@@ -207,7 +251,13 @@ class User {
     return new Promise((resolve, reject) => {
       UserModel.findById(id).populate({
         path: 'transactions',
-        populate: { path: 'buyer offer' }
+        populate: {
+          path: 'buyer offer',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
       }).exec().then((result) => {
         resolve(result.transactions);
       }).catch((err) => {
@@ -224,11 +274,16 @@ class User {
   static getAllQuotationsByUserId(id) {
     return new Promise((resolve, reject) => {
       UserModel.findById(id).populate({
-        path: 'transactions',
-        match: { status: 'Cotado' },
-        populate: { path: 'buyer offer' }
+        path: 'myCart',
+        populate: {
+          path: 'buyer offer',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
       }).exec().then((result) => {
-        resolve(result.transactions);
+        resolve(result.myCart);
       }).catch((err) => {
         reject(err);
       });

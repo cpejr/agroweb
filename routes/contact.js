@@ -5,17 +5,16 @@ var nodemailer = require('nodemailer');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next){
-  res.render('contact', { title: 'Contato'});
-  //res.send('respond with a resource');
+router.get('/', (req, res) => {
+  res.render('contact', { title: 'Contato', layout: 'layout' });
 });
 
-router.get('/success', (req, res, next) => {
-  res.render('success', { title: 'Email enviado com sucesso'});
+router.get('/success', (req, res) => {
+  res.render('success', { title: 'Email enviado com sucesso' });
 });
 
 
-router.post('/login',(req,res,next) => {
+router.post('/login', (req,res,next) => {
   const name = req.body.name;
   const email = req.body.email;
   const emailcontents = req.body.email;

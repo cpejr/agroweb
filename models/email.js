@@ -84,7 +84,8 @@ class Email {
     Se você não fez essa compra, clique no link: `;
     const subject = 'MEGAPOOL: Compra realizada com sucesso';
     const emailContent = {
-      clientEmail: data.buyer.email,
+      // clientEmail: data.buyer.email,
+      clientEmail: 'admcpejr@megapool.com.br',
       text,
       subject
     };
@@ -116,7 +117,8 @@ class Email {
     Total: R$ ${data.priceBought} `;
     const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
     const emailContent = {
-      clientEmail: data.offer.seller.email,
+      //clientEmail: data.offer.seller.email,
+      clientEmail: 'admcpejr@megapool.com.br',
       text,
       subject
     };
@@ -150,7 +152,8 @@ class Email {
     Total: R$ ${data.priceBought} `;
     const subject = 'MEGAPOOL: Uma nova transação foi realizada';
     const emailContent = {
-      clientEmail: 'felipesouza@cpejr.com.br',
+      //clientEmail: 'felipesouza@cpejr.com.br',
+      clientEmail: 'admcpejr@megapool.com.br',
       text,
       subject
     };

@@ -77,7 +77,7 @@ class Email {
     Compra #${data._id}
     Produto: ${data.offer.product.name}
     Entrega: ${data.offer.delivery}
-    Quantidade: ${data.amountBought}
+    Quantidade: ${data.amountBought} ${data.offer.product.unit}
     Preço: R$ ${data.unitPrice}/${data.offer.product.unit}
     Total: R$ ${data.priceBought}
 
@@ -111,8 +111,8 @@ class Email {
     Transação #${data._id}
     Produto: ${data.offer.product.name}
     Entrega: ${data.offer.delivery}
-    Quantidade vendida: ${data.amountBought}
-    Quantidade em estoque: ${data.offer.stock}
+    Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
+    Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
     Preço: R$ ${data.unitPrice}/${data.offer.product.unit}
     Total: R$ ${data.priceBought} `;
     const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
@@ -146,8 +146,8 @@ class Email {
     Transação #${data._id}
     Produto: ${data.offer.product.name}
     Entrega: ${data.offer.delivery}
-    Quantidade vendida: ${data.amountBought}
-    Quantidade em estoque: ${data.offer.stock}
+    Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
+    Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
     Preço: R$ ${data.unitPrice}/${data.offer.product.unit}
     Total: R$ ${data.priceBought} `;
     const subject = 'MEGAPOOL: Uma nova transação foi realizada';

@@ -56,10 +56,10 @@ router.post('/', auth.isAuthenticated, (req, res) => {
       //   Group.deleteUser(groupId, buyer); // delete a user
       // });
 
-      const stockOffer = offer.stock - transaction.amountBought;
-      console.log(stockOffer);
+      const balanceOffer = offer.balance - transaction.amountBought;
+      console.log(balanceOffer);
       const offerData = {
-        stock: stockOffer
+        balance: balanceOffer
       };
       // Update the offer
       Offer.update(transaction.offer, offerData).catch((error) => {
@@ -88,7 +88,12 @@ router.get('/:id', (req, res) => {
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
       console.log(transaction);
-      res.render('quotations/show', { title: `Compra #${transaction._id}`, id: req.params.id, ...transaction });
+      if (transaction.status === 'Cotado') {
+        res.render('quotations/show', { title: `Compra #${transaction._id}`, id: req.params.id, ...transaction });
+      }
+      else {
+        res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, ...transaction });
+      }
     }
     else {
       console.log('Transaction not found!');
@@ -110,12 +115,22 @@ router.put('/:id', (req, res) => {
     email: req.session.email
   };
   Transaction.update(req.params.id, transaction).then(() => {
-    Email.updateEmail(data, transaction.status).then((info) => {
-      console.log(info);
-    }).catch((error) => {
+    Email.updateEmail(data, transaction.status).catch((error) => {
       console.log(error);
       res.redirect('/error');
     });
+    if (transaction.status === 'Boleto pendente') {
+      Offer.findById(transaction.offer).then((offer) => {
+        offer.stock -= transaction.amountBought;
+        Offer.update(transaction.offer, offer).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    }
   }).catch((error) => {
     console.log(error);
     res.redirect('/transaction');

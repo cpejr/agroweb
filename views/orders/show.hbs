@@ -2,38 +2,45 @@
 {{/section}}
 
 <div class="container">
-    <div class="row mx-sm-auto mx-md-9">
-    <!-- Sale Title -->
-    <div class="col-12 col-md-6 mb-5 justify-content-center">
-      <p class="d-block">Compra#{{_id}}</p>
-      {{#ifCond status 'Cancelado'}}
-        <span class="badge badge-danger">
-      {{else ifCond status 'Em andamento'}}
-        <span class="badge badge-secondary">
-      {{else ifCond status 'Entregue'}}
-        <span class="badge badge-success">
-      {{/ifCond}}
-        <h6>{{status}}aloooo</h6>
-      </span>
-      <p class="align-text-bottom ml-3 text-gray">Prazo até dia {{deadline}}</p>
-      <h2>{{offer.product.name}}</h2>
-      <h4 class="text-gray">R$ {{unitPrice}} un.</h4>
-    </div>
-    <!-- end Sale Title -->
+  <div class="justify-content-center mx-sm-auto">
+    <div class="row">
+      <!-- Product Title -->
+      <div class="col-12 col-md-6">
+        <i class="text-muted">Produto {{offer.product.generic}}</i>
+        <h2 class="my-0 py-0">{{offer.product.name}}</h2>
+      </div>
+      <!-- end Product Title -->
 
-    <!-- Seller info -->
-    <div class="col-12 col-md-5">
-      <h2>Dados do vendedor</h2>
-      <p class="text-gray">Empresa</p>
-      <h4 class="mb-4">{{seller}}</h4>
-      <p class="text-gray">Contato</p>
-      <h4>{{phone}}</h4>
-      <h4>{{email}}</h4>
-    </div>
-    <!-- end Seller info -->
+      <!-- Transaction info -->
+      <div class="row mb-3 ml-1">
+        <div class="col-6">
+          <dt class="text-gray">Entrega</dt>
+          <h4>{{offer.delivery}}</h4>
+        </div>
+        <div class="col-6">
+          <dt class="text-gray">Quantidade comprada</dt>
+          <h4>{{amountBought}} {{offer.product.unit}}</h4>
+        </div>
+        <div class="col-6">
+          <dt class="text-gray">Preço total</dt>
+          <h2>R$ {{priceBought}}</h2>
+        </div>
+      </div>
+      <!-- end Transaction info -->
+
+      <!-- Seller info -->
+      <div class="col-12 col-md-5">
+        <h2>Dados do vendedor</h2>
+        <p class="text-gray">Empresa</p>
+        <h4 class="mb-4">{{offer.seller.fantasyName}}</h4>
+        <p class="text-gray">Contato</p>
+        <h4>Telefone: {{offer.seller.logistics.phone}}</h4>
+        <h4>E-mail: {{offer.seller.logistics.email}}</h4>
+      </div>
+      <!-- end Seller info -->
 
     <!-- Product Description -->
-    <div class="row col-12 col-md-6 mb-5 justify-content-center">
+    <!-- <div class="row col-12 col-md-6 mb-5 justify-content-center">
       <div class="col-6">
         <dt class="text-gray">Entrega</dt>
         <h4>{{delivery}}</h4>
@@ -50,11 +57,51 @@
         <dt class="text-gray mb-1">Pagamento</dt>
         <h4>{{payment}}</h4>
       </div>
+    </div> -->
+    <div class="col-6 pb-2 mb-5">
+      <h4>Descrição</h4>
+      <p>{{offer.product.description}}</p>
     </div>
     <!-- end Product Description -->
 
     <!-- Product Characteristics -->
+    <div class="col-12 col-md-6 mb-5">
+      <h4>Características</h4>
+      <div class="row">
+        <div class="col-6">
+          <dt>C. agronômica</dt>
+          <dd>Feromônio</dd>
+        </div>
+        <div class="col-6">
+          <dt>Toxicologia</dt>
+          <dd>Pouco tóxico</dd>
+        </div>
+        <div class="col-6">
+          <dt>Inflamabilidade</dt>
+          <dd>Inflamável</dd>
+        </div>
+        <div class="col-6">
+          <dt>Formulação</dt>
+          <dd>Comprimidos e sachês</dd>
+        </div>
+        <div class="col-6">
+          <dt>Ingredientes ativos</dt>
+          {{#each offer.product.chem}}
+            <dd>{{name}}</dd>
+          {{/each}}
+        </div>
+        <div class="col-6">
+          <dt>Fabricante</dt>
+          <dd>{{offer.product.manufacturer}}</dd>
+        </div>
+      </div>
+    </div>
     <!-- end Product Characteristics -->
+
+    <div class="text-center">
+      <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete"></form>
+      <a class="text-dark" onclick="document.getElementById('form-delete').submit();" href="" >Cancelar cotação</a>
+    </div>
 
   </div>
 </div>

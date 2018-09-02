@@ -9,7 +9,7 @@
     </div>
     <div class="">
       <button type="button" name="button" class="btn ml-1">
-        <i class="fas fa-sort-amount-down "></i>
+        <i class="fas fa-sort-amount-down"></i>
       </button>
       <button type="button" name="button" class="btn ml-1">
         <i class="fas fa-filter "></i>
@@ -25,9 +25,14 @@
     {{#each offers}}
       <div class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
         <div class="card-body text-right">
+          {{#ifCond product.category 'Sementes'}}
           <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+          {{else}}
+          <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
+          {{/ifCond}}
+          <h4 class="align-middle text-center">Compra solo</h4>
           <h5 class="card-title align-text-top">{{product.name}}</h5>
-          <p class="card-text align-text-bottom">Preço: {{price.low}} {{product.unit}}</p>
+          <p class="card-text align-text-bottom">Preço: R$ {{price.low}} / {{product.unit}}</p>
           <p class="card-text align-text-bottom">Entrega: {{delivery}}</p>
         </div>
       </div>

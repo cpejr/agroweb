@@ -9,7 +9,7 @@ const router = express.Router();
 /**
  * GET Index - Show all offers
  */
-router.get('/', (req, res) => {
+router.get('/', auth.isAdmin, (req, res) => {
   Offer.getAll().then((offers) => {
     console.log(offers);
     res.render('offers/index', { title: 'Oferta', offers });
@@ -51,6 +51,10 @@ router.post('/', (req, res) => {
     offer.seller = user;
     Offer.create(offer).then((id) => {
       console.log(`Created new offer with id: ${id}`);
+      User.addOffer(req.session._id, id).catch((err) => {
+        console.log(err);
+        res.redirect('/error');
+      });
       res.redirect(`/offers/${id}`);
     }).catch((err) => {
       console.log(err);
@@ -58,17 +62,19 @@ router.post('/', (req, res) => {
     });
   }).catch((err) => {
     console.log(err);
+    res.redirect('/error');
   });
 });
 
 /**
  * GET Show - Show details of a offer
  */
-router.get('/:id', (req, res) => {
+router.get('/:id', auth.isAuthenticated, (req, res) => {
+  const { userType } = req.session;
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);
-      res.render('offers/show', { title: offer.product.name, id: req.params.id, ...offer });
+      res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, ...offer });
     }
     else {
       console.log('Offer not found!');

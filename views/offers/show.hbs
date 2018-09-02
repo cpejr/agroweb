@@ -19,6 +19,7 @@
 
     <!-- Quotation -->
     <div class="col-12 col-md-6 pb-2 mb-5">
+      {{#ifCond userType 'Produtor'}}
       <form action="/transaction" method="post">
         <div class="row mb-3">
           <div class="form-group col">
@@ -34,6 +35,46 @@
         </div>
         <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
       </form>
+      {{else ifCond userType 'Administrador'}}
+      <div class="row mb-3">
+        <div class="col-12 col-md-6 mb-5">
+          <div class="row">
+            <div class="col-6">
+              <dt>Estoque:</dt>
+              <dd>{{stock}} {{product.unit}}</dd>
+            </div>
+            <!-- <div class="col-6">
+              <dt>Toxicologia</dt>
+              <dd>Pouco tóxico</dd>
+            </div>
+            <div class="col-6">
+              <dt>Inflamabilidade</dt>
+              <dd>Inflamável</dd>
+            </div>
+            <div class="col-6">
+              <dt>Formulação</dt>
+              <dd>Comprimidos e sachês</dd>
+            </div>
+            <div class="col-6">
+              <dt>Ingredientes ativos</dt>
+              {{#each product.chem}}
+                <dd>{{name}}</dd>
+              {{/each}}
+            </div>
+            <div class="col-6">
+              <dt>Fabricante</dt>
+              <dd>{{product.manufacturer}}</dd>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      {{else}}
+      
+      <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
+      <form action="/offers/{{_id}}?_method=DELETE" method="POST">
+          <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
+      </form>
+      {{/ifCond}}
     </div>
     <!-- end Quotation -->
 

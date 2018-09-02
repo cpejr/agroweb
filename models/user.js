@@ -52,6 +52,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Transaction'
   }],
+  offers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Offer'
+  }],
   phone: Number,
   cellphone: Number,
   fantasyName: String,
@@ -243,6 +247,34 @@ class User {
   }
 
   /**
+   * Add offer
+   * @param {string} id - User Id
+   * @param {string} offer - Offer Id
+   * @returns {null}
+   */
+  static addOffer(id, offer) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { offers: offer } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Remove from offers
+   * @param {string} id - User Id
+   * @param {string} offer - Offer Id
+   * @returns {null}
+   */
+  static removeOffer(id, offer) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { offers: offer } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
    * Get all transactions from a user by its id
    * @param {string} id - User uid
    * @returns {Array} - Array of transactions
@@ -284,6 +316,53 @@ class User {
         }
       }).exec().then((result) => {
         resolve(result.myCart);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all open transactions from a user by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of transactions
+   */
+  static getAllOpenTransactionsByUserId(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({
+        path: 'transactions',
+        match: { status: { $nin: ['Cancelado', 'Entregue'] } },
+        populate: {
+          path: 'buyer offer',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
+      }).exec().then((result) => {
+        resolve(result.transactions);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+
+  /**
+   * Get all offers from a user by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of offers
+   */
+  static getAllOffersByUserId(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({
+        path: 'offers',
+        populate: {
+          path: 'product',
+          populate: { path: 'chem' }
+        }
+      }).exec().then((result) => {
+        resolve(result.offers);
       }).catch((err) => {
         reject(err);
       });

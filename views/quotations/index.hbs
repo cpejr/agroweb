@@ -24,7 +24,7 @@
   <div id="results-list" class="row d-flex justify-content-around mt-2 mx-md-4">
   {{#each quotations}}
     <div class="col-12 col-md-4">
-      <div class="card mb-1">
+      <div class="card mb-1 btn" onclick="location.href = '/transaction/{{_id}}'">
         <div class="card-body text-right">
           {{#ifCond offer.product.category 'Defensivos'}}
             <i class="card-icon fas fa-bug fa-3x float-left align-middle"></i>

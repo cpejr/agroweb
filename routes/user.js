@@ -34,7 +34,7 @@ router.get('/', auth.isAuthenticated, (req, res) => {
 router.get('/orders', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
-      User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
+      User.getAllOpenTransactionsByUserId(req.session._id).then((transactions) => {
         console.log(transactions);
         if (req.session.userType === 'Indústria') {
           res.render('orders', { title: 'Demandas', layout: 'layout', transactions });
@@ -57,6 +57,53 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
   });
 });
 
+/**
+ * GET offers - Show all user's offers
+ */
+router.get('/offers', auth.isAuthenticated, (req, res) => {
+  User.getById(req.session._id).then((user) => {
+    if (user) {
+      User.getAllOffersByUserId(req.session._id).then((offers) => {
+        console.log(offers);
+        res.render('offers/index', { title: 'Minhas ofertas', layout: 'layout', offers });
+      }).catch((err) => {
+        console.log(err);
+        res.redirect('/error');
+      });
+    }
+    else {
+      console.log('User not found!');
+      res.redirect('/user');
+    }
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/user');
+  });
+});
+
+/**
+ * GET history - Show the user's buying history
+ */
+router.get('/history', auth.isAuthenticated, (req, res) => {
+  User.getById(req.session._id).then((user) => {
+    if (user) {
+      User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
+        console.log(transactions);
+        res.render('orders', { title: 'Histórico', layout: 'layout', transactions });
+      }).catch((err) => {
+        console.log(err);
+        res.redirect('/user');
+      });
+    }
+    else {
+      console.log('User not found!');
+      res.redirect('/user');
+    }
+  }).catch((err) => {
+    console.log(err);
+    res.redirect('/user');
+  });
+});
 
 /**
  * GET Profile/index - Show all user's details

@@ -25,8 +25,7 @@
         <div class="card-body">
           <div class="text-center">
             <h7 class="card-title align-text-top text-gray">Compra #{{_id}}</h7>
-            <div class="w-100">
-            </div>
+            <h5 class="card-title align-text-top product-myOrders">{{offer.product.name}}</h5>
             {{#ifCond status 'Cancelado'}}
               <span class="badge badge-danger mt-2">
             {{else ifCond status 'Entregue'}}
@@ -37,7 +36,20 @@
               <h6>{{status}}</h6>
             </span>
           </div>
-          <h5 class="card-title align-text-top product-myOrders">{{offer.product.name}}</h5>
+          <div class="row justify-content-center pt-3">
+            <div class="col-md-4">
+              <p class="card-text align-text-bottom text-center">R$ {{unitPrice}} / {{offer.product.unit}}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="card-text align-text-bottom text-center">{{amountBought}} {{offer.product.unit}}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="card-text align-text-bottom text-center">Total: R$ {{priceBought}}</p>
+            </div>
+          </div>
+          <div class="row justify-content-center pt-3">
+            <h6>Entrega: {{offer.delivery}}</h6>
+          </div>
         </div>
       </div>
     {{/each}}

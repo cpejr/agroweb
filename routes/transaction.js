@@ -85,14 +85,15 @@ router.post('/', auth.isAuthenticated, (req, res) => {
  * GET Show - Show details of a transaction
  */
 router.get('/:id', (req, res) => {
+  const { userType } = req.session;
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
       console.log(transaction);
       if (transaction.status === 'Cotado') {
-        res.render('quotations/show', { title: `Compra #${transaction._id}`, id: req.params.id, ...transaction });
+        res.render('quotations/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction });
       }
       else {
-        res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, ...transaction });
+        res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction });
       }
     }
     else {

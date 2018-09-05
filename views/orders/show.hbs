@@ -28,8 +28,9 @@
       </div>
       <!-- end Transaction info -->
 
+      {{#ifCond userType 'Produtor'}}
       <!-- Seller info -->
-      <div class="col-12 col-md-5">
+      <div class="col-12 col-md-5 mt-3">
         <h2>Dados do vendedor</h2>
         <p class="text-gray">Empresa</p>
         <h4 class="mb-4">{{offer.seller.fantasyName}}</h4>
@@ -38,72 +39,85 @@
         <h4>E-mail: {{offer.seller.logistics.email}}</h4>
       </div>
       <!-- end Seller info -->
+      {{else ifCond userType 'Indústria'}}
+      <!-- Buyer info -->
+      <div class="col-12 col-md-5 mt-3">
+        <h2>Dados do comprador</h2>
+        <p class="text-gray">Nome</p>
+        <h4 class="mb-4">{{buyer.fullName}}</h4>
+        <p class="text-gray">Contato</p>
+        <h4>Telefone: {{buyer.phone}}</h4>
+        <h4>E-mail: {{buyer.email}}</h4>
+      </div>
+      <!-- end Buyer info -->
+      {{else}}
+      <!-- Seller info -->
+      <div class="col-12 col-md-5 mt-3">
+        <h2>Dados do vendedor</h2>
+        <p class="text-gray">Empresa</p>
+        <h4 class="mb-4">{{offer.seller.fantasyName}}</h4>
+        <p class="text-gray">Contato</p>
+        <h4>Telefone: {{offer.seller.logistics.phone}}</h4>
+        <h4>E-mail: {{offer.seller.logistics.email}}</h4>
+      </div>
+      <!-- end Seller info -->
+      <!-- Buyer info -->
+      <div class="col-12 col-md-5 mt-3">
+        <h2>Dados do comprador</h2>
+        <p class="text-gray">Nome</p>
+        <h4 class="mb-4">{{buyer.fullName}}</h4>
+        <p class="text-gray">Contato</p>
+        <h4>Telefone: {{buyer.phone}}</h4>
+        <h4>E-mail: {{buyer.email}}</h4>
+      </div>
+      <!-- end Buyer info -->
+      {{/ifCond}}
 
-    <!-- Product Description -->
-    <!-- <div class="row col-12 col-md-6 mb-5 justify-content-center">
-      <div class="col-6">
-        <dt class="text-gray">Entrega</dt>
-        <h4>{{delivery}}</h4>
+      <!-- Product Characteristics -->
+      <div class="col-12 col-md-6 mb-5 mt-3">
+        <h4>Características</h4>
+        <div class="row">
+          <div class="col-6">
+            <dt>C. agronômica</dt>
+            <dd>Feromônio</dd>
+          </div>
+          <div class="col-6">
+            <dt>Toxicologia</dt>
+            <dd>Pouco tóxico</dd>
+          </div>
+          <div class="col-6">
+            <dt>Inflamabilidade</dt>
+            <dd>Inflamável</dd>
+          </div>
+          <div class="col-6">
+            <dt>Formulação</dt>
+            <dd>Comprimidos e sachês</dd>
+          </div>
+          <div class="col-6">
+            <dt>Ingredientes ativos</dt>
+            {{#each offer.product.chem}}
+              <dd>{{name}}</dd>
+            {{/each}}
+          </div>
+          <div class="col-6">
+            <dt>Fabricante</dt>
+            <dd>{{offer.product.manufacturer}}</dd>
+          </div>
+        </div>
       </div>
-      <div class="col-6">
-        <dt class="text-gray">Quantidade</dt>
-        <h4>{{amountBought}}</h4>
-      </div>
-      <div class="col-6">
-        <dt class="text-gray">Preço total</dt>
-        <h2>R$ {{priceBought}}</h2>
-      </div>
-      <div class="col-6">
-        <dt class="text-gray mb-1">Pagamento</dt>
-        <h4>{{payment}}</h4>
-      </div>
-    </div> -->
-    <div class="col-6 pb-2 mb-5">
-      <h4>Descrição</h4>
+      <!-- end Product Characteristics -->
+
+    <div class="col-6 pb-2 mb-2 mt-4">
+      <h2>Descrição</h2>
       <p>{{offer.product.description}}</p>
     </div>
     <!-- end Product Description -->
-
-    <!-- Product Characteristics -->
-    <div class="col-12 col-md-6 mb-5">
-      <h4>Características</h4>
-      <div class="row">
-        <div class="col-6">
-          <dt>C. agronômica</dt>
-          <dd>Feromônio</dd>
-        </div>
-        <div class="col-6">
-          <dt>Toxicologia</dt>
-          <dd>Pouco tóxico</dd>
-        </div>
-        <div class="col-6">
-          <dt>Inflamabilidade</dt>
-          <dd>Inflamável</dd>
-        </div>
-        <div class="col-6">
-          <dt>Formulação</dt>
-          <dd>Comprimidos e sachês</dd>
-        </div>
-        <div class="col-6">
-          <dt>Ingredientes ativos</dt>
-          {{#each offer.product.chem}}
-            <dd>{{name}}</dd>
-          {{/each}}
-        </div>
-        <div class="col-6">
-          <dt>Fabricante</dt>
-          <dd>{{offer.product.manufacturer}}</dd>
-        </div>
-      </div>
-    </div>
-    <!-- end Product Characteristics -->
-
-    <div class="text-center">
-      <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete"></form>
-      <a class="text-dark" onclick="document.getElementById('form-delete').submit();" href="" >Cancelar cotação</a>
-    </div>
-
   </div>
+</div>
+
+<div class="text-center my-3">
+  <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete"></form>
+  <a class="text-dark" onclick="document.getElementById('form-delete').submit();" href="" >Cancelar cotação</a>
 </div>
 
 {{#section 'scripts'}}

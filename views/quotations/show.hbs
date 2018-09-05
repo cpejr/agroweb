@@ -28,8 +28,9 @@
       </div>
       <!-- end Quotation info -->
 
+      {{#ifCond userType 'Produtor'}}
       <!-- Seller info -->
-      <div class="col-12 col-md-5">
+      <div class="col-12 col-md-5 mt-3">
         <h2>Dados do vendedor</h2>
         <p class="text-gray">Empresa</p>
         <h4 class="mb-4">{{offer.seller.fantasyName}}</h4>
@@ -38,13 +39,39 @@
         <h4>E-mail: {{offer.seller.logistics.email}}</h4>
       </div>
       <!-- end Seller info -->
-
-      <!-- Product description -->
-      <div class="col-6 pb-2 mb-5">
-        <h4>Descrição</h4>
-        <p>{{offer.product.description}}</p>
+      {{else ifCond userType 'Indústria'}}
+      <!-- Buyer info -->
+      <div class="col-12 col-md-5 mt-3">
+        <h2>Dados do comprador</h2>
+        <p class="text-gray">Nome</p>
+        <h4 class="mb-4">{{buyer.fullName}}</h4>
+        <p class="text-gray">Contato</p>
+        <h4>Telefone: {{buyer.phone}}</h4>
+        <h4>E-mail: {{buyer.email}}</h4>
       </div>
-      <!-- end Product description -->
+      <!-- end Buyer info -->
+      {{else}}
+      <!-- Seller info -->
+      <div class="col-12 col-md-5 mt-3">
+        <h2>Dados do vendedor</h2>
+        <p class="text-gray">Empresa</p>
+        <h4 class="mb-4">{{offer.seller.fantasyName}}</h4>
+        <p class="text-gray">Contato</p>
+        <h4>Telefone: {{offer.seller.logistics.phone}}</h4>
+        <h4>E-mail: {{offer.seller.logistics.email}}</h4>
+      </div>
+      <!-- end Seller info -->
+      <!-- Buyer info -->
+      <div class="col-12 col-md-5 mt-3">
+        <h2>Dados do comprador</h2>
+        <p class="text-gray">Nome</p>
+        <h4 class="mb-4">{{buyer.fullName}}</h4>
+        <p class="text-gray">Contato</p>
+        <h4>Telefone: {{buyer.phone}}</h4>
+        <h4>E-mail: {{buyer.email}}</h4>
+      </div>
+      <!-- end Buyer info -->
+      {{/ifCond}}
 
       <!-- Product Characteristics -->
       <div class="col-12 col-md-6 mb-5">
@@ -79,7 +106,13 @@
         </div>
       </div>
       <!-- end Product Characteristics -->
-
+      
+      <!-- Product description -->
+      <div class="col-6 pb-2 mb-5">
+        <h4>Descrição</h4>
+        <p>{{offer.product.description}}</p>
+      </div>
+      <!-- end Product description -->
     </div>
   </div>
 

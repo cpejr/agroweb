@@ -32,7 +32,7 @@
           {{/ifCond}}
           <h4 class="align-middle text-center">Compra solo</h4>
           <h5 class="card-title align-text-top">{{product.name}}</h5>
-          <p class="card-text align-text-bottom">Preço: R$ {{price.low}} / {{product.unit}}</p>
+          <p class="card-text align-text-bottom">Preço: <a data-usd={{usd}}>R$ {{price.low}}</a> / {{product.unit}}</p>
           <p class="card-text align-text-bottom">Entrega: {{delivery}}</p>
         </div>
       </div>
@@ -42,4 +42,5 @@
 <!-- end ResultsList -->
 
 {{#section 'scripts'}}
+  <script src="/javascripts/money.js"></script>
 {{/section}}

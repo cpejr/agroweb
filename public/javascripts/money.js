@@ -1,4 +1,4 @@
-$(document).ready((offer) => {
+$(document).ready(() => {
 $.ajax(
   {
     type:"GET",
@@ -6,10 +6,19 @@ $.ajax(
   })
   .done(function(data)
   {
-    console.log(data);
-    console.log(data[0]["ask"]);
-    console.log(data[0]["ask"]*offer.priceBought);
-    //var data = JSON.parse(data);
-    // Manipula o dado aqui
+    $("[data-usd=true]").each((index, value) => {
+      value.textContent = "R$ " + convertPrice(data[0]["ask"], toNumber(value.textContent));
+    });
   });
 });
+
+function toNumber(value)
+{
+    return isNaN(value) == false ? parseFloat(value) :   parseFloat(value.replace("R$","").replace(".","").replace(",","."));
+}
+
+ function convertPrice(usd, realPrice){
+   number = usd*realPrice;
+   number = number.toFixed(2)
+   return number;
+ }

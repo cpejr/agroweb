@@ -12,8 +12,10 @@ const auth = require('./middleware/auth');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('dealerMegaOportunidade', { title: 'dealerMegaOportunidade', layout: 'layout' });
+router.get('/', auth.isAuthenticated, (req, res) => {
+  const user = req.session.userType;
+  console.log(user);
+  res.render('success', { title: 'Teste', layout: 'layout', user });
 });
 
 /**

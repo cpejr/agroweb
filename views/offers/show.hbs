@@ -19,6 +19,7 @@
 
     <!-- Quotation -->
     <div class="col-12 col-md-6 pb-2 mb-5">
+      {{#ifCond userType 'Produtor'}}
       <form action="/transaction" method="post">
         <div class="row mb-3">
           <div class="form-group col">
@@ -34,6 +35,37 @@
         </div>
         <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
       </form>
+      {{else ifCond userType 'Administrador'}}
+      <div class="row mb-3">
+        <div class="col-12 col-md-6 mb-5">
+          <div class="row">
+            <div class="col-6">
+              <h4>Estoque:</h4>
+              <p>{{stock}} {{product.unit}}</p>
+            </div>
+            <div class="col-6">
+              <h4>Entrega:</h4>
+              <p>{{delivery}}</p>
+            </div>
+            <div class="col-6">
+              <h4>Preços:</h4>
+              <dt>Baixo: R$ {{price.low}}</dt>
+              <dt>Médio: R$ {{price.average}}</dt>
+              <dt>Alto: R$ {{price.high}}</dt>
+            </div>
+            <div class="col-6">
+              <h4>Qtd. mínima:</h4>
+              <p>{{minAmount}} {{product.unit}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{else}}
+      <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
+      <form action="/offers/{{_id}}?_method=DELETE" method="POST">
+          <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
+      </form>
+      {{/ifCond}}
     </div>
     <!-- end Quotation -->
 
@@ -86,4 +118,5 @@
 </div>
 
 {{#section 'scripts'}}
+<script src="/javascripts/money.js"></script>
 {{/section}}

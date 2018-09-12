@@ -1,22 +1,22 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<div class="container text-light">
-  <div class="col-12">
-    <div class="row justify-content-center">
-      <div class="col-12 col-sm-8 col-md-6 col-lg-5 bg-dark rounded pt-2">
-        <div class="text-center">
-          <i class="fas fa-times-circle fa-5x"></i>
-        </div>
-        <h2 class="text-center col-12 mt-3">Erro!</h2>
-        <h4 class="text-center col-12 mb-5">Essa página não existe.</h4>
-        <h6>{{message}}</h6>
-        <h7 class="mb-5">{{error.status}}</h7>
-        <!-- <pre>{{error.stack}}</pre> -->
-      </div>
-    </div>
-  </div>
-</div>
+<h1 class="font2 mt-5 text-center">Erro!</h1>
+<p class="zoom-area"><h6 class="text-center">{{message}}</h6>
+<h6 class="mb-5 text-center">Código: {{error.status}}</h6></p>
+<section class="error-container mobile-font">
+  <span class="mobile-font"><span class="mobile-font">4</span></span>
+  <span class="mobile-font">0</span>
+  <span><span>4</span></span>
+</section>
+
+<footer>
+  <small>
+    <small>
+      <a class="mr-4 float-right float-bottom" href="https://www.silocreativo.com/en/creative-examples-404-error-css/"> Créditos</a>
+    </small>
+  </small>
+</footer>
 
 {{#section 'scripts'}}
 {{/section}}

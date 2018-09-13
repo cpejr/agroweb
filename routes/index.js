@@ -64,36 +64,6 @@ router.get('/signup', (req, res) => {
 });
 
 /**
- * GET Search Results page
- */
-router.get('/search', (req, res) => {
-  const regex = new RegExp(req.query.filter, 'i');
-  const queryProduct = { name: regex };
-  const sortProduct = {};
-  const promises = [];
-  Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
-    products.forEach((product) => {
-      const queryOffer = { product: product._id};
-      const sortOffer = { 'price.low': 1 };
-      const promise = Offer.getByQuerySorted(queryOffer, sortOffer);
-      promises.push(promise);
-    });
-    Promise.all(promises).then((offersSearch) => {
-      const offers = offersSearch[0];
-      console.log(offers);
-      res.render('results', { title: `Resultados para "${req.query.name}"`, layout: 'layout', offers });
-    }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-
-/**
  * POST Login Request
  */
 router.post('/login', (req, res) => {

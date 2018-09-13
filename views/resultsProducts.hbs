@@ -22,18 +22,10 @@
 <!-- ResultsList -->
 <div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
   <div class="col-12 col-md-12">
-    {{#each offers}}
-      <div class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
-        <div class="card-body text-right">
-          {{#ifCond product.category 'Sementes'}}
-          <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
-          {{else}}
-          <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
-          {{/ifCond}}
-          <h4 class="align-middle text-center">Compra solo</h4>
-          <h5 class="card-title align-text-top">{{product.name}}</h5>
-          <p class="card-text align-text-bottom">Preço: <a data-usd={{usd}}>R$ {{price.low}}</a> / {{product.unit}}</p>
-          <p class="card-text align-text-bottom">Entrega: {{delivery}}</p>
+    {{#each products}}
+      <div class="card mb-1 btn" onclick="location.href = '/products/{{_id}}'">
+        <div class="card-body">
+          <h5 class="card-title align-text-top">{{name}}</h5>
         </div>
       </div>
     {{/each}}

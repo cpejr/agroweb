@@ -37,12 +37,14 @@ router.get('/', (req, res) => {
  * GET Products Results page
  */
 router.get('/products', (req, res) => {
+  console.log(req.query.filter);
   const regex = new RegExp(req.query.filter, 'i');
   const queryProduct = { name: regex };
   const sortProduct = { name: 1 };
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
     console.log(products);
-    res.render('resultsProducts', { title: `Resultados para "${req.query.name}"`, layout: 'layout', products });
+    res.render('resultsProducts', { title: `Resultados para "${req.query.name}"`, layout: 'layoutHome', products });
+    // res.end(JSON.stringify(products));
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

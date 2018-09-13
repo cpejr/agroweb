@@ -1,26 +1,5 @@
-{{#section 'stylesheets'}}
-{{/section}}
-
-<!-- Filters Header -->
-<div class="filters-header row justify-content-md-end justify-content-center mx-1 mt-2 mb-1">
-  <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
-    <div class="">
-      <h4 class="my-auto">Resultados</h4>
-    </div>
-    <div class="">
-      <button type="button" name="button" class="btn ml-1">
-        <i class="fas fa-sort-amount-down"></i>
-      </button>
-      <button type="button" name="button" class="btn ml-1">
-        <i class="fas fa-filter "></i>
-      </button>
-    </div>
-  </div>
-</div>
-<!-- end Filters Header -->
-
 <!-- ResultsList -->
-<div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
+<!-- <div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
   <div class="col-12 col-md-12">
     {{#each products}}
       <div class="card mb-1 btn" onclick="location.href = '/products/{{_id}}'">
@@ -30,9 +9,14 @@
       </div>
     {{/each}}
   </div>
-</div>
-<!-- end ResultsList -->
+</div> -->
 
-{{#section 'scripts'}}
-  <script src="/javascripts/money.js"></script>
-{{/section}}
+
+    <select class="form-control" name="offer[delivery]">
+
+      <option disabled selected value> Nome do produto </option>
+      {{#each products}}
+        <option value={{_id}}>{{name}}</option>
+      {{/each}}
+    </select>
+<!-- end ResultsList -->

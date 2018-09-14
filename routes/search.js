@@ -44,7 +44,6 @@ router.get('/products', (req, res) => {
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
     console.log(products);
     res.render('resultsProducts', { title: `Resultados para "${req.query.name}"`, layout: 'layoutHome', products });
-    // res.end(JSON.stringify(products));
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

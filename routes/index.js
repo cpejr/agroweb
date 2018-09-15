@@ -92,7 +92,6 @@ router.get('/search', (req, res) => {
   });
 });
 
-
 /**
  * POST Login Request
  */

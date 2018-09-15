@@ -1,4 +1,5 @@
 const express = require('express');
+const Group = require('../models/group');
 const Offer = require('../models/offer');
 const Product = require('../models/product');
 const User = require('../models/user');
@@ -49,13 +50,62 @@ router.post('/', (req, res) => {
   const { offer } = req.body;
   User.getById(req.session._id).then((user) => {
     offer.seller = user;
-    Offer.create(offer).then((id) => {
-      console.log(`Created new offer with id: ${id}`);
-      User.addOffer(req.session._id, id).catch((err) => {
+    Offer.create(offer).then((offerId) => {
+      console.log(`Created new offer with id: ${offerId}`);
+      if (offer.delivery !== 'Em até 48 horas') {
+        const queryGroup = { productId: offer.product, delivery: offer.delivery };
+        Group.getOneByQuery(queryGroup).then((group) => {
+          console.log(group);
+          if (group) {
+            console.log('Compara e troca a oferta que tem o grupo');
+            const offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
+            const offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
+            if (offerGroupPrice < offerPrice) {
+              const groupData = {
+                offer: offer._id
+              };
+              Group.update(group._id, groupData).catch((err) => {
+                console.log(err);
+                res.redirect('/error');
+              });
+            }
+            else if (offerGroupPrice === offerPrice) {
+              if (group.offer.stock < offer.stock) {
+                const groupData = {
+                  offer: offer._id
+                };
+                Group.update(group._id, groupData).catch((err) => {
+                  console.log(err);
+                  res.redirect('/error');
+                });
+              }
+            }
+          }
+          else {
+            const newGroup = {
+              amount: 0,
+              offer: offerId,
+              price: offer.price.high,
+              productId: offer.product,
+              delivery: offer.delivery
+            };
+            Group.create(newGroup).then((groupId) => {
+              console.log(`Created new group with id: ${groupId}`);
+            }).catch((err) => {
+              console.log(err);
+              res.redirect('/error');
+            });
+          }
+        }).catch((err) => {
+          console.log(err);
+          res.redirect('/error');
+        });
+      }
+      User.addOffer(req.session._id, offerId).catch((err) => {
         console.log(err);
         res.redirect('/error');
       });
-      res.redirect(`/offers/${id}`);
+      res.redirect(`/offers/${offerId}`);
     }).catch((err) => {
       console.log(err);
       res.redirect('/offers');

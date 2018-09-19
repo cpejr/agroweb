@@ -2,6 +2,7 @@ const express = require('express');
 const firebase = require('firebase');
 const nodemailer = require('nodemailer');
 const Email = require('../models/email');
+const Group = require('../models/group');
 const Newsletter = require('../models/newsletter');
 const Offer = require('../models/offer');
 const Product = require('../models/product');
@@ -70,18 +71,32 @@ router.get('/search', (req, res) => {
   const regex = new RegExp(req.query.filter, 'i');
   const queryProduct = { name: regex };
   const sortProduct = {};
-  const promises = [];
+  const offerPromises = [];
+  const groupPromises = [];
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
     products.forEach((product) => {
-      const queryOffer = { product: product._id};
+      const queryOffer = { product: product._id, delivery: 'em até 48 horas' };
       const sortOffer = { 'price.low': 1 };
-      const promise = Offer.getByQuerySorted(queryOffer, sortOffer);
-      promises.push(promise);
+      const queryGroup = { productId: product._id };
+      const sortGroup = {};
+      let promise = Offer.getByQuerySorted(queryOffer, sortOffer);
+      offerPromises.push(promise);
+      promise = Group.getByQuerySorted(queryGroup, sortGroup);
+      groupPromises.push(promise);
     });
-    Promise.all(promises).then((offersSearch) => {
-      const offers = offersSearch[0];
-      console.log(offers);
-      res.render('results', { title: `Resultados para "${req.query.name}"`, layout: 'layout', offers });
+    Promise.all(offerPromises).then((offerResults) => {
+      console.log(offerResults);
+      Promise.all(groupPromises).then((groupResults) => {
+        console.log(groupResults);
+        const groups = groupResults[1];
+        const offers = offerResults[1];
+        console.log(offers);
+        console.log(groups);
+        res.render('results', { title: `Resultados para "${req.query.filter}"`, layout: 'layout', groups, offers });
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
     }).catch((error) => {
       console.log(error);
       res.redirect('/error');

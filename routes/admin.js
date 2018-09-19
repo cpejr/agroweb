@@ -65,7 +65,7 @@ router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) =>
 
 /* GET Transaction - Show all pending tickets */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Transaction.getAllByStatus('Boleto pendente').then((transactions) => {
+  Transaction.getAllByStatus('Aguardando boleto').then((transactions) => {
     res.render('admin/transaction', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((err) => {
     console.log(err);

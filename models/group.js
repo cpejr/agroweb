@@ -28,7 +28,7 @@ const groupSchema = new mongoose.Schema({
   },
   delivery: {
     type: String,
-    enum: ['em até 48 horas', 'em até 31 dias', 'safra', 'safrinha'],
+    enum: ['em até 31 dias', 'safra', 'safrinha'],
     required: true
   }
 }, { timestamps: true, strict: false });

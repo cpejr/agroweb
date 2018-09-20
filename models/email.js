@@ -72,7 +72,7 @@ class Email {
     console.log(data);
     const text = `Prezado(a) ${data.buyer.firstName},
     Sua compra do produto ${data.offer.product.name} foi realizada com sucesso.
-    A transação permanecerá com o status "Boleto pendente" até que o administrador aprove a compra e envie o boleto para você.
+    A transação permanecerá com o status "Aguardando boleto" até que o administrador aprove a compra e envie o boleto para você.
     Confira abaixo os detalhes da sua compra:
     Compra #${data._id}
     Produto: ${data.offer.product.name}
@@ -106,7 +106,7 @@ class Email {
     console.log(data);
     const text = `Prezado(a) ${data.offer.seller.firstName},
     Você tem uma nova demanda do produto ${data.offer.product.name}.
-    A transação permanecerá com o status "Boleto pendente" até que o administrador aprove a compra e envie o boleto para o comprador.
+    A transação permanecerá com o status "Aguardando boleto" até que o administrador aprove a compra e envie o boleto para o comprador.
     Confira abaixo os detalhes da sua venda:
     Transação #${data._id}
     Produto: ${data.offer.product.name}

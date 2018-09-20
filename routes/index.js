@@ -2,6 +2,7 @@ const express = require('express');
 const firebase = require('firebase');
 const nodemailer = require('nodemailer');
 const Email = require('../models/email');
+const Group = require('../models/group');
 const Newsletter = require('../models/newsletter');
 const Offer = require('../models/offer');
 const Product = require('../models/product');
@@ -61,6 +62,50 @@ router.get('/login', (req, res) => {
  */
 router.get('/signup', (req, res) => {
   res.render('signup', { title: 'Cadastro', layout: 'layoutHome' });
+});
+
+/**
+
+ * GET Search Results page
+ */
+router.get('/search', (req, res) => {
+  const regex = new RegExp(req.query.filter, 'i');
+  const queryProduct = { name: regex };
+  const sortProduct = {};
+  const offerPromises = [];
+  const groupPromises = [];
+  Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
+    products.forEach((product) => {
+      const queryOffer = { product: product._id, delivery: 'em até 48 horas' };
+      const sortOffer = { 'price.low': 1 };
+      const queryGroup = { productId: product._id };
+      const sortGroup = {};
+      let promise = Offer.getByQuerySorted(queryOffer, sortOffer);
+      offerPromises.push(promise);
+      promise = Group.getByQuerySorted(queryGroup, sortGroup);
+      groupPromises.push(promise);
+    });
+    Promise.all(offerPromises).then((offerResults) => {
+      console.log(offerResults);
+      Promise.all(groupPromises).then((groupResults) => {
+        console.log(groupResults);
+        const groups = groupResults[0].concat(groupResults[1]);
+        const offers = offerResults[0].concat(offerResults[1]);
+        console.log(offers);
+        console.log(groups);
+        res.render('results', { title: `Resultados para "${req.query.filter}"`, layout: 'layout', groups, offers });
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 /**

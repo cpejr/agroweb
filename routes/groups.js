@@ -17,6 +17,20 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
+// /**
+//  * POST Create - Add new group to DB
+//  */
+// router.post('/', (req, res) => {
+//   const { group } = req.body;
+//   Group.create(group).then((id) => {
+//     console.log(`Created new group with id: ${id}`);
+//     res.redirect(`/groups/${id}`);
+//   }).catch((err) => {
+//     console.log(err);
+//     res.redirect('/groups');
+//   });
+// });
+
 /**
  * GET Show - Show details of a group
  */

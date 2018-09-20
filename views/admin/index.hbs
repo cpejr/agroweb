@@ -1,44 +1,54 @@
 {{#section 'stylesheets'}}
 {{/section}}
+  <div class="row justify-content-center">
+    <div class="col-lg-3 list-group-item index-highlight index-box text-light">
+      <i onclick="location.href = '/admin/transaction'" class="fas fa-barcode fa-lg ml-3 mr-4">
+        <span class="font1 ml-2 mobile-color-font ml-2">Boletos pendentes</span>
+      </i>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
 
-<ul class="list-group list-group-flush d-block">
-  <li class="list-group-item">
-    <i class="fas fa-barcode fa-lg mr-4"></i>
-    <button onclick="location.href = '/admin/transaction'" class="btn">Boletos pendentes</button>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-  <li class="list-group-item">
-    <i class="far fa-address-card fa-lg mr-4 "></i>
-    <button onclick="location.href = '/admin/users'" class="btn">Usuários</button>
-    </i>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-  <li class="list-group-item">
-    <i class="fas fa-shopping-cart fa-lg mr-4"></i>
-    <button onclick="location.href = '/admin/products'" class="btn">Produtos</button>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-  <li class="list-group-item">
-    <i class="fas fa-users fa-lg mr-4 "></i>
-    <button onclick="location.href = '/groups'" class="btn">Grupos</button>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-  <li class="list-group-item">
-    <i class="fas fa-flask fa-lg mr-4 "></i>
-    <button onclick="location.href = '/chems'" class="btn">Princípios ativos</button>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-  <li class="list-group-item">
-    <i class="far fa-envelope fa-lg mr-4 "></i>
-    <button onclick="location.href = '/newsletterlist'" class="btn">Newsletter</button>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-  <li class="list-group-item">
-    <i class="fas fa-money-bill fa-lg mr-4 "></i>
-    <button onclick="location.href = 'admin/offers'" class="btn">Ofertas</button>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </li>
-</ul>
+    <div class="col-lg-3 list-group-item index-highlight index-box text-light">
+      <i onclick="location.href = '/admin/users'" class="far fa-address-card fa-lg ml-3 mr-4 ">
+        <span class="font1 ml-2 mobile-color-font ml-2">Usuários</span>
+      </i>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
 
+    <div class="col-lg-3 list-group-item index-highlight index-box text-light">
+      <i onclick="location.href = '/admin/products'" class="fas fa-shopping-cart fa-lg ml-3 mr-4">
+        <span class="font1 ml-2 mobile-color-font ml-2">Produtos</span>
+      </i>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
+
+    <div class="col-lg-3 list-group-item index-highlight index-box text-light">
+      <i onclick="location.href = '/groups'" class="fas fa-users fa-lg ml-3 mr-4">
+        <span class="font1 ml-2 mobile-color-font ml-2">Grupos</span>
+      </i>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
+
+    <div class="col-lg-3 list-group-item index-highlight index-box text-light">
+      <i onclick="location.href = '/chems'" class="fas fa-flask fa-lg ml-3 mr-4 ">
+        <span class="font1 ml-2 mobile-color-font ml-2">Princípios Ativos</span>
+      </i>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
+
+    <div class="col-lg-3 list-group-item index-highlight index-box text-light">
+        <i onclick="location.href = '/newsletterlist'" class="far fa-envelope fa-lg mr-4 ">
+          <span class="font1 ml-2 mobile-color-font ml-2">Newsletter</span>
+        </i>
+        <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
+
+    <div class="col-lg-3 mx-auto list-group-item index-highlight index-box text-light">
+        <i  onclick="location.href = 'admin/offers'" class="fas fa-money-bill fa-lg mr-4 ">
+          <span class="font1 ml-2 mobile-color-font ml-2">Ofertas</span>
+        </i>
+        <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
+  </div>
 {{#section 'scripts'}}
 {{/section}}

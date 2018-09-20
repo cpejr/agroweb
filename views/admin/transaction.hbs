@@ -27,24 +27,21 @@
       <td>{{priceBought}}</td>
       <td>   <div class="dropdown">
     <button name="status" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      status
+      Status
     </button>
     <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-success col-12" name="status" buttonvalue="Pagamento Confirmado" button onclick="location.href='/admin/{{id}}/updateTransaction'">Pagamento confirmado
-        <i class="fas fa-user-check"></i>
+      <a class="dropdown-item " href="#"><button class="btn btn-outline-success col-12" name="status" buttonvalue="Pagamento Confirmado " button onclick="location.href='/admin/{{id}}/updateTransaction'">Pagamento confirmado
+        <i class="fas fa-user-check text-right"></i>
       </button></a>
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-primary col-12"name="status" buttonvalue="Cotado" button onclick="location.href='/admin/{{id}}/updateTransaction'" >Cotado
-        <i class="fas fa-hand-holding-usd"></i>
+      <a class="dropdown-item " href="#"><button class="btn btn-outline-info col-12"name="status" buttonvalue="Aguardando boleto " button onclick="location.href='/admin/{{id}}/updateTransaction'">Aguardando boleto
+        <i class="fas fa-file-alt mr-2"></i>
       </button></a>
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-info col-12" name="status"buttonvalue="Produto a caminho" button onclick="location.href='/admin/{{id}}/updateTransaction'">Produto a caminho
-        <i class="fas fa-truck-moving"></i>
+      <a class="dropdown-item " href="#"><button class="btn btn-outline-warning col-12" name="status"buttonvalue="Aguardando pagamento " button onclick="location.href='/admin/{{id}}/updateTransaction'">Aguardando pagamento
+        <i class="fas fa-money-bill mr-2"></i>
       </button></a>
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-warning col-12"name="status" buttonvalue="Entregue" button onclick="location.href='/admin/{{id}}/updateTransaction'">Entregue
-      <i class="fas fa-cube"></i>
-      </button></a>
-      <a class="dropdown-item" href="#"><button class="btn btn-outline-danger col-12" name="status"buttonvalue="Cancelado"button onclick="location.href='/admin/{{id}}/updateTransaction'">Cancelado
-        <i class="fas fa-user-times"></i>
+      <a class="dropdown-item " href="#"><button class="btn btn-outline-danger col-12" name="status"buttonvalue="Cancelado"button onclick="location.href='/admin/{{id}}/updateTransaction'">Cancelado
+        <i class="fas fa-user-times mr-2"></i>
       </button></a>
     </div>
   </div>

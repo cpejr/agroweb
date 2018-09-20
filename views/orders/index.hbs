@@ -1,6 +1,11 @@
 {{#section 'stylesheets'}}
+  <!-- -->
 {{/section}}
-
+<!-- <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head> -->
 <!-- Filters Header -->
 <div class="filters-header row justify-content-center mx-1 mt-2 mb-1">
   <div class="col-12 col-md-8 d-flex align-items-center justify-content-betwee">
@@ -19,13 +24,15 @@
 
 <!-- OrdersList-->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
-  <div class="col-12 col-md-6">
     {{#each transactions}}
+    <div class="col-8 col-md-8">
       <div class="card mb-1 btn" onclick="location.href = '/transaction/{{_id}}'">
-        <div class="card-body">
+        <div class="mr-2 mt-2 text-right">
+          <span class=" fas fa-circle fa-lg text-danger" data-toggle="tooltip" data-placement="left" title="Aguardando Pagamento a MegaPool"></span>
+          </div>
           <div class="text-center">
-            <h7 class="card-title align-text-top text-gray">Compra #{{_id}}</h7>
-            <h5 class="card-title align-text-top product-myOrders">{{offer.product.name}}</h5>
+            <h7 class="card-title align-text-top text-gray ">Compra #{{_id}}</h7>
+            <h5 class="card-title align-text-top product-myOrders ">{{offer.product.name}}</h5>
             {{#ifCond status 'Cancelado'}}
               <span class="badge badge-danger mt-2">
             {{else ifCond status 'Entregue'}}
@@ -55,7 +62,10 @@
     {{/each}}
   </div>
 </div>
+
+
 <!-- end OrdersList -->
 
-{{#section 'scripts'}}
+{{#section 'scripts' }}
+
 {{/section}}

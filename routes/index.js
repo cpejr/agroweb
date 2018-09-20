@@ -65,6 +65,7 @@ router.get('/signup', (req, res) => {
 });
 
 /**
+
  * GET Search Results page
  */
 router.get('/search', (req, res) => {

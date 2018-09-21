@@ -10,59 +10,66 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:600|Montserrat:700|Varela+Round">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
-  <body>
+  <body class="gradient-background">
     <!-- Header and NavBar -->
     <div class="pos-f-t">
       <div class="collapse" id="navbarToggleExternalContent">
         <div class="bg-dark p-4">
-          <h4 class="text-white">{{firstName}} {{lastName}}</h4>
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="/user/profile">
-                <i class="fas fa-user fa-sm"></i>Minha conta
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/user/history">
-                <i class="fas fa-hdd fa-sm"></i>Histórico
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-wrench fa-sm"></i>Ser franqueado
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">
-                <i class="fas fa-sign-out-alt fa-sm"></i>Logout
-              </a>
-            </li>
-            <i class="text-light pb-2">_</i>
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                Suporte e contato
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                Dúvidas frequentes
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="/terms">
-                Termos de uso
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                Curta nossa página
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <nav class="navbar navbar-dark py-3">
+            <h4 class="text-white">{{firstName}} {{lastName}}</h4>
+            <ul class="navbar-nav mr-auto ml-5 mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <li class="nav-item active">
+                    <a class="nav-link opacity-changes d-inline-block" href="/user/profile">
+                      <i class="fas fa-user fa-sm mt-2 float-left"></i>
+                      <h3 class="font3 mobile-font float-right">Minha conta</h3>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link opacity-changes d-inline-block" href="/user/history">
+                      <i class="fas fa-hdd fa-sm mt-2 float-left"></i>
+                        <h3 class="font3 mobile-font float-right">Histórico</h3>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link opacity-changes d-inline-block" href="#">
+                      <i class="fas fa-wrench fa-sm mt-2 float-left"></i>
+                        <h3 class="font3 mobile-font float-right">Ser franqueado</h3>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link opacity-changes d-inline-block" href="/logout">
+                      <i class="fas fa-sign-out-alt fa-sm mt-2 float-left"></i>
+                      <h3 class="font3 mobile-font float-right">Logout</h3>
+                    </a>
+                  </div>
+                  <div class="col-md-6 my-auto">
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link font3" href="#">
+                        SUPORTE E CONTATO
+                      </a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link font3" href="#">
+                        DÚVIDAS FREQUENTES
+                      </a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link font3" href="/terms">
+                        TERMOS DE USO
+                      </a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link font3" href="#">
+                        CURTA NOSSA PÁGINA
+                      </a>
+                    </li>
+                  </div>
+                </div>
+              </ul>
+            </div>
+          </div>      <nav class="navbar navbar-dark py-3">
         <row>
         <button id="menu" class="btn btn-outline-dark float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars fa-2x"></i>
@@ -80,7 +87,6 @@
           </button>
         </row>
         </form>
-
       </nav>
     </div>
 

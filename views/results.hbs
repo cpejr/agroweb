@@ -23,6 +23,7 @@
 <div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
   <div class="col-12 col-md-8">
     {{#each groups}}
+    {{#if offer.product.name}}
       <div class="card mb-1 btn" onclick="location.href = '/offers/{{offer._id}}'">
         <div class="card-body text-right">
           {{#ifCond offer.product.category 'Sementes'}}
@@ -36,8 +37,11 @@
           <p class="card-text align-text-bottom">Entrega: {{offer.delivery}}</p>
         </div>
       </div>
+    {{/if}}
     {{/each}}
+    
     {{#each offers}}
+    {{#if product.name}}
       <div class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
         <div class="card-body text-right">
           {{#ifCond product.category 'Sementes'}}
@@ -47,14 +51,16 @@
           {{/ifCond}}
           <h4 class="align-middle text-center">Compra solo</h4>
           <h5 class="card-title align-text-top">{{product.name}}</h5>
-          <p class="card-text align-text-bottom">Preço: R$ {{price.low}} / {{product.unit}}</p>
+          <p class="card-text align-text-bottom">Preço: <a data-usd={{usd}}>R$ {{price.low}}</a> / {{product.unit}}</p>
           <p class="card-text align-text-bottom">Entrega: {{delivery}}</p>
         </div>
       </div>
+    {{/if}}
     {{/each}}
   </div>
 </div>
 <!-- end ResultsList -->
 
 {{#section 'scripts'}}
+  <script src="/javascripts/money.js"></script>
 {{/section}}

@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  name: {
+  fullName: {
     type: String,
     required: true
   },
@@ -97,7 +97,7 @@ const userSchema = new mongoose.Schema({
     cotton: Number,
     otherCultivations: Number
   },
-  wpp: Number,
+  wpp: String,
   stateRegistration: Number
 }, { timestamps: true, static: false });
 

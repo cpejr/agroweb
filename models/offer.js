@@ -17,6 +17,7 @@ const offerSchema = new mongoose.Schema({
     type: String,
     enum: ['em até 48 horas', 'em até 31 dias', 'safra', 'safrinha']
   },
+  usd: Boolean,
   seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

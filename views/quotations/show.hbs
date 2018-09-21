@@ -21,9 +21,11 @@
           <dt class="text-gray">Quantidade cotada</dt>
           <h4>{{amountBought}} {{offer.product.unit}}</h4>
         </div>
+
+
         <div class="col-6">
           <dt class="text-gray">Preço total</dt>
-          <h2>R$ {{priceBought}}</h2>
+          <h2 data-usd={{offer.usd}}>R$ {{priceBought}}</h2>
         </div>
       </div>
       <!-- end Quotation info -->
@@ -106,7 +108,7 @@
         </div>
       </div>
       <!-- end Product Characteristics -->
-      
+
       <!-- Product description -->
       <div class="col-6 pb-2 mb-5">
         <h4>Descrição</h4>
@@ -126,4 +128,5 @@
 </div>
 
 {{#section 'scripts'}}
+  <script src="/javascripts/money.js"></script>
 {{/section}}

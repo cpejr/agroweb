@@ -65,6 +65,7 @@ router.get('/signup', (req, res) => {
 });
 
 /**
+
  * GET Search Results page
  */
 router.get('/search', (req, res) => {
@@ -88,8 +89,8 @@ router.get('/search', (req, res) => {
       console.log(offerResults);
       Promise.all(groupPromises).then((groupResults) => {
         console.log(groupResults);
-        const groups = groupResults[1];
-        const offers = offerResults[1];
+        const groups = groupResults[0].concat(groupResults[1]);
+        const offers = offerResults[0].concat(offerResults[1]);
         console.log(offers);
         console.log(groups);
         res.render('results', { title: `Resultados para "${req.query.filter}"`, layout: 'layout', groups, offers });

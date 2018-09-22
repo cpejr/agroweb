@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:600|Montserrat:700|Varela+Round">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
-  <body class="gradient-background">
+  <body>
+
     <!-- Header and NavBar -->
     <div class="pos-f-t">
       <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4">
+        <div class="gradient-background p-4">
             <h4 class="text-white">{{firstName}} {{lastName}}</h4>
             <ul class="navbar-nav mr-auto ml-5 mt-4">
               <div class="row">
@@ -69,24 +70,21 @@
                 </div>
               </ul>
             </div>
-          </div>      <nav class="navbar navbar-dark py-3">
+          </div>
+        <nav class="navbar gradient-background py-3">
         <row>
         <button id="menu" class="btn btn-outline-dark float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars fa-2x"></i>
         </button>
       </row>
 
-        <form id="navbar-form" action="../search" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-          <row>
-          <input class="form-control my-2 my-sm-0 pr-4 float-right col-9" type="search" name="filter" placeholder="Buscar">
-          <button class="btn btn-outline-dark " type="button" id="show">
-            <i class="fas fa-search fa-2x"></i>
-          </button>
-          <button class="btn btn-outline-dark d-none float-left" type="submit" id="search">
-            <i class="fas fa-search fa-2x"></i>
-          </button>
-        </row>
-        </form>
+      <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
+        <row>
+         <input id="searchbar-icon" type="search" placeholder="Buscar" class="text-light">
+         <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+       </row>
+       </form>
+
       </nav>
     </div>
 

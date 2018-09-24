@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -6329,8 +6330,67 @@ a.more-link {
     font-size-line-height: 1.5;
     font-size-text-decoration: none;
   margin-top: 50px;
-  letter-spacing: 1px;
+  letter-spacing: 1px; }
+
+.pagination {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15px;
+  margin: auto;
+  text-align: center;
   /* Responsive style changes */ }
+  .pagination__dot {
+    position: absolute;
+    top: -100px;
+    left: 715px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #FF0000, 25%;
+    border-radius: 100px;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0 6px;
+    transition: .3s; }
+    .pagination__dot--active {
+      background: #FF0000; }
+    .pagination__dot:hover {
+      transition: .3s;
+      border-color: white;
+      background: white; }
+      .pagination__dot:hover:before {
+        top: -48px;
+        opacity: 1; }
+      .pagination__dot:hover:after {
+        top: -18px;
+        opacity: 1; }
+    .pagination__dot:before {
+      position: absolute;
+      top: -40px;
+      left: -125px;
+      background: #FF4d4d;
+      width: 250px;
+      font-size: 14px;
+      padding: 8px 0;
+      border-radius: 3px;
+      content: 'A taxa não foi paga ao MegaPool';
+      opacity: 0;
+      transition: .3s; }
+    .pagination__dot:after {
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: -10px;
+      left: -2px;
+      border-top: 6px solid white;
+      border-right: 6px #FF4d4d;
+      border-bottom: 6px #FF4d4d;
+      border-left: 6px #FF4d4d;
+      content: "";
+      opacity: 0;
+      transition: .3s; }
 
 @media (max-width: 769px) {
   .mobile-font {

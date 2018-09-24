@@ -1,11 +1,7 @@
 {{#section 'stylesheets'}}
   <!-- -->
 {{/section}}
-<!-- <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head> -->
+
 <!-- Filters Header -->
 <div class="filters-header row justify-content-center mx-1 mt-2 mb-1">
   <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
@@ -25,13 +21,14 @@
 <!-- OrdersList-->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
     {{#each transactions}}
-    <div class="col-8 col-md-8 col-lg-8">
+    <div class="col-7">
       <div class="card mb-1 btn" onclick="location.href = '/transaction/{{_id}}'">
+
         <div class="mr-2 mt-2 text-right">
-          <div class="pagination">
-            <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
-          </div>
           <div class="text-center">
+            <div class="pagination">
+              <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+            </div>
             <h7 class="card-title align-text-top text-gray ">Compra #{{_id}}</h7>
             <h5 class="card-title align-text-top product-myOrders ">{{offer.product.name}}</h5>
             {{#ifCond status 'Cancelado'}}
@@ -60,8 +57,8 @@
           </div>
         </div>
       </div>
+    </div>
     {{/each}}
-  </div>
 </div>
 
 

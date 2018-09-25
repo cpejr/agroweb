@@ -115,7 +115,9 @@ class Email {
     const text = `Prezado(a) ${data.offer.seller.firstName},
     Você tem uma nova demanda do produto ${data.offer.product.name}.
     A transação aguarda sua aprovação e pode ser consultada no caminho Dashboard -> Boletos pendentes
-    O comprador terá acesso ao boleto uma vez que você aprove a transação e gere o boleto.
+    O comprador terá acesso ao boleto uma vez que você aprove a transação e gere o boleto.    
+    O administrador irá gerar o boleto referente à parcela da Megapool sobre a venda.
+
     Confira abaixo os detalhes da sua venda:
     Transação #${data._id}
     Produto: ${data.offer.product.name}
@@ -154,9 +156,9 @@ class Email {
     console.log('admin Email');
     // console.log(data);
     const text = `Nova compra realizada sob o número #${data._id}.
-    A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para o comprador.
+    A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para o comprador. Esse terá acesso ao boleto uma vez que o vendedor aprove a transação e gere o boleto.
 
-    O comprador terá acesso ao boleto uma vez que o vendendor aprove a transação e gere o boleto.
+    Para transação ocorrer com sucesso, é preciso emitir o boleto para o vendedor referente à parcela da Megapoll sobre a venda.
 
     Confira abaixo os detalhes da transação:
     Transação #${data._id}

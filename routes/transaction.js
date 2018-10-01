@@ -162,4 +162,15 @@ router.delete('/:id', (req, res) => {
   res.redirect('/transaction');
 });
 
+router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
+  console.log(req.body.taxStatus);
+  const transaction = {
+    taxStatus: req.body.taxStatus
+  };
+  Transaction.update(req.params.id, transaction).catch((err) => {
+    console.log(err);
+  });
+  res.redirect('/user/orders');
+});
+
 module.exports = router;

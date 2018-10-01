@@ -26,40 +26,106 @@
           <!-- onclick="location.href = '/transaction/{{_id}}'"> -->
         <div class="mr-2 mt-2 text-right">
           <div class="text-center">
-            <div class="pagination">
+            <div class="pagination float-right">
               <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
             </div>
             <h7 class="card-title align-text-top text-gray ">Compra #{{_id}}</h7>
             <h5 class="card-title align-text-top product-myOrders ">{{offer.product.name}}</h5>
-            {{#ifCond status 'Cancelado'}}
-              <span class="badge badge-danger mt-2">
-            {{else ifCond status 'Entregue'}}
-              <span class="badge badge-success mt-2">
-            {{else}}
-              <span class="badge badge-info mt-2">
-            {{/ifCond}}
-              <h6>{{status}}</h6>
-            </span>
-            </span>
-            </span>
             <div class="dropdown">
-          <button name="status" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Status
+          <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            {{#ifCond status 'Cotado'}}
+              class="btn btn-outline-primary dropdown-toggle ">
+                Cotado
+
+            {{else ifCond status 'Aguardando boleto'}}
+              class="btn btn-outline-secondary dropdown-toggle ">
+                Aguardando boleto
+
+            {{else ifCond status 'Aguardando pagamento'}}
+              class="btn btn-outline-warning  dropdown-toggle ">
+                Aguardando pagamento
+
+            {{else ifCond status 'Pagamento confirmado'}}
+                class="btn btn-outline-success  dropdown-toggle ">
+                  Pagamento confirmado
+
+            {{else ifCond status 'Produto a caminho'}}
+              class="btn btn-outline-info dropdown-toggle ">
+                Produto a caminho
+
+            {{else ifCond status 'Entregue'}}
+              class="btn btn-outline-success  dropdown-toggle ">
+                Entregue
+
+            {{else}}
+              class="btn  dropdown-toggle btn-outline-danger">
+                Cancelado
+            {{/ifCond}}
           </button>
           <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item " href="#"><button class="btn btn-outline-success col-12" name="status" buttonvalue="Pagamento Confirmado " button onclick="location.href='/admin/{{id}}/updateTransaction'">Pagamento confirmado
-              <i class="fas fa-user-check text-right"></i>
-            </button></a>
-            <a class="dropdown-item " href="#"><button class="btn btn-outline-info col-12"name="status" buttonvalue="Aguardando boleto " button onclick="location.href='/admin/{{id}}/updateTransaction'">Aguardando boleto
-              <i class="fas fa-file-alt mr-2"></i>
-            </button></a>
-            <a class="dropdown-item " href="#"><button class="btn btn-outline-warning col-12" name="status"buttonvalue="Aguardando pagamento " button onclick="location.href='/admin/{{id}}/updateTransaction'">Aguardando pagamento
-              <i class="fas fa-money-bill mr-2"></i>
-            </button></a>
-            <a class="dropdown-item " href="#"><button class="btn btn-outline-danger col-12" name="status"buttonvalue="Cancelado"button onclick="location.href='/admin/{{id}}/updateTransaction'">Cancelado
-              <i class="fas fa-user-times mr-2"></i>
-            </button></a>
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Cotado">
+                  Cotado
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Aguardando boleto">
+                  Aguardando boleto
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
+                  Aguardando pagamento
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-success col-12" name="status" value="Pagamento confirmado">
+                  Pagamento confirmado
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-info col-12" name="status" value="Produto a caminho">
+                  Produto a caminho
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
+                  Entregue
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
+                Cancelado
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <
           </div>
         </div>
           <div class="row justify-content-center pt-3">
@@ -88,5 +154,4 @@
 <!-- end OrdersList -->
 
 {{#section 'scripts' }}
-
 {{/section}}

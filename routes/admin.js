@@ -86,4 +86,15 @@ router.get('/:id/updateTransaction', auth.isAuthenticated, auth.isAdmin, (req, r
   res.redirect('/admin/transaction');
 });
 
+router.get('/:id/updateTaxTransaction', auth.isAuthenticated, (req, res) => {
+  console.log(req.body.taxStatus);
+  const transaction = {
+    status: 'Aguardando boleto'
+  };
+  Transaction.update(req.params.id, transaction).catch((err) => {
+    console.log(err);
+  });
+  res.redirect('/user/orders');
+});
+
 module.exports = router;

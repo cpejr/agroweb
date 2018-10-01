@@ -1,9 +1,10 @@
 {{#section 'stylesheets'}}
+  <!-- -->
 {{/section}}
 
 <!-- Filters Header -->
 <div class="filters-header row justify-content-center mx-1 mt-2 mb-1">
-  <div class="col-12 col-md-8 d-flex align-items-center justify-content-betwee">
+  <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
       <h4 class="my-auto mx-auto">{{title}}</h4>
     <div class="flex-right">
       <button type="button" name="button" class="btn ml-1">
@@ -19,13 +20,17 @@
 
 <!-- OrdersList-->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
-  <div class="col-12 col-md-6">
     {{#each transactions}}
-      <div class="card mb-1 btn" onclick="location.href = '/transaction/{{_id}}'">
-        <div class="card-body">
+    <div class="col-7">
+      <div class="card mb-1 btn ">
+          <!-- onclick="location.href = '/transaction/{{_id}}'"> -->
+        <div class="mr-2 mt-2 text-right">
           <div class="text-center">
-            <h7 class="card-title align-text-top text-gray">Compra #{{_id}}</h7>
-            <h5 class="card-title align-text-top product-myOrders">{{offer.product.name}}</h5>
+            <div class="pagination">
+              <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+            </div>
+            <h7 class="card-title align-text-top text-gray ">Compra #{{_id}}</h7>
+            <h5 class="card-title align-text-top product-myOrders ">{{offer.product.name}}</h5>
             {{#ifCond status 'Cancelado'}}
               <span class="badge badge-danger mt-2">
             {{else ifCond status 'Entregue'}}
@@ -35,7 +40,28 @@
             {{/ifCond}}
               <h6>{{status}}</h6>
             </span>
+            </span>
+            </span>
+            <div class="dropdown">
+          <button name="status" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Status
+          </button>
+          <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item " href="#"><button class="btn btn-outline-success col-12" name="status" buttonvalue="Pagamento Confirmado " button onclick="location.href='/admin/{{id}}/updateTransaction'">Pagamento confirmado
+              <i class="fas fa-user-check text-right"></i>
+            </button></a>
+            <a class="dropdown-item " href="#"><button class="btn btn-outline-info col-12"name="status" buttonvalue="Aguardando boleto " button onclick="location.href='/admin/{{id}}/updateTransaction'">Aguardando boleto
+              <i class="fas fa-file-alt mr-2"></i>
+            </button></a>
+            <a class="dropdown-item " href="#"><button class="btn btn-outline-warning col-12" name="status"buttonvalue="Aguardando pagamento " button onclick="location.href='/admin/{{id}}/updateTransaction'">Aguardando pagamento
+              <i class="fas fa-money-bill mr-2"></i>
+            </button></a>
+            <a class="dropdown-item " href="#"><button class="btn btn-outline-danger col-12" name="status"buttonvalue="Cancelado"button onclick="location.href='/admin/{{id}}/updateTransaction'">Cancelado
+              <i class="fas fa-user-times mr-2"></i>
+            </button></a>
           </div>
+        </div>
           <div class="row justify-content-center pt-3">
             <div class="col-md-4">
               <p class="card-text align-text-bottom text-center">R$ {{unitPrice}} / {{offer.product.unit}}</p>
@@ -52,10 +78,15 @@
           </div>
         </div>
       </div>
+    </div>
+      </span>
+    </div>
     {{/each}}
-  </div>
-</div>
+
+
+
 <!-- end OrdersList -->
 
-{{#section 'scripts'}}
+{{#section 'scripts' }}
+
 {{/section}}

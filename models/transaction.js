@@ -138,6 +138,21 @@ class Transaction {
       });
     });
   }
+  static getAllBytaxStatus(value) {
+    return new Promise((resolve, reject) => {
+      TransactionModel.find({ taxStatus: value }).populate({
+        path: 'buyer offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
+        }
+      }).then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
 
 module.exports = Transaction;

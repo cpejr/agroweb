@@ -4,7 +4,7 @@
 <!-- end NavBar -->
 
 <div class="card text-center">
-  <div class="card-body gradient-background">
+  <div class="card-body">
     <h3 class="card-title">Boletos Pendentes</h3>
   </div>
 </div>
@@ -26,31 +26,63 @@
       <td>{{buyer.fullName}}</td>
       <td>{{priceBought}}</td>
       <td>   <div class="dropdown">
-    <button name="status" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Status
+    <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+      {{#ifCond taxStatus 'Aguardando boleto'}}
+        class="btn btn-outline-info dropdown-toggle  col-7">
+          Aguardando boleto
+
+      {{else ifCond taxStatus 'Aguardando pagamento'}}
+        class="btn btn-outline-warning dropdown-toggle col-7">
+          Aguardando pagamento
+
+      {{else ifCond taxStatus 'Pagamento confirmado'}}
+        class="btn btn-outline-success  dropdown-toggle col-7">
+          Pagamento confirmado
+
+      {{else}}
+        class="btn  dropdown-toggle btn-outline-danger col-7">
+          Cancelado
+      {{/ifCond}}
     </button>
     <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item " href="#"><button class="btn btn-outline-success col-12" name="status" buttonvalue="Pagamento Confirmado " button onclick="location.href='/admin/{{id}}/updateTransaction'">Pagamento confirmado
-        <i class="fas fa-user-check text-right"></i>
-      </button></a>
-      <a class="dropdown-item " href="#"><button class="btn btn-outline-info col-12"name="status" buttonvalue="Aguardando boleto " button onclick="location.href='/admin/{{id}}/updateTransaction'">Aguardando boleto
-        <i class="fas fa-file-alt mr-2"></i>
-      </button></a>
-      <a class="dropdown-item " href="#"><button class="btn btn-outline-warning col-12" name="status"buttonvalue="Aguardando pagamento " button onclick="location.href='/admin/{{id}}/updateTransaction'">Aguardando pagamento
-        <i class="fas fa-money-bill mr-2"></i>
-      </button></a>
-      <a class="dropdown-item " href="#"><button class="btn btn-outline-danger col-12" name="status"buttonvalue="Cancelado"button onclick="location.href='/admin/{{id}}/updateTransaction'">Cancelado
-        <i class="fas fa-user-times mr-2"></i>
-      </button></a>
+    <div class="dropdown-menu col-7" aria-labelledby="dropdownMenuButton" >
+      <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+        <a class="dropdown-item" href="#">
+          <button type="submit" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
+            Aguardando boleto
+          </button>
+        </a>
+      </form>
+      <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+        <a class="dropdown-item " href="#">
+          <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
+            Aguardando pagamento
+          </button>
+        </a>
+      </form>
+      <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+        <a class="dropdown-item" href="#">
+          <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
+            Pagamento confirmado
+
+          </button>
+        </a>
+      </form>
+
+      <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+        <a class="dropdown-item" href="#">
+          <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
+            Cancelado
+          </button>
+        </a>
+      </form>
+
     </div>
   </div>
-
-      </td>
-    </tr>
     {{/each}}
   </tbody>
 </table>
 
 {{#section 'scripts'}}
+  <script src="/javascripts/navbar.js"></script>
 {{/section}}

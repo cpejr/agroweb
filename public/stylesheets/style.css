@@ -6333,19 +6333,12 @@ a.more-link {
   letter-spacing: 1px; }
 
 .pagination {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
   right: 0;
   height: 15px;
   margin: auto;
   text-align: center;
   /* Responsive style changes */ }
   .pagination__dot {
-    position: absolute;
-    top: -100px;
-    left: 715px;
     width: 16px;
     height: 16px;
     border: 2px solid #FF0000, 25%;
@@ -6367,7 +6360,7 @@ a.more-link {
         top: -18px;
         opacity: 1; }
     .pagination__dot:before {
-      position: absolute;
+      position: relative;
       top: -40px;
       left: -125px;
       background: #FF4d4d;
@@ -6379,7 +6372,7 @@ a.more-link {
       opacity: 0;
       transition: .3s; }
     .pagination__dot:after {
-      position: absolute;
+      position: relative;
       width: 0;
       height: 0;
       top: -10px;

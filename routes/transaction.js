@@ -115,12 +115,15 @@ router.put('/:id', (req, res) => {
     name: req.session.firstName,
     email: req.session.email
   };
+  if (transaction.status === 'Aguardando boleto') {
+    transaction.taxStatus = 'Aguardando Boleto';
+  }
   Transaction.update(req.params.id, transaction).then(() => {
     Email.updateEmail(data, transaction.status).catch((error) => {
       console.log(error);
       res.redirect('/error');
     });
-    if (transaction.status === 'Boleto pendente') {
+    if (transaction.status === 'Aguardando boleto') {
       Offer.findById(transaction.offer).then((offer) => {
         offer.stock -= transaction.amountBought;
         Offer.update(transaction.offer, offer).catch((error) => {
@@ -157,6 +160,17 @@ router.delete('/:id', (req, res) => {
     res.redirect('/error');
   });
   res.redirect('/transaction');
+});
+
+router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
+  console.log(req.body.taxStatus);
+  const transaction = {
+    taxStatus: req.body.taxStatus
+  };
+  Transaction.update(req.params.id, transaction).catch((err) => {
+    console.log(err);
+  });
+  res.redirect('/user/orders');
 });
 
 module.exports = router;

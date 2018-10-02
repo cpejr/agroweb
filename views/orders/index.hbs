@@ -1,9 +1,10 @@
 {{#section 'stylesheets'}}
+  <!-- -->
 {{/section}}
 
 <!-- Filters Header -->
 <div class="filters-header row justify-content-center mx-1 mt-2 mb-1">
-  <div class="col-12 col-md-8 d-flex align-items-center justify-content-betwee">
+  <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
       <h4 class="my-auto mx-auto">{{title}}</h4>
     <div class="flex-right">
       <button type="button" name="button" class="btn ml-1">
@@ -19,23 +20,114 @@
 
 <!-- OrdersList-->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
-  <div class="col-12 col-md-6">
     {{#each transactions}}
-      <div class="card mb-1 btn" onclick="location.href = '/transaction/{{_id}}'">
-        <div class="card-body">
+    <div class="col-7">
+      <div class="card mb-1 btn ">
+          <!-- onclick="location.href = '/transaction/{{_id}}'"> -->
+        <div class="mr-2 mt-2 text-right">
           <div class="text-center">
-            <h7 class="card-title align-text-top text-gray">Compra #{{_id}}</h7>
-            <h5 class="card-title align-text-top product-myOrders">{{offer.product.name}}</h5>
-            {{#ifCond status 'Cancelado'}}
-              <span class="badge badge-danger mt-2">
+            <div class="pagination float-right">
+              <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+            </div>
+            <h7 class="card-title align-text-top text-gray ">Compra #{{_id}}</h7>
+            <h5 class="card-title align-text-top product-myOrders ">{{offer.product.name}}</h5>
+            <div class="dropdown">
+          <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            {{#ifCond status 'Cotado'}}
+              class="btn btn-outline-primary dropdown-toggle ">
+                Cotado
+
+            {{else ifCond status 'Aguardando boleto'}}
+              class="btn btn-outline-secondary dropdown-toggle ">
+                Aguardando boleto
+
+            {{else ifCond status 'Aguardando pagamento'}}
+              class="btn btn-outline-warning  dropdown-toggle ">
+                Aguardando pagamento
+
+            {{else ifCond status 'Pagamento confirmado'}}
+                class="btn btn-outline-success  dropdown-toggle ">
+                  Pagamento confirmado
+
+            {{else ifCond status 'Produto a caminho'}}
+              class="btn btn-outline-info dropdown-toggle ">
+                Produto a caminho
+
             {{else ifCond status 'Entregue'}}
-              <span class="badge badge-success mt-2">
+              class="btn btn-outline-success  dropdown-toggle ">
+                Entregue
+
             {{else}}
-              <span class="badge badge-info mt-2">
+              class="btn  dropdown-toggle btn-outline-danger">
+                Cancelado
             {{/ifCond}}
-              <h6>{{status}}</h6>
-            </span>
+          </button>
+          <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Cotado">
+                  Cotado
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Aguardando boleto">
+                  Aguardando boleto
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
+                  Aguardando pagamento
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-success col-12" name="status" value="Pagamento confirmado">
+                  Pagamento confirmado
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-info col-12" name="status" value="Produto a caminho">
+                  Produto a caminho
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
+                  Entregue
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <form method= "POST" action="/admin/{{id}}/updateTransaction">
+              <a class="dropdown-item" href="#">
+                <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
+                Cancelado
+                  <i class="fas fa-user-check"></i>
+                </button>
+              </a>
+            </form>
+
+            <
           </div>
+        </div>
           <div class="row justify-content-center pt-3">
             <div class="col-md-4">
               <p class="card-text align-text-bottom text-center">R$ {{unitPrice}} / {{offer.product.unit}}</p>
@@ -52,10 +144,14 @@
           </div>
         </div>
       </div>
+    </div>
+      </span>
+    </div>
     {{/each}}
-  </div>
-</div>
+
+
+
 <!-- end OrdersList -->
 
-{{#section 'scripts'}}
+{{#section 'scripts' }}
 {{/section}}

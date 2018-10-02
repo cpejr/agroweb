@@ -64,6 +64,7 @@ const transactionRouter = require('./routes/transaction');
 const chemRouter = require('./routes/chems');
 const testRouter = require('./routes/test');
 const termsRouter = require('./routes/terms');
+const searchRouter = require('./routes/search');
 
 
 /**
@@ -131,10 +132,13 @@ app.use('/PDF', PDFRouter);
 app.use('/groups', groupsRouter);
 app.use('/quotations', quotationRouter);
 app.use('/products', productRouter);
+app.use('/search', searchRouter);
 app.use('/transaction', transactionRouter);
 app.use('/chems', chemRouter);
 app.use('/test', testRouter);
 app.use('/terms', termsRouter);
+
+
 /**
  * Error Handling
  */

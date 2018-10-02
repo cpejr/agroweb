@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
 
 const groupSchema = new mongoose.Schema({
-  amount: Number,
+  amount: {
+    type: Number,
+    required: true
+  },
   users: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
   offer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Offer'
+    ref: 'Offer',
+    required: true
   },
   price: {
     type: Number,
@@ -17,6 +21,15 @@ const groupSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true
+  },
+  productId: {
+    type: String,
+    required: true
+  },
+  delivery: {
+    type: String,
+    enum: ['em até 31 dias', 'safra', 'safrinha'],
+    required: true
   }
 }, { timestamps: true, strict: false });
 
@@ -123,14 +136,14 @@ class Group {
   }
 
   /**
-   * Delete a new User
+   * Delete a User
    * @param {string} id - Group Id
    * @param {string} user - User Id
    * @returns {null}
    */
   static deleteUser(id, user) {
     return new Promise((resolve, reject) => {
-      GroupModel.findByIdAndUpdate(id, { $pop: { users: user } }).then(() => {
+      GroupModel.findByIdAndUpdate(id, { $pull: { users: user } }).then(() => {
         resolve();
       }).catch((err) => {
         reject(err);
@@ -142,17 +155,38 @@ class Group {
    * Get all Groups that match the desired query
    * @param {Object} query - Object that defines the filter
    * @param {Object} sort - Object that defines the sort method
-   * @returns {Object} Product Document Data
+   * @returns {Object} Group Document Data
    */
   static getByQuerySorted(query, sort) {
     return new Promise((resolve, reject) => {
-      GroupModel.find(query).populate({
+      GroupModel.find(query).sort(sort).populate({
         path: 'users offer',
         populate: {
           path: 'seller product',
           populate: { path: 'chem' }
         }
-      }).exec().sort(sort).then((result) => {
+      }).then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get a Group that match the desired query
+   * @param {Object} query - Object that defines the filter
+   * @returns {Object} Group Document Data
+   */
+  static getOneByQuery(query) {
+    return new Promise((resolve, reject) => {
+      GroupModel.findOne(query).populate({
+        path: 'users offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
+        }
+      }).exec().then((result) => {
         resolve(result);
       }).catch((err) => {
         reject(err);

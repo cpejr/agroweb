@@ -8,12 +8,21 @@
       <div class="form-group mx-4 my-2">
         <div class="input-group">
           <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-search"></i></div>
+          </div>
+          <input name="search" type="text" class="form-control" placeholder="Pesquisa nome do produto" id="product-name"></input>
+        </div>
+      </div>
+
+      <div class="form-group mx-4 my-2">
+        <div class="input-group" id="products-result">
+          <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-box"></i></div>
           </div>
-          <select class="form-control" name="offer[product]" >
+          <select class="form-control" name="offer[product]">
             <option disabled selected value> Nome do produto </option>
             {{#each products}}
-            <option name="offer[product]" value={{_id}}>{{name}}</option>
+            <option value={{_id}}>{{name}}</option>
             {{/each}}
           </select>
         </div>
@@ -38,12 +47,12 @@
       </div>
 
       <div class="form-group mx-4 my-2">
-        <label for="usd" class="mt-3"> Deseja variar o valor com o dólar? </label>
+        <label for="usd" class="mt-3"> Os preços serão inseridos em qual moeda? </label>
         <div class="radio">
-          <label><input type="radio" name="offer[usd]" value="1">Sim</label>
+          <label><input type="radio" name="offer[usd]" value="1">Dólar americano (U$)</label>
         </div>
         <div class="radio">
-          <label><input type="radio" name="offer[usd]" value="0">Não</label>
+          <label><input type="radio" name="offer[usd]" value="0">Real (R$)</label>
         </div>
       </div>
     </div>
@@ -126,13 +135,5 @@
 </form>
 
 {{#section 'scripts'}}
-<script type="text/javascript">
-  $(document).ready(() => {
-    $("#category").change(() => {
-      $.get("teste", { category: $('#category').val() }, (result) => {
-        $("#product-selector").html(result);
-      });
-    });
-  });
-</script>
+  <script src="/javascripts/search.js"></script>
 {{/section}}

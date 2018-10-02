@@ -406,6 +406,68 @@ a.more-link
   margin-top: 50px
   letter-spacing: 1px
 
+// tooltips
+.pagination
+  right: 0
+  height: 15px
+  margin: auto
+  text-align: center
+
+
+  &__dot
+    width: 16px
+    height: 16px
+    border: 2px solid (#FF0000, 25%)
+    border-radius: 100px
+    display: inline-block
+    cursor: pointer
+    margin: 0 6px
+    transition: .3s
+
+    &--active
+      background: #FF0000
+
+    &:hover
+        transition: .3s
+        border-color: lighten(#FF0000, 70%)
+        background: lighten(#FF0000, 70%)
+
+        &:before
+          top: -48px
+          opacity: 1
+
+        &:after
+          top: -18px
+          opacity: 1
+
+    &:before
+      position: relative
+      top: -40px
+      left: -125px
+      background: #FF4d4d
+      width: 250px
+      font-size: 14px
+      padding: 8px 0
+      border-radius: 3px
+      content: 'A taxa não foi paga ao MegaPool'
+      opacity: 0
+      transition: .3s
+
+    &:after
+      position: relative
+      width: 0
+      height: 0
+      top: -10px
+      left: -2px
+      border-top: 6px solid lighten(#1BA39C, 80%)
+      border-right: 6px #FF4d4d
+      border-bottom: 6px #FF4d4d
+      border-left: 6px #FF4d4d
+      content: ""
+      opacity: 0
+      transition: .3s
+
+
 
 // navbar
 .searchbar input

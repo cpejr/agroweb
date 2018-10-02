@@ -163,7 +163,7 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
 router.post('/buy', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
   const transaction = {
-    status: 'Boleto pendente'
+    status: 'Aguardando boleto'
   };
   User.getAllQuotationsByUserId(userId).then((quotations) => {
     console.log(quotations);

@@ -65,7 +65,7 @@ router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) =>
 
 /* GET Transaction - Show all pending tickets */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Transaction.getAllByStatus('Boleto pendente').then((transactions) => {
+  Transaction.getAll().then((transactions) => {
     res.render('admin/transaction', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((err) => {
     console.log(err);
@@ -75,10 +75,21 @@ router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 /**
  * GET updateTransaction - Update a Transaction in the database
  */
-router.get('/:id/updateTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  console.log(req.body.status);
+router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
   const transaction = {
-    status: 'Pagamento confirmado'
+    status: req.body.status
+  };
+  Transaction.update(req.params.id, transaction).catch((err) => {
+    console.log(err);
+  });
+  res.redirect('/user/orders');
+});
+
+router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  console.log(req.body.taxStatus);
+  console.log('eu nao sei');
+  const transaction = {
+    taxStatus: req.body.taxStatus
   };
   Transaction.update(req.params.id, transaction).catch((err) => {
     console.log(err);

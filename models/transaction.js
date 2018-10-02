@@ -23,8 +23,12 @@ const transactionSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Cotado', 'Boleto pendente', 'Boleto gerado', 'Pagamento confirmado', 'Produto a caminho', 'Entregue', 'Cancelado'],
+    enum: ['Cotado', 'Aguardando boleto', 'Aguardando pagamento', 'Pagamento confirmado', 'Produto a caminho', 'Entregue', 'Cancelado'],
     default: 'Cotado'
+  },
+  taxStatus: {
+    type: String,
+    enum: ['Aguardando boleto', 'Aguardando pagamento', 'Pagamento confirmado', 'Cancelado']
   }
 }, { timestamps: true, strict: false });
 
@@ -122,6 +126,21 @@ class Transaction {
   static getAllByStatus(value) {
     return new Promise((resolve, reject) => {
       TransactionModel.find({ status: value }).populate({
+        path: 'buyer offer',
+        populate: {
+          path: 'seller product',
+          populate: { path: 'chem' }
+        }
+      }).then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+  static getAllBytaxStatus(value) {
+    return new Promise((resolve, reject) => {
+      TransactionModel.find({ taxStatus: value }).populate({
         path: 'buyer offer',
         populate: {
           path: 'seller product',

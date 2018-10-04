@@ -2,7 +2,7 @@
 {{/section}}
 
 
-<div class="login-wrap mt-5">
+<!-- <div class="login-wrap mt-5">
 	<div class="login-html">
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
@@ -55,7 +55,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 <form action="/user/profile/edit" method="get" novalidate>
   <h4 class="mt-3 text-center">Dados do perfil</h4>
@@ -135,7 +135,7 @@
           <p class="row col" align="justify">{{user.whyIsMegapoolImportant}}</p>
         </div>
 
-        {{else ifCond user.type 'Revenda'}}
+        {{else ifCond user.type 'Revendedor'}}
         <div class="container">
           <p class="row col" align="justify">Telefone fixo:</p>
           <p class="row col" align="justify">{{user.phone}}</p>

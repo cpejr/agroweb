@@ -21,8 +21,9 @@ class Email {
    */
   static sendEmail(data) {
     const config = {
-      from: 'admcpejr@megapool.com.br',
-      to: data.clientEmail,
+      from: data.clientEmail,
+      to: 'lucassouza@cpejr.com.br',
+      // to: 'admcpejr@megapool.com.br',
       subject: data.subject,
       text: data.text
     };
@@ -115,7 +116,7 @@ class Email {
     const text = `Prezado(a) ${data.offer.seller.firstName},
     Você tem uma nova demanda do produto ${data.offer.product.name}.
     A transação aguarda sua aprovação e pode ser consultada no caminho Dashboard -> Boletos pendentes
-    O comprador terá acesso ao boleto uma vez que você aprove a transação e gere o boleto.    
+    O comprador terá acesso ao boleto uma vez que você aprove a transação e gere o boleto.
     O administrador irá gerar o boleto referente à parcela da Megapool sobre a venda.
 
     Confira abaixo os detalhes da sua venda:

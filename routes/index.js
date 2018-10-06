@@ -16,7 +16,7 @@ const router = express.Router();
  * GET Home page
  */
 router.get('/', (req, res) => {
-  res.render('home', { title: 'Página inicial', layout: 'layoutHome' });
+  res.redirect('/site');
 });
 
 /**
@@ -173,17 +173,15 @@ router.post('/signup', (req, res) => {
   });
 });
 
-/**
- * POST Contact Request
- */
-router.post('/contact', (req, res) => {
-  const emailData = req.body.user;
-  console.log(req.body.user);
-  Email.sendEmail(emailData).then((user) => {
-    console.log(user);
-    res.redirect('/success');
-  }).catch(err => console.log(err));
-});
+// router.post('/contact', (req, res) => {
+//   console.log("Email enviado");
+//   const emailData = req.body.user;
+//   console.log(req.body.user);
+//   Email.sendEmail(emailData).then((user) => {
+//     console.log(user);
+//     res.redirect('/success');
+//   }).catch(err => console.log(err));
+// });
 
 // /**
 //  * POST NewsletterMail Request

@@ -25,7 +25,7 @@ class Email {
       to: 'lucassouza@cpejr.com.br',
       // to: 'admcpejr@megapool.com.br',
       subject: data.subject,
-      text: data.text
+      text: data.content
     };
     // console.log(config);
     return new Promise((resolve) => {

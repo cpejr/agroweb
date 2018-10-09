@@ -35,7 +35,7 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOpenTransactionsByUserId(req.session._id).then((transactions) => {
-        console.log(transactions);
+        // console.log(transactions);
         if (req.session.userType === 'Indústria') {
           res.render('orders', { title: 'Demandas', layout: 'layout', transactions });
         }

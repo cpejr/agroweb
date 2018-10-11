@@ -55,7 +55,7 @@ const offersRouter = require('./routes/offers');
 const productsRouter = require('./routes/products');
 const maintenanceRouter = require('./routes/maintenance');
 const adminRouter = require('./routes/admin');
-const newsletterRouter = require('./routes/newsletterlist');
+const newsletterRouter = require('./routes/newsletter');
 const PDFRouter = require('./routes/PDF');
 const groupsRouter = require('./routes/groups');
 const quotationRouter = require('./routes/quotations');
@@ -66,6 +66,7 @@ const testRouter = require('./routes/test');
 const termsRouter = require('./routes/terms');
 const searchRouter = require('./routes/search');
 const componentsRouter = require('./routes/components');
+const siteRouter = require('./routes/site');
 
 
 /**
@@ -128,7 +129,7 @@ app.use('/offers', offersRouter);
 app.use('/products', productsRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/admin', adminRouter);
-app.use('/newsletterlist', newsletterRouter);
+app.use('/newsletter', newsletterRouter);
 app.use('/PDF', PDFRouter);
 app.use('/groups', groupsRouter);
 app.use('/quotations', quotationRouter);
@@ -139,6 +140,7 @@ app.use('/chems', chemRouter);
 app.use('/test', testRouter);
 app.use('/terms', termsRouter);
 app.use('/components', componentsRouter);
+app.use('/site', siteRouter);
 
 
 /**

@@ -35,7 +35,7 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOpenTransactionsByUserId(req.session._id).then((transactions) => {
-        console.log(transactions);
+        // console.log(transactions);
         if (req.session.userType === 'Indústria') {
           res.render('orders', { title: 'Demandas', layout: 'layout', transactions });
         }
@@ -65,7 +65,7 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
     if (user) {
       User.getAllOffersByUserId(req.session._id).then((offers) => {
         console.log(offers);
-        res.render('offers/index', { title: 'Minhas ofertas', layout: 'layout', offers });
+        res.render('offers/index', { title: 'Produtos oferecidos', layout: 'layout', offers });
       }).catch((err) => {
         console.log(err);
         res.redirect('/error');
@@ -199,6 +199,13 @@ router.post('/buy', auth.isAuthenticated, (req, res) => {
     })
     res.redirect('/user/orders');
   });
+});
+
+/**
+ * GET beFranchisee page
+ */
+router.get('/beFranchisee', auth.isAuthenticated, (req, res) => {
+  res.render('beFranchisee', { title: 'Seja Franqueado', layout: 'layout' });
 });
 
 module.exports = router;

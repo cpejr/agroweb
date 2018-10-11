@@ -1,8 +1,8 @@
 {{#section 'stylesheets'}}
 {{/section}}
-
+<div class="container">
 <!-- Buttons -->
-{{#ifCond userType 'Revenda'}}
+{{#ifCond userType 'Revendedor'}}
 <div class="row justify-content-center">
   <div class="my-auto col-lg-3 list-group-item index-highlight index-box">
     <i onclick="location.href = '/quotations'" class="fas fa-shopping-cart fa-lg">
@@ -14,10 +14,10 @@
   <div class="options">
     <button class="btn-index">Minhas cotações</button>
     <button class="btn-index">Minhas compras</button>
-  </div
+  </div>
 
   <div class="my-auto col-lg-3 list-group-item index-highlight index-box">
-    <i onclick="location.href = '/transactions'" class="fas fa-credit-card fa-lg">
+    <i onclick="location.href = '/user/orders'" class="fas fa-credit-card fa-lg">
       <span class="font1 mobile-color-font ml-2">Minhas compras</span>
     </i>
     <i class="fas fa-angle-right fa-lg float-right"></i>
@@ -79,7 +79,7 @@
   </div>
 
   <div class="my-auto col-lg-3 list-group-item index-highlight index-box">
-    <i onclick="location.href = '/transactions'" class="fas fa-credit-card fa-lg">
+    <i onclick="location.href = '/user/orders'" class="fas fa-credit-card fa-lg">
       <span class="font1 mobile-color-font ml-2">Minhas compras</span>
     </i>
     <i class="fas fa-angle-right fa-lg float-right"></i>
@@ -103,7 +103,7 @@
   </div>
 
   <div class="my-auto col-lg-3 list-group-item index-highlight index-box">
-    <i onclick="location.href = '/transactions'" class="fas fa-credit-card fa-lg">
+    <i onclick="location.href = '/user/orders'" class="fas fa-credit-card fa-lg">
       <span class="font1 mobile-color-font ml-2">Minhas compras</span>
     </i>
     <i class="fas fa-angle-right fa-lg float-right"></i>
@@ -118,7 +118,7 @@
 </div>
 
 {{/ifCond}}
-
+</div>
 <!-- end Buttons -->
 
 {{#section 'scripts'}}

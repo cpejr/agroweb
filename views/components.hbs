@@ -1,0 +1,91 @@
+<!-- LISTA DE COMPONENTES DO AGRO -->
+<div class="ml-4">
+  <h2 class="mt-2 mb-2">FONTES</h2>
+  <p class="font-black">Teste</p>
+  <p class="font-bold">Teste</p>
+  <p class="font-book">Teste</p>
+  <p class="font-light">Teste</p>
+
+  <h2 class="mt-2 mb-2">CARDS</h2>
+
+  <div class="col-sm-12 col-md-4">
+<!-- Define quanto de espaço o card ocupa. Não muda o tamanho do card, mas se você apertar control shift i, quanto mais colunas, mais
+daquele espaço azul o elemento ocupa (mesmo que ele não estique)-->
+<!-- Para cada oferta, printará um card. Se for outra coisa, tipo orders, seria #each orders, entre duas chaves. Não coloquei a sintaxe
+exata porque essa página não recebe nenhuma oferta do back e esse elemento funciona mesmo comentado, ou seja,não apareceria nenhum card -->
+      <div id="card1" class="card mb-1 btn bg-light2" onclick="location.href = '/offers/{{_id}}'">
+<!-- Aqui eu uso bootstrap pra definir que isso é um card e quando ele é clicado, vai pro link da oferta em específico.
+Tudo que está entre chaves são coisas que recebemos do back. As que não tem hashtags são variáveis-->
+        <div class="text-right p-2">
+          <div class="row">
+            <div class="col-4 col-md-5 col-lg-5 d-inline-block p-1">
+              <div class="text-center">
+                <p class="text-gray2 mt-2 float-right"><i class="font-light mobile-font1">/ {{product.unit}} Teste</i></p>
+                <h4 class="font-book mobile-font4 mobile-font5 side-animation" data-usd={{usd}}>R$ {{price.low}} 123</h4>
+              </div>
+<!-- {{#ifCond product.category 'Sementes'}}
+<i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
+{{else}} -->
+              <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+<!-- {{/ifCond}} -->
+            </div>
+
+            <div class="col-3 p-2">
+              <div class="vl">
+<!-- Essa classe faz a linha verde vertical entre o ícone e preço e o nome -->
+                <h5 class="align-text-top"><i class="font-black text-green ml-2 mobile-font1 text-uppercase">{{product.name}}Teste</i></h5>
+<!-- A classe mobile-font1 faz a fonte ficar responsiva. Tem vários tamanhos, todos com mobile-font1, mobile-font2, etc. Elas podem
+ser vistas no styles.sass. A classe text-uppercase faz o texto ficar em caixa alta sempre.-->
+                <div class="smaller-font d-flex text-center mt-5 justify-content-between">
+<!-- Smaller font é uma classe que criei pra definir um tamanho fixo do nome do card -->
+                  <div class="ml-2">
+                    <p class="text-uppercase font-book mobile-font2">Compra
+                      <span class="count font-light mobile-font2"> <br />solo</span>
+<!-- a tag br vem de break, que significa uma quebra de linha -->
+                    </p>
+                  </div>
+                  <div class="">
+                    <p class="ml-lg-4 ml-3 text-uppercase font-book mobile-font2">Entrega
+                      <span class="count font-light mobile-font2"> <br />{{delivery}}Teste</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <h2 class="mt-2 mb-2">BOTÕES</h2>
+
+  <div class="btn-index col-lg-3 list-group-item mobile-font2 text-center bg-light2">
+<!-- btn-index é uma classe que só permite que a animação do botão seja feita no desktop, ou seja, quando fica responsivo, o layout
+dos botões muda. Isso pode ser modificado, fiz isso pra encaixar com a dashboard do Agro mesmo. Mas se forem mudar, me avisem por favor! -->
+    <p class="font-book mb-2 my-auto text-dark2 text-center">Teste</p>
+  </div>
+
+  <button class="btn bg-green text-light2">Teste</button>
+
+  <h2 class="mt-2 mb-2">INPUTS</h2>
+
+  <div class="form-group col-3">
+<!-- form-group é uma classe do bootstrap utilizado para agrupar elementos num form -->
+    <div class="user-input">
+<!-- user-input e floating-label são classes que utilizo pra fazer o texto mudar de lugar quando clica no input -->
+      <br/>
+      <div class="input-group bg-light2">
+<!-- input-group é uma classe do bootstrap. Ele agrupa itens dentro de um mesmo imput (nesse caso, o ícone e  a label) -->
+       <div class="input-group-prepend">
+         <div class="input-group-text bg-light2"><i class="fas fa-cart-arrow-down text-dark"></i></div>
+       </div>
+      <input name="product[name]" type="text" class="form-control input-text" required>
+<!-- quando temos uma estrutura do tipo product[name], geralmente é o que mandamos para o back algo que estamos inserindo: dentro da
+"struct" product, há uma variável de nome name. Quando o back envia pra gente, temos value={{coisa}}, o qual coisa é a variável que
+o back nos enviou pra aquilo. O required apenas indica que, para o form ser enviado, aquele campo em específico precisa ser preenchido-->
+      <label class="floating-label font-book text-dark2">Teste</label>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -4,7 +4,93 @@
 @import ../fonts/officialfonts/GOTHAM-BOLD.TTF
 @import ../fonts/officialfonts/GOTHAM-LIGHT.TTF
 
-// fonts
+//
+// Default colors
+//
+$dark-color: #232323
+$dark2-color: #5b5b5b
+$light-color: #E5E7E9
+$green-color: #3b9939 // A definir
+$green-color2: #537c00
+$gray-color: #e5e5e5
+$gray-color2: #b2b2b2
+$gray-color3: #606060
+$gray-color4: #caccce
+$red-color: #db4437
+$green-color3: #b2ca00
+//
+// Default settings
+//
+body
+  background-color: $light-color
+  height: 100%
+
+//
+//Default backgrounds
+//
+.bg-dark
+  background-color: $dark-color !important
+
+.bg-dark2
+  background-color: $dark2-color
+
+.bg-light
+  background-color: $light-color !important
+
+.bg-green
+  background: $green-color
+
+.bg-green2
+  background: $green-color2
+
+.bg-light2
+  background-color: #FDFEFE
+
+.bg-img1
+  background-image: url('../images/bg-g.jpg')
+  background-size: cover
+  background-position: top
+  background-repeat: no-repeat
+
+.bg-img2
+  background-image: url('../images/AdobeStock_89784591_Preview.jpeg')
+  background-size: cover
+  background-position: top
+  background-repeat: no-repeat
+
+//
+// Default text colors
+//
+.text-dark
+  color: $dark-color !important
+
+.text-dark2
+  color: $dark2-color
+
+.text-light
+  color: $light-color !important
+
+.text-gray
+  color: $gray-color !important
+
+.text-red
+  color: $red-color !important
+
+.text-green
+  color: $green-color !important
+
+.text-green2
+  color: $green-color2 !important
+
+.text-green3
+  color: $green-color3 !important
+
+.text-light2
+  color: #FDFEFE
+
+//
+// Default fonts
+//
 
 @font-face
   font-family: 'gotham-bold'
@@ -43,83 +129,6 @@
 .font-book
   font-family: 'gotham-book'
 
-//
-// Default colors
-//
-$dark-color: #232323
-$dark2-color: #5b5b5b
-$light-color: #E5E7E9
-$green-color: #3b9939 // A definir
-$green-color2: #537c00
-$gray-color: #e5e5e5
-$gray-color2: #b2b2b2
-$gray-color3: #606060
-$red-color: #db4437
-$green-color3: #b2ca00
-//
-// Default settings
-//
-body
-  background-color: $light-color
-  height: 100%
-
-//
-//Default backgrounds
-//
-.bg-dark
-  background-color: $dark-color !important
-
-.bg-dark2
-  background-color: $dark2-color
-
-.bg-light
-  background-color: $light-color !important
-
-.bg-green
-  background: $green-color
-
-.bg-green2
-  background: $green-color2
-
-.bg-img1
-  background-image: url('../images/bg-g.jpg')
-  background-size: cover
-  background-position: top
-  background-repeat: no-repeat
-
-  .bg-img2
-    background-image: url('../images/AdobeStock_89784591_Preview.jpeg')
-    background-size: cover
-    background-position: top
-    background-repeat: no-repeat
-
-//
-// Default text colors
-//
-.text-dark
-  color: $dark-color !important
-
-.text-dark2
-  color: $dark2-color
-
-.text-light
-  color: $light-color !important
-
-.text-gray
-  color: $gray-color !important
-
-.text-button
-  color: $green-color
-
-.text-red
-  color: $red-color !important
-
-.text-green
-  color: $green-color !important
-
-//
-// Default fonts
-//
 body
   font-family: 'gotham-bold'
 
@@ -148,9 +157,9 @@ nav .form-control
 
 //cards
 .card
-  background-color: $light-color
   color: $dark-color
   width: 22.3em
+  border-color: $dark2-color
 
 .break
   -ms-word-break: break-all
@@ -255,7 +264,7 @@ img.footer-brand
 
 .user-input .input-text:focus
 	border-color: black
-	border-width: medium medium 2px
+	border-width: 1px
 
 .user-input .floating-label
 	position: absolute
@@ -583,8 +592,8 @@ a.more-link
 @media (min-width:769px)
   .btn-index
     background: white
-    border: 3px solid black
-    box-shadow: 0 0 0 black
+    border: 1px solid $dark-color
+    box-shadow: 0 0 0 $dark-color
     transition: all 0.2s
     margin-top: 20px
     margin-bottom: 20px
@@ -594,11 +603,11 @@ a.more-link
     margin: 0
 
   .btn-index:hover
-    box-shadow: 0.4rem 0.4rem 0 black
+    box-shadow: 0.4rem 0.4rem 0 $dark-color
     transform: translate(-0.3rem, -0.3rem)
 
   .btn-index:active
-    box-shadow: 0 0 0 black
+    box-shadow: 0 0 0 $dark-color
     transform: translate(0, 0)
 
   .desktop-font1

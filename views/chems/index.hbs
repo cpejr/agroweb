@@ -1,43 +1,47 @@
 {{#section 'stylesheets'}}
 {{/section}}
-<div class="card ">
-  <div class="row mx-auto card-body text-center">
-    <h3 class="card-title">Princípios ativos</h3>
+<div class="row justify-content-center mt-2 mx-0">
+  <div class="col-3">
   </div>
-  <span class="float-right pull-right mb-2 ml-2">
-    <button onclick="location.href='/chems/new'" class="btn btn-outline-info">Adicionar novo princípio ativo</button>
-  </span>
+
+  <div class="col-6">
+    <div class="text-center p-3">
+      <h3>Princípios ativos</h3>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div class="text-right p-3">
+      <button onclick="location.href = '/products/new'" class="btn btn-outline-info">Adicionar novo princípio ativo</button>
+    </div>
+  </div>
 </div>
 
 <!-- Chems list -->
-<div id="results-list" class="row justify-content-center mt-2 mx-0 ">
-  <div class="text-center">
-    <table class="table table-responsive table-striped table-dark  ">
-      <thead>
-        <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">Editar</th>
-          <th scope="col">Excluir</th>
-        </tr>
-      </thead>
-      <tbody>
-      {{#each chems}}
-        <tr>
-          <th scope="row">{{name}}</th>
-          <th scope="row">
-            <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
-          </th>
-          <th scope="row">
-            <form action="/chems/{{id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-outline-danger">Excluir</button>
-            </form>
-          </th>
-        </tr>
-      {{/each}}
-      </tbody>
-    </table>
-  </div>
-</div>
+<table class="table table-light table-striped text-center">
+  <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Excluir</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each chems}}
+    <tr>
+      <th scope="row">{{name}}</th>
+      <th scope="row">
+        <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
+      </th>
+      <th scope="row">
+        <form action="/chems/{{id}}?_method=DELETE" method="POST">
+          <button type="submit" class="btn btn-outline-danger">Excluir</button>
+        </form>
+      </th>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
 <!-- end chems list -->
 
 {{#section 'scripts'}}

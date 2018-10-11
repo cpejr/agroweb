@@ -50,11 +50,32 @@
       {{#each users}}
         <tr>
           <th scope="row">{{fullName}}</th>
+          <td><div class="dropdown">
+        <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
           {{#ifCond active true}}
-            <td><div class="badge2 badge-success px-2 text-center">Ativo</div></td>
+            class="btn btn-outline-success dropdown-toggle  col-12">
+            Ativo
           {{else ifCond active false}}
-            <td><div class="badge2 badge-danger px-2 text-center">Inativo</div></td>
+            class="btn btn-outline-danger dropdown-toggle  col-12">
+            Inativo
           {{/ifCond}}
+        </button>
+        <div class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton" >
+          <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+            <a class="dropdown-item" href="#">
+              <button type="submit" class="btn btn-outline-success col-12" name="active" value=true>
+                Ativo
+              </button>
+            </a>
+          </form>
+          <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+            <a class="dropdown-item " href="#">
+              <button type="submit" class="btn btn-outline-danger col-12" name="active" value=false>
+                Inativo
+              </button>
+            </a>
+          </form>
+        </div>
           <td>{{type}}</td>
           <td>{{email}}</td>
           <td>{{doc}}</td>

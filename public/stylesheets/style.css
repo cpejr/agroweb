@@ -6105,19 +6105,19 @@ body {
 
 @font-face {
   font-family: 'gotham-bold';
-  src: url("../fonts/officialfonts/GOTHAM-BOLD.ttf") format("truetype"); }
+  src: url("../fonts/officialfonts/GOTHAM-BOLD.ttf"); }
 
 @font-face {
   font-family: 'gotham-black';
-  src: url("../fonts/officialfonts/GOTHAM-BLACK.ttf") format("truetype"); }
+  src: url("../fonts/officialfonts/GOTHAM-BLACK.ttf"); }
 
 @font-face {
   font-family: 'gotham-light';
-  src: url("../fonts/officialfonts/GOTHAM-LIGHT.ttf") format("truetype"); }
+  src: url("../fonts/officialfonts/GOTHAM-LIGHT.ttf"); }
 
 @font-face {
   font-family: 'gotham-book';
-  src: url("../fonts/officialfonts/Gotham-Book.otf") format("opentype"); }
+  src: url("../fonts/officialfonts/Gotham-Book.otf"); }
 
 .font1 {
   font-family: 'Dosis'; }
@@ -6572,5 +6572,42 @@ a.more-link {
     transform: translate(0, 0); }
   .desktop-font1 {
     font-size: 10px; } }
+
+.autocomplete {
+  background: #fff;
+  position: relative; }
+
+.autocomplete .close {
+  position: absolute;
+  font-size: 13px;
+  z-index: 10;
+  top: 10px;
+  left: calc(100% - 60px);
+  color: #aaa;
+  cursor: pointer;
+  display: none; }
+
+.autocomplete .close.visible {
+  display: block; }
+
+.dialog {
+  width: 100%;
+  display: none;
+  min-height: 40px;
+  max-height: 330px;
+  overflow: scroll;
+  border-top: 1px solid #f4f4f4; }
+
+.dialog.open {
+  display: block; }
+
+.dialog div {
+  padding: 20px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s; }
+
+.dialog div:hover {
+  background: #f2f2f2; }
 
 /*# sourceMappingURL=style.css.map */

@@ -97,4 +97,25 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
   res.redirect('/admin/transaction');
 });
 
+router.post('updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  console.log(req.body.active);
+  const user = {
+    active: req.body.active
+  };
+  console.log(req.body.active);
+  User.update(req.params.id, user).catch((err) => {
+    console.log(err);
+  });
+  res.redirect('/admin/users');
+});
+
+/* GET Offers - Show all offers */
+router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Offer.getAll().then((groups) => {
+    res.render('groups/index', { title: 'Grupos de Compra', layout: 'layout', groups });
+  }).catch((err) => {
+    console.log(err);
+  });
+});
+
 module.exports = router;

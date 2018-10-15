@@ -4,6 +4,7 @@ const Offer = require('../models/offer');
 const Product = require('../models/product');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
+const Dollar = require('../functions/money');
 
 const router = express.Router();
 
@@ -56,21 +57,18 @@ router.post('/', (req, res) => {
         const queryGroup = { productId: offer.product, delivery: offer.delivery };
         Group.getOneByQuery(queryGroup).then((group) => {
           console.log(group);
-          if (group) {
-            console.log('Compara e troca a oferta que tem o grupo');
-            const offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
-            const offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
-            if (offerGroupPrice < offerPrice) {
-              const groupData = {
-                offer: offer._id
-              };
-              Group.update(group._id, groupData).catch((err) => {
-                console.log(err);
-                res.redirect('/error');
-              });
-            }
-            else if (offerGroupPrice === offerPrice) {
-              if (group.offer.stock < offer.stock) {
+          Dollar.getUsdValue().then((dollar) => {
+            if (group) {
+              console.log('Compara e troca a oferta que tem o grupo');
+              let offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
+              let offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
+              if (group.offer.usd) {
+                offerGroupPrice *= dollar;
+              }
+              if (offer.usd) {
+                offerPrice *= dollar;
+              }
+              if (offerGroupPrice < offerPrice) {
                 const groupData = {
                   offer: offer._id
                 };
@@ -79,23 +77,37 @@ router.post('/', (req, res) => {
                   res.redirect('/error');
                 });
               }
+              else if (offerGroupPrice === offerPrice) {
+                if (group.offer.stock < offer.stock) {
+                  const groupData = {
+                    offer: offer._id
+                  };
+                  Group.update(group._id, groupData).catch((err) => {
+                    console.log(err);
+                    res.redirect('/error');
+                  });
+                }
+              }
             }
-          }
-          else {
-            const newGroup = {
-              amount: 0,
-              offer: offerId,
-              price: offer.price.high,
-              productId: offer.product,
-              delivery: offer.delivery
-            };
-            Group.create(newGroup).then((groupId) => {
-              console.log(`Created new group with id: ${groupId}`);
-            }).catch((err) => {
-              console.log(err);
-              res.redirect('/error');
-            });
-          }
+            else {
+              const newGroup = {
+                amount: 0,
+                offer: offerId,
+                price: offer.price.high,
+                productId: offer.product,
+                delivery: offer.delivery
+              };
+              Group.create(newGroup).then((groupId) => {
+                console.log(`Created new group with id: ${groupId}`);
+              }).catch((err) => {
+                console.log(err);
+                res.redirect('/error');
+              });
+            }
+          }).catch((err) => {
+            console.log(err);
+            res.redirect('/error');
+          });
         }).catch((err) => {
           console.log(err);
           res.redirect('/error');
@@ -164,21 +176,18 @@ router.put('/:id', (req, res) => {
     const queryGroup = { productId: offer.product, delivery: offer.delivery };
     Group.getOneByQuery(queryGroup).then((group) => {
       console.log(group);
-      if (group) {
-        console.log('Compara e troca a oferta que tem o grupo');
-        const offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
-        const offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
-        if (offerGroupPrice < offerPrice) {
-          const groupData = {
-            offer: offer._id
-          };
-          Group.update(group._id, groupData).catch((err) => {
-            console.log(err);
-            res.redirect('/error');
-          });
-        }
-        else if (offerGroupPrice === offerPrice) {
-          if (group.offer.stock < offer.stock) {
+      Dollar.getUsdValue().then((dollar) => {
+        if (group) {
+          console.log('Compara e troca a oferta que tem o grupo');
+          let offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
+          let offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
+          if (group.offer.usd) {
+            offerGroupPrice *= dollar;
+          }
+          if (offer.usd) {
+            offerPrice *= dollar;
+          }
+          if (offerGroupPrice < offerPrice) {
             const groupData = {
               offer: offer._id
             };
@@ -187,23 +196,37 @@ router.put('/:id', (req, res) => {
               res.redirect('/error');
             });
           }
+          else if (offerGroupPrice === offerPrice) {
+            if (group.offer.stock < offer.stock) {
+              const groupData = {
+                offer: offer._id
+              };
+              Group.update(group._id, groupData).catch((err) => {
+                console.log(err);
+                res.redirect('/error');
+              });
+            }
+          }
         }
-      }
-      else {
-        const newGroup = {
-          amount: 0,
-          offer: offerId,
-          price: offer.price.high,
-          productId: offer.product,
-          delivery: offer.delivery
-        };
-        Group.create(newGroup).then((groupId) => {
-          console.log(`Created new group with id: ${groupId}`);
-        }).catch((err) => {
-          console.log(err);
-          res.redirect('/error');
-        });
-      }
+        else {
+          const newGroup = {
+            amount: 0,
+            offer: offer._id,
+            price: offer.price.high,
+            productId: offer.product,
+            delivery: offer.delivery
+          };
+          Group.create(newGroup).then((groupId) => {
+            console.log(`Created new group with id: ${groupId}`);
+          }).catch((err) => {
+            console.log(err);
+            res.redirect('/error');
+          });
+        }
+      }).catch((err) => {
+        console.log(err);
+        res.redirect('/error');
+      });
     }).catch((err) => {
       console.log(err);
       res.redirect('/error');

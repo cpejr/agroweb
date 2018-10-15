@@ -7,20 +7,25 @@ require('dotenv').config();
 /**
  * Dependencies
  */
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
+const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const exphbs = require('express-handlebars');
+const express = require('express');
+const firebase = require('firebase');
+const flash = require('express-flash');
 const logger = require('morgan');
 const methodOverride = require('method-override');
-const sassMiddleware = require('node-sass-middleware');
-const firebase = require('firebase');
-const nodemailer = require('nodemailer');
-const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
-const flash = require('express-flash');
+const path = require('path');
+const sassMiddleware = require('node-sass-middleware');
+const session = require('express-session');
+const schedule = require('node-schedule');
+
+/**
+ * Functions
+ */
+const dollarQuotation = require('./functions/scheduled-quotation');
 
 /**
  * Firebase Setup
@@ -47,6 +52,13 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
   });
 
 /**
+ * Getting dollar quotation everyday
+ */
+schedule.scheduleJob('0 0 3 * * *', () => {
+  dollarQuotation.dailyDollarUpdate();
+});
+
+/**
  * Routes
  */
 const indexRouter = require('./routes/index');
@@ -65,7 +77,6 @@ const chemRouter = require('./routes/chems');
 const testRouter = require('./routes/test');
 const termsRouter = require('./routes/terms');
 const searchRouter = require('./routes/search');
-
 
 /**
  * Application Initialization
@@ -137,7 +148,6 @@ app.use('/transaction', transactionRouter);
 app.use('/chems', chemRouter);
 app.use('/test', testRouter);
 app.use('/terms', termsRouter);
-
 
 /**
  * Error Handling

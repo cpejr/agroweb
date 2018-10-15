@@ -1,8 +1,8 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<div class="row">
-<div class="card-body text-right col-7 ">
+<div class="row col-12">
+  <div class="card-body text-right col-7 ">
     <h3 class="card-title ">Grupos de compra</h3>
   </div>
   <div class="text-center mr-5 mt-4 ml-5">
@@ -12,7 +12,7 @@
     <button type="button col-1 color-muted" name="button" class="btn ml-1">
       <i class="fas fa-filter float-left"></i>
     </button>
-</div>
+  </div>
 </div>
 
 <table class="table table-light table-bordered text-center">
@@ -30,13 +30,15 @@
     {{#each groups}}
     <tr>
       <td>{{_id}}</td>
-      <td>{{offer.name}}</td>
+      <td>{{offer.product.name}}</td>
       <td>{{price}}</td>
-      <td>{{manufacturer}}</td>
-      <td>eu nao faço ideia</td>
-      <td>eu nao faço ideia</td>
+      <td>{{offer.seller.responsible.name}}</td>
+      <td>{{amount}}</td>
+      <td>Em definição</td>
+    </tr>
       {{/each}}
     </tbody>
   </table>
+
 {{#section 'scripts'}}
 {{/section}}

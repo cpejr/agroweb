@@ -1,6 +1,7 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
+<div class="p-3">
 <!-- <div class="card text-center"> -->
   <div class="col-12">
     <div class="text-center p-3">
@@ -9,79 +10,80 @@
   </div>
 <!-- </div> -->
 
-<table class="table table-light table-striped text-center">
-  <thead>
-    <tr>
-      <th scope="col">Código da Compra</th>
-      <th scope="col">Comprador</th>
-      <th scope="col">Preço</th>
-      <!-- <th scope="col">Vendendor</th> -->
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each transactions}}
-    <tr>
-      <td>{{_id}}</td>
-      <td>{{buyer.fullName}}</td>
-      <td>{{priceBought}}</td>
-      <td>   <div class="dropdown">
-    <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-      {{#ifCond taxStatus 'Aguardando boleto'}}
-        class="btn btn-outline-info dropdown-toggle  col-7">
+<div style="overflow-x:auto;">
+  <table class="table table-light table-striped text-center">
+    <thead>
+      <tr>
+        <th scope="col">Código da Compra</th>
+        <th scope="col">Comprador</th>
+        <th scope="col">Preço</th>
+        <!-- <th scope="col">Vendendor</th> -->
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each transactions}}
+      <tr>
+        <td>{{_id}}</td>
+        <td>{{buyer.fullName}}</td>
+        <td>{{priceBought}}</td>
+        <td>   <div class="dropdown">
+          <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+          {{#ifCond taxStatus 'Aguardando boleto'}}
+          class="btn btn-outline-info dropdown-toggle col-12">
           Aguardando boleto
 
-      {{else ifCond taxStatus 'Aguardando pagamento'}}
-        class="btn btn-outline-warning dropdown-toggle col-7">
+          {{else ifCond taxStatus 'Aguardando pagamento'}}
+          class="btn btn-outline-warning dropdown-toggle col-12">
           Aguardando pagamento
 
-      {{else ifCond taxStatus 'Pagamento confirmado'}}
-        class="btn btn-outline-success  dropdown-toggle col-7">
+          {{else ifCond taxStatus 'Pagamento confirmado'}}
+          class="btn btn-outline-success  dropdown-toggle col-12">
           Pagamento confirmado
 
-      {{else}}
-        class="btn  dropdown-toggle btn-outline-danger col-7">
+          {{else}}
+          class="btn  dropdown-toggle btn-outline-danger col-12">
           Cancelado
-      {{/ifCond}}
-    </button>
-    <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-    <div class="dropdown-menu col-7" aria-labelledby="dropdownMenuButton" >
-      <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-        <a class="dropdown-item" href="#">
-          <button type="submit" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
-            Aguardando boleto
-          </button>
-        </a>
-      </form>
-      <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-        <a class="dropdown-item " href="#">
-          <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
-            Aguardando pagamento
-          </button>
-        </a>
-      </form>
-      <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-        <a class="dropdown-item" href="#">
-          <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
-            Pagamento confirmado
+          {{/ifCond}}
+        </button>
+        <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+          <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+            <a class="dropdown-item" href="#">
+              <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
+                Aguardando boleto
+              </button>
+            </a>
+          </form>
+          <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+            <a class="dropdown-item " href="#">
+              <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
+                Aguardando pagamento
+              </button>
+            </a>
+          </form>
+          <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+            <a class="dropdown-item" href="#">
+              <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
+                Pagamento confirmado
+              </button>
+            </a>
+          </form>
 
-          </button>
-        </a>
-      </form>
-
-      <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-        <a class="dropdown-item" href="#">
-          <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
-            Cancelado
-          </button>
-        </a>
-      </form>
-
-    </div>
-  </div>
-    {{/each}}
-  </tbody>
-</table>
+          <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+            <a class="dropdown-item" href="#">
+              <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
+                Cancelado
+              </button>
+            </a>
+          </form>
+        </div>
+      </div>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+</div>
 
 {{#section 'scripts'}}
   <script src="/javascripts/navbar.js"></script>

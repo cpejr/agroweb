@@ -1,6 +1,7 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
+<div class="p-3">
 <div class="row col-12">
   <div class="card-body text-right col-7 ">
     <h3 class="card-title ">Grupos de compra</h3>
@@ -15,7 +16,8 @@
   </div>
 </div>
 
-<table class="table table-light table-bordered text-center">
+<div style="overflow-x:auto;">
+<table class="table table-striped text-center table-light col-md-12 ">
   <thead>
     <tr>
       <th scope="col">Código do produto</th>
@@ -39,6 +41,8 @@
       {{/each}}
     </tbody>
   </table>
+</div>
+</div>
 
 {{#section 'scripts'}}
 {{/section}}

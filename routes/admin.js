@@ -109,4 +109,13 @@ router.post('updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) =
   res.redirect('/admin/users');
 });
 
+/* GET Offers - Show all offers */
+router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Offer.getAll().then((groups) => {
+    res.render('groups/index', { title: 'Grupos de Compra', layout: 'layout', groups });
+  }).catch((err) => {
+    console.log(err);
+  });
+});
+
 module.exports = router;

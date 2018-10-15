@@ -4,45 +4,6 @@
 @import ../fonts/officialfonts/GOTHAM-BOLD.TTF
 @import ../fonts/officialfonts/GOTHAM-LIGHT.TTF
 
-// fonts
-
-@font-face
-  font-family: 'gotham-bold'
-  src: url("../fonts/officialfonts/GOTHAM-BOLD.ttf") format("truetype")
-
-@font-face
-  font-family: 'gotham-black'
-  src: url("../fonts/officialfonts/GOTHAM-BLACK.ttf") format("truetype")
-
-@font-face
-  font-family: 'gotham-light'
-  src: url("../fonts/officialfonts/GOTHAM-LIGHT.ttf") format("truetype")
-
-@font-face
-  font-family: 'gotham-book'
-  src: url("../fonts/officialfonts/Gotham-Book.otf") format("opentype")
-
-.font1
-  font-family: 'Dosis'
-
-.font2
-  font-family: 'Montserrat'
-
-.font3
-  font-family: 'Varela Round'
-
-.font-black
-  font-family: 'gotham-black'
-
-.font-bold
-  font-family: 'gotham-bold'
-
-.font-light
-  font-family: 'gotham-light'
-
-.font-book
-  font-family: 'gotham-book'
-
 //
 // Default colors
 //
@@ -54,6 +15,7 @@ $green-color2: #537c00
 $gray-color: #e5e5e5
 $gray-color2: #b2b2b2
 $gray-color3: #606060
+$gray-color4: #caccce
 $red-color: #db4437
 $green-color3: #b2ca00
 //
@@ -81,17 +43,20 @@ body
 .bg-green2
   background: $green-color2
 
+.bg-light2
+  background-color: #FDFEFE
+
 .bg-img1
   background-image: url('../images/bg-g.jpg')
   background-size: cover
   background-position: top
   background-repeat: no-repeat
 
-  .bg-img2
-    background-image: url('../images/AdobeStock_89784591_Preview.jpeg')
-    background-size: cover
-    background-position: top
-    background-repeat: no-repeat
+.bg-img2
+  background-image: url('../images/AdobeStock_89784591_Preview.jpeg')
+  background-size: cover
+  background-position: top
+  background-repeat: no-repeat
 
 //
 // Default text colors
@@ -108,18 +73,66 @@ body
 .text-gray
   color: $gray-color !important
 
-.text-button
-  color: $green-color
-
 .text-red
   color: $red-color !important
 
 .text-green
   color: $green-color !important
 
+.text-green2
+  color: $green-color2 !important
+
+.text-green3
+  color: $green-color3 !important
+
+.text-light2
+  color: #FDFEFE
+
 //
 // Default fonts
 //
+
+@font-face
+  font-family: 'gotham-bold'
+  src: url("../fonts/officialfonts/GOTHAM-BOLD.ttf") format("truetype")
+
+
+@font-face
+  font-family: 'gotham-black'
+  src: url("../fonts/officialfonts/GOTHAM-BLACK.ttf") format("truetype")
+
+
+@font-face
+  font-family: 'gotham-light'
+  src: url("../fonts/officialfonts/GOTHAM-LIGHT.ttf") format("truetype")
+
+
+@font-face
+  font-family: 'gotham-book'
+  src: url("../fonts/officialfonts/Gotham-Book.otf") format("opentype")
+
+
+.font1
+  font-family: 'Dosis'
+
+.font2
+  font-family: 'Montserrat'
+
+.font3
+  font-family: 'Varela Round'
+
+.font-black
+  font-family: 'gotham-black'
+
+.font-bold
+  font-family: 'gotham-bold'
+
+.font-light
+  font-family: 'gotham-light'
+
+.font-book
+  font-family: 'gotham-book'
+
 body
   font-family: 'gotham-bold'
 
@@ -148,9 +161,9 @@ nav .form-control
 
 //cards
 .card
-  background-color: $light-color
   color: $dark-color
   width: 22.3em
+  border-color: $dark2-color
 
 .break
   -ms-word-break: break-all
@@ -255,7 +268,7 @@ img.footer-brand
 
 .user-input .input-text:focus
 	border-color: black
-	border-width: medium medium 2px
+	border-width: 1px
 
 .user-input .floating-label
 	position: absolute
@@ -583,8 +596,8 @@ a.more-link
 @media (min-width:769px)
   .btn-index
     background: white
-    border: 3px solid black
-    box-shadow: 0 0 0 black
+    border: 1px solid $dark-color
+    box-shadow: 0 0 0 $dark-color
     transition: all 0.2s
     margin-top: 20px
     margin-bottom: 20px
@@ -594,12 +607,62 @@ a.more-link
     margin: 0
 
   .btn-index:hover
-    box-shadow: 0.4rem 0.4rem 0 black
+    box-shadow: 0.4rem 0.4rem 0 $dark-color
     transform: translate(-0.3rem, -0.3rem)
 
   .btn-index:active
-    box-shadow: 0 0 0 black
+    box-shadow: 0 0 0 $dark-color
     transform: translate(0, 0)
 
   .desktop-font1
     font-size: 10px
+
+
+// Dropdown menu
+.autocomplete
+  background: #fff
+  position: relative
+  // width: 400px
+  // box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24)
+
+.autocomplete .close
+  position: absolute
+  font-size: 13px
+  z-index: 10
+  top: 10px
+  left: calc(100% - 60px)
+  color: #aaa
+  cursor: pointer
+  display: none
+
+.autocomplete .close.visible
+  display: block
+
+// .input
+//   padding: 10px 10px
+//   font-weight: 300
+//   width: 100%
+//   border: none
+//   outline: none
+//   font-size: 14px
+//   color: #666
+
+.dialog
+  width: 100%
+  display: none
+  min-height: 40px
+  max-height: 330px
+  overflow: scroll
+  border-top: 1px solid #f4f4f4
+
+.dialog.open
+  display: block
+
+.dialog div
+  padding: 20px 10px
+  font-size: 13px
+  cursor: pointer
+  transition: all 0.2s
+
+.dialog div:hover
+  background: #f2f2f2

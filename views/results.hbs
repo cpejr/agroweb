@@ -19,6 +19,7 @@
 </div>
 <!-- end Filters Header -->
 
+<!-- ResultsList -->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
   <div class="col-sm-12 col-md-4">
     {{#each offers}}
@@ -39,7 +40,7 @@
 
             <div class="col-3 p-2">
               <div class="vl">
-                <h5 class="align-text-top"><i class="font-black text-green ml-2 mobile-font1 text-uppercase break">{{product.name}}</i></h5>
+                <h5 class="align-text-top"><i class="font-black text-green ml-2 mobile-font1 text-uppercase">{{product.name}}</i></h5>
                 <div class="smaller-font d-flex text-center mt-5 justify-content-between">
                   <div class="ml-2">
                     <p class="text-uppercase font-book mobile-font2">Compra
@@ -60,60 +61,6 @@
     {{/each}}
   </div>
 </div>
-
-
-
-<!-- ResultsList -->
-<!-- <div id="results-list" class="row justify-content-md-end justify-content-center mt-2 mx-0">
-  <div class="col-12 col-md-8">
-    {{#each groups}}
-    {{#if offer.product.name}}
-      <div class="card mb-1 btn" onclick="location.href = '/offers/{{offer._id}}'">
-        <div class="card-body text-right">
-          {{#ifCond offer.product.category 'Sementes'}}
-          <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
-          {{else}}
-          <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
-          {{/ifCond}}
-          <h4 class="align-middle text-center">Grupo de compra</h4>
-          <h5 class="card-title align-text-top">{{offer.product.name}}</h5>
-          <p class="card-text align-text-bottom">Preço: R$ {{offer.price.low}} / {{offer.product.unit}}</p>
-          <p class="card-text align-text-bottom">Entrega: {{offer.delivery}}</p>
-        </div>
-      </div>
-    {{/if}}
-    {{/each}}
-    
-    {{#each offers}}
-    {{#if product.name}}
-      <div class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
-        <div class="card-body text-right">
-          <div class="row">
-            <div class="col-2">
-              {{#ifCond product.category 'Sementes'}}
-              <p class="card-text"><a class="font1" data-usd={{usd}}>R$ {{price.low}}</a> / {{product.unit}}</p>
-              <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
-              {{else}}
-              <div class="row">
-                <p class="card-text text-center"><h2 class="font2" data-usd={{usd}}>R$ {{price.low}}</h2><p class="text-gray ml-2 mt-2">/ {{product.unit}}</p></p>
-              </div>
-              <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
-              {{/ifCond}}
-            </div>
-            <div class="col-6">
-              <div class="vl float-left">
-                <h4 class="align-middle text-center">Compra solo</h4>
-                <h5 class="card-title align-text-top">{{product.name}}</h5>
-                <p class="card-text align-text-bottom">Entrega: {{delivery}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    {{/if}}
-    {{/each}}
-  </div>
-</div> -->
 <!-- end ResultsList -->
 
 {{#section 'scripts'}}

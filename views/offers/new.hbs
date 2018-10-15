@@ -5,7 +5,7 @@
 <form action="/offers/" method="POST">
   <div class="row d-flex justify-content-between">
     <div class="col-md-4">
-      <div class="form-group mx-4 my-2">
+      <!-- <div class="form-group mx-4 my-2">
         <div class="input-group">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-search"></i></div>
@@ -25,6 +25,18 @@
             <option value={{_id}}>{{name}}</option>
             {{/each}}
           </select>
+        </div>
+      </div> -->
+
+      <div class="form-group mx-4 my-2">
+        <div class="input-group autocomplete">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-search"></i></div>
+          </div>
+          <input name="offer[product]" class="form-control" type="text" placeholder="Nome do produto">
+          <span class="close">Apagar</span>
+          <div class="dialog">
+          </div>
         </div>
       </div>
 
@@ -136,4 +148,5 @@
 
 {{#section 'scripts'}}
   <script src="/javascripts/search.js"></script>
+  <script src="/javascripts/dropdown.js"></script>
 {{/section}}

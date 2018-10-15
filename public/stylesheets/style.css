@@ -6042,6 +6042,67 @@ a.text-dark:hover, a.text-dark:focus {
   .table-bordered td {
     border: 1px solid #ddd !important; } }
 
+body {
+  background-color: #E5E7E9;
+  height: 100%; }
+
+.bg-dark {
+  background-color: #232323 !important; }
+
+.bg-dark2 {
+  background-color: #5b5b5b; }
+
+.bg-light {
+  background-color: #E5E7E9 !important; }
+
+.bg-green {
+  background: #3b9939; }
+
+.bg-green2 {
+  background: #537c00; }
+
+.bg-light2 {
+  background-color: #FDFEFE; }
+
+.bg-img1 {
+  background-image: url("../images/bg-g.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat; }
+
+.bg-img2 {
+  background-image: url("../images/AdobeStock_89784591_Preview.jpeg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat; }
+
+.text-dark {
+  color: #232323 !important; }
+
+.text-dark2 {
+  color: #5b5b5b; }
+
+.text-light {
+  color: #E5E7E9 !important; }
+
+.text-gray {
+  color: #e5e5e5 !important; }
+
+.text-red {
+  color: #db4437 !important; }
+
+.text-green {
+  color: #3b9939 !important; }
+
+.text-green2 {
+  color: #537c00 !important; }
+
+.text-green3 {
+  color: #b2ca00 !important; }
+
+.text-light2 {
+  color: #FDFEFE; }
+
 @font-face {
   font-family: 'gotham-bold';
   src: url("../fonts/officialfonts/GOTHAM-BOLD.ttf") format("truetype"); }
@@ -6080,57 +6141,6 @@ a.text-dark:hover, a.text-dark:focus {
   font-family: 'gotham-book'; }
 
 body {
-  background-color: #E5E7E9;
-  height: 100%; }
-
-.bg-dark {
-  background-color: #232323 !important; }
-
-.bg-dark2 {
-  background-color: #5b5b5b; }
-
-.bg-light {
-  background-color: #E5E7E9 !important; }
-
-.bg-green {
-  background: #3b9939; }
-
-.bg-green2 {
-  background: #537c00; }
-
-.bg-img1 {
-  background-image: url("../images/bg-g.jpg");
-  background-size: cover;
-  background-position: top;
-  background-repeat: no-repeat; }
-  .bg-img1 .bg-img2 {
-    background-image: url("../images/AdobeStock_89784591_Preview.jpeg");
-    background-size: cover;
-    background-position: top;
-    background-repeat: no-repeat; }
-
-.text-dark {
-  color: #232323 !important; }
-
-.text-dark2 {
-  color: #5b5b5b; }
-
-.text-light {
-  color: #E5E7E9 !important; }
-
-.text-gray {
-  color: #e5e5e5 !important; }
-
-.text-button {
-  color: #3b9939; }
-
-.text-red {
-  color: #db4437 !important; }
-
-.text-green {
-  color: #3b9939 !important; }
-
-body {
   font-family: 'gotham-bold'; }
 
 button, h2, h4, h6, h7, p, i, a, dt, li {
@@ -6154,9 +6164,9 @@ nav .form-control {
   display: none; }
 
 .card {
-  background-color: #E5E7E9;
   color: #232323;
-  width: 22.3em; }
+  width: 22.3em;
+  border-color: #5b5b5b; }
 
 .break {
   -ms-word-break: break-all;
@@ -6252,7 +6262,7 @@ img.footer-brand {
 
 .user-input .input-text:focus {
   border-color: black;
-  border-width: medium medium 2px; }
+  border-width: 1px; }
 
 .user-input .floating-label {
   position: absolute;
@@ -6546,8 +6556,8 @@ a.more-link {
 @media (min-width: 769px) {
   .btn-index {
     background: white;
-    border: 3px solid black;
-    box-shadow: 0 0 0 black;
+    border: 1px solid #232323;
+    box-shadow: 0 0 0 #232323;
     transition: all 0.2s;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -6555,12 +6565,49 @@ a.more-link {
   .btn-index:last-child {
     margin: 0; }
   .btn-index:hover {
-    box-shadow: 0.4rem 0.4rem 0 black;
+    box-shadow: 0.4rem 0.4rem 0 #232323;
     transform: translate(-0.3rem, -0.3rem); }
   .btn-index:active {
-    box-shadow: 0 0 0 black;
+    box-shadow: 0 0 0 #232323;
     transform: translate(0, 0); }
   .desktop-font1 {
     font-size: 10px; } }
+
+.autocomplete {
+  background: #fff;
+  position: relative; }
+
+.autocomplete .close {
+  position: absolute;
+  font-size: 13px;
+  z-index: 10;
+  top: 10px;
+  left: calc(100% - 60px);
+  color: #aaa;
+  cursor: pointer;
+  display: none; }
+
+.autocomplete .close.visible {
+  display: block; }
+
+.dialog {
+  width: 100%;
+  display: none;
+  min-height: 40px;
+  max-height: 330px;
+  overflow: scroll;
+  border-top: 1px solid #f4f4f4; }
+
+.dialog.open {
+  display: block; }
+
+.dialog div {
+  padding: 20px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s; }
+
+.dialog div:hover {
+  background: #f2f2f2; }
 
 /*# sourceMappingURL=style.css.map */

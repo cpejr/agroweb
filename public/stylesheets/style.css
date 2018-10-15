@@ -6511,7 +6511,7 @@ a.more-link {
   color: #999; }
 
 .gradient-background {
-  background-image: linear-gradient(to right, #3b9939, #b2ca00); }
+  background-image: linear-gradient(to right, #3b9939, #00b800); }
 
 /* Responsive style changes */
 @media (max-width: 769px) {

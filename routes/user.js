@@ -208,4 +208,6 @@ router.get('/beFranchisee', auth.isAuthenticated, (req, res) => {
   res.render('beFranchisee', { title: 'Seja Franqueado', layout: 'layout' });
 });
 
+
+
 module.exports = router;

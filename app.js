@@ -25,7 +25,7 @@ const schedule = require('node-schedule');
 /**
  * Functions
  */
-const dollarQuotation = require('./functions/scheduled-quotation');
+const Money = require('./functions/money');
 
 /**
  * Firebase Setup
@@ -55,7 +55,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
  * Getting dollar quotation everyday
  */
 schedule.scheduleJob('0 0 3 * * *', () => {
-  dollarQuotation.dailyDollarUpdate();
+  Money.dailyDollarUpdate();
 });
 
 /**

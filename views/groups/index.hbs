@@ -3,7 +3,7 @@
 
 <div class="row col-12">
   <div class="card-body text-right col-7 ">
-    <h3 class="card-title ">Grupos de compra</h3>
+    <h3 class="card-title">Grupos de compra</h3>
   </div>
   <div class="text-center mr-5 mt-4 ml-5">
     <button type="button col-1 color-muted" name="button" class="btn ml-1">
@@ -18,23 +18,23 @@
 <table class="table table-light table-bordered text-center">
   <thead>
     <tr>
-      <th scope="col">Código do produto</th>
-      <th scope="col">Nome do produto</th>
-      <th scope="col">Preço atual</th>
-      <th scope="col">Dono</th>
-      <th scope="col">Quantidade sendo contada</th>
-      <th scope="col">Preço total</th>
+      <th scope="col font-black">Código do produto</th>
+      <th scope="col font-black">Nome do produto</th>
+      <th scope="col font-black">Preço atual</th>
+      <th scope="col font-black">Dono</th>
+      <th scope="col font-black">Quantidade sendo contada</th>
+      <th scope="col font-black">Preço total</th>
     </tr>
   </thead>
   <tbody>
     {{#each groups}}
     <tr>
-      <td>{{_id}}</td>
-      <td>{{offer.product.name}}</td>
-      <td>{{price}}</td>
-      <td>{{offer.seller.responsible.name}}</td>
-      <td>{{amount}}</td>
-      <td>Em definição</td>
+      <td class="font-book">{{_id}}</td>
+      <td class="font-book">{{offer.product.name}}</td>
+      <td class="font-book">{{price}}</td>
+      <td class="font-book">{{offer.seller.responsible.name}}</td>
+      <td class="font-book">{{amount}}</td>
+      <td class="font-book">Em definição</td>
     </tr>
       {{/each}}
     </tbody>

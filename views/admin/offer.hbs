@@ -10,24 +10,24 @@
 <table class="table table-light table-striped text-center">
   <thead>
     <tr>
-      <th scope="col">Quantidade em Estoque</th>
-      <th scope="col">Preço</th>
-      <th scope="col">Entrega</th>
-      <th scope="col">Vendendor</th>
-      <th scope="col">Produto</th>
+      <th scope="col" class="font-black">Quantidade em Estoque</th>
+      <th scope="col" class="font-black">Preço</th>
+      <th scope="col" class="font-black">Entrega</th>
+      <th scope="col" class="font-black">Vendendor</th>
+      <th scope="col" class="font-black">Produto</th>
       <!-- <th scope="col">Vendendor</th> -->
-      <th scope="col">Excluir</th>
+      <th scope="col" class="font-black">Excluir</th>
     </tr>
   </thead>
   <tbody>
     {{#each offers}}
     <tr>
-      <td>{{stock}}</td>
-      <td>{{price.average}}</td>
-      <td>{{delivery}}</td>
-      <td>{{seller.fullName}}</td>
-      <td>{{product.name}}</td>
-      <td>
+      <td class="font-book">{{stock}}</td>
+      <td class="font-book">{{price.average}}</td>
+      <td class="font-book">{{delivery}}</td>
+      <td class="font-book">{{seller.fullName}}</td>
+      <td class="font-book">{{product.name}}</td>
+      <td class="font-book">
         <button onclick="location.href='/admin/{{id}}/deleteOffer'" class="btn btn-outline-danger">
           <i class="fas fa-minus-circle"></i>
         </button>

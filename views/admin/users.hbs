@@ -3,7 +3,7 @@
 
 <div class="row">
 <div class="card-body text-right col-7  ">
-    <h3 class="card-title ">Boletos Pendentes</h3>
+    <h3 class="card-title ">Usuários cadastrados</h3>
   </div>
   <div class="text-center mr-5 mt-4 ml-5">
     <button type="button col-1 color-muted" name="button" class="btn ml-1">
@@ -15,70 +15,52 @@
 </div>
 </div>
 
-<!-- Filters Header -->
-<!-- <div class="filters-header row justify-content-center mx-1 mt-2 mb-1">
-  <div class="col-12 d-flex align-items-center justify-content-between">
-    <div class="card text-center">
-      <div class="card-body gradient-background text-center">
-        <h3 class="card-title">Boletos Pendentes</h3>
-      </div>
-      <button type="button" name="button" class="btn ml-1">
-        <i class="fas fa-sort-amount-down "></i>
-      </button>
-      <button type="button" name="button" class="btn ml-1">
-        <i class="fas fa-filter "></i>
-      </button>
-    </div>
-  </div>
-</div> -->
-<!-- end Filters Header -->
-
 <!-- Users list -->
 <div id="results-list" class="row justify-content-center mx-0">
   <div class="col-12 col-md-8">
     <table class="table table-responsive table-bordered table-light">
       <thead>
         <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">Status</th>
-          <th scope="col">Tipo</th>
-          <th scope="col">E-mail</th>
-          <th scope="col">CPF/CNPJ</th>
+          <th scope="col font-black">Nome</th>
+          <th scope="col font-black">Status</th>
+          <th scope="col font-black">Tipo</th>
+          <th scope="col font-black">E-mail</th>
+          <th scope="col font-black">CPF/CNPJ</th>
         </tr>
       </thead>
       <tbody>
       {{#each users}}
         <tr>
-          <th scope="row">{{fullName}}</th>
+          <th scope="row" class="font-book">{{fullName}}</th>
           <td><div class="dropdown">
         <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
           {{#ifCond active true}}
-            class="btn btn-outline-success dropdown-toggle  col-12">
+            class="btn btn-outline-success dropdown-toggle font-book col-12">
             Ativo
           {{else ifCond active false}}
-            class="btn btn-outline-danger dropdown-toggle  col-12">
+            class="btn btn-outline-danger dropdown-toggle font-book col-12">
             Inativo
           {{/ifCond}}
         </button>
         <div class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton" >
           <form  method= "POST" action="/admin/updateUserActive">
             <a class="dropdown-item" href="#">
-              <button type="submit" class="btn btn-outline-success col-12" name="active" value=true>
+              <button type="submit" class="btn btn-outline-success font-book col-12" name="active" value=true>
                 Ativo
               </button>
             </a>
           </form>
           <form method= "POST" action="/admin/updateUserActive">
             <a class="dropdown-item " href="#">
-              <button type="submit" class="btn btn-outline-danger col-12" name="active" value=false>
+              <button type="submit" class="btn btn-outline-danger font-book col-12" name="active" value=false>
                 Inativo
               </button>
             </a>
           </form>
         </div>
-          <td>{{type}}</td>
-          <td>{{email}}</td>
-          <td>{{doc}}</td>
+          <td class="font-book">{{type}}</td>
+          <td class="font-book">{{email}}</td>
+          <td class="font-book">{{doc}}</td>
         </tr>
       {{/each}}
       </tbody>

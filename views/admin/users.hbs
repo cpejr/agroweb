@@ -1,6 +1,6 @@
 {{#section 'stylesheets'}}
 {{/section}}
-
+<div class="p-3">
 <div class="row">
 <div class="card-body text-right col-7  ">
     <h3 class="card-title ">Usuários cadastrados</h3>
@@ -16,55 +16,60 @@
 </div>
 
 <!-- Users list -->
-<div id="results-list" class="row justify-content-center mx-0">
-  <div class="col-12 col-md-8">
-    <table class="table table-responsive table-bordered table-light">
-      <thead>
-        <tr>
-          <th scope="col font-black">Nome</th>
-          <th scope="col font-black">Status</th>
-          <th scope="col font-black">Tipo</th>
-          <th scope="col font-black">E-mail</th>
-          <th scope="col font-black">CPF/CNPJ</th>
-        </tr>
-      </thead>
-      <tbody>
-      {{#each users}}
-        <tr>
-          <th scope="row" class="font-book">{{fullName}}</th>
-          <td><div class="dropdown">
-        <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-          {{#ifCond active true}}
-            class="btn btn-outline-success dropdown-toggle font-book col-12">
-            Ativo
-          {{else ifCond active false}}
-            class="btn btn-outline-danger dropdown-toggle font-book col-12">
-            Inativo
-          {{/ifCond}}
-        </button>
-        <div class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton" >
-          <form  method= "POST" action="/admin/updateUserActive">
-            <a class="dropdown-item" href="#">
-              <button type="submit" class="btn btn-outline-success font-book col-12" name="active" value=true>
-                Ativo
-              </button>
-            </a>
-          </form>
-          <form method= "POST" action="/admin/updateUserActive">
-            <a class="dropdown-item " href="#">
-              <button type="submit" class="btn btn-outline-danger font-book col-12" name="active" value=false>
-                Inativo
-              </button>
-            </a>
-          </form>
-        </div>
-          <td class="font-book">{{type}}</td>
-          <td class="font-book">{{email}}</td>
-          <td class="font-book">{{doc}}</td>
-        </tr>
-      {{/each}}
-      </tbody>
-    </table>
+<div style="overflow-x:auto;">
+  <div id="results-list" class="row justify-content-center mx-0">
+    <div class="col-12">
+      <table class="table table-light table-striped text-center">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Status</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">CPF/CNPJ</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users}}
+          <tr>
+            <th scope="row">{{fullName}}</th>
+            <td><div class="dropdown">
+              <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              {{#ifCond active true}}
+              class="btn btn-outline-success dropdown-toggle  col-12">
+              Ativo
+              {{else ifCond active false}}
+              class="btn btn-outline-danger dropdown-toggle  col-12">
+              Inativo
+              {{/ifCond}}
+            </button>
+            <div class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton" >
+              <form  method= "POST" action="/admin/updateUserActive">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-success col-12" name="active" value=true>
+                    Ativo
+                  </button>
+                </a>
+              </form>
+              <form method= "POST" action="/admin/updateUserActive">
+                <a class="dropdown-item " href="#">
+                  <button type="submit" class="btn btn-outline-danger col-12" name="active" value=false>
+                    Inativo
+                  </button>
+                </a>
+              </form>
+            </div>
+            <td>{{type}}</td>
+            <td>{{email}}</td>
+            <td>{{doc}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
     <!-- <div class="card mb-1" data-status="{{status}}">
       <div class="card-body">
         <div class="text-center">
@@ -81,6 +86,6 @@
   </div>
 </div>
 <!-- end Users list -->
-
+</div>
 {{#section 'scripts'}}
 {{/section}}

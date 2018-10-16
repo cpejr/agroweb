@@ -2,6 +2,7 @@
 {{/section}}
 
 <!-- Filters Header -->
+<div class="p-3">
 <div class="filters-header row justify-content-center mx-1 mt-2 mb-1">
   <div class="col-12 col-md-8 d-flex align-items-center justify-content-between">
       <h4 class="my-auto mx-auto">Produtos oferecidos</h4>
@@ -19,15 +20,15 @@
 
 <!-- OrdersList-->
 
-<div id="results-list" class="row justify-content-center mt-2 mx-0">
-  <div class="col-12 col-md-6">
+<div id="results-list" class="justify-content-center mt-2 mx-0">
+  <!-- <div class="col-12 col-md-6"> -->
     {{#each offers}}
+    <!-- problema na classe card -->
       <div class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
-        <div class="card-body">
+        <!-- <div class="card-body">
           <div class="text-right">
           </div>
-
-          </div>
+        </div> -->
           <div class="text-center">
             <h7 class="card-title align-text-top text-gray">Oferta #{{_id}}</h7>
             <h5 class="card-title align-text-top product-myOrders">{{product.name}}</h5>
@@ -58,11 +59,11 @@
             </div>
           </div>
         </div>
-      </div>
     {{/each}}
-  </div>
+  <!-- </div> -->
 </div>
 <!-- end OrdersList -->
+</div>
 
 {{#section 'scripts'}}
   <script src="/javascripts/sales.js"></script>

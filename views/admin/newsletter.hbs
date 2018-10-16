@@ -10,16 +10,16 @@
 <table class="table table-light table-striped  text-center">
   <thead>
     <tr>
-      <th scope="col">Nome</th>
-      <th scope="col">Email</th>
-      <th scope="col">Opções</th>
+      <th scope="col" class="font-black">Nome</th>
+      <th scope="col" class="font-black">Email</th>
+      <th scope="col" class="font-black">Opções</th>
     </tr>
   </thead>
   <tbody>
     {{#each users}}
     <tr>
-      <td>{{fullName}}</td>
-      <td>{{email}}</td>
+      <td class="font-book">{{fullName}}</td>
+      <td class="font-book">{{email}}</td>
       <th scope="row">
         <form action="/newsletter/{{id}}?_method=DELETE" method="POST">
           <button type="submit" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i></button>

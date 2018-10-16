@@ -1,6 +1,10 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
+  <div class="text-center mt-3">
+    <h3>Editar princípio ativo</h3>
+  </div>
+
 <div class="container">
   <div class="row">
     <div class="col-sm">
@@ -9,9 +13,12 @@
       <div class="align-middle">
         <form action="/chems/{{id}}?_method=PUT" method="POST">
           <div class="form-group">
-            <input type="text" name="name" class="form-control" value="{{name}}" placeholder="{{name}}" id="name">
+            <label for="product-name">Nome</label>
+            <div class="input-group">
+              <input id="product-name" type="text" name="name" class="form-control font-book mr-2" value="{{name}}" placeholder="{{name}}" id="name">
+              <button class="btn bg-green text-light2" type="submit">Salvar</button>
+            </div>
           </div>
-          <button class="btn" type="submit">Salvar</button>
         </form>
       </div>
     </div>

@@ -1,15 +1,24 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<h1>Novo Princípio Ativo</h1>
+<div class="text-center mt-3">
+  <h3>Novo princípio ativo</h3>
+</div>
 
 <form action="/chems" method="POST">
-  <p>Nome do princípio ativo</p>
-  <input name="chem[name]" type="text"></input>
-  <div>
-    <button class="btn" type="submit">Enviar</button>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="form-group">
+      <label for="product-name">Nome do princípio ativo</label>
+      </br>
+      <div class="input-group">
+        <input name="chem[name]" type="text" class=" form-control font-book mr-2"></input>
+        <button class="btn bg-green text-light2" type="submit">Salvar</button>
+      </div>
+    </div>
+    </form>
   </div>
-</form>
+</div>
 
 {{#section 'scripts'}}
 {{/section}}

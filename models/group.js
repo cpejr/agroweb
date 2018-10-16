@@ -30,6 +30,10 @@ const groupSchema = new mongoose.Schema({
     type: String,
     enum: ['em até 31 dias', 'safra', 'safrinha'],
     required: true
+  },
+  rising: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true, strict: false });
 

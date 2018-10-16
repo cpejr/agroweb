@@ -5,10 +5,6 @@ const newsletterSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
   }
 }, { timestamps: true, strict: false });
 

@@ -1,36 +1,36 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<div class="card text-center">
-  <div class="card-body">
-    <h3 class="card-title">Usuários cadastrados na Newsletter</h3>
-  </div>
+<div class="p-3">
+<div class="p-3 text-center">
+  <h3>Newsletter</h3>
 </div>
 
-<table class="table table-dark text-center">
+<div style="overflow-x:auto;">
+<table class="table table-light table-striped  text-center">
   <thead>
     <tr>
       <th scope="col">Nome</th>
       <th scope="col">Email</th>
-      <th scope="col">Tipo de Usuário</th>
-      <th scope="col">Excluir</th>
+      <th scope="col">Opções</th>
     </tr>
   </thead>
   <tbody>
     {{#each users}}
     <tr>
-      <td>{{fullName}}</td>
-      <td>{{email}}</td>
-      <td>Tipo de usuário</td>
-      <td>
-        <button type="button" class="btn btn-outline-danger">
-          <i class="fas fa-minus-circle"></i>
-        </button>
-      </td>
+      <td class="font-book">{{fullName}}</td>
+      <td class="font-book">{{email}}</td>
+      <th scope="row">
+        <form action="/newsletter/{{id}}?_method=DELETE" method="POST">
+          <button type="submit" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i></button>
+        </form>
+      </th>
     </tr>
     {{/each}}
   </tbody>
 </table>
+</div>
+</div>
 
 {{#section 'scripts'}}
 {{/section}}

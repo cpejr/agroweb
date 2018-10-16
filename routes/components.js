@@ -15,7 +15,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   const user = req.session.userType;
   console.log(user);
-  res.render('teste', { title: 'Teste', layout: 'layout', user });
+  res.render('components', { title: 'Componentes do Agro', layout: 'layout', user });
 });
 
 /**

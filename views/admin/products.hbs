@@ -1,44 +1,47 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<div class="card text-center">
-  <div class="row mx-auto card-body">
-    <h3 class="card-title">Produtos disponíveis</h3>
-    <span class="float-right pull-right ml-5">
-      <button onclick="location.href = '/products/new'" class="btn btn-outline-info">Adicionar novo produto</button>
-    </span>
-  </div>
+<div class="p-3">
+<div class="justify-content-center mt-2 mx-0">
+
+    <div class="text-center p-3">
+      <h3 class="font-black">Produtos disponíveis</h3>
+    </div>
+    <div class="text-center p-3 mb-2">
+      <button onclick="location.href = '/products/new'" class="btn font-book btn-outline-info">Adicionar novo produto</button>
+    </div>
 </div>
+
 <!-- Chems list -->
-<div id="results-list" class="row justify-content-center mt-2 mx-0">
-  <div class="text-center">
-    <table class="table table-responsive table-striped table-dark col-md-12">
+
+    <div style="overflow-x:auto;">
+    <table class="table table-striped text-center table-light col-md-12 ">
       <thead>
         <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">Categoria</th>
-          <th scope="col">Fabricante</th>
-          <th scope="col">Ver</th>
-          <th scope="col">Editar</th>
-          <th scope="col">Excluir</th>
+          <th scope="col font-black">Nome</th>
+          <th scope="col font-black">Categoria</th>
+          <th scope="col font-black">Fabricante</th>
+          <th scope="col font-black"></th>
+          <th scope="col font-black">Opções</th>
+          <th scope="col font-black"></th>
         </tr>
       </thead>
       <tbody>
       {{#each products}}
         <tr>
-          <th scope="row">{{name}}</th>
-          <th scope="row">{{category}}</th>
-          <th scope="row">{{manufacturer}}</th>
-          <th scope="row">
-            <button onclick="location.href='/products/{{id}}'" class="btn btn-outline-success">Ver</button>
+          <th scope="row" class="font-book">{{name}}</th>
+          <th scope="row" class="font-light">{{category}}</th>
+          <th scope="row" class="font-light">{{manufacturer}}</th>
+          <th scope="row" class="font-light">
+            <button onclick="location.href='/products/{{id}}'" class="btn btn-outline-success font-book">Ver</button>
           </th>
-          <th scope="row">
-            <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-info">Editar</button>
+          <th scope="row" class="font-light">
+            <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-info font-book">Editar</button>
           </th>
-          <th scope="row">
+          <th scope="row" class="font-light">
             <form method="post">
             <!-- <form action="/products/{{id}}?_method=DELETE" method="POST"> -->
-              <button type="submit" class="btn btn-outline-danger">Excluir</button>
+              <button type="submit" class="btn btn-outline-danger font-book">Excluir</button>
             </form>
           </th>
         </tr>

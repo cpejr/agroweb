@@ -75,7 +75,7 @@ const app = express();
 
 // View Engine Setup
 app.engine('hbs', exphbs({
-  defaultLayout: 'layoutDashboard',
+  defaultLayout: 'layout',
   extname: '.hbs',
   partialsDir: 'views/partials',
   helpers: {

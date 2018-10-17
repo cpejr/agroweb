@@ -22,43 +22,86 @@
 <!-- ResultsList -->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
   <div class="col-sm-12 col-md-4">
-    {{#each offers}}
-      <div id="card1" class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
-        <div class="text-right p-2">
-          <div class="row">
-            <div class="col-4 col-md-5 col-lg-5 d-inline-block p-1">
-              <div class="text-center">
-                <p class="text-gray2 mt-2 float-right"><i class="font-light mobile-font1">/ {{product.unit}}</i></p>
-                <h4 class="font-book mobile-font4 mobile-font5 side-animation" data-usd={{usd}}>R$ {{price.low}}</h4>
+    {{#if offers}}
+      {{#each offers}}
+        <div id="card1" class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
+          <div class="text-right p-2">
+            <div class="row">
+              <div class="col-4 col-md-5 col-lg-5 d-inline-block p-1">
+                <div class="text-center">
+                  <p class="text-gray2 mt-2 float-right"><i class="font-light mobile-font1">/ {{product.unit}}</i></p>
+                  <h4 class="font-book mobile-font4 mobile-font5 side-animation" data-usd={{usd}}>R$ {{price.low}}</h4>
+                </div>
+                {{#ifCond product.category 'Sementes'}}
+                <i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
+                {{else}}
+                <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+                {{/ifCond}}
               </div>
-              {{#ifCond product.category 'Sementes'}}
-              <i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
-              {{else}}
-              <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
-              {{/ifCond}}
-            </div>
 
-            <div class="col-3 p-2">
-              <div class="vl">
-                <h5 class="align-text-top"><i class="font-black text-green ml-2 mobile-font1 text-uppercase">{{product.name}}</i></h5>
-                <div class="smaller-font d-flex text-center mt-5 justify-content-between">
-                  <div class="ml-2">
-                    <p class="text-uppercase font-book mobile-font2">Compra
-                      <span class="count font-light mobile-font2"> <br />solo</span>
-                    </p>
-                  </div>
-                  <div class="">
-                    <p class="ml-lg-4 ml-3 text-uppercase font-book mobile-font2">Entrega
-                      <span class="count font-light mobile-font2"> <br />{{delivery}}</span>
-                    </p>
+              <div class="col-3 p-2">
+                <div class="vl">
+                  <h5 class="align-text-top"><i class="font-black text-green ml-2 mobile-font1 text-uppercase">{{product.name}}</i></h5>
+                  <div class="smaller-font d-flex text-center mt-5 justify-content-between">
+                    <div class="ml-2">
+                      <p class="text-uppercase font-book mobile-font2">Compra
+                        <span class="count font-light mobile-font2"> <br/>solo</span>
+                      </p>
+                    </div>
+                    <div class="">
+                      <p class="ml-lg-4 ml-3 text-uppercase font-book mobile-font2">Entrega
+                        <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    {{/each}}
+      {{/each}}
+    {{/if}}
+
+    {{#if groups}}
+      {{#each groups}}
+        <div id="card1" class="card mb-1 btn" onclick="location.href = '/offers/{{offer._id}}'">
+          <div class="text-right p-2">
+            <div class="row">
+              <div class="col-4 col-md-5 col-lg-5 d-inline-block p-1">
+                <div class="text-center">
+                  <p class="text-gray2 mt-2 float-right"><i class="font-light mobile-font1">/ {{offer.product.unit}}</i></p>
+                  <h4 class="font-book mobile-font4 mobile-font5 side-animation" data-usd={{offer.usd}}>R$ {{price}}</h4>
+                </div>
+                {{#ifCond offer.product.category 'Sementes'}}
+                <i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
+                {{else}}
+                <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+                {{/ifCond}}
+              </div>
+
+              <div class="col-3 p-2">
+                <div class="vl">
+                  <h5 class="align-text-top"><i class="font-black text-green ml-2 mobile-font1 text-uppercase">{{offer.product.name}}</i></h5>
+                  <div class="smaller-font d-flex text-center mt-5 justify-content-between">
+                    <div class="ml-2">
+                      <p class="text-uppercase font-book mobile-font2">Compra
+                        <span class="count font-light mobile-font2"> <br/>em grupo</span>
+                      </p>
+                    </div>
+                    <div class="">
+                      <p class="ml-lg-4 ml-3 text-uppercase font-book mobile-font2">Entrega
+                        <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
+
   </div>
 </div>
 <!-- end ResultsList -->

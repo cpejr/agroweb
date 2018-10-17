@@ -6404,24 +6404,7 @@ a.more-link {
   margin-top: 50px;
   letter-spacing: 1px; }
 
-.searchbar input {
-  outline: none; }
-
-.searchbar input[type=search] {
-  -webkit-appearance: textfield;
-  -webkit-box-sizing: content-box;
-  font-family: inherit;
-  font-size: 100%; }
-
-.searchbar input::-webkit-search-decoration,
-.searchbar input::-webkit-search-cancel-button {
-  display: none; }
-
-.input-icon {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
+.pagination {
   right: 0;
   height: 15px;
   margin: auto;

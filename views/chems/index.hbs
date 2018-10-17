@@ -19,8 +19,7 @@
   <thead>
     <tr>
       <th scope="col font-black">Nome</th>
-      <th scope="col font-black">Editar</th>
-      <th scope="col font-black">Excluir</th>
+      <th colspan="2" scope="col font-black">Opções</th>
     </tr>
   </thead>
   <tbody>
@@ -30,7 +29,7 @@
       <th scope="row">
         <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-info font-book">Editar</button>
       </th>
-      <th scope="row">
+      <th>
         <form action="/chems/{{id}}?_method=DELETE" method="POST">
           <button type="submit" class="btn btn-outline-danger font-book">Excluir</button>
         </form>

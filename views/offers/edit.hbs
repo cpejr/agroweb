@@ -1,70 +1,138 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
+<h3 class="mt-3 text-center">Editar Oferta</h3>
 <form action="/offers/{{id}}?_method=PUT" method="POST">
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <p>Categoria do produto</p>
-      <select class="form-control col-6" name="offer[category]" id="category">
-        <option disabled selected value>{{category}}</option>
-        <option value="Fertilizantes sólidos">Fertilizantes sólidos</option>
-        <option value="Defensivos agrícolas/agrotóxicos">Defensivos agrícolas/agrotóxicos</option>
-        <option value="Sementes">Sementes</option>
-        <option value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
-      </select>
+  <div class="row d-flex justify-content-between">
+
+    <div class="form-group col-md-3 col-10 mx-4 my-2">
+      <label for="name" class="editlabel">Nome do produto</label>
+      <div class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+       </div>
+       <input name="offer[product]" type="text" class="form-control" value="{{product.name}}" id="name"></input>
+      </div>
     </div>
-    <div class="form-group col-md-6">
-      <p>Nome do produto</p>
-      <div id="product-selector">
-        <select class="form-control col-6" name="offer[product]">
-          <option disabled selected value>{{product}}</option>
-        </select>
+
+    <div class="form-group col-md-3 mx-4 my-2">
+      <label for="category" class="editlabel">Forma de entrega</label>
+      <div class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text"><i class="fas fa-boxes"></i></div>
+       </div>
+       <select class="form-control" name="offer[delivery]" id="category">
+         <option disabled selected value>{{delivery}}</option>
+         <option value="em até 48 horas">Em até 48 horas</option>
+         <option value="em até 31 dias">Em até 31 dias</option>
+         <option value="safra">Safra</option>
+         <option value="safrinha">Safrinha</option>
+       </select>
+      </div>
+    </div>
+
+
+
+    <div class="form-group col-md-3 mx-4 my-2">
+      <label for="category" class="editlabel">Moeda de cotação</label>
+      <div class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+       </div>
+       <select class="form-control" name="offer[usd]" id="category">
+         {{#ifCond usd true}}
+           <option selected value="1">Dólar americano (U$)</option>
+           <option value="0">Real (R$)</option>
+         {{else ifCond usd false}}
+           <option selected value="0">Real (R$)</option>
+           <option value="1">Dólar americano (U$)</option>
+         {{/ifCond}}
+       </select>
+      </div>
+    </div>
+
+</div>
+
+<div class="row d-flex justify-content-between">
+  <div class="form-group col-md-3 col-10 mx-4 my-2">
+    <label for="name" class="editlabel">Quantidade em estoque</label>
+    <div class="input-group mb-2">
+     <div class="input-group-prepend">
+       <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+     </div>
+     <input name="offer[stock]" type="text" class="form-control" value="{{stock}}" id="name"></input>
+    </div>
+  </div>
+
+  <div class="form-group col-md-3 col-10 mx-4 my-2">
+    <label for="name" class="editlabel">Quantidade mínima a ser comprada</label>
+    <div class="input-group mb-2">
+     <div class="input-group-prepend">
+       <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+     </div>
+     <input name="offer[minAmount]" type="text" class="form-control" value="{{minAmount}}" id="name"></input>
+    </div>
+  </div>
+
+</div>
+
+  <h5 class="mt-3 text-center">Preços</h5>
+  <div class="row d-flex justify-content-between">
+    <div class="form-group col-md-3 col-10 mx-4 my-2">
+      <label for="name" class="editlabel">Baixo</label>
+      <div class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+       </div>
+       <input name="offer[price][low]" type="text" class="form-control" value="{{price.low}}" id="name"></input>
+      </div>
+    </div>
+
+    <div class="form-group col-md-3 col-10 mx-4 my-2">
+      <label for="name" class="editlabel">Médio</label>
+      <div class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+       </div>
+       <input name="offer[price][average]" type="text" class="form-control" value="{{price.average}}" id="name"></input>
+      </div>
+    </div>
+
+    <div class="form-group col-md-3 col-10 mx-4 my-2">
+      <label for="name" class="editlabel">Alto</label>
+      <div class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+       </div>
+       <input name="offer[price][high]" type="text" class="form-control" value="{{price.high}}" id="name"></input>
       </div>
     </div>
   </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <p>Quantidade em estoque</p>
-      <input type="number" name="offer[stock]" value="{{stock}}" placeholder="{{stock}}">
+
+  <h5 class="mt-3 text-center">Quantidades para mudanças de preço</h5>
+  <div class="row d-flex justify-content-between">
+    <div class="form-group col-md-3 col-10 mx-4 my-2">
+      <label for="name" class="editlabel">Muda para preço médio</label>
+      <div class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+       </div>
+       <input name="offer[breakpoints][average]" type="text" class="form-control" value="{{breakpoints.average}}" id="name"></input>
+      </div>
     </div>
-    <div class="form-group col-md-6">
-      <p>Quantidade mínima a ser comprada</p>
-      <input type="number" name="offer[minAmount]" value="{{minAmount}}" placeholder="{{minAmount}}">
-    </div>
-  </div>
-  <p>Preços:</p>
-  <div class="form-row">
-    <div class="form-group col-md-4">
-      <label>Baixo</label>
-        <input type="number" name="offer[price][low]" value="{{price.low}}" placeholder="{{price.low}}">
-    </div>
-    <div class="form-group col-md-4">
-      <label>Médio</label>
-        <input type="number" name="offer[price][average]" value="{{price.average}}" placeholder="{{price.average}}">
-    </div>
-    <div class="form-group col-md-4">
-      <label>Alto</label>
-        <input type="number" name="offer[price][high]" value="{{price.high}}" placeholder="{{price.high}}">
+
+    <div class="form-group col-md-3 col-10 mx-4 my-2">
+      <label for="name" class="editlabel">Muda para preço baixo</label>
+      <div class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+       </div>
+       <input name="offer[breakpoints][low]" type="text" class="form-control" value="{{breakpoints.low}}" id="name"></input>
+      </div>
     </div>
   </div>
-  <div class="form-group">
-    <p>Quantidade para mudança de preço</p>
-    <label>Muda para o preço médio</label>
-      <input type="number" name="offer[breakpoints][average]" value="{{breakpoints.average}}" placeholder="{{breakpoints.average}}">
-    <label>Muda para o preço baixo</label>
-      <input type="number" name="offer[breakpoints][low]" value="{{breakpoints.low}}" placeholder="{{breakpoints.low}}">
-  </div>
-  <div class="form-group">
-    <label for="delivery">Forma de entrega</label>
-    <select class="form-control col-2" name="offer[delivery]">
-      <option disabled selected value>{{delivery}}</option>
-      <option value="em até 48 horas">Em até 48 horas</option>
-      <option value="em até 31 dias">Em até 31 dias</option>
-      <option value="safra">Safra</option>
-      <option value="safrinha">Safrinha</option>
-    </select>
-  </div>
-  <button class="btn" type="submit">Salvar</button>
+
+  <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
 </form>
 
 {{#section 'scripts'}}

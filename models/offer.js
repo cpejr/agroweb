@@ -123,7 +123,7 @@ class Offer {
       OfferModel.find(query).sort(sort).populate({
         path: 'seller product',
         populate: { path: 'chem' }
-      }).exec().then((result) => {
+      }).then((result) => {
         resolve(result);
       }).catch((err) => {
         reject(err);

@@ -9,12 +9,12 @@
   <h2 class="mt-2 mb-2">CARDS</h2>
 
   <!-- CARD PADRÃO -->
-  <div class="col-sm-12 col-md-5 col-lg-4 btn card">
+  <div class="col-sm-12 col-md-5 col-lg-4 btn card" >
       <!-- Define quanto de espaço o card ocupa. Não muda o tamanho do card, mas se você apertar control shift i, quanto mais colunas, mais
       daquele espaço azul o elemento ocupa (mesmo que ele não estique)-->
       <!-- Para cada oferta, printará um card. Se for outra coisa, tipo orders, seria #each orders, entre duas chaves. Não coloquei a sintaxe
       exata porque essa página não recebe nenhuma oferta do back e esse elemento funciona mesmo comentado, ou seja,não apareceria nenhum card -->
-      <div class="my-1 pb-3 bg-light2" onclick="location.href = '/offers/{{_id}}'">
+      <div class="my-1 bg-light2 card1"  onclick="location.href = '/offers/{{_id}}'">
         <!-- Aqui eu uso bootstrap pra definir que isso é um card e quando ele é clicado, vai pro link da oferta em específico.
         Tudo que está entre chaves são coisas que recebemos do back. As que não tem hashtags são variáveis-->
         <div class="text-right p-2">
@@ -39,27 +39,27 @@
                 </div>
 
                 <div class="ml-2 mt-3">
-                  <div class="text-left">
-                    <h4 class="font-book mobile-font4 mobile-font5 side-animation d-inline" data-usd={{usd}}>
+                  <div class="text-left side-animation">
+                    <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
                       R$ {{price.low}} 123.00
                     </h4>
 
-                    <i class="text-gray2 mt-2 font-light mobile-font1 d-inline">
+                    <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
                       / {{product.unit}} Kg
                     </i>
                   </div>
                 </div>
 <!-- A classe mobile-font1 faz a fonte ficar responsiva. Tem vários tamanhos, todos com mobile-font1, mobile-font2, etc. Elas podem
 ser vistas no styles.sass. A classe text-uppercase faz o texto ficar em caixa alta sempre.-->
-                <div class="smaller-font d-flex text-center mt-3">
+                <div class="smaller-font d-flex text-center mt-3 align-bottom">
 <!-- Smaller font é uma classe que criei pra definir um tamanho fixo do nome do card -->
-                  <div class="ml-2">
+                  <div class="ml-2 text-gray3">
                     <p class="text-uppercase font-book mobile-font2">Compra
                       <span class="count font-light mobile-font2"> <br/>solo</span>
 <!-- a tag br vem de break, que significa uma quebra de linha -->
                     </p>
                   </div>
-                  <div class="ml-4">
+                  <div class="ml-4 text-gray3">
                     <p class="text-uppercase font-book mobile-font2">Entrega
                       <span class="count font-light mobile-font2"> <br/>{{delivery}}31 dias</span>
                     </p>

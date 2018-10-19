@@ -6088,6 +6088,9 @@ body {
 .text-gray {
   color: #e5e5e5 !important; }
 
+.text-gray3 {
+  color: #606060 !important; }
+
 .text-red {
   color: #db4437 !important; }
 
@@ -6164,7 +6167,7 @@ nav .form-control {
   display: none; }
 
 .card {
-  color: #232323;
+  color: #000 !important;
   border-color: #5b5b5b; }
 
 .card-text {
@@ -6185,12 +6188,10 @@ nav .form-control {
 
 .card-icon {
   color: #232323;
-  padding: 0.2em;
   border-radius: 50%; }
 
 .vl {
-  border-left: 1px solid green;
-  opacity: 0.5; }
+  border-left: 1px solid green; }
 
 @media (min-width: 769px) {
   .side-animation {
@@ -6200,8 +6201,8 @@ nav .form-control {
     -webkit-transition: width 1s;
     transition: width 1s;
     transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
-  #card1:hover .side-animation {
-    width: 4.5em; } }
+  .card1:hover .side-animation {
+    width: 10.0em; } }
 
 .smaller-font {
   font-size: .7em; }

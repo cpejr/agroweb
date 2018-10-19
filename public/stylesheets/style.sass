@@ -70,6 +70,9 @@ body
 .text-gray
   color: $gray-color !important
 
+.text-gray3
+  color: $gray-color3 !important
+
 .text-red
   color: $red-color !important
 
@@ -158,12 +161,13 @@ nav .form-control
 
 //cards
 .card
-  color: $dark-color
+  color: #000 !important
   border-color: $dark2-color
 
+
 .card-text
-  white-space: normal;
-  width: 100%;
+  white-space: normal
+  width: 100%
 
 .break
   -ms-word-break: break-all
@@ -182,13 +186,10 @@ nav .form-control
 
 .card-icon
   color: $dark-color
-  padding: 0.2em
   border-radius: 50%
 
 .vl
   border-left: 1px solid green
-  opacity: 0.5
-  // height: 110px
 
 @media (min-width:769px)
   .side-animation
@@ -199,8 +200,8 @@ nav .form-control
     transition: width 1s
     transition-timing-function: cubic-bezier(0.42,0,0.58,1)
 
-  #card1:hover .side-animation
-    width: 4.5em
+  .card1:hover .side-animation
+    width: 10.0em
 
 .smaller-font
   font-size: .7em

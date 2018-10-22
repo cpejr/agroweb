@@ -1,6 +1,7 @@
 {{#section 'stylesheets'}}
   <!-- -->
 {{/section}}
+<!-- Filters Header -->
 <div class="p-3">
   <div class="text-center p-3">
     <h3 class="font-black">Minhas compras</h3>
@@ -13,10 +14,18 @@
       <i class="fas fa-filter float-left"></i>
     </button>
   </div>
-<!-- Filters Header -->
+</div>
 <!-- end Filters Header -->
 
 <!-- OrdersList-->
+<!-- Informações do card antigo:
+Compra #{{_id}}
+{{offer.product.name}}
+R$ {{unitPrice}} / {{offer.product.unit}}</p>
+{{amountBought}} {{offer.product.unit}}
+Total: R$ {{priceBought}}
+{{offer.delivery}} -->
+
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
     {{#each transactions}}
     <div class="col-7">
@@ -123,7 +132,6 @@
               </a>
             </form>
 
-            <
           </div>
         </div>
           <div class="row justify-content-center pt-3">

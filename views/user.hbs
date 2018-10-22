@@ -46,53 +46,51 @@
 </div>
 
 {{else ifCond userType 'Indústria'}}
-<div class="row justify-content-center">
-  <div class="my-auto col-lg-3 list-group-item index-highlight index-box">
-    <i onclick="location.href = '/offers/new'" class="fas fa-external-link-alt fa-lg">
-      <span class="font1 mobile-color-font ml-2">Oferecer produtos</span>
-    </i>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </div>
-
-  <div class="col-lg-3 list-group-item index-highlight index-box">
-    <i onclick="location.href = '/user/offers'" class="fas fa-database fa-lg">
-      <span class="font1 ml-2 mobile-color-font ml-2">Produtos oferecidos</span>
-    </i>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </div>
-
-  <div class="col-lg-3 list-group-item index-highlight index-box">
-    <i onclick="location.href = '/user/orders'" class="fas fa-file-alt fa-lg">
-      <span class="font1 ml-2 mobile-color-font ml-2">Demandas</span>
-    </i>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
+<div class="p-3">
+  <div class="row justify-content-center">
+    <div onclick="location.href = '/offers/new'" class="btn-index col-lg-3 list-group-item pt-4 pb-4 mr-2 ml-2 mt-5 mobile-font2 text-center">
+      <i class="fas fa-box fa-lg ml-3 mr-4 float-left"></i>
+      <span class="font-light float-left">Oferecer produtos</span>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
+    <div onclick="location.href = '/user/offers'" class="btn-index col-lg-3 list-group-item pt-4 pb-4 mr-2 ml-2 mt-5 mobile-font2 text-center">
+      <i class="fas fa-box-open fa-lg ml-3 mr-4 float-left"></i>
+      <span class="font-light float-left">Produtos oferecidos</span>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
+    <div onclick="location.href = '/user/orders'" class="btn-index col-lg-3 list-group-item pt-4 pb-4 mr-2 ml-2 mt-5 mobile-font2 text-center">
+      <i class="fas fa-reply fa-lg ml-3 mr-4 float-left"></i>
+      <span class="font-light float-left">Demandas</span>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
   </div>
 </div>
-
 {{else ifCond userType 'Produtor'}}
-<div class="row justify-content-center">
-  <div class="my-auto col-lg-3 list-group-item index-highlight index-box">
-    <i onclick="location.href = '/quotations'" class="fas fa-shopping-cart fa-lg">
-      <span class="font1 mobile-color-font ml-2">Minhas cotações</span>
-    </i>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </div>
+<div class="p-3">
+  <div class="row justify-content-center">
 
-  <div class="my-auto col-lg-3 list-group-item index-highlight index-box">
-    <i onclick="location.href = '/user/orders'" class="fas fa-credit-card fa-lg">
-      <span class="font1 mobile-color-font ml-2">Minhas compras</span>
-    </i>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </div>
 
-  <!-- <div class="my-auto col-lg-3 list-group-item index-highlight index-box">
-    <i onclick="location.href = '/user/beFranchisee'" class="fas fa-external-link-alt fa-lg">
-      <span class="font1 mobile-color-font ml-2">Ser franqueado</span>
-    </i>
-    <i class="fas fa-angle-right fa-lg float-right"></i>
-  </div> -->
+    <div onclick="location.href = '/quotations'" class="btn-index col-lg-3 list-group-item pt-4 pb-4 mr-2 ml-2 mt-5 mobile-font2 text-center">
+      <i class="fas fa-dollar-sign fa-lg ml-3 mr-4 float-left"></i>
+      <span class="font-light float-left">Minhas cotações</span>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
+
+    <div onclick="location.href = '/user/orders'" class="btn-index col-lg-3 list-group-item pt-4 pb-4 mr-2 ml-2 mt-5 mobile-font2 text-center">
+      <i class="fas fa-shopping-cart fa-lg ml-3 mr-4 float-left"></i>
+      <span class="font-light float-left">Minhas compras</span>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div>
+
+    <!-- <div class="my-auto col-lg-3 list-group-item index-highlight index-box">
+      <i onclick="location.href = '/user/beFranchisee'" class="fas fa-external-link-alt fa-lg">
+        <span class="font1 mobile-color-font ml-2">Ser franqueado</span>
+      </i>
+      <i class="fas fa-angle-right fa-lg float-right"></i>
+    </div> -->
+
+  </div>
 </div>
-
 {{else ifCond userType 'Franqueado'}}
 <div class="row justify-content-center">
   <div class="my-auto col-lg-3 list-group-item index-highlight index-box">

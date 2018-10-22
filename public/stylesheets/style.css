@@ -6560,8 +6560,8 @@ a.more-link {
     border: 1px solid #232323;
     box-shadow: 0 0 0 #232323;
     transition: all 0.2s;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     cursor: pointer; }
   .btn-index:last-child {
     margin: 0; }

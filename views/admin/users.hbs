@@ -42,14 +42,14 @@
               {{/ifCond}}
             </button>
             <div class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton" >
-              <form  method= "POST" action="/admin/updateUserActive">
+              <form  method= "POST" action="/admin/{{id}}/updateUserActive">
                 <a class="dropdown-item" href="#">
                   <button type="submit" class="btn btn-outline-success col-12" name="active" value=true>
                     Ativo
                   </button>
                 </a>
               </form>
-              <form method= "POST" action="/admin/updateUserActive">
+              <form method= "POST" action="/admin/{{id}}/updateUserActive">
                 <a class="dropdown-item " href="#">
                   <button type="submit" class="btn btn-outline-danger col-12" name="active" value=false>
                     Inativo

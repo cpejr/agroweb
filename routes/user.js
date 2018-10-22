@@ -111,7 +111,7 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
 router.get('/profile', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
-      res.render('profile', { title: 'Perfil', layout: 'layout', user });
+      res.render('profile/edit', { title: 'Perfil', layout: 'layout', user });
     }
     else {
       console.log('User not found!');
@@ -154,7 +154,7 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
   User.update(req.session._id, userData).catch((err) => {
     console.log(err);
   });
-  res.redirect('/user/profile');
+  res.redirect('/user');
 });
 
 /**

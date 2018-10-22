@@ -2,45 +2,46 @@
 {{/section}}
 
 <body>
-<h4 class="mt-3 text-center">Editar dados do perfil</h4>
+<div class="p-3">
+  <h4 class="mt-2 mb-4 text-center">Editar dados do perfil</h4>
 
 <form action="/user/update" method="post">
   <div class="row d-flex justify-content-between">
-    <div class="form-group col-md-3 mx-4 my-2">
+    <div class="col-md-6">
 
-      <div class="container">
-        <p class="row col" align="justify">Nome:</p>
-        <input name="user[fullName]" type="text" class="form-control" value="{{user.fullName}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Nome:</p>
+        <input name="user[fullName]" type="text" class="form-control font-light" value="{{user.fullName}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Email:</p>
-        <input name="user[email]" type="text" class="form-control" value="{{user.email}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email:</p>
+        <input name="user[email]" type="text" class="form-control font-light" value="{{user.email}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">CEP:</p>
-        <input name="user[address][cep]" type="text" class="form-control" value="{{user.address.cep}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">CEP:</p>
+        <input name="user[address][cep]" type="text" class="form-control font-light" value="{{user.address.cep}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Rua:</p>
-        <input name="user[address][street]" type="text" class="form-control" value="{{user.address.street}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Rua:</p>
+        <input name="user[address][street]" type="text" class="form-control font-light" value="{{user.address.street}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Número:</p>
-        <input name="user[address][number]" type="text" class="form-control" value="{{user.address.number}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Número:</p>
+        <input name="user[address][number]" type="text" class="form-control font-light" value="{{user.address.number}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Cidade:</p>
-        <input name="user[address][city]" type="text" class="form-control" value="{{user.address.city}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Cidade:</p>
+        <input name="user[address][city]" type="text" class="form-control font-light" value="{{user.address.city}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Estado:</p>
-        <select class="form-control" name="user[address][state]" id="state">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Estado:</p>
+        <select class="form-control font-light" name="user[address][state]" id="state">
           <option selected value = {{user.address.state}}> {{user.address.state}} </option>
           <option value="AC">AC</option>
           <option value="AL">AL</option>
@@ -71,164 +72,166 @@
           <option value="TO">TO</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-md-6">
     <!-- ordinary fields -->
     {{#ifCond user.type 'Franqueado'}}
     <div class="form-group">
-      <div class="container">
-        <p class="row col" align="justify">CPF/CNPJ:</p>
-        <input name="user[doc]" type="text" class="form-control" value="{{user.doc}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">CPF/CNPJ:</p>
+        <input name="user[doc]" type="text" class="form-control font-light" value="{{user.doc}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Resumo das atividades profissionais atuais:</p>
-        <input name="user[activities]" type="text" class="form-control" value="{{user.activities}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Resumo das atividades profissionais atuais:</p>
+        <input name="user[activities]" type="text" class="form-control font-light" value="{{user.activities}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Possui carteira de cliente que cotam produtos:</p>
-        <select class="form-control" name="user[actualCustomers]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Possui carteira de cliente que cotam produtos:</p>
+        <select class="form-control font-light" name="user[actualCustomers]" id="type">
           <option selected value = {{user.actualCustomers}}> {{user.actualCustomers}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
-        <select class="form-control" name="user[possibleCustomers]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
+        <select class="form-control font-light" name="user[possibleCustomers]" id="type">
           <option selected value = {{user.possibleCustomers}}> {{user.possibleCustomers}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Total de clientes:</p>
-        <input name="user[totalCustomers]" type="text" class="form-control" value="{{user.totalCustomers}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Total de clientes:</p>
+        <input name="user[totalCustomers]" type="text" class="form-control font-light" value="{{user.totalCustomers}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Área total(ha):</p>
-        <input name="user[area]" type="text" class="form-control" value="{{user.area}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Área total(ha):</p>
+        <input name="user[area]" type="text" class="form-control font-light" value="{{user.area}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Como a Megapool poderia ser importante para seu négocio:</p>
-        <input name="user[whyIsMegapoolImportant]" type="text" class="form-control" value="{{user.whyIsMegapoolImportant}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Como a Megapool poderia ser importante para seu négocio:</p>
+        <input name="user[whyIsMegapoolImportant]" type="text" class="form-control font-light" value="{{user.whyIsMegapoolImportant}}"></input>
       </div>
 
     {{else ifCond user.type 'Revenda'}}
-      <div class="container">
-        <p class="row col" align="justify">Telefone fixo:</p>
-        <input name="user[phone]" type="text" class="form-control" value="{{user.phone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo:</p>
+        <input name="user[phone]" type="text" class="form-control font-light" value="{{user.phone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Celular:</p>
-        <input name="user[cellphone]" type="text" class="form-control" value="{{user.cellphone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular:</p>
+        <input name="user[cellphone]" type="text" class="form-control font-light" value="{{user.cellphone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Nome fantasia:</p>
-        <input name="user[fantasyName]" type="text" class="form-control" value="{{user.fantasyName}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Nome fantasia:</p>
+        <input name="user[fantasyName]" type="text" class="form-control font-light" value="{{user.fantasyName}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Email de contato:</p>
-        <input name="user[secondaryEmail]" type="text" class="form-control" value="{{user.secondaryEmail}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email de contato:</p>
+        <input name="user[secondaryEmail]" type="text" class="form-control font-light" value="{{user.secondaryEmail}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Responsável pela conta:</p>
-        <input name="user[responsible][name]" type="text" class="form-control" value="{{user.responsible.name}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Responsável pela conta:</p>
+        <input name="user[responsible][name]" type="text" class="form-control font-light" value="{{user.responsible.name}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
-        <select class="form-control" name="user[delivery][stock]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Tem condições de atender demandas imediatas:</p>
+        <select class="form-control font-light" name="user[delivery][stock]" id="type">
           <option selected value = {{user.delivery.stock}}> {{user.delivery.stock}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Aceita entregar encomendas em até: (km)</p>
-        <input name="user[delivery][maxDistance]" type="text" class="form-control" value="{{user.delivery.maxDistance}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Aceita entregar encomendas em até: (km)</p>
+        <input name="user[delivery][maxDistance]" type="text" class="form-control font-light" value="{{user.delivery.maxDistance}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Telefone do responsável pela logística:</p>
-        <input name="user[logistics][phone]" type="text" class="form-control" value="{{user.logistics.phone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone do responsável pela logística:</p>
+        <input name="user[logistics][phone]" type="text" class="form-control font-light" value="{{user.logistics.phone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Email da logística:</p>
-        <input name="user[logistics][email]" type="text" class="form-control" value="{{user.logistics.email}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email da logística:</p>
+        <input name="user[logistics][email]" type="text" class="form-control font-light" value="{{user.logistics.email}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Município sede da matriz:</p>
-        <input name="user[headquarter]" type="text" class="form-control" value="{{user.headquarter}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Município sede da matriz:</p>
+        <input name="user[headquarter]" type="text" class="form-control font-light" value="{{user.headquarter}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Responsável pela empresa na região:</p>
-        <input name="user[regionalResponsible]" type="text" class="form-control" value="{{user.regionalResponsible}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Responsável pela empresa na região:</p>
+        <input name="user[regionalResponsible]" type="text" class="form-control font-light" value="{{user.regionalResponsible}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
-        <input name="user[responsible][phone]" type="text" class="form-control" value="{{user.responsible.phone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
+        <input name="user[responsible][phone]" type="text" class="form-control font-light" value="{{user.responsible.phone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Celular do Responsável pela conta Mega Pool:</p>
-        <input name="user[responsible][cellphone]" type="text" class="form-control" value="{{user.responsible.cellphone}}"></input>
-        <p class="row col" align="justify">{{user.responsible.cellphone}}</p>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+        <input name="user[responsible][cellphone]" type="text" class="form-control font-light" value="{{user.responsible.cellphone}}"></input>
+        <p class="row col text-bold" align="justify">{{user.responsible.cellphone}}</p>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Estoque físico mais próximo:</p>
-        <input name="user[whereIsStock]" type="text" class="form-control" value="{{user.whereIsStock}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Estoque físico mais próximo:</p>
+        <input name="user[whereIsStock]" type="text" class="form-control font-light" value="{{user.whereIsStock}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse de atender quais estados:</p>
-        <input name="user[interestedStates]" type="text" class="form-control" value="{{user.interestedStates}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse de atender quais estados:</p>
+        <input name="user[interestedStates]" type="text" class="form-control font-light" value="{{user.interestedStates}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
-        <select class="form-control" name="user[delivery][fractional]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
+        <select class="form-control font-light" name="user[delivery][fractional]" id="type">
           <option selected value = {{user.delivery.fractional}}> {{user.delivery.fractional}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse em atender revendas:</p>
-        <select class="form-control" name="user[delivery][dealer]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender revendas:</p>
+        <select class="form-control font-light" name="user[delivery][dealer]" id="type">
           <option selected value = {{user.delivery.dealer}}> {{user.delivery.dealer}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
-        <select class="form-control" name="user[delivery][groups]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender grupos de compras:</p>
+        <select class="form-control font-light" name="user[delivery][groups]" id="type">
           <option selected value = {{user.delivery.groups}}> {{user.delivery.groups}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
-        <select class="form-control" name="user[delivery][repechage]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
+        <select class="form-control font-light" name="user[delivery][repechage]" id="type">
           <option selected value = {{user.delivery.repechage}}> {{user.delivery.repechage}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
@@ -237,180 +240,180 @@
     </div>
 
     {{else ifCond user.type 'Produtor'}}
-      <div class="container">
-        <p class="row col" align="justify">Telefone fixo:</p>
-        <input name="user[phone]" type="text" class="form-control" value="{{user.phone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo:</p>
+        <input name="user[phone]" type="text" class="form-control font-light" value="{{user.phone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Celular:</p>
-        <input name="user[cellphone]" type="text" class="form-control" value="{{user.cellphone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular:</p>
+        <input name="user[cellphone]" type="text" class="form-control font-light" value="{{user.cellphone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Nome da fazenda:</p>
-        <input name="user[farm][name]" type="text" class="form-control" value="{{user.farm.name}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Nome da fazenda:</p>
+        <input name="user[farm][name]" type="text" class="form-control font-light" value="{{user.farm.name}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Distância aproximadada cidade até a fazenda:</p>
-        <input name="user[farm][distanceToCity]" type="text" class="form-control" value="{{user.farm.distanceToCity}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Distância aproximadada cidade até a fazenda:</p>
+        <input name="user[farm][distanceToCity]" type="text" class="form-control font-light" value="{{user.farm.distanceToCity}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Roteiro de entrega:</p>
-        <input name="user[farm][deliveryScript]" type="text" class="form-control" value="{{user.farm.deliveryScript}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Roteiro de entrega:</p>
+        <input name="user[farm][deliveryScript]" type="text" class="form-control font-light" value="{{user.farm.deliveryScript}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Área plantada(ha):</p>
-        <input name="user[farm][area]" type="text" class="form-control" value="{{user.farm.area}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Área plantada(ha):</p>
+        <input name="user[farm][area]" type="text" class="form-control font-light" value="{{user.farm.area}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Soja:</p>
-        <input name="user[farm][soy]" type="text" class="form-control" value="{{user.farm.soy}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Soja:</p>
+        <input name="user[farm][soy]" type="text" class="form-control font-light" value="{{user.farm.soy}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Milho:</p>
-        <input name="user[farm][corn]" type="text" class="form-control" value="{{user.farm.corn}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Milho:</p>
+        <input name="user[farm][corn]" type="text" class="form-control font-light" value="{{user.farm.corn}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Algodão:</p>
-        <input name="user[farm][cotton]" type="text" class="form-control" value="{{user.farm.cotton}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Algodão:</p>
+        <input name="user[farm][cotton]" type="text" class="form-control font-light" value="{{user.farm.cotton}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Outras culturas:</p>
-        <input name="user[farm][otherCultivations]" type="text" class="form-control" value="{{user.farm.otherCultivations}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Outras culturas:</p>
+        <input name="user[farm][otherCultivations]" type="text" class="form-control font-light" value="{{user.farm.otherCultivations}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Pode se comunicar por Whatsapp:</p>
-        <select class="form-control" name="user[wpp]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Pode se comunicar por Whatsapp:</p>
+        <select class="form-control font-light" name="user[wpp]" id="type">
           <option selected value = {{user.wpp}}> {{user.wpp}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Inscrição Estadual:</p>
-        <input name="user[stateRegistration]" type="text" class="form-control" value="{{user.stateRegistration}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Inscrição Estadual:</p>
+        <input name="user[stateRegistration]" type="text" class="form-control font-light" value="{{user.stateRegistration}}"></input>
       </div>
 
     {{else ifCond user.type 'Indústria'}}
-      <div class="container">
-        <p class="row col" align="justify">Telefone fixo:</p>
-        <input name="user[phone]" type="text" class="form-control" value="{{user.phone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo:</p>
+        <input name="user[phone]" type="text" class="form-control font-light" value="{{user.phone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Celular:</p>
-        <input name="user[cellphone]" type="text" class="form-control" value="{{user.cellphone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular:</p>
+        <input name="user[cellphone]" type="text" class="form-control font-light" value="{{user.cellphone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Nome de fantasia:</p>
-        <input name="user[fantasyName]" type="text" class="form-control" value="{{user.fantasyName}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Nome de fantasia:</p>
+        <input name="user[fantasyName]" type="text" class="form-control font-light" value="{{user.fantasyName}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Email de contato:</p>
-        <input name="user[secondaryEmail]" type="text" class="form-control" value="{{user.secondaryEmail}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email de contato:</p>
+        <input name="user[secondaryEmail]" type="text" class="form-control font-light" value="{{user.secondaryEmail}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Responsável pela conta:</p>
-        <input name="user[responsible][name]" type="text" class="form-control" value="{{user.responsible.name}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Responsável pela conta:</p>
+        <input name="user[responsible][name]" type="text" class="form-control font-light" value="{{user.responsible.name}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Tem condições de atender demandas imediatas:</p>
-        <select class="form-control" name="user[delivery][stock]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Tem condições de atender demandas imediatas:</p>
+        <select class="form-control font-light" name="user[delivery][stock]" id="type">
           <option selected value = {{user.delivery.stock}}> {{user.delivery.stock}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Aceita entregar encomendas em até: (km)</p>
-        <input name="user[delivery][maxDistance]" type="text" class="form-control" value="{{user.delivery.maxDistance}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Aceita entregar encomendas em até: (km)</p>
+        <input name="user[delivery][maxDistance]" type="text" class="form-control font-light" value="{{user.delivery.maxDistance}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Telefone do responsável pela logística:</p>
-        <input name="user[logistics][phone]" type="text" class="form-control" value="{{user.logistics.phone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone do responsável pela logística:</p>
+        <input name="user[logistics][phone]" type="text" class="form-control font-light" value="{{user.logistics.phone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Email da logística:</p>
-        <input name="user[logistics][email]" type="text" class="form-control" value="{{user.logistics.email}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email da logística:</p>
+        <input name="user[logistics][email]" type="text" class="form-control font-light" value="{{user.logistics.email}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Município sede da matriz:</p>
-        <input name="user[headquarter]" type="text" class="form-control" value="{{user.headquarter}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Município sede da matriz:</p>
+        <input name="user[headquarter]" type="text" class="form-control font-light" value="{{user.headquarter}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Responsável pela empresa na região:</p>
-        <input name="user[regionalResponsible]" type="text" class="form-control" value="{{user.regionalResponsible}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Responsável pela empresa na região:</p>
+        <input name="user[regionalResponsible]" type="text" class="form-control font-light" value="{{user.regionalResponsible}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
-        <input name="user[responsible][phone]" type="text" class="form-control" value="{{user.responsible.phone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
+        <input name="user[responsible][phone]" type="text" class="form-control font-light" value="{{user.responsible.phone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Celular do Responsável pela conta Mega Pool:</p>
-        <input name="user[responsible][cellphone]" type="text" class="form-control" value="{{user.responsible.cellphone}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+        <input name="user[responsible][cellphone]" type="text" class="form-control font-light" value="{{user.responsible.cellphone}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Estoque físico mais próximo:</p>
-        <input name="user[whereIsStock]" type="text" class="form-control" value="{{user.whereIsStock}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Estoque físico mais próximo:</p>
+        <input name="user[whereIsStock]" type="text" class="form-control font-light" value="{{user.whereIsStock}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse de atender quais estados:</p>
-        <input name="user[interestedStates]" type="text" class="form-control" value="{{user.interestedStates}}"></input>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse de atender quais estados:</p>
+        <input name="user[interestedStates]" type="text" class="form-control font-light" value="{{user.interestedStates}}"></input>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
-        <select class="form-control" name="user[delivery][fractional]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
+        <select class="form-control font-light" name="user[delivery][fractional]" id="type">
           <option selected value = {{user.delivery.fractional}}> {{user.delivery.fractional}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse em atender revendas:</p>
-        <select class="form-control" name="user[delivery][dealer]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender revendas:</p>
+        <select class="form-control font-light" name="user[delivery][dealer]" id="type">
           <option selected value = {{user.delivery.dealer}}> {{user.delivery.dealer}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse em atender grupos de compras:</p>
-        <select class="form-control" name="user[delivery][groups]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender grupos de compras:</p>
+        <select class="form-control font-light" name="user[delivery][groups]" id="type">
           <option selected value = {{user.delivery.groups}}> {{user.delivery.groups}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
 
-      <div class="container">
-        <p class="row col" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
-        <select class="form-control" name="user[delivery][repechage]" id="type">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
+        <select class="form-control font-light" name="user[delivery][repechage]" id="type">
           <option selected value = {{user.delivery.repechage}}> {{user.delivery.repechage}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
@@ -419,9 +422,11 @@
       {{/ifCond}}
     </div>
   </div>
-  <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
+
+  <button class="btn btn-default bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
 </form>
 <!-- end ordinary fields -->
+</div>
 </body>
 
 {{#section 'scripts'}}

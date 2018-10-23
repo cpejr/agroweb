@@ -5,7 +5,7 @@
 <div class="pb-3 gradient-background">
   <h4 class="text-center">Produtos oferecidos</h4>
 </div>
-<div class="">
+<div class="p-3">
 <div class="filters-header row justify-content-center p-3">
     <div class="">
       <button type="button" name="button" class="btn">
@@ -19,11 +19,11 @@
 <!-- end Filters Header -->
 
 <!-- OrdersList-->
-
-<div id="results-list" class="justify-content-center">
-  <!-- <div class="col-12 col-md-6"> -->
+<div id="results-list" class="row justify-content-center">
+  <div class="col-sm-12 col-md-6 col-lg-6">
     {{#each offers}}
     <!-- problema na classe card -->
+    <div class="m-3">
       <div class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
         <!-- <div class="card-body">
           <div class="text-right">
@@ -59,8 +59,10 @@
             </div>
           </div>
         </div>
+      </div>
     {{/each}}
   <!-- </div> -->
+</div>
 </div>
 <!-- end OrdersList -->
 </div>

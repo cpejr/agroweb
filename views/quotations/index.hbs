@@ -17,15 +17,17 @@
 <!-- end Filters Header -->
 
 <!-- QuotationsList -->
-<div class="row justify-content-center">
-  <!-- <div class="justify-content-center"> -->
-    <!-- <div id="results-list" class="row d-flex justify-content-around mt-2 mx-md-4"> -->
-      <!--
-      Informações antigas:
-      R$ {{unitPrice}} /{{offer.product.unit}}
-      {{amountBought}} {{offer.product.unit}}
-      Total: R$ {{priceBought}}
-      <h6>Entrega: {{offer.delivery}} -->
+<!-- <div class="justify-content-center"> -->
+  <!-- <div id="results-list" class="row d-flex justify-content-around mt-2 mx-md-4"> -->
+    <!--
+    Informações antigas:
+    R$ {{unitPrice}} /{{offer.product.unit}}
+    {{amountBought}} {{offer.product.unit}}
+    Total: R$ {{priceBought}}
+    <h6>Entrega: {{offer.delivery}} -->
+<div class="ml-4">
+<div class="row ml-5 ">
+
     {{#each quotations}}
     <!-- <div class="col-sm-12 col-md-6 col-lg-6 btn card m-3" >
       <div class="col-sm-12 col-md-6 col-lg-6 btn card m-3">
@@ -34,19 +36,19 @@
               <div class="row">
                 <div class="col-3 d-inline-block text-center align-self-center">
 
-                  {{#ifCond offer.product.category 'Defensivos'}}
+                  {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
                     <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
                     <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
-                    <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x align-self-center"></i>
+                    <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
                   {{else ifCond offer.product.category 'Sementes'}}
                     <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                     <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
                     <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-                  {{else ifCond offer.product.category 'Fertilizantes'}}
+                  {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
                     <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
                     <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
                     <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-                  {{else ifCond offer.product.category 'Fertilizantes Líquidos'}}
+                  {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
                     <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
                     <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
                     <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
@@ -65,21 +67,40 @@
                           R$ {{unitPrice}}
                         </h4>
                         <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                          / {{offer.product.unit}} Kg
+                          / {{offer.product.unit}}
                         </i>
                       </div>
                     </div>
+                  <div class="row align-rightS">
                     <div class="smaller-font d-flex text-center mt-3 align-bottom">
-                      <div class="ml-2 text-gray3">
-                        <p class="text-uppercase font-book mobile-font2">Compra
-                          <span class="count font-light mobile-font2"> <br/>????</span>
+                      <div class="ml-4  text-gray3">
+                        <p class="text-uppercase font-book mobile-font2 ">Compra
+                          {{#ifCond offer.delivery 'em até 48 horas'}}
+                          <span class="count font-light mobile-font2"> <br/>Solo</span>
+                          {{else }}
+                          <span class="count font-light mobile-font2"> <br/>Grupo</span>
+                          {{/ifCond}}
+
                         </p>
                       </div>
+
                       <div class="ml-4 text-gray3">
-                        <p class="text-uppercase font-book mobile-font2">Entrega
+                        <p class="text-uppercase font-book mobile-font2 ">Entrega
                           <span class="count font-light mobile-font2"> <br/>{{offer.delivery}}</span>
                         </p>
                       </div>
+
+                      <div class="ml-4  text-gray3">
+                        <p class="text-uppercase text-center font-book mobile-font2">Qnt
+                          <span class="count text-center font-light mobile-font2"> <br/>{{amountBought}}</span>
+                        </p>
+                      </div>
+                      <div class="ml-4 text-gray3">
+                        <p class="text-uppercase font-book mobile-font2">Custo total
+                          <span class="count text-center font-light mobile-font2"> <br/>{{priceBought}}</span>
+                        </p>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -87,8 +108,10 @@
             </div>
           </div>
       </div>
+    </div>
     {{/each}}
     </div>
+  </div>
     <form action="/user/buy" method="POST">
       <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
     </form>

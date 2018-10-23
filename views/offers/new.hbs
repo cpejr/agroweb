@@ -30,42 +30,42 @@
       </div> -->
 
       <div class="form-group mx-4 my-2">
-        <div class="input-group autocomplete">
+        <label for="data" class="rounded bg-black"><i class="fas fa-dollar-sign fa-sm mr-2"></i> Dados gerais: </label>
+      </div>
+
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2 autocomplete">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-search"></i></div>
           </div>
-          <input name="offer[product]" class="form-control" type="text" placeholder="Nome do produto">
+          <input name="offer[product]" type="text" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Nome do produto</label>
           <span class="close">Apagar</span>
           <div class="dialog">
           </div>
         </div>
       </div>
 
-      <div class="form-group mx-4 my-2">
-        <div class="input-group">
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-archive"></i></div>
           </div>
-          <input name="offer[stock]" type="number" class="form-control" placeholder="Quantidade em estoque"></input>
+          <input name="offer[stock]" type="number" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Estoque</label>
         </div>
       </div>
 
-      <div class="form-group mx-4 my-2">
-        <div class="input-group">
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-archive"></i></div>
           </div>
-          <input name="offer[minAmount]" type="number" class="form-control" placeholder="Quantidade mínima na compra"></input>
-        </div>
-      </div>
-
-      <div class="form-group mx-4 my-2">
-        <label for="usd" class="mt-3"> Os preços serão inseridos em qual moeda? </label>
-        <div class="radio">
-          <label><input type="radio" name="offer[usd]" value="1">Dólar americano (U$)</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="offer[usd]" value="0">Real (R$)</label>
+          <input name="offer[minAmount]" type="number" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Quantidade mínima</label>
         </div>
       </div>
     </div>
@@ -75,30 +75,50 @@
         <label for="price" class="rounded bg-black"><i class="fas fa-dollar-sign fa-sm mr-2"></i> Preços: </label>
       </div>
 
-      <div class="form-group mx-4 my-2">
-        <div class="input-group">
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2">
+         <div class="input-group-prepend">
+           <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+         </div>
+         <select class="form-control new-shadow" name="offer[usd]" required/>
+           <option disabled selected value>-- Moeda --</option>
+           <option value="1">Dólar americano (U$)</option>
+           <option value="0">Real (R$)</option>
+         </select>
+        </div>
+      </div>
+
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-arrow-down"></i></div>
           </div>
-          <input name="offer[price][low]" type="number" class="form-control" placeholder="Baixo"></input>
+          <input name="offer[price][low]" type="number" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Baixo</label>
         </div>
       </div>
 
-      <div class="form-group mx-4 my-2">
-        <div class="input-group">
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-arrow-right"></i></div>
           </div>
-          <input name="offer[price][average]" type="number" class="form-control" placeholder="Médio"></input>
+          <input name="offer[price][average]" type="number" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Médio</label>
         </div>
       </div>
 
-      <div class="form-group mx-4 my-2">
-        <div class="input-group">
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-arrow-up"></i></div>
           </div>
-          <input name="offer[price][high]" type="number" class="form-control" placeholder="Alto"></input>
+          <input name="offer[price][high]" type="number" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Alto</label>
         </div>
       </div>
     </div>
@@ -108,36 +128,41 @@
         <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Quantidade para mudança de preço: </label>
       </div>
 
-      <div class="form-group mx-4 my-2">
-        <div class="input-group">
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
           </div>
-          <input name="offer[breakpoints][average]" type="number" class="form-control" placeholder="Muda para o preço médio"></input>
+          <input name="offer[breakpoints][average]" type="number" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Muda para médio</label>
         </div>
       </div>
 
-      <div class="form-group mx-4 my-2">
-        <div class="input-group">
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
           </div>
-          <input name="offer[breakpoints][low]" type="number" class="form-control" placeholder="Muda para o preço baixo"></input>
+          <input name="offer[breakpoints][low]" type="number" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Muda para baixo</label>
         </div>
       </div>
 
-      <div class="form-group mx-4 my-2">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-car"></i></div>
-          </div>
-          <select class="form-control" name="offer[delivery]">
-            <option disabled selected value> Forma de entrega </option>
-            <option value="em até 48 horas">Em até 48 horas</option>
-            <option value="em até 31 dias">Em até 31 dias</option>
-            <option value="safra">Safra</option>
-            <option value="safrinha">Safrinha</option>
-          </select>
+      <div class="user-input">
+        <br/>
+        <div class="input-group mb-2">
+         <div class="input-group-prepend">
+           <div class="input-group-text"><i class="fas fa-car"></i></div>
+         </div>
+         <select class="form-control new-shadow" name="offer[delivery]" required/>
+           <option disabled selected value>-- Forma de entrega --</option>
+           <option value="Em até 48 horas">Em até 48 horas</option>
+           <option value="Em até 31 dias">Em até 31 dias</option>
+           <option value="Safra">Safra</option>
+           <option value="Safrinha">Safrinha</option>
+         </select>
         </div>
       </div>
       </div>

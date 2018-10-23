@@ -42,11 +42,20 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  active: {
+  moreClients: {
     type: Boolean,
-    default: true,
+    default: true
+  },
+  status: {
+    type: String,
+    enum: ['Inativo', 'Bloqueado', 'Aguardando aprovação', 'Ativo'],
+    default: 'Aguardando aprovação',
     required: true
   },
+  agreementList: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   transactions: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Transaction'
@@ -350,7 +359,6 @@ class User {
     });
   }
 
-
   /**
    * Get all offers from a user by its id
    * @param {string} id - User uid
@@ -365,6 +373,21 @@ class User {
           populate: { path: 'chem' }
         }
       }).exec().then((result) => {
+        resolve(result.offers);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all clients from a franchisee by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of users
+   */
+  static getAllClientsByUserId(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({ path: 'agreementList' }).exec().then((result) => {
         resolve(result.offers);
       }).catch((err) => {
         reject(err);

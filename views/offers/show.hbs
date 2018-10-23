@@ -9,10 +9,27 @@
       <h2 class="my-0 py-0 mb-4">{{product.name}}</h2>
 
       <!-- Product Description -->
-      <h4>Descrição</h4>
-      <p>
+      <h4 class="font-bold">Descrição</h4>
+      <p  class="font-light">
         {{product.description}}
       </p>
+
+      <dt class="font-bold">Vendedor(a)</dt>
+      <dd class="font-light">{{seller.fullName}}</dd>
+
+      <dt class="font-bold">Ingredientes ativos</dt>
+      {{#each product.chem}}
+        <dd class="font-light">{{name}}</dd>
+      {{/each}}
+
+      <dt class="font-bold">Forma de entrega</dt>
+      <dd class="font-light">{{delivery}}</dd>
+
+      <dt class="font-bold">Fabricante</dt>
+      <dd class="font-light">{{product.manufacturer}}</dd>
+
+      <dt class="font-bold">Categoria</dt>
+      <dd class="font-light">{{product.category}}</dd>
       <!-- end Product Description -->
     </div>
     <!-- end Product Title -->
@@ -23,7 +40,7 @@
       <form action="/transaction" method="post">
         <div class="row mb-3">
           <div class="form-group col">
-            <label class="text-muted" for="amount">Quantidade</label>
+            <label class="font-bold" for="amount">Quantidade</label>
             <div class="input-group">
               <input type="hidden" name="_id" value="{{_id}}">
               <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}">
@@ -39,23 +56,23 @@
       <div class="row mb-3">
         <div class="col-12 col-md-6 mb-5">
           <div class="row">
-            <div class="col-6">
+            <div class="col-12">
               <h4>Estoque:</h4>
-              <p>{{stock}} {{product.unit}}</p>
+              <p class="font-light">{{stock}} {{product.unit}}</p>
             </div>
-            <div class="col-6">
+            <div class="col-12">
               <h4>Entrega:</h4>
-              <p>{{delivery}}</p>
+              <p class="font-light">{{delivery}}</p>
             </div>
-            <div class="col-6">
+            <div class="col-12">
               <h4>Preços:</h4>
-              <dt>Baixo: R$ {{price.low}}</dt>
-              <dt>Médio: R$ {{price.average}}</dt>
-              <dt>Alto: R$ {{price.high}}</dt>
+              <p class="font-light">Baixo: R$ {{price.low}}</p>
+              <p class="font-light">Médio: R$ {{price.average}}</p>
+              <p class="font-light">Alto: R$ {{price.high}}</p>
             </div>
-            <div class="col-6">
+            <div class="col-12">
               <h4>Qtd. mínima:</h4>
-              <p>{{minAmount}} {{product.unit}}</p>
+              <p class="font-light">{{minAmount}} {{product.unit}}</p>
             </div>
           </div>
         </div>
@@ -68,52 +85,6 @@
       {{/ifCond}}
     </div>
     <!-- end Quotation -->
-
-    <!-- Product Characteristics -->
-    <div class="col-12 col-md-6 mb-5">
-      <h4>Características</h4>
-      <div class="row">
-        <div class="col-6">
-          <dt>C. agronômica</dt>
-          <dd>Feromônio</dd>
-        </div>
-        <div class="col-6">
-          <dt>Toxicologia</dt>
-          <dd>Pouco tóxico</dd>
-        </div>
-        <div class="col-6">
-          <dt>Inflamabilidade</dt>
-          <dd>Inflamável</dd>
-        </div>
-        <div class="col-6">
-          <dt>Formulação</dt>
-          <dd>Comprimidos e sachês</dd>
-        </div>
-        <div class="col-6">
-          <dt>Ingredientes ativos</dt>
-          {{#each product.chem}}
-            <dd>{{name}}</dd>
-          {{/each}}
-        </div>
-        <div class="col-6">
-          <dt>Fabricante</dt>
-          <dd>{{product.manufacturer}}</dd>
-        </div>
-      </div>
-    </div>
-    <!-- end Product Characteristics -->
-
-    <!-- Payment Options -->
-    <div class="col-12 col-md-6 mb-5">
-      <h4>Formas de pagamento</h4>
-      <div>
-        <i class="fab fa-cc-visa fa-4x mr-2 text-info"></i>
-        <i class="fab fa-cc-mastercard fa-4x mr-2 text-danger"></i>
-        <i class="fas fa-barcode fa-4x mr-2"></i>
-      </div>
-      <a class="tex-muted" href="#"><small>Mais informações</small></a>
-    </div>
-    <!-- end Payment Options -->
   </div>
 </div>
 

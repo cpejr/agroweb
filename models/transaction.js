@@ -29,6 +29,10 @@ const transactionSchema = new mongoose.Schema({
   taxStatus: {
     type: String,
     enum: ['Aguardando boleto', 'Aguardando pagamento', 'Pagamento confirmado', 'Cancelado']
+  },
+  franchisee: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, { timestamps: true, strict: false });
 
@@ -44,7 +48,7 @@ class Transaction {
       TransactionModel.find({}).populate({
         path: 'buyer offer',
         populate: {
-          path: 'seller product',
+          path: 'seller franchisee product',
           populate: { path: 'chem' }
         }
       }).exec().then((results) => {
@@ -65,7 +69,7 @@ class Transaction {
       TransactionModel.findById(id).populate({
         path: 'buyer offer',
         populate: {
-          path: 'seller product',
+          path: 'seller franchisee product',
           populate: { path: 'chem' }
         }
       }).exec().then((result) => {
@@ -128,7 +132,7 @@ class Transaction {
       TransactionModel.find({ status: value }).populate({
         path: 'buyer offer',
         populate: {
-          path: 'seller product',
+          path: 'seller franchisee product',
           populate: { path: 'chem' }
         }
       }).then((result) => {
@@ -143,7 +147,7 @@ class Transaction {
       TransactionModel.find({ taxStatus: value }).populate({
         path: 'buyer offer',
         populate: {
-          path: 'seller product',
+          path: 'seller franchisee product',
           populate: { path: 'chem' }
         }
       }).then((result) => {

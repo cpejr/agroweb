@@ -1,0 +1,362 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<body>
+<div class="pb-3 gradient-background">
+  <h4 class="text-center">Perfil de {{user.firstName}}</h4>
+</div>
+<div class="p-5">
+  <div class="row d-flex justify-content-between">
+    <div class="col-md-6">
+
+      <h5 class="p-3 text-center">Dados Gerais</h5>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Nome:</p>
+        <p class="font-book">{{user.fullName}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email:</p>
+        <p class="font-book">{{user.email}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">CEP:</p>
+        <p class="font-book">{{user.address.cep}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Rua:</p>
+        <p class="font-book">{{user.address.street}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Número:</p>
+        <p class="font-book">{{user.address.number}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Cidade:</p>
+        <p class="font-book">{{user.address.city}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Estado:</p>
+        <p class="font-book">{{user.address.state}}</p>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+
+    <h5 class="p-3 text-center">Dados Específicos</h5>
+
+    {{#ifCond user.type 'Franqueado'}}
+    <div class="form-group">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">CPF/CNPJ:</p>
+        <p class="font-book">{{user.doc}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Resumo das atividades profissionais atuais:</p>
+        <p class="font-book">{{user.activities}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Possui carteira de cliente que cotam produtos:</p>
+        <p class="font-book">{{user.actualCustomers}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
+        <p class="font-book">{{user.possibleCustomers}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Total de clientes:</p>
+        <p class="font-book">{{user.totalCustomers}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Como a Megapool poderia ser importante para seu négocio:</p>
+        <p class="font-book">{{user.whyIsMegapoolImportant}}</p>
+      </div>
+
+    {{else ifCond user.type 'Revenda'}}
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo:</p>
+        <p class="font-book">{{user.phone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular:</p>
+        <p class="font-book">{{user.cellphone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Nome fantasia:</p>
+        <p class="font-book">{{user.fantasyName}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email de contato:</p>
+        <p class="font-book">{{user.secondaryEmail}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Responsável pela conta:</p>
+        <p class="font-book">{{user.responsible.name}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Tem condições de atender demandas imediatas:</p>
+        <p class="font-book">{{user.delivery.stock}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Aceita entregar encomendas em até: (km)</p>
+        <p class="font-book">{{user.maxDistance}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone do responsável pela logística:</p>
+        <p class="font-book">{{user.logistics.phone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email da logística:</p>
+        <p class="font-book">{{user.logistics.email}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Município sede da matriz:</p>
+        <p class="font-book">{{user.headquarter}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Responsável pela empresa na região:</p>
+        <p class="font-book">{{user.regionalResponsible}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
+        <p class="font-book">{{user.responsible.phone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+        <p class="font-book">{{user.responsible.cellphone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Estoque físico mais próximo:</p>
+        <p class="font-book">{{user.whereIsStock}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse de atender quais estados:</p>
+        <p class="font-book">{{user.interestedStates}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
+        <p class="font-book">{{user.delivery.fractional}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender revendas:</p>
+        <p class="font-book">{{user.delivery.dealer}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender grupos de compras:</p>
+        <p class="font-book">{{user.delivery.groups}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
+        <p class="font-book">{{user.delivery.repechage}}</p>
+      </div>
+    </div>
+
+    {{else ifCond user.type 'Produtor'}}
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo:</p>
+        <p class="font-book">{{user.phone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular:</p>
+        <p class="font-book">{{user.cellphone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Nome da fazenda:</p>
+        <p class="font-book">{{user.farm.name}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Distância aproximadada cidade até a fazenda:</p>
+        <p class="font-book">{{user.farm.distanceToCity}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Roteiro de entrega:</p>
+        <p class="font-book">{{user.farm.deliveryScript}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Área plantada(ha):</p>
+        <p class="font-book">{{user.farm.area}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Soja:</p>
+        <p class="font-book">{{user.farm.soy}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Milho:</p>
+        <p class="font-book">{{user.farm.corn}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Algodão:</p>
+        <p class="font-book">{{user.farm.cotton}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Outras culturas:</p>
+        <p class="font-book">{{user.farm.otherCultivations}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Pode se comunicar por Whatsapp:</p>
+        <p class="font-book">{{user.wpp}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Inscrição Estadual:</p>
+        <p class="font-book">{{user.stateRegistration}}</p>
+      </div>
+
+
+
+    {{else ifCond user.type 'Indústria'}}
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo:</p>
+        <p class="font-book">{{user.phone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular:</p>
+        <p class="font-book">{{user.cellphone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Nome de fantasia:</p>
+        <p class="font-book">{{user.fantasyName}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email de contato:</p>
+        <p class="font-book">{{user.secondaryEmail}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Responsável pela conta:</p>
+        <p class="font-book">{{user.responsible.name}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Tem condições de atender demandas imediatas:</p>
+        <p class="font-book">{{user.delivery.stock}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Aceita entregar encomendas em até: (km)</p>
+        <p class="font-book">{{user.delivery.maxDistance}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone do responsável pela logística:</p>
+        <p class="font-book">{{user.logistics.phone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Email da logística:</p>
+        <p class="font-book">{{user.logistics.email}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Município sede da matriz:</p>
+        <p class="font-book">{{user.headquarter}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Responsável pela empresa na região:</p>
+        <p class="font-book">{{user.regionalResponsible}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
+        <p class="font-book">{{user.responsible.phone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Celular do Responsável pela conta Mega Pool:</p>
+        <p class="font-book">{{user.responsible.cellphone}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Estoque físico mais próximo:</p>
+        <p class="font-book">{{user.whereIsStock}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse de atender quais estados:</p>
+        <p class="font-book">{{user.interestedStates}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
+        <p class="font-book">{{user.delivery.fractional}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender revendas:</p>
+        <p class="font-book">{{user.delivery.dealer}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender grupos de compras:</p>
+        <p class="font-book">{{user.delivery.groups}}</p>
+      </div>
+
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
+        <p class="font-book">{{user.delivery.repechage}}</p>
+      </div>
+      {{/ifCond}}
+    </div>
+  </div>
+
+{{#ifCond user.type 'Produtor'}}
+<button class="btn bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block">Contatar</button>
+
+{{else ifCond user.type 'Franqueado'}}
+<button class="btn bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block">Cancelar contrato</button>
+
+{{else ifCond user.type 'Administrador'}}
+<div class="row">
+<button class="btn bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block">Aceitar</button>
+<button class="btn bg-danger text-light2 mx-auto mt-4 px-5 mb-3 d-block">Bloquear</button>
+</div>
+{{/ifCond}}
+
+</div>
+</body>
+
+{{#section 'scripts'}}
+{{/section}}

@@ -454,7 +454,7 @@
               <label for="number" class="mt-2">Número<span class="text-red"> *</span></label>
               <input type="text" class="bg-light form-control" name="user[address][number]" id="number" required>
 
-              <label for="state">Estado<span class="text-red"> *</span></label>
+              <label for="state" class="mt-2">Estado<span class="text-red"> *</span></label>
               <div class="form-group">
                 <select class="form-control" name="user[address][state]" id="state" required>
                   <option disabled selected value> -- Selecione um estado -- </option>
@@ -488,7 +488,11 @@
                 </select>
               </div>
 
-              <label for="city">Cidade:<span class="text-red"> *</span></label>
+
+              <label for="phone" class="mt-2">Telefone fixo<span class="text-red"> *</span></label>
+              <input type="tel" class="bg-light form-control" name="user[phone]"id="phone" required>
+
+              <label for="city" class="mt-2">Cidade<span class="text-red"> *</span></label>
               <input type="text" class="bg-light form-control" name="user[address][city]" id="city" required>
 
               <div class="form-group">
@@ -500,35 +504,28 @@
                 <a type="button" class="btn bg-green px-5 text-dark" href="franchiseeOption" name="button">Mais informações</a>
               </div>
 
-              <label for="cpfOrCnpj" class="mt-3">CPF/CNPJ<span class="text-red"> *</span></label>
-              <input type="text" class="bg-light form-control" placeholder="apenas números" name="user[doc]" id="cpfOrCnpj" required>
-
               <label for="activities"  class="mt-3">Faça um resumo de suas atividades profissionais atuais<span class="text-red"> *</span></label>
               <textarea class="form-control bg-light" rows="5" name="user[activities]" id="activities" required></textarea>
 
               <label for="actualCustomers" class="mt-3">Já tem uma carteira de cliente que cotam produtos com você?<span class="text-red"> *</span></label>
               <div class="radio">
-                <label><input type="radio" name="user[actualCustomers]" required>Sim</label>
+                <label><input type="radio" name="user[actualCustomers]" value="Sim" required>Sim</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="user[actualCustomers]">Não</label>
+                <label><input type="radio" name="user[actualCustomers]" value="Não" >Não</label>
               </div>
 
               <label for="possibleCustomers" class="mt-3">Já tem uma carteira de cliente que podem vir a cotar produtos com você?<span class="text-red"> *</span></label>
               <div class="radio">
-                <label><input type="radio" name="user[possibleCustomers]" required>Sim</label>
+                <label><input type="radio" name="user[possibleCustomers]" value="Sim" required>Sim</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="user[possibleCustomers]">Não</label>
+                <label><input type="radio" name="user[possibleCustomers]" value="Não" >Não</label>
               </div>
 
               <label for="totalCustomers" class="mt-3">Total de clientes<span class="text-red"> *</span></label>
               <input type="number" class="bg-light form-control" name="user[totalCustomers]" id="totalCustomers" required>
 
-              <label for="areahec" class="mt-3">Área <span class="text-red"> *</span></label>
-              <div class="input-group-append">
-              <input type="number" class="bg-light form-control" name="user[area]" id="areahec" required>
-              <span class="input-group-text">ha</span></div>
               <label for="important" class="mt-3">Faça um resumo de como a Megapool poderia ser importante para o seu negócio</label><span class="text-red"> *</span>
               <textarea class="form-control bg-light" rows="5" name="user[whyIsMegapoolImportant]" id="important" required></textarea>
 

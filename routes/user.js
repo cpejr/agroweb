@@ -111,11 +111,11 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
 router.get('/profile', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
-      res.render('profile/edit', { title: 'Perfil', layout: 'layout', user });
+      res.render('profile/index', { title: 'Perfil', layout: 'layout', user });
     }
     else {
       console.log('User not found!');
-      res.redirect('/user');
+      res.redirect('/profile/index');
     }
   }).catch((err) => {
     console.log(err);

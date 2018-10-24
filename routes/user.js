@@ -108,15 +108,9 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
 /**
  * GET Profile/index - Show all user's details
  */
-router.get('/profile', auth.isAuthenticated, (req, res) => {
-  User.getById(req.session._id).then((user) => {
-    if (user) {
-      res.render('profile/index', { title: 'Perfil', layout: 'layout', user });
-    }
-    else {
-      console.log('User not found!');
-      res.redirect('/profile/index');
-    }
+router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
+  User.getById(req.params.id).then((user) => {
+      res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user });
   }).catch((err) => {
     console.log(err);
     res.redirect('/user');
@@ -208,6 +202,22 @@ router.get('/beFranchisee', auth.isAuthenticated, (req, res) => {
   res.render('beFranchisee', { title: 'Seja Franqueado', layout: 'layout' });
 });
 
+/**
+ * GET Franchisee page
+ */
+
+ router.get('/franchisee', auth.isAuthenticated, (req, res) => {
+   User.getAll().then((users) => {
+     if (req.session.userType === 'Produtor') {
+       res.render('myFranchisee', { title: 'Meus Franqueados', layout: 'layout', users });
+     }
+     else if (req.session.userType === 'Franqueado') {
+       res.render('myClients', { title: 'Meus Clientes', layout: 'layout', users });
+     }
+   }).catch((err) => {
+     console.log(err);
+   });
+ });
 
 
 module.exports = router;

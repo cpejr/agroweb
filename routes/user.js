@@ -110,7 +110,7 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
  */
 router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
   User.getById(req.params.id).then((user) => {
-      res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user });
+      res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, ...req.session});
   }).catch((err) => {
     console.log(err);
     res.redirect('/user');

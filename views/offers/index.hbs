@@ -20,53 +20,91 @@
 
 <!-- OrdersList-->
 <div id="results-list" class="row justify-content-center">
-  <div class="col-sm-12 col-md-6 col-lg-6">
     {{#each offers}}
-    <!-- problema na classe card -->
-    <div class="m-3">
-      <div class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
-        <!-- <div class="card-body">
+    <div class="col-sm-12 col-md-5 col-lg-5 btn card row m-3" >
+        <!-- Define quanto de espaço o card ocupa. Não muda o tamanho do card, mas se você apertar control shift i, quanto mais colunas, mais
+        daquele espaço azul o elemento ocupa (mesmo que ele não estique)-->
+        <!-- Para cada oferta, printará um card. Se for outra coisa, tipo orders, seria #each orders, entre duas chaves. Não coloquei a sintaxe
+        exata porque essa página não recebe nenhuma oferta do back e esse elemento funciona mesmo comentado, ou seja,não apareceria nenhum card -->
+        <div class="my-1 bg-light2 card1"  onclick="location.href = '/offers/{{_id}}'">
+          <!-- Aqui eu uso bootstrap pra definir que isso é um card e quando ele é clicado, vai pro link da oferta em específico.
+          Tudo que está entre chaves são coisas que recebemos do back. As que não tem hashtags são variáveis-->
           <div class="text-right">
-          </div>
-        </div> -->
-          <div class="text-center">
-            <h7 class="card-title align-text-top text-gray">Oferta #{{_id}}</h7>
-            <h5 class="card-title align-text-top product-myOrders">{{product.name}}</h5>
-            <div class="row mt-3 justify-content-center">
-                {{#ifCond active false}}
-                  <span class="badge badge-danger mb-3">
-                    <h6>Inativo</h6>
-                  </span>
-                {{else}}
-                  <span class="badge badge-success mb-3">
-                    <h6>Ativo</h6>
-                  </span>
-                {{/ifCond}}
-            </div>
-            <div class="row mt-1">
-              <div class="col-12">
-                <div class="form-check">
-                    <div class="row justify-content-center">
-                      <div class="col-md-6">
-                        <h6>Estoque: {{stock}} {{product.unit}}</h6>
-                      </div>
-                      <div class="col-md-6">
-                        <h6>Entrega: {{delivery}}</h6>
-                      </div>
+            <div class="row">
+              <div class="col-3 d-inline-block text-center align-self-center">
+                <!-- {{#ifCond product.category 'Sementes'}}
+                <i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
+                {{else}} -->
+                <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
+                <!-- {{/ifCond}} -->
+              </div>
+
+              <div class="col p-2">
+                <div class="vl">
+                  <!-- Essa classe faz a linha verde vertical entre o ícone e preço e o nome -->
+                  <div class="ml-2">
+                    <!-- <p class="align-center">{{_id}}</p> -->
+                    <h6 class="text-left align-text-top card-text mobile-font1">
+                      ID: {{_id}}
+                    </h6>
+                    <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+                      {{product.name}}
+                    </h5>
+                  </div>
+                  <div class="ml-2 mt-3 text-left">
+                    {{#ifCond active false}}
+                      <span class="badge badge-danger mb-3">
+                        <h6>Inativo</h6>
+                      </span>
+                    {{else}}
+                      <span class="badge badge-success mb-3">
+                        <h6>Ativo</h6>
+                      </span>
+                    {{/ifCond}}
+                    <div class="text-left side-animation">
+                      <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
+                        R$ {{price.low}} 123.00
+                      </h4>
+
+                      <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                        / {{product.unit}}
+                      </i>
                     </div>
+                  </div>
+    <!-- A classe mobile-font1 faz a fonte ficar responsiva. Tem vários tamanhos, todos com mobile-font1, mobile-font2, etc. Elas podem
+    ser vistas no styles.sass. A classe text-uppercase faz o texto ficar em caixa alta sempre.-->
+                  <div class="smaller-font d-flex text-center mt-3 align-bottom">
+    <!-- Smaller font é uma classe que criei pra definir um tamanho fixo do nome do card -->
+                    <div class="ml-2 text-gray3">
+                      <p class="text-uppercase font-book mobile-font2">Compra
+                        <span class="count font-light mobile-font2"> <br/>solo</span>
+    <!-- a tag br vem de break, que significa uma quebra de linha -->
+                      </p>
+                    </div>
+                    <div class="ml-4 text-gray3">
+                      <p class="text-uppercase font-book mobile-font2">Entrega
+                        <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
+                      </p>
+                    </div>
+                    <div class="ml-4 text-gray3">
+                      <p class="text-uppercase font-book mobile-font2">Estoque
+                        <span class="count font-light mobile-font2"> <br/>{{stock}} {{product.unit}}</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+    </div>
     {{/each}}
   <!-- </div> -->
 </div>
-</div>
 <!-- end OrdersList -->
 </div>
-
 {{#section 'scripts'}}
   <script src="/javascripts/sales.js"></script>
 {{/section}}

@@ -120,7 +120,7 @@ router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
 /**
  * GET Edit - Show the user edit form
  */
-router.get('/profile/edit', auth.isAuthenticated, (req, res) => {
+router.get('/edit', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       res.render('profile/edit', { title: 'Editar', layout: 'layout', user });
@@ -209,10 +209,10 @@ router.get('/beFranchisee', auth.isAuthenticated, (req, res) => {
  router.get('/franchisee', auth.isAuthenticated, (req, res) => {
    User.getAll().then((users) => {
      if (req.session.userType === 'Produtor') {
-       res.render('myFranchisee', { title: 'Meus Franqueados', layout: 'layout', users });
+       res.render('clients', { title: 'Meus Franqueados', layout: 'layout', users, ...req.session });
      }
      else if (req.session.userType === 'Franqueado') {
-       res.render('myClients', { title: 'Meus Clientes', layout: 'layout', users });
+       res.render('clients', { title: 'Meus Clientes', layout: 'layout', users, ...req.session });
      }
    }).catch((err) => {
      console.log(err);

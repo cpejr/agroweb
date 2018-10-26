@@ -99,9 +99,9 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
 router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   console.log(req.body.active);
   const user = {
-    active: req.body.active
+    status: req.body.status
   };
-  console.log(req.body.active);
+  console.log(req.body.status);
   User.update(req.params.id, user).catch((err) => {
     console.log(err);
   });

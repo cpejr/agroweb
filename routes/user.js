@@ -203,10 +203,20 @@ router.get('/beFranchisee', auth.isAuthenticated, (req, res) => {
 });
 
 /**
+ * GET beFranchisee page
+ */
+router.get('/franchisee', auth.isAuthenticated, (req, res) => {
+  User.getAll().then((users) => {
+    res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
+  }).catch((err) => {
+    console.log(err);
+  });});
+
+/**
  * GET Franchisee page
  */
 
- router.get('/franchisee', auth.isAuthenticated, (req, res) => {
+ router.get('/clients', auth.isAuthenticated, (req, res) => {
    User.getAll().then((users) => {
      if (req.session.userType === 'Produtor') {
        res.render('clients', { title: 'Meus Franqueados', layout: 'layout', users, ...req.session });

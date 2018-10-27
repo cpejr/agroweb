@@ -109,7 +109,7 @@ const userSchema = new mongoose.Schema({
     cotton: Number,
     otherCultivations: Number
   },
-  wpp: String,
+  wpp: Boolean,
   stateRegistration: Number
 }, { timestamps: true, static: false });
 
@@ -181,7 +181,7 @@ class User {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      UserModel.findByIdAndUpdate(id, { active: false }).catch((err) => {
+      UserModel.findByIdAndUpdate(id, { status: 'Inativo' }).catch((err) => {
         reject(err);
       });
     });
@@ -389,6 +389,22 @@ class User {
     return new Promise((resolve, reject) => {
       UserModel.findById(id).populate({ path: 'agreementList' }).exec().then((result) => {
         resolve(result.offers);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all Users that match the desired query
+   * @param {Object} query - Object that defines the filter
+   * @param {Object} sort - Object that defines the sort method
+   * @returns {Object} User Document Data
+   */
+  static getByQuerySorted(query, sort) {
+    return new Promise((resolve, reject) => {
+      UserModel.find(query).sort(sort).populate().then((result) => {
+        resolve(result);
       }).catch((err) => {
         reject(err);
       });

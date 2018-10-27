@@ -61,6 +61,14 @@ router.get('/login', (req, res) => {
  * GET Signup page
  */
 router.get('/signup', (req, res) => {
+  if ('userType' in req.session) {
+    if (req.session.userType === 'Administrador') {
+      res.redirect('/admin');
+    }
+    else {
+      res.redirect('/user');
+    }
+  }
   res.render('signup', { title: 'Cadastro', layout: 'layoutHome' });
 });
 
@@ -78,6 +86,7 @@ router.post('/login', (req, res) => {
         req.session._id = currentLogged._id;
         req.session.userUid = user.uid;
         req.session.email = currentLogged.email;
+        req.session.status = currentLogged.status;
         if (req.session.userType === 'Administrador') {
           res.redirect('/admin');
         }
@@ -90,11 +99,11 @@ router.post('/login', (req, res) => {
         res.redirect('/error');
       }
     }).catch((error) => {
-      console.log(error.message);
+      console.log(error);
       res.redirect('/error');
     });
   }).catch((error) => {
-    console.log(error.message);
+    console.log(error);
     res.redirect('/error');
   });
 });
@@ -123,10 +132,15 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
     delete req.session._id;
     delete req.session.userUid;
     delete req.session.email;
+    if (req.session.status === 'Aguardando aprovação' || req.session.status === 'Bloqueado') {
+      const { status } = req.session;
+      delete req.session.status;
+      res.render('user/status', { title: 'Volte mais tarde', layout: 'layout', status });
+    }
+    delete req.session.status;
     res.redirect('/');
   }).catch((error) => {
-    console.log(error.code);
-    console.log(error.message);
+    console.log(error);
     res.redirect('/error');
   });
 });
@@ -138,21 +152,21 @@ router.post('/signup', (req, res) => {
   const userData = req.body.user;
 
   // Separates the first name from the rest
-   const position = userData.name.indexOf(' ');
-   userData.firstName = userData.name.slice(0, position);
-
-  req.session.userType = userData.type;
-  req.session.firstName = userData.firstName;
-  req.session.fullName = userData.name;
-  req.session.email = userData.email;
+  const position = userData.name.indexOf(' ');
+  userData.firstName = userData.name.slice(0, position);
 
   userData.fullName = userData.name;
   delete userData.name;
   firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
-    req.session.userUid = user.uid;
     userData.uid = user.uid;
     delete userData.password;
     User.create(userData).then((docId) => {
+      req.session.userType = userData.type;
+      req.session.firstName = userData.firstName;
+      req.session.fullName = userData.name;
+      req.session.email = userData.email;
+      req.session.userUid = user.uid;
+      req.session.status = 'Aguardando aprovação';
       req.session._id = docId;
       if (req.session.userType === 'Indústria') {
         res.render('industryMegaPremio', { title: 'Indústria', layout: 'layout' });
@@ -180,7 +194,10 @@ router.post('/signup', (req, res) => {
 //   Email.sendEmail(emailData).then((user) => {
 //     console.log(user);
 //     res.redirect('/success');
-//   }).catch(err => console.log(err));
+//   }).catch((error) => {
+//   console.log(error);
+//   res.redirect('/error');
+// });
 // });
 
 // /**

@@ -58,7 +58,10 @@ router.post('/contact', (req, res) => {
   Email.sendEmail(emailData).then((user) => {
     console.log(user);
     res.redirect('/success');
-  }).catch(err => console.log(err));
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 module.exports = router;

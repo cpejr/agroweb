@@ -10,8 +10,9 @@ router.get('/', (req, res) => {
   Newsletter.getAll().then((users) => {
     console.log(users);
     res.render('admin/newsletter', { title: 'Newsletter', layout: 'layout', users });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -23,8 +24,8 @@ router.post('/', (req, res) => {
   Newsletter.create(newsletter).then((id) => {
     console.log(`Created new newsletter with id: ${id}`);
     res.redirect(`/user`);
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
     res.redirect('/error');
   });
 });
@@ -33,8 +34,9 @@ router.post('/', (req, res) => {
  * DELETE Destroy - Removes a chem from the databse
  */
 router.delete('/:id', (req, res) => {
-  Newsletter.delete(req.params.id).catch((err) => {
-    console.log(err);
+  Newsletter.delete(req.params.id).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/newsletter');
 });

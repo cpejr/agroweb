@@ -123,28 +123,14 @@ class Transaction {
   }
 
   /**
-   * Get all Transactions that match the desired status value
-   * @param {string} value - Status value
+   * Get all Transactions that match the desired query
+   * @param {Object} query - Object that defines the filter
+   * @param {Object} sort - Object that defines the sort method
    * @returns {Object} Transaction Document Data
    */
-  static getAllByStatus(value) {
+  static getAllByQueryStatus(query, sort) {
     return new Promise((resolve, reject) => {
-      TransactionModel.find({ status: value }).populate({
-        path: 'buyer offer',
-        populate: {
-          path: 'seller franchisee product',
-          populate: { path: 'chem' }
-        }
-      }).then((result) => {
-        resolve(result);
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-  static getAllBytaxStatus(value) {
-    return new Promise((resolve, reject) => {
-      TransactionModel.find({ taxStatus: value }).populate({
+      TransactionModel.find(query).sort(sort).populate({
         path: 'buyer offer',
         populate: {
           path: 'seller franchisee product',

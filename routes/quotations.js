@@ -31,10 +31,10 @@ router.get('/', auth.isAuthenticated, (req, res) => {
 //       console.log('Product not found!');
 //       res.redirect('/user');
 //     }
-//   }).catch((err) => {
-//     console.log(err);
-//     res.redirect('/products');
-//   });
+//   }).catch((error) => {
+//   console.log(error);
+//   res.redirect('/error');
+// });
 // });
 
 

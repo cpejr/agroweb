@@ -15,20 +15,9 @@ router.get('/', auth.isAdmin, (req, res) => {
   Offer.getAll().then((offers) => {
     console.log(offers);
     res.render('offers/index', { title: 'Oferta', offers });
-  }).catch((err) => {
-    console.log(err);
-  });
-});
-
-/**
- * GET Teste - Get all products from a category
- */
-router.get('/teste?:category', (req, res) => {
-  Product.getByQuery(req.query).then((products) => {
-    console.log(products);
-    res.render('offers/productSelector', { products });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -36,10 +25,17 @@ router.get('/teste?:category', (req, res) => {
  * GET New - Show form to create new offer
  */
 router.get('/new', auth.canSell, (req, res) => {
-  Product.getAll().then((products) => {
-    res.render('offers/new', { title: 'Nova Oferta', products });
-  }).catch((err) => {
-    console.log(err);
+  const names = [];
+  const queryProduct = {};
+  const sortProduct = { name: 1 };
+  Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
+    products.forEach((product) => {
+      names.push(product.name);
+    });
+    console.log(names);
+    res.render('offers/new', { title: 'Nova Oferta', names });
+  }).catch((error) => {
+    console.log(error);
     res.redirect('/error');
   });
 });
@@ -72,8 +68,8 @@ router.post('/', (req, res) => {
                 const groupData = {
                   offer: offer._id
                 };
-                Group.update(group._id, groupData).catch((err) => {
-                  console.log(err);
+                Group.update(group._id, groupData).catch((error) => {
+                  console.log(error);
                   res.redirect('/error');
                 });
               }
@@ -82,8 +78,8 @@ router.post('/', (req, res) => {
                   const groupData = {
                     offer: offer._id
                   };
-                  Group.update(group._id, groupData).catch((err) => {
-                    console.log(err);
+                  Group.update(group._id, groupData).catch((error) => {
+                    console.log(error);
                     res.redirect('/error');
                   });
                 }
@@ -99,31 +95,31 @@ router.post('/', (req, res) => {
               };
               Group.create(newGroup).then((groupId) => {
                 console.log(`Created new group with id: ${groupId}`);
-              }).catch((err) => {
-                console.log(err);
+              }).catch((error) => {
+                console.log(error);
                 res.redirect('/error');
               });
             }
-          }).catch((err) => {
-            console.log(err);
+          }).catch((error) => {
+            console.log(error);
             res.redirect('/error');
           });
-        }).catch((err) => {
-          console.log(err);
+        }).catch((error) => {
+          console.log(error);
           res.redirect('/error');
         });
       }
-      User.addOffer(req.session._id, offerId).catch((err) => {
-        console.log(err);
+      User.addOffer(req.session._id, offerId).catch((error) => {
+        console.log(error);
         res.redirect('/error');
       });
       res.redirect(`/offers/${offerId}`);
-    }).catch((err) => {
-      console.log(err);
-      res.redirect('/offers');
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
     });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
     res.redirect('/error');
   });
 });
@@ -142,9 +138,9 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
       console.log('Offer not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/offers');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -161,9 +157,9 @@ router.get('/:id/edit', auth.canSell, (req, res) => {
       console.log('Offer not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/offers');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -191,8 +187,8 @@ router.put('/:id', (req, res) => {
             const groupData = {
               offer: offer._id
             };
-            Group.update(group._id, groupData).catch((err) => {
-              console.log(err);
+            Group.update(group._id, groupData).catch((error) => {
+              console.log(error);
               res.redirect('/error');
             });
           }
@@ -201,8 +197,8 @@ router.put('/:id', (req, res) => {
               const groupData = {
                 offer: offer._id
               };
-              Group.update(group._id, groupData).catch((err) => {
-                console.log(err);
+              Group.update(group._id, groupData).catch((error) => {
+                console.log(error);
                 res.redirect('/error');
               });
             }
@@ -218,22 +214,23 @@ router.put('/:id', (req, res) => {
           };
           Group.create(newGroup).then((groupId) => {
             console.log(`Created new group with id: ${groupId}`);
-          }).catch((err) => {
-            console.log(err);
+          }).catch((error) => {
+            console.log(error);
             res.redirect('/error');
           });
         }
-      }).catch((err) => {
-        console.log(err);
+      }).catch((error) => {
+        console.log(error);
         res.redirect('/error');
       });
-    }).catch((err) => {
-      console.log(err);
+    }).catch((error) => {
+      console.log(error);
       res.redirect('/error');
     });
   }
-  Offer.update(req.params.id, offer).catch((err) => {
-    console.log(err);
+  Offer.update(req.params.id, offer).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect(`/offers/${req.params.id}`);
 });
@@ -242,8 +239,9 @@ router.put('/:id', (req, res) => {
  * DELETE Destroy - Removes a offer from the databse
  */
 router.delete('/:id', (req, res) => {
-  Offer.delete(req.params.id).catch((err) => {
-    console.log(err);
+  Offer.delete(req.params.id).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/offers');
 });

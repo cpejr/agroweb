@@ -1,30 +1,40 @@
 const express = require('express');
-const firebase = require('firebase');
 const Email = require('../models/email');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
 
-var router = express.Router();
+const router = express.Router();
 
 /**
  * GET User Home page
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
-  if (req.session.userType === 'Administrador') {
-    res.redirect('/admin');
+  if (req.session.status === 'Ativo' || req.session.status === 'Inativo') {
+    if (req.session.status === 'Inativo') {
+      User.update(req.session._id, { status: 'Ativo' }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    }
+    if (req.session.userType === 'Administrador') {
+      res.redirect('/admin');
+    }
+    else if (req.session.userType === 'Franqueado') {
+      res.render('user', { title: 'Franqueado', layout: 'layoutDashboard', ...req.session });
+    }
+    else if (req.session.userType === 'Indústria') {
+      res.render('user', { title: 'Indústria', layout: 'layoutDashboard', ...req.session });
+    }
+    else if (req.session.userType === 'Produtor') {
+      res.render('user', { title: 'Produtor', layout: 'layoutDashboard', ...req.session });
+    }
+    else if (req.session.userType === 'Revendedor') {
+      res.render('user', { title: 'Revendedor', layout: 'layoutDashboard', ...req.session });
+    }
   }
-  else if (req.session.userType === 'Franqueado') {
-    res.render('user', { title: 'Franqueado', layout: 'layoutDashboard', ...req.session });
-  }
-  else if (req.session.userType === 'Indústria') {
-    res.render('user', { title: 'Indústria', layout: 'layoutDashboard', ...req.session });
-  }
-  else if (req.session.userType === 'Produtor') {
-    res.render('user', { title: 'Produtor', layout: 'layoutDashboard', ...req.session });
-  }
-  else if (req.session.userType === 'Revendedor') {
-    res.render('user', { title: 'Revendedor', layout: 'layoutDashboard', ...req.session });
+  else {
+    res.redirect('/logout');
   }
 });
 
@@ -42,18 +52,18 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
         else {
           res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions });
         }
-      }).catch((err) => {
-        console.log(err);
-        res.redirect('/user');
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
       });
     }
     else {
       console.log('User not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/user');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -66,8 +76,8 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
       User.getAllOffersByUserId(req.session._id).then((offers) => {
         console.log(offers);
         res.render('offers/index', { title: 'Produtos oferecidos', layout: 'layout', offers });
-      }).catch((err) => {
-        console.log(err);
+      }).catch((error) => {
+        console.log(error);
         res.redirect('/error');
       });
     }
@@ -75,9 +85,9 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
       console.log('User not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/user');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -90,18 +100,18 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
       User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
         console.log(transactions);
         res.render('orders', { title: 'Histórico', layout: 'layout', transactions });
-      }).catch((err) => {
-        console.log(err);
-        res.redirect('/user');
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
       });
     }
     else {
       console.log('User not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/user');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -111,9 +121,9 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
 router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
   User.getById(req.params.id).then((user) => {
       res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, ...req.session});
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/user');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -129,26 +139,10 @@ router.get('/edit', auth.isAuthenticated, (req, res) => {
       console.log('User not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/user');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
-});
-
-/**
- * PUT Update - Update a user in the database
- */
-router.post('/update', auth.isAuthenticated, (req, res) => {
-  const userData = req.body.user;
-
-  // Separates the first name from the rest
-  const position = userData.fullName.indexOf(' ');
-  userData.firstName = userData.fullName.slice(0, position);
-
-  User.update(req.session._id, userData).catch((err) => {
-    console.log(err);
-  });
-  res.redirect('/user');
 });
 
 /**
@@ -203,19 +197,36 @@ router.get('/beFranchisee', auth.isAuthenticated, (req, res) => {
 });
 
 /**
- * GET beFranchisee page
+ * PUT Update - Update a user in the database
+ */
+router.post('/update', auth.isAuthenticated, (req, res) => {
+  const userData = req.body.user;
+
+  // Separates the first name from the rest
+  const position = userData.fullName.indexOf(' ');
+  userData.firstName = userData.fullName.slice(0, position);
+
+  User.update(req.session._id, userData).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  res.redirect('/user/profile');
+});
+
+ * GET contract page
  */
 router.get('/franchisee', auth.isAuthenticated, (req, res) => {
   User.getAll().then((users) => {
     res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
-  }).catch((err) => {
-    console.log(err);
-  });});
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
 
 /**
- * GET Franchisee page
+ * GET clients page
  */
-
  router.get('/clients', auth.isAuthenticated, (req, res) => {
    User.getAll().then((users) => {
      if (req.session.userType === 'Produtor') {
@@ -224,10 +235,21 @@ router.get('/franchisee', auth.isAuthenticated, (req, res) => {
      else if (req.session.userType === 'Franqueado') {
        res.render('clients', { title: 'Meus Clientes', layout: 'layout', users, ...req.session });
      }
-   }).catch((err) => {
-     console.log(err);
-   });
+   }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
  });
 
+/**
+ * DELETE Destroy - Update a user status to 'Inativo'
+ */
+router.delete('/:id', (req, res) => {
+  User.delete(req.params.id).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  res.redirect('/logout');
+});
 
 module.exports = router;

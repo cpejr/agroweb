@@ -8,8 +8,8 @@ require('dotenv').config();
  * Dependencies
  */
 const bodyParser = require('body-parser');
-const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
+const createError = require('http-errors');
 const exphbs = require('express-handlebars');
 const express = require('express');
 const firebase = require('firebase');

@@ -1,35 +1,9 @@
-<div id="results-list" class="row justify-content-center mt-2 mx-0">
-  <div class="col-sm-12 col-md-4">
-      <div id="card1" class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
-        <div class="text-right p-2">
-          <div class="row">
-            <div class="col-4 col-md-5 col-lg-5 d-inline-block p-1">
-              <div class="text-center">
-                <p class="text-gray2 mt-2 float-right"><i class="font-light mobile-font1">/ kg</i></p>
-                <h4 class="font-book mobile-font4 mobile-font5 side-animation" data-usd={{usd}}>R$ 1000</h4>
-              </div>
-              <i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
-            </div>
 
-            <div class="col-3 p-2">
-              <div class="vl">
-                <h5 class="align-text-top"><i class="font-black text-green ml-2 mobile-font1 text-uppercase">Acehero</i></h5>
-                <div class="smaller-font d-flex text-center mt-5 justify-content-between">
-                  <div class="ml-2">
-                    <p class="text-uppercase font-book mobile-font2">Compra
-                      <span class="count font-light mobile-font2"> <br />solo</span>
-                    </p>
-                  </div>
-                  <div class="">
-                    <p class="ml-lg-4 ml-3 text-uppercase font-book mobile-font2">Entrega
-                      <span class="count font-light mobile-font2"> <br />até 48 horas</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
+<div id="the-basics">
+  <input class="typeahead" type="text" placeholder="States of USA">
 </div>
+
+{{#section 'scripts'}}
+  <script src="/typeahead/typeahead.bundle.js"></script>
+  <script src="/javascripts/test.js"></script>
+{{/section}}

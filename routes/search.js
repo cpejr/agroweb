@@ -52,13 +52,15 @@ router.get('/', (req, res) => {
  * GET Products Results page
  */
 router.get('/products', (req, res) => {
-  console.log(req.query.filter);
-  const regex = new RegExp(req.query.filter, 'i');
-  const queryProduct = { name: regex };
+  const names = [];
+  const queryProduct = {};
   const sortProduct = { name: 1 };
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
-    console.log(products);
-    res.render('resultsProducts', { title: `Resultados para "${req.query.name}"`, layout: 'layoutHome', products });
+    products.forEach((product) => {
+      names.push(product.name);
+    });
+    console.log(names);
+    res.send(names);
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

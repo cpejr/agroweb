@@ -12,8 +12,8 @@ router.get('/', (req, res) => {
   Product.getAll().then((products) => {
     console.log(products);
     res.render('products/index', { title: 'Produtos', products });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
     res.redirect('/error');
   });
 });
@@ -25,8 +25,8 @@ router.get('/new', (req, res) => {
   Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
     console.log(chems[0]);
     res.render('products/new', { title: 'Novo Produto', chems });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
     res.redirect('/error');
   });
 });
@@ -40,9 +40,9 @@ router.post('/', (req, res) => {
   Product.create(product).then((id) => {
     console.log(`Created new product with id: ${id}`);
     res.redirect(`/products/${id}`);
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/products');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -59,9 +59,9 @@ router.get('/:id', (req, res) => {
       console.log('Product not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/products');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -78,9 +78,9 @@ router.get('/:id/edit', auth.canSell, (req, res) => {
       console.log('Product not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/products');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -95,8 +95,9 @@ router.put('/:id', (req, res) => {
     description: req.body.description,
     unit: req.body.unit
   };
-  Product.update(req.params.id, product).catch((err) => {
-    console.log(err);
+  Product.update(req.params.id, product).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect(`/products/${req.params.id}`);
 });
@@ -105,8 +106,9 @@ router.put('/:id', (req, res) => {
  * DELETE Destroy - Removes a product from the databse
  */
 router.delete('/:id', (req, res) => {
-  Product.delete(req.params.id).catch((err) => {
-    console.log(err);
+  Product.delete(req.params.id).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/products');
 });

@@ -18,7 +18,7 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
     res.render('orders/index', { title: 'Transações', transactions });
   }).catch((error) => {
     console.log(error);
-    res.redirect('/transaction');
+    res.redirect('/error');
   });
 });
 
@@ -102,7 +102,7 @@ router.get('/:id', (req, res) => {
     }
   }).catch((error) => {
     console.log(error);
-    res.redirect('/transaction');
+    res.redirect('/error');
   });
 });
 
@@ -137,7 +137,7 @@ router.put('/:id', (req, res) => {
     }
   }).catch((error) => {
     console.log(error);
-    res.redirect('/transaction');
+    res.redirect('/error');
   });
   res.redirect(`/transaction/${req.params.id}`);
 });
@@ -167,8 +167,9 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
   const transaction = {
     taxStatus: req.body.taxStatus
   };
-  Transaction.update(req.params.id, transaction).catch((err) => {
-    console.log(err);
+  Transaction.update(req.params.id, transaction).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/user/orders');
 });

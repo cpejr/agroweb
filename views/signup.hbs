@@ -133,8 +133,10 @@
                 <label><input type="radio" name="user[delivery][stock]" required>Sim</label>
                 <label><input type="radio" class="ml-5" name="user[delivery][stock]">Não</label>
               </div>
-              <label for="acceptDeliver" class="mt-3">Aceita entregar a uma distância de até (em KM)<span class="text-red"> *</span></label>
+              <label for="acceptDeliver" class="mt-3">Aceita entregar a uma distância de até: <span class="text-red"> *</span></label>
+              <div class="input-group-append">
               <input type="number" class="bg-light form-control" name="user[delivery][maxDistance]" min="0" step="50" id="acceptDeliver">
+              <span class="input-group-text">km</span></div>
               <label for="Lphone" class="mt-3">Telefone do responsável pela logística<span class="text-red"> *</span></label>
               <input type="tel" class="bg-light form-control" name="user[logistics][phone]"id="Lphone" required>
               <label for="Lemail" class="mt-3">E-mail logística<span class="text-red"> *</span></label>
@@ -352,25 +354,36 @@
             <input type="text" class="bg-light form-control" name="user[farm][name]" id="farm">
 
             <label for="dist" class="mt-3">Distância aproximada da cidade até a fazenda<span class="text-red"> *</span></label>
+            <div class="input-group-append">
             <input type="dist" class="bg-light form-control" name="user[farm][distanceToCity]" id="dist">
-
+            <span class="input-group-text">km</span></div>
             <label for="script" class="mt-3">Roteiro de entrega<span class="text-red"> *</span></label>
             <input type="text" class="bg-light form-control" name="user[farm][deliveryScript]" id="script">
 
-            <label for="areaha" class="mt-3">Área plantada (ha)<span class="text-red"> *</span></label>
+            <label for="areaha" class="mt-3">Área plantada <span class="text-red"> *</span></label>
+            <div class="input-group-append">
             <input type="number" class="bg-light form-control" name="user[farm][area]" id="areaha">
+            <span class="input-group-text">ha</span></div>
 
             <label for="soy" class="mt-3">Soja<span class="text-red"> *</span></label>
+            <div class="input-group-append">
             <input type="number" class="bg-light form-control" name="user[farm][soy]" id="soy">
+            <span class="input-group-text">ha</span></div>
 
             <label for="corn" class="mt-3">Milho<span class="text-red"> *</span></label>
+            <div class="input-group-append">
             <input type="number" class="bg-light form-control" name="user[farm][corn]" id="corn">
+            <span class="input-group-text">ha</span></div>
 
             <label for="cotton" class="mt-3">Algodão<span class="text-red"> *</span></label>
+            <div class="input-group-append">
             <input type="number" class="bg-light form-control" name="user[farm][cotton]" id="cotton">
+            <span class="input-group-text">ha</span></div>
 
             <label for="other" class="mt-3">Outras culturas</label>
+            <div class="input-group-append">
             <input type="number" class="bg-light form-control" name="user[farm][otherCultivations]" id="other">
+            <span class="input-group-text">ha</span></div>
 
             <label for="wpp" class="mt-3">Pode se comunicar comigo por whatsapp?<span class="text-red"> *</span></label>
               <div class="d-block text-center">
@@ -441,7 +454,7 @@
               <label for="number" class="mt-2">Número<span class="text-red"> *</span></label>
               <input type="text" class="bg-light form-control" name="user[address][number]" id="number" required>
 
-              <label for="state">Estado<span class="text-red"> *</span></label>
+              <label for="state" class="mt-2">Estado<span class="text-red"> *</span></label>
               <div class="form-group">
                 <select class="form-control" name="user[address][state]" id="state" required>
                   <option disabled selected value> -- Selecione um estado -- </option>
@@ -475,7 +488,11 @@
                 </select>
               </div>
 
-              <label for="city">Cidade:<span class="text-red"> *</span></label>
+
+              <label for="phone" class="mt-2">Telefone fixo<span class="text-red"> *</span></label>
+              <input type="tel" class="bg-light form-control" name="user[phone]"id="phone" required>
+
+              <label for="city" class="mt-2">Cidade<span class="text-red"> *</span></label>
               <input type="text" class="bg-light form-control" name="user[address][city]" id="city" required>
 
               <div class="form-group">
@@ -487,33 +504,27 @@
                 <a type="button" class="btn bg-green px-5 text-dark" href="franchiseeOption" name="button">Mais informações</a>
               </div>
 
-              <label for="cpfOrCnpj" class="mt-3">CPF/CNPJ<span class="text-red"> *</span></label>
-              <input type="text" class="bg-light form-control" placeholder="apenas números" name="user[doc]" id="cpfOrCnpj" required>
-
               <label for="activities"  class="mt-3">Faça um resumo de suas atividades profissionais atuais<span class="text-red"> *</span></label>
               <textarea class="form-control bg-light" rows="5" name="user[activities]" id="activities" required></textarea>
 
               <label for="actualCustomers" class="mt-3">Já tem uma carteira de cliente que cotam produtos com você?<span class="text-red"> *</span></label>
               <div class="radio">
-                <label><input type="radio" name="user[actualCustomers]" required>Sim</label>
+                <label><input type="radio" name="user[actualCustomers]" value="Sim" required>Sim</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="user[actualCustomers]">Não</label>
+                <label><input type="radio" name="user[actualCustomers]" value="Não" >Não</label>
               </div>
 
               <label for="possibleCustomers" class="mt-3">Já tem uma carteira de cliente que podem vir a cotar produtos com você?<span class="text-red"> *</span></label>
               <div class="radio">
-                <label><input type="radio" name="user[possibleCustomers]" required>Sim</label>
+                <label><input type="radio" name="user[possibleCustomers]" value="Sim" required>Sim</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="user[possibleCustomers]">Não</label>
+                <label><input type="radio" name="user[possibleCustomers]" value="Não" >Não</label>
               </div>
 
               <label for="totalCustomers" class="mt-3">Total de clientes<span class="text-red"> *</span></label>
               <input type="number" class="bg-light form-control" name="user[totalCustomers]" id="totalCustomers" required>
-
-              <label for="areahec" class="mt-3">Área total em Hectares<span class="text-red"> *</span></label>
-              <input type="number" class="bg-light form-control" name="user[area]" id="areahec" required>
 
               <label for="important" class="mt-3">Faça um resumo de como a Megapool poderia ser importante para o seu negócio</label><span class="text-red"> *</span>
               <textarea class="form-control bg-light" rows="5" name="user[whyIsMegapoolImportant]" id="important" required></textarea>
@@ -625,9 +636,10 @@
                   <label><input type="radio" class="ml-5" name="user[delivery][stock]" value="Não" >Não</label>
                 </div>
 
-                <label for="acceptDeliver" class="mt-3">Aceita entregar a uma distância de até (em KM)<span class="text-red"> *</span></label>
+                <label for="acceptDeliver" class="mt-3">Aceita entregar a uma distância de até: <span class="text-red"> *</span></label>
+                <div class="input-group-prepend">
                 <input type="number" class="bg-light form-control" name="user[delivery][maxDistance]" min="0" step="50" id="acceptDeliver">
-
+                <span class="input-group-text">km</span></div>
                 <label for="Lphone" class="mt-3">Telefone do responsável pela logística<span class="text-red"> *</span></label>
                 <input type="tel" class="bg-light form-control" name="user[logistics][phone]"id="Lphone" required>
 

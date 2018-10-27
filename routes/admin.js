@@ -93,7 +93,6 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
 
 router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   console.log(req.body.taxStatus);
-  console.log('eu nao sei');
   const transaction = {
     taxStatus: req.body.taxStatus
   };
@@ -104,7 +103,7 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
   res.redirect('/admin/transaction');
 });
 
-router.post('updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   console.log(req.body.active);
   const user = {
     active: req.body.active

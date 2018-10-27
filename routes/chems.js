@@ -32,7 +32,7 @@ router.post('/', auth.isAdmin, (req, res) => {
   const { chem } = req.body;
   Chem.create(chem).then((id) => {
     console.log(`Created new chem with id: ${id}`);
-    res.redirect(`/chems/${id}`);
+    res.redirect('/chems');
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

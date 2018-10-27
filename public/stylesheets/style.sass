@@ -1,9 +1,6 @@
 @import ../bootstrap/scss/bootstrap.scss
 @import ../bootstrap/scss/typeaheadjs.scss
 @import ../fonts/fontawesome/fontawesome-all.css
-@import ../fonts/officialfonts/GOTHAM-BLACK.TTF
-@import ../fonts/officialfonts/GOTHAM-BOLD.TTF
-@import ../fonts/officialfonts/GOTHAM-LIGHT.TTF
 
 //
 // Default colors
@@ -74,6 +71,9 @@ body
 .text-gray
   color: $gray-color !important
 
+.text-gray3
+  color: $gray-color3 !important
+
 .text-red
   color: $red-color !important
 
@@ -95,17 +95,17 @@ body
 
 @font-face
   font-family: 'gotham-bold'
-  src: url("../fonts/officialfonts/GOTHAM-BOLD.ttf") format("truetype")
+  src: url("../fonts/officialfonts/GOTHAM-BOLD.otf") format("opentype")
 
 
 @font-face
   font-family: 'gotham-black'
-  src: url("../fonts/officialfonts/GOTHAM-BLACK.ttf") format("truetype")
+  src: url("../fonts/officialfonts/GOTHAM-BLACK.otf") format("opentype")
 
 
 @font-face
   font-family: 'gotham-light'
-  src: url("../fonts/officialfonts/GOTHAM-LIGHT.ttf") format("truetype")
+  src: url("../fonts/officialfonts/GOTHAM-LIGHT.otf") format("opentype")
 
 
 @font-face
@@ -162,9 +162,13 @@ nav .form-control
 
 //cards
 .card
-  color: $dark-color
-  width: 22.3em
+  color: #000 !important
   border-color: $dark2-color
+
+
+.card-text
+  white-space: normal
+  width: 100%
 
 .break
   -ms-word-break: break-all
@@ -176,20 +180,17 @@ nav .form-control
 
 @media (max-width:320px)
   .card
-    width: 18.3em
+    // width: 20em
 
   .mobile-font5
     font-size: 0.2em
 
 .card-icon
   color: $dark-color
-  padding: 0.2em
   border-radius: 50%
 
 .vl
   border-left: 1px solid green
-  opacity: 0.5
-  height: 110px
 
 @media (min-width:769px)
   .side-animation
@@ -200,8 +201,8 @@ nav .form-control
     transition: width 1s
     transition-timing-function: cubic-bezier(0.42,0,0.58,1)
 
-  #card1:hover .side-animation
-    width: 4.5em
+  .card1:hover .side-animation
+    width: 10.0em
 
 .smaller-font
   font-size: .7em
@@ -540,7 +541,7 @@ a.more-link
 
 
 .gradient-background
-  background-image: linear-gradient(to right, $green-color, $green-color3)
+  background-image: linear-gradient(to right, $green-color, #00b800)
 
 
 
@@ -600,8 +601,8 @@ a.more-link
     border: 1px solid $dark-color
     box-shadow: 0 0 0 $dark-color
     transition: all 0.2s
-    margin-top: 20px
-    margin-bottom: 20px
+    margin-top: 0px
+    margin-bottom: 0px
     cursor: pointer
 
   .btn-index:last-child

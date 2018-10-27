@@ -131,7 +131,7 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
   const { userType } = req.session;
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
-      console.log(offer);
+      // console.log(offer);
       res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, ...offer });
     }
     else {

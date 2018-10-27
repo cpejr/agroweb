@@ -118,15 +118,9 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
 /**
  * GET Profile/index - Show all user's details
  */
-router.get('/profile', auth.isAuthenticated, (req, res) => {
-  User.getById(req.session._id).then((user) => {
-    if (user) {
-      res.render('profile', { title: 'Perfil', layout: 'layout', user });
-    }
-    else {
-      console.log('User not found!');
-      res.redirect('/user');
-    }
+router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
+  User.getById(req.params.id).then((user) => {
+      res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, ...req.session});
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -136,7 +130,7 @@ router.get('/profile', auth.isAuthenticated, (req, res) => {
 /**
  * GET Edit - Show the user edit form
  */
-router.get('/profile/edit', auth.isAuthenticated, (req, res) => {
+router.get('/edit', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       res.render('profile/edit', { title: 'Editar', layout: 'layout', user });
@@ -218,6 +212,34 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
   });
   res.redirect('/user/profile');
 });
+
+ * GET contract page
+ */
+router.get('/franchisee', auth.isAuthenticated, (req, res) => {
+  User.getAll().then((users) => {
+    res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * GET clients page
+ */
+ router.get('/clients', auth.isAuthenticated, (req, res) => {
+   User.getAll().then((users) => {
+     if (req.session.userType === 'Produtor') {
+       res.render('clients', { title: 'Meus Franqueados', layout: 'layout', users, ...req.session });
+     }
+     else if (req.session.userType === 'Franqueado') {
+       res.render('clients', { title: 'Meus Clientes', layout: 'layout', users, ...req.session });
+     }
+   }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+ });
 
 /**
  * DELETE Destroy - Update a user status to 'Inativo'

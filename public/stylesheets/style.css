@@ -6097,6 +6097,9 @@ body {
 .text-gray {
   color: #e5e5e5 !important; }
 
+.text-gray3 {
+  color: #606060 !important; }
+
 .text-red {
   color: #db4437 !important; }
 
@@ -6114,15 +6117,15 @@ body {
 
 @font-face {
   font-family: 'gotham-bold';
-  src: url("../fonts/officialfonts/GOTHAM-BOLD.ttf") format("truetype"); }
+  src: url("../fonts/officialfonts/GOTHAM-BOLD.otf") format("opentype"); }
 
 @font-face {
   font-family: 'gotham-black';
-  src: url("../fonts/officialfonts/GOTHAM-BLACK.ttf") format("truetype"); }
+  src: url("../fonts/officialfonts/GOTHAM-BLACK.otf") format("opentype"); }
 
 @font-face {
   font-family: 'gotham-light';
-  src: url("../fonts/officialfonts/GOTHAM-LIGHT.ttf") format("truetype"); }
+  src: url("../fonts/officialfonts/GOTHAM-LIGHT.otf") format("opentype"); }
 
 @font-face {
   font-family: 'gotham-book';
@@ -6173,9 +6176,12 @@ nav .form-control {
   display: none; }
 
 .card {
-  color: #232323;
-  width: 22.3em;
+  color: #000 !important;
   border-color: #5b5b5b; }
+
+.card-text {
+  white-space: normal;
+  width: 100%; }
 
 .break {
   -ms-word-break: break-all;
@@ -6186,20 +6192,15 @@ nav .form-control {
   hyphens: auto; }
 
 @media (max-width: 320px) {
-  .card {
-    width: 18.3em; }
   .mobile-font5 {
     font-size: 0.2em; } }
 
 .card-icon {
   color: #232323;
-  padding: 0.2em;
   border-radius: 50%; }
 
 .vl {
-  border-left: 1px solid green;
-  opacity: 0.5;
-  height: 110px; }
+  border-left: 1px solid green; }
 
 @media (min-width: 769px) {
   .side-animation {
@@ -6209,8 +6210,8 @@ nav .form-control {
     -webkit-transition: width 1s;
     transition: width 1s;
     transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
-  #card1:hover .side-animation {
-    width: 4.5em; } }
+  .card1:hover .side-animation {
+    width: 10.0em; } }
 
 .smaller-font {
   font-size: .7em; }
@@ -6520,7 +6521,7 @@ a.more-link {
   color: #999; }
 
 .gradient-background {
-  background-image: linear-gradient(to right, #3b9939, #b2ca00); }
+  background-image: linear-gradient(to right, #3b9939, #00b800); }
 
 /* Responsive style changes */
 @media (max-width: 769px) {
@@ -6568,8 +6569,8 @@ a.more-link {
     border: 1px solid #232323;
     box-shadow: 0 0 0 #232323;
     transition: all 0.2s;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     cursor: pointer; }
   .btn-index:last-child {
     margin: 0; }

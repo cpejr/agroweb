@@ -2,62 +2,108 @@
 {{/section}}
 
 <!-- Filters Header -->
-<div class="filters-header row justify-content-md-end justify-content-center mx-1 mt-2 mb-1">
-  <div class="col-12 col-md-7 d-flex align-items-center justify-content-between">
-    <div class="">
-      <h4 class="my-auto">Minhas Cotações</h4>
-    </div>
-    <div class="">
-      <button type="button" name="button" class="btn ml-1">
-        <i class="fas fa-sort-amount-down "></i>
-      </button>
-      <button type="button" name="button" class="btn ml-1">
-        <i class="fas fa-filter "></i>
-      </button>
-    </div>
-  </div>
+<div class="text-center pb-3 gradient-background">
+  <h3 class="font-black">Minhas cotações</h3>
 </div>
+
+<div class="p-3">
+  <div class="text-center mr-5 mt-2 ml-5 mb-4">
+    <button type="button col-1 color-muted" name="button" class="btn ml-1">
+      <i class="fas fa-sort-amount-down float-left"></i>
+    </button>
+    <button type="button col-1 color-muted" name="button" class="btn ml-1">
+      <i class="fas fa-filter float-left"></i>
+    </button>
+  </div>
 <!-- end Filters Header -->
 
-<!-- QuotationsList -->
-<div class="justify-content-center">
-  <div id="results-list" class="row d-flex justify-content-around mt-2 mx-md-4">
+<div class="row justify-content-center">
   {{#each quotations}}
-    <div class="col-12 col-md-4">
-      <div class="card mb-1 btn" onclick="location.href = '/transaction/{{_id}}'">
-        <div class="card-body text-right">
-          {{#ifCond offer.product.category 'Defensivos'}}
-            <i class="card-icon fas fa-bug fa-3x float-left align-middle"></i>
-          {{else ifCond offer.product.category 'Sementes'}}
-            <i class="card-icon fas fa-dot-circle fa-3x float-left align-middle"></i>
-          {{else ifCond offer.product.category 'Fertilizantes'}}
-            <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
-          {{else ifCond offer.product.category 'Fertilizantes Líquidos'}}
-            <i class="card-icon fas fa-tint fa-3x float-left align-middle"></i>
-          {{/ifCond}}
-          <h5 class="card-title align-text-top text-center">{{offer.product.name}}</h5>
-          <div class="row justify-content-center">
-            <div class="col-md-4">
-              <p class="card-text align-text-bottom text-center">R$ {{unitPrice}} / {{offer.product.unit}}</p>
-            </div>
-            <div class="col-md-4">
-              <p class="card-text align-text-bottom text-center">{{amountBought}} {{offer.product.unit}}</p>
-            </div>
-            <div class="col-md-4">
-              <p class="card-text align-text-bottom text-center">Total: R$ {{priceBought}}</p>
-            </div>
+  <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" >
+    <div class="my-1 bg-light2 card1"  onclick="location.href = '/offers/{{_id}}'">
+      <div class="text-right p-2">
+        <div class="row">
+          <div class="col-3 d-inline-block text-center align-self-center">
+
+            {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+            <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+            {{else ifCond offer.product.category 'Sementes'}}
+            <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
+            {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+            <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
+            {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+            <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
+            {{/ifCond}}
           </div>
-          <div class="row justify-content-center pt-3">
-            <h6>Entrega: {{offer.delivery}}</h6>
+          <div class="col p-2">
+            <div class="vl">
+              <div class="ml-2">
+                <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+                  {{offer.product.name}}
+                </h5>
+              </div>
+              <div class="ml-2 mt-3">
+                <div class="text-left side-animation">
+                  <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
+                    R$ {{unitPrice}}
+                  </h4>
+                  <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                    / {{offer.product.unit}}
+                  </i>
+                </div>
+              </div>
+              <div class="row align-rightS">
+                <div class="smaller-font d-flex text-center mt-3 align-bottom">
+                  <div class="ml-4  text-gray3">
+                    <p class="text-uppercase font-book mobile-font2 ">Compra
+                      {{#ifCond offer.delivery 'em até 48 horas'}}
+                      <span class="count font-light mobile-font2"> <br/>Solo</span>
+                      {{else }}
+                      <span class="count font-light mobile-font2"> <br/>Grupo</span>
+                      {{/ifCond}}
+
+                    </p>
+                  </div>
+
+                  <div class="ml-4 text-gray3">
+                    <p class="text-uppercase font-book mobile-font2 ">Entrega
+                      <span class="count font-light mobile-font2"> <br/>{{offer.delivery}}</span>
+                    </p>
+                  </div>
+
+                  <div class="ml-4  text-gray3">
+                    <p class="text-uppercase text-center font-book mobile-font2">Qnt
+                      <span class="count text-center font-light mobile-font2"> <br/>{{amountBought}}</span>
+                    </p>
+                  </div>
+                  <div class="ml-4 text-gray3">
+                    <p class="text-uppercase font-book mobile-font2">Custo total
+                      <span class="count text-center font-light mobile-font2"> <br/>{{priceBought}}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  {{/each}}
   </div>
-  <form action="/user/buy" method="POST">
-    <button class="w-100 col-10 col-md-7 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
-  </form>
+  {{/each}}
+</div>
+</div>
+<form action="/user/buy" method="POST">
+  <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
+</form>
+</div>
 </div>
 <!-- end QuotationsList -->
 

@@ -213,6 +213,7 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
   res.redirect('/user/profile');
 });
 
+/*
  * GET contract page
  */
 router.get('/franchisee', auth.isAuthenticated, (req, res) => {

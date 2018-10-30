@@ -6153,13 +6153,13 @@ body {
   font-family: 'gotham-book'; }
 
 body {
-  font-family: 'gotham-bold'; }
+  font-family: 'gotham-book'; }
 
 button, h2, h4, h6, h7, p, i, a, dt, li {
-  font-family: 'gotham-bold'; }
+  font-family: 'gotham-book'; }
 
 h1, h3, h5, span {
-  font-family: 'gotham-bold'; }
+  font-family: 'gotham-book'; }
 
 nav {
   background-color: #232323; }

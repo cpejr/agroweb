@@ -72,6 +72,17 @@ router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
+/* GET users - Show all newsletter docs */
+
+router.get('/admin/requisitions', (req, res) => {
+  User.getByQuery(req.query).then((user) => {
+    console.log(user);
+    res.render('admin/requisitions', { user });
+  }).catch((err) => {
+    console.log(err);
+  });
+});
+
 /**
  * GET updateTransaction - Update a Transaction in the database
  */

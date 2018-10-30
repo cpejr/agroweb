@@ -387,13 +387,22 @@ class User {
    */
   static getAllClientsByUserId(id) {
     return new Promise((resolve, reject) => {
-      UserModel.findById(id).populate({ path: 'agreementList' }).exec().then((result) => {
+      UserModel.findById(id).populate({ path: 'status' }).exec().then((result) => {
         resolve(result.offers);
       }).catch((err) => {
         reject(err);
       });
     });
   }
-}
 
+  static getByQuerySorted(query, sort) {
+    return new Promise((resolve, reject) => {
+      UserModel.find(query).sort(sort).populate('requisitions').then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+}
 module.exports = User;

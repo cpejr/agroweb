@@ -46,6 +46,7 @@ router.get('/success', (req, res) => {
 router.get('/login', (req, res) => {
   if ('userType' in req.session) {
     if (req.session.userType === 'Administrador') {
+      console.log(req.session);
       res.redirect('/admin');
     }
     else {
@@ -78,6 +79,9 @@ router.post('/login', (req, res) => {
         req.session._id = currentLogged._id;
         req.session.userUid = user.uid;
         req.session.email = currentLogged.email;
+        // console.log(user);
+        // console.log(user.uid);
+        console.log(req.session);
         if (req.session.userType === 'Administrador') {
           res.redirect('/admin');
         }

@@ -109,7 +109,7 @@ const userSchema = new mongoose.Schema({
     cotton: Number,
     otherCultivations: Number
   },
-  wpp: Boolean,
+  wpp: String,
   stateRegistration: Number
 }, { timestamps: true, static: false });
 

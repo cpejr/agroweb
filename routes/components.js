@@ -45,7 +45,7 @@ router.get('/search', (req, res) => {
       res.redirect('/error');
     });
     // for (let product of products) {
-    //   const queryOffer = { product: product._id, delivery: 'em até 48 horas' };
+    //   const queryOffer = { product: product._id, delivery: '48 horas' };
     //   const sortOffer = { 'price.low': 1 };
     //   Offer.getByQuerySorted(queryOffer, sortOffer).then((offers) => {
     //     console.log(offers);

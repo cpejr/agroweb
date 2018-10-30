@@ -29,9 +29,54 @@
         </thead>
         <tbody>
           {{#each users}}
+          {{#ifCond status 'Inativo'}}
           <tr>
             <th scope="row">{{fullName}}</th>
-            <td><div class="dropdown">
+              <td>
+              <div class="dropdown">
+                <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                {{#ifCond status 'Ativo'}}
+                class="btn btn-outline-success dropdown-toggle col-12">
+                Ativo
+
+                {{else ifCond status 'Inativo'}}
+                class="btn btn-outline-danger dropdown-toggle col-12">
+                Inativo
+
+
+                {{/ifCond}}
+              </button>
+              <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+                  <a class="dropdown-item" href="#">
+                    <button type="submit" align="center" class="btn btn-outline-success col-12" name="status" value="Ativo">
+                      Ativo
+                    </button>
+                  </a>
+                </form>
+                <form method= "POST" action="/admin/{{id}}/updateUserActive">
+                  <a class="dropdown-item " href="#">
+                    <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Inativo">
+                    Inativo
+                    </button>
+                  </a>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+        </td>
+            <td>{{type}}</td>
+            <td>{{email}}</td>
+            <td>{{doc}}</td>
+          </tr>
+          {{/ifCond}}
+
+          {{#ifCond status 'Ativo'}}
+          <tr>
+            <th scope="row">{{fullName}}</th>
+            <!-- <td><div class="dropdown">
               <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
               {{#ifCond active true}}
               class="btn btn-outline-success dropdown-toggle  col-12">
@@ -55,12 +100,47 @@
                     Inativo
                   </button>
                 </a>
-              </form>
+              </form> -->
+              <td>
+              <div class="dropdown">
+                <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                {{#ifCond status 'Ativo'}}
+                class="btn btn-outline-success dropdown-toggle col-12">
+                Ativo
+
+                {{else ifCond status 'Inativo'}}
+                class="btn btn-outline-danger dropdown-toggle col-12">
+                Inativo
+
+
+                {{/ifCond}}
+              </button>
+              <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+                  <a class="dropdown-item" href="#">
+                    <button type="submit" align="center" class="btn btn-outline-success col-12" name="status" value="Ativo">
+                      Ativo
+                    </button>
+                  </a>
+                </form>
+                <form method= "POST" action="/admin/{{id}}/updateUserActive">
+                  <a class="dropdown-item " href="#">
+                    <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Inativo">
+                    Inativo
+                    </button>
+                  </a>
+                </form>
             </div>
+          </div>
+        </div>
+      </div>
+        </td>
             <td>{{type}}</td>
             <td>{{email}}</td>
             <td>{{doc}}</td>
           </tr>
+          {{/ifCond}}
           {{/each}}
         </tbody>
       </table>

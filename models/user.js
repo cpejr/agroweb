@@ -387,7 +387,7 @@ class User {
    */
   static getAllClientsByUserId(id) {
     return new Promise((resolve, reject) => {
-      UserModel.findById(id).populate({ path: 'agreementList' }).exec().then((result) => {
+      UserModel.findById(id).populate({ path: 'status' }).exec().then((result) => {
         resolve(result.offers);
       }).catch((err) => {
         reject(err);
@@ -395,15 +395,18 @@ class User {
     });
   }
 
+
+
   /**
    * Get all Users that match the desired query
    * @param {Object} query - Object that defines the filter
    * @param {Object} sort - Object that defines the sort method
    * @returns {Object} User Document Data
    */
+
   static getByQuerySorted(query, sort) {
     return new Promise((resolve, reject) => {
-      UserModel.find(query).sort(sort).populate().then((result) => {
+      UserModel.find(query).sort(sort).populate('requisitions').then((result) => {
         resolve(result);
       }).catch((err) => {
         reject(err);
@@ -411,5 +414,4 @@ class User {
     });
   }
 }
-
 module.exports = User;

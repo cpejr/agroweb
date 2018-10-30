@@ -77,6 +77,17 @@ router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
+/* GET users - Show all newsletter docs */
+
+router.get('/admin/requisitions', (req, res) => {
+  User.getByQuery(req.query).then((user) => {
+    console.log(user);
+    res.render('admin/requisitions', { user });
+  }).catch((err) => {
+    console.log(err);
+  });
+});
+
 /**
  * GET updateTransaction - Update a Transaction in the database
  */
@@ -106,12 +117,13 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
 router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   console.log(req.body.active);
   const user = {
-    active: req.body.active
+    status: req.body.status
   };
   console.log(req.body.active);
   User.update(req.params.id, user).catch((error) => {
     console.log(error);
     res.redirect('/error');
+>>>>>>> master
   });
   res.redirect('/admin/users');
 });

@@ -21,35 +21,51 @@
 
 <!-- ResultsList -->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
-  <div class="col-sm-12 col-md-4">
+  <div class="col-sm-12 col-md-5 col-lg-4 btn">
     {{#if offers}}
       {{#each offers}}
-        <div id="card1" class="card mb-1 btn" onclick="location.href = '/offers/{{_id}}'">
+        <div class="my-1 bg-light2 card1 card" onclick="location.href = '/offers/{{_id}}'">
           <div class="text-right p-2">
             <div class="row">
-              <div class="col-4 col-md-5 col-lg-5 d-inline-block p-1">
-                <div class="text-center">
-                  <p class="text-gray2 mt-2 float-right"><i class="font-light mobile-font1">/ {{product.unit}}</i></p>
-                  <h4 class="font-book mobile-font4 mobile-font5 side-animation" data-usd={{usd}}>R$ {{price.low}}</h4>
-                </div>
+              <div class="col-3 d-inline-block text-center align-self-center">
                 {{#ifCond product.category 'Sementes'}}
-                <i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
+                <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas  fa-seedling fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
                 {{else}}
-                <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+                <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
                 {{/ifCond}}
               </div>
 
-              <div class="col-3 p-2">
+              <div class="col p-2">
                 <div class="vl">
-                  <h5 class="align-text-top"><i class="font-black text-green ml-2 mobile-font1 text-uppercase">{{product.name}}</i></h5>
-                  <div class="smaller-font d-flex text-center mt-5 justify-content-between">
-                    <div class="ml-2">
+                  <div class="ml-2">
+                    <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+                      {{product.name}}
+                    </h5>
+                  </div>
+
+                  <div class="ml-2 mt-3">
+                    <div class="text-left side-animation">
+                      <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
+                        R$ {{price.low}}
+                      </h4>
+
+                      <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                        / {{product.unit}}
+                      </i>
+                    </div>
+                  </div>
+                  <div class="smaller-font d-flex text-center mt-3 align-bottom">
+                    <div class="ml-2 text-gray3">
                       <p class="text-uppercase font-book mobile-font2">Compra
                         <span class="count font-light mobile-font2"> <br/>solo</span>
                       </p>
                     </div>
-                    <div class="">
-                      <p class="ml-lg-4 ml-3 text-uppercase font-book mobile-font2">Entrega
+                    <div class="ml-5 text-gray3">
+                      <p class="text-uppercase font-book mobile-font2">Entrega
                         <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
                       </p>
                     </div>
@@ -60,6 +76,8 @@
           </div>
         </div>
       {{/each}}
+      {{else}}
+      Não foram encontrados resultados pra sua oferta!
     {{/if}}
 
     {{#if groups}}
@@ -67,29 +85,46 @@
         <div id="card1" class="card mb-1 btn" onclick="location.href = '/offers/{{offer._id}}'">
           <div class="text-right p-2">
             <div class="row">
-              <div class="col-4 col-md-5 col-lg-5 d-inline-block p-1">
-                <div class="text-center">
-                  <p class="text-gray2 mt-2 float-right"><i class="font-light mobile-font1">/ {{offer.product.unit}}</i></p>
-                  <h4 class="font-book mobile-font4 mobile-font5 side-animation" data-usd={{offer.usd}}>R$ {{price}}</h4>
-                </div>
-                {{#ifCond offer.product.category 'Sementes'}}
-                <i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
+              <div class="col-3 d-inline-block text-center align-self-center">
+                {{#ifCond product.category 'Sementes'}}
+                <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas  fa-seedling fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
                 {{else}}
-                <i class="card-icon fas fa-leaf fa-3x float-left align-middle"></i>
+                <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
                 {{/ifCond}}
               </div>
 
-              <div class="col-3 p-2">
-                <div class="vl">
-                  <h5 class="align-text-top"><i class="font-black text-green ml-2 mobile-font1 text-uppercase">{{offer.product.name}}</i></h5>
-                  <div class="smaller-font d-flex text-center mt-5 justify-content-between">
+
+                <div class="col p-2">
+                  <div class="vl">
                     <div class="ml-2">
+                      <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+                        {{offer.product.name}}
+                      </h5>
+                    </div>
+
+                  <div class="ml-2 mt-3 side-animation">
+                    <div class="text-left">
+                      <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
+                        R$ {{price.low}}
+                      </h4>
+
+                      <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                        / {{product.unit}}
+                      </i>
+                    </div>
+                  </div>
+                  <div class="smaller-font d-flex text-center mt-3 align-bottom">
+                    <div class="ml-2 text-gray3">
                       <p class="text-uppercase font-book mobile-font2">Compra
                         <span class="count font-light mobile-font2"> <br/>em grupo</span>
                       </p>
                     </div>
-                    <div class="">
-                      <p class="ml-lg-4 ml-3 text-uppercase font-book mobile-font2">Entrega
+                    <div class="ml-5 text-gray3">
+                      <p class="text-uppercase font-book mobile-font2">Entrega
                         <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
                       </p>
                     </div>

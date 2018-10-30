@@ -35,10 +35,13 @@ class Money {
       console.log(dollar);
       Group.getAll().then((groups) => {
         groups.forEach((group) => {
-          Offer.getByQuerySorted({
-            product: group.productId,
-            delivery: { $ne: 'em até 48 horas' }
-          }, {}).then((offers) => {
+          Offer.getByQuerySorted(
+            {
+              product: group.productId,
+              delivery: { $ne: '48 horas' }
+            },
+            {}
+          ).then((offers) => {
             offers.forEach((offer) => {
               if (group.offer._id != offer._id) {
                 let offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;

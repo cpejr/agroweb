@@ -123,7 +123,6 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
   User.update(req.params.id, user).catch((error) => {
     console.log(error);
     res.redirect('/error');
->>>>>>> master
   });
   res.redirect('/admin/users');
 });

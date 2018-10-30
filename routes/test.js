@@ -13,9 +13,38 @@ const auth = require('./middleware/auth');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const user = req.session.userType;
-  console.log(user);
-  res.render('teste', { title: 'Teste', layout: 'layout', user });
+  // const names = [];
+  // const queryProduct = {};
+  // const sortProduct = { name: 1 };
+  // Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
+  //   products.forEach((product) => {
+  //     names.push(product.name);
+  //   });
+  //   console.log(names);
+  //   res.locals.names = names;
+    res.render('offers/new', { title: 'Nova Oferta' });
+  //   console.log(res);
+  //   // res.send(names);
+  // }).catch((error) => {
+  //   console.log(error);
+  //   res.redirect('/error');
+  // });
+});
+
+router.get('/test', (req, res) => {
+  const names = [];
+  const queryProduct = {};
+  const sortProduct = { name: 1 };
+  Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
+    products.forEach((product) => {
+      names.push(product.name);
+    });
+    console.log(names);
+    res.send(names);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 /**

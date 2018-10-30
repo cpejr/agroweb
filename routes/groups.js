@@ -12,8 +12,9 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Group.getAll().then((groups) => {
     console.log(groups);
     res.render('groups/index', { title: 'Grupos', groups });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -25,10 +26,10 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 //   Group.create(group).then((id) => {
 //     console.log(`Created new group with id: ${id}`);
 //     res.redirect(`/groups/${id}`);
-//   }).catch((err) => {
-//     console.log(err);
-//     res.redirect('/groups');
-//   });
+//   }).catch((error) => {
+//   console.log(error);
+//   res.redirect('/error');
+// });
 // });
 
 /**
@@ -44,9 +45,9 @@ router.get('/:id', (req, res) => {
       console.log('Group not found!');
       res.redirect('/home');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/groups');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -55,8 +56,9 @@ router.get('/:id', (req, res) => {
  */
 router.put('/:id', (req, res) => {
   const group = req.body.group;
-  Group.update(req.params.id, group).catch((err) => {
-    console.log(err);
+  Group.update(req.params.id, group).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect(`/groups/${req.params.id}`);
 });
@@ -65,8 +67,9 @@ router.put('/:id', (req, res) => {
  * DELETE Destroy - Removes a group from the databse
  */
 router.delete('/:id', (req, res) => {
-  Group.delete(req.params.id).catch((err) => {
-    console.log(err);
+  Group.delete(req.params.id).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/groups');
 });

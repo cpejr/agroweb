@@ -21,6 +21,7 @@ router.post('/newsletter', (req, res) => {
     res.redirect('/');
   }).catch((error) => {
     console.log(error);
+    res.redirect('/error');
   });
 });
 

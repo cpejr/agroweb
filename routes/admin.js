@@ -16,10 +16,11 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 
 /* GET Users - Show all users */
 router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  User.getAll().then((users) => {
+  User.getByQuerySorted({ status: 'Ativo' }).then((users) => {
     res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -28,8 +29,8 @@ router.get('/products', (req, res) => {
   Product.getAll().then((products) => {
     console.log(products);
     res.render('admin/products', { title: 'Produtos', layout: 'layout', products });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
     res.redirect('/error');
   });
 });
@@ -39,8 +40,9 @@ router.get('/newsletter', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Newsletter.getAll().then((newsletter) => {
     console.log(newsletter);
     res.render('admin/newsletter', { title: 'Usuários', layout: 'layout', newsletter });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -48,8 +50,9 @@ router.get('/newsletter', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Offer.getAll().then((offers) => {
     res.render('admin/offer', { title: 'Administrador', layout: 'layout', offers });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -57,8 +60,9 @@ router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
  * GET DeleteOffer - Delete a Offer in the database
  */
 router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Offer.delete(req.params.id).catch((err) => {
-    console.log(err);
+  Offer.delete(req.params.id).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/admin/offers');
 });
@@ -67,8 +71,9 @@ router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) =>
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAll().then((transactions) => {
     res.render('admin/transaction', { title: 'Administrador', layout: 'layout', transactions });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -90,8 +95,9 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
   const transaction = {
     status: req.body.status
   };
-  Transaction.update(req.params.id, transaction).catch((err) => {
-    console.log(err);
+  Transaction.update(req.params.id, transaction).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/user/orders');
 });
@@ -101,8 +107,9 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
   const transaction = {
     taxStatus: req.body.taxStatus
   };
-  Transaction.update(req.params.id, transaction).catch((err) => {
-    console.log(err);
+  Transaction.update(req.params.id, transaction).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/admin/transaction');
 });
@@ -112,9 +119,11 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
   const user = {
     status: req.body.status
   };
-  console.log(req.body.status);
-  User.update(req.params.id, user).catch((err) => {
-    console.log(err);
+  console.log(req.body.active);
+  User.update(req.params.id, user).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+>>>>>>> master
   });
   res.redirect('/admin/users');
 });
@@ -123,8 +132,9 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
 router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Offer.getAll().then((groups) => {
     res.render('groups/index', { title: 'Grupos de Compra', layout: 'layout', groups });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 

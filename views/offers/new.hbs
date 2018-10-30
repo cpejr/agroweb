@@ -1,6 +1,6 @@
 {{#section 'stylesheets'}}
 {{/section}}
-<div class="pb-3 gradient-background">
+<div class="pb-3 gradient-background text-white">
   <h4 class="text-center">Nova oferta</h4>
 </div>
 <div class="p-3">
@@ -31,20 +31,13 @@
       </div> -->
 
       <div class="form-group mx-4 my-2">
-        <label for="data" class="rounded bg-black"><i class="fas fa-dollar-sign fa-sm mr-2"></i> Dados gerais: </label>
-      </div>
-
-      <div class="user-input">
-        <br/>
-        <div class="input-group mb-2 autocomplete">
+        <div class="input-group" id="products-list">
           <div class="input-group-prepend">
             <div class="input-group-text"><i class="fas fa-search"></i></div>
           </div>
-          <input name="offer[product]" type="text" class="form-control input-text" required/>
-          <label class="floating-label text-dark2">Nome do produto</label>
-          <span class="close">Apagar</span>
-          <div class="dialog">
-          </div>
+          <input name="offer[product]" class="form-control typeahead" type="text" placeholder="Nome do produto">
+        <!-- <label for="data" class="rounded bg-black"><i class="fas fa-dollar-sign fa-sm mr-2"></i> Dados gerais: </label>
+      </div>-->
         </div>
       </div>
 
@@ -175,6 +168,5 @@
 </div>
 
 {{#section 'scripts'}}
-  <script src="/javascripts/search.js"></script>
-  <script src="/javascripts/dropdown.js"></script>
+  <script src="/javascripts/product.dropdown.js"></script>
 {{/section}}

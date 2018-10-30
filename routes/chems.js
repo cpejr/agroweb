@@ -11,8 +11,9 @@ router.get('/', (req, res) => {
   Chem.getAll().then((chems) => {
     console.log(chems);
     res.render('chems/index', { title: 'Princípios ativos', chems });
-  }).catch((err) => {
-    console.log(err);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -32,9 +33,9 @@ router.post('/', auth.isAdmin, (req, res) => {
   Chem.create(chem).then((id) => {
     console.log(`Created new chem with id: ${id}`);
     res.redirect('/chems');
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/chems');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -51,9 +52,9 @@ router.get('/:id', (req, res) => {
       console.log('Chem not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/chems');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -70,9 +71,9 @@ router.get('/:id/edit', auth.isAdmin, (req, res) => {
       console.log('Chem not found!');
       res.redirect('/user');
     }
-  }).catch((err) => {
-    console.log(err);
-    res.redirect('/chems');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 
@@ -83,8 +84,9 @@ router.put('/:id', auth.isAdmin, (req, res) => {
   const chem = {
     name: req.body.name
   };
-  Chem.update(req.params.id, chem).catch((err) => {
-    console.log(err);
+  Chem.update(req.params.id, chem).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/chems');
 });
@@ -93,8 +95,9 @@ router.put('/:id', auth.isAdmin, (req, res) => {
  * DELETE Destroy - Removes a chem from the databse
  */
 router.delete('/:id', auth.isAdmin, (req, res) => {
-  Chem.delete(req.params.id).catch((err) => {
-    console.log(err);
+  Chem.delete(req.params.id).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
   res.redirect('/chems');
 });

@@ -7,7 +7,7 @@
   <div class="justify-content-center mx-sm-auto">
     <div class="row">
       <!-- Product Title -->
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-5">
         <i class="text-muted">Produto {{offer.product.generic}}</i>
         <h2 class="my-0 py-0">{{offer.product.name}}</h2>
       </div>
@@ -15,19 +15,17 @@
 
       <!-- Quotation info -->
       <div class="row mb-3 ml-1">
-        <div class="col-6">
-          <dt class="text-gray">Entrega</dt>
-          <h4>{{offer.delivery}}</h4>
+        <div class="col-4">
+          <h4>Entrega</h4>
+          <p>{{offer.delivery}}</p>
         </div>
-        <div class="col-6">
-          <dt class="text-gray">Quantidade cotada</dt>
-          <h4>{{amountBought}} {{offer.product.unit}}</h4>
+        <div class="col-4">
+          <h4>Quantidade cotada</h4>
+          <p>{{amountBought}} {{offer.product.unit}}</p>
         </div>
-
-
-        <div class="col-6">
-          <dt class="text-gray">Preço total</dt>
-          <h2 data-usd={{offer.usd}}>R$ {{priceBought}}</h2>
+        <div class="col-4">
+          <h4>Preço total</h4>
+          <p data-usd={{offer.usd}}>R$ {{priceBought}}</p>
         </div>
       </div>
       <!-- end Quotation info -->
@@ -35,92 +33,58 @@
       {{#ifCond userType 'Produtor'}}
       <!-- Seller info -->
       <div class="col-12 col-md-5 mt-3">
-        <h2>Dados do vendedor</h2>
-        <p class="text-gray">Empresa</p>
-        <h4 class="mb-4">{{offer.seller.fantasyName}}</h4>
-        <p class="text-gray">Contato</p>
-        <h4>Telefone: {{offer.seller.logistics.phone}}</h4>
-        <h4>E-mail: {{offer.seller.logistics.email}}</h4>
+        <h3 class="mb-4">Dados do vendedor</h3>
+        <h4>Empresa</h4>
+        <p class="mb-4">{{offer.seller.fantasyName}}</p>
+        <h4>Contato</h4>
+        <p>Telefone: {{offer.seller.logistics.phone}}</p>
+        <p>E-mail: {{offer.seller.logistics.email}}</p>
       </div>
       <!-- end Seller info -->
       {{else ifCond userType 'Indústria'}}
       <!-- Buyer info -->
       <div class="col-12 col-md-5 mt-3">
-        <h2>Dados do comprador</h2>
-        <p class="text-gray">Nome</p>
-        <h4 class="mb-4">{{buyer.fullName}}</h4>
-        <p class="text-gray">Contato</p>
-        <h4>Telefone: {{buyer.phone}}</h4>
-        <h4>E-mail: {{buyer.email}}</h4>
+        <h3 class="mb-4">Dados do comprador</h3>
+        <h4>Nome</h4>
+        <p class="mb-4">{{buyer.fullName}}</p>
+        <h4>Contato</h4>
+        <p>Telefone: {{buyer.phone}}</p>
+        <p>E-mail: {{buyer.email}}</p>
       </div>
       <!-- end Buyer info -->
       {{else}}
       <!-- Seller info -->
       <div class="col-12 col-md-5 mt-3">
-        <h2>Dados do vendedor</h2>
-        <p class="text-gray">Empresa</p>
-        <h4 class="mb-4">{{offer.seller.fantasyName}}</h4>
-        <p class="text-gray">Contato</p>
-        <h4>Telefone: {{offer.seller.logistics.phone}}</h4>
-        <h4>E-mail: {{offer.seller.logistics.email}}</h4>
+        <h3>Dados do vendedor</h3>
+        <h4>Empresa</h4>
+        <p class="mb-4">{{offer.seller.fantasyName}}</p>
+        <h4>Contato</h4>
+        <p>Telefone: {{offer.seller.logistics.phone}}</p>
+        <p>E-mail: {{offer.seller.logistics.email}}</p>
       </div>
       <!-- end Seller info -->
       <!-- Buyer info -->
       <div class="col-12 col-md-5 mt-3">
         <h2>Dados do comprador</h2>
-        <p class="text-gray">Nome</p>
+        <p>Nome</p>
         <h4 class="mb-4">{{buyer.fullName}}</h4>
-        <p class="text-gray">Contato</p>
+        <p>Contato</p>
         <h4>Telefone: {{buyer.phone}}</h4>
         <h4>E-mail: {{buyer.email}}</h4>
       </div>
       <!-- end Buyer info -->
       {{/ifCond}}
 
-      <!-- Product Characteristics -->
-      <div class="col-12 col-md-6 mb-5">
-        <h4>Características</h4>
-        <div class="row">
-          <div class="col-6">
-            <dt>C. agronômica</dt>
-            <dd>Feromônio</dd>
-          </div>
-          <div class="col-6">
-            <dt>Toxicologia</dt>
-            <dd>Pouco tóxico</dd>
-          </div>
-          <div class="col-6">
-            <dt>Inflamabilidade</dt>
-            <dd>Inflamável</dd>
-          </div>
-          <div class="col-6">
-            <dt>Formulação</dt>
-            <dd>Comprimidos e sachês</dd>
-          </div>
-          <div class="col-6">
-            <dt>Ingredientes ativos</dt>
-            {{#each offer.product.chem}}
-              <dd>{{name}}</dd>
-            {{/each}}
-          </div>
-          <div class="col-6">
-            <dt>Fabricante</dt>
-            <dd>{{offer.product.manufacturer}}</dd>
-          </div>
-        </div>
-      </div>
-      <!-- end Product Characteristics -->
-
       <!-- Product description -->
-      <div class="col-6 pb-2 mb-5">
-        <h4>Descrição</h4>
+      <div class="col-6 pb-2 mb-2 mt-4">
+        <h2>Descrição</h2>
         <p>{{offer.product.description}}</p>
       </div>
       <!-- end Product description -->
     </div>
   </div>
 
-  <button class="w-100 col-10 col-md-7 text-white btn btn-default bg-green mx-auto d-block my-2" onclick="location.href = '/quotations'" name="button">Ver cotações</button>
+  <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" onclick="location.href = '/quotations'" name="button">Ver cotações</button>
   <div class="w-100"></div>
 <div class="text-center">
   <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete"></form>

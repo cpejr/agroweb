@@ -3,7 +3,7 @@
 {{/section}}
 <!-- Filters Header -->
 <div class="text-center pb-3 gradient-background text-white">
-  <h3 class="font-black">Minhas compras</h3>
+  <h3 class="font-light">Minhas compras</h3>
 </div>
 <div class="text-center p-3">
   <button type="button col-1 color-muted" name="button" class="btn mr-1">
@@ -18,8 +18,10 @@
 <!-- OrdersList-->
 <div class="row justify-content-center">
   {{#each transactions}}
-  <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" >
-    <div class="my-1 bg-light2 card1"  onclick="location.href = '/offers/{{_id}}'">
+  {{#ifCond status 'Cancelado'}}
+  {{else}}
+  <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
+    <div class="my-1 bg-light2 card1">
       <div class="text-right p-2">
         <div class="row">
           <div class="col-3 d-inline-block text-center align-self-center">
@@ -51,18 +53,23 @@
                 </h5>
               </div>
 
-              <div class="col-7 row ml-1">
-                <div class="dropdown">
-                  <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                  {{#ifCond taxStatus 'Aguardando boleto'}}
+              <div class="mb-2 ml-2">
+                <h5 class="text-left align-text-top card-text font-light text-gray3 mobile-font1 text-uppercase">
+                  {{status}}
+                </h5>
+              </div>
+
+              <!-- <div class="col-7 row ml-1">
+                  <h name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                  {{#ifCond status 'Aguardando boleto'}}
                   class="btn btn-outline-info dropdown-toggle col-12">
                   Aguardando boleto
 
-                  {{else ifCond taxStatus 'Aguardando pagamento'}}
+                  {{else ifCond status 'Aguardando pagamento'}}
                   class="btn btn-outline-warning dropdown-toggle col-12">
                   Aguardando pagamento
 
-                  {{else ifCond taxStatus 'Pagamento confirmado'}}
+                  {{else ifCond status 'Pagamento confirmado'}}
                   class="btn btn-outline-success  dropdown-toggle col-12">
                   Pagamento confirmado
 
@@ -70,9 +77,9 @@
                   class="btn  dropdown-toggle btn-outline-danger col-12">
                   Cancelado
                   {{/ifCond}}
-                </button>
-                <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                </button> -->
+                  <!-- <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
+                <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
                     <a class="dropdown-item" href="#">
                       <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
@@ -102,9 +109,8 @@
                       </button>
                     </a>
                   </form>
-                </div>
-              </div>
-            </div>
+                </div> -->
+            <!-- </div> -->
 
             <div class="ml-2 mt-3">
               <div class="text-left side-animation">
@@ -153,6 +159,7 @@
     </div>
   </div>
 </div>
+{{/ifCond}}
 {{/each}}
 </div>
 <!-- end OrdersList -->

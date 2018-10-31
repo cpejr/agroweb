@@ -190,13 +190,6 @@ router.post('/buy', auth.isAuthenticated, (req, res) => {
 });
 
 /**
- * GET beFranchisee page
- */
-router.get('/beFranchisee', auth.isAuthenticated, (req, res) => {
-  res.render('beFranchisee', { title: 'Seja Franqueado', layout: 'layout' });
-});
-
-/**
  * PUT Update - Update a user in the database
  */
 router.post('/update', auth.isAuthenticated, (req, res) => {

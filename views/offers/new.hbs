@@ -7,37 +7,19 @@
 <form action="/offers/" method="POST">
   <div class="row d-flex justify-content-between">
     <div class="col-md-4">
-      <!-- <div class="form-group mx-4 my-2">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-search"></i></div>
-          </div>
-          <input name="search" type="text" class="form-control" placeholder="Pesquisa nome do produto" id="product-name"></input>
-        </div>
+      <div class="form-group mx-4 my-2">
+        <label for="price" class="rounded bg-black"><i class="fas fa-archive fa-sm mr-2"></i> Dados gerais: </label>
       </div>
 
-      <div class="form-group mx-4 my-2">
-        <div class="input-group" id="products-result">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-box"></i></div>
+      <div class="user-input">
+        <br/>
+        <div class="form-group mb-2">
+          <div class="input-group" id="products-list">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-search"></i></div>
+            </div>
+            <input name="offer[product]" class="form-control typeahead" type="text" placeholder="Nome do produto">
           </div>
-          <select class="form-control" name="offer[product]">
-            <option disabled selected value> Nome do produto </option>
-            {{#each products}}
-            <option value={{_id}}>{{name}}</option>
-            {{/each}}
-          </select>
-        </div>
-      </div> -->
-
-      <div class="form-group mx-4 my-2">
-        <div class="input-group" id="products-list">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-search"></i></div>
-          </div>
-          <input name="offer[product]" class="form-control typeahead" type="text" placeholder="Nome do produto">
-        <!-- <label for="data" class="rounded bg-black"><i class="fas fa-dollar-sign fa-sm mr-2"></i> Dados gerais: </label>
-      </div>-->
         </div>
       </div>
 

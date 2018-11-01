@@ -343,10 +343,17 @@
   </div>
 
 {{#ifCond userType 'Produtor'}}
-<button class="btn bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block">Contratar</button>
+
+<form action="/user/contract" method="post">
+  <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
+  <button class="btn bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block" type="submit" name="button">Contratar</button>
+</form>
 
 {{else ifCond userType 'Franqueado'}}
-<button class="btn bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block">Cancelar Contrato</button>
+<form action="/user/cancel" method="post">
+  <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
+  <button class="btn bg-danger text-light2 mx-auto mt-4 px-5 mb-3 d-block" type="submit" name="button">Cancelar Contrato</button>
+</form>
 
 {{else ifCond userType 'Administrador'}}
 <div class="row">

@@ -100,7 +100,7 @@ class Product {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      ProductModel.findByIdAndUpdate(id, { active: false }).catch((err) => {
+      ProductModel.findByIdAndDelete(id).catch((err) => {
         reject(err);
       });
     });

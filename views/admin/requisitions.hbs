@@ -20,147 +20,84 @@
         <thead>
           <tr>
             <th scope="col">Nome</th>
-            <th scope="col">Status</th>
             <th scope="col">Tipo</th>
-            <th scope="col">E-mail</th>
-            <th scope="col">CPF/CNPJ</th>
+            <th scope="col font-black"></th>
+            <th scope="col font-black">Perfil</th>
+            <th scope="col font-black"></th>
           </tr>
         </thead>
         <tbody>
           {{#each users}}
-          {{#ifCond status 'Inativo'}}
-          <tr>
-            <th scope="row">{{fullName}}</th>
-              <td>
-              <div class="dropdown">
-                <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                {{#ifCond status 'Ativo'}}
-                class="btn btn-outline-success dropdown-toggle col-12">
-                Ativo
 
-                {{else ifCond status 'Inativo'}}
-                class="btn btn-outline-danger dropdown-toggle col-12">
-                Inativo
-
-
-                {{/ifCond}}
-              </button>
-              <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-                <form  method= "POST" action="/admin/{{id}}/updateUserActive">
-                  <a class="dropdown-item" href="#">
-                    <button type="submit" align="center" class="btn btn-outline-success col-12" name="status" value="Ativo">
-                      Ativo
-                    </button>
-                  </a>
-                </form>
-                <form method= "POST" action="/admin/{{id}}/updateUserActive">
-                  <a class="dropdown-item " href="#">
-                    <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Inativo">
-                    Inativo
-                    </button>
-                  </a>
-                </form>
-            </div>
-          </div>
-        </div>
-      </div>
-        </td>
-            <td>{{type}}</td>
-            <td>{{email}}</td>
-            <td>{{doc}}</td>
-          </tr>
-          {{/ifCond}}
-
-          {{#ifCond status 'Ativo'}}
-          <tr>
-            <th scope="row">{{fullName}}</th>
-            <!-- <td><div class="dropdown">
-              <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-              {{#ifCond active true}}
-              class="btn btn-outline-success dropdown-toggle  col-12">
-              Ativo
-              {{else ifCond active false}}
-              class="btn btn-outline-danger dropdown-toggle  col-12">
-              Inativo
-              {{/ifCond}}
-            </button>
-            <div class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton" >
-              <form  method= "POST" action="/admin/{{id}}/updateUserActive">
-                <a class="dropdown-item" href="#">
-                  <button type="submit" class="btn btn-outline-success col-12" name="active" value=true>
-                    Ativo
-                  </button>
-                </a>
-              </form>
-              <form method= "POST" action="/admin/{{id}}/updateUserActive">
-                <a class="dropdown-item " href="#">
-                  <button type="submit" class="btn btn-outline-danger col-12" name="active" value=false>
-                    Inativo
-                  </button>
-                </a>
-              </form> -->
-              <td>
-              <div class="dropdown">
-                <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                {{#ifCond status 'Ativo'}}
-                class="btn btn-outline-success dropdown-toggle col-12">
-                Ativo
-
-                {{else ifCond status 'Inativo'}}
-                class="btn btn-outline-danger dropdown-toggle col-12">
-                Inativo
-
-
-                {{/ifCond}}
-              </button>
-              <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-                <form  method= "POST" action="/admin/{{id}}/updateUserActive">
-                  <a class="dropdown-item" href="#">
-                    <button type="submit" align="center" class="btn btn-outline-success col-12" name="status" value="Ativo">
-                      Ativo
-                    </button>
-                  </a>
-                </form>
-                <form method= "POST" action="/admin/{{id}}/updateUserActive">
-                  <a class="dropdown-item " href="#">
-                    <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Inativo">
-                    Inativo
-                    </button>
-                  </a>
-                </form>
-            </div>
-          </div>
-        </div>
-      </div>
-        </td>
-            <td>{{type}}</td>
-            <td>{{email}}</td>
-            <td>{{doc}}</td>
-          </tr>
-          {{/ifCond}}
-          {{/each}}
+    {{#ifCond status 'Aguardando aprovação'}}
+    <tr>
+      <th scope="row">{{fullName}}</th>
+      <td>{{type}}</td>
+      <td>
+        <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">Ver</button>
+      <td>
+        <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-success font-book">Aceitar</button>
+        <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
+      </td>
+      <td>
+        <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-danger font-book">Bloquear</button>
+        <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
+      </td>
+</tr>
+{{/ifCond}}
+{{/each}}
         </tbody>
       </table>
     </div>
   </div>
-    <!-- <div class="card mb-1" data-status="{{status}}">
-      <div class="card-body">
-        <div class="text-center">
-          <h7 class="card-title align-text-top text-gray">Usuário - {{firstName}} {{lastName}}</h7>
-          <div class="w-100">
-          </div>
-            <span class="badge badge-primary">
-              <h6>{{type}}</h6>
-            </span>
-          <p class="card-text align-text-bottom text-gray">{{email}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end Users list -->
 </div>
 {{#section 'scripts'}}
 {{/section}}
+
+
+<!-- <td><div class="dropdown">
+<button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+{{#ifCond active true}}
+class="btn btn-outline-success dropdown-toggle  col-12">
+Ativo
+{{else ifCond active false}}
+class="btn btn-outline-danger dropdown-toggle  col-12">
+Inativo
+{{/ifCond}}
+</button>
+<div class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton" >
+<form  method= "POST" action="/admin/{{id}}/updateUserActive">
+<a class="dropdown-item" href="#">
+<button type="submit" class="btn btn-outline-success col-12" name="active" value=true>
+Ativo
+</button>
+</a>
+</form>
+<form method= "POST" action="/admin/{{id}}/updateUserActive">
+<a class="dropdown-item " href="#">
+<button type="submit" class="btn btn-outline-danger col-12" name="active" value=false>
+Inativo
+</button>
+</a>
+</form> -->
+
+
+
+
+
+<!-- <div class="card mb-1" data-status="{{status}}">
+  <div class="card-body">
+    <div class="text-center">
+      <h7 class="card-title align-text-top text-gray">Usuário - {{firstName}} {{lastName}}</h7>
+      <div class="w-100">
+      </div>
+        <span class="badge badge-primary">
+          <h6>{{type}}</h6>
+        </span>
+      <p class="card-text align-text-bottom text-gray">{{email}}</p>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<!-- end Users list -->

@@ -77,14 +77,24 @@ router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
-/* GET users - Show all newsletter docs */
+// /* GET users - Show all newsletter docs */
+//
+// router.get('/requisitions', (req, res) => {
+//   User.getByQuery(req.query).then((user) => {
+//     console.log(user);
+//     res.render('admin/requisitions', { user });
+//   }).catch((err) => {
+//     console.log(err);
+//   });
+// });
 
-router.get('/admin/requisitions', (req, res) => {
-  User.getByQuery(req.query).then((user) => {
-    console.log(user);
-    res.render('admin/requisitions', { user });
-  }).catch((err) => {
-    console.log(err);
+/* GET Users - Show all users */
+router.get('/requisitions', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  User.getByQuerySorted({ status: 'Aguardando aprovação' }).then((users) => {
+    res.render('admin/requisitions', { title: 'Requisições de cadastro', layout: 'layout', users });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
   });
 });
 

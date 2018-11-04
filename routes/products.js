@@ -88,18 +88,12 @@ router.get('/:id/edit', auth.canSell, (req, res) => {
  * PUT Update - Update a product in the database
  */
 router.put('/:id', (req, res) => {
-  const product = {
-    name: req.body.name,
-    category: req.body.category,
-    manufacturer: req.body.manufacturer,
-    description: req.body.description,
-    unit: req.body.unit
-  };
+  const { product } = req.body;
   Product.update(req.params.id, product).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect(`/products/${req.params.id}`);
+  res.redirect(`/admin/products`);
 });
 
 /**
@@ -110,7 +104,7 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/products');
+  res.redirect('/admin/products');
 });
 
 module.exports = router;

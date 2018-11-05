@@ -335,15 +335,40 @@ class User {
   }
 
   /**
-   * Get all open transactions from a user by its id
+   * Get all open orders from a user by its id
    * @param {string} id - User uid
    * @returns {Array} - Array of transactions
    */
-  static getAllOpenTransactionsByUserId(id) {
+  static getAllOpenOrdersByUserId(id) {
     return new Promise((resolve, reject) => {
       UserModel.findById(id).populate({
         path: 'transactions',
-        match: { status: { $nin: ['Cancelado', 'Entregue'] } },
+        match: { status: { $nin: ['Cancelado', 'Entregue'] }, buyer: { $eq: id } },
+        populate: {
+          path: 'buyer offer',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
+      }).exec().then((result) => {
+        resolve(result.transactions);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all open sales from a user by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of transactions
+   */
+  static getAllOpenSalesByUserId(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({
+        path: 'transactions',
+        match: { status: { $nin: ['Cancelado', 'Entregue'] }, buyer: { $ne: id } },
         populate: {
           path: 'buyer offer',
           populate: {
@@ -395,15 +420,12 @@ class User {
     });
   }
 
-
-
   /**
    * Get all Users that match the desired query
    * @param {Object} query - Object that defines the filter
    * @param {Object} sort - Object that defines the sort method
    * @returns {Object} User Document Data
    */
-
   static getByQuerySorted(query, sort) {
     return new Promise((resolve, reject) => {
       UserModel.find(query).sort(sort).populate('requisitions').then((result) => {

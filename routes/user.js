@@ -44,14 +44,31 @@ router.get('/', auth.isAuthenticated, (req, res) => {
 router.get('/orders', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
-      User.getAllOpenTransactionsByUserId(req.session._id).then((transactions) => {
-        // console.log(transactions);
-        if (req.session.userType === 'Indústria') {
-          res.render('orders', { title: 'Demandas', layout: 'layout', transactions });
-        }
-        else {
-          res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions });
-        }
+      User.getAllOpenOrdersByUserId(req.session._id).then((transactions) => {
+        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions });
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    }
+    else {
+      console.log('User not found!');
+      res.redirect('/user');
+    }
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * GET orders - Show all user's orders
+ */
+router.get('/sales', auth.isAuthenticated, (req, res) => {
+  User.getById(req.session._id).then((user) => {
+    if (user) {
+      User.getAllOpenSalesByUserId(req.session._id).then((transactions) => {
+        res.render('orders', { title: 'Demandas', layout: 'layout', transactions });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');

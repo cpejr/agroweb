@@ -348,6 +348,10 @@
   <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
   <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Contratar</button>
 </form>
+<form action="/user/cancel" method="post">
+  <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
+  <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-danger mx-auto d-block my-2" type="submit" name="button">Cancelar Contrato</button>
+</form>
 
 {{else ifCond userType 'Franqueado'}}
 <form action="/user/cancel" method="post">

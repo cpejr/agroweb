@@ -28,7 +28,8 @@ const transactionSchema = new mongoose.Schema({
   },
   taxStatus: {
     type: String,
-    enum: ['Aguardando boleto', 'Aguardando pagamento', 'Pagamento confirmado', 'Cancelado']
+    enum: ['Aguardando boleto', 'Aguardando pagamento', 'Pagamento confirmado', 'Cancelado'],
+    default: 'Aguardando boleto'
   },
   franchisee: {
     type: mongoose.Schema.Types.ObjectId,

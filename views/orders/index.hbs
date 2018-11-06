@@ -17,6 +17,7 @@
 
 <!-- OrdersList-->
 <div class="row justify-content-center">
+  {{#if transactions}}
   {{#each transactions}}
   {{#ifCond status 'Cancelado'}}
   {{else}}
@@ -161,6 +162,11 @@
 </div>
 {{/ifCond}}
 {{/each}}
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Você não realizou nenhum compra ainda.</p>
+</div>
+{{/if}}
 </div>
 <!-- end OrdersList -->
 {{#section 'scripts' }}

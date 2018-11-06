@@ -109,7 +109,7 @@ const userSchema = new mongoose.Schema({
     cotton: Number,
     otherCultivations: Number
   },
-  wpp: Boolean,
+  wpp: String,
   stateRegistration: Number
 }, { timestamps: true, static: false });
 
@@ -410,10 +410,10 @@ class User {
    * @param {string} id - User uid
    * @returns {Array} - Array of users
    */
-  static getAllClientsByUserId(id) {
+  static getAgreementListById(id) {
     return new Promise((resolve, reject) => {
-      UserModel.findById(id).populate({ path: 'status' }).exec().then((result) => {
-        resolve(result.offers);
+      UserModel.findById(id).populate({ path: 'agreementList' }).exec().then((result) => {
+        resolve(result.agreementList);
       }).catch((err) => {
         reject(err);
       });
@@ -435,5 +435,35 @@ class User {
       });
     });
   }
+
+  /**
+   * Add to agreementList
+   * @param {string} id - User Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static addClient(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { agreementList: user } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Remove from agreementList
+   * @param {string} id - User Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static removeClient(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { agreementList: user } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+
 }
 module.exports = User;

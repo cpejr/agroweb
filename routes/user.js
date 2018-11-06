@@ -207,13 +207,6 @@ router.post('/buy', auth.isAuthenticated, (req, res) => {
 });
 
 /**
- * GET beFranchisee page
- */
-router.get('/beFranchisee', auth.isAuthenticated, (req, res) => {
-  res.render('beFranchisee', { title: 'Seja Franqueado', layout: 'layout' });
-});
-
-/**
  * PUT Update - Update a user in the database
  */
 router.post('/update', auth.isAuthenticated, (req, res) => {
@@ -245,13 +238,15 @@ router.get('/franchisee', auth.isAuthenticated, (req, res) => {
 /**
  * GET clients page
  */
- router.get('/clients', auth.isAuthenticated, (req, res) => {
-   User.getAll().then((users) => {
+ router.get('/agreementList', auth.isAuthenticated, (req, res) => {
+   User.getAgreementListById(req.session._id).then((clients) => {
+     // console.log(clients);
+
      if (req.session.userType === 'Produtor') {
-       res.render('clients', { title: 'Meus Franqueados', layout: 'layout', users, ...req.session });
+       res.render('clients', { title: 'Meus Franqueados', layout: 'layout', clients, ...req.session });
      }
      else if (req.session.userType === 'Franqueado') {
-       res.render('clients', { title: 'Meus Clientes', layout: 'layout', users, ...req.session });
+       res.render('clients', { title: 'Meus Clientes', layout: 'layout', clients, ...req.session });
      }
    }).catch((error) => {
     console.log(error);
@@ -268,6 +263,54 @@ router.delete('/:id', (req, res) => {
     res.redirect('/error');
   });
   res.redirect('/logout');
+});
+
+/**
+ * POST contract - Contract franchisee
+ */
+router.post('/contract', auth.isAuthenticated, (req, res) => {
+  const userId = req.session._id;
+  User.addClient(req.body.franchiseeID, userId).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  User.addClient(userId, req.body.franchiseeID).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  res.redirect('/user/agreementList');
+});
+
+/**
+ * POST cancel - Cancel franchisee
+ */
+router.post('/cancel', auth.isAuthenticated, (req, res) => {
+  const userId = req.session._id;
+  User.removeClient(req.body.franchiseeID, userId).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  User.removeClient(userId, req.body.franchiseeID).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  res.redirect('/user/agreementList');
+});
+
+/**
+ * GET status - Show if user is blocked or waiting
+ */
+router.get('/status', (req, res) => {
+  User.getById(req.session._id).then((user) => {
+    delete req.session.userType;
+    delete req.session.firstName;
+    delete req.session.fullName;
+    delete req.session._id;
+    delete req.session.userUid;
+    delete req.session.email;
+    delete req.session.status;
+    res.render('status', { title: 'Aviso', layout: 'layoutError', user});
+  });
 });
 
 module.exports = router;

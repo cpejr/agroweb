@@ -39,8 +39,7 @@
             <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-info font-book">Editar</button>
           </th>
           <th scope="row" class="font-light">
-            <form method="post">
-            <!-- <form action="/products/{{id}}?_method=DELETE" method="POST"> -->
+            <form action="/products/{{id}}?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-outline-danger font-book">Excluir</button>
             </form>
           </th>

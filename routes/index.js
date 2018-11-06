@@ -130,19 +130,20 @@ router.post('/recoverPassword', (req, res) => {
  */
 router.get('/logout', auth.isAuthenticated, (req, res) => {
   firebase.auth().signOut().then(() => {
-    delete req.session.userType;
-    delete req.session.firstName;
-    delete req.session.fullName;
-    delete req.session._id;
-    delete req.session.userUid;
-    delete req.session.email;
     if (req.session.status === 'Aguardando aprovação' || req.session.status === 'Bloqueado') {
       const { status } = req.session;
-      delete req.session.status;
-      res.render('user/status', { title: 'Volte mais tarde', layout: 'layout', status });
+      res.redirect('/user/status');
     }
-    delete req.session.status;
-    res.redirect('/');
+    else {
+      delete req.session.userType;
+      delete req.session.firstName;
+      delete req.session.fullName;
+      delete req.session._id;
+      delete req.session.userUid;
+      delete req.session.email;
+      delete req.session.status;
+      res.redirect('/');
+    }
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

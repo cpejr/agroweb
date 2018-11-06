@@ -29,7 +29,8 @@ router.post('/', auth.isAuthenticated, (req, res) => {
   const transaction = {
     buyer: req.session._id,
     amountBought: req.body.amountBought,
-    offer: req.body._id
+    offer: req.body._id,
+    taxStatus: 'Aguardando boleto'
   };
   Offer.getById(transaction.offer).then((offer) => {
     if (transaction.amountBought < offer.breakpoints.average) {

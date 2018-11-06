@@ -23,6 +23,11 @@
   <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
     <div class="my-1 bg-light2 card1">
       <div class="text-right p-2">
+        {{#ifCond taxStatus 'Aguardando pagamento'}}
+        <div class="pagination float-right">
+          <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+        </div>
+        {{/ifCond}}
         <div class="row">
           <div class="col-3 d-inline-block text-center align-self-center">
 

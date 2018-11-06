@@ -1,8 +1,11 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<h3 class="mt-3 text-center">Editar Oferta</h3>
+<h4 class="text-center gradient-background text-white pb-3 font-light">Editar oferta</h4>
 <form action="/offers/{{id}}?_method=PUT" method="POST">
+<div class="pl-lg-5 pr-lg-5 font-light">
+  <div class="pl-lg-5 pr-lg-5">
+    <div class="pl-lg-5 pr-lg-5">
   <div class="row d-flex justify-content-between">
 
     <div class="form-group col-md-3 col-10 mx-4 my-2">
@@ -76,7 +79,7 @@
 
 </div>
 
-  <h5 class="mt-3 text-center">Preços</h5>
+  <h5 class="mt-3 text-center font-light">Preços</h5>
   <div class="row d-flex justify-content-between">
     <div class="form-group col-md-3 col-10 mx-4 my-2">
       <label for="name" class="editlabel">Baixo</label>
@@ -109,7 +112,7 @@
     </div>
   </div>
 
-  <h5 class="mt-3 text-center">Quantidades para mudanças de preço</h5>
+  <h5 class="mt-3 text-center font-light">Quantidades para mudanças de preço</h5>
   <div class="row d-flex justify-content-between">
     <div class="form-group col-md-3 col-10 mx-4 my-2">
       <label for="name" class="editlabel">Muda para preço médio</label>
@@ -131,8 +134,9 @@
       </div>
     </div>
   </div>
-
-  <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
+</div> </div>
+</div>
+<button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block font-light" type="submit">Salvar</button>
 </form>
 
 {{#section 'scripts'}}

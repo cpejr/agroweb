@@ -26,13 +26,11 @@ router.get('/', (req, res) => {
       groupPromises.push(promise);
     });
     Promise.all(offerPromises).then((offerResults) => {
-      console.log(offerResults);
       Promise.all(groupPromises).then((groupResults) => {
-        console.log(groupResults);
-        const groups = groupResults[0].concat(groupResults[1]);
-        const offers = offerResults[0].concat(offerResults[1]);
-        console.log(offers);
-        console.log(groups);
+        // const groups = groupResults[0].concat(groupResults[1]);
+        // const offers = offerResults[0].concat(offerResults[1]);
+        const groups = groupResults[0];
+        const offers = offerResults[0];
         res.render('results', { title: `Resultados para "${req.query.filter}"`, layout: 'layout', groups, offers });
       }).catch((error) => {
         console.log(error);

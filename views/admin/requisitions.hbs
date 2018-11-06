@@ -21,9 +21,9 @@
           <tr>
             <th scope="col">Nome</th>
             <th scope="col">Tipo</th>
-            <th scope="col font-black"></th>
             <th scope="col font-black">Perfil</th>
-            <th scope="col font-black"></th>
+            <th scope="col font-black">Aceitar</th>
+            <th scope="col font-black">Bloquear</th>
           </tr>
         </thead>
         <tbody>
@@ -34,13 +34,25 @@
       <th scope="row">{{fullName}}</th>
       <td>{{type}}</td>
       <td>
-        <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">Ver</button>
+        <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">
+          <i class="fas fa-user fa-lg"></i>
+        </button>
+      </td>
       <td>
-        <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-success font-book">Aceitar</button>
+        <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+            <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
+              <i class="fas fa-check-circle fa-lg"></i>
+            </button>
+        </form>
+        <!-- <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-success font-book">Aceitar</button> -->
         <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
       </td>
       <td>
-        <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-danger font-book">Bloquear</button>
+        <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+            <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
+              <i class="fas fa-times-circle fa-lg"></i>
+            </button>
+        </form>
         <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
       </td>
 </tr>

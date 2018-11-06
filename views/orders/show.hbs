@@ -4,86 +4,171 @@
 <div class="container">
   <div class="justify-content-center mx-sm-auto">
     <div class="row">
-      <!-- Product Title -->
-      <div class="col-12 col-md-5">
-        <i class="text-muted">Produto {{offer.product.generic}}</i>
-        <h2 class="my-0 py-0">{{offer.product.name}}</h2>
-      </div>
-      <!-- end Product Title -->
-
-      <!-- Transaction info -->
-      <div class="row mb-3 ml-1">
-        <div class="col-4">
-          <h4>Entrega</h4>
-          <p>{{offer.delivery}}</p>
-        </div>
-        <div class="col-4">
-          <h4>Quantidade comprada</h4>
-          <p>{{amountBought}} {{offer.product.unit}}</p>
-        </div>
-        <div class="col-4">
-          <h4>Preço total</h4>
-          <p data-usd={{offer.usd}}>R$ {{priceBought}}</p>
-        </div>
-      </div>
-      <!-- end Transaction info -->
-
       {{#ifCond userType 'Produtor'}}
       <!-- Seller info -->
-      <div class="col-12 col-md-5 mt-3">
-        <h3 class="mb-4">Dados do vendedor</h3>
-        <h4>Empresa</h4>
+      <div class="col-12 col-md-6 mt-3">
+        <h2 class="mb-4">Dados do vendedor</h2>
+        <h3>Empresa</h3>
         <p class="mb-4">{{offer.seller.fantasyName}}</p>
-        <h4>Contato</h4>
+        <h3>Contato</h3>
         <p>Telefone: {{offer.seller.logistics.phone}}</p>
-        <p>E-mail: {{offer.seller.logistics.email}}</p>
+        <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
       </div>
       <!-- end Seller info -->
       {{else ifCond userType 'Indústria'}}
       <!-- Buyer info -->
-      <div class="col-12 col-md-5 mt-3">
-        <h3 class="mb-4">Dados do comprador</h3>
-        <h4>Nome</h4>
+      <div class="col-12 col-md-6 mt-3">
+        <h2 class="mb-4">Dados do comprador</h2>
+        <h3>Nome</h3>
         <p class="mb-4">{{buyer.fullName}}</p>
-        <h4>Contato</h4>
+        <h3>Contato</h3>
         <p>Telefone: {{buyer.phone}}</p>
-        <p>E-mail: {{buyer.email}}</p>
+        <p class="mb-4">E-mail: {{buyer.email}}</p>
       </div>
       <!-- end Buyer info -->
       {{else}}
       <!-- Seller info -->
-      <div class="col-12 col-md-5 mt-3">
-        <h3>Dados do vendedor</h3>
-        <h4>Empresa</h4>
+      <div class="col-12 col-md-6 mt-3">
+        <h2 class="mb-4">Dados do vendedor</h2>
+        <h3>Empresa</h3>
         <p class="mb-4">{{offer.seller.fantasyName}}</p>
-        <h4>Contato</h4>
+        <h3>Contato</h3>
         <p>Telefone: {{offer.seller.logistics.phone}}</p>
-        <p>E-mail: {{offer.seller.logistics.email}}</p>
+        <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
       </div>
       <!-- end Seller info -->
       <!-- Buyer info -->
-      <div class="col-12 col-md-5 mt-3">
-        <h2>Dados do comprador</h2>
-        <p>Nome</p>
-        <h4 class="mb-4">{{buyer.fullName}}</h4>
-        <p>Contato</p>
-        <h4>Telefone: {{buyer.phone}}</h4>
-        <h4>E-mail: {{buyer.email}}</h4>
+      <div class="col-12 col-md-6 mt-3 ">
+        <h2 class="mb-4">Dados do comprador</h2>
+        <h3>Nome</h3>
+        <p class="mb-4">{{buyer.fullName}}</p>
+        <h3>Contato</h3>
+        <p>Telefone: {{buyer.phone}}</p>
+        <p class="mb-4">E-mail: {{buyer.email}}</p>
       </div>
       <!-- end Buyer info -->
       {{/ifCond}}
 
+
+
+      <!-- Transaction info -->
+      <div class="col-6 ml-1 mb-3 mt-3 mx-sm-auto">
+          <h2 class="my-0 py-0">{{offer.product.name}}</h2>
+          <i class="text-muted">Produto {{offer.product.generic}}</i>
+
+          <h4 class="mt-3">Entrega</h4>
+          <p>{{offer.delivery}}</p>
+
+
+          <h4>Quantidade comprada</h4>
+          <p>{{amountBought}} {{offer.product.unit}}</p>
+
+
+          <h4>Preço total</h4>
+          <p data-usd={{offer.usd}}>R$ {{priceBought}}</p>
+
+      </div>
+      <!-- end Transaction info -->
+
+
+
     <div class="col-6 pb-2 mb-2 mt-4">
       <h2>Descrição</h2>
       <p>{{offer.product.description}}</p>
+
+      {{#ifCond userType 'Administrador'}}
+      <h3 class="mt-5">Alterar status</h3>
+      <div class="dropdown pb-4">
+        <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+        {{#ifCond taxStatus 'Aguardando boleto'}}
+        class="btn btn-info dropdown-toggle col-6">
+        Aguardando boleto
+
+        {{else ifCond taxStatus 'Aguardando pagamento'}}
+        class="btn btn-warning dropdown-toggle col-6">
+        Aguardando pagamento
+
+        {{else ifCond taxStatus 'Pagamento confirmado'}}
+        class="btn btn-success  dropdown-toggle col-6">
+        Pagamento confirmado
+
+        {{else}}
+        class="btn  dropdown-toggle btn-danger col-6">
+        Cancelado
+        {{/ifCond}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+        <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
+              Aguardando boleto
+            </button>
+          </a>
+        </form>
+        <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+          <a class="dropdown-item " href="#">
+            <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
+              Aguardando pagamento
+            </button>
+          </a>
+        </form>
+        <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
+              Pagamento confirmado
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
+              Cancelado
+            </button>
+          </a>
+        </form>
+      </div>
+      </div>
+      {{/ifCond}}
     </div>
+
+    <div class="col-6 pb-2 mb-2 mt-4">
+    {{#ifCond userType 'Franqueado'}}
+    <div class="text-center my-3 justify-content-center">
+      <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+        <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
+          Cancelar compra
+        </button>
+      </form>
+    </div>
+    {{else ifCond userType 'Indústria'}}
+    <div class="text-center my-3 justify-content-center">
+      <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+        <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
+          Cancelar compra
+        </button>
+      </form>
+    </div>
+    {{else ifCond userType 'Revendedor'}}
+    <div class="text-center my-3 justify-content-center">
+      <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+        <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
+          Cancelar compra
+        </button>
+      </form>
+    </div>
+    {{else ifCond userType 'Produtor'}}
+    <div class="text-center my-3 justify-content-center">
+      <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+        <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
+          Cancelar compra
+        </button>
+      </form>
+    </div>
+    {{/ifCond}}
     <!-- end Product Description -->
   </div>
 </div>
-
-<div class="text-center my-3">
-  <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete"></form>
-  <a class="text-dark" onclick="document.getElementById('form-delete').submit();" href="" >Cancelar compra</a>
 </div>
 
 {{#section 'scripts'}}

@@ -14,18 +14,37 @@
         <th scope="col">Código da Compra</th>
         <th scope="col">Comprador</th>
         <th scope="col">Preço</th>
-        <!-- <th scope="col">Vendendor</th> -->
         <th scope="col">Status</th>
+        <!-- <th scope="col">Vendendor</th> -->
+        <th scope="col">Opções</th>
       </tr>
     </thead>
     <tbody>
       {{#each transactions}}
+      {{#ifCond taxStatus 'Aguardando boleto'}}
       <tr>
         <td>{{_id}}</td>
         <td>{{buyer.fullName}}</td>
         <td>{{priceBought}}</td>
-        <td>   <div class="dropdown">
-          <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+        <td>{{taxStatus}}</td>
+        <td scope="row" class="font-light">
+          <form action="/transaction/{{_id}}" method="GET">
+            <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
+          </form>
+        </td>
+        {{else ifCond taxStatus 'Aguardando pagamento'}}
+        <tr>
+          <td>{{_id}}</td>
+          <td>{{buyer.fullName}}</td>
+          <td>{{priceBought}}</td>
+          <td>{{taxStatus}}</td>
+          <td scope="row" class="font-light">
+            <form action="/transaction/{{_id}}" method="GET">
+              <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
+            </form>
+          </td>
+        <!-- <td>   <div class="dropdown"> -->
+          <!-- <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
           {{#ifCond taxStatus 'Aguardando boleto'}}
           class="btn btn-outline-info dropdown-toggle col-12">
           Aguardando boleto
@@ -42,9 +61,9 @@
           class="btn  dropdown-toggle btn-outline-danger col-12">
           Cancelado
           {{/ifCond}}
-        </button>
+        </button> -->
         <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+        <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
           <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
             <a class="dropdown-item" href="#">
               <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
@@ -74,8 +93,9 @@
               </button>
             </a>
           </form>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
+      {{/ifCond}}
       {{/each}}
     </tbody>
   </table>

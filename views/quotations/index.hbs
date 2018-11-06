@@ -6,7 +6,7 @@
   <h3 class="font-black">Minhas cotações</h3>
 </div>
 
-<div class="p-3">
+<!-- <div class="p-3">
   <div class="text-center mr-5 mt-2 ml-5 mb-4">
     <button type="button col-1 color-muted" name="button" class="btn ml-1">
       <i class="fas fa-sort-amount-down float-left"></i>
@@ -14,10 +14,12 @@
     <button type="button col-1 color-muted" name="button" class="btn ml-1">
       <i class="fas fa-filter float-left"></i>
     </button>
-  </div>
+  </div> -->
 <!-- end Filters Header -->
 
 <div class="row justify-content-center">
+
+  {{#if quotations}}
   {{#each quotations}}
   <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" >
     <div class="my-1 bg-light2 card1"  onclick="location.href = '/transaction/{{_id}}'">
@@ -97,12 +99,20 @@
       </div>
     </div>
   </div>
-  {{/each}}
 </div>
 </div>
 <form action="/user/buy" method="POST">
   <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
 </form>
+  {{/each}}
+  {{else}}
+  <div class="container">
+    <p class="text-center font-light">Não existem novas cotações na sua conta. </p>
+  </div>
+  {{/if}}
+
+</div>
+</div>
 </div>
 </div>
 <!-- end QuotationsList -->

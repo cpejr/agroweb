@@ -125,16 +125,21 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
 });
 
 router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  console.log(req.body.active);
   const user = {
     status: req.body.status
   };
-  console.log(req.body.active);
   User.update(req.params.id, user).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/admin/users');
+  if (req.body.status === 'Inativo') {
+    res.redirect('/admin/users');
+    console.log(req.body.status);
+  }
+  else {
+    console.log(req.body.status);
+    res.redirect('/admin/requisitions');
+  }
 });
 
 /* GET Offers - Show all offers */

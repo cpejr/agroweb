@@ -90,10 +90,8 @@
                     <p class="text-uppercase font-book mobile-font2">Custo total
                       <span class="count text-center font-light mobile-font2"> <br/>{{priceBought}}</span>
                     </p>
-                  </div>
-                </div>
-              </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -101,10 +99,8 @@
   </div>
 </div>
 </div>
-<form action="/user/buy" method="POST">
-  <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
-</form>
   {{/each}}
+
   {{else}}
   <div class="container">
     <p class="text-center font-light">Não existem novas cotações na sua conta. </p>
@@ -112,6 +108,12 @@
   {{/if}}
 
 </div>
+
+{{#if quotations}}
+<form action="/user/buy" method="POST">
+  <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
+</form>
+{{/if}}
 </div>
 </div>
 </div>

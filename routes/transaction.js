@@ -174,4 +174,23 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
   res.redirect('/user/orders');
 });
 
+// /**
+//  * GET Show - Show details of a product
+//  */
+// router.get('/:id', (req, res) => {
+//   Transaction.getById(req.params.id).then((transaction) => {
+//     if (transaction) {
+//       console.log(transaction);
+//       res.render('/site', { title: transaction.name });
+//     }
+//     else {
+//       console.log('Transaction not found!');
+//       res.redirect('/user');
+//     }
+//   }).catch((error) => {
+//     console.log(error);
+//     res.redirect('/error');
+//   });
+// });
+
 module.exports = router;

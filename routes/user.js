@@ -137,7 +137,18 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
  */
 router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
   User.getById(req.params.id).then((user) => {
-      res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, ...req.session});
+    if (user) {
+      User.getAgreementListById(req.session._id).then((client) => {
+        res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, client, ...req.session});
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    }
+    else {
+      console.log('User not found!');
+      res.redirect('/user');
+    }
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -240,8 +251,6 @@ router.get('/franchisee', auth.isAuthenticated, (req, res) => {
  */
  router.get('/agreementList', auth.isAuthenticated, (req, res) => {
    User.getAgreementListById(req.session._id).then((clients) => {
-     // console.log(clients);
-
      if (req.session.userType === 'Produtor') {
        res.render('clients', { title: 'Meu Franqueado', layout: 'layout', clients, ...req.session });
      }
@@ -268,18 +277,27 @@ router.delete('/:id', (req, res) => {
 /**
  * POST contract - Contract franchisee
  */
-router.post('/contract', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
-  User.addClient(req.body.franchiseeID, userId).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  User.addClient(userId, req.body.franchiseeID).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  res.redirect('/user/agreementList');
-});
+ router.post('/contract', auth.isAuthenticated, (req, res) => {
+   User.getAgreementListById(req.session._id).then((client) => {
+     console.log(client);
+     if(client.uid){
+       console.log("Não é possível contratar mais de um franqueado.");
+     }
+     else {
+       const userId = req.session._id;
+       console.log(req.session);
+       User.addClient(req.body.franchiseeID, userId).catch((error) => {
+         console.log(error);
+         res.redirect('/error');
+       });
+       User.addClient(userId, req.body.franchiseeID).catch((error) => {
+         console.log(error);
+         res.redirect('/error');
+       });
+       res.redirect('/user/agreementList');
+     }
+   });
+ });
 
 /**
  * POST cancel - Cancel franchisee
@@ -296,6 +314,32 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
   });
   res.redirect('/user/agreementList');
 });
+
+/**
+ * POST change - Change franchisee
+ */
+ router.post('/change', auth.isAuthenticated, (req, res) => {
+   User.getAgreementListById(req.session._id).then((client) => {
+     const userId = req.session._id;
+     User.removeClient(client[0]._id, userId).catch((error) => {
+       console.log(error);
+       res.redirect('/error');
+     });
+     User.removeClient(userId, client[0]._id).catch((error) => {
+       console.log(error);
+       res.redirect('/error');
+     });
+     User.addClient(req.body.franchiseeID, userId).catch((error) => {
+       console.log(error);
+       res.redirect('/error');
+     });
+     User.addClient(userId, req.body.franchiseeID).catch((error) => {
+       console.log(error);
+       res.redirect('/error');
+     });
+     res.redirect('/user/agreementList');
+   });
+ });
 
 /**
  * GET status - Show if user is blocked or waiting

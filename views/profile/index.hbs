@@ -344,17 +344,30 @@
     </div>
   </div>
   </div>
+  <!-- <input name="franchiseeID" class="form-control font-light" value={{client.0.fullName}}></input> -->
   </div>
 
+
+
 {{#ifCond userType 'Produtor'}}
+{{#ifCond client.0.uid user.uid}}
+<form action="/user/cancel" method="post">
+  <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
+  <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-danger mx-auto d-block my-2" type="submit" name="button">Dispensar</button>
+</form>
+{{else}}
+{{#if client.0.uid}}
+<form action="/user/change" method="POST">
+  <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
+  <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-info mx-auto d-block my-2" type="submit" name="button">Substituir</button>
+</form>
+{{else}}
 <form action="/user/contract" method="POST">
   <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
   <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Contratar</button>
 </form>
-<form action="/user/cancel" method="post">
-  <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
-  <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-danger mx-auto d-block my-2" type="submit" name="button">Cancelar Contrato</button>
-</form>
+{{/if}}
+{{/ifCond}}
 
 {{else ifCond userType 'Franqueado'}}
 <form action="/user/cancel" method="post">

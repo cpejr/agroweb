@@ -24,6 +24,7 @@
             <th scope="col">Tipo</th>
             <th scope="col">E-mail</th>
             <th scope="col">CPF/CNPJ</th>
+            <th scope="col">Opções</th>
           </tr>
         </thead>
         <tbody>
@@ -80,6 +81,9 @@
             <td>{{type}}</td>
             <td>{{email}}</td>
             <td>{{doc}}</td>
+            <td scope="row" class="font-light">
+              <button onclick="location.href='/user/profile/{{id}}'" class="btn btn-outline-info font-book">Ver</button>
+            </td>
           </tr>
           {{/ifCond}}
 

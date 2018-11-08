@@ -243,7 +243,7 @@ router.get('/franchisee', auth.isAuthenticated, (req, res) => {
      // console.log(clients);
 
      if (req.session.userType === 'Produtor') {
-       res.render('clients', { title: 'Meus Franqueados', layout: 'layout', clients, ...req.session });
+       res.render('clients', { title: 'Meu Franqueado', layout: 'layout', clients, ...req.session });
      }
      else if (req.session.userType === 'Franqueado') {
        res.render('clients', { title: 'Meus Clientes', layout: 'layout', clients, ...req.session });

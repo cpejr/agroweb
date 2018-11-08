@@ -16,7 +16,8 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 
 /* GET Users - Show all users */
 router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  User.getByQuerySorted({ status: 'Ativo' }).then((users) => {
+  User.getByQuerySorted().then((users) => {
+    console.log(users);
     res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
   }).catch((error) => {
     console.log(error);
@@ -132,14 +133,8 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
     console.log(error);
     res.redirect('/error');
   });
-  if (req.body.status === 'Inativo') {
-    res.redirect('/admin/users');
     console.log(req.body.status);
-  }
-  else {
-    console.log(req.body.status);
-    res.redirect('/admin/requisitions');
-  }
+    res.redirect('/admin');
 });
 
 /* GET Offers - Show all offers */

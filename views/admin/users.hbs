@@ -28,7 +28,8 @@
         </thead>
         <tbody>
           {{#each users}}
-          {{#ifCond status 'Inativo'}}
+          {{#ifCond status 'Aguardando aprovação'}}
+          {{else}}
           <tr>
             <th scope="row">{{fullName}}</th>
               <td>
@@ -39,13 +40,16 @@
                 Ativo
 
                 {{else ifCond status 'Inativo'}}
-                class="btn btn-outline-danger dropdown-toggle col-12">
+                class="btn btn-outline-warning dropdown-toggle col-12">
                 Inativo
 
+                {{else ifCond status 'Bloqueado'}}
+                class="btn btn-outline-danger dropdown-toggle col-12">
+                Bloqueado
 
                 {{/ifCond}}
+
               </button>
-              <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
                 <form  method= "POST" action="/admin/{{id}}/updateUserActive">
                   <a class="dropdown-item" href="#">
@@ -56,8 +60,15 @@
                 </form>
                 <form method= "POST" action="/admin/{{id}}/updateUserActive">
                   <a class="dropdown-item " href="#">
-                    <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Inativo">
+                    <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Inativo">
                     Inativo
+                    </button>
+                  </a>
+                </form>
+                <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+                  <a class="dropdown-item" href="#">
+                    <button type="submit" align="center" class="btn btn-outline-danger col-12" name="status" value="Bloqueado">
+                      Bloqueado
                     </button>
                   </a>
                 </form>
@@ -72,95 +83,11 @@
           </tr>
           {{/ifCond}}
 
-          {{#ifCond status 'Ativo'}}
-          <tr>
-            <th scope="row">{{fullName}}</th>
-            <!-- <td><div class="dropdown">
-              <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-              {{#ifCond active true}}
-              class="btn btn-outline-success dropdown-toggle  col-12">
-              Ativo
-              {{else ifCond active false}}
-              class="btn btn-outline-danger dropdown-toggle  col-12">
-              Inativo
-              {{/ifCond}}
-            </button>
-            <div class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton" >
-              <form  method= "POST" action="/admin/{{id}}/updateUserActive">
-                <a class="dropdown-item" href="#">
-                  <button type="submit" class="btn btn-outline-success col-12" name="active" value=true>
-                    Ativo
-                  </button>
-                </a>
-              </form>
-              <form method= "POST" action="/admin/{{id}}/updateUserActive">
-                <a class="dropdown-item " href="#">
-                  <button type="submit" class="btn btn-outline-danger col-12" name="active" value=false>
-                    Inativo
-                  </button>
-                </a>
-              </form> -->
-              <td>
-              <div class="dropdown">
-                <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                {{#ifCond status 'Ativo'}}
-                class="btn btn-outline-success dropdown-toggle col-12">
-                Ativo
-
-                {{else ifCond status 'Inativo'}}
-                class="btn btn-outline-danger dropdown-toggle col-12">
-                Inativo
-
-
-                {{/ifCond}}
-              </button>
-              <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-                <form  method= "POST" action="/admin/{{id}}/updateUserActive">
-                  <a class="dropdown-item" href="#">
-                    <button type="submit" align="center" class="btn btn-outline-success col-12" name="status" value="Ativo">
-                      Ativo
-                    </button>
-                  </a>
-                </form>
-                <form method= "POST" action="/admin/{{id}}/updateUserActive">
-                  <a class="dropdown-item " href="#">
-                    <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Inativo">
-                    Inativo
-                    </button>
-                  </a>
-                </form>
-            </div>
-          </div>
-        </div>
-      </div>
-        </td>
-            <td>{{type}}</td>
-            <td>{{email}}</td>
-            <td>{{doc}}</td>
-          </tr>
-          {{/ifCond}}
           {{/each}}
         </tbody>
       </table>
     </div>
   </div>
-    <!-- <div class="card mb-1" data-status="{{status}}">
-      <div class="card-body">
-        <div class="text-center">
-          <h7 class="card-title align-text-top text-gray">Usuário - {{firstName}} {{lastName}}</h7>
-          <div class="w-100">
-          </div>
-            <span class="badge badge-primary">
-              <h6>{{type}}</h6>
-            </span>
-          <p class="card-text align-text-bottom text-gray">{{email}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end Users list -->
 </div>
 {{#section 'scripts'}}
 {{/section}}

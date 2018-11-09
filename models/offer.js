@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const offerSchema = new mongoose.Schema({
   stock: Number,
   balance: Number,
+  unitPrice: Number,
   price: {
     low: Number,
     average: Number,

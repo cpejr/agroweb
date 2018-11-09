@@ -69,9 +69,7 @@ class Email {
    * @returns {Object} Information
    */
   static buyEmail(data) {
-    console.log('Buyer Email');
-    //console.log(data);
-    const text = `Prezado(a) ${data.buyer.firstName},
+    const content = `Prezado(a) ${data.buyer.firstName},
     Sua compra do produto ${data.offer.product.name} foi realizada com sucesso.
     A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para você.
 
@@ -95,8 +93,8 @@ class Email {
       // clientEmail: data.buyer.email,
       // clientEmail: 'admcpejr@megapool.com.br',
       clientEmail: 'lucassouza@cpejr.com.br',
-      text,
-      subject
+      subject,
+      content
     };
     return new Promise((resolve) => {
       Email.sendEmail(emailContent).then((info) => {
@@ -112,8 +110,7 @@ class Email {
    */
   static sellEmail(data) {
     console.log('Seller Email');
-    // console.log(data);
-    const text = `Prezado(a) ${data.offer.seller.firstName},
+    const content = `Prezado(a) ${data.offer.seller.firstName},
     Você tem uma nova demanda do produto ${data.offer.product.name}.
     A transação aguarda sua aprovação e pode ser consultada no caminho Dashboard -> Boletos pendentes
     O comprador terá acesso ao boleto uma vez que você aprove a transação e gere o boleto.
@@ -135,11 +132,9 @@ class Email {
     Celular: ${data.buyer.cellphone}`;
     const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
     const emailContent = {
-      //clientEmail: data.offer.seller.email,
-      // clientEmail: 'admcpejr@megapool.com.br',
       clientEmail: 'lucassouza@cpejr.com.br',
-      text,
-      subject
+      subject,
+      content
     };
     return new Promise((resolve) => {
       Email.sendEmail(emailContent).then((info) => {
@@ -155,8 +150,7 @@ class Email {
    */
   static adminNewTransactionEmail(data) {
     console.log('admin Email');
-    // console.log(data);
-    const text = `Nova compra realizada sob o número #${data._id}.
+    const content = `Nova compra realizada sob o número #${data._id}.
     A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para o comprador. Esse terá acesso ao boleto uma vez que o vendedor aprove a transação e gere o boleto.
 
     Para transação ocorrer com sucesso, é preciso emitir o boleto para o vendedor referente à parcela da Megapoll sobre a venda.
@@ -185,7 +179,7 @@ class Email {
     const emailContent = {
       clientEmail: 'lucassouza@cpejr.com.br',
       // clientEmail: 'admcpejr@megapool.com.br',
-      text,
+      content,
       subject
     };
     return new Promise((resolve) => {

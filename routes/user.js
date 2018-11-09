@@ -230,7 +230,7 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/user/profile');
+  res.redirect('/user/edit');
 });
 
 /*

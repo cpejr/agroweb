@@ -14,7 +14,6 @@ const router = express.Router();
  */
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAll().then((transactions) => {
-    console.log(transactions);
     res.render('orders/index', { title: 'Transações', transactions });
   }).catch((error) => {
     console.log(error);
@@ -35,6 +34,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
 
     if(req.session.userType === 'Franqueado'){
       transaction.buyer = req.body.client;
+      transaction.franchisee = req.session._id;
     }
 
   Offer.getById(transaction.offer).then((offer) => {
@@ -75,6 +75,12 @@ router.post('/', auth.isAuthenticated, (req, res) => {
         console.log(error);
         res.redirect('/error');
       });
+      if(req.session.userType === 'Franqueado'){
+        User.addToMyCart(transaction.franchisee, transactionID).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+      }
       res.redirect(`transaction/${transactionID}`);
     }).catch((error) => {
       console.log(error);
@@ -111,17 +117,17 @@ router.get('/:id', (req, res) => {
   });
 });
 
-/**
- * GET choose clients page
- */
- router.get('/chooseclient', auth.isAuthenticated, (req, res) => {
-   User.getAgreementListById(req.session._id).then((clients) => {
-     res.render('chooseclient', { title: 'Escolha o cliente', layout: 'layout', clients, ...req.session });
-   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
- });
+// /**
+//  * GET choose clients page
+//  */
+//  router.get('/chooseclient', auth.isAuthenticated, (req, res) => {
+//    User.getAgreementListById(req.session._id).then((clients) => {
+//      res.render('chooseclient', { title: 'Escolha o cliente', layout: 'layout', clients, ...req.session });
+//    }).catch((error) => {
+//     console.log(error);
+//     res.redirect('/error');
+//   });
+//  });
 
 /**
  * PUT Update - Update a transaction in the database

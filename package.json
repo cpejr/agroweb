@@ -38,9 +38,6 @@
         "eslint-config-airbnb-base": "^12.1.0",
         "eslint-plugin-import": "^2.11.0"
     },
-    "engine": {
-      "node": "8.x"
-    },
     "eslintConfig": {
         "extends": "airbnb-base",
         "env": {

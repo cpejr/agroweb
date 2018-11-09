@@ -14,7 +14,6 @@ const router = express.Router();
  */
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAll().then((transactions) => {
-    console.log(transactions);
     res.render('orders/index', { title: 'Transações', transactions });
   }).catch((error) => {
     console.log(error);
@@ -26,11 +25,18 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
  * POST Create - Add new transaction to DB
  */
 router.post('/', auth.isAuthenticated, (req, res) => {
-  const transaction = {
-    buyer: req.session._id,
-    amountBought: req.body.amountBought,
-    offer: req.body._id,
-  };
+
+    const transaction = {
+      buyer: req.session._id,
+      amountBought: req.body.amountBought,
+      offer: req.body._id,
+    };
+
+    if(req.session.userType === 'Franqueado'){
+      transaction.buyer = req.body.client;
+      transaction.franchisee = req.session._id;
+    }
+
   Offer.getById(transaction.offer).then((offer) => {
     if (transaction.amountBought < offer.breakpoints.average) {
       transaction.unitPrice = offer.price.high;
@@ -44,7 +50,6 @@ router.post('/', auth.isAuthenticated, (req, res) => {
       transaction.unitPrice = offer.price.low;
       transaction.priceBought = transaction.amountBought * transaction.unitPrice;
     }
-    console.log(transaction);
     // Create a new transaction
     Transaction.create(transaction).then((transactionID) => {
       // Group.getById(groupId).then((group) => {
@@ -70,6 +75,12 @@ router.post('/', auth.isAuthenticated, (req, res) => {
         console.log(error);
         res.redirect('/error');
       });
+      if(req.session.userType === 'Franqueado'){
+        User.addToMyCart(transaction.franchisee, transactionID).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+      }
       res.redirect(`transaction/${transactionID}`);
     }).catch((error) => {
       console.log(error);
@@ -105,6 +116,18 @@ router.get('/:id', (req, res) => {
     res.redirect('/error');
   });
 });
+
+// /**
+//  * GET choose clients page
+//  */
+//  router.get('/chooseclient', auth.isAuthenticated, (req, res) => {
+//    User.getAgreementListById(req.session._id).then((clients) => {
+//      res.render('chooseclient', { title: 'Escolha o cliente', layout: 'layout', clients, ...req.session });
+//    }).catch((error) => {
+//     console.log(error);
+//     res.redirect('/error');
+//   });
+//  });
 
 /**
  * PUT Update - Update a transaction in the database

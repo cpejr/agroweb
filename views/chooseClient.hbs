@@ -2,15 +2,14 @@
 {{/section}}
 
 <div class="pb-3 gradient-background text-white">
-  <h3 class="text-center font-black">Contrate um Franqueado</h3>
+  <h3 class="text-center font-black">Escolha o cliente</h3>
 </div>
 <div class="p-3">
 <div class="container p-3">
-<p> Selecione algum dos franqueados a seguir para exibir seu perfil e conhecer características da cada um deles. Assim poderá contratá-lo para gerenciar suas atividades dentro da plataforma Megapool com mais facilidade, garantindo maior conforto e segurança para sua produção.</p>
+<p> Selecione algum dos seus clientes para atribuir a cotação a ele.</p>
 </div>
 <div class="row justify-content-center">
-  {{#each users}}
-  {{#ifCond type 'Franqueado'}}
+  {{#each clients}}
   <div class="col-sm-12 col-md-6 col-lg-6 btn card m-3" >
       <div class="my-1 bg-light2 card1"  onclick="location.href = '/user/profile/{{_id}}'">
         <div class="text-right p-2">
@@ -58,8 +57,6 @@
         </div>
       </div>
   </div>
-<!-- end CARD PADRÃO -->
-      {{/ifCond}}
       {{/each}}
 </div>
 </div>

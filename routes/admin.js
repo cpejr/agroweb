@@ -133,9 +133,22 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
     console.log(error);
     res.redirect('/error');
   });
-    console.log(req.body.status);
-    res.redirect('/admin');
+  res.redirect('/admin/users');
+  console.log(req.body.status);
 });
+
+router.post('/:id/requisitions', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  const user = {
+    status: req.body.status
+  };
+  User.update(req.params.id, user).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  console.log(req.body.status);
+  res.redirect('/admin/requisitions');
+});
+
 
 /* GET Offers - Show all offers */
 router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {

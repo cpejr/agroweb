@@ -1,0 +1,69 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<!-- NavBar -->
+<div class="pos-f-t">
+  <nav class="navbar navbar-dark">
+    <button class="btn btn-outline-dark" type="button" onclick="history.back()">
+      <i class="fas fa-arrow-left fa-2x"></i>
+    </button>
+
+    <form id="navbar-form" action="./results" method="get" class="float-right my-2 my-lg-0 my-sm-0">
+      <input class="form-control my-2 my-sm-0 float-right" type="search" placeholder="Buscar">
+      <button class="btn btn-outline-dark " type="button">
+        <i class="fas fa-search fa-2x"></i>
+      </button>
+    </form>
+  </nav>
+</div>
+<!-- end NavBar -->
+
+<!-- Filters Header -->
+<div class="filters-header row justify-content-md-end justify-content-center mx-1 mt-2 mb-1">
+  <div class="col-1 d-flex align-items-center justify-content-between">
+    <div class="">
+      <h4 class="my-auto">Boletos Pendentes</h4>
+    </div>
+    <div class="">
+      <button type="button" name="button" class="btn ml-1">
+        <i class="fas fa-sort-amount-down "></i>
+      </button>
+      <button type="button" name="button" class="btn ml-1">
+        <i class="fas fa-filter "></i>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- end Filters Header -->
+
+<!-- QuotationsList -->
+<div class="justify-content">
+  <div id="results-list" class="row justify-content mt-2 mx-0">
+    <div class="col-12">
+      <div class="card mb-1">
+        <div class="card-body text-right row">
+          <h5 class="card-title aligntext-top text-left col-3 ">Código</h5>
+          <h5 class="card-title align-text-top text-left col-3 ">Produto</h5>
+          <h5 class="card-title align-text-top text-left col-4 ">Comprador</h5>
+        </div>
+<div class="row justify-content ml-1 mb-4">
+            {{#each (boletos??)}}
+
+              <p class="card-title align-text-top text-left col-3 ">{{Código??}}</p>
+              <p class="card-title align-text-top text-left col-3 ">  {{Produto??}}</p>
+              <p class="card-title align-text-top text-left col-3 ">{{Comprador??}}</p>
+              <button class="btn btn-success col-2.5 ">Gerar boleto</button>
+        </div>
+        </div>
+      </div>
+    </div>
+   {{/each}}
+  </div>
+</div>
+
+<!-- end QuotationsList -->
+
+
+{{#section 'scripts'}}
+  <script src="/javascripts/scripts.js"></script>
+{{/section}}

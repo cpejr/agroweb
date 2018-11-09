@@ -91,7 +91,6 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOffersByUserId(req.session._id).then((offers) => {
-        console.log(offers);
         res.render('offers/index', { title: 'Produtos oferecidos', layout: 'layout', offers });
       }).catch((error) => {
         console.log(error);

@@ -15,6 +15,6 @@ function toNumber(value) {
 
 function convertPrice(usd, realPrice) {
   number = usd * realPrice;
-  number = number.toFixed(2)
+  number = number.toFixed(2);
   return number;
 }

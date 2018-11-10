@@ -8,6 +8,7 @@
 
 <div class="p-3">
   <div class="row justify-content-center">
+    {{#if clients}}
     {{#each clients}}
     <div class="col-sm-12 col-md-6 col-lg-6 btn card m-3" >
       <div class="my-1 bg-light2 card1"  onclick="location.href = '/user/profile/{{_id}}'">
@@ -59,6 +60,11 @@
 
     <!-- end CARD PADRÃO -->
     {{/each}}
+    {{else}}
+    <div class="container">
+      <p class="text-center font-light">Você ainda não possui nenhum cliente.</p>
+    </div>
+    {{/if}}
   </div>
 </div>
 
@@ -70,6 +76,7 @@
 
 <div class="p-3">
   <div class="row justify-content-center">
+    {{#if clients}}
     {{#each clients}}
     <div class="col-sm-12 col-md-6 col-lg-6 btn card m-3" >
       <div class="my-1 bg-light2 card1"  onclick="location.href = '/user/profile/{{_id}}'">
@@ -120,6 +127,11 @@
     </div>
     <!-- end CARD PADRÃO -->
     {{/each}}
+    {{else}}
+    <div class="container">
+      <p class="text-center font-light">Você ainda não possui nenhum cliente.</p>
+    </div>
+    {{/if}}
   </div>
 </div>
 {{/ifCond}}

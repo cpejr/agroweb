@@ -278,7 +278,6 @@ router.delete('/:id', (req, res) => {
  */
  router.post('/contract', auth.isAuthenticated, (req, res) => {
    User.getAgreementListById(req.session._id).then((client) => {
-     console.log(client);
      if(client.uid){
        console.log("Não é possível contratar mais de um franqueado.");
      }

@@ -5,17 +5,9 @@
 <div class="text-center pb-3 gradient-background text-white">
   <h3 class="font-black">Minhas compras</h3>
 </div>
-<!-- <div class="text-center pl-3 pr-3 pt-3">
-  <button type="button col-1 color-muted" name="button" class="btn mr-1">
-    <i class="fas fa-sort-amount-down float-left"></i>
-  </button>
-  <button type="button col-1 color-muted" name="button" class="btn ml-1">
-    <i class="fas fa-filter float-left"></i>
-  </button>
-</div> -->
-<!-- end Filters Header -->
 
 <!-- OrdersList-->
+<div class="p-3">
 <div class="row justify-content-center">
   {{#if transactions}}
   {{#each transactions}}
@@ -172,6 +164,7 @@
   <p class="text-center font-light">Você não realizou nenhum compra ainda.</p>
 </div>
 {{/if}}
+</div>
 </div>
 <!-- end OrdersList -->
 {{#section 'scripts' }}

@@ -4,13 +4,11 @@
 <div class="text-center pb-3 gradient-background text-white">
   <h3 class="font-black">Perfil de {{user.firstName}}</h3>
 </div>
-<div class="pl-lg-5 pr-lg-5 ml-lg-3 mr-lg-3">
+<div class="p-3">
+<div class="pl-lg-2 pr-lg-2 ml-lg-3 mr-lg-3">
 <div class="p-lg-5 ml-lg-5 mr-lg-5">
   <div class="row d-flex justify-content-between">
     <div class="col-md-6">
-
-      <h3 class="font-book pb-2 text-center">Dados Gerais</h3>
-
       <div class="form-group">
         <h5 class="row col text-bold" align="justify">Nome:</h5>
         <p class="font-book mb-4">{{user.fullName}}</p>
@@ -45,18 +43,16 @@
         <h5 class="row col text-bold" align="justify">Estado:</h5>
         <p class="font-book mb-4">{{user.address.state}}</p>
       </div>
+      <div class="form-group">
+        <h5 class="row col text-bold" align="justify">CPF/CNPJ:</h5>
+        <p class="font-book mb-4">{{user.doc}}</p>
+      </div>
     </div>
 
     <div class="col-md-6">
 
     {{#ifCond user.type 'Franqueado'}}
-    <h3 class="font-book pb-2 text-center">Dados Específicos</h3>
     <div class="form-group">
-      <div class="form-group">
-        <h5 class="row col text-bold" align="justify">CPF/CNPJ:</h5>
-        <p class="font-book mb-4">{{user.doc}}</p>
-      </div>
-
       <div class="form-group">
         <h5 class="row col text-bold" align="justify">Resumo das atividades profissionais atuais:</h5>
         <p class="font-book mb-4">{{user.activities}}</p>
@@ -83,7 +79,6 @@
       </div>
 
     {{else ifCond user.type 'Revendedor'}}
-    <h3 class="font-book pb-2 text-center">Dados Específicos</h3>
       <div class="form-group">
         <h5 class="row col text-bold" align="justify">Telefone fixo:</h5>
         <p class="font-book mb-4">{{user.phone}}</p>
@@ -181,7 +176,6 @@
     </div>
 
     {{else ifCond user.type 'Produtor'}}
-    <h3 class="font-book pb-2 text-center">Dados Específicos</h3>
       <div class="form-group">
         <h5 class="row col text-bold" align="justify">Telefone fixo:</h5>
         <p class="font-book mb-4">{{user.phone}}</p>
@@ -245,7 +239,6 @@
 
 
     {{else ifCond user.type 'Indústria'}}
-    <h3 class="font-book pb-2 text-center">Dados Específicos</h3>
       <div class="form-group">
         <h5 class="row col text-bold" align="justify">Telefone fixo:</h5>
         <p class="font-book mb-4">{{user.phone}}</p>
@@ -346,6 +339,7 @@
   </div>
   <!-- <input name="franchiseeID" class="form-control font-light" value={{client.0.fullName}}></input> -->
   </div>
+</div>
 
 
 

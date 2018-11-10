@@ -87,9 +87,6 @@ router.post('/login', (req, res) => {
         req.session._id = currentLogged._id;
         req.session.userUid = user.uid;
         req.session.email = currentLogged.email;
-        // console.log(user);
-        // console.log(user.uid);
-        console.log(req.session);
         req.session.status = currentLogged.status;
         if (req.session.userType === 'Administrador') {
           res.redirect('/admin');

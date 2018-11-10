@@ -1,5 +1,8 @@
 {{#section 'stylesheets'}}
 {{/section}}
+<div class="pb-3 gradient-background text-white">
+  <h3 class="text-center font-black">Ver produto</h3>
+</div>
 
 <div class="container">
   <div class="row justify-content-center mx-sm-auto mx-md-9">
@@ -32,7 +35,7 @@
           </div>
         </div>
         <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-        <button class="w-100 text-white btn btn-default bg-dark" type="button" name="button">Cotar similar</button>
+        <!-- <button class="w-100 text-white btn btn-default bg-dark" type="button" name="button">Cotar similar</button> -->
       </form>
     </div>
     <!-- end Quotation -->
@@ -41,22 +44,6 @@
     <div class="col-12 col-md-6 mb-5">
       <h4>Características</h4>
       <div class="row">
-        <div class="col-6">
-          <dt>C. agronômica</dt>
-          <dd>Feromônio</dd>
-        </div>
-        <div class="col-6">
-          <dt>Toxicologia</dt>
-          <dd>Pouco tóxico</dd>
-        </div>
-        <div class="col-6">
-          <dt>Inflamabilidade</dt>
-          <dd>Inflamável</dd>
-        </div>
-        <div class="col-6">
-          <dt>Formulação</dt>
-          <dd>Comprimidos e sachês</dd>
-        </div>
         <div class="col-6">
           <dt>Ingrediente ativo</dt>
           {{#each chem}}
@@ -67,6 +54,10 @@
           <dt>Fabricante</dt>
           <dd>{{manufacturer}}</dd>
         </div>
+        <div class="col-12">
+          <dt>Categoria</dt>
+          <dd>{{category}}</dd>
+        </div>
       </div>
     </div>
     <!-- end Product Characteristics -->
@@ -75,11 +66,8 @@
     <div class="col-12 col-md-6 mb-5">
       <h4>Formas de pagamento</h4>
       <div class="">
-        <i class="fab fa-cc-visa fa-4x mr-2 text-info"></i>
-        <i class="fab fa-cc-mastercard fa-4x mr-2 text-danger"></i>
         <i class="fas fa-barcode fa-4x mr-2"></i>
       </div>
-      <a class="tex-muted" href="#"><small>Mais informações</small></a>
     </div>
     <!-- end Payment Options -->
   </div>

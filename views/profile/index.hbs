@@ -376,9 +376,21 @@
 </form>
 
 {{else ifCond userType 'Administrador'}}
-<div class="row">
-<button class="btn bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block">Aceitar</button>
-<button class="btn bg-danger text-light2 mx-auto mt-4 px-5 mb-3 d-block">Bloquear</button>
+<div class="row justify-content-center">
+  <div class="pl-5 pr-5">
+    <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+      <button type="submit" align="center" class="btn bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block" name="status" value="Ativo">
+        Ativar
+      </button>
+    </form>
+  </div>
+  <div class="pl-5 pr-5">
+    <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+      <button type="submit" align="center" class="btn bg-danger text-light2 mx-auto mt-4 px-5 mb-3 d-block" name="status" value="Bloqueado">
+        Bloquear
+      </button>
+    </form>
+  </div>
 </div>
 {{/ifCond}}
 

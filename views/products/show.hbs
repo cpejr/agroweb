@@ -32,7 +32,7 @@
           </div>
         </div>
         <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-        <button class="w-100 text-white btn btn-default bg-dark" type="button" name="button">Cotar similar</button>
+        <!-- <button class="w-100 text-white btn btn-default bg-dark" type="button" name="button">Cotar similar</button> -->
       </form>
     </div>
     <!-- end Quotation -->
@@ -42,22 +42,6 @@
       <h4>Características</h4>
       <div class="row">
         <div class="col-6">
-          <dt>C. agronômica</dt>
-          <dd>Feromônio</dd>
-        </div>
-        <div class="col-6">
-          <dt>Toxicologia</dt>
-          <dd>Pouco tóxico</dd>
-        </div>
-        <div class="col-6">
-          <dt>Inflamabilidade</dt>
-          <dd>Inflamável</dd>
-        </div>
-        <div class="col-6">
-          <dt>Formulação</dt>
-          <dd>Comprimidos e sachês</dd>
-        </div>
-        <div class="col-6">
           <dt>Ingrediente ativo</dt>
           {{#each chem}}
             <dd>{{name}}</dd>
@@ -66,6 +50,10 @@
         <div class="col-6">
           <dt>Fabricante</dt>
           <dd>{{manufacturer}}</dd>
+        </div>
+        <div class="col-12">
+          <dt>Categoria</dt>
+          <dd>{{category}}</dd>
         </div>
       </div>
     </div>

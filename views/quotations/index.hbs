@@ -60,7 +60,6 @@
                       {{else }}
                       <span class="count font-light mobile-font2"> <br/>Grupo</span>
                       {{/ifCond}}
-
                     </p>
                   </div>
 
@@ -79,15 +78,20 @@
                     <p class="text-uppercase font-book mobile-font2">Custo total
                       <span class="count text-center font-light mobile-font2"> <br/>{{priceBought}}</span>
                     </p>
+                  </div>
+                </div>
+              </div>
+              <div class="ml-2">
+                <p class="smaller-font text-left align-text-top card-text font-book text-gray3 mobile-font2 text-uppercase">
+                  Cliente: {{buyer.firstName}}
+                </p>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-</div>
   {{/each}}
 
   {{else}}

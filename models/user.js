@@ -450,6 +450,9 @@ class User {
       UserModel.findByIdAndUpdate(id, { $push: { agreementList: user } }).catch((err) => {
         reject(err);
       });
+      UserModel.findByIdAndUpdate(id, { $inc: { totalCustomers: 1 } }).catch((err) => {
+        reject(err);
+      });
     });
   }
 
@@ -462,6 +465,9 @@ class User {
   static removeClient(id, user) {
     return new Promise((resolve, reject) => {
       UserModel.findByIdAndUpdate(id, { $pull: { agreementList: user } }).catch((err) => {
+        reject(err);
+      });
+      UserModel.findByIdAndUpdate(id, { $inc: { totalCustomers: -1 } }).catch((err) => {
         reject(err);
       });
     });

@@ -2,14 +2,18 @@
 {{/section}}
 
 <body>
+  <div class="text-center">
 <div class="pb-3 gradient-background text-white">
   <h3 class="text-center font-black">Editar dados do perfil</h3>
 </div>
-<div class="p-3">
+<div class="pl-lg-5 pr-lg-5">
+<div class="pl-lg-5 pr-lg-5">
+<div class="pl-lg-5 pr-lg-5">
+<div class="pl-lg-5 pr-lg-5">
+<div class="p-3 text-center">
 <form action="/user/update" method="post">
   <div class="row d-flex justify-content-between">
-    <div class="col-md-6">
-
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Nome:</p>
         <input name="user[fullName]" type="text" class="form-control font-light" value="{{user.fullName}}"></input>
@@ -75,7 +79,8 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+
+    <div class="col-md-6 col-lg-5 col-sm-12">
     <!-- ordinary fields -->
     {{#ifCond user.type 'Franqueado'}}
     <div class="form-group">
@@ -420,6 +425,7 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+
       {{/ifCond}}
     </div>
   </div>
@@ -427,6 +433,11 @@
   <button class="btn btn-default bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
 </form>
 <!-- end ordinary fields -->
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </body>
 

@@ -75,7 +75,7 @@
       {{/each}}
       {{else}}
       <div class="container">
-        <p class="text-center font-light">Não foram encontrados resultados pra sua busca...</p>
+        <p class="text-center font-light">Não foram encontrados resultados pra sua busca.</p>
       </div>
 
     {{/if}}
@@ -109,11 +109,11 @@
                   <div class="ml-2 mt-3 side-animation">
                     <div class="text-left">
                       <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
-                        R$ {{price.low}}
+                        R$ {{price}}
                       </h4>
 
                       <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                        / {{product.unit}}
+                        / {{offer.product.unit}}
                       </i>
                     </div>
                   </div>
@@ -142,5 +142,5 @@
 <!-- end ResultsList -->
 
 {{#section 'scripts'}}
-  <script src="/javascripts/money.js"></script>
+<script src="/javascripts/money.js"></script>
 {{/section}}

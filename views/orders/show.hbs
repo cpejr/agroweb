@@ -132,7 +132,7 @@
       {{/ifCond}}
     </div>
 
-    <div class="col-6 pb-2 mb-2 mt-4">
+    <div class="mx-auto col-10 col-md-5 pb-2 mb-2 mt-4">
     {{#ifCond userType 'Franqueado'}}
     <div class="text-center my-3 justify-content-center">
       <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
@@ -172,4 +172,5 @@
 </div>
 
 {{#section 'scripts'}}
+<script src="/javascripts/money.js"></script>
 {{/section}}

@@ -21,7 +21,7 @@
 
       <div class="form-group">
         <p class="row col text-bold" align="justify">Email:</p>
-        <input name="user[email]" type="text" class="form-control font-light" value="{{user.email}}"></input>
+        <input name="user[email]" type="text" class="form-control font-light" value="{{user.email}}" readonly></input>
       </div>
 
       <div class="form-group">
@@ -77,18 +77,19 @@
           <option value="TO">TO</option>
         </select>
       </div>
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">CPF/CNPJ:</p>
+        <input name="user[doc]" type="text" class="form-control font-light" value="{{user.doc}}" readonly></input>
+      </div>
     </div>
+
 
 
     <div class="col-md-6 col-lg-5 col-sm-12">
     <!-- ordinary fields -->
+
     {{#ifCond user.type 'Franqueado'}}
     <div class="form-group">
-      <div class="form-group">
-        <p class="row col text-bold" align="justify">CPF/CNPJ:</p>
-        <input name="user[doc]" type="text" class="form-control font-light" value="{{user.doc}}"></input>
-      </div>
-
       <div class="form-group">
         <p class="row col text-bold" align="justify">Resumo das atividades profissionais atuais:</p>
         <input name="user[activities]" type="text" class="form-control font-light" value="{{user.activities}}"></input>
@@ -114,12 +115,7 @@
 
       <div class="form-group">
         <p class="row col text-bold" align="justify">Total de clientes:</p>
-        <input name="user[totalCustomers]" type="text" class="form-control font-light" value="{{user.totalCustomers}}"></input>
-      </div>
-
-      <div class="form-group">
-        <p class="row col text-bold" align="justify">Área total(ha):</p>
-        <input name="user[area]" type="text" class="form-control font-light" value="{{user.area}}"></input>
+        <input name="user[totalCustomers]" type="text" class="form-control font-light" value="{{user.totalCustomers}}" readonly></input>
       </div>
 
       <div class="form-group">
@@ -272,9 +268,10 @@
       </div>
 
       <div class="form-group">
-        <p class="row col text-bold" align="justify">Área plantada(ha):</p>
+        <p class="row col text-bold" align="justify">Área plantada (ha):</p>
         <input name="user[farm][area]" type="text" class="form-control font-light" value="{{user.farm.area}}"></input>
       </div>
+
 
       <div class="form-group">
         <p class="row col text-bold" align="justify">Soja:</p>

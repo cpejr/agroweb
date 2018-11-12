@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   doc: {
-    type: String,
+    type: Number,
     unique: true
   },
   email: {
@@ -96,7 +96,10 @@ const userSchema = new mongoose.Schema({
   activities: String,
   actualCustomers: String,
   possibleCustomers: String,
-  totalCustomers: String,
+  totalCustomers: {
+    type: Number,
+    default: '0'
+  },
   area: Number,
   whyIsMegapoolImportant: String,
   farm: {

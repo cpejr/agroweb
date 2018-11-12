@@ -13,7 +13,6 @@ const router = express.Router();
  */
 router.get('/', auth.isAdmin, (req, res) => {
   Offer.getAll().then((offers) => {
-    console.log(offers);
     res.render('offers/index', { title: 'Oferta', offers });
   }).catch((error) => {
     console.log(error);

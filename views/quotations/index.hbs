@@ -16,7 +16,7 @@
     </button>
   </div> -->
 <!-- end Filters Header -->
-
+<div class="p-3">
 <div class="row justify-content-center">
 
   {{#if quotations}}
@@ -54,7 +54,7 @@
               </div>
               <div class="ml-2 mt-3">
                 <div class="text-left side-animation">
-                  <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
+                  <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{offer.usd}}>
                     R$ {{unitPrice}}
                   </h4>
                   <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
@@ -115,9 +115,8 @@
 </form>
 {{/if}}
 </div>
-</div>
-</div>
 <!-- end QuotationsList -->
 
 {{#section 'scripts'}}
+<script src="/javascripts/money.js"></script>
 {{/section}}

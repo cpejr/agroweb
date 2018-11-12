@@ -91,7 +91,6 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOffersByUserId(req.session._id).then((offers) => {
-        console.log(offers);
         res.render('offers/index', { title: 'Produtos oferecidos', layout: 'layout', offers });
       }).catch((error) => {
         console.log(error);
@@ -231,7 +230,7 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/user/profile');
+  res.redirect('/user/edit');
 });
 
 /*
@@ -279,7 +278,6 @@ router.delete('/:id', (req, res) => {
  */
  router.post('/contract', auth.isAuthenticated, (req, res) => {
    User.getAgreementListById(req.session._id).then((client) => {
-     console.log(client);
      if(client.uid){
        console.log("Não é possível contratar mais de um franqueado.");
      }

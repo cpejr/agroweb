@@ -6,44 +6,55 @@
 <div class="pb-3 gradient-background text-white">
   <h3 class="text-center font-black">Editar dados do perfil</h3>
 </div>
+</div>
+<!-- <div class="pl-lg-5 pr-lg-5">
 <div class="pl-lg-5 pr-lg-5">
 <div class="pl-lg-5 pr-lg-5">
-<div class="pl-lg-5 pr-lg-5">
-<div class="pl-lg-5 pr-lg-5">
-<div class="p-3 text-center">
-<form action="/user/update" method="post">
-  <div class="row d-flex justify-content-between">
-    <div class="col-sm-12  col-md-6 col-lg-5 text-center">
+<div class="pl-lg-5 pr-lg-5"> -->
+<div class="p-3 ml-4 text-center row">
+
+  <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
+    <form action="/user/update" method="post">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Nome:</p>
         <input name="user[fullName]" type="text" class="form-control font-light" value="{{user.fullName}}"></input>
       </div>
+  </div>
 
+      <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Email:</p>
         <input name="user[email]" type="text" class="form-control font-light" value="{{user.email}}" readonly></input>
       </div>
-
+    </div>
+      <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">CEP:</p>
         <input name="user[address][cep]" type="text" class="form-control font-light" value="{{user.address.cep}}"></input>
       </div>
+      </div>
 
+      <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Rua:</p>
         <input name="user[address][street]" type="text" class="form-control font-light" value="{{user.address.street}}"></input>
       </div>
+      </div>
 
+      <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Número:</p>
         <input name="user[address][number]" type="text" class="form-control font-light" value="{{user.address.number}}"></input>
       </div>
+    </div>
 
+      <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Cidade:</p>
         <input name="user[address][city]" type="text" class="form-control font-light" value="{{user.address.city}}"></input>
       </div>
-
+    </div>
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Estado:</p>
         <select class="form-control font-light" name="user[address][state]" id="state">
@@ -77,6 +88,9 @@
           <option value="TO">TO</option>
         </select>
       </div>
+    </div>
+
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">CPF/CNPJ:</p>
         <input name="user[doc]" type="text" class="form-control font-light" value="{{user.doc}}" readonly></input>
@@ -85,16 +99,19 @@
 
 
 
-    <div class="col-md-6 col-lg-5 col-sm-12">
+
     <!-- ordinary fields -->
 
     {{#ifCond user.type 'Franqueado'}}
+  <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
     <div class="form-group">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Resumo das atividades profissionais atuais:</p>
         <input name="user[activities]" type="text" class="form-control font-light" value="{{user.activities}}"></input>
       </div>
+  </div>
 
+  <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Possui carteira de cliente que cotam produtos:</p>
         <select class="form-control font-light" name="user[actualCustomers]" id="type">
@@ -103,7 +120,9 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
         <select class="form-control font-light" name="user[possibleCustomers]" id="type">
@@ -112,7 +131,9 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Total de clientes:</p>
         <input name="user[totalCustomers]" type="text" class="form-control font-light" value="{{user.totalCustomers}}" readonly></input>
@@ -122,33 +143,45 @@
         <p class="row col text-bold" align="justify">Como a Megapool poderia ser importante para seu négocio:</p>
         <input name="user[whyIsMegapoolImportant]" type="text" class="form-control font-light" value="{{user.whyIsMegapoolImportant}}"></input>
       </div>
+    </div>
 
     {{else ifCond user.type 'Revendedor'}}
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Telefone fixo:</p>
         <input name="user[phone]" type="text" class="form-control font-light" value="{{user.phone}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Celular:</p>
         <input name="user[cellphone]" type="text" class="form-control font-light" value="{{user.cellphone}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Nome fantasia:</p>
         <input name="user[fantasyName]" type="text" class="form-control font-light" value="{{user.fantasyName}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Email de contato:</p>
         <input name="user[secondaryEmail]" type="text" class="form-control font-light" value="{{user.secondaryEmail}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Responsável pela conta:</p>
         <input name="user[responsible][name]" type="text" class="form-control font-light" value="{{user.responsible.name}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Tem condições de atender demandas imediatas:</p>
         <select class="form-control font-light" name="user[delivery][stock]" id="type">
@@ -157,53 +190,72 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Aceita entregar encomendas em até: (km)</p>
         <input name="user[delivery][maxDistance]" type="text" class="form-control font-light" value="{{user.delivery.maxDistance}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Telefone do responsável pela logística:</p>
         <input name="user[logistics][phone]" type="text" class="form-control font-light" value="{{user.logistics.phone}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Email da logística:</p>
         <input name="user[logistics][email]" type="text" class="form-control font-light" value="{{user.logistics.email}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Município sede da matriz:</p>
         <input name="user[headquarter]" type="text" class="form-control font-light" value="{{user.headquarter}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Responsável pela empresa na região:</p>
         <input name="user[regionalResponsible]" type="text" class="form-control font-light" value="{{user.regionalResponsible}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
         <input name="user[responsible][phone]" type="text" class="form-control font-light" value="{{user.responsible.phone}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Celular do Responsável pela conta Mega Pool:</p>
         <input name="user[responsible][cellphone]" type="text" class="form-control font-light" value="{{user.responsible.cellphone}}"></input>
         <p class="row col text-bold" align="justify">{{user.responsible.cellphone}}</p>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Estoque físico mais próximo:</p>
         <input name="user[whereIsStock]" type="text" class="form-control font-light" value="{{user.whereIsStock}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse de atender quais estados:</p>
         <input name="user[interestedStates]" type="text" class="form-control font-light" value="{{user.interestedStates}}"></input>
       </div>
-
+    </div>
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
         <select class="form-control font-light" name="user[delivery][fractional]" id="type">
@@ -212,7 +264,9 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender revendas:</p>
         <select class="form-control font-light" name="user[delivery][dealer]" id="type">
@@ -221,7 +275,9 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender grupos de compras:</p>
         <select class="form-control font-light" name="user[delivery][groups]" id="type">
@@ -230,7 +286,9 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
         <select class="form-control font-light" name="user[delivery][repechage]" id="type">
@@ -240,59 +298,80 @@
         </select>
       </div>
     </div>
+  </div>
 
     {{else ifCond user.type 'Produtor'}}
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Telefone fixo:</p>
         <input name="user[phone]" type="text" class="form-control font-light" value="{{user.phone}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Celular:</p>
         <input name="user[cellphone]" type="text" class="form-control font-light" value="{{user.cellphone}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Nome da fazenda:</p>
         <input name="user[farm][name]" type="text" class="form-control font-light" value="{{user.farm.name}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Distância aproximadada cidade até a fazenda:</p>
         <input name="user[farm][distanceToCity]" type="text" class="form-control font-light" value="{{user.farm.distanceToCity}}"></input>
       </div>
+    </div>
 
+      <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Roteiro de entrega:</p>
         <input name="user[farm][deliveryScript]" type="text" class="form-control font-light" value="{{user.farm.deliveryScript}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Área plantada (ha):</p>
         <input name="user[farm][area]" type="text" class="form-control font-light" value="{{user.farm.area}}"></input>
       </div>
+    </div>
 
-
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Soja:</p>
         <input name="user[farm][soy]" type="text" class="form-control font-light" value="{{user.farm.soy}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Milho:</p>
         <input name="user[farm][corn]" type="text" class="form-control font-light" value="{{user.farm.corn}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Algodão:</p>
         <input name="user[farm][cotton]" type="text" class="form-control font-light" value="{{user.farm.cotton}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Outras culturas:</p>
         <input name="user[farm][otherCultivations]" type="text" class="form-control font-light" value="{{user.farm.otherCultivations}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Pode se comunicar por Whatsapp:</p>
         <select class="form-control font-light" name="user[wpp]" id="type">
@@ -301,38 +380,50 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Inscrição Estadual:</p>
         <input name="user[stateRegistration]" type="text" class="form-control font-light" value="{{user.stateRegistration}}"></input>
       </div>
+    </div>
 
     {{else ifCond user.type 'Indústria'}}
+
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Telefone fixo:</p>
         <input name="user[phone]" type="text" class="form-control font-light" value="{{user.phone}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Celular:</p>
         <input name="user[cellphone]" type="text" class="form-control font-light" value="{{user.cellphone}}"></input>
       </div>
-
+    </div>
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Nome de fantasia:</p>
         <input name="user[fantasyName]" type="text" class="form-control font-light" value="{{user.fantasyName}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Email de contato:</p>
         <input name="user[secondaryEmail]" type="text" class="form-control font-light" value="{{user.secondaryEmail}}"></input>
       </div>
-
+    </div>
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Responsável pela conta:</p>
         <input name="user[responsible][name]" type="text" class="form-control font-light" value="{{user.responsible.name}}"></input>
       </div>
-
+    </div>
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Tem condições de atender demandas imediatas:</p>
         <select class="form-control font-light" name="user[delivery][stock]" id="type">
@@ -341,52 +432,68 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+      <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Aceita entregar encomendas em até: (km)</p>
         <input name="user[delivery][maxDistance]" type="text" class="form-control font-light" value="{{user.delivery.maxDistance}}"></input>
       </div>
+      </div>
 
+      <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Telefone do responsável pela logística:</p>
         <input name="user[logistics][phone]" type="text" class="form-control font-light" value="{{user.logistics.phone}}"></input>
       </div>
-
+    </div>
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Email da logística:</p>
         <input name="user[logistics][email]" type="text" class="form-control font-light" value="{{user.logistics.email}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Município sede da matriz:</p>
         <input name="user[headquarter]" type="text" class="form-control font-light" value="{{user.headquarter}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Responsável pela empresa na região:</p>
         <input name="user[regionalResponsible]" type="text" class="form-control font-light" value="{{user.regionalResponsible}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Telefone fixo do Responsável pela conta Mega Pool:</p>
         <input name="user[responsible][phone]" type="text" class="form-control font-light" value="{{user.responsible.phone}}"></input>
       </div>
-
+    </div>
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Celular do Responsável pela conta Mega Pool:</p>
         <input name="user[responsible][cellphone]" type="text" class="form-control font-light" value="{{user.responsible.cellphone}}"></input>
       </div>
-
+    </div>
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Estoque físico mais próximo:</p>
         <input name="user[whereIsStock]" type="text" class="form-control font-light" value="{{user.whereIsStock}}"></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse de atender quais estados:</p>
         <input name="user[interestedStates]" type="text" class="form-control font-light" value="{{user.interestedStates}}"></input>
       </div>
-
+    </div>
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
         <select class="form-control font-light" name="user[delivery][fractional]" id="type">
@@ -395,7 +502,9 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender revendas:</p>
         <select class="form-control font-light" name="user[delivery][dealer]" id="type">
@@ -404,7 +513,9 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender grupos de compras:</p>
         <select class="form-control font-light" name="user[delivery][groups]" id="type">
@@ -413,7 +524,9 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
         <select class="form-control font-light" name="user[delivery][repechage]" id="type">
@@ -422,9 +535,9 @@
           <option value="Sim">Sim</option>
         </select>
       </div>
-
-      {{/ifCond}}
     </div>
+      {{/ifCond}}
+    <!-- </div> -->
   </div>
 
   <button class="btn btn-default bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
@@ -432,10 +545,10 @@
 <!-- end ordinary fields -->
 </div>
 </div>
+<!-- </div>
 </div>
 </div>
-</div>
-</div>
+</div> -->
 </body>
 
 {{#section 'scripts'}}

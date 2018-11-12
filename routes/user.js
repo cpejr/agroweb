@@ -181,7 +181,6 @@ router.post('/buy', auth.isAuthenticated, (req, res) => {
     status: 'Aguardando boleto'
   };
   User.getAllQuotationsByUserId(userId).then((quotations) => {
-    console.log(quotations);
     quotations.forEach((quotation) => {
       User.addTransaction(userId, quotation._id).catch((error) => {
         console.log(error);

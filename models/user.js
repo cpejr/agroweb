@@ -323,7 +323,7 @@ class User {
       UserModel.findById(id).populate({
         path: 'myCart',
         populate: {
-          path: 'buyer offer',
+          path: 'buyer offer franchisee',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }

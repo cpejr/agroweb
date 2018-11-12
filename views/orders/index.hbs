@@ -8,17 +8,39 @@
 
 <!-- OrdersList-->
 <div class="p-3">
-  <div class="row justify-content-center">
-    {{#if transactions}}
-    {{#each transactions}}
-    {{#ifCond status 'Cancelado'}}
-    {{else}}
-    <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
-      <div class="my-1 bg-light2 card1">
-        <div class="text-right p-2">
-          {{#ifCond taxStatus 'Aguardando pagamento'}}
-          <div class="pagination float-right">
-            <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+<div class="row justify-content-center">
+  {{#if transactions}}
+  {{#each transactions}}
+  {{#ifCond status 'Cancelado'}}
+  {{else}}
+  <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
+    <div class="my-1 bg-light2 card1">
+      <div class="text-right p-2">
+        {{#ifCond taxStatus 'Aguardando pagamento'}}
+        <div class="pagination float-right">
+          <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+        </div>
+        {{/ifCond}}
+        <div class="row">
+          <div class="col-3 d-inline-block text-center align-self-center">
+
+            {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+            <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+            {{else ifCond offer.product.category 'Sementes'}}
+            <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
+            {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+            <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
+            {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+            <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
+            {{/ifCond}}
           </div>
           {{/ifCond}}
           <div class="row">
@@ -111,6 +133,15 @@
     </div>
     {{/if}}
   </div>
+</div>
+{{/ifCond}}
+{{/each}}
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Você não realizou nenhum compra ainda.</p>
+</div>
+{{/if}}
+</div>
 </div>
 <!-- end OrdersList -->
 {{#section 'scripts' }}

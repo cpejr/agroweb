@@ -13,8 +13,7 @@ var router = express.Router();
 router.get('/', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
   User.getAllQuotationsByUserId(userId).then((quotations) => {
-    console.log(req.session);
-    res.render('quotations/index', { title: 'Cotações', layout: 'layout', ...req.session, quotations });
+    res.render('quotations/index', { title: 'Cotações', layout: 'layout', quotations, ...req.session });
   });
 });
 

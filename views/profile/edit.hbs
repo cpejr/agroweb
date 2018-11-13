@@ -7,11 +7,12 @@
   <h3 class="text-center font-black">Editar dados do perfil</h3>
 </div>
 </div>
+<div class="p-3">
 <!-- <div class="pl-lg-5 pr-lg-5">
 <div class="pl-lg-5 pr-lg-5">
 <div class="pl-lg-5 pr-lg-5">
 <div class="pl-lg-5 pr-lg-5"> -->
-<div class="p-3 ml-4 text-center row">
+<div class="pt-5 mt-5 p-3 ml-4 text-center row">
 
   <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
     <form action="/user/update" method="post">
@@ -58,7 +59,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Estado:</p>
         <select class="form-control font-light" name="user[address][state]" id="state">
-          <option selected value = {{user.address.state}}> {{user.address.state}} </option>
+          <option selected hidden value = > {{user.address.state}} </option>
           <option value="AC">AC</option>
           <option value="AL">AL</option>
           <option value="AP">AP</option>
@@ -110,12 +111,12 @@
         <input name="user[activities]" type="text" class="form-control font-light" value="{{user.activities}}"></input>
       </div>
   </div>
-
+</div>
   <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Possui carteira de cliente que cotam produtos:</p>
         <select class="form-control font-light" name="user[actualCustomers]" id="type">
-          <option selected value = {{user.actualCustomers}}> {{user.actualCustomers}} </option>
+          <option selected hidden value = {{user.actualCustomers}}> {{user.actualCustomers}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -124,11 +125,16 @@
 
     <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
-        <p class="row col text-bold" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
-        <select class="form-control font-light" name="user[possibleCustomers]" id="type">
-          <option selected value = {{user.possibleCustomers}}> {{user.possibleCustomers}} </option>
-          <option value="Não">Não</option>
-          <option value="Sim">Sim</option>
+        <p class="row col text-bold" align="justify">Deseja poder ser contrado como franqueado?</p>
+        <select class="form-control font-light"  name="user[moreClients]"  id="type" type="Boolean">
+          {{#ifCond user.moreClients true}}
+            <option selected hidden value  = {{user.moreClients}}>Sim </option>
+          {{/ifCond}}
+          {{#ifCond user.moreClients false}}
+          <option selected hidden value  = {{user.moreClients}}>Não </option>
+          {{/ifCond}}
+          <option value = false >Não</option>
+          <option value = true >Sim</option>
         </select>
       </div>
     </div>
@@ -138,12 +144,26 @@
         <p class="row col text-bold" align="justify">Total de clientes:</p>
         <input name="user[totalCustomers]" type="text" class="form-control font-light" value="{{user.totalCustomers}}" readonly></input>
       </div>
+    </div>
 
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
       <div class="form-group">
         <p class="row col text-bold" align="justify">Como a Megapool poderia ser importante para seu négocio:</p>
         <input name="user[whyIsMegapoolImportant]" type="text" class="form-control font-light" value="{{user.whyIsMegapoolImportant}}"></input>
       </div>
+  </div>
+
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Possui carteira de cliente que podem vir cotar produtos:</p>
+        <select class="form-control font-light" name="user[possibleCustomers]" id="type">
+          <option selected hidden value = {{user.possibleCustomers}}> {{user.possibleCustomers}} </option>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
+        </select>
+      </div>
     </div>
+
 
     {{else ifCond user.type 'Revendedor'}}
     <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
@@ -185,7 +205,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Tem condições de atender demandas imediatas:</p>
         <select class="form-control font-light" name="user[delivery][stock]" id="type">
-          <option selected value = {{user.delivery.stock}}> {{user.delivery.stock}} </option>
+          <option selected hidden value = {{user.delivery.stock}}> {{user.delivery.stock}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -259,7 +279,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
         <select class="form-control font-light" name="user[delivery][fractional]" id="type">
-          <option selected value = {{user.delivery.fractional}}> {{user.delivery.fractional}} </option>
+          <option selected hidden value = {{user.delivery.fractional}}> {{user.delivery.fractional}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -270,7 +290,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender revendas:</p>
         <select class="form-control font-light" name="user[delivery][dealer]" id="type">
-          <option selected value = {{user.delivery.dealer}}> {{user.delivery.dealer}} </option>
+          <option selected hidden value = {{user.delivery.dealer}}> {{user.delivery.dealer}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -281,7 +301,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender grupos de compras:</p>
         <select class="form-control font-light" name="user[delivery][groups]" id="type">
-          <option selected value = {{user.delivery.groups}}> {{user.delivery.groups}} </option>
+          <option selected hidden value = {{user.delivery.groups}}> {{user.delivery.groups}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -292,13 +312,12 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
         <select class="form-control font-light" name="user[delivery][repechage]" id="type">
-          <option selected value = {{user.delivery.repechage}}> {{user.delivery.repechage}} </option>
+          <option selected hidden value = {{user.delivery.repechage}}> {{user.delivery.repechage}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
       </div>
     </div>
-  </div>
 
     {{else ifCond user.type 'Produtor'}}
     <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
@@ -375,7 +394,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Pode se comunicar por Whatsapp:</p>
         <select class="form-control font-light" name="user[wpp]" id="type">
-          <option selected value = {{user.wpp}}> {{user.wpp}} </option>
+          <option selected hidden value = {{user.wpp}}> {{user.wpp}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -427,7 +446,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Tem condições de atender demandas imediatas:</p>
         <select class="form-control font-light" name="user[delivery][stock]" id="type">
-          <option selected value = {{user.delivery.stock}}> {{user.delivery.stock}} </option>
+          <option selected hidden value = {{user.delivery.stock}}> {{user.delivery.stock}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -497,7 +516,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender clientes diretos (com entregas fracionadas):</p>
         <select class="form-control font-light" name="user[delivery][fractional]" id="type">
-          <option selected value = {{user.delivery.fractional}}> {{user.delivery.fractional}} </option>
+          <option selected hidden value = {{user.delivery.fractional}}> {{user.delivery.fractional}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -508,7 +527,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender revendas:</p>
         <select class="form-control font-light" name="user[delivery][dealer]" id="type">
-          <option selected value = {{user.delivery.dealer}}> {{user.delivery.dealer}} </option>
+          <option selected hidden value = {{user.delivery.dealer}}> {{user.delivery.dealer}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -519,7 +538,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender grupos de compras:</p>
         <select class="form-control font-light" name="user[delivery][groups]" id="type">
-          <option selected value = {{user.delivery.groups}}> {{user.delivery.groups}} </option>
+          <option selected hidden value = {{user.delivery.groups}}> {{user.delivery.groups}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -530,7 +549,7 @@
       <div class="form-group">
         <p class="row col text-bold" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</p>
         <select class="form-control font-light" name="user[delivery][repechage]" id="type">
-          <option selected value = {{user.delivery.repechage}}> {{user.delivery.repechage}} </option>
+          <option selected hidden value = {{user.delivery.repechage}}> {{user.delivery.repechage}} </option>
           <option value="Não">Não</option>
           <option value="Sim">Sim</option>
         </select>
@@ -538,18 +557,19 @@
     </div>
       {{/ifCond}}
     <!-- </div> -->
-  </div>
-
+<div class="col-sm-12  col-md-12 col-lg-12 text-center ">
   <button class="btn btn-default bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
+</div>
 </form>
+</div>
 <!-- end ordinary fields -->
-</div>
-</div>
+<!-- </div>
+</div> -->
 <!-- </div>
 </div>
 </div>
 </div> -->
 </body>
-
+</div>
 {{#section 'scripts'}}
 {{/section}}

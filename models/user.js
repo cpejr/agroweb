@@ -98,7 +98,7 @@ const userSchema = new mongoose.Schema({
   possibleCustomers: String,
   totalCustomers: {
     type: Number,
-    default: '0'
+    default: 0
   },
   area: Number,
   whyIsMegapoolImportant: String,

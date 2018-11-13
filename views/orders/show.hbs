@@ -13,6 +13,8 @@
         <h3>Contato</h3>
         <p>Telefone: {{offer.seller.logistics.phone}}</p>
         <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
+        <h3>Endereço</h3>
+        <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
       </div>
       <!-- end Seller info -->
       {{else ifCond userType 'Indústria'}}
@@ -24,6 +26,8 @@
         <h3>Contato</h3>
         <p>Telefone: {{buyer.phone}}</p>
         <p class="mb-4">E-mail: {{buyer.email}}</p>
+        <h3>Endereço</h3>
+        <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
       </div>
       <!-- end Buyer info -->
       {{else}}
@@ -35,6 +39,8 @@
         <h3>Contato</h3>
         <p>Telefone: {{offer.seller.logistics.phone}}</p>
         <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
+        <h3>Endereço</h3>
+        <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
       </div>
       <!-- end Seller info -->
       <!-- Buyer info -->
@@ -45,6 +51,8 @@
         <h3>Contato</h3>
         <p>Telefone: {{buyer.phone}}</p>
         <p class="mb-4">E-mail: {{buyer.email}}</p>
+        <h3>Endereço</h3>
+        <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
       </div>
       <!-- end Buyer info -->
       {{/ifCond}}
@@ -72,7 +80,7 @@
 
 
 
-    <div class="col-6 pb-2 mb-2 mt-4">
+    <div class="col-6 pb-2 mb-2 mt-2">
       <h2>Descrição</h2>
       <p>{{offer.product.description}}</p>
 

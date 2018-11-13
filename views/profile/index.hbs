@@ -350,6 +350,13 @@
   <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-danger mx-auto d-block my-2" type="submit" name="button">Dispensar</button>
 </form>
 {{else}}
+{{#ifCond user.moreClients false}}
+<div class="container mb-5">
+  <h4 class="text-center font-light">Este franqueado não está disponível.</h4>
+</div>
+
+{{/ifCond}}
+{{#ifCond user.moreClients true}}
 {{#if client.0.uid}}
 <form action="/user/change" method="POST">
   <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
@@ -361,6 +368,7 @@
   <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Contratar</button>
 </form>
 {{/if}}
+{{/ifCond}}
 {{/ifCond}}
 
 {{else ifCond userType 'Franqueado'}}

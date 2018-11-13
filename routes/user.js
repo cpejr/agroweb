@@ -282,15 +282,15 @@ router.delete('/:id', (req, res) => {
      }
      else {
        const userId = req.session._id;
-       console.log(req.session);
        User.addClient(req.body.franchiseeID, userId).catch((error) => {
-         console.log(error);
+         console.log(req.body.franchisee);
          res.redirect('/error');
        });
        User.addClient(userId, req.body.franchiseeID).catch((error) => {
          console.log(error);
          res.redirect('/error');
        });
+       console.log(req.body);
        res.redirect('/user/agreementList');
      }
    });

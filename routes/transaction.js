@@ -12,7 +12,7 @@ const router = express.Router();
 /**
  * GET Index - Show all transactions
  */
-router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.get('/', auth.isAuthenticated, (req, res) => {
   Transaction.getAll().then((transactions) => {
     res.render('orders/index', { title: 'Transações', transactions });
   }).catch((error) => {

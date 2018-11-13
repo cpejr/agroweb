@@ -62,7 +62,6 @@ router.post('/', auth.isAuthenticated, (req, res) => {
       // });
 
       const balanceOffer = offer.balance - transaction.amountBought;
-      console.log(balanceOffer);
       const offerData = {
         balance: balanceOffer
       };

@@ -98,7 +98,7 @@ const userSchema = new mongoose.Schema({
   possibleCustomers: String,
   totalCustomers: {
     type: Number,
-    default: '0'
+    default: 0
   },
   area: Number,
   whyIsMegapoolImportant: String,
@@ -323,7 +323,7 @@ class User {
       UserModel.findById(id).populate({
         path: 'myCart',
         populate: {
-          path: 'buyer offer',
+          path: 'buyer offer franchisee',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }
@@ -450,6 +450,9 @@ class User {
       UserModel.findByIdAndUpdate(id, { $push: { agreementList: user } }).catch((err) => {
         reject(err);
       });
+      UserModel.findByIdAndUpdate(id, { $inc: { totalCustomers: 1 } }).catch((err) => {
+        reject(err);
+      });
     });
   }
 
@@ -462,6 +465,9 @@ class User {
   static removeClient(id, user) {
     return new Promise((resolve, reject) => {
       UserModel.findByIdAndUpdate(id, { $pull: { agreementList: user } }).catch((err) => {
+        reject(err);
+      });
+      UserModel.findByIdAndUpdate(id, { $inc: { totalCustomers: -1 } }).catch((err) => {
         reject(err);
       });
     });

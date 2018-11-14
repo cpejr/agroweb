@@ -2,7 +2,7 @@
   <!-- -->
 {{/section}}
 <div class="text-center pb-3 gradient-background text-white">
-  <h3 class="font-black">{{title}}</h3>
+  <h3 class="font-black">{{title}} </h3>
 </div>
 
 <!-- OrdersList-->
@@ -91,7 +91,7 @@
                 </div>
                 <div class="ml-4 text-gray3">
                   <p class="text-uppercase font-book mobile-font2" data-usd={{offer.usd}}>Custo total
-                    <span class="count text-center font-light mobile-font2"> <br/>{{priceBought}}</span>
+                    <span class="count text-center font-light mobile-font2"> <br/>{{unitPrice}}*{{amountBought}}</span>
                   </p>
                 </div>
               </div>
@@ -194,9 +194,15 @@
                 </p>
               </div>
               <div class="ml-4 text-gray3">
-                <p class="text-uppercase font-book mobile-font2">Custo total
-                  <span class="count text-center font-light mobile-font2"> <br/>{{priceBought}}</span>
-                </p>
+                <p class="text-uppercase font-book mobile-font2 mb-0" >
+                  Custo total
+                  {{#ifCond offer.usd false}}
+                  <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{priceBought}}</span>
+                  {{/ifCond}}
+                  </p>
+                  {{#ifCond offer.usd true}}
+                  <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{priceBought}}</span>
+                  {{/ifCond}}
               </div>
             </div>
           </div>

@@ -157,19 +157,24 @@ router.put('/:id', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
   const userId = req.session._id;
-  Transaction.delete(req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+  Transaction.getById(req.params.id).then((transaction) => {
+    transaction.status = 'Cancelado';
+    Transaction.update(req.params.id, transaction).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    User.removeFromMyCart(userId, req.params.id).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    res.redirect('/user');
   });
-  User.removeFromMyCart(userId, req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  User.removeTransaction(userId, req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  res.redirect('/transaction');
+
+  // User.removeTransaction(userId, req.params.id).catch((error) => {
+  //   console.log(error);
+  //   res.redirect('/error');
+  // });
+
 });
 
 router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {

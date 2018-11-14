@@ -84,10 +84,16 @@
                   </p>
                 </div>
 
-                <div class="ml-4  text-gray3">
-                  <p class="text-uppercase text-center font-book mobile-font2">Qnt
-                    <span class="count text-center font-light mobile-font2"> <br/>{{amountBought}}</span>
-                  </p>
+                <div class="ml-4 text-gray3">
+                  <p class="text-uppercase font-book mobile-font2 mb-0" >
+                    Custo total
+                    {{#ifCond offer.usd false}}
+                    <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{priceBought}}</span>
+                    {{/ifCond}}
+                    </p>
+                    {{#ifCond offer.usd true}}
+                    <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{priceBought}}</span>
+                    {{/ifCond}}
                 </div>
                 <div class="ml-4 text-gray3">
                   <p class="text-uppercase font-book mobile-font2" data-usd={{offer.usd}}>Custo total
@@ -304,9 +310,15 @@
                 </p>
               </div>
               <div class="ml-4 text-gray3">
-                <p class="text-uppercase font-book mobile-font2">Custo total
-                  <span class="count text-center font-light mobile-font2"> <br/>{{priceBought}}</span>
-                </p>
+                <p class="text-uppercase font-book mobile-font2 mb-0" >
+                  Custo total
+                  {{#ifCond offer.usd false}}
+                  <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{priceBought}}</span>
+                  {{/ifCond}}
+                  </p>
+                  {{#ifCond offer.usd true}}
+                  <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{priceBought}}</span>
+                  {{/ifCond}}
               </div>
             </div>
           </div>

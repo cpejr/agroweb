@@ -14,7 +14,7 @@ const router = express.Router();
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
   Transaction.getAll().then((transactions) => {
-    res.render('orders/index', { title: 'Transações', transactions });
+    res.render('history', { title: 'Histórico', transactions });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -115,18 +115,6 @@ router.get('/:id', (req, res) => {
     res.redirect('/error');
   });
 });
-
-// /**
-//  * GET choose clients page
-//  */
-//  router.get('/chooseclient', auth.isAuthenticated, (req, res) => {
-//    User.getAgreementListById(req.session._id).then((clients) => {
-//      res.render('chooseclient', { title: 'Escolha o cliente', layout: 'layout', clients, ...req.session });
-//    }).catch((error) => {
-//     console.log(error);
-//     res.redirect('/error');
-//   });
-//  });
 
 /**
  * PUT Update - Update a transaction in the database

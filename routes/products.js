@@ -33,6 +33,7 @@ router.get('/new', (req, res) => {
  * POST Create - Add new product to DB
  */
 router.post('/', (req, res) => {
+  console.log(req.body);
   const { product } = req.body;
   Product.create(product).then((id) => {
     console.log(`Created new product with id: ${id}`);

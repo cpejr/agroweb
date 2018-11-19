@@ -83,12 +83,27 @@
     </div>
 
     <div class="row d-flex justify-content-between">
-      <div class="form-group col-md-12 mx-4 my-2">
+      <div class="form-group col-md-4 mx-4 my-2">
         <label for="activeIng" class="rounded bg-black"><i class="fas fa-flask fa-sm mr-2"></i>Princípio Ativo</label>
-        <div class="row">
+        <div class="user-input">
+          <br/>
+          <div class="form-group mb-2">
+            <div class="input-group" id="chems-list">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fas fa-search"></i></div>
+              </div>
+              <input name="chem-selected" class="form-control typeahead" type="text" placeholder="Nome do princípio ativo">
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row">
           {{#each chems}}
             <label class="d-block col-md-3 col-6"><input type="checkbox" name="product[chem][]" class="mr-1" value="{{_id}}" id="activeIng">{{name}}</label>
           {{/each}}
+        </div> -->
+        <button class="btn btn-default bg-green text-light" id="add-chem" type="button">Adicionar</button>
+        <div class="" id="select-chem">
         </div>
       </div>
   </div>
@@ -97,4 +112,5 @@
 </div>
 
 {{#section 'scripts'}}
+<script src="/javascripts/chem.dropdown.js"></script>
 {{/section}}

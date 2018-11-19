@@ -2,6 +2,7 @@ var express = require('express');
 const Group = require('../models/group');
 const Offer = require('../models/offer');
 const Product = require('../models/product');
+const Chem = require('../models/chem');
 
 var router = express.Router();
 
@@ -65,4 +66,19 @@ router.get('/products', (req, res) => {
   });
 });
 
+router.get('/chems', (req, res) => {
+  const names = [];
+  const queryChem = {};
+  const sortChem = { name: 1 };
+  Chem.getByQuerySorted(queryChem, sortChem).then((chems) => {
+    chems.forEach((chem) => {
+      names.push(chem.name);
+    });
+    console.log(names);
+    res.send(names);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
 module.exports = router;

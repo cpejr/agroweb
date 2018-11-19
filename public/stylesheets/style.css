@@ -6162,7 +6162,7 @@ h1, h3, h5, span {
   font-family: 'gotham-book'; }
 
 nav {
-  background-color: #232323; }
+  background-color: #232323 !important; }
 
 .nav-item a,
 .nav-item .fas,

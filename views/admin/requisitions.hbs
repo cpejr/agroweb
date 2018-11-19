@@ -6,6 +6,8 @@
     <h3 class="font-black">Requisições de cadastros</h3>
   </div>
 
+  {{#if users}}
+
   <div class="text-center p-3">
     <button type="button col-1 color-muted" name="button" class="btn ml-1">
       <i class="fas fa-sort-amount-down float-left"></i>
@@ -15,52 +17,57 @@
     </button>
   </div>
 <!-- Users list -->
-<div style="overflow-x:auto;">
-      <table class="table table-light table-striped text-center">
-        <thead>
-          <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">Tipo</th>
-            <th scope="col font-black">Perfil</th>
-            <th scope="col font-black">Aceitar</th>
-            <th scope="col font-black">Bloquear</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each users}}
 
-    {{#ifCond status 'Aguardando aprovação'}}
-    <tr>
-      <th scope="row">{{fullName}}</th>
-      <td>{{type}}</td>
-      <td>
-        <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">
-          <i class="fas fa-user fa-lg"></i>
-        </button>
-      </td>
-      <td>
-        <form  method= "POST" action="/admin/{{id}}/requisitions">
+<div style="overflow-x:auto;">
+  <table class="table table-light table-striped text-center">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Tipo</th>
+        <th scope="col font-black">Perfil</th>
+        <th scope="col font-black">Aceitar</th>
+        <th scope="col font-black">Bloquear</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {{#each users}}
+
+      {{#ifCond status 'Aguardando aprovação'}}
+      <tr>
+        <th scope="row">{{fullName}}</th>
+        <td>{{type}}</td>
+        <td>
+          <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">
+            <i class="fas fa-user fa-lg"></i>
+          </button>
+        </td>
+        <td>
+          <form  method= "POST" action="/admin/{{id}}/requisitions">
             <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
               <i class="fas fa-check-circle fa-lg"></i>
             </button>
-        </form>
-        <!-- <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-success font-book">Aceitar</button> -->
-        <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-      </td>
-      <td>
-        <form  method= "POST" action="/admin/{{id}}/requisitions">
+          </form>
+        </td>
+        <td>
+          <form  method= "POST" action="/admin/{{id}}/requisitions">
             <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
               <i class="fas fa-times-circle fa-lg"></i>
             </button>
-        </form>
-        <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-      </td>
-</tr>
-{{/ifCond}}
-{{/each}}
-        </tbody>
-      </table>
-    </div>
+          </form>
+        </td>
+      </tr>
+      {{/ifCond}}
+      {{/each}}
+
+    </tbody>
+  </table>
+</div>
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há novas requisições de cadastro.</p>
+</div>
+{{/if}}
   </div>
 </div>
 {{#section 'scripts'}}

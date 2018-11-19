@@ -12,9 +12,9 @@ const router = express.Router();
 /**
  * GET Index - Show all transactions
  */
-router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.get('/', auth.isAuthenticated, (req, res) => {
   Transaction.getAll().then((transactions) => {
-    res.render('orders/index', { title: 'Transações', transactions });
+    res.render('history', { title: 'Histórico', transactions });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -116,18 +116,6 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// /**
-//  * GET choose clients page
-//  */
-//  router.get('/chooseclient', auth.isAuthenticated, (req, res) => {
-//    User.getAgreementListById(req.session._id).then((clients) => {
-//      res.render('chooseclient', { title: 'Escolha o cliente', layout: 'layout', clients, ...req.session });
-//    }).catch((error) => {
-//     console.log(error);
-//     res.redirect('/error');
-//   });
-//  });
-
 /**
  * PUT Update - Update a transaction in the database
  */
@@ -169,19 +157,24 @@ router.put('/:id', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
   const userId = req.session._id;
-  Transaction.delete(req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+  Transaction.getById(req.params.id).then((transaction) => {
+    transaction.status = 'Cancelado';
+    Transaction.update(req.params.id, transaction).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    User.removeFromMyCart(userId, req.params.id).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    res.redirect('/user');
   });
-  User.removeFromMyCart(userId, req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  User.removeTransaction(userId, req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  res.redirect('/transaction');
+
+  // User.removeTransaction(userId, req.params.id).catch((error) => {
+  //   console.log(error);
+  //   res.redirect('/error');
+  // });
+
 });
 
 router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {

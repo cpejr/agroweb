@@ -6161,9 +6161,6 @@ button, h2, h4, h6, h7, p, i, a, dt, li {
 h1, h3, h5, span {
   font-family: 'gotham-book'; }
 
-nav {
-  background-color: #232323 !important; }
-
 .nav-item a,
 .nav-item .fas,
 .navbar .fas {
@@ -6174,6 +6171,11 @@ nav {
 
 nav .form-control {
   display: none; }
+
+.nav-color-change {
+  background-color: #3b9939 !important; }
+  .nav-color-change:hover {
+    background-color: #006600 !important; }
 
 .card {
   color: #000 !important;

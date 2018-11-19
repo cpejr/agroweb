@@ -23,7 +23,7 @@ class Email {
   static sendEmail(data) {
     const config = {
       from: data.clientEmail,
-      to: 'lucassouza@cpejr.com.br',
+      to: 'andreluis@cpejr.com.br',
       // to: 'admcpejr@megapool.com.br',
       subject: data.subject,
       text: data.content

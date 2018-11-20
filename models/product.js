@@ -10,6 +10,11 @@ const productSchema = new mongoose.Schema({
     enum: ['Fertilizantes sólidos', 'Defensivos agrícolas/agrotóxicos', 'Sementes', 'Fertilizantes líquidos/adjuvantes/biológicos'],
     required: true
   },
+  status: {
+    type: String,
+    enum: ['Aprovado', 'Aguardando'],
+    required: true
+  },
   generic: {
     type: String,
     default: 'Similar'

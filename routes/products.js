@@ -21,8 +21,9 @@ router.get('/', (req, res) => {
  * GET New - Show form to create new product
  */
 router.get('/new', (req, res) => {
+  const { userType } = req.session;
   Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
-    res.render('products/new', { title: 'Novo Produto', chems });
+    res.render('products/new', { title: 'Novo Produto', chems, userType });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -34,6 +35,15 @@ router.get('/new', (req, res) => {
  */
 router.post('/', (req, res) => {
   const { product } = req.body;
+  const { userType } = req.session;
+  console.log(userType);
+  if(userType == 'Administrador'){
+    product.status = 'Aprovado';
+  }
+  else{
+    product.status = 'Aguardando';
+  }
+
   Product.create(product).then((id) => {
     console.log(`Created new product with id: ${id}`);
     res.redirect(`/products/${id}`);
@@ -47,9 +57,10 @@ router.post('/', (req, res) => {
  * GET Show - Show details of a product
  */
 router.get('/:id', (req, res) => {
+  const { userType } = req.session;
   Product.getById(req.params.id).then((product) => {
     if (product) {
-      res.render('products/show', { title: product.name, id: req.params.id, ...product });
+      res.render('products/show', { title: product.name, id: req.params.id, ...product, userType });
     }
     else {
       console.log('Product not found!');
@@ -104,7 +115,7 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/admin/products');
+  res.redirect('/admin');
 });
 
 module.exports = router;

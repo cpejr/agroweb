@@ -1,8 +1,13 @@
 {{#section 'stylesheets'}}
 {{/section}}
 <div class="pb-3 gradient-background text-white">
-  <h3 class="text-center font-black">Novo Produto</h3>
+  {{#ifCond userType 'Administrador'}}
+  <h3 class="text-center font-black">Novo produto</h3>
+  {{else ifCond userType 'Indústria'}}
+  <h3 class="text-center font-black">Cadastrar novo produto</h3>
+  {{/ifCond}}
 </div>
+
 <div class="pl-5 pr-5 pt-2">
 <form action="/products" method="POST">
   <div class="row d-flex justify-content-between">

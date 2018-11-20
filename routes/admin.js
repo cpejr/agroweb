@@ -27,7 +27,7 @@ router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 
 /* GET Products - Show all products docs */
 router.get('/products', (req, res) => {
-  Product.getAll().then((products) => {
+  Product.getByQuerySorted({ status: 'Aprovado' }).then((products) => {
     console.log(products);
     res.render('admin/products', { title: 'Produtos', layout: 'layout', products });
   }).catch((error) => {
@@ -78,21 +78,22 @@ router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
-// /* GET users - Show all newsletter docs */
-//
-// router.get('/requisitions', (req, res) => {
-//   User.getByQuery(req.query).then((user) => {
-//     console.log(user);
-//     res.render('admin/requisitions', { user });
-//   }).catch((err) => {
-//     console.log(err);
-//   });
-// });
 
 /* GET Users - Show all users */
-router.get('/requisitions', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.get('/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   User.getByQuerySorted({ status: 'Aguardando aprovação' }).then((users) => {
-    res.render('admin/requisitions', { title: 'Requisições de cadastro', layout: 'layout', users });
+    res.render('admin/requisitions/users', { title: 'Requisições de cadastro', layout: 'layout', users });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/* GET Users - Show all users */
+router.get('/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Product.getByQuerySorted({ status: 'Aguardando' }).then((products) => {
+    console.log(products);
+    res.render('admin/requisitions/products', { title: 'Requisições de produtos', layout: 'layout', products });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -137,7 +138,7 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
   console.log(req.body.status);
 });
 
-router.post('/:id/requisitions', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const user = {
     status: req.body.status
   };
@@ -146,7 +147,18 @@ router.post('/:id/requisitions', auth.isAuthenticated, auth.isAdmin, (req, res) 
     res.redirect('/error');
   });
   console.log(req.body.status);
-  res.redirect('/admin/requisitions');
+  res.redirect('/admin/requisitions/users');
+});
+
+router.post('/:id/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  const product = {
+    status: "Aprovado"
+  };
+  Product.update(req.params.id, product).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  res.redirect('/admin/requisitions/products');
 });
 
 

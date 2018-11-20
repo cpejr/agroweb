@@ -43,14 +43,14 @@
           </button>
         </td>
         <td>
-          <form  method= "POST" action="/admin/{{id}}/requisitions">
+          <form  method= "POST" action="/admin/{{id}}/requisitions/users">
             <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
               <i class="fas fa-check-circle fa-lg"></i>
             </button>
           </form>
         </td>
         <td>
-          <form  method= "POST" action="/admin/{{id}}/requisitions">
+          <form  method= "POST" action="/admin/{{id}}/requisitions/users">
             <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
               <i class="fas fa-times-circle fa-lg"></i>
             </button>
@@ -72,51 +72,3 @@
 </div>
 {{#section 'scripts'}}
 {{/section}}
-
-
-<!-- <td><div class="dropdown">
-<button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-{{#ifCond active true}}
-class="btn btn-outline-success dropdown-toggle  col-12">
-Ativo
-{{else ifCond active false}}
-class="btn btn-outline-danger dropdown-toggle  col-12">
-Inativo
-{{/ifCond}}
-</button>
-<div class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton" >
-<form  method= "POST" action="/admin/{{id}}/updateUserActive">
-<a class="dropdown-item" href="#">
-<button type="submit" class="btn btn-outline-success col-12" name="active" value=true>
-Ativo
-</button>
-</a>
-</form>
-<form method= "POST" action="/admin/{{id}}/updateUserActive">
-<a class="dropdown-item " href="#">
-<button type="submit" class="btn btn-outline-danger col-12" name="active" value=false>
-Inativo
-</button>
-</a>
-</form> -->
-
-
-
-
-
-<!-- <div class="card mb-1" data-status="{{status}}">
-  <div class="card-body">
-    <div class="text-center">
-      <h7 class="card-title align-text-top text-gray">Usuário - {{firstName}} {{lastName}}</h7>
-      <div class="w-100">
-      </div>
-        <span class="badge badge-primary">
-          <h6>{{type}}</h6>
-        </span>
-      <p class="card-text align-text-bottom text-gray">{{email}}</p>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-<!-- end Users list -->

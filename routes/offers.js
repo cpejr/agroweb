@@ -24,7 +24,8 @@ router.get('/', auth.isAdmin, (req, res) => {
  * GET New - Show form to create new offer
  */
 router.get('/new', auth.canSell, (req, res) => {
-  res.render('offers/new', { title: 'Nova Oferta' });
+  const { userType } = req.session;
+  res.render('offers/new', { title: 'Nova Oferta', userType });
 });
 
 /**

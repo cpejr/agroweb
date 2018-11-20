@@ -5,6 +5,7 @@
     <div class="text-center pb-3 gradient-background text-white">
       <h3 class="font-black">Boletos pendentes</h3>
     </div>
+{{#if transactions}}
 
 <div style="overflow-x:auto;">
   <table class="table table-light table-striped text-center">
@@ -46,6 +47,11 @@
     </tbody>
   </table>
 </div>
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há nenhuma transação.</p>
+</div>
+{{/if}}
 </div>
 
 {{#section 'scripts'}}

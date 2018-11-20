@@ -113,8 +113,8 @@ router.post('/login', (req, res) => {
  * POST RecoverPassword Request
  */
 router.post('/recoverPassword', (req, res) => {
-  const { mail } = req.body;
-  firebase.auth().sendPasswordResetEmail(mail).then(() => {
+  const mail = req.body;
+  firebase.auth().sendPasswordResetEmail(mail.email).then(() => {
     res.redirect('/success');
   }).catch((error) => {
     console.log(error);

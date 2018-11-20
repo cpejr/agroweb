@@ -5,6 +5,7 @@ const Offer = require('../models/offer');
 const Product = require('../models/product');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
+const Dollar = require('../functions/money');
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -26,51 +27,113 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
  * POST Create - Add new transaction to DB
  */
 router.post('/', auth.isAuthenticated, (req, res) => {
-  const transaction = {
-    buyer: req.session._id,
+  const transactionData = {
     amountBought: req.body.amountBought,
     offer: req.body._id,
   };
-  Offer.getById(transaction.offer).then((offer) => {
-    if (transaction.amountBought < offer.breakpoints.average) {
-      transaction.unitPrice = offer.price.high;
-      transaction.priceBought = transaction.amountBought * transaction.unitPrice;
-    }
-    else if (transaction.amountBought >= offer.breakpoints.average && transaction.amountBought < offer.breakpoints.low) {
-      transaction.unitPrice = offer.price.average;
-      transaction.priceBought = transaction.amountBought * transaction.unitPrice;
-    }
-    else {
-      transaction.unitPrice = offer.price.low;
-      transaction.priceBought = transaction.amountBought * transaction.unitPrice;
-    }
-    console.log(transaction);
-    // Create a new transaction
-    Transaction.create(transaction).then((transactionID) => {
-      // Group.getById(groupId).then((group) => {
-      //   const amountGroup = group.amount - amountBought;
-      //   const groupData = {
-      //     amount: amountGroup
-      //   };
-      //   Group.update(groupId, groupData); // update the group
-      //   Group.deleteUser(groupId, buyer); // delete a user
-      // });
-
-      const balanceOffer = offer.balance - transaction.amountBought;
-      console.log(balanceOffer);
-      const offerData = {
-        balance: balanceOffer
-      };
-      // Update the offer
-      Offer.update(transaction.offer, offerData).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      User.addToMyCart(transaction.buyer, transactionID).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      res.redirect(`transaction/${transactionID}`);
+  if (req.session.userType === 'Franqueado') {
+    transactionData.franchisee = req.session._id;
+    transactionData.buyer = req.body.buyer;
+  }
+  else {
+    transactionData.buyer = req.session._id;
+  }
+  Dollar.getUsdValue().then((dollar) => {
+    Offer.getById(transactionData.offer).then((offer) => {
+      if (offer.delivery !== '48 horas') {
+        transactionData.group = true;
+      }
+      if (!transactionData.group) {
+        if (transactionData.amountBought < offer.breakpoints.average) {
+          transactionData.unitPrice = offer.price.high;
+          transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
+        }
+        else if (transactionData.amountBought >= offer.breakpoints.average && transactionData.amountBought < offer.breakpoints.low) {
+          transactionData.unitPrice = offer.price.average;
+          transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
+        }
+        else {
+          transactionData.unitPrice = offer.price.low;
+          transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
+        }
+        if (offer.usd) {
+          transactionData.unitPrice *= dollar;
+          transactionData.priceBought *= dollar;
+        }
+        console.log(transactionData);
+        // Create a new transaction
+        Transaction.create(transactionData).then((transaction) => {
+          const balanceOffer = offer.balance - transactionData.amountBought;
+          const offerData = {
+            balance: balanceOffer
+          };
+          // Update the offer
+          Offer.update(transactionData.offer, offerData).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+          User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+          res.redirect(`transaction/${transaction}`);
+        }).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+      }
+      else if (transactionData.group) {
+        Group.getOneByQuery({ offer: offer._id }).then((group) => {
+          const balanceGroup = group.amount + transactionData.amountBought;
+          if (balanceGroup < group.offer.breakpoints.average) {
+            transactionData.unitPrice = group.offer.price.high;
+            transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
+          }
+          else if (balanceGroup >= group.offer.breakpoints.average && balanceGroup < group.offer.breakpoints.low) {
+            transactionData.unitPrice = group.offer.price.average;
+            transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
+          }
+          else {
+            transactionData.unitPrice = group.offer.price.low;
+            transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
+          }
+          if (group.offer.usd) {
+            transactionData.unitPrice *= dollar;
+            transactionData.priceBought *= dollar;
+          }
+          console.log(transactionData);
+          Transaction.create(transactionData).then((transaction) => {
+            Group.update(group._id, { unitPrice: transactionData.unitPrice, amount: balanceGroup }).then(() => {
+              Group.updateAllTransactions(group._id).catch((error) => {
+                console.log(error);
+                res.redirect('/error');
+              });
+            }).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+            Group.addUser(group._id, transactionData.buyer).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+            User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+            Group.addTransaction(group._id, transaction).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+            res.redirect(`transaction/${transaction}`);
+          }).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+        }).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+      }
     }).catch((error) => {
       console.log(error);
       res.redirect('/error');
@@ -89,12 +152,7 @@ router.get('/:id', (req, res) => {
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
       console.log(transaction);
-      if (transaction.status === 'Cotado') {
-        res.render('quotations/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction });
-      }
-      else {
-        res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction });
-      }
+      res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction });
     }
     else {
       console.log('Transaction not found!');
@@ -110,23 +168,152 @@ router.get('/:id', (req, res) => {
  * PUT Update - Update a transaction in the database
  */
 router.put('/:id', (req, res) => {
-  const { transaction } = req.body;
-  const data = {
-    name: req.session.firstName,
-    email: req.session.email
-  };
-  if (transaction.status === 'Aguardando boleto') {
-    transaction.taxStatus = 'Aguardando Boleto';
-  }
-  Transaction.update(req.params.id, transaction).then(() => {
-    Email.updateEmail(data, transaction.status).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-    if (transaction.status === 'Aguardando boleto') {
-      Offer.findById(transaction.offer).then((offer) => {
-        offer.stock -= transaction.amountBought;
-        Offer.update(transaction.offer, offer).catch((error) => {
+  Transaction.getById(req.params.id).then((transaction) => {
+    console.log(transaction);
+    let transactionData = {};
+    const data = {
+      name: transaction.buyer.firstName,
+      email: transaction.buyer.email
+    };
+    if (transaction.status === 'Cotado') {
+      transactionData.status = 'Aguardando boleto';
+      transactionData.taxStatus = 'Aguardando boleto';
+      const offerData = {};
+      if (transaction.offer.stock < transaction.amountBought) {
+        const error = {
+          message: 'Tarde demais, o fornecedor não tem mais estoque para atender seu pedido.'
+        };
+        res.redirect('/error');
+      }
+      offerData.stock = transaction.offer.stock - transaction.amountBought;
+      offerData.balance = transaction.offer.balance - transaction.amountBought;
+      if (transaction.offer.stock === 0) {
+        offerData.active = false;
+      }
+      Offer.update(transaction.offer._id, offerData).then(() => {
+        Transaction.update(req.params.id, transactionData).then(() => {
+          User.removeFromMyCart(transaction.buyer._id, req.params.id).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+          User.addTransaction(transaction.buyer._id, req.params.id).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+          Email.buyEmail(transaction).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+          User.addTransaction(transaction.offer.seller._id, req.params.id).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+          Email.sellEmail(transaction).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+          Email.adminNewTransactionEmail(transaction).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+        }).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+        if (transaction.group) {
+          let groupData = {};
+          Group.getOneByQuery({ offer: transaction.offer._id }).then((group) => {
+            Group.removeUser(group._id, transaction.buyer._id).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+            Group.removeTransaction(group._id, transaction._id).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+            if (offerData.active === false) {
+              Offer.getByQuerySorted({ product: group.productId, active: true, delivery: { $ne: '48 horas' } }, {}).then((offers) => {
+                groupData.unitPrice = offers[0].price.high;
+                groupData.offer = offers[0]._id;
+                Dollar.getUsdValue().then((dollar) => {
+                  offers.forEach((offerElement) => {
+                    Offer.getById(groupData.offer).then((groupOffer) => {
+                      let offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
+                      let offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
+                      if (groupOffer.usd) {
+                        offerGroupPrice *= dollar;
+                      }
+                      if (offerElement.usd) {
+                        offerPrice *= dollar;
+                      }
+                      if (offerGroupPrice > offerPrice) {
+                        groupData.offer = offerElement._id;
+                      }
+                      else if (offerGroupPrice === offerPrice) {
+                        if (groupOffer.stock < offerElement.stock) {
+                          groupData.offer = offerElement._id;
+                        }
+                      }
+                      if (!group.active) {
+                        groupData.active = true;
+                      }
+                      Group.update(group._id, groupData).catch((error) => {
+                        console.log(error);
+                        res.redirect('/error');
+                      });
+                    }).catch((error) => {
+                      console.log(error);
+                      res.redirect('/error');
+                    });
+                  });
+                }).catch((error) => {
+                  console.log(error);
+                  res.redirect('/error');
+                });
+              }).catch((error) => {
+                console.log(error);
+                res.redirect('/error');
+              });
+            }
+          }).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+          Group.getOneByQuery({ offer: transaction.offer._id }).then((group) => {
+            groupData = {};
+            groupData.amount = group.amount - transaction.amountBought;
+            if (groupData.amount < group.offer.breakpoints.average) {
+              groupData.unitPrice = group.offer.price.high;
+            }
+            else if (groupData.amount >= group.offer.breakpoints.average && groupData.amount < group.offer.breakpoints.low) {
+              groupData.unitPrice = group.offer.price.average;
+            }
+            else {
+              groupData.unitPrice = group.offer.price.low;
+            }
+            Group.update(group._id, groupData).then(() => {
+              Group.updateAllTransactions(group._id).catch((error) => {
+                console.log(error);
+                res.redirect('/error');
+              });
+            }).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+          }).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+        }
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    }
+    else {
+      transactionData = req.body.transaction;
+      Transaction.update(req.params.id, transactionData).then(() => {
+        Email.updateEmail(data, transactionData.status).catch((error) => {
           console.log(error);
           res.redirect('/error');
         });
@@ -147,15 +334,53 @@ router.put('/:id', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
   const userId = req.session._id;
-  Transaction.delete(req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  User.removeFromMyCart(userId, req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  User.removeTransaction(userId, req.params.id).catch((error) => {
+  Transaction.getById(req.params.id).then((transaction) => {
+    Transaction.delete(req.params.id).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    if (transaction.status === 'Aguardando boleto') {
+      User.removeFromMyCart(userId, req.params.id).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    }
+    if (transaction.group) {
+      const groupData = {};
+      Group.getOneByQuery({ offer: transaction.offer._id }).then((group) => {
+        Group.removeUser(group._id, transaction.buyer._id).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+        Group.removeTransaction(group._id, transaction._id).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+        groupData.amount = group.balance - transaction.amountBought;
+        if (groupData.amount < group.offer.breakpoints.average) {
+          groupData.unitPrice = group.offer.price.high;
+        }
+        else if (groupData.amount >= group.offer.breakpoints.average && groupData.amount < group.offer.breakpoints.low) {
+          groupData.unitPrice = group.offer.price.average;
+        }
+        else {
+          groupData.unitPrice = group.offer.price.low;
+        }
+        Group.update(group._id, groupData).then(() => {
+          Group.updateAllTransactions(group._id).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+        }).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    }
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });

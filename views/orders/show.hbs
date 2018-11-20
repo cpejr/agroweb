@@ -80,6 +80,11 @@
     <!-- end Product Description -->
   </div>
 </div>
+{{#ifCond status 'Cotado'}}
+  <form action="/transaction/{{id}}?_method=PUT" method="POST">
+    <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Confirmar compra</button>
+  </form>
+{{/ifCond}}
 
 <div class="text-center my-3">
   <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete"></form>

@@ -93,7 +93,9 @@ class Offer {
    */
   static update(id, offer) {
     return new Promise((resolve, reject) => {
-      OfferModel.findByIdAndUpdate(id, offer).catch((err) => {
+      OfferModel.findByIdAndUpdate(id, offer).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

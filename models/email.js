@@ -154,7 +154,7 @@ class Email {
    * @returns {Object} Information
    */
   static adminNewTransactionEmail(data) {
-    console.log('admin Email');
+    console.log('Admin Email');
     // console.log(data);
     const text = `Nova compra realizada sob o número #${data._id}.
     A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para o comprador. Esse terá acesso ao boleto uma vez que o vendedor aprove a transação e gere o boleto.

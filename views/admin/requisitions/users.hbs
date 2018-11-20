@@ -3,7 +3,7 @@
 
 <div class="">
   <div class="text-center pb-3 gradient-background text-white">
-    <h3 class="font-black">Requisições de cadastros</h3>
+    <h3 class="font-black">Requisições de cadastro</h3>
   </div>
 
   {{#if users}}
@@ -24,9 +24,7 @@
       <tr>
         <th scope="col">Nome</th>
         <th scope="col">Tipo</th>
-        <th scope="col font-black">Perfil</th>
-        <th scope="col font-black">Aceitar</th>
-        <th scope="col font-black">Bloquear</th>
+        <th colspan="3" scope="col font-black">Opções</th>
       </tr>
     </thead>
     <tbody>
@@ -39,20 +37,20 @@
         <td>{{type}}</td>
         <td>
           <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">
-            <i class="fas fa-user fa-lg"></i>
+            Perfil
           </button>
         </td>
         <td>
           <form  method= "POST" action="/admin/{{id}}/requisitions/users">
             <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
-              <i class="fas fa-check-circle fa-lg"></i>
+              Aceitar
             </button>
           </form>
         </td>
         <td>
           <form  method= "POST" action="/admin/{{id}}/requisitions/users">
             <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
-              <i class="fas fa-times-circle fa-lg"></i>
+              Bloquear
             </button>
           </form>
         </td>

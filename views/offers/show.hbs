@@ -56,14 +56,21 @@
       <form action="/transaction" method="post">
         <div class="row mb-3">
           <div class="form-group col">
-            <label class="font-bold" for="amount">Quantidade</label>
+            <label class="font-light" for="amount">Quantidade</label>
             <div class="input-group">
               <input type="hidden" name="_id" value="{{_id}}">
-              <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}">
+              <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}" required>
               <div class="input-group-prepend">
                 <div class="input-group-text">{{product.unit}}</div>
               </div>
             </div>
+            <label class="mt-2 font-light" for="amount">Selecione o cliente responsável por esta cotação</label>
+            <select class="form-control new-shadow" name="client" required/>
+              <option disabled selected value>-- Cliente --</option>
+              {{#each clients}}
+              <option value={{_id}}>{{fullName}}</option>
+              {{/each}}
+            </select>
           </div>
         </div>
         <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>

@@ -17,7 +17,6 @@
       <th scope="col">Entrega</th>
       <th scope="col">Vendendor</th>
       <th scope="col">Produto</th>
-      <!-- <th scope="col">Vendendor</th> -->
       <th scope="col">Excluir</th>
     </tr>
   </thead>
@@ -25,7 +24,7 @@
     {{#each offers}}
     <tr>
       <td class="font-book">{{stock}}</td>
-      <td class="font-book">{{price.average}}</td>
+      <td class="font-book" data-usd={{usd}}>R$ {{price.average}}</td>
       <td class="font-book">{{delivery}}</td>
       <td class="font-book">{{seller.fullName}}</td>
       <td class="font-book">{{product.name}}</td>
@@ -42,4 +41,5 @@
 </div>
 
 {{#section 'scripts'}}
+<script src="/javascripts/money.js"></script>
 {{/section}}

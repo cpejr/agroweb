@@ -13,10 +13,9 @@ const router = express.Router();
 /**
  * GET Index - Show all transactions
  */
-router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.get('/', auth.isAuthenticated, (req, res) => {
   Transaction.getAll().then((transactions) => {
-    console.log(transactions);
-    res.render('orders/index', { title: 'Transações', transactions });
+    res.render('history', { title: 'Histórico', transactions });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -339,7 +338,7 @@ router.delete('/:id', (req, res) => {
       console.log(error);
       res.redirect('/error');
     });
-    if (transaction.status === 'Aguardando boleto') {
+    if (transaction.status === 'Cotado') {
       User.removeFromMyCart(userId, req.params.id).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -398,5 +397,24 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
   });
   res.redirect('/user/orders');
 });
+
+// /**
+//  * GET Show - Show details of a product
+//  */
+// router.get('/:id', (req, res) => {
+//   Transaction.getById(req.params.id).then((transaction) => {
+//     if (transaction) {
+//       console.log(transaction);
+//       res.render('/site', { title: transaction.name });
+//     }
+//     else {
+//       console.log('Transaction not found!');
+//       res.redirect('/user');
+//     }
+//   }).catch((error) => {
+//     console.log(error);
+//     res.redirect('/error');
+//   });
+// });
 
 module.exports = router;

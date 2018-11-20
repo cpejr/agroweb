@@ -147,7 +147,7 @@ h1, h3, h5, span
 // Default header and navbar
 //
 nav
-  background-color: $dark-color
+  background-color: $dark-color !important
 
 .nav-item a,
 .nav-item .fas,
@@ -160,6 +160,10 @@ nav
 nav .form-control
   display: none
 
+.nav-color-change
+  background-color: #3b9939
+  &:hover
+    background-color: #006600
 //cards
 .card
   color: #000 !important
@@ -320,7 +324,6 @@ img.footer-brand
   cursor: pointer
   transition: 0.3s ease all
   color: $light-color
-
 
 // Error message
 

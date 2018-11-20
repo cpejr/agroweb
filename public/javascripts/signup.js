@@ -27,7 +27,6 @@ $(document).ready(() => {
       $('.franchisee-option').removeClass('d-none').show();
     }
     else if (selectedUserType === 'Revendedor') {
-      console.log('Revenda');
       $('.producer-option').hide();
       $('.franchisee-option').hide();
       $('.industry-option').hide();

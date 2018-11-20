@@ -1,0 +1,109 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<div class="container">
+  <div class="row justify-content-center mx-sm-auto mx-md-9">
+    <!-- Product Title -->
+    <div class="col-12 col-md-6 mb-5">
+      <i class="text-muted">Produto {{product.generic}}</i>
+      <h2 class="my-0 py-0 mb-4">{{product.name}}</h2>
+
+      <!-- Product Description -->
+      <h4 class="font-bold">Descrição</h4>
+      <p  class="font-light">
+        {{product.description}}
+      </p>
+
+      <dt class="font-bold">Vendedor(a)</dt>
+      <dd class="font-light">{{seller.fullName}}</dd>
+
+      <dt class="font-bold">Ingredientes ativos</dt>
+      {{#each product.chem}}
+        <dd class="font-light">{{name}}</dd>
+      {{/each}}
+
+      <dt class="font-bold">Forma de entrega</dt>
+      <dd class="font-light">{{delivery}}</dd>
+
+      <dt class="font-bold">Fabricante</dt>
+      <dd class="font-light">{{product.manufacturer}}</dd>
+
+      <dt class="font-bold">Categoria</dt>
+      <dd class="font-light">{{product.category}}</dd>
+      <!-- end Product Description -->
+    </div>
+    <!-- end Product Title -->
+
+    <!-- Quotation -->
+    <div class="col-12 col-md-6 pb-2 mb-5">
+      {{#ifCond userType 'Produtor'}}
+      <form action="/transaction" method="post">
+        <div class="row mb-3">
+          <div class="form-group col">
+            <label class="font-bold" for="amount">Quantidade</label>
+            <div class="input-group">
+              <input type="hidden" name="_id" value="{{_id}}">
+              <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}">
+              <div class="input-group-prepend">
+                <div class="input-group-text">{{product.unit}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+      </form>
+      {{else ifCond userType 'Franqueado'}}
+      <form action="/transaction" method="post">
+        <div class="row mb-3">
+          <div class="form-group col">
+            <label class="font-bold" for="amount">Quantidade</label>
+            <div class="input-group">
+              <input type="hidden" name="_id" value="{{_id}}">
+              <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}">
+              <div class="input-group-prepend">
+                <div class="input-group-text">{{product.unit}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+      </form>
+      {{else ifCond userType 'Administrador'}}
+      <div class="row mb-3">
+        <div class="col-12 col-md-6 mb-5">
+          <div class="row">
+            <div class="col-12">
+              <h4>Estoque:</h4>
+              <p class="font-light">{{stock}} {{product.unit}}</p>
+            </div>
+            <div class="col-12">
+              <h4>Entrega:</h4>
+              <p class="font-light">{{delivery}}</p>
+            </div>
+            <div class="col-12">
+              <h4>Preços:</h4>
+              <p class="font-light">Baixo: R$ {{price.low}}</p>
+              <p class="font-light">Médio: R$ {{price.average}}</p>
+              <p class="font-light">Alto: R$ {{price.high}}</p>
+            </div>
+            <div class="col-12">
+              <h4>Qtd. mínima:</h4>
+              <p class="font-light">{{minAmount}} {{product.unit}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{else}}
+      <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
+      <form action="/offers/{{_id}}?_method=DELETE" method="POST">
+          <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
+      </form>
+      {{/ifCond}}
+    </div>
+    <!-- end Quotation -->
+  </div>
+</div>
+
+{{#section 'scripts'}}
+<script src="/javascripts/money.js"></script>
+{{/section}}

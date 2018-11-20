@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const offerSchema = new mongoose.Schema({
   stock: Number,
   balance: Number,
+  unitPrice: Number,
   price: {
     low: Number,
     average: Number,
@@ -15,7 +16,7 @@ const offerSchema = new mongoose.Schema({
   minAmount: Number,
   delivery: {
     type: String,
-    enum: ['48 horas', '31 dias', 'safra', 'safrinha']
+    enum: ['48 horas', '31 dias', 'Safra', 'safrinha']
   },
   usd: Boolean,
   seller: {

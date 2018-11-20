@@ -10,7 +10,6 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   Product.getAll().then((products) => {
-    console.log(products);
     res.render('products/index', { title: 'Produtos', products });
   }).catch((error) => {
     console.log(error);
@@ -23,7 +22,6 @@ router.get('/', (req, res) => {
  */
 router.get('/new', (req, res) => {
   Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
-    console.log(chems[0]);
     res.render('products/new', { title: 'Novo Produto', chems });
   }).catch((error) => {
     console.log(error);
@@ -36,7 +34,6 @@ router.get('/new', (req, res) => {
  */
 router.post('/', (req, res) => {
   const { product } = req.body;
-  console.log(product);
   Product.create(product).then((id) => {
     console.log(`Created new product with id: ${id}`);
     res.redirect(`/products/${id}`);
@@ -52,7 +49,6 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
   Product.getById(req.params.id).then((product) => {
     if (product) {
-      console.log(product);
       res.render('products/show', { title: product.name, id: req.params.id, ...product });
     }
     else {
@@ -68,21 +64,25 @@ router.get('/:id', (req, res) => {
 /**
  * GET Edit - Show the product edit form
  */
-router.get('/:id/edit', auth.canSell, (req, res) => {
-  Product.getById(req.params.id).then((product) => {
-    if (product) {
-      console.log(product);
-      res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product });
-    }
-    else {
-      console.log('Product not found!');
-      res.redirect('/user');
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
+ router.get('/:id/edit', auth.canSell, (req, res) => {
+   Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
+     Product.getById(req.params.id).then((product) => {
+       if (product) {
+         res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product, chems });
+       }
+       else {
+         console.log('Product not found!');
+         res.redirect('/user');
+       }
+     }).catch((error) => {
+       console.log(error);
+       res.redirect('/error');
+     });
+   }).catch((error) => {
+     console.log(error);
+     res.redirect('/error');
+   });
+ });
 
 /**
  * PUT Update - Update a product in the database

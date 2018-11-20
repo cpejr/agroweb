@@ -87,9 +87,6 @@ router.post('/login', (req, res) => {
         req.session._id = currentLogged._id;
         req.session.userUid = user.uid;
         req.session.email = currentLogged.email;
-        // console.log(user);
-        // console.log(user.uid);
-        console.log(req.session);
         req.session.status = currentLogged.status;
         if (req.session.userType === 'Administrador') {
           res.redirect('/admin');
@@ -116,8 +113,8 @@ router.post('/login', (req, res) => {
  * POST RecoverPassword Request
  */
 router.post('/recoverPassword', (req, res) => {
-  const { mail } = req.body;
-  firebase.auth().sendPasswordResetEmail(mail).then(() => {
+  const mail = req.body;
+  firebase.auth().sendPasswordResetEmail(mail.email).then(() => {
     res.redirect('/success');
   }).catch((error) => {
     console.log(error);

@@ -1,152 +1,152 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<h3 class="text-center gradient-background text-white pb-3 font-black">Editar oferta</h3>
+<div class="pb-3 gradient-background text-white">
+  <h3 class="text-center font-black">Editar oferta</h3>
+</div>
+
+<div class="p-3">
 <form action="/offers/{{id}}?_method=PUT" method="POST">
-<div class="pl-lg-5 pr-lg-5 font-light">
-  <div class="pl-lg-5 pr-lg-5">
-    <div class="pl-lg-5 pr-lg-5">
   <div class="row d-flex justify-content-between">
-
-    <!-- <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="name" class="editlabel">Nome do produto</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
-       </div>
-       <input name="offer[product]" type="text" class="form-control" value="{{product.name}}" id="name"></input>
+    <div class="col-md-4">
+      <div class="form-group mx-4 my-2">
+        <h4 class="rounded bg-black text-center mb-4"> Dados gerais </h4>
       </div>
-    </div> -->
 
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="name" class="editlabel">Nome do produto</label>
-      <div class="input-group" id="products-list">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="fas fa-search"></i></div>
+      <div class="user-input">
+        <label class="text-dark2">Nome do produto</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-archive"></i></div>
+          </div>
+          <input name="offer[product]" type="text" class="form-control input-text" value="{{product.name}}" readonly required/>
         </div>
-        <input name="offer[product]" class="form-control typeahead" type="text" placeholder="Nome do produto">
       </div>
-    </div>
 
-    <div class="form-group col-md-3 mx-4 my-2">
-      <label for="category" class="editlabel">Forma de entrega</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-boxes"></i></div>
-       </div>
-       <select class="form-control" name="offer[delivery]" id="category">
-         <option disabled selected value>{{delivery}}</option>
-         <option value="48 horas">Em até 48 horas</option>
-         <option value="31 dias">Em até 31 dias</option>
-         <option value="safra">Safra</option>
-         <option value="safrinha">Safrinha</option>
-       </select>
+      <div class="user-input">
+        <label class="text-dark2">Estoque</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-archive"></i></div>
+          </div>
+          <input name="offer[stock]" type="number" class="form-control input-text" value="{{stock}}" required/>
+        </div>
       </div>
-    </div>
 
+      <div class="user-input">
+        <label class="text-dark2">Quantidade mínima</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-archive"></i></div>
+          </div>
+          <input name="offer[minAmount]" type="number" class="form-control input-text" value="{{minAmount}}" required/>
+        </div>
+      </div>
 
-
-    <div class="form-group col-md-3 mx-4 my-2">
-      <label for="category" class="editlabel">Moeda de cotação</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-       </div>
-       <select class="form-control" name="offer[usd]" id="category">
-         {{#ifCond usd true}}
-           <option selected value="1">Dólar americano (U$)</option>
+      <div class="user-input">
+        <label class="text-dark2">Moeda utilizada</label>
+        <div class="input-group mb-2">
+         <div class="input-group-prepend">
+           <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+         </div>
+         <select class="form-control new-shadow" name="offer[usd]" required/>
+            {{#ifCond usd 1}}
+           <option disabled selected value="1">Dólar americano (U$)</option>
            <option value="0">Real (R$)</option>
-         {{else ifCond usd false}}
-           <option selected value="0">Real (R$)</option>
            <option value="1">Dólar americano (U$)</option>
-         {{/ifCond}}
-       </select>
+           {{else}}
+           <option disabled selected value="0">Real (R$)</option>
+           <option value="1">Dólar americano (U$)</option>
+           <option value="0">Real (R$)</option>
+           {{/ifCond}}
+         </select>
+        </div>
       </div>
     </div>
 
-</div>
+    <div class="col-md-4">
+      <div class="form-group mx-4 my-2">
+        <h4 class="rounded bg-black text-center mb-4"> Preços </h4>
+      </div>
 
-<div class="row d-flex justify-content-between">
-  <div class="form-group col-md-3 col-10 mx-4 my-2">
-    <label for="name" class="editlabel">Quantidade em estoque</label>
-    <div class="input-group mb-2">
-     <div class="input-group-prepend">
-       <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
-     </div>
-     <input name="offer[stock]" type="text" class="form-control" value="{{stock}}" id="name"></input>
+      <div class="user-input">
+        <label class="text-dark2">Baixo</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-arrow-down"></i></div>
+          </div>
+          <input name="offer[price][low]" type="number" class="form-control input-text" value="{{price.low}}" required/>
+        </div>
+      </div>
+
+      <div class="user-input">
+        <label class="text-dark2">Médio</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-arrow-right"></i></div>
+          </div>
+          <input name="offer[price][average]" type="number" class="form-control input-text" value="{{price.average}}" required/>
+        </div>
+      </div>
+
+      <div class="user-input">
+        <label class="text-dark2">Alto</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-arrow-up"></i></div>
+          </div>
+          <input name="offer[price][high]" type="number" class="form-control input-text" value="{{price.high}}" required/>
+        </div>
+      </div>
+
     </div>
+
+    <div class="col-md-4">
+      <div class="form-group mx-4 my-2 mt-3">
+        <h4 class="rounded bg-black text-center mb-4"> Mudança de preço </h4>
+      </div>
+
+      <div class="user-input">
+        <label class="text-dark2">Muda para médio</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+          </div>
+          <input name="offer[breakpoints][average]" type="number" class="form-control input-text" value="{{breakpoints.average}}" required/>
+        </div>
+      </div>
+
+      <div class="user-input">
+        <label class="text-dark2">Muda para baixo</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+          </div>
+          <input name="offer[breakpoints][low]" type="number" class="form-control input-text" value="{{breakpoints.low}}" required/>
+        </div>
+      </div>
+
+
+      <div class="user-input">
+        <label class="text-dark2">Forma de entrega</label>
+        <div class="input-group mb-2">
+         <div class="input-group-prepend">
+           <div class="input-group-text"><i class="fas fa-car"></i></div>
+         </div>
+         <select class="form-control new-shadow" name="offer[delivery]">
+           <option disabled selected value>{{delivery}}</option>
+           <option value="Em até 48 horas">Em até 48 horas</option>
+           <option value="Em até 31 dias">Em até 31 dias</option>
+           <option value="Safra">Safra</option>
+           <option value="Safrinha">Safrinha</option>
+         </select>
+        </div>
+      </div>
+      </div>
+    </div>
+  <div>
+    <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
   </div>
-
-  <div class="form-group col-md-3 col-10 mx-4 my-2">
-    <label for="name" class="editlabel">Quantidade mínima a ser comprada</label>
-    <div class="input-group mb-2">
-     <div class="input-group-prepend">
-       <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
-     </div>
-     <input name="offer[minAmount]" type="text" class="form-control" value="{{minAmount}}" id="name"></input>
-    </div>
-  </div>
-
-</div>
-
-  <h5 class="mt-3 text-center font-light">Preços</h5>
-  <div class="row d-flex justify-content-between">
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="name" class="editlabel">Baixo</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-       </div>
-       <input name="offer[price][low]" type="text" class="form-control" value="{{price.low}}" id="name"></input>
-      </div>
-    </div>
-
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="name" class="editlabel">Médio</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-       </div>
-       <input name="offer[price][average]" type="text" class="form-control" value="{{price.average}}" id="name"></input>
-      </div>
-    </div>
-
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="name" class="editlabel">Alto</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-       </div>
-       <input name="offer[price][high]" type="text" class="form-control" value="{{price.high}}" id="name"></input>
-      </div>
-    </div>
-  </div>
-
-  <h5 class="mt-3 text-center font-light">Quantidades para mudanças de preço</h5>
-  <div class="row d-flex justify-content-between">
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="name" class="editlabel">Muda para preço médio</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
-       </div>
-       <input name="offer[breakpoints][average]" type="text" class="form-control" value="{{breakpoints.average}}" id="name"></input>
-      </div>
-    </div>
-
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="name" class="editlabel">Muda para preço baixo</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
-       </div>
-       <input name="offer[breakpoints][low]" type="text" class="form-control" value="{{breakpoints.low}}" id="name"></input>
-      </div>
-    </div>
-  </div>
-</div> </div>
-</div>
-<button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block font-light" type="submit">Salvar</button>
 </form>
 
 {{#section 'scripts'}}

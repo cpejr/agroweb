@@ -6162,7 +6162,7 @@ h1, h3, h5, span {
   font-family: 'gotham-book'; }
 
 nav {
-  background-color: #232323; }
+  background-color: #232323 !important; }
 
 .nav-item a,
 .nav-item .fas,
@@ -6174,6 +6174,11 @@ nav {
 
 nav .form-control {
   display: none; }
+
+.nav-color-change {
+  background-color: #3b9939; }
+  .nav-color-change:hover {
+    background-color: #006600; }
 
 .card {
   color: #000 !important;

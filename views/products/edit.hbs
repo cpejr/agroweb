@@ -1,7 +1,7 @@
 {{#section 'stylesheets'}}
 {{/section}}
 <div class="pb-3 gradient-background text-white">
-  <h3 class="text-center">Editar Produto</h3>
+  <h3 class="text-center font-black">Editar produto</h3>
 </div>
 
 <form action="/products/{{id}}?_method=PUT" method="POST">
@@ -102,7 +102,7 @@
           {{#each chem}}
             <label class="d-block col-3"><input checked type="checkbox" name="product[chem][]" class="mr-1" value="{{_id}}" id="activeIng">{{name}}</label>
           {{/each}}
-          {{#ifCond offer.product.chems chems}}
+          {{#ifCond product.chem.id chem}}
 
           {{else}}
           {{#each chems}}

@@ -4,8 +4,7 @@
 <div class="">
     <div class="text-center pb-3 gradient-background text-white">
       <h3 class="font-black">Boletos pendentes</h3>
-  </div>
-<!-- </div> -->
+    </div>
 
 <div style="overflow-x:auto;">
   <table class="table table-light table-striped text-center">
@@ -14,68 +13,35 @@
         <th scope="col">Código da Compra</th>
         <th scope="col">Comprador</th>
         <th scope="col">Preço</th>
-        <!-- <th scope="col">Vendendor</th> -->
         <th scope="col">Status</th>
+        <th scope="col">Opções</th>
       </tr>
     </thead>
     <tbody>
       {{#each transactions}}
+      {{#ifCond taxStatus 'Aguardando boleto'}}
       <tr>
         <td>{{_id}}</td>
         <td>{{buyer.fullName}}</td>
         <td>{{priceBought}}</td>
-        <td>   <div class="dropdown">
-          <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-          {{#ifCond taxStatus 'Aguardando boleto'}}
-          class="btn btn-outline-info dropdown-toggle col-12">
-          Aguardando boleto
-
-          {{else ifCond taxStatus 'Aguardando pagamento'}}
-          class="btn btn-outline-warning dropdown-toggle col-12">
-          Aguardando pagamento
-
-          {{else ifCond taxStatus 'Pagamento confirmado'}}
-          class="btn btn-outline-success  dropdown-toggle col-12">
-          Pagamento confirmado
-
-          {{else}}
-          class="btn  dropdown-toggle btn-outline-danger col-12">
-          Cancelado
-          {{/ifCond}}
-        </button>
-        <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-          <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-            <a class="dropdown-item" href="#">
-              <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
-                Aguardando boleto
-              </button>
-            </a>
+        <td>{{taxStatus}}</td>
+        <td scope="row" class="font-light">
+          <form action="/transaction/{{_id}}" method="GET">
+            <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
           </form>
-          <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-            <a class="dropdown-item " href="#">
-              <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
-                Aguardando pagamento
-              </button>
-            </a>
-          </form>
-          <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-            <a class="dropdown-item" href="#">
-              <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
-                Pagamento confirmado
-              </button>
-            </a>
-          </form>
-
-          <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-            <a class="dropdown-item" href="#">
-              <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
-                Cancelado
-              </button>
-            </a>
-          </form>
-        </div>
-      </div>
+        </td>
+        {{else ifCond taxStatus 'Aguardando pagamento'}}
+        <tr>
+          <td>{{_id}}</td>
+          <td>{{buyer.fullName}}</td>
+          <td>{{priceBought}}</td>
+          <td>{{taxStatus}}</td>
+          <td scope="row" class="font-light">
+            <form action="/transaction/{{_id}}" method="GET">
+              <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
+            </form>
+          </td>
+      {{/ifCond}}
       {{/each}}
     </tbody>
   </table>

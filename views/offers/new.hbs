@@ -136,10 +136,14 @@
          </div>
          <select class="form-control new-shadow" name="offer[delivery]" required/>
            <option disabled selected value>-- Forma de entrega --</option>
-           <option value="48 horas">Em até 48 horas</option>
+           {{#ifCond userType 'Indústria'}}
            <option value="31 dias">Em até 31 dias</option>
            <option value="Safra">Safra</option>
            <option value="safrinha">Safrinha</option>
+           {{else ifCond userType 'Revendedor'}}
+           <option value="31 dias">Em até 31 dias</option>
+           <option value="48 horas">Em até 48 horas</option>
+           {{/ifCond}}
          </select>
         </div>
       </div>

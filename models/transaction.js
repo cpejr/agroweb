@@ -34,6 +34,10 @@ const transactionSchema = new mongoose.Schema({
   franchisee: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  group: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true, strict: false });
 
@@ -104,7 +108,9 @@ class Transaction {
    */
   static update(id, transaction) {
     return new Promise((resolve, reject) => {
-      TransactionModel.findByIdAndUpdate(id, transaction).catch((err) => {
+      TransactionModel.findByIdAndUpdate(id, transaction).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

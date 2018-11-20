@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Dollar = require('../functions/money');
+const Transaction = require('./transaction');
 
 const groupSchema = new mongoose.Schema({
   amount: {
@@ -8,6 +10,10 @@ const groupSchema = new mongoose.Schema({
   users: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  }],
+  transactions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
   }],
   offer: {
     type: mongoose.Schema.Types.ObjectId,
@@ -131,9 +137,7 @@ class Group {
    */
   static addUser(id, user) {
     return new Promise((resolve, reject) => {
-      GroupModel.findByIdAndUpdate(id, { $push: { users: user } }).then(() => {
-        resolve();
-      }).catch((err) => {
+      GroupModel.findByIdAndUpdate(id, { $push: { users: user } }).catch((err) => {
         reject(err);
       });
     });
@@ -145,10 +149,100 @@ class Group {
    * @param {string} user - User Id
    * @returns {null}
    */
-  static deleteUser(id, user) {
+  static removeUser(id, user) {
     return new Promise((resolve, reject) => {
-      GroupModel.findByIdAndUpdate(id, { $pull: { users: user } }).then(() => {
-        resolve();
+      GroupModel.findByIdAndUpdate(id, { $pull: { users: user } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Add a new transaction
+   * @param {string} id - Group Id
+   * @param {string} transaction - Transaction Id
+   * @returns {null}
+   */
+  static addTransaction(id, transaction) {
+    return new Promise((resolve, reject) => {
+      GroupModel.findByIdAndUpdate(id, { $push: { transactions: transaction } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Delete a transaction
+   * @param {string} id - Group Id
+   * @param {string} transaction - Transaction Id
+   * @returns {null}
+   */
+  static removeTransaction(id, transaction) {
+    return new Promise((resolve, reject) => {
+      GroupModel.findByIdAndUpdate(id, { $pull: { transactions: transaction } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all transactions from a group
+   * @param {string} id - Group id
+   * @returns {Array} - Array of transactions
+   */
+  static getAllTransactions(id) {
+    return new Promise((resolve, reject) => {
+      GroupModel.findById(id).populate({
+        path: 'transactions',
+        populate: {
+          path: 'buyer offer',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
+      }).exec().then((result) => {
+        resolve(result.transactions);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Update all transactions
+   * @param {string} id - Group id
+   * @returns {Array} - Array of transactions
+   */
+  static updateAllTransactions(id) {
+    return new Promise((resolve, reject) => {
+      GroupModel.findById(id).populate({
+        path: 'transactions offer',
+        populate: {
+          path: 'buyer offer',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
+      }).exec().then((result) => {
+        Dollar.getUsdValue().then((dollar) => {
+          result.transactions.forEach((transaction) => {
+            let unitPrice = 0;
+            if (result.offer.usd) {
+              unitPrice = result.unitPrice * dollar;
+            }
+            else {
+              unitPrice = result.unitPrice;
+            }
+            const priceBought = unitPrice * transaction.amountBought;
+            Transaction.update(transaction._id, { unitPrice, priceBought, offer: result.offer }).catch((err) => {
+              reject(err);
+            });
+          });
+        }).catch((err) => {
+          reject(err);
+        });
       }).catch((err) => {
         reject(err);
       });

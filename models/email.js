@@ -49,6 +49,7 @@ class Email {
    * @returns {Object} Information
    */
   static updateEmail(data, status) {
+    console.log('Update email');
     const text = `Prezado(a) ${data.name},
     o status do seu pedido foi atualizado para "${status}"`;
     const subject = 'MEGAPOOL: Atualização no status do seu pedido';
@@ -120,6 +121,7 @@ class Email {
    * @returns {Object} Information
    */
   static sellEmail(data) {
+    console.log('Seller Email');
     return new Promise((resolve) => {
       Money.getUsdValue().then((usd) => {
         const totalPrice = data.priceBought * usd;
@@ -168,6 +170,7 @@ class Email {
    * @returns {Object} Information
    */
   static adminNewTransactionEmail(data) {
+    console.log('Admin Email');
     return new Promise((resolve) => {
       Money.getUsdValue().then((usd) => {
         const totalPrice = data.priceBought * usd;

@@ -334,10 +334,6 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const userId = req.session._id;
   Transaction.getById(req.params.id).then((transaction) => {
-    Transaction.delete(req.params.id).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
     if (transaction.status === 'Cotado') {
       User.removeFromMyCart(userId, req.params.id).catch((error) => {
         console.log(error);
@@ -379,6 +375,11 @@ router.delete('/:id', (req, res) => {
         res.redirect('/error');
       });
     }
+    transaction.status = 'Cancelado';
+    Transaction.update(req.params.id, transaction).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

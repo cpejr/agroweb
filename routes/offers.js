@@ -134,10 +134,16 @@ router.post('/', (req, res) => {
  */
 router.get('/:id', auth.isAuthenticated, (req, res) => {
   const { userType } = req.session;
+  const userId = req.session._id;
+  var myOffer = 0;
+
   User.getAgreementListById(req.session._id).then((clients) => {
     Offer.getById(req.params.id).then((offer) => {
+      if(userId == offer.seller._id){
+        myOffer = 1;
+      }
       if (offer) {
-        res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, clients, ...offer });
+        res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, myOffer, clients, ...offer });
       }
       else {
         console.log('Offer not found!');

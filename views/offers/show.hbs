@@ -36,6 +36,13 @@
 
     <!-- Quotation -->
     <div class="col-12 col-md-6 pb-2 mb-5">
+      {{#ifCond myOffer 1}}
+      <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
+      <form action="/offers/{{_id}}?_method=DELETE" method="POST">
+          <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
+      </form>
+
+      {{else}}
       {{#ifCond userType 'Produtor'}}
       <form action="/transaction" method="post">
         <div class="row mb-3">
@@ -100,11 +107,41 @@
           </div>
         </div>
       </div>
-      {{else}}
-      <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
-      <form action="/offers/{{_id}}?_method=DELETE" method="POST">
-          <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
+
+      {{else ifCond userType 'Revendedor'}}
+      <form action="/transaction" method="post">
+        <div class="row mb-3">
+          <div class="form-group col">
+            <label class="font-bold" for="amount">Quantidade</label>
+            <div class="input-group">
+              <input type="hidden" name="_id" value="{{_id}}">
+              <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}">
+              <div class="input-group-prepend">
+                <div class="input-group-text">{{product.unit}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
       </form>
+
+      {{else ifCond userType 'Indústria'}}
+      <form action="/transaction" method="post">
+        <div class="row mb-3">
+          <div class="form-group col">
+            <label class="font-bold" for="amount">Quantidade</label>
+            <div class="input-group">
+              <input type="hidden" name="_id" value="{{_id}}">
+              <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}">
+              <div class="input-group-prepend">
+                <div class="input-group-text">{{product.unit}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+      </form>
+      {{/ifCond}}
       {{/ifCond}}
     </div>
     <!-- end Quotation -->

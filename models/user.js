@@ -68,14 +68,14 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Offer'
   }],
-  phone: Number,
-  cellphone: Number,
+  phone: String,
+  cellphone: String,
   fantasyName: String,
   secondaryEmail: String,
   responsible: {
     name: String,
-    phone: Number,
-    cellphone: Number
+    phone: String,
+    cellphone: String
   },
   delivery: {
     stock: String,
@@ -86,7 +86,7 @@ const userSchema = new mongoose.Schema({
     fractional: String
   },
   logistics: {
-    phone: Number,
+    phone: String,
     email: String
   },
   headquarter: String,

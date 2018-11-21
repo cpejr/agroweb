@@ -104,8 +104,24 @@ router.post('/login', (req, res) => {
       res.redirect('/error');
     });
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+
+    switch(error.code) {
+    case 'auth/wrong-password':
+        req.flash('danger', 'Senha incorreta.');
+        break;
+    case 'auth/user-not-found':
+        req.flash('danger', 'Email não cadastrado.');
+        break;
+    case 'auth/invalid-email':
+        req.flash('danger', 'Verifique se o email está digitado corretamente.');
+        break;
+    default:
+        req.flash('danger', 'Erro indefinido.');
+      }
+
+    console.log('Error Code: ' + error.code);
+    console.log('Error Message: ' + error.message);
+    res.redirect('/login');
   });
 });
 

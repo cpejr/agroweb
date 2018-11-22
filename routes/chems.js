@@ -32,6 +32,7 @@ router.post('/', auth.isAdmin, (req, res) => {
   const { chem } = req.body;
   Chem.create(chem).then((id) => {
     console.log(`Created new chem with id: ${id}`);
+    req.flash('success', 'Princípio ativo criado.');
     res.redirect('/chems');
   }).catch((error) => {
     console.log(error);
@@ -88,6 +89,7 @@ router.put('/:id', auth.isAdmin, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Princípio ativo atualizado.');
   res.redirect('/chems');
 });
 
@@ -99,6 +101,7 @@ router.delete('/:id', auth.isAdmin, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Princípio ativo removido.');
   res.redirect('/chems');
 });
 

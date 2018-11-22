@@ -114,6 +114,7 @@ router.post('/', (req, res) => {
           console.log(error);
           res.redirect('/error');
         });
+        req.flash('success', 'Oferta criada com sucesso.');
         res.redirect(`/offers/${offerId}`);
       }).catch((error) => {
         console.log(error);
@@ -258,6 +259,7 @@ router.put('/:id', (req, res) => {
       console.log(error);
       res.redirect('/error');
     });
+    req.flash('success', 'Oferta editada com sucesso.');
     res.redirect(`/offers/${req.params.id}`);
   }).catch((error) => {
     console.log(error);
@@ -273,6 +275,7 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Oferta deletada.');
   res.redirect('/offers');
 });
 

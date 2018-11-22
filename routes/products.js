@@ -36,16 +36,19 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const { product } = req.body;
   const { userType } = req.session;
-  console.log(userType);
   if(userType == 'Administrador'){
     product.status = 'Aprovado';
   }
   else{
     product.status = 'Aguardando';
   }
-
   Product.create(product).then((id) => {
     console.log(`Created new product with id: ${id}`);
+    if(userType == 'Administrador'){
+      req.flash('success', 'Produto criado com sucesso.');    }
+    else{
+      req.flash('success', 'Pedido de aprovação do produto feito com sucesso.');
+    }
     res.redirect(`/products/${id}`);
   }).catch((error) => {
     console.log(error);

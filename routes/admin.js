@@ -65,6 +65,7 @@ router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) =>
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Oferta deletada.');
   res.redirect('/admin/offers');
 });
 

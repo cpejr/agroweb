@@ -161,10 +161,11 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
  * GET Edit - Show the offer edit form
  */
 router.get('/:id/edit', auth.canSell, (req, res) => {
+  const {userType} = req.session;
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);
-      res.render('offers/edit', { title: `Editar ${offer.product.name}`, id: req.params.id, ...offer });
+      res.render('offers/edit', { title: `Editar ${offer.product.name}`, id: req.params.id, userType, ...offer });
     }
     else {
       console.log('Offer not found!');

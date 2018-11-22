@@ -115,6 +115,9 @@ router.post('/login', (req, res) => {
     case 'auth/invalid-email':
         req.flash('danger', 'Verifique se o email está digitado corretamente.');
         break;
+    case 'auth/network-request-failed':
+        req.flash('danger', 'Falha na internet. Verifique sua conexão de rede.');
+        break;
     default:
         req.flash('danger', 'Erro indefinido.');
       }
@@ -196,12 +199,34 @@ router.post('/signup', (req, res) => {
         res.redirect('/user');
       }
     }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
+      switch(error.code) {
+      case '11000':
+          req.flash('danger', 'O CPF já está cadastrado.');
+          break;
+      default:
+          req.flash('danger', 'Erro indefinido.');
+        }
+      console.log('Error Code: ' + error.code);
+      console.log('Error Message: ' + error.message);
+      res.redirect('/signup');
     });
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    switch(error.code) {
+    case 'auth/email-already-in-use':
+        req.flash('danger', 'Email já cadastrado');
+        break;
+    case 'auth/network-request-failed':
+        req.flash('danger', 'Falha na internet. Verifique sua conexão de rede.');
+        break;
+    case 'auth/invalid-email':
+        req.flash('danger', 'Verifique se o email está digitado corretamente.');
+        break;
+    default:
+        req.flash('danger', 'Erro indefinido.');
+      }
+    console.log('Error Code: ' + error.code);
+    console.log('Error Message: ' + error.message);
+    res.redirect('/signup');
   });
 });
 

@@ -115,7 +115,6 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
 });
 
 router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  console.log(req.body.taxStatus);
   const transaction = {
     taxStatus: req.body.taxStatus
   };

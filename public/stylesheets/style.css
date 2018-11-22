@@ -6663,4 +6663,10 @@ a.more-link {
   max-height: 150px;
   overflow-y: auto; }
 
+.agro-alert {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  margin-left: 10px; }
+
 /*# sourceMappingURL=style.css.map */

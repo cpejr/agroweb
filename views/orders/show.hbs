@@ -4,16 +4,20 @@
 <div class="container">
   <div class="justify-content-center mx-sm-auto">
     <div class="row">
+      <div class="col-12 ml-1 mb-3 text-center justify-content-center">
+        <h2 class="my-0 py-0">{{offer.product.name}}</h2>
+        <i class="text-muted">Produto {{offer.product.generic}}</i>
+      </div>
       {{#ifCond userType 'Produtor'}}
       <!-- Seller info -->
       <div class="col-12 col-md-6 mt-3">
         <h2 class="mb-4">Dados do vendedor</h2>
-        <h3>Empresa</h3>
+        <h4>Empresa</h4>
         <p class="mb-4">{{offer.seller.fantasyName}}</p>
-        <h3>Contato</h3>
+        <h4>Contato</h4>
         <p>Telefone: {{offer.seller.logistics.phone}}</p>
         <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
-        <h3>Endereço</h3>
+        <h4>Endereço</h4>
         <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
       </div>
       <!-- end Seller info -->
@@ -21,12 +25,12 @@
       <!-- Buyer info -->
       <div class="col-12 col-md-6 mt-3">
         <h2 class="mb-4">Dados do comprador</h2>
-        <h3>Nome</h3>
+        <h4>Nome</h4>
         <p class="mb-4">{{buyer.fullName}}</p>
-        <h3>Contato</h3>
+        <h4>Contato</h4>
         <p>Telefone: {{buyer.phone}}</p>
         <p class="mb-4">E-mail: {{buyer.email}}</p>
-        <h3>Endereço</h3>
+        <h4>Endereço</h4>
         <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
       </div>
       <!-- end Buyer info -->
@@ -34,24 +38,24 @@
       <!-- Seller info -->
       <div class="col-12 col-md-6 mt-3">
         <h2 class="mb-4">Dados do vendedor</h2>
-        <h3>Empresa</h3>
+        <h4>Empresa</h4>
         <p class="mb-4">{{offer.seller.fantasyName}}</p>
-        <h3>Contato</h3>
+        <h4>Contato</h4>
         <p>Telefone: {{offer.seller.logistics.phone}}</p>
         <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
-        <h3>Endereço</h3>
+        <h4>Endereço</h4>
         <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
       </div>
       <!-- end Seller info -->
       <!-- Buyer info -->
       <div class="col-12 col-md-6 mt-3 ">
         <h2 class="mb-4">Dados do comprador</h2>
-        <h3>Nome</h3>
+        <h4>Nome</h4>
         <p class="mb-4">{{buyer.fullName}}</p>
-        <h3>Contato</h3>
+        <h4>Contato</h4>
         <p>Telefone: {{buyer.phone}}</p>
         <p class="mb-4">E-mail: {{buyer.email}}</p>
-        <h3>Endereço</h3>
+        <h4>Endereço</h4>
         <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
       </div>
       <!-- end Buyer info -->
@@ -59,10 +63,7 @@
 
       <!-- Transaction info -->
       <div class="col-6 ml-1 mb-3 mt-3 mx-sm-auto">
-          <h2 class="my-0 py-0">{{offer.product.name}}</h2>
-          <i class="text-muted">Produto {{offer.product.generic}}</i>
-
-          <h4 class="mt-3">Entrega</h4>
+          <h4>Entrega</h4>
           <p>{{offer.delivery}}</p>
 
           <h4>Quantidade comprada</h4>
@@ -70,18 +71,17 @@
 
           <h4>Preço total</h4>
           <p data-usd={{offer.usd}}>R$ {{priceBought}}</p>
-
       </div>
       <!-- end Transaction info -->
 
 
 
     <div class="col-6 pb-2 mb-2 mt-2">
-      <h2>Descrição</h2>
+      <h4>Descrição</h4>
       <p>{{offer.product.description}}</p>
 
       {{#ifCond userType 'Administrador'}}
-      <h3 class="mt-5">Alterar status</h3>
+      <h4 class="mt-5">Alterar status da taxa</h4>
       <div class="dropdown pb-4">
         <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
         {{#ifCond taxStatus 'Aguardando boleto'}}
@@ -102,31 +102,31 @@
         {{/ifCond}}
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-        <form  method= "POST" action="/admin/{{id}}/updateTransaction">
+        <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
           <a class="dropdown-item" href="#">
-            <button type="submit" align="center" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
+            <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
               Aguardando boleto
             </button>
           </a>
         </form>
-        <form method= "POST" action="/admin/{{id}}/updateTransaction">
+        <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
           <a class="dropdown-item " href="#">
-            <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
+            <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
               Aguardando pagamento
             </button>
           </a>
         </form>
-        <form method= "POST" action="/admin/{{id}}/updateTransaction">
+        <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
           <a class="dropdown-item" href="#">
-            <button type="submit" class="btn btn-outline-success col-12" name="status" value="Pagamento confirmado">
+            <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
               Pagamento confirmado
             </button>
           </a>
         </form>
 
-        <form method= "POST" action="/admin/{{id}}/updateTransaction">
+        <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
           <a class="dropdown-item" href="#">
-            <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
+            <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
               Cancelado
             </button>
           </a>
@@ -138,6 +138,12 @@
 
     <div class="mx-auto col-10 col-md-5 pb-2 mb-2 mt-4">
     {{#ifCond userType 'Franqueado'}}
+    {{#ifCond status 'Cotado'}}
+      <form action="/transaction/{{id}}?_method=PUT" method="POST">
+        <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Confirmar compra</button>
+      </form>
+    {{/ifCond}}
+
     <div class="text-center my-3 justify-content-center">
       <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
         <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
@@ -154,6 +160,12 @@
       </form>
     </div>
     {{else ifCond userType 'Revendedor'}}
+    {{#ifCond status 'Cotado'}}
+      <form action="/transaction/{{id}}?_method=PUT" method="POST">
+        <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Confirmar compra</button>
+      </form>
+    {{/ifCond}}
+
     <div class="text-center my-3 justify-content-center">
       <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
         <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
@@ -162,6 +174,12 @@
       </form>
     </div>
     {{else ifCond userType 'Produtor'}}
+    {{#ifCond status 'Cotado'}}
+      <form action="/transaction/{{id}}?_method=PUT" method="POST">
+        <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Confirmar compra</button>
+      </form>
+    {{/ifCond}}
+
     <div class="text-center my-3 justify-content-center">
       <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
         <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
@@ -172,16 +190,6 @@
     {{/ifCond}}
     <!-- end Product Description -->
   </div>
-</div>
-{{#ifCond status 'Cotado'}}
-  <form action="/transaction/{{id}}?_method=PUT" method="POST">
-    <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Confirmar compra</button>
-  </form>
-{{/ifCond}}
-
-<div class="text-center my-3">
-  <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete"></form>
-  <a class="text-dark" onclick="document.getElementById('form-delete').submit();" href="" >Cancelar compra</a>
 </div>
 
 {{#section 'scripts'}}

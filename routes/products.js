@@ -104,6 +104,7 @@ router.put('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Produto editado com sucesso.');
   res.redirect(`/admin/products`);
 });
 
@@ -115,7 +116,8 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/admin');
+  req.flash('success', 'Produto removido.');
+  res.redirect('/admin/products');
 });
 
 module.exports = router;

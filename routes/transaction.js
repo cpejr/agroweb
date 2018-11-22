@@ -384,6 +384,7 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Compra cancelada com sucesso.');
   res.redirect('/transaction');
 });
 

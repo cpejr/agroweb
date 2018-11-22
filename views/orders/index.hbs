@@ -7,15 +7,16 @@
 
 <div class="p-3">
 <!-- OrdersList-->
-<div class="row justify-content-center">
+<div class="row justify-content-center mt-2 mx-0">
+<div class="col-sm-12 col-md-5 col-lg-5 btn p-3">
   {{#if transactions}}
   {{#ifCond userType 'Franqueado'}}
   {{#each transactions}}
+  <div class="p-1">
   {{#ifCond status 'Cancelado'}}
   {{else ifCond status 'Cotado'}}
   {{else}}
-  <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
-    <div class="my-1 bg-light2 card1">
+  <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
       <div class="text-right p-2">
         {{#ifCond taxStatus 'Aguardando pagamento'}}
         <div class="pagination float-right">
@@ -63,9 +64,9 @@
                 <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{offer.usd}}>
                   R$ {{priceBought}}
                 </h4>
-
               </div>
             </div>
+            
             <div class="row align-rightS">
               <div class="smaller-font d-flex text-center mt-3 align-bottom">
                 <div class="ml-4  text-gray3">
@@ -116,18 +117,18 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
 {{/ifCond}}
+</div>
 {{/each}}
 
 {{else ifCond userType 'Produtor'}}
 {{#each transactions}}
+<div class="p-1">
 {{#ifCond status 'Cancelado'}}
 {{else ifCond status 'Cotado'}}
 {{else}}
-<div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
-  <div class="my-1 bg-light2 card1">
+<div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
     <div class="text-right p-2">
       {{#ifCond taxStatus 'Aguardando pagamento'}}
       <div class="pagination float-right">
@@ -229,17 +230,17 @@
     </div>
   </div>
 </div>
-</div>
 {{/ifCond}}
+</div>
 {{/each}}
 
 {{else}}
 {{#each transactions}}
+<div class="p-1">
 {{#ifCond status 'Cancelado'}}
 {{else ifCond status 'Cotado'}}
 {{else}}
-<div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
-  <div class="my-1 bg-light2 card1">
+<div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
     <div class="text-right p-2">
       {{#ifCond taxStatus 'Aguardando pagamento'}}
       <div class="pagination float-right">
@@ -272,7 +273,7 @@
           <div class="vl">
             <div class="mb-2 ml-2">
               <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
-                {{offer.product.name}}H
+                {{offer.product.name}}
               </h5>
             </div>
 
@@ -333,8 +334,8 @@
     </div>
   </div>
 </div>
-</div>
 {{/ifCond}}
+</div>
 {{/each}}
 {{/ifCond}}
 
@@ -343,6 +344,7 @@
   <p class="text-center font-light">Você não realizou nenhum compra ainda.</p>
 </div>
 {{/if}}
+</div>
 </div>
 </div>
 <!-- end OrdersList -->

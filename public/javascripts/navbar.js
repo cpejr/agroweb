@@ -21,4 +21,11 @@ $(document).on('click', () => {
   $('nav .form-control').addClass('d-none');
   $('#menu').removeClass('d-none');
   $('#menu').addClass('d-inline');
+  $('.btn-ok').on('click', () => {
+      $(this).parent().addClass('d-none');
+  });
 });
+
+let removeParent = (element) => {
+  $(element).parent().parent().addClass('d-none');
+}

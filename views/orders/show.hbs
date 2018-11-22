@@ -140,7 +140,7 @@
     {{#ifCond userType 'Franqueado'}}
     {{#ifCond status 'Cotado'}}
     <div class="text-center my-3 justify-content-center">
-      <form action="/user/buy/{{id}}" method="POST">
+      <form action="/transaction/{{id}}?_method=PUT" method="POST">
         <button class="btn btn-outline-success col-12" type="submit" name="button">Confirmar compra</button>
       </form>
     </div>
@@ -165,7 +165,7 @@
     {{else ifCond userType 'Revendedor'}}
     {{#ifCond status 'Cotado'}}
     <div class="text-center my-3 justify-content-center">
-      <form action="/user/buy/{{id}}" method="POST">
+      <form action="/transaction/{{id}}?_method=PUT" method="POST">
         <button class="btn btn-outline-success col-12" type="submit" name="button">Confirmar compra</button>
       </form>
     </div>
@@ -181,7 +181,7 @@
     {{else ifCond userType 'Produtor'}}
     {{#ifCond status 'Cotado'}}
     <div class="text-center my-3 justify-content-center">
-      <form action="/user/buy/{{id}}" method="POST">
+      <form action="/transaction/{{id}}?_method=PUT" method="POST">
         <button class="btn btn-outline-success col-12" type="submit" name="button">Confirmar compra</button>
       </form>
     </div>

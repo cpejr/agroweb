@@ -325,7 +325,8 @@ router.put('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect(`/transaction/${req.params.id}`);
+  req.flash('success', 'Compra realizada.');
+  res.redirect(`/user`);
 });
 
 /**

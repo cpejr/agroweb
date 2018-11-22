@@ -12,6 +12,7 @@
   {{#ifCond userType 'Franqueado'}}
   {{#each transactions}}
   {{#ifCond status 'Cancelado'}}
+  {{else ifCond status 'Cotado'}}
   {{else}}
   <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
     <div class="my-1 bg-light2 card1">
@@ -122,6 +123,7 @@
 {{else ifCond userType 'Produtor'}}
 {{#each transactions}}
 {{#ifCond status 'Cancelado'}}
+{{else ifCond status 'Cotado'}}
 {{else}}
 <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
   <div class="my-1 bg-light2 card1">
@@ -232,6 +234,7 @@
 {{else}}
 {{#each transactions}}
 {{#ifCond status 'Cancelado'}}
+{{else ifCond status 'Cotado'}}
 {{else}}
 <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" onclick="location.href = '/transaction/{{_id}}'">
   <div class="my-1 bg-light2 card1">

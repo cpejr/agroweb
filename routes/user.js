@@ -212,7 +212,7 @@ router.post('/buy', auth.isAuthenticated, (req, res) => {
       });
     })
     req.flash('success', 'Compra realizada.');
-    res.redirect('/user/orders');
+    res.redirect('/user');
   });
 });
 
@@ -345,6 +345,7 @@ router.delete('/:id', (req, res) => {
  */
 router.post('/cancel', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
+  const userType = req.session.userType;
   User.removeClient(req.body.franchiseeID, userId).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -353,7 +354,7 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  req.flash('success', 'Franqueado cancelado.');
+  req.flash('success', 'Franqueamento cancelado.');
   res.redirect('/user/agreementList');
 });
 
@@ -379,6 +380,7 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
        console.log(error);
        res.redirect('/error');
      });
+     req.flash('success', 'Troca de franqueado realizada.');
      res.redirect('/user/agreementList');
    });
  });

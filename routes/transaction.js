@@ -384,8 +384,8 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  req.flash('success', 'Compra cancelada com sucesso.');
-  res.redirect('/transaction');
+  req.flash('success', 'Compra cancelada.');
+  res.redirect('/user/orders');
 });
 
 router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {

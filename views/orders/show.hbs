@@ -149,10 +149,11 @@
     <div class="text-center my-3 justify-content-center">
       <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
         <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
-          Cancelar cotação
+          Cancelar compra
         </button>
       </form>
     </div>
+
     {{else ifCond userType 'Indústria'}}
     <div class="text-center my-3 justify-content-center">
       <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">

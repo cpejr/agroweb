@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const offerSchema = new mongoose.Schema({
   stock: Number,
-  balance: Number,
+  balance: {
+    type: Number,
+    default: 0
+  },
   unitPrice: Number,
   price: {
     low: Number,

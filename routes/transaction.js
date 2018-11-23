@@ -347,7 +347,8 @@ router.put('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect(`/transaction/${req.params.id}`);
+  req.flash('success', 'Compra realizada.');
+  res.redirect(`/user`);
 });
 
 /**
@@ -422,6 +423,8 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Compra cancelada.');
+  res.redirect(`transaction/${transaction}`);
 });
 
 router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {

@@ -114,6 +114,7 @@ router.post('/', (req, res) => {
           console.log(error);
           res.redirect('/error');
         });
+        req.flash('success', 'Oferta criada com sucesso.');
         res.redirect(`/offers/${offerId}`);
       }).catch((error) => {
         console.log(error);
@@ -160,10 +161,11 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
  * GET Edit - Show the offer edit form
  */
 router.get('/:id/edit', auth.canSell, (req, res) => {
+  const {userType} = req.session;
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);
-      res.render('offers/edit', { title: `Editar ${offer.product.name}`, id: req.params.id, ...offer });
+      res.render('offers/edit', { title: `Editar ${offer.product.name}`, id: req.params.id, userType, ...offer });
     }
     else {
       console.log('Offer not found!');
@@ -257,6 +259,7 @@ router.put('/:id', (req, res) => {
       console.log(error);
       res.redirect('/error');
     });
+    req.flash('success', 'Oferta editada com sucesso.');
     res.redirect(`/offers/${req.params.id}`);
   }).catch((error) => {
     console.log(error);
@@ -272,6 +275,7 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Oferta deletada.');
   res.redirect('/offers');
 });
 

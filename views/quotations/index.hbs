@@ -6,12 +6,13 @@
 </div>
 
 <div class="p-3">
-<div class="row justify-content-center">
+<div class="row justify-content-center mt-2 mx-0">
+  <div class="col-sm-12 col-md-5 col-lg-5 btn p-3">
   {{#if quotations}}
   {{#ifCond userType 'Franqueado'}}
   {{#each quotations}}
-  <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" >
-    <div class="my-1 bg-light2 card1"  onclick="location.href = '/transaction/{{_id}}'">
+  <div class="p-1">
+    <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/transaction/{{_id}}'">
       <div class="text-right p-2">
         <div class="row">
           <div class="col-3 d-inline-block text-center align-self-center">
@@ -44,11 +45,8 @@
               <div class="ml-2 mt-3">
                 <div class="text-left side-animation">
                   <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{offer.usd}}>
-                    R$ {{unitPrice}}
+                    R$ {{priceBought}}
                   </h4>
-                  <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                    / {{offer.product.unit}}
-                  </i>
                 </div>
               </div>
               <div class="row align-rightS">
@@ -76,13 +74,16 @@
                   </div>
                   <div class="ml-4 text-gray3">
                     <p class="text-uppercase font-book mobile-font2 mb-0" >
-                      Custo total
+                      Custo por unidade
                       {{#ifCond offer.usd false}}
-                      <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{priceBought}}</span>
+                      <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{unitPrice}}</span>
                       {{/ifCond}}
                       </p>
                       {{#ifCond offer.usd true}}
-                      <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{priceBought}}</span>
+                      <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
+                      <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                        / {{offer.product.unit}}
+                      </i>
                       {{/ifCond}}
                   </div>
                 </div>
@@ -103,8 +104,8 @@
   {{/each}}
   {{else ifCond userType 'Produtor'}}
   {{#each quotations}}
-  <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" >
-    <div class="my-1 bg-light2 card1"  onclick="location.href = '/transaction/{{_id}}'">
+  <div class="p-1">
+    <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/transaction/{{_id}}'">
       <div class="text-right p-2">
         <div class="row">
           <div class="col-3 d-inline-block text-center align-self-center">
@@ -137,11 +138,8 @@
               <div class="ml-2 mt-3">
                 <div class="text-left side-animation">
                   <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{offer.usd}}>
-                    R$ {{unitPrice}}
+                    R$ {{priceBought}}
                   </h4>
-                  <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                    / {{offer.product.unit}}
-                  </i>
                 </div>
               </div>
               <div class="row align-rightS">
@@ -169,13 +167,16 @@
                   </div>
                   <div class="ml-4 text-gray3">
                     <p class="text-uppercase font-book mobile-font2 mb-0" >
-                      Custo total
+                      Custo por unidade
                       {{#ifCond offer.usd false}}
-                      <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{priceBought}}</span>
+                      <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{unitPrice}}</span>
                       {{/ifCond}}
                       </p>
                       {{#ifCond offer.usd true}}
-                      <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{priceBought}}</span>
+                      <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
+                      <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                        / {{offer.product.unit}}
+                      </i>
                       {{/ifCond}}
                   </div>
                 </div>
@@ -196,8 +197,8 @@
   {{/each}}
   {{else}}
   {{#each quotations}}
-  <div class="col-sm-12 col-md-5 col-lg-5 btn card m-3" >
-    <div class="my-1 bg-light2 card1"  onclick="location.href = '/transaction/{{_id}}'">
+  <div class="p-1">
+    <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/transaction/{{_id}}'">
       <div class="text-right p-2">
         <div class="row">
           <div class="col-3 d-inline-block text-center align-self-center">
@@ -230,11 +231,8 @@
               <div class="ml-2 mt-3">
                 <div class="text-left side-animation">
                   <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{offer.usd}}>
-                    R$ {{unitPrice}}
+                    R$ {{priceBought}}
                   </h4>
-                  <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                    / {{offer.product.unit}}
-                  </i>
                 </div>
               </div>
               <div class="row align-rightS">
@@ -262,13 +260,16 @@
                   </div>
                   <div class="ml-4 text-gray3">
                     <p class="text-uppercase font-book mobile-font2 mb-0" >
-                      Custo total
+                      Custo por unidade
                       {{#ifCond offer.usd false}}
-                      <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{priceBought}}</span>
+                      <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{unitPrice}}</span>
                       {{/ifCond}}
                       </p>
                       {{#ifCond offer.usd true}}
-                      <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{priceBought}}</span>
+                      <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
+                      <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                        / {{offer.product.unit}}
+                      </i>
                       {{/ifCond}}
                   </div>
                 </div>
@@ -288,15 +289,7 @@
   {{/if}}
 
 </div>
-
-{{#if quotations}}
-{{#ifCond userType 'Franqueado'}}
-{{else}}
-<form action="/user/buy" method="POST">
-  <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-green mx-auto d-block my-2" type="submit" name="button">Comprar</button>
-</form>
-{{/ifCond}}
-{{/if}}
+</div>
 </div>
 <!-- end QuotationsList -->
 

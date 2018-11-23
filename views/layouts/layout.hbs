@@ -79,12 +79,15 @@
         </button>
       </row>
 
+      {{#ifCond userType 'Indústria'}}
+      {{else}}
       <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
         <row>
          <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
          <label for="searchbar-icon" class="fas fa-search input-icon"></label>
        </row>
-       </form>
+      </form>
+      {{/ifCond}}
 
         <!-- <form id="navbar-form" action="../search" method="get" class="float-right my-2 my-lg-0 my-sm-0">
           <row>
@@ -100,8 +103,10 @@
 
       </nav>
     </div>
-
     <!-- end Header and NavBar -->
+    <div class="agro-alert col-12 col-lg-4 col-md-6">
+    {{> messages}}
+    </div>
 
     {{{ body }}}
 

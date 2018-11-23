@@ -65,13 +65,14 @@ router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) =>
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Oferta deletada.');
   res.redirect('/admin/offers');
 });
 
 /* GET Transaction - Show all pending tickets */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAll().then((transactions) => {
-    res.render('admin/transaction', { title: 'Administrador', layout: 'layout', transactions });
+    res.render('admin/transaction/index', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -115,14 +116,30 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
 });
 
 router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  console.log(req.body.taxStatus);
   const transaction = {
     taxStatus: req.body.taxStatus
   };
+  console.log(transaction);
   Transaction.update(req.params.id, transaction).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
+  switch(transaction.taxStatus) {
+  case 'Aguardando aprovação':
+      req.flash('success', 'Status da taxa de transação atualizado para: Aguardando aprovação.');
+      break;
+  case 'Aguardando pagamento':
+      req.flash('success', 'Status da taxa de transação atualizado para: Aguardando pagamento.');
+      break;
+  case 'Pagamento confirmado':
+      req.flash('success', 'Status da taxa de transação atualizado para: Pagamento confirmado.');
+      break;
+  case 'Cancelado':
+      req.flash('success', 'Status da taxa de transação atualizado para: Cancelado.');
+      break;
+  default:
+      req.flash('success', 'Status da taxa de transação atualizado.');
+    }
   res.redirect('/admin/transaction');
 });
 
@@ -134,6 +151,19 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
     console.log(error);
     res.redirect('/error');
   });
+  switch(user.status) {
+  case 'Ativo':
+      req.flash('success', 'Usuário ativado.');
+      break;
+  case 'Inativo':
+      req.flash('success', 'Usuário inativado.');
+      break;
+  case 'Bloqueado':
+      req.flash('success', 'Usuário bloqueado.');
+      break;
+  default:
+      req.flash('success', 'Usuário atualizado.');
+    }
   res.redirect('/admin/users');
   console.log(req.body.status);
 });
@@ -146,7 +176,16 @@ router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req,
     console.log(error);
     res.redirect('/error');
   });
-  console.log(req.body.status);
+  switch(user.status) {
+  case 'Ativo':
+      req.flash('success', 'Usuário ativado.');
+      break;
+  case 'Bloqueado':
+      req.flash('success', 'Usuário bloqueado.');
+      break;
+  default:
+      req.flash('warning', 'Usuário atualizado.');
+    }
   res.redirect('/admin/requisitions/users');
 });
 
@@ -158,6 +197,16 @@ router.post('/:id/requisitions/products', auth.isAuthenticated, auth.isAdmin, (r
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Produto aprovado e adicionado à plataforma.');
+  res.redirect('/admin/requisitions/products');
+});
+
+router.delete('/:id', (req, res) => {
+  Product.delete(req.params.id).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  req.flash('success', 'Produto recusado.');
   res.redirect('/admin/requisitions/products');
 });
 

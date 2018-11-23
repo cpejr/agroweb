@@ -211,9 +211,52 @@ router.post('/buy', auth.isAuthenticated, (req, res) => {
         res.redirect('/error');
       });
     })
-    res.redirect('/user/orders');
+    req.flash('success', 'Compra realizada.');
+    res.redirect('/user');
   });
 });
+
+/**
+ * POST buy - Buy one products from myCart
+ */
+// router.post('/buy/:id', auth.isAuthenticated, (req, res) => {
+//   const userId = req.session._id;
+//   const transaction = {
+//     status: 'Aguardando boleto'
+//   };
+//   User.getById(req.params.id).then((quotation) => {
+//       User.addTransaction(userId, quotation._id).catch((error) => {
+//         console.log(error);
+//         res.redirect('/error');
+//       });
+//       Email.buyEmail(quotation).catch((error) => {
+//         console.log(error);
+//         res.redirect('/error');
+//       });
+//       User.addTransaction(quotation.offer.seller._id, quotation._id).catch((error) => {
+//         console.log(error);
+//         res.redirect('/error');
+//       });
+//       Email.sellEmail(quotation).catch((error) => {
+//         console.log(error);
+//         res.redirect('/error');
+//       });
+//       Email.adminNewTransactionEmail(quotation).catch((error) => {
+//         console.log(error);
+//         res.redirect('/error');
+//       });
+//       User.removeFromMyCart(userId, quotation._id).catch((error) => {
+//         console.log(error);
+//         res.redirect('/error');
+//       });
+//       Transaction.update(quotation._id, transaction).catch((error) => {
+//         console.log(error);
+//         res.redirect('/error');
+//       });
+//     })
+//     req.flash('success', 'Compra realizada.');
+//     res.redirect('/user/orders');
+// });
 
 /**
  * PUT Update - Update a user in the database
@@ -229,7 +272,8 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/user/edit');
+  req.flash('success', 'Perfil atualizado.');
+  res.redirect('/user');
 });
 
 /*
@@ -290,7 +334,7 @@ router.delete('/:id', (req, res) => {
          console.log(error);
          res.redirect('/error');
        });
-       console.log(req.body);
+       req.flash('success', 'Franqueado contratado.');
        res.redirect('/user/agreementList');
      }
    });
@@ -301,6 +345,7 @@ router.delete('/:id', (req, res) => {
  */
 router.post('/cancel', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
+  const userType = req.session.userType;
   User.removeClient(req.body.franchiseeID, userId).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -309,6 +354,7 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Franqueamento cancelado.');
   res.redirect('/user/agreementList');
 });
 
@@ -334,6 +380,7 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
        console.log(error);
        res.redirect('/error');
      });
+     req.flash('success', 'Troca de franqueado realizada.');
      res.redirect('/user/agreementList');
    });
  });

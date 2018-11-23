@@ -21,23 +21,33 @@ router.get('/', (req, res) => {
  * GET New - Show form to create new product
  */
 router.get('/new', (req, res) => {
-  Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
-    res.render('products/new', { title: 'Novo Produto', chems });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
+  res.render('products/new', { title: 'Novo Produto' });
 });
 
 /**
  * POST Create - Add new product to DB
  */
 router.post('/', (req, res) => {
-  console.log(req.body);
   const { product } = req.body;
-  Product.create(product).then((id) => {
-    console.log(`Created new product with id: ${id}`);
-    res.redirect(`/products/${id}`);
+  const promises = [];
+  const chemsIDs = [];
+  req.body.chem.forEach((chemName) => {
+    const regex = new RegExp(chemName, 'i');
+    const promise = Chem.getOneByQuery({ name: regex });
+    promises.push(promise);
+  });
+  Promise.all(promises).then((chems) => {
+    chems.forEach((chem) => {
+      chemsIDs.push(chem._id);
+    });
+    product.chems = chemsIDs;
+    Product.create(product).then((id) => {
+      console.log(`Created new product with id: ${id}`);
+      res.redirect(`/products/${id}`);
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -65,25 +75,25 @@ router.get('/:id', (req, res) => {
 /**
  * GET Edit - Show the product edit form
  */
- router.get('/:id/edit', auth.canSell, (req, res) => {
-   Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
-     Product.getById(req.params.id).then((product) => {
-       if (product) {
-         res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product, chems });
-       }
-       else {
-         console.log('Product not found!');
-         res.redirect('/user');
-       }
-     }).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-   }).catch((error) => {
-     console.log(error);
-     res.redirect('/error');
-   });
- });
+router.get('/:id/edit', auth.canSell, (req, res) => {
+  Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
+    Product.getById(req.params.id).then((product) => {
+      if (product) {
+        res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product, chems });
+      }
+      else {
+        console.log('Product not found!');
+        res.redirect('/user');
+      }
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
 
 /**
  * PUT Update - Update a product in the database

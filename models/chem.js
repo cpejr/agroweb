@@ -4,11 +4,7 @@ const chemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
-  },
-  groups: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Group'
-  }]
+  }
 }, { timestamps: true, strict: false });
 
 const ChemModel = mongoose.model('Chem', chemSchema);
@@ -20,16 +16,7 @@ class Chem {
    */
   static getAll() {
     return new Promise((resolve, reject) => {
-      ChemModel.find({}).populate({
-        path: 'groups',
-        populate: {
-          path: 'users offer',
-          populate: {
-            path: 'seller product',
-            populate: { path: 'chem' }
-          }
-        }
-      }).exec().then((results) => {
+      ChemModel.find({}).populate().exec().then((results) => {
         resolve(results);
       }).catch((err) => {
         reject(err);
@@ -44,16 +31,7 @@ class Chem {
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
-      ChemModel.findById(id).populate({
-        path: 'groups',
-        populate: {
-          path: 'users offer',
-          populate: {
-            path: 'seller product',
-            populate: { path: 'chem' }
-          }
-        }
-      }).exec().then((result) => {
+      ChemModel.findById(id).populate().exec().then((result) => {
         resolve(result.toObject());
       }).catch((err) => {
         reject(err);
@@ -104,22 +82,6 @@ class Chem {
   }
 
   /**
-   * Add a group
-   * @param {string} id - Chem Id
-   * @param {Object} group - Group Id
-   * @returns {null}
-   */
-  static addGroup(id, group) {
-    return new Promise((resolve, reject) => {
-      ChemModel.findByIdAndUpdate(id, { $push: { groups: group } }).then(() => {
-        resolve();
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
    * Get all Chems that match the desired query
    * @param {Object} query - Object that defines the filter
    * @param {Object} sort - Object that defines the sort method
@@ -127,16 +89,22 @@ class Chem {
    */
   static getByQuerySorted(query, sort) {
     return new Promise((resolve, reject) => {
-      ChemModel.find(query).sort(sort).populate({
-        path: 'groups',
-        populate: {
-          path: 'users offer',
-          populate: {
-            path: 'seller product',
-            populate: { path: 'chem' }
-          }
-        }
-      }).exec().then((results) => {
+      ChemModel.find(query).sort(sort).populate().exec().then((results) => {
+        resolve(results);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get a Chem that match the desired query
+   * @param {Object} query - Object that defines the filter
+   * @returns {Object} Chem Document Data
+   */
+  static getOneByQuery(query) {
+    return new Promise((resolve, reject) => {
+      ChemModel.findOne(query).exec().then((results) => {
         resolve(results);
       }).catch((err) => {
         reject(err);

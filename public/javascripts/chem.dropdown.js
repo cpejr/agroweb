@@ -1,12 +1,10 @@
 $(document).ready(() => {
   $('#add-chem').on('click', () => {
-    console.log('chaia gostoso');
-
     const nameChem = $('input[name=chem-selected]').val();
     console.log(nameChem);
     const badgeHtml = `<span class="badge badge-dark chem-badge" onclick="removeMe(this)">
                         ${ nameChem  }
-                        <input type="hidden" name="product[chem][]" value="${ nameChem }">
+                        <input type="hidden" name="chem[]" value="${ nameChem }">
                       </span>`;
     $('#select-chem').append(badgeHtml);
   });

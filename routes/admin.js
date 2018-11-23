@@ -72,7 +72,7 @@ router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) =>
 /* GET Transaction - Show all pending tickets */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAll().then((transactions) => {
-    res.render('admin/transaction', { title: 'Administrador', layout: 'layout', transactions });
+    res.render('admin/transaction/index', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

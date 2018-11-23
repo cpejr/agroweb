@@ -7,16 +7,19 @@
 {{#ifCond userType 'Administrador'}}
 
 <div class="container">
+  <div class="col-12 mb-5 text-center">
+    <i class="text-muted">Produto {{generic}}</i>
+    <h2 class="my-0 py-0 mb-4">{{name}}</h2>
+  </div>
+
   <div class="row justify-content-center mx-sm-auto mx-md-9">
-    <div class="col-12 col-md-6 mb-5">
-      <i class="text-muted">Produto {{generic}}</i>
-      <h2 class="my-0 py-0 mb-4">{{name}}</h2>
+    <div class="col-12 col-md-4 mb-5">
       <h4>Descrição</h4>
       <p>{{description}}</p>
     </div>
 
     <!-- Product Characteristics -->
-    <div class="col-12 col-md-6 mb-5">
+    <div class="col-12 col-md-4 mb-5">
       <h4>Características</h4>
       <div class="row">
         <div class="col-6">
@@ -38,7 +41,7 @@
     <!-- end Product Characteristics -->
 
     <!-- Payment Options -->
-    <div class="col-12 col-md-6 mb-5">
+    <div class="col-12 col-md-4 mb-5">
       <h4>Formas de pagamento</h4>
       <div class="">
         <i class="fas fa-barcode fa-4x mr-2"></i>
@@ -69,24 +72,27 @@
 </div>
 
 {{else}}
-{{#ifCond status 'Aprovado'}}
-{{else ifCond status 'Aguardando'}}
 <div class="container">
-  <p class="text-center font-light">A requisição para adicionar esse produto à plataforma foi enviada para o administrador. Aguarde até que ele possa analisá-la.</p>
-</div>
-{{/ifCond}}
+  <div class="col-12 mb-5 text-center">
+    <i class="text-muted">Produto {{generic}}</i>
+    <h2 class="my-0 py-0 mb-4">{{name}}</h2>
+  </div>
 
-<div class="container">
+  {{#ifCond status 'Aprovado'}}
+  {{else ifCond status 'Aguardando'}}
+  <div class="mb-5">
+    <p class="text-center font-light">A requisição para adicionar esse produto à plataforma foi enviada para o administrador. Aguarde até que ele possa analisá-la.</p>
+  </div>
+  {{/ifCond}}
+
   <div class="row justify-content-center mx-sm-auto mx-md-9">
-    <div class="col-12 col-md-6 mb-5">
-      <i class="text-muted">Produto {{generic}}</i>
-      <h2 class="my-0 py-0 mb-4">{{name}}</h2>
+    <div class="col-12 col-md-4 mb-5">
       <h4>Descrição</h4>
       <p>{{description}}</p>
     </div>
 
     <!-- Product Characteristics -->
-    <div class="col-12 col-md-6 mb-5">
+    <div class="col-12 col-md-4 mb-5">
       <h4>Características</h4>
       <div class="row">
         <div class="col-6">
@@ -108,7 +114,7 @@
     <!-- end Product Characteristics -->
 
     <!-- Payment Options -->
-    <div class="col-12 col-md-6 mb-5">
+    <div class="col-12 col-md-4 mb-5">
       <h4>Formas de pagamento</h4>
       <div class="">
         <i class="fas fa-barcode fa-4x mr-2"></i>

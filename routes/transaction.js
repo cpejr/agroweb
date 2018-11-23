@@ -62,7 +62,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
         console.log(transactionData);
         // Create a new transaction
         Transaction.create(transactionData).then((transaction) => {
-          const balanceOffer = offer.balance - transactionData.amountBought;
+          const balanceOffer = offer.balance + transactionData.amountBought;
           const offerData = {
             balance: balanceOffer
           };
@@ -75,6 +75,12 @@ router.post('/', auth.isAuthenticated, (req, res) => {
             console.log(error);
             res.redirect('/error');
           });
+          if (transactionData.franchisee) {
+            User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+          }
           res.redirect(`transaction/${transaction}`);
         }).catch((error) => {
           console.log(error);
@@ -119,6 +125,12 @@ router.post('/', auth.isAuthenticated, (req, res) => {
               console.log(error);
               res.redirect('/error');
             });
+            if (transactionData.franchisee) {
+              User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
+                console.log(error);
+                res.redirect('/error');
+              });
+            }
             Group.addTransaction(group._id, transaction).catch((error) => {
               console.log(error);
               res.redirect('/error');
@@ -199,6 +211,16 @@ router.put('/:id', (req, res) => {
             console.log(error);
             res.redirect('/error');
           });
+          if (transaction.franchisee) {
+            User.removeFromMyCart(transaction.franchisee._id, req.params.id).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+            User.addTransaction(transaction.franchisee._id, req.params.id).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+          }
           Email.buyEmail(transaction).catch((error) => {
             console.log(error);
             res.redirect('/error');
@@ -333,12 +355,23 @@ router.put('/:id', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
   const userId = req.session._id;
+  const offerData = {};
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction.status === 'Cotado') {
       User.removeFromMyCart(userId, req.params.id).catch((error) => {
         console.log(error);
         res.redirect('/error');
       });
+      if (transaction.franchisee) {
+        User.removeFromMyCart(transaction.franchisee._id, req.params.id).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+      }
+      offerData.balance = transaction.offer.balance - transaction.amountBought;
+    }
+    else {
+      offerData.stock = transaction.offer.stock + transaction.amountBought;
     }
     if (transaction.group) {
       const groupData = {};
@@ -351,7 +384,7 @@ router.delete('/:id', (req, res) => {
           console.log(error);
           res.redirect('/error');
         });
-        groupData.amount = group.balance - transaction.amountBought;
+        groupData.amount = group.amount - transaction.amountBought;
         if (groupData.amount < group.offer.breakpoints.average) {
           groupData.unitPrice = group.offer.price.high;
         }
@@ -375,8 +408,13 @@ router.delete('/:id', (req, res) => {
         res.redirect('/error');
       });
     }
-    transaction.status = 'Cancelado';
-    Transaction.update(req.params.id, transaction).catch((error) => {
+    Offer.update(transaction.offer._id, offerData).then(() => {
+      Transaction.delete(req.params.id).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+      res.redirect('/transaction');
+    }).catch((error) => {
       console.log(error);
       res.redirect('/error');
     });
@@ -384,7 +422,6 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/transaction');
 });
 
 router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {

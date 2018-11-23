@@ -1,6 +1,7 @@
 const request = require('request-promise');
 const Group = require('../models/group');
 const Offer = require('../models/offer');
+const fs = require('fs');
 
 class Money {
   /**
@@ -9,19 +10,13 @@ class Money {
    */
   static getUsdValue() {
     return new Promise((resolve, reject) => {
-      request({
-        method: 'GET',
-        url: 'https://economia.awesomeapi.com.br/json/USD-BRL/1',
-        json: true,
-        resolveWithFullResponse: true
-      }).then((response) => {
-        if (response.err) {
-          console.log(response.err);
-          resolve(response.err);
+      fs.readFile('./docs/dollar.json', (err, data) => {
+        if (err) {
+          reject(err);
         }
-        resolve(response.body[0].ask);
-      }).catch((err) => {
-        reject(err);
+        const dataJSON = JSON.parse(data);
+        console.log(dataJSON);
+        resolve(dataJSON.ask);
       });
     });
   }
@@ -81,6 +76,33 @@ class Money {
       });
     }).catch((error) => {
       console.log(error);
+    });
+  }
+
+  /**
+   * Get the dollar quotation and create a JSON
+   * @returns {null}
+   */
+  static createDollarJSON() {
+    return new Promise((resolve, reject) => {
+      request({
+        method: 'GET',
+        url: 'https://economia.awesomeapi.com.br/json/USD-BRL/1',
+        json: true,
+        resolveWithFullResponse: true
+      }).then((response) => {
+        if (response.err) {
+          console.log(response.err);
+          reject(response.err);
+        }
+        fs.writeFile('./docs/dollar.json', JSON.stringify(response.body[0]), (err) => {
+          if (err) reject(err);
+          console.log('The dollar file has been saved!');
+          resolve();
+        });
+      }).catch((err) => {
+        reject(err);
+      });
     });
   }
 }

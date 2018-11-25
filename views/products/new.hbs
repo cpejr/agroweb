@@ -1,12 +1,15 @@
 {{#section 'stylesheets'}}
 {{/section}}
+
 <div class="pb-3 gradient-background text-white">
   <h3 class="text-center font-black">Novo Produto</h3>
 </div>
-<div class="pl-5 pr-5 pt-2">
+
+<div class="p-3">
 <form action="/products" method="POST">
   <div class="row d-flex justify-content-between">
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
+
+    <div class="col-md-4">
       <div class="user-input">
         <br/>
         <div class="input-group mb-2">
@@ -17,8 +20,8 @@
         <label class="floating-label text-dark2">Nome do Produto</label>
           </div>
       </div>
-    </div>
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
+
+      <div class="user-input">
       <br/>
       <label for="category" class="sr-only">Categoria</label>
       <div class="input-group mb-2">
@@ -34,7 +37,7 @@
        </select>
       </div>
     </div>
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
+
       <div class="user-input">
         <br/>
         <div class="input-group mb-2">
@@ -46,10 +49,9 @@
          </div>
       </div>
     </div>
-  </div>
 
-    <div class="row d-flex justify-content-between">
-      <div class="form-group col-md-3 col-10 mx-4 my-2">
+
+    <div class="col-md-4">
         <div class="user-input">
           <br/>
           <div class="input-group mb-2">
@@ -59,12 +61,9 @@
            <input name="product[manufacturer]" type="text" class="form-control input-text" required/>
            <label class="floating-label text-dark2">Fabricante</label>
           </div>
-           <input type="radio" name="product[generic]" value="Original"></input>
-          <label>Produto não genérico</label>
         </div>
-      </div>
 
-      <div class="form-group col-md-3 col-10 mx-4 my-2">
+      <div class="user-input">
         <br/>
         <div class="input-group mb-2">
          <div class="input-group-prepend">
@@ -76,15 +75,12 @@
            <option value="unidade">Unidade</option>
          </select>
         </div>
-      </div>
-      <div class="form-group col-md-3 col-10 mx-4  my-2">
-        <p hidden>Hidden paragraph for alignment purposes.</p>
+        <input type="radio" name="product[generic]" value="Original"></input>
+        <label>Produto não genérico</label>
       </div>
     </div>
 
-    <div class="row d-flex justify-content-between">
-      <div class="form-group col-md-4 mx-4 my-2">
-        <label for="activeIng" class="rounded bg-black"><i class="fas fa-flask fa-sm mr-2"></i>Princípio Ativo</label>
+    <div class="col-md-4">
         <div class="user-input">
           <br/>
           <div class="form-group mb-2">
@@ -97,16 +93,12 @@
           </div>
         </div>
 
-        <!-- <div class="row">
-          {{#each chems}}
-            <label class="d-block col-md-3 col-6"><input type="checkbox" name="product[chem][]" class="mr-1" value="{{_id}}" id="activeIng">{{name}}</label>
-          {{/each}}
-        </div> -->
-        <button class="btn btn-default bg-green text-light" id="add-chem" type="button">Adicionar</button>
+        <button class="btn btn-default bg-green text-light mx-auto px-5 mb-3 d-block" id="add-chem" type="button">Adicionar</button>
         <div class="" id="select-chem">
         </div>
       </div>
   </div>
+
   <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Enviar</button>
 </form>
 </div>

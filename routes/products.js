@@ -38,9 +38,9 @@ router.post('/', (req, res) => {
   });
   Promise.all(promises).then((chems) => {
     chems.forEach((chem) => {
-      chemsIDs.push(chem._id);
+      chemsIDs.push(chem);
     });
-    product.chems = chemsIDs;
+    product.chem = chemsIDs;
     Product.create(product).then((id) => {
       console.log(`Created new product with id: ${id}`);
       res.redirect(`/products/${id}`);

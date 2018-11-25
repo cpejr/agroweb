@@ -1,0 +1,24 @@
+{
+    "development": {
+        "config_id": "development",
+        "cropDate" : "12/11",
+        "smallCropDate" : "31/12",
+        "solidFertilizerTax" : "0.0025",
+        "liquidFertilizerTax" : "0.0075",
+        "defensiveTax" : "0.002",
+        "seedTax" : "0.005"
+    },
+    "testing": {
+        "config_id": "testing",
+        "database": "my-app-db-test"
+    },
+    "production": {
+        "config_id": "production",
+        "cropDate" : "12/11",
+        "smallCropDate" : "31/12",
+        "solidFertilizerTax" : "0.0025",
+        "liquidFertilizerTax" : "0.0075",
+        "defensiveTax" : "0.002",
+        "seedTax" : "0.005"
+    }
+}

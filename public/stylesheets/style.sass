@@ -549,16 +549,22 @@ a.more-link
 
 
 /* Responsive style changes */
+@media (max-width:375px)
+  .mobile-font0
+    font-size: .6em !important
 
 @media (max-width:769px)
   .mobile-font1
-    font-size: .7em
+    font-size: .7em 
 
   .mobile-font2
     font-size: .9em
 
   .mobile-font4
     font-size: 1.3em
+
+  .mobile-font6
+    font-size: 2.0em
 
   .mobile-color-font
     color: #232323
@@ -598,29 +604,29 @@ a.more-link
   .list-group-item .float-right
     color: #999
 
-@media (min-width:769px)
-  .btn-index
-    background: white
-    border: 1px solid $dark-color
-    box-shadow: 0 0 0 $dark-color
-    transition: all 0.2s
-    margin-top: 0px
-    margin-bottom: 0px
-    cursor: pointer
 
-  .btn-index:last-child
-    margin: 0
+.btn-index
+  background: white
+  border: 1px solid $dark-color
+  box-shadow: 0 0 0 $dark-color
+  transition: all 0.2s
+  margin-top: 0px
+  margin-bottom: 0px
+  cursor: pointer
 
-  .btn-index:hover
-    box-shadow: 0.4rem 0.4rem 0 $dark-color
-    transform: translate(-0.3rem, -0.3rem)
+.btn-index:last-child
+  margin: 0
 
-  .btn-index:active
-    box-shadow: 0 0 0 $dark-color
-    transform: translate(0, 0)
+.btn-index:hover
+  box-shadow: 0.4rem 0.4rem 0 $dark-color
+  transform: translate(-0.3rem, -0.3rem)
 
-  .desktop-font1
-    font-size: 10px
+.btn-index:active
+  box-shadow: 0 0 0 $dark-color
+  transform: translate(0, 0)
+
+.desktop-font1
+  font-size: 10px
 
 
 // Dropdown menu

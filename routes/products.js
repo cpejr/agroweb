@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     chems.forEach((chem) => {
       chemsIDs.push(chem._id);
     });
-    product.chem = chemsIDs;
+    product.chems = chemsIDs;
     Product.create(product).then((id) => {
       console.log(`Created new product with id: ${id}`);
       res.redirect(`/products/${id}`);

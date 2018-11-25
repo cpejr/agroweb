@@ -21,11 +21,18 @@ const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const schedule = require('node-schedule');
+const configJson = require('./docs/config.json');
 
 /**
  * Functions
  */
 const Money = require('./functions/money');
+
+/**
+ * Global Variables
+ */
+const globalConfig = configJson.development;
+global.gConfig = globalConfig;
 
 /**
  * Firebase Setup

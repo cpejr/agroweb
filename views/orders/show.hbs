@@ -139,16 +139,21 @@
     <div class="mx-auto col-10 col-md-5 pb-2 mb-2 mt-4">
       {{#ifNotEq userType 'Administrador'}}
         {{#ifNotEq userType 'Indústria'}}
+        {{#if franchisee}}
+        {{else}}
           {{#ifCond status 'Cotado'}}
             <form action="/transaction/{{id}}?_method=PUT" method="POST">
               <button class="btn btn-outline-success col-12" type="submit" name="button" type="submit" name="button">Confirmar compra</button>
             </form>
          {{/ifCond}}
+        {{/if}}
        {{/ifNotEq}}
       {{/ifNotEq}}
       {{#ifNotEq status 'Cancelado'}}
         {{#ifNotEq userType 'Administrador'}}
           {{#ifNotEq userType 'Indústria'}}
+          {{#if franchisee}}
+          {{else}}
             <div class="text-center my-3 justify-content-center">
               <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
                 <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
@@ -156,6 +161,7 @@
                 </button>
               </form>
             </div>
+          {{/if}}
           {{/ifNotEq}}
         {{/ifNotEq}}
       {{/ifNotEq}}

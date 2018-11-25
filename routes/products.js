@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
   });
   Promise.all(promises).then((chems) => {
     chems.forEach((chem) => {
-      chemsIDs.push(chem);
+      chemsIDs.push(chem._id);
     });
     product.chem = chemsIDs;
     Product.create(product).then((id) => {

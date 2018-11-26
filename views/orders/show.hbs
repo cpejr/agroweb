@@ -5,7 +5,7 @@
   <div class="justify-content-center mx-sm-auto">
     <div class="row">
       <div class="col-12 ml-1 mb-3 text-center justify-content-center">
-        <h2 class="my-0 py-0">{{offer.product.name}}</h2>
+        <h2 class="my-0 py-0">{{offer.product.name}} + {{id}}</h2>
         <i class="text-muted">Produto {{offer.product.generic}}</i>
       </div>
       {{#ifCond userType 'Produtor'}}
@@ -133,6 +133,170 @@
         </form>
       </div>
       </div>
+
+      {{else ifCond userType 'Indústria'}}
+      <h4 class="mt-5">Alterar status</h4>
+      <div class="dropdown pb-4">
+        <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+        {{#ifCond status 'Aguardando boleto'}}
+        class="btn btn-warning dropdown-toggle col-6">
+        Aguardando boleto
+
+        {{else ifCond status 'Aguardando pagamento'}}
+        class="btn btn-warning dropdown-toggle col-6">
+        Aguardando pagamento
+
+        {{else ifCond status 'Pagamento confirmado'}}
+        class="btn btn-success  dropdown-toggle col-6">
+        Pagamento confirmado
+
+        {{else ifCond status 'Produto a caminho'}}
+        class="btn btn-success  dropdown-toggle col-6">
+        Produto a caminho
+
+        {{else ifCond status 'Entregue'}}
+        class="btn btn-success  dropdown-toggle col-6">
+        Entregue
+
+        {{else}}
+        class="btn  dropdown-toggle btn-danger col-6">
+        Cancelado
+        {{/ifCond}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+        <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
+              Aguardando boleto
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item " href="#">
+            <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
+              Aguardando pagamento
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-success col-12" name="status" value="Pagamento confirmado">
+              Pagamento confirmado
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-success col-12" name="status" value="Produto a caminho">
+              Produto a caminho
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
+              Entregue
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
+              Cancelado
+            </button>
+          </a>
+        </form>
+      </div>
+      </div>
+
+      {{else ifCond userType 'Revendedor'}}
+      {{#ifCond offer.seller.id userId}}
+      <h4 class="mt-5">Alterar status</h4>
+      <div class="dropdown pb-4">
+        <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+        {{#ifCond status 'Aguardando boleto'}}
+        class="btn btn-warning dropdown-toggle col-6">
+        Aguardando boleto
+
+        {{else ifCond status 'Aguardando pagamento'}}
+        class="btn btn-warning dropdown-toggle col-6">
+        Aguardando pagamento
+
+        {{else ifCond status 'Pagamento confirmado'}}
+        class="btn btn-success  dropdown-toggle col-6">
+        Pagamento confirmado
+
+        {{else ifCond status 'Produto a caminho'}}
+        class="btn btn-success  dropdown-toggle col-6">
+        Produto a caminho
+
+        {{else ifCond status 'Entregue'}}
+        class="btn btn-success  dropdown-toggle col-6">
+        Entregue
+
+        {{else}}
+        class="btn  dropdown-toggle btn-danger col-6">
+        Cancelado
+        {{/ifCond}}
+        {{/ifCond}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+        <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
+              Aguardando boleto
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item " href="#">
+            <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
+              Aguardando pagamento
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-success col-12" name="status" value="Pagamento confirmado">
+              Pagamento confirmado
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-success col-12" name="status" value="Produto a caminho">
+              Produto a caminho
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
+              Entregue
+            </button>
+          </a>
+        </form>
+
+        <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+          <a class="dropdown-item" href="#">
+            <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
+              Cancelado
+            </button>
+          </a>
+        </form>
+      </div>
+      </div>
+
+
       {{/ifCond}}
     </div>
 

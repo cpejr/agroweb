@@ -65,10 +65,11 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
  * GET orders - Show all user's orders
  */
 router.get('/sales', auth.isAuthenticated, (req, res) => {
+  const userId = req.session._id;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOpenSalesByUserId(req.session._id).then((transactions) => {
-        res.render('orders', { title: 'Demandas', layout: 'layout', transactions });
+        res.render('orders', { title: 'Demandas', layout: 'layout', transactions, userId });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');

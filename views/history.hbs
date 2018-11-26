@@ -1,28 +1,27 @@
 {{#section 'stylesheets'}}
+  <!-- -->
 {{/section}}
 <div class="text-center pb-3 gradient-background text-white">
-  <h3 class="font-black">{{title}}</h3>
+  <h3 class="font-black">{{title}} </h3>
 </div>
 
-<div class="p-3">
+<div class="p-1">
 <!-- OrdersList-->
-<div id="results-list" class="row justify-content-center p-3">
-  <div class="col-sm-12 col-md-7 col-lg-7 btn p-3">
+<div class="row justify-content-center mt-2 mx-0">
+<div class="col-sm-12 col-md-7 col-lg-6 col-xl-5 btn p-3">
   {{#if transactions}}
   {{#ifCond userType 'Franqueado'}}
   {{#each transactions}}
-  <div class="p-1">
-  <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'"> -->
-    <div class="my-1 bg-light2 card1">
+  <div class="mb-3">
+  <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
       <div class="text-right p-2">
-        <div class="text-right">
         {{#ifCond taxStatus 'Aguardando pagamento'}}
         <div class="pagination float-right">
           <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
         </div>
         {{/ifCond}}
         <div class="row">
-          <div class="col-3 d-inline-block text-center align-self-center">
+          <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
             {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
             <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
@@ -43,60 +42,60 @@
             {{/ifCond}}
           </div>
 
-          <div class="col p-2">
+          <div class="p-2">
             <div class="vl">
-              <div class="ml-2">
-                <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+              <div class="ml-1 mb-1 mb-md-2 mb-xl-3 text-gray3">
+                <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4  text-uppercase">
                   {{offer.product.name}}
                 </h5>
               </div>
 
-              <div class="mb-2 ml-2">
-                <h5 class="text-left align-text-top card-text font-light text-gray3 mobile-font1 text-uppercase">
+              <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
+              <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
                   {{status}}
                 </h5>
               </div>
 
-            <div class="ml-2 mt-3">
+            <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
               <div class="text-left side-animation">
-                <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{offer.usd}}>
+                <h4 class="font-book text-gray4  mobile-font2  d-inline" data-usd={{offer.usd}}>
                   R$ {{priceBought}}
                 </h4>
 
               </div>
             </div>
-            <div class="row align-rightS">
-              <div class="smaller-font d-flex text-center mt-3 align-bottom">
-                <div class="ml-4  text-gray3">
-                  <p class="text-uppercase font-book mobile-font2 ">Compra
+            <div class="row align-right">
+              <div class="smaller-font d-flex text-center align-bottom">
+                <div class="ml-3 ml-lg-4 text-gray3">
+                  <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2  ">Compra
                     {{#ifCond offer.delivery '48 horas'}}
-                    <span class="count font-light mobile-font2"> <br/>Solo</span>
+                    <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
                     {{else }}
-                    <span class="count font-light mobile-font2"> <br/>Grupo</span>
+                    <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
                     {{/ifCond}}
                   </p>
                 </div>
 
-                <div class="ml-4 text-gray3">
-                  <p class="text-uppercase font-book mobile-font2 ">Entrega
-                    <span class="count font-light mobile-font2"> <br/>{{offer.delivery}}</span>
+                <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                  <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
+                    <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
                   </p>
                 </div>
 
-                <div class="ml-4  text-gray3">
-                  <p class="text-uppercase text-center font-book mobile-font2">Qnt
-                    <span class="count text-center font-light mobile-font2"> <br/>{{amountBought}}</span>
+                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                  <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
+                    <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                   </p>
                 </div>
-                <div class="ml-4 text-gray3">
-                  <p class="text-uppercase font-book mobile-font2 mb-0" >
+                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                  <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
                     Custo por unidade
                     {{#ifCond offer.usd false}}
-                    <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{unitPrice}}</span>
+                    <span class="count text-center text-dark  mobile-font0 text-dark mobile-font2  mt-0"> <br/>R$ {{unitPrice}}</span>
                     {{/ifCond}}
                     </p>
                     {{#ifCond offer.usd true}}
-                    <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
+                    <span class="count text-center text-dark  mobile-font1  mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
                     <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
                       / {{offer.product.unit}}
                     </i>
@@ -106,26 +105,24 @@
             </div>
             {{#if franchisee}}
             <div class="ml-2">
-              <p class="smaller-font text-left align-text-top card-text font-book text-gray3 mobile-font2 text-uppercase">
-                Cliente: {{buyer.firstName}}
+              <p class="smaller-font text-left align-text-top card-text font-book text-dark  mobile-font1 ">
+              Cliente: {{buyer.firstName}}
               </p>
             </div>
             {{/if}}
           </div>
         </div>
       </div>
+    </div>
   </div>
-</div>
-</div>
-</div>
-</div>
-{{/each}}
+  </div>
+  {{/each}}
 
 {{else ifCond userType 'Produtor'}}
 {{#each transactions}}
-<div class="p-1">
+
+<div class="mb-3">
 <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
-  <div class="my-1 bg-light2 card1">
     <div class="text-right p-2">
       {{#ifCond taxStatus 'Aguardando pagamento'}}
       <div class="pagination float-right">
@@ -133,7 +130,7 @@
       </div>
       {{/ifCond}}
       <div class="row">
-        <div class="col-3 d-inline-block text-center align-self-center">
+        <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
           {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
           <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
@@ -154,60 +151,60 @@
           {{/ifCond}}
         </div>
 
-        <div class="col p-2">
+        <div class="p-2">
           <div class="vl">
-            <div class="mb-2 ml-2">
-              <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+            <div class="ml-1 mb-1 mb-md-2 mb-xl-3 text-gray3">
+              <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4  text-uppercase">
                 {{offer.product.name}}
               </h5>
             </div>
 
-            <div class="mb-2 ml-2">
-              <h5 class="text-left align-text-top card-text font-light text-gray3 mobile-font1 text-uppercase">
+            <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
+            <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
                 {{status}}
               </h5>
             </div>
 
-          <div class="ml-2 mt-3">
+          <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
             <div class="text-left side-animation">
-              <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{offer.usd}}>
+              <h4 class="font-book text-gray4  mobile-font2  d-inline" data-usd={{offer.usd}}>
                 R$ {{priceBought}}
               </h4>
 
             </div>
           </div>
-          <div class="row align-rightS">
-            <div class="smaller-font d-flex text-center mt-3 align-bottom">
-              <div class="ml-4  text-gray3">
-                <p class="text-uppercase font-book mobile-font2 ">Compra
+          <div class="row align-right">
+            <div class="smaller-font d-flex text-center align-bottom">
+              <div class="ml-3 ml-lg-4 text-gray3">
+                <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2  ">Compra
                   {{#ifCond offer.delivery '48 horas'}}
-                  <span class="count font-light mobile-font2"> <br/>Solo</span>
+                  <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
                   {{else }}
-                  <span class="count font-light mobile-font2"> <br/>Grupo</span>
+                  <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
                   {{/ifCond}}
                 </p>
               </div>
 
-              <div class="ml-4 text-gray3">
-                <p class="text-uppercase font-book mobile-font2 ">Entrega
-                  <span class="count font-light mobile-font2"> <br/>{{offer.delivery}}</span>
+              <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
+                  <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
                 </p>
               </div>
 
-              <div class="ml-4  text-gray3">
-                <p class="text-uppercase text-center font-book mobile-font2">Qnt
-                  <span class="count text-center font-light mobile-font2"> <br/>{{amountBought}}</span>
+              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
+                  <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                 </p>
               </div>
-              <div class="ml-4 text-gray3">
-                <p class="text-uppercase font-book mobile-font2 mb-0" >
+              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
                   Custo por unidade
                   {{#ifCond offer.usd false}}
-                  <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{unitPrice}}</span>
+                  <span class="count text-center text-dark  mobile-font0 text-dark mobile-font2  mt-0"> <br/>R$ {{unitPrice}}</span>
                   {{/ifCond}}
                   </p>
                   {{#ifCond offer.usd true}}
-                  <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
+                  <span class="count text-center text-dark  mobile-font1  mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
                   <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
                     / {{offer.product.unit}}
                   </i>
@@ -217,8 +214,8 @@
           </div>
           {{#if franchisee}}
           <div class="ml-2">
-            <p class="smaller-font text-left align-text-top card-text font-book text-gray3 mobile-font2 text-uppercase">
-              Cliente: {{buyer.firstName}}
+            <p class="smaller-font text-left align-text-top card-text font-book text-dark  mobile-font1 ">
+            Franqueado: {{franchisee.firstName}}
             </p>
           </div>
           {{/if}}
@@ -228,14 +225,15 @@
   </div>
 </div>
 </div>
-</div>
 {{/each}}
 
 {{else}}
 {{#each transactions}}
-<div class="p-1">
+{{#ifCond status 'Produto a caminho'}}
+{{else ifCond status ''}}
+{{else}}
+<div class="mb-3">
 <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
-  <div class="my-1 bg-light2 card1">
     <div class="text-right p-2">
       {{#ifCond taxStatus 'Aguardando pagamento'}}
       <div class="pagination float-right">
@@ -243,7 +241,7 @@
       </div>
       {{/ifCond}}
       <div class="row">
-        <div class="col-3 d-inline-block text-center align-self-center">
+        <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
           {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
           <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
@@ -264,60 +262,60 @@
           {{/ifCond}}
         </div>
 
-        <div class="col p-2">
+        <div class="p-2">
           <div class="vl">
-            <div class="mb-2 ml-2">
-              <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+            <div class="ml-1 mb-1 mb-md-2 mb-xl-3 text-gray3">
+              <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4  text-uppercase">
                 {{offer.product.name}}
               </h5>
             </div>
 
-            <div class="mb-2 ml-2">
-              <h5 class="text-left align-text-top card-text font-light text-gray3 mobile-font1 text-uppercase">
+            <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
+            <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
                 {{status}}
               </h5>
             </div>
 
-          <div class="ml-2 mt-3">
+          <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
             <div class="text-left side-animation">
-              <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{offer.usd}}>
+              <h4 class="font-book text-gray4  mobile-font2  d-inline" data-usd={{offer.usd}}>
                 R$ {{priceBought}}
               </h4>
 
             </div>
           </div>
-          <div class="row align-rightS">
-            <div class="smaller-font d-flex text-center mt-3 align-bottom">
-              <div class="ml-4  text-gray3">
-                <p class="text-uppercase font-book mobile-font2 ">Compra
+          <div class="row align-right">
+            <div class="smaller-font d-flex text-center align-bottom">
+              <div class="ml-3 ml-lg-4 text-gray3">
+                <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2  ">Compra
                   {{#ifCond offer.delivery '48 horas'}}
-                  <span class="count font-light mobile-font2"> <br/>Solo</span>
+                  <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
                   {{else }}
-                  <span class="count font-light mobile-font2"> <br/>Grupo</span>
+                  <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
                   {{/ifCond}}
                 </p>
               </div>
 
-              <div class="ml-4 text-gray3">
-                <p class="text-uppercase font-book mobile-font2 ">Entrega
-                  <span class="count font-light mobile-font2"> <br/>{{offer.delivery}}</span>
+              <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
+                  <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
                 </p>
               </div>
 
-              <div class="ml-4  text-gray3">
-                <p class="text-uppercase text-center font-book mobile-font2">Qnt
-                  <span class="count text-center font-light mobile-font2"> <br/>{{amountBought}}</span>
+              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
+                  <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                 </p>
               </div>
-              <div class="ml-4 text-gray3">
-                <p class="text-uppercase font-book mobile-font2 mb-0" >
+              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
                   Custo por unidade
                   {{#ifCond offer.usd false}}
-                  <span class="count text-center font-light mobile-font2 mt-0"> <br/>R$ {{unitPrice}}</span>
+                  <span class="count text-center text-dark  mobile-font0 text-dark mobile-font2  mt-0"> <br/>R$ {{unitPrice}}</span>
                   {{/ifCond}}
                   </p>
                   {{#ifCond offer.usd true}}
-                  <span class="count text-center font-light mobile-font2 mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
+                  <span class="count text-center text-dark  mobile-font1  mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
                   <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
                     / {{offer.product.unit}}
                   </i>
@@ -331,7 +329,7 @@
   </div>
 </div>
 </div>
-</div>
+{{/ifCond}}
 {{/each}}
 {{/ifCond}}
 

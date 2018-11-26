@@ -162,8 +162,14 @@ router.get('/:id', (req, res) => {
   const { userType } = req.session;
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
-      console.log(transaction);
-      res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction });
+      var myOffer;
+      if(transaction.offer.seller._id == req.session._id){
+        myOffer = 1;
+      }
+      else{
+        myOffer = 0;
+      }
+      res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, myOffer });
     }
     else {
       console.log('Transaction not found!');
@@ -428,15 +434,37 @@ router.delete('/:id', (req, res) => {
 });
 
 router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
-  console.log(req.body.taxStatus);
+  console.log(req.body.status);
   const transaction = {
-    taxStatus: req.body.taxStatus
+    status: req.body.status
   };
   Transaction.update(req.params.id, transaction).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/user/orders');
+  switch(transaction.status) {
+  case 'Aguardando aprovação':
+      req.flash('success', 'Status da transação atualizado para: Aguardando aprovação.');
+      break;
+  case 'Aguardando pagamento':
+      req.flash('success', 'Status da transação atualizado para: Aguardando pagamento.');
+      break;
+  case 'Pagamento confirmado':
+      req.flash('success', 'Status da transação atualizado para: Pagamento confirmado.');
+      break;
+  case 'Produto a caminho':
+      req.flash('success', 'Status da transação atualizado para: Pagamento confirmado.');
+      break;
+  case 'Entregue':
+      req.flash('success', 'Produto entregue.');
+      break;
+  case 'Cancelado':
+      req.flash('success', 'Transação cancelada');
+      break;
+  default:
+      req.flash('success', 'Status da taxa de transação atualizado.');
+    }
+  res.redirect('/user/sales');
 });
 
 // /**

@@ -162,8 +162,14 @@ router.get('/:id', (req, res) => {
   const { userType } = req.session;
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
-      console.log(transaction);
-      res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction });
+      var myOffer;
+      if(transaction.offer.seller._id == req.session._id){
+        myOffer = 1;
+      }
+      else{
+        myOffer = 0;
+      }
+      res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, myOffer });
     }
     else {
       console.log('Transaction not found!');

@@ -96,7 +96,9 @@ class Money {
           reject(response.err);
         }
         fs.writeFile('./docs/dollar.json', JSON.stringify(response.body[0]), (err) => {
-          if (err) reject(err);
+          if (err) {
+            reject(err);
+          }
           console.log('The dollar file has been saved!');
           resolve();
         });

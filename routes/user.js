@@ -347,6 +347,50 @@ router.delete('/:id', (req, res) => {
 router.post('/cancel', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
   const userType = req.session.userType;
+
+  const transaction = {
+    status: 'Cancelado'
+  };
+
+  User.getAllQuotationsByUserId(userId).then((quotations) => {
+    quotations.forEach((quotation) => {
+      if(quotation.franchisee){
+        if(userType == "Franqueado"){
+          if(quotation.buyer._id == req.body.franchiseeID){
+            User.removeFromMyCart(quotation.buyer._id, quotation._id).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+            });
+
+            User.removeFromMyCart(quotation.franchisee._id, quotation._id).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
+          }
+        }
+        
+        else{
+          User.removeFromMyCart(quotation.buyer._id, quotation._id).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+          });
+
+          User.removeFromMyCart(quotation.franchisee._id, quotation._id).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+        }
+
+      }
+
+      Transaction.update(quotation._id, transaction).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+      });
+
+    });
+  });
+
   User.removeClient(req.body.franchiseeID, userId).catch((error) => {
     console.log(error);
     res.redirect('/error');

@@ -76,7 +76,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
             res.redirect('/error');
           });
           if (transactionData.franchisee) {
-            User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
+            User.addToMyCart(transactionData.franchisee, transaction).catch((error) => {
               console.log(error);
               res.redirect('/error');
             });
@@ -370,7 +370,7 @@ router.delete('/:id', (req, res) => {
         res.redirect('/error');
       });
       if (transaction.franchisee) {
-        User.removeFromMyCart(transaction.franchisee._id, req.params.id).catch((error) => {
+        User.removeFromMyCart(transaction.buyer._id, req.params.id).catch((error) => {
           console.log(error);
           res.redirect('/error');
         });

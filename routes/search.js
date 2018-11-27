@@ -55,7 +55,9 @@ router.get('/products', (req, res) => {
   const sortProduct = { name: 1 };
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
     products.forEach((product) => {
-      names.push(product.name);
+      if(product.status == "Aprovado"){
+        names.push(product.name);
+      }      
     });
     console.log(names);
     res.send(names);

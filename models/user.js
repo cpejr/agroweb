@@ -299,7 +299,7 @@ class User {
       UserModel.findById(id).populate({
         path: 'transactions',
         populate: {
-          path: 'buyer offer',
+          path: 'buyer offer franchisee',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }
@@ -346,9 +346,9 @@ class User {
     return new Promise((resolve, reject) => {
       UserModel.findById(id).populate({
         path: 'transactions',
-        match: { status: { $nin: ['Cancelado', 'Entregue'] }, buyer: { $eq: id } },
+        match: { status: { $nin: ['Cancelado', 'Entregue'] }, $or: [ { buyer: { $eq: id } }, { franchisee: { $eq: id} } ] },
         populate: {
-          path: 'buyer offer',
+          path: 'buyer offer franchisee',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }

@@ -100,6 +100,9 @@
           <h4>Preço total</h4>
           <p data-usd={{offer.usd}}>R$ {{priceBought}}</p>
 
+          <h4>Status da compra</h4>
+          <p>{{status}}</p>
+
           {{#ifCond userType 'Administrador'}}
           <h4 class="mt-5">Alterar status da taxa</h4>
           <div class="dropdown pb-4">
@@ -362,6 +365,7 @@
                   </button>
                 </form>
               </div>
+
             {{/ifCond}}
           {{else}}
             <div class="text-center my-3 justify-content-center">

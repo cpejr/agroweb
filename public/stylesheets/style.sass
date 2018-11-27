@@ -725,3 +725,102 @@ a.more-link
   top: 10px
   right: 10px
   margin-left: 10px
+
+  // animation about
+  /* initially hide animatable objects */
+  visibility: hidden
+
+  /* initially pause animatable objects their animations */
+  -webkit-animation-play-state: paused
+  -moz-animation-play-state: paused
+  -ms-animation-play-state: paused
+  -o-animation-play-state: paused
+  animation-play-state: paused
+
+
+/* show objects being animated */
+.animated
+  visibility: visible
+
+  -webkit-animation-fill-mode: both
+  -moz-animation-fill-mode: both
+  -ms-animation-fill-mode: both
+  -o-animation-fill-mode: both
+  animation-fill-mode: both
+
+  -webkit-animation-duration: 1s
+  -moz-animation-duration: 1s
+  -ms-animation-duration: 1s
+  -o-animation-duration: 1s
+  animation-duration: 1s
+
+  -webkit-animation-play-state: running
+  -moz-animation-play-state: running
+  -ms-animation-play-state: running
+  -o-animation-play-state: running
+  animation-play-state: running
+
+
+/* CSS Animations (extracted from http://glifo.uiparade.com/) */
+@-webkit-keyframes fadeInDown
+	0%
+		opacity: 0
+		-webkit-transform: translateY(-20px)
+		100%
+		opacity: 1
+		-webkit-transform: translateY(0)
+
+
+
+@-moz-keyframes fadeInDown
+	0%
+		opacity: 0
+		-moz-transform: translateY(-20px)
+
+
+	100%
+		opacity: 1
+		-moz-transform: translateY(0)
+
+
+
+@-o-keyframes fadeInDown
+	0%
+		opacity: 0
+		-o-transform: translateY(-20px)
+
+
+	100%
+		opacity: 1
+		-o-transform: translateY(0)
+
+
+
+@keyframes fadeInDown
+	0%
+		opacity: 0
+		transform: translateY(-20px)
+
+	100%
+		opacity: 1
+		transform: translateY(0)
+
+
+
+.animated.animationDelay
+	animation-delay: .4s
+	-webkit-animation-delay: .4s
+
+.animated.animationDelayMed
+	animation-delay: 1.2s
+	-webkit-animation-delay: 1.2s
+
+.animated.animationDelayLong
+	animation-delay: 1.6s
+	-webkit-animation-delay: 1.6s
+
+.animated.fadeInDown
+	-webkit-animation-name: fadeInDown
+	-moz-animation-name: fadeInDown
+	-o-animation-name: fadeInDown
+	animation-name: fadeInDown

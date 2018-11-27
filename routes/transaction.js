@@ -420,7 +420,7 @@ router.delete('/:id', (req, res) => {
         console.log(error);
         res.redirect('/error');
       });
-      res.redirect('/transaction');
+      res.redirect('/transaction/');
     }).catch((error) => {
       console.log(error);
       res.redirect('/error');
@@ -430,7 +430,7 @@ router.delete('/:id', (req, res) => {
     res.redirect('/error');
   });
   req.flash('success', 'Compra cancelada.');
-  res.redirect(`transaction/${transaction}`);
+  res.redirect(`/transaction/${req.params.id}`);
 });
 
 router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {

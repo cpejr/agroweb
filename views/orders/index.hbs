@@ -22,7 +22,12 @@
         <div class="pagination float-right">
           <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
         </div>
+        {{else ifCond taxStatus 'Aguardando boleto'}}
+        <div class="pagination float-right">
+          <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+        </div>
         {{/ifCond}}
+
         <div class="row">
           <div class="col-2 d-inline-block text-center align-self-center mx-1">
 

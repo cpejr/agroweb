@@ -322,6 +322,7 @@ class User {
     return new Promise((resolve, reject) => {
       UserModel.findById(id).populate({
         path: 'myCart',
+        match: { status: { $nin: ['Cancelado'] } },
         populate: {
           path: 'buyer offer franchisee',
           populate: {

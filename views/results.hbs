@@ -6,33 +6,32 @@
   <h3 class="font-black">Resultados</h3>
 </div>
 
-<!-- <div class="text-center p-3">
-  <button type="button col-1 color-muted" name="button" class="btn ml-1">
-    <i class="fas fa-sort-amount-down float-left"></i>
-  </button>
-  <button type="button col-1 color-muted" name="button" class="btn ml-1">
-    <i class="fas fa-filter float-left"></i>
-  </button>
-</div> -->
-<!-- end Filters Header -->
-
 <!-- ResultsList -->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
-  <div class="col-sm-12 col-md-5 col-lg-4 btn">
+  <div class="col-sm-12 col-md-5 col-lg-4 btn p-3">
     {{#if offers}}
       {{#each offers}}
+      <div class="p-1">
         <div class="my-1 bg-light2 card1 card" onclick="location.href = '/offers/{{_id}}'">
           <div class="text-right p-2">
             <div class="row">
               <div class="col-3 d-inline-block text-center align-self-center">
-                {{#ifCond product.category 'Sementes'}}
+                {{#ifCond product.category 'Defensivos agrícolas/agrotóxicos'}}
+                <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+                {{else ifCond product.category 'Sementes'}}
+                <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
+                {{else ifCond product.category 'Fertilizantes sólidos'}}
                 <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
-                <i class="d-none d-sm-inline d-xl-none card-icon fas  fa-seedling fa-3x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-                {{else}}
-                <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
-                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
-                <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
+                {{else ifCond product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+                <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
                 {{/ifCond}}
               </div>
 
@@ -72,17 +71,19 @@
             </div>
           </div>
         </div>
+      </div>
       {{/each}}
       {{else}}
       <div class="container">
-        <p class="text-center font-light">Não foram encontrados resultados pra sua busca.</p>
+        <p class="text-center font-light">Não foram encontrados resultados para sua busca.</p>
       </div>
 
     {{/if}}
 
     {{#if groups}}
       {{#each groups}}
-        <div id="card1" class="card mb-1 btn" onclick="location.href = '/offers/{{offer._id}}'">
+      <div class="p-1">
+        <div class="my-1 bg-light2 card1 card" onclick="location.href = '/offers/{{offer_id}}'">
           <div class="text-right p-2">
             <div class="row">
               <div class="col-3 d-inline-block text-center align-self-center">
@@ -134,6 +135,7 @@
             </div>
           </div>
         </div>
+      </div>
       {{/each}}
     {{/if}}
 

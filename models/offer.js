@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const offerSchema = new mongoose.Schema({
   stock: Number,
-  balance: Number,
+  balance: {
+    type: Number,
+    default: 0
+  },
   unitPrice: Number,
   price: {
     low: Number,
@@ -94,7 +97,9 @@ class Offer {
    */
   static update(id, offer) {
     return new Promise((resolve, reject) => {
-      OfferModel.findByIdAndUpdate(id, offer).catch((err) => {
+      OfferModel.findByIdAndUpdate(id, offer).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

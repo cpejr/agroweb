@@ -104,8 +104,27 @@ router.post('/login', (req, res) => {
       res.redirect('/error');
     });
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+
+    switch(error.code) {
+    case 'auth/wrong-password':
+        req.flash('danger', 'Senha incorreta.');
+        break;
+    case 'auth/user-not-found':
+        req.flash('danger', 'Email não cadastrado.');
+        break;
+    case 'auth/invalid-email':
+        req.flash('danger', 'Verifique se o email está digitado corretamente.');
+        break;
+    case 'auth/network-request-failed':
+        req.flash('danger', 'Falha na internet. Verifique sua conexão de rede.');
+        break;
+    default:
+        req.flash('danger', 'Erro indefinido.');
+      }
+
+    console.log('Error Code: ' + error.code);
+    console.log('Error Message: ' + error.message);
+    res.redirect('/login');
   });
 });
 
@@ -113,8 +132,8 @@ router.post('/login', (req, res) => {
  * POST RecoverPassword Request
  */
 router.post('/recoverPassword', (req, res) => {
-  const { mail } = req.body;
-  firebase.auth().sendPasswordResetEmail(mail).then(() => {
+  const mail = req.body;
+  firebase.auth().sendPasswordResetEmail(mail.email).then(() => {
     res.redirect('/success');
   }).catch((error) => {
     console.log(error);
@@ -171,7 +190,7 @@ router.post('/signup', (req, res) => {
       req.session.status = 'Aguardando aprovação';
       req.session._id = docId;
       if (req.session.userType === 'Indústria') {
-        res.render('industryMegaPremio', { title: 'Indústria', layout: 'layout' });
+        res.render('industryMegaPremio', { title: 'Indústria' });
       }
       else if (req.session.userType === 'Revendedor') {
         res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout' });
@@ -180,12 +199,34 @@ router.post('/signup', (req, res) => {
         res.redirect('/user');
       }
     }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
+      switch(error.code) {
+      case '11000':
+          req.flash('danger', 'O CPF já está cadastrado.');
+          break;
+      default:
+          req.flash('danger', 'Erro indefinido.');
+        }
+      console.log('Error Code: ' + error.code);
+      console.log('Error Message: ' + error.message);
+      res.redirect('/signup');
     });
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    switch(error.code) {
+    case 'auth/email-already-in-use':
+        req.flash('danger', 'Email já cadastrado');
+        break;
+    case 'auth/network-request-failed':
+        req.flash('danger', 'Falha na internet. Verifique sua conexão de rede.');
+        break;
+    case 'auth/invalid-email':
+        req.flash('danger', 'Verifique se o email está digitado corretamente.');
+        break;
+    default:
+        req.flash('danger', 'Erro indefinido.');
+      }
+    console.log('Error Code: ' + error.code);
+    console.log('Error Message: ' + error.message);
+    res.redirect('/signup');
   });
 });
 

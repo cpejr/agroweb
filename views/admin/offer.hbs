@@ -15,9 +15,9 @@
       <th scope="col">Quantidade em Estoque</th>
       <th scope="col">Preço</th>
       <th scope="col">Entrega</th>
-      <th scope="col">Vendendor</th>
+      <th scope="col">Vendedor</th>
       <th scope="col">Produto</th>
-      <th scope="col">Excluir</th>
+      <th colspan="2" scope="col font-black">Opções</th>
     </tr>
   </thead>
   <tbody>
@@ -29,8 +29,13 @@
       <td class="font-book">{{seller.fullName}}</td>
       <td class="font-book">{{product.name}}</td>
       <td class="font-book">
+        <button onclick="location.href='/offers/{{id}}'" class="btn btn-outline-info">
+          Ver
+        </button>
+      </td>
+      <td class="font-book">
         <button onclick="location.href='/admin/{{id}}/deleteOffer'" class="btn btn-outline-danger">
-          <i class="fas fa-minus-circle"></i>
+          Excluir
         </button>
       </td>
     </tr>

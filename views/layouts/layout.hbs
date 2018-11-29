@@ -20,7 +20,7 @@
                 <div class="col-md-6">
                   <li class="nav-item active">
                     <a class="nav-link opacity-changes d-inline-block" href="/user">
-                      <i class="fas fa-user fa-sm mt-2 float-left"></i>
+                      <i class="fas fa-home fa-sm mt-2 float-left"></i>
                       <h3 class="font3 mobile-font float-right">Menu principal</h3>
                     </a>
                   </li>
@@ -31,7 +31,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link opacity-changes d-inline-block" href="/user/history">
+                    <a class="nav-link opacity-changes d-inline-block" href="/transaction/">
                       <i class="fas fa-hdd fa-sm mt-2 float-left"></i>
                         <h3 class="font3 mobile-font float-right">Histórico</h3>
                     </a>
@@ -45,7 +45,7 @@
                   <div class="col-md-6 my-auto">
                     </li>
                     <li class="nav-item active">
-                      <a class="nav-link font3" href="#">
+                      <a class="nav-link font3" href="/site/contact">
                         SUPORTE E CONTATO
                       </a>
                     </li>
@@ -60,7 +60,7 @@
                       </a>
                     </li>
                     <li class="nav-item active">
-                      <a class="nav-link font3" href="#">
+                      <a class="nav-link font3" href="https://pt-br.facebook.com/">
                         CURTA NOSSA PÁGINA
                       </a>
                     </li>
@@ -79,12 +79,15 @@
         </button>
       </row>
 
+      {{#ifCond userType 'Indústria'}}
+      {{else}}
       <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
         <row>
          <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
          <label for="searchbar-icon" class="fas fa-search input-icon"></label>
        </row>
-       </form>
+      </form>
+      {{/ifCond}}
 
         <!-- <form id="navbar-form" action="../search" method="get" class="float-right my-2 my-lg-0 my-sm-0">
           <row>
@@ -100,8 +103,10 @@
 
       </nav>
     </div>
-
     <!-- end Header and NavBar -->
+    <div class="agro-alert col-12 col-lg-4 col-md-6">
+    {{> messages}}
+    </div>
 
     {{{ body }}}
 

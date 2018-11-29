@@ -3,13 +3,15 @@
 
 {{#ifCond userType 'Franqueado'}}
 <div class="pb-3 gradient-background text-white">
-  <h3 class="text-center font-black">Meus Clientes</h3>
+  <h3 class="text-center font-black">Meus clientes</h3>
 </div>
 
 <div class="p-3">
   <div class="row justify-content-center">
     {{#if clients}}
     {{#each clients}}
+    {{#ifCond client.status 'Aguardando aprovação'}}
+    {{else}}
     <div class="col-sm-12 col-md-6 col-lg-6 btn card m-3" >
       <div class="my-1 bg-light2 card1"  onclick="location.href = '/user/profile/{{_id}}'">
         <div class="text-right p-2">
@@ -23,32 +25,32 @@
             <div class="col p-2">
               <div class="vl">
                 <div class="ml-2">
-                  <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+                  <p class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
                     {{fullName}}
-                  </h5>
+                  </p>
                 </div>
 
                 <div class="ml-2 mt-3">
                   <div class="text-left">
-                    <h4 class="font-book mobile-font4 mobile-font5  d-inline">
+                    <p class="font-book mobile-font4 mobile-font5  d-inline">
                       {{email}}
-                    </h4>
+                    </p>
                   </div>
                 </div>
 
                 <div class="ml-2 mt-3">
                   <div class="text-left">
-                    <h4 class="font-book mobile-font4 mobile-font5  d-inline">
+                    <p class="font-book mobile-font4 mobile-font5  d-inline">
                       {{phone}}
-                    </h4>
+                    </p>
                   </div>
                 </div>
 
                 <div class="ml-2 mt-3">
                   <div class="text-left">
-                    <h4 class="font-book mobile-font4 mobile-font5  d-inline">
+                    <p class="font-book mobile-font4 mobile-font5  d-inline">
                       {{address.city}}
-                    </h4>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -59,6 +61,7 @@
     </div>
 
     <!-- end CARD PADRÃO -->
+    {{/ifCond}}
     {{/each}}
     {{else}}
     <div class="container">
@@ -91,32 +94,32 @@
             <div class="col p-2">
               <div class="vl">
                 <div class="ml-2">
-                  <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+                  <p class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
                     {{fullName}}
-                  </h5>
+                  </p>
                 </div>
 
                 <div class="ml-2 mt-3">
                   <div class="text-left">
-                    <h4 class="font-book mobile-font4 mobile-font5  d-inline">
+                    <p class="font-book mobile-font4 mobile-font5  d-inline">
                       {{email}}
-                    </h4>
+                    </p>
                   </div>
                 </div>
 
                 <div class="ml-2 mt-3">
                   <div class="text-left">
-                    <h4 class="font-book mobile-font4 mobile-font5  d-inline">
+                    <p class="font-book mobile-font4 mobile-font5  d-inline">
                       {{phone}}
-                    </h4>
+                    </p>
                   </div>
                 </div>
 
                 <div class="ml-2 mt-3">
                   <div class="text-left">
-                    <h4 class="font-book mobile-font4 mobile-font5  d-inline">
+                    <p class="font-book mobile-font4 mobile-font5  d-inline">
                       {{address.city}}
-                    </h4>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -129,7 +132,7 @@
     {{/each}}
     {{else}}
     <div class="container">
-      <p class="text-center font-light">Você ainda não possui nenhum cliente.</p>
+      <p class="text-center font-light">Você não possui franqueado.</p>
     </div>
     {{/if}}
   </div>

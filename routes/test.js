@@ -1,6 +1,7 @@
 const express = require('express');
 const firebase = require('firebase');
 const Chem = require('../models/chem');
+const Dollar = require('../functions/money');
 const Email = require('../models/email');
 const Group = require('../models/group');
 const Newsletter = require('../models/newsletter');
@@ -9,6 +10,7 @@ const Product = require('../models/product');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
+const fs = require('fs');
 
 const router = express.Router();
 
@@ -22,13 +24,23 @@ router.get('/', (req, res) => {
   //   });
   //   console.log(names);
   //   res.locals.names = names;
-    res.render('offers/new', { title: 'Nova Oferta' });
   //   console.log(res);
   //   // res.send(names);
   // }).catch((error) => {
   //   console.log(error);
   //   res.redirect('/error');
   // });
+  Dollar.createDollarJSON().then(() => {
+    Dollar.getUsdValue().then((dollar) => {
+      console.log(dollar);
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 router.get('/test', (req, res) => {

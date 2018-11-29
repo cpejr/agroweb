@@ -1,0 +1,59 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<div class="">
+    <div class="text-center pb-3 gradient-background text-white">
+      <h3 class="font-black">Boletos pendentes</h3>
+    </div>
+{{#if transactions}}
+
+<div style="overflow-x:auto;">
+  <table class="table table-light table-striped text-center">
+    <thead>
+      <tr>
+        <th scope="col">Código da Compra</th>
+        <th scope="col">Comprador</th>
+        <th scope="col">Preço</th>
+        <th scope="col">Status</th>
+        <th scope="col">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each transactions}}
+      {{#ifCond taxStatus 'Aguardando boleto'}}
+      <tr>
+        <td>{{_id}}</td>
+        <td>{{buyer.fullName}}</td>
+        <td>{{priceBought}}</td>
+        <td>{{taxStatus}}</td>
+        <td scope="row" class="font-light">
+          <form action="/transaction/{{_id}}" method="GET">
+            <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
+          </form>
+        </td>
+        {{else ifCond taxStatus 'Aguardando pagamento'}}
+        <tr>
+          <td>{{_id}}</td>
+          <td>{{buyer.fullName}}</td>
+          <td>{{priceBought}}</td>
+          <td>{{taxStatus}}</td>
+          <td scope="row" class="font-light">
+            <form action="/transaction/{{_id}}" method="GET">
+              <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
+            </form>
+          </td>
+      {{/ifCond}}
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há nenhuma transação.</p>
+</div>
+{{/if}}
+</div>
+
+{{#section 'scripts'}}
+  <script src="/javascripts/navbar.js"></script>
+{{/section}}

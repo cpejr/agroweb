@@ -38,6 +38,7 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Email removido da newsletter.');
   res.redirect('/newsletter');
 });
 

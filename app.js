@@ -21,11 +21,18 @@ const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const schedule = require('node-schedule');
+const configJson = require('./docs/config.json');
 
 /**
  * Functions
  */
 const Money = require('./functions/money');
+
+/**
+ * Global Variables
+ */
+const globalConfig = configJson.development;
+global.gConfig = globalConfig;
 
 /**
  * Firebase Setup
@@ -56,6 +63,13 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
  */
 schedule.scheduleJob('0 0 3 * * *', () => {
   Money.dailyDollarUpdate();
+});
+
+/**
+ * Getting dollar quotation everyday
+ */
+schedule.scheduleJob('0 */10 * * * *', () => {
+  Money.createDollarJSON();
 });
 
 /**
@@ -100,6 +114,13 @@ app.engine('hbs', exphbs({
     // If variable equals...
     ifCond(v1, v2, options) {
       if (v1 === v2) {
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    },
+
+    ifNotEq(v1, v2, options) {
+      if (v1 !== v2) {
         return options.fn(this);
       }
       return options.inverse(this);

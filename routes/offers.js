@@ -24,7 +24,8 @@ router.get('/', auth.isAdmin, (req, res) => {
  * GET New - Show form to create new offer
  */
 router.get('/new', auth.canSell, (req, res) => {
-  res.render('offers/new', { title: 'Nova Oferta' });
+  const { userType } = req.session;
+  res.render('offers/new', { title: 'Nova Oferta', userType });
 });
 
 /**
@@ -44,7 +45,8 @@ router.post('/', (req, res) => {
             console.log(group);
             Dollar.getUsdValue().then((dollar) => {
               if (group) {
-                console.log('Compara e troca a oferta que tem o grupo');
+                const groupData = {};
+                console.log('Compares and changes the groups offer');
                 let offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
                 let offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
                 if (group.offer.usd) {
@@ -53,26 +55,36 @@ router.post('/', (req, res) => {
                 if (offer.usd) {
                   offerPrice *= dollar;
                 }
-                if (offerGroupPrice < offerPrice) {
-                  const groupData = {
-                    offer: offer._id
-                  };
-                  Group.update(group._id, groupData).catch((error) => {
-                    console.log(error);
-                    res.redirect('/error');
-                  });
+                if (offerGroupPrice > offerPrice) {
+                  groupData.offer = offer._id;
+                  if (group.amount < offer.breakpoints.average) {
+                    groupData.unitPrice = offer.price.high;
+                  }
+                  else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                    groupData.unitPrice = offer.price.average;
+                  }
+                  else {
+                    groupData.unitPrice = offer.price.low;
+                  }
                 }
                 else if (offerGroupPrice === offerPrice) {
                   if (group.offer.stock < offer.stock) {
-                    const groupData = {
-                      offer: offer._id
-                    };
-                    Group.update(group._id, groupData).catch((error) => {
-                      console.log(error);
-                      res.redirect('/error');
-                    });
+                    groupData.offer = offer._id;
+                    if (group.amount < offer.breakpoints.average) {
+                      groupData.unitPrice = offer.price.high;
+                    }
+                    else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                      groupData.unitPrice = offer.price.average;
+                    }
+                    else {
+                      groupData.unitPrice = offer.price.low;
+                    }
                   }
                 }
+                Group.update(group._id, groupData).catch((error) => {
+                  console.log(error);
+                  res.redirect('/error');
+                });
               }
               else {
                 const newGroup = {
@@ -102,6 +114,7 @@ router.post('/', (req, res) => {
           console.log(error);
           res.redirect('/error');
         });
+        req.flash('success', 'Oferta criada com sucesso.');
         res.redirect(`/offers/${offerId}`);
       }).catch((error) => {
         console.log(error);
@@ -122,10 +135,16 @@ router.post('/', (req, res) => {
  */
 router.get('/:id', auth.isAuthenticated, (req, res) => {
   const { userType } = req.session;
+  const userId = req.session._id;
+  var myOffer = 0;
+
   User.getAgreementListById(req.session._id).then((clients) => {
     Offer.getById(req.params.id).then((offer) => {
+      if(userId == offer.seller._id){
+        myOffer = 1;
+      }
       if (offer) {
-        res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, clients, ...offer });
+        res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, myOffer, clients, ...offer });
       }
       else {
         console.log('Offer not found!');
@@ -142,10 +161,11 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
  * GET Edit - Show the offer edit form
  */
 router.get('/:id/edit', auth.canSell, (req, res) => {
+  const {userType} = req.session;
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);
-      res.render('offers/edit', { title: `Editar ${offer.product.name}`, id: req.params.id, ...offer });
+      res.render('offers/edit', { title: `Editar ${offer.product.name}`, id: req.params.id, userType, ...offer });
     }
     else {
       console.log('Offer not found!');
@@ -170,7 +190,8 @@ router.put('/:id', (req, res) => {
         console.log(group);
         Dollar.getUsdValue().then((dollar) => {
           if (group) {
-            console.log('Compara e troca a oferta que tem o grupo');
+            const groupData = {};
+            console.log('Compares and changes the groups offer');
             let offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
             let offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
             if (group.offer.usd) {
@@ -179,26 +200,36 @@ router.put('/:id', (req, res) => {
             if (offer.usd) {
               offerPrice *= dollar;
             }
-            if (offerGroupPrice < offerPrice) {
-              const groupData = {
-                offer: offer._id
-              };
-              Group.update(group._id, groupData).catch((error) => {
-                console.log(error);
-                res.redirect('/error');
-              });
+            if (offerGroupPrice > offerPrice) {
+              groupData.offer = offer._id;
+              if (group.amount < offer.breakpoints.average) {
+                groupData.unitPrice = offer.price.high;
+              }
+              else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                groupData.unitPrice = offer.price.average;
+              }
+              else {
+                groupData.unitPrice = offer.price.low;
+              }
             }
             else if (offerGroupPrice === offerPrice) {
               if (group.offer.stock < offer.stock) {
-                const groupData = {
-                  offer: offer._id
-                };
-                Group.update(group._id, groupData).catch((error) => {
-                  console.log(error);
-                  res.redirect('/error');
-                });
+                groupData.offer = offer._id;
+                if (group.amount < offer.breakpoints.average) {
+                  groupData.unitPrice = offer.price.high;
+                }
+                else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                  groupData.unitPrice = offer.price.average;
+                }
+                else {
+                  groupData.unitPrice = offer.price.low;
+                }
               }
             }
+            Group.update(group._id, groupData).catch((error) => {
+              console.log(error);
+              res.redirect('/error');
+            });
           }
           else {
             const newGroup = {
@@ -228,6 +259,7 @@ router.put('/:id', (req, res) => {
       console.log(error);
       res.redirect('/error');
     });
+    req.flash('success', 'Oferta editada com sucesso.');
     res.redirect(`/offers/${req.params.id}`);
   }).catch((error) => {
     console.log(error);
@@ -243,6 +275,7 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Oferta deletada.');
   res.redirect('/offers');
 });
 

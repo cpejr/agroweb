@@ -1,0 +1,66 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<div class="">
+  <div class="text-center pb-3 gradient-background text-white">
+    <h3 class="font-black">Requisições de produtos</h3>
+  </div>
+
+  {{#if products}}
+
+  <div class="text-center p-3">
+    <button type="button col-1 color-muted" name="button" class="btn ml-1">
+      <i class="fas fa-sort-amount-down float-left"></i>
+    </button>
+    <button type="button col-1 color-muted" name="button" class="btn ml-1">
+      <i class="fas fa-filter float-left"></i>
+    </button>
+  </div>
+
+<div style="overflow-x:auto;">
+  <table class="table table-light table-striped text-center">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th colspan="3" scope="col font-black">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {{#each products}}
+      <tr>
+        <th scope="row">{{name}}</th>
+        <td>
+          <button onclick="location.href='/products/{{_id}}'" class="btn btn-outline-info font-book">
+            Ver
+          </button>
+        </td>
+        <td>
+          <form  method= "POST" action="/admin/{{id}}/requisitions/products">
+            <button type="submit" align="center" class="btn btn-outline-success" name="status">
+              Aprovar
+            </button>
+          </form>
+        </td>
+        <td>
+          <form action="/admin/{{id}}?_method=DELETE" method="POST">
+            <button type="submit" align="center" class="btn btn-outline-danger" name="status">
+              Reprovar
+            </button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+</div>
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há novas requisições de produtos.</p>
+</div>
+{{/if}}
+  </div>
+</div>
+{{#section 'scripts'}}
+{{/section}}

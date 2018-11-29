@@ -21,7 +21,13 @@ router.get('/', (req, res) => {
  * GET New - Show form to create new product
  */
 router.get('/new', (req, res) => {
-  res.render('products/new', { title: 'Novo Produto' });
+  const { userType } = req.session;
+  Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
+    res.render('products/new', { title: 'Novo Produto', chems, userType });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 /**
@@ -29,8 +35,17 @@ router.get('/new', (req, res) => {
  */
 router.post('/', (req, res) => {
   const { product } = req.body;
+  const { userType } = req.session;
+  if (userType == 'Administrador'){
+    product.status = 'Aprovado';
+  }
+  else {
+    product.status = 'Aguardando';
+  }
+  
   const promises = [];
   const chemsIDs = [];
+  
   req.body.chem.forEach((chemName) => {
     const regex = new RegExp(chemName, 'i');
     const promise = Chem.getOneByQuery({ name: regex });
@@ -43,6 +58,12 @@ router.post('/', (req, res) => {
     product.chems = chemsIDs;
     Product.create(product).then((id) => {
       console.log(`Created new product with id: ${id}`);
+      if (userType == 'Administrador') {
+      req.flash('success', 'Produto criado com sucesso.');    
+      }
+      else {
+      req.flash('success', 'Pedido de aprovação do produto feito com sucesso.');
+      }
       res.redirect(`/products/${id}`);
     }).catch((error) => {
       console.log(error);
@@ -58,9 +79,10 @@ router.post('/', (req, res) => {
  * GET Show - Show details of a product
  */
 router.get('/:id', (req, res) => {
+  const { userType } = req.session;
   Product.getById(req.params.id).then((product) => {
     if (product) {
-      res.render('products/show', { title: product.name, id: req.params.id, ...product });
+      res.render('products/show', { title: product.name, id: req.params.id, ...product, userType });
     }
     else {
       console.log('Product not found!');
@@ -104,6 +126,7 @@ router.put('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Produto editado com sucesso.');
   res.redirect(`/admin/products`);
 });
 
@@ -115,6 +138,7 @@ router.delete('/:id', (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
+  req.flash('success', 'Produto removido.');
   res.redirect('/admin/products');
 });
 

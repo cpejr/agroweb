@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Group.getAll().then((groups) => {
     console.log(groups);
-    res.render('groups/index', { title: 'Grupos', groups });
+    res.render('groups/index', { title: 'Grupos de compras', groups });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

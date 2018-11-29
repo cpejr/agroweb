@@ -4,44 +4,22 @@
   <h3 class="text-center font-black">Ver produto</h3>
 </div>
 
+{{#ifCond userType 'Administrador'}}
+
 <div class="container">
+  <div class="col-12 mb-5 text-center">
+    <i class="text-muted">Produto {{generic}}</i>
+    <h2 class="my-0 py-0 mb-4">{{name}}</h2>
+  </div>
+
   <div class="row justify-content-center mx-sm-auto mx-md-9">
-    <!-- Product Title -->
-    <div class="col-12 col-md-6 mb-5">
-      <i class="text-muted">Produto {{generic}}</i>
-      <h2 class="my-0 py-0 mb-4">{{name}}</h2>
-
-      <!-- Product Description -->
+    <div class="col-12 col-md-4 mb-5">
       <h4>Descrição</h4>
-      <p>
-        {{description}}
-      </p>
-      <!-- end Product Description -->
+      <p>{{description}}</p>
     </div>
-    <!-- end Product Title -->
-
-    <!-- Quotation -->
-    <div class="col-12 col-md-6 pb-2 mb-5">
-      <form action="#" method="post">
-        <div class="row mb-3">
-          <div class="form-group col">
-            <label class="text-muted" for="amount">Quantidade</label>
-            <div class="input-group">
-              <input class="form-control" type="number" name="amount" id="amount" value="1">
-              <div class="input-group-prepend">
-                <div class="input-group-text">{{unit}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-        <!-- <button class="w-100 text-white btn btn-default bg-dark" type="button" name="button">Cotar similar</button> -->
-      </form>
-    </div>
-    <!-- end Quotation -->
 
     <!-- Product Characteristics -->
-    <div class="col-12 col-md-6 mb-5">
+    <div class="col-12 col-md-4 mb-5">
       <h4>Características</h4>
       <div class="row">
         <div class="col-6">
@@ -63,7 +41,80 @@
     <!-- end Product Characteristics -->
 
     <!-- Payment Options -->
-    <div class="col-12 col-md-6 mb-5">
+    <div class="col-12 col-md-4 mb-5">
+      <h4>Formas de pagamento</h4>
+      <div class="">
+        <i class="fas fa-barcode fa-4x mr-2"></i>
+      </div>
+    </div>
+    <!-- end Payment Options -->
+  </div>
+
+
+  {{#ifCond status 'Aguardando'}}
+  <div class="row justify-content-center mb-3">
+    <div class="pl-5 pr-5">
+      <form  method= "POST" action="/admin/{{id}}/requisitions/products">
+        <button type="submit" align="center" class="btn btn-outline-success" name="status">
+          Aprovar
+        </button>
+      </form>
+    </div>
+    <div class="pl-5 pr-5">
+      <form action="/products/{{id}}?_method=DELETE" method="POST">
+        <button type="submit" align="center" class="btn btn-outline-danger" name="status">
+          Reprovar
+        </button>
+      </form>
+    </div>
+  </div>
+  {{/ifCond}}
+</div>
+
+{{else}}
+<div class="container">
+  <div class="col-12 mb-5 text-center">
+    <i class="text-muted">Produto {{generic}}</i>
+    <h2 class="my-0 py-0 mb-4">{{name}}</h2>
+  </div>
+
+  {{#ifCond status 'Aprovado'}}
+  {{else ifCond status 'Aguardando'}}
+  <div class="mb-5">
+    <p class="text-center font-light">A requisição para adicionar esse produto à plataforma foi enviada para o administrador. Aguarde até que ele possa analisá-la.</p>
+  </div>
+  {{/ifCond}}
+
+  <div class="row justify-content-center mx-sm-auto mx-md-9">
+    <div class="col-12 col-md-4 mb-5">
+      <h4>Descrição</h4>
+      <p>{{description}}</p>
+    </div>
+
+    <!-- Product Characteristics -->
+    <div class="col-12 col-md-4 mb-5">
+      <h4>Características</h4>
+      <div class="row">
+        <div class="col-6">
+          <dt>Ingrediente ativo</dt>
+          {{#each chem}}
+            <dd>{{name}}</dd>
+          {{/each}}
+        </div>
+        <div class="col-6">
+          <dt>Fabricante</dt>
+          <dd>{{manufacturer}}</dd>
+        </div>
+        <div class="col-12">
+          <dt>Categoria</dt>
+          <dd>{{category}}</dd>
+        </div>
+      </div>
+    </div>
+    <!-- end Product Characteristics -->
+
+    <!-- Payment Options -->
+    <div class="col-12 col-md-4 mb-5">
       <h4>Formas de pagamento</h4>
       <div class="">
         <i class="fas fa-barcode fa-4x mr-2"></i>
@@ -72,6 +123,7 @@
     <!-- end Payment Options -->
   </div>
 </div>
+{{/ifCond}}
 
 {{#section 'scripts'}}
 {{/section}}

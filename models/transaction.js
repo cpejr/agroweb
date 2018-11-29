@@ -34,6 +34,19 @@ const transactionSchema = new mongoose.Schema({
   franchisee: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  franchiseeTaxStatus: {
+    type: String,
+    enum: ['Não necessário', 'Pendente', 'Pago'],
+    default: 'Não necessário'
+  },
+  franchiseeTaxValue: {
+    type: Number,
+    default: 0
+  },
+  group: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true, strict: false });
 
@@ -104,7 +117,9 @@ class Transaction {
    */
   static update(id, transaction) {
     return new Promise((resolve, reject) => {
-      TransactionModel.findByIdAndUpdate(id, transaction).catch((err) => {
+      TransactionModel.findByIdAndUpdate(id, transaction).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });
@@ -117,7 +132,7 @@ class Transaction {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      TransactionModel.findByIdAndDelete(id).catch((err) => {
+      TransactionModel.findByIdAndUpdate(id, { status: 'Cancelado' }).catch((err) => {
         reject(err);
       });
     });

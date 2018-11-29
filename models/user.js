@@ -46,6 +46,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  pendingPayment: {
+    type: Number,
+    default: 0
+  },
   status: {
     type: String,
     enum: ['Inativo', 'Bloqueado', 'Aguardando aprovação', 'Ativo'],
@@ -68,14 +72,14 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Offer'
   }],
-  phone: Number,
-  cellphone: Number,
+  phone: String,
+  cellphone: String,
   fantasyName: String,
   secondaryEmail: String,
   responsible: {
     name: String,
-    phone: Number,
-    cellphone: Number
+    phone: String,
+    cellphone: String
   },
   delivery: {
     stock: String,
@@ -86,7 +90,7 @@ const userSchema = new mongoose.Schema({
     fractional: String
   },
   logistics: {
-    phone: Number,
+    phone: String,
     email: String
   },
   headquarter: String,
@@ -299,7 +303,7 @@ class User {
       UserModel.findById(id).populate({
         path: 'transactions',
         populate: {
-          path: 'buyer offer',
+          path: 'buyer offer franchisee',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }
@@ -322,6 +326,7 @@ class User {
     return new Promise((resolve, reject) => {
       UserModel.findById(id).populate({
         path: 'myCart',
+        match: { status: { $nin: ['Cancelado'] } },
         populate: {
           path: 'buyer offer franchisee',
           populate: {
@@ -346,9 +351,9 @@ class User {
     return new Promise((resolve, reject) => {
       UserModel.findById(id).populate({
         path: 'transactions',
-        match: { status: { $nin: ['Cancelado', 'Entregue'] }, buyer: { $eq: id } },
+        match: { status: { $nin: ['Cancelado', 'Entregue'] }, $or: [ { buyer: { $eq: id } }, { franchisee: { $eq: id} } ] },
         populate: {
-          path: 'buyer offer',
+          path: 'buyer offer franchisee',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }

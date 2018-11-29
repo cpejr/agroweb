@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
         // const offers = offerResults[0].concat(offerResults[1]);
         const groups = groupResults[0];
         const offers = offerResults[0];
-        res.render('results', { title: `Resultados para "${req.query.filter}"`, layout: 'layout', groups, offers });
+        res.render('results', { title: `Resultados para "${req.query.filter}"`, groups, offers });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -57,7 +57,7 @@ router.get('/products', (req, res) => {
     products.forEach((product) => {
       if(product.status == "Aprovado"){
         names.push(product.name);
-      }      
+      }
     });
     console.log(names);
     res.send(names);

@@ -57,6 +57,16 @@ router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
+/* GET Offers - Show all offers */
+router.get('/franchiseePayment', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  User.getAll().then((users) => {
+    res.render('admin/franchiseePayment', { title: 'Taxas dos franqueados', layout: 'layout', users, ...req.session });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
 /**
  * GET DeleteOffer - Delete a Offer in the database
  */
@@ -113,6 +123,38 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
     res.redirect('/error');
   });
   res.redirect('/user/orders');
+});
+
+/**
+ * GET updateTransaction - Update a Transaction in the database
+ */
+router.post('/payFranchisee/:id', auth.isAuthenticated, (req, res) => {
+  const user = {
+    pendingPayment: 0
+  };
+  User.update(req.params.id, user).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+
+  User.getAllTransactionsByUserId(req.params.id).then((transactions) => {
+    transactions.forEach((transaction) => {
+      if (transaction.franchiseeTaxStatus == 'Pendente') {
+         status = {
+           franchiseeTaxStatus: 'Pago'
+         };
+        Transaction.update(transaction._id, status).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+      }
+    });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  req.flash('success', 'Pagamento do franqueado confirmado');
+  res.redirect('/admin/franchiseePayment');
 });
 
 router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {

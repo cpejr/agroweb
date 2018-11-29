@@ -46,6 +46,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  pendingPayment: {
+    type: Number,
+    default: 0
+  },
   status: {
     type: String,
     enum: ['Inativo', 'Bloqueado', 'Aguardando aprovação', 'Ativo'],
@@ -322,6 +326,7 @@ class User {
     return new Promise((resolve, reject) => {
       UserModel.findById(id).populate({
         path: 'myCart',
+        match: { status: { $nin: ['Cancelado'] } },
         populate: {
           path: 'buyer offer franchisee',
           populate: {

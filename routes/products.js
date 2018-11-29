@@ -22,12 +22,7 @@ router.get('/', (req, res) => {
  */
 router.get('/new', (req, res) => {
   const { userType } = req.session;
-  Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
-    res.render('products/new', { title: 'Novo Produto', chems, userType });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
+  res.render('products/new', { title: 'Novo Produto', userType });
 });
 
 /**
@@ -42,10 +37,10 @@ router.post('/', (req, res) => {
   else {
     product.status = 'Aguardando';
   }
-  
+
   const promises = [];
   const chemsIDs = [];
-  
+
   req.body.chem.forEach((chemName) => {
     const regex = new RegExp(chemName, 'i');
     const promise = Chem.getOneByQuery({ name: regex });
@@ -59,7 +54,7 @@ router.post('/', (req, res) => {
     Product.create(product).then((id) => {
       console.log(`Created new product with id: ${id}`);
       if (userType == 'Administrador') {
-      req.flash('success', 'Produto criado com sucesso.');    
+      req.flash('success', 'Produto criado com sucesso.');
       }
       else {
       req.flash('success', 'Pedido de aprovação do produto feito com sucesso.');
@@ -82,6 +77,7 @@ router.get('/:id', (req, res) => {
   const { userType } = req.session;
   Product.getById(req.params.id).then((product) => {
     if (product) {
+      console.log(product);
       res.render('products/show', { title: product.name, id: req.params.id, ...product, userType });
     }
     else {
@@ -98,19 +94,14 @@ router.get('/:id', (req, res) => {
  * GET Edit - Show the product edit form
  */
 router.get('/:id/edit', auth.canSell, (req, res) => {
-  Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
-    Product.getById(req.params.id).then((product) => {
-      if (product) {
-        res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product, chems });
-      }
-      else {
-        console.log('Product not found!');
-        res.redirect('/user');
-      }
-    }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
+  Product.getById(req.params.id).then((product) => {
+    if (product) {
+      res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product });
+    }
+    else {
+      console.log('Product not found!');
+      res.redirect('/user');
+    }
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

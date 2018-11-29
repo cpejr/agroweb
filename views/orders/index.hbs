@@ -8,7 +8,7 @@
 <div class="p-1">
 <!-- OrdersList-->
 <div class="row justify-content-center mt-2 mx-0">
-<div class="col-sm-12 col-md-7 col-lg-6 col-xl-5 btn p-3">
+<div class="col-sm-12 col-md-7 col-lg-6 col-xl-6 btn p-3">
   {{#if transactions}}
   {{#ifCond userType 'Franqueado'}}
   {{#each transactions}}
@@ -18,6 +18,7 @@
   <div class="mb-3">
   <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
       <div class="text-right p-2">
+
         {{#ifCond taxStatus 'Aguardando pagamento'}}
         <div class="pagination float-right">
           <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
@@ -27,7 +28,7 @@
           <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
         </div>
         {{/ifCond}}
-
+        
         <div class="row">
           <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
@@ -84,18 +85,18 @@
                   </p>
                 </div>
 
-                <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                   <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
                     <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
                   </p>
                 </div>
 
-                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                   <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
                     <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                   </p>
                 </div>
-                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                   <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
                     Custo por unidade
                     {{#ifCond offer.usd false}}
@@ -135,6 +136,7 @@
 <div class="mb-3">
 <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
     <div class="text-right p-2">
+
       {{#ifCond taxStatus 'Aguardando pagamento'}}
       <div class="pagination float-right">
         <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
@@ -144,6 +146,7 @@
         <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
       </div>
       {{/ifCond}}
+
       <div class="row">
         <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
@@ -200,18 +203,18 @@
                 </p>
               </div>
 
-              <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+              <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                 <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
                   <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
                 </p>
               </div>
 
-              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                 <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
                   <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                 </p>
               </div>
-              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                 <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
                   Custo por unidade
                   {{#ifCond offer.usd false}}
@@ -250,17 +253,20 @@
 {{else ifCond status 'Cotado'}}
 {{else}}
 <div class="mb-3">
-<div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
+<div class="my-1 bg-light2 card1 card">
     <div class="text-right p-2">
       {{#ifCond taxStatus 'Aguardando pagamento'}}
+      {{#ifCond title 'Demandas'}}
       <div class="pagination float-right">
-        <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+        <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active  pagination-mini__dot pagination__dot--active"></div>
       </div>
       {{else ifCond taxStatus 'Aguardando boleto'}}
       <div class="pagination float-right">
         <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
       </div>
       {{/ifCond}}
+      {{/ifCond}}
+      <div onclick="location.href = '/transaction/{{_id}}'">
       <div class="row">
         <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
@@ -317,18 +323,18 @@
                 </p>
               </div>
 
-              <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+              <div class="ml-1  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                 <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
                   <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
                 </p>
               </div>
 
-              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+              <div class="ml-1 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                 <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
                   <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                 </p>
               </div>
-              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+              <div class="ml-1 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                 <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
                   Custo por unidade
                   {{#ifCond offer.usd false}}
@@ -346,6 +352,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </div>

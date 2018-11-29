@@ -6,6 +6,7 @@ const Product = require('../models/product');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
 const Dollar = require('../functions/money');
+const Config = require('../functions/config')
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -14,8 +15,9 @@ const router = express.Router();
  * GET Index - Show all transactions
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
+  const { userType } = req.session;
   Transaction.getAll().then((transactions) => {
-    res.render('history', { title: 'Histórico', transactions });
+    res.render('history', { title: 'Histórico', transactions, userType });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -59,7 +61,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
           transactionData.unitPrice *= dollar;
           transactionData.priceBought *= dollar;
         }
-        console.log(transactionData);
+        console.log("Chegou aqui");
         // Create a new transaction
         Transaction.create(transactionData).then((transaction) => {
           const balanceOffer = offer.balance + transactionData.amountBought;
@@ -185,16 +187,36 @@ router.get('/:id', (req, res) => {
  * PUT Update - Update a transaction in the database
  */
 router.put('/:id', (req, res) => {
+  Config.getConfigValue().then((config) => {
   Transaction.getById(req.params.id).then((transaction) => {
-    console.log(transaction);
+    // console.log(transaction.offer.product.category);
     let transactionData = {};
     const data = {
       name: transaction.buyer.firstName,
       email: transaction.buyer.email
     };
+    var tax = 0;
+
+    if (transaction.offer.product.category == 'Fertilizantes sólidos') {
+      tax = config.solidFertilizerTax;
+    }
+    else if (transaction.offer.product.category == 'Defensivos agrícolas/agrotóxicos') {
+      tax = config.defensiveTax;
+    }
+    else if (transaction.offer.product.category == 'Sementes') {
+      tax = config.seedTax;
+    }
+    else if (transaction.offer.product.category == 'Fertilizantes líquidos/adjuvantes/biológicos') {
+      tax = config.liquidFertilizerTax;
+    }
+
     if (transaction.status === 'Cotado') {
       transactionData.status = 'Aguardando boleto';
-      transactionData.taxStatus = 'Aguardando boleto';
+      if (transaction.franchisee) {
+        transactionData.taxStatus = 'Aguardando boleto';
+        transactionData.franchiseeTaxStatus = 'Não necessário';
+        transactionData.franchiseeTaxValue = transaction.priceBought * tax;
+      }
       const offerData = {};
       if (transaction.offer.stock < transaction.amountBought) {
         const error = {
@@ -354,7 +376,8 @@ router.put('/:id', (req, res) => {
     res.redirect('/error');
   });
   req.flash('success', 'Compra realizada.');
-  res.redirect(`/user`);
+  res.redirect(`/user/orders`);
+});
 });
 
 /**
@@ -434,10 +457,29 @@ router.delete('/:id', (req, res) => {
 });
 
 router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
-  console.log(req.body.status);
-  const transaction = {
-    status: req.body.status
-  };
+  Transaction.getById(req.params.id).then((transaction) => {
+    transaction.status = req.body.status;
+
+    if ( transaction.franchisee ) {
+      User.getById(transaction.franchisee).then((user) => {
+        if( transaction.status == 'Entregue' ) {
+          user.pendingPayment += transaction.franchiseeTaxValue;
+          transaction.franchiseeTaxStatus = 'Pendente';
+          User.update(user._id, user).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+          Transaction.update(transaction._id, transaction).catch((error) => {
+            console.log(error);
+            res.redirect('/error');
+          });
+        }
+      }).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    }
+
   Transaction.update(req.params.id, transaction).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -465,6 +507,7 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
       req.flash('success', 'Status da taxa de transação atualizado.');
     }
   res.redirect('/user/sales');
+  });
 });
 
 // /**

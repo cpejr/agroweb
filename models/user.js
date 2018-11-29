@@ -46,6 +46,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  pendingPayment: {
+    type: Number,
+    default: 0
+  },
   status: {
     type: String,
     enum: ['Inativo', 'Bloqueado', 'Aguardando aprovação', 'Ativo'],

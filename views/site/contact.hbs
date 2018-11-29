@@ -29,49 +29,70 @@
 	</nav>
 </header>
 <!-- end NavBar -->
-
-
-<div class="container mb-5">
+<div class="container mb-5 mx-auto">
   <div class="row mb-5" id="contact">
     <div class="col-12">
-      <div class="col-12 mt-5 p-3 text-center">
+      <div class="mt-5 p-3 text-center mx-auto">
         <h1>Contato</h1>
       </div>
-
       <!-- Contact Form -->
       <!-- novalidate -->
       <!-- <form action="/site/contact" method="POST" novalidate> -->
-      <div class="row">
-        <div class="col-md-6 col-12">
+      <div class="mx-auto col-sm-12 col-md-10 col-lg-6">
+        <div class="mx-auto">
           <form action="/site/contact" method="POST" novalidate>
-            <div class="form-group">
-              <label for="name" class="">Nome</label>
-              <input type="text" class="col-12 col-md-9 form-control" id="name" name="user[name]" required>
-            </div>
-            <div class="form-group">
-              <label for="email" class="">E-mail</label>
-              <input type="email" class="col-12 col-md-9 form-control" id="email" name="user[clientEmail]" required>
-            </div>
-            <div class="form-group">
-              <label for="name" class="">Assunto</label>
-              <input type="text" class="col-12 col-md-9 form-control" id="subject" name="user[subject]" required>
-            </div>
-            <div class="form-group">
-              <label for="text" class="">Mensagem</label>
-              <textarea type="text" class="col-12 col-md-9 form-control" id="message" rows="3" name="user[content]" required></textarea>
+
+            <div class="user-input">
+              <br/>
+              <div class="input-group mb-2">
+               <div class="input-group-prepend">
+                 <div class="input-group-text"><i class="fas fa-user"></i></div>
+               </div>
+              <input name="user[name]" type="text" class="form-control input-text" required/>
+              <label class="floating-label text-dark2">Nome</label>
+                </div>
             </div>
 
-            <div class="row">
-              <div class="col-12 col-sm-4 col-md-4">
-                <button type="submit" class=" btn w-100 bg-green mx-auto text-white">Enviar</button>
+            <div class="user-input">
+              <br/>
+              <div class="input-group mb-2">
+               <div class="input-group-prepend">
+                 <div class="input-group-text"><i class="fas fa-at"></i></div>
+               </div>
+              <input name="user[clientEmail]" type="email" class="form-control input-text" required/>
+              <label class="floating-label text-dark2">E-mail</label>
+                </div>
+            </div>
+
+            <div class="user-input">
+              <br/>
+              <div class="input-group mb-2">
+               <div class="input-group-prepend">
+                 <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+               </div>
+              <input name="user[subject]" type="text" class="form-control input-text" required/>
+              <label class="floating-label text-dark2">Assunto</label>
+                </div>
+            </div>
+
+            <div class="user-input">
+              <br/>
+              <div class="input-group mb-2">
+               <div class="input-group-prepend">
+                 <div class="input-group-text"><i class="fas fa-comment"></i></div>
+               </div>
+              <textarea name="user[content]" type="text" class="form-control input-text" rows="3" required/></textarea>
+              <label class="floating-label text-dark2">Mensagem</label>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+              <div class="col-12 col-sm-4 col-md-4 mx-auto">
+                <button type="submit" class=" btn w-100 bg-green text-white">Enviar</button>
               </div>
             </div>
           </form>
           <!-- end Contact Form -->
-        </div>
-
-        <div class="col-md-6 col-12">
-          <!-- <div id="map-container-2" class="z-depth-1" style="height: 500px"></div> -->
         </div>
     </div>
   </div>

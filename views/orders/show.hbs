@@ -2,6 +2,7 @@
 {{/section}}
 
 <div class="container">
+  <div class="row justify-content-center mx-sm-auto mx-md-9">
   <div class="justify-content-center mx-sm-auto">
     <div class="row">
       <div class="col-12 ml-1 mb-3 text-center justify-content-center">
@@ -162,27 +163,27 @@
           <div class="dropdown pb-4">
             <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
             {{#ifCond status 'Aguardando boleto'}}
-            class="btn btn-warning dropdown-toggle col-6">
+            class="btn btn-warning dropdown-toggle col-8">
             Aguardando boleto
 
             {{else ifCond status 'Aguardando pagamento'}}
-            class="btn btn-warning dropdown-toggle col-6">
+            class="btn btn-warning dropdown-toggle col-8">
             Aguardando pagamento
 
             {{else ifCond status 'Pagamento confirmado'}}
-            class="btn btn-secondary  dropdown-toggle col-6">
+            class="btn btn-secondary  dropdown-toggle col-8">
             Pagamento confirmado
 
             {{else ifCond status 'Produto a caminho'}}
-            class="btn btn-primary  dropdown-toggle col-6">
+            class="btn btn-primary  dropdown-toggle col-8">
             Produto a caminho
 
             {{else ifCond status 'Entregue'}}
-            class="btn btn-success  dropdown-toggle col-6">
+            class="btn btn-success  dropdown-toggle col-8">
             Entregue
 
             {{else}}
-            class="btn  dropdown-toggle btn-danger col-6">
+            class="btn  dropdown-toggle btn-danger col-8">
             Cancelado
             {{/ifCond}}
           </button>
@@ -381,6 +382,7 @@
       {{/ifNotEq}}
     <!-- end Product Description -->
   </div>
+</div>
 </div>
 
 {{#section 'scripts'}}

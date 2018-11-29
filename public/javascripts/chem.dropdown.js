@@ -1,26 +1,29 @@
+let chemsAdded = [];
+let chems = [];
 $(document).ready(() => {
   $('#add-chem').on('click', () => {
     const nameChem = $('input[name=chem-selected]').val();
-    console.log(nameChem);
-    const badgeHtml = `<span class="badge badge-dark chem-badge" onclick="removeMe(this)">
-                        ${ nameChem  }
-                        <input type="hidden" name="chem[]" value="${ nameChem }">
-                      </span>`;
-    $('#select-chem').append(badgeHtml);
-  });
-  // $("chem-badge").click((e) => {
-  //   $(e.target).remove();
-  //    console.log('xablau');
-  // });
+    var index = chemsAdded.indexOf(nameChem);
+    var indexValid = chems.indexOf(nameChem);
 
-  // $("#select-chem").on("click", () => {
-  //   console.log(nameChem);
-  //   $("chem-badge").remove();
-  // });
+    if ((index == -1)&&(indexValid > -1)) {
+      const badgeHtml = `<span class="badge badge-success chem-badge" onclick="removeMe(this)">
+                          ${ nameChem  } <i class="fas fa-times float-right"></i>
+                          <input type="hidden" name="chem[]" value="${ nameChem }">
+                        </span>`;
+      $('#select-chem').append(badgeHtml);
+      chemsAdded.push(nameChem);
+    }
+  });
 });
 
 function removeMe(element) {
   $(element).remove();
+  const nameChem = $(element).find('input').val();
+  var index = chemsAdded.indexOf(nameChem);
+  if (index > -1) {
+    chemsAdded.splice(index, 1);
+  }
 }
 
 const substringMatcher = (strs) => {
@@ -45,7 +48,7 @@ const substringMatcher = (strs) => {
 };
 
 $.get('../search/chems', (result) => {
-  const chems = result;
+  chems = result;
   $('#chems-list .typeahead').typeahead(
     {
       hint: true,

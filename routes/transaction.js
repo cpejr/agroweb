@@ -61,7 +61,6 @@ router.post('/', auth.isAuthenticated, (req, res) => {
           transactionData.unitPrice *= dollar;
           transactionData.priceBought *= dollar;
         }
-        console.log("Chegou aqui");
         // Create a new transaction
         Transaction.create(transactionData).then((transaction) => {
           const balanceOffer = offer.balance + transactionData.amountBought;

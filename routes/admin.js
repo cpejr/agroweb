@@ -26,7 +26,7 @@ router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 });
 
 /* GET Products - Show all products docs */
-router.get('/products', (req, res) => {
+router.get('/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Product.getByQuerySorted({ status: 'Aprovado' }).then((products) => {
     console.log(products);
     res.render('admin/products', { title: 'Produtos', layout: 'layout', products });

@@ -49,7 +49,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  -webkit-tap-highlight-color: transparent; }
 
 @-ms-viewport {
   width: device-width; }
@@ -6219,7 +6219,7 @@ nav .form-control {
     width: 10.0em; } }
 
 .smaller-font {
-  font-size: .85em; }
+  font-size: .7em; }
 
 img.navbar-brand {
   width: 100px; }

@@ -69,23 +69,23 @@ router.post('/', auth.isAuthenticated, (req, res) => {
           };
           // Update the offer
           Offer.update(transactionData.offer, offerData).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível atualizar a transação.');
+            res.redirect('/user');
           });
           User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
-            console.log(error);
+            req.flash('danger', 'Não foi possível adicionar no carrinho do comprador.');
             res.redirect('/error');
           });
           if (transactionData.franchisee) {
             User.addToMyCart(transactionData.franchisee, transaction).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível adicionar no carrinho do franqueado.');
+              res.redirect('/user');
             });
           }
           res.redirect(`transaction/${transaction}`);
         }).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
+          req.flash('danger', 'Não foi possível cotar este produto.');
+          res.redirect('/user');
         });
       }
       else if (transactionData.group) {
@@ -107,52 +107,51 @@ router.post('/', auth.isAuthenticated, (req, res) => {
             transactionData.unitPrice *= dollar;
             transactionData.priceBought *= dollar;
           }
-          console.log(transactionData);
           Transaction.create(transactionData).then((transaction) => {
             Group.update(group._id, { unitPrice: transactionData.unitPrice, amount: balanceGroup }).then(() => {
               Group.updateAllTransactions(group._id).catch((error) => {
-                console.log(error);
-                res.redirect('/error');
+                req.flash('danger', 'Não foi possível atualizar todas as transações do grupo.');
+                res.redirect('/user');
               });
             }).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível atualizar o grupo.');
+              res.redirect('/user');
             });
             Group.addUser(group._id, transactionData.buyer).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível adicionar o usuário no grupo.');
+              res.redirect('/user');
             });
             User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível adicionar a transação no carrinho do comprador.');
+              res.redirect('/user');
             });
             if (transactionData.franchisee) {
               User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
-                console.log(error);
-                res.redirect('/error');
+                req.flash('danger', 'Não foi possível adicionar a transação no carrinho do franqueado.');
+                res.redirect('/user');
               });
             }
             Group.addTransaction(group._id, transaction).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível adicionar a transação no grupo.');
+              res.redirect('/user');
             });
             res.redirect(`transaction/${transaction}`);
           }).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível criar a transação.');
+            res.redirect('/user');
           });
         }).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
+          req.flash('danger', 'Não foi possível encontrar a oferta no grupo.');
+          res.redirect('/user');
         });
       }
     }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
+      req.flash('danger', 'Há algum erro nesta oferta.');
+      res.redirect('/user');
     });
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    req.flash('danger', 'Não foi possível obter o valor do dólar. Aguarde um momento.');
+    res.redirect('/user');
   });
 });
 
@@ -173,12 +172,12 @@ router.get('/:id', (req, res) => {
       res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, myOffer });
     }
     else {
-      console.log('Transaction not found!');
+      req.flash('danger', 'Não foi possível a transação.');
       res.redirect('/user');
     }
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    req.flash('danger', 'Não foi possível a transação.');
+    res.redirect('/user');
   });
 });
 
@@ -188,40 +187,37 @@ router.get('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
   Config.getConfigValue().then((config) => {
   Transaction.getById(req.params.id).then((transaction) => {
-    // console.log(transaction.offer.product.category);
     let transactionData = {};
     const data = {
       name: transaction.buyer.firstName,
       email: transaction.buyer.email
     };
-    var tax = 0;
-
-    if (transaction.offer.product.category == 'Fertilizantes sólidos') {
-      tax = config.solidFertilizerTax;
-    }
-    else if (transaction.offer.product.category == 'Defensivos agrícolas/agrotóxicos') {
-      tax = config.defensiveTax;
-    }
-    else if (transaction.offer.product.category == 'Sementes') {
-      tax = config.seedTax;
-    }
-    else if (transaction.offer.product.category == 'Fertilizantes líquidos/adjuvantes/biológicos') {
-      tax = config.liquidFertilizerTax;
-    }
-
     if (transaction.status === 'Cotado') {
       transactionData.status = 'Aguardando boleto';
       if (transaction.franchisee) {
+        var tax = 0;
+
+        if (transaction.offer.product.category == 'Fertilizantes sólidos') {
+          tax = config.solidFertilizerTax;
+        }
+        else if (transaction.offer.product.category == 'Defensivos agrícolas/agrotóxicos') {
+          tax = config.defensiveTax;
+        }
+        else if (transaction.offer.product.category == 'Sementes') {
+          tax = config.seedTax;
+        }
+        else if (transaction.offer.product.category == 'Fertilizantes líquidos/adjuvantes/biológicos') {
+          tax = config.liquidFertilizerTax;
+        }
+
         transactionData.taxStatus = 'Aguardando boleto';
         transactionData.franchiseeTaxStatus = 'Não necessário';
         transactionData.franchiseeTaxValue = transaction.priceBought * tax;
       }
       const offerData = {};
       if (transaction.offer.stock < transaction.amountBought) {
-        const error = {
-          message: 'Tarde demais, o fornecedor não tem mais estoque para atender seu pedido.'
-        };
-        res.redirect('/error');
+        req.flash('danger', 'Tarde demais, o fornecedor não tem mais estoque para atender seu pedido.');
+        res.redirect('/user');
       }
       offerData.stock = transaction.offer.stock - transaction.amountBought;
       offerData.balance = transaction.offer.balance - transaction.amountBought;
@@ -231,53 +227,53 @@ router.put('/:id', (req, res) => {
       Offer.update(transaction.offer._id, offerData).then(() => {
         Transaction.update(req.params.id, transactionData).then(() => {
           User.removeFromMyCart(transaction.buyer._id, req.params.id).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível remover do carrinho do comprador.');
+            res.redirect('/user');
           });
           User.addTransaction(transaction.buyer._id, req.params.id).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível adicionar a compra para o comprador.');
+            res.redirect('/user');
           });
           if (transaction.franchisee) {
             User.removeFromMyCart(transaction.franchisee._id, req.params.id).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível remover do carrinho do franqueado.');
+              res.redirect('/user');
             });
             User.addTransaction(transaction.franchisee._id, req.params.id).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível adicionar a compra para o franqueado.');
+              res.redirect('/user');
             });
           }
           Email.buyEmail(transaction).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível enviar email de compra.');
+            res.redirect('/user');
           });
           User.addTransaction(transaction.offer.seller._id, req.params.id).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível adicionar a compra para o vendedor.');
+            res.redirect('/user');
           });
           Email.sellEmail(transaction).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível enviar email de venda.');
+            res.redirect('/user');
           });
           Email.adminNewTransactionEmail(transaction).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível enviar email para o administrador.');
+            res.redirect('/user');
           });
         }).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
+          req.flash('danger', 'Não foi possível atualizar a transação.');
+          res.redirect('/user');
         });
         if (transaction.group) {
           let groupData = {};
           Group.getOneByQuery({ offer: transaction.offer._id }).then((group) => {
             Group.removeUser(group._id, transaction.buyer._id).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível remover usuário do grupo.');
+              res.redirect('/user');
             });
             Group.removeTransaction(group._id, transaction._id).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível remover transação do grupo.');
+              res.redirect('/user');
             });
             if (offerData.active === false) {
               Offer.getByQuerySorted({ product: group.productId, active: true, delivery: { $ne: '48 horas' } }, {}).then((offers) => {
@@ -306,26 +302,26 @@ router.put('/:id', (req, res) => {
                         groupData.active = true;
                       }
                       Group.update(group._id, groupData).catch((error) => {
-                        console.log(error);
-                        res.redirect('/error');
+                        req.flash('danger', 'Não foi possível atualizar o grupo.');
+                        res.redirect('/user');
                       });
                     }).catch((error) => {
-                      console.log(error);
-                      res.redirect('/error');
+                      req.flash('danger', 'Não foi possível encontrar a oferta.');
+                      res.redirect('/user');
                     });
                   });
                 }).catch((error) => {
-                  console.log(error);
-                  res.redirect('/error');
+                  req.flash('danger', 'Não foi possível encontrar o valor do dólar.');
+                  res.redirect('/user');
                 });
               }).catch((error) => {
-                console.log(error);
-                res.redirect('/error');
+                req.flash('danger', 'Não foi possível encontrar a oferta.');
+                res.redirect('/user');
               });
             }
           }).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível encontrar o grupo de compras.');
+            res.redirect('/user');
           });
           Group.getOneByQuery({ offer: transaction.offer._id }).then((group) => {
             groupData = {};
@@ -341,41 +337,44 @@ router.put('/:id', (req, res) => {
             }
             Group.update(group._id, groupData).then(() => {
               Group.updateAllTransactions(group._id).catch((error) => {
-                console.log(error);
-                res.redirect('/error');
+                req.flash('danger', 'Não foi possível atualizar as transações do grupo.');
+                res.redirect('/user');
               });
             }).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
+              req.flash('danger', 'Não foi possível atualizar o grupo.');
+              res.redirect('/user');
             });
           }).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível encontrar o grupo.');
+            res.redirect('/user');
           });
         }
       }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+        req.flash('danger', 'Não foi possível atualizar o grupo.');
+        res.redirect('/user');
       });
     }
     else {
       transactionData = req.body.transaction;
       Transaction.update(req.params.id, transactionData).then(() => {
         Email.updateEmail(data, transactionData.status).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
+          req.flash('danger', 'Não foi possível atualizar o email.');
+          res.redirect('/user');
         });
       }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+        req.flash('danger', 'Não foi possível atualizar o transação.');
+        res.redirect('/user');
       });
     }
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    req.flash('danger', 'Não foi possível encontrar essa transação.');
+    res.redirect('/user');
   });
   req.flash('success', 'Compra realizada.');
   res.redirect(`/user/orders`);
+}).catch((error) => {
+  req.flash('danger', 'Não foi possível pegar o valor da taxa sobre essa categoria de produto.');
+  res.redirect('/user');
 });
 });
 
@@ -388,13 +387,13 @@ router.delete('/:id', (req, res) => {
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction.status === 'Cotado') {
       User.removeFromMyCart(userId, req.params.id).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+        req.flash('danger', 'Não foi possível remover cotação do carrinho.');
+        res.redirect('/user');
       });
       if (transaction.franchisee) {
         User.removeFromMyCart(transaction.buyer._id, req.params.id).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
+          req.flash('danger', 'Não foi possível remover cotação do comprador.');
+          res.redirect('/user');
         });
       }
       offerData.balance = transaction.offer.balance - transaction.amountBought;
@@ -406,12 +405,12 @@ router.delete('/:id', (req, res) => {
       const groupData = {};
       Group.getOneByQuery({ offer: transaction.offer._id }).then((group) => {
         Group.removeUser(group._id, transaction.buyer._id).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
+          req.flash('danger', 'Não foi possível remover usuário do grupo.');
+          res.redirect('/user');
         });
         Group.removeTransaction(group._id, transaction._id).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
+          req.flash('danger', 'Não foi possível remover cotação do grupo.');
+          res.redirect('/user');
         });
         groupData.amount = group.amount - transaction.amountBought;
         if (groupData.amount < group.offer.breakpoints.average) {
@@ -425,8 +424,8 @@ router.delete('/:id', (req, res) => {
         }
         Group.update(group._id, groupData).then(() => {
           Group.updateAllTransactions(group._id).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível atualizar todas transações do grupo.');
+            res.redirect('/user');
           });
         }).catch((error) => {
           console.log(error);
@@ -439,17 +438,17 @@ router.delete('/:id', (req, res) => {
     }
     Offer.update(transaction.offer._id, offerData).then(() => {
       Transaction.delete(req.params.id).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+        req.flash('danger', 'Não foi possível deletar transação.');
+        res.redirect('/user');
       });
       res.redirect('/transaction/');
     }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
+      req.flash('danger', 'Não foi possível atualizar oferta.');
+      res.redirect('/user');
     });
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    req.flash('danger', 'Não foi possível encontrar transação.');
+    res.redirect('/user');
   });
   req.flash('success', 'Compra cancelada.');
   res.redirect(`/transaction/${req.params.id}`);
@@ -465,23 +464,23 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
           user.pendingPayment += transaction.franchiseeTaxValue;
           transaction.franchiseeTaxStatus = 'Pendente';
           User.update(user._id, user).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível atualizar o usuário.');
+            res.redirect('/user');
           });
           Transaction.update(transaction._id, transaction).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+            req.flash('danger', 'Não foi possível atualizaçar transação.');
+            res.redirect('/user');
           });
         }
       }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+        req.flash('danger', 'Não foi possível encontrar o usuário.');
+        res.redirect('/user');
       });
     }
 
   Transaction.update(req.params.id, transaction).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    req.flash('danger', 'Não foi possível atualizaçar transação.');
+    res.redirect('/user');
   });
   switch(transaction.status) {
   case 'Aguardando aprovação':

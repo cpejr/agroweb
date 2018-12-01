@@ -437,7 +437,7 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
 /**
  * GET status - Show if user is blocked or waiting
  */
-router.get('/status', (req, res) => {
+router.get('/status', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     delete req.session.userType;
     delete req.session.firstName;

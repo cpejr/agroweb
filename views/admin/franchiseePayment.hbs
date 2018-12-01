@@ -33,7 +33,7 @@
       {{#ifNotEq pendingPayment 0}}
       <tr>
         <th scope="row">{{fullName}}</th>
-        <th scope="row">{{pendingPayment}}</th>
+        <th scope="row">R$ {{pendingPayment}}</th>
         <th>
           <form action="/admin/payFranchisee/{{id}}" method="POST">
             <input type="hidden" name="pendingPayment" value = 0></input>

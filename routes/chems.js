@@ -7,7 +7,7 @@ const router = express.Router();
 /**
  * GET Index - Show all chems
  */
-router.get('/', (req, res) => {
+router.get('/', auth.isAuthenticated, (req, res) => {
   Chem.getAll().then((chems) => {
     console.log(chems);
     res.render('chems/index', { title: 'Princípios ativos', chems });
@@ -21,14 +21,14 @@ router.get('/', (req, res) => {
 /**
  * GET New - Show form to create new chem
  */
-router.get('/new', auth.isAdmin, (req, res) => {
+router.get('/new', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   res.render('chems/new', { title: 'Novo princípio ativo' });
 });
 
 /**
  * POST Create - Add new chem to DB
  */
-router.post('/', auth.isAdmin, (req, res) => {
+router.post('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const { chem } = req.body;
   Chem.create(chem).then((id) => {
     console.log(`Created new chem with id: ${id}`);
@@ -43,7 +43,7 @@ router.post('/', auth.isAdmin, (req, res) => {
 /**
  * GET Show - Show details of a chem
  */
-router.get('/:id', (req, res) => {
+router.get('/:id', auth.isAuthenticated, (req, res) => {
   Chem.getById(req.params.id).then((chem) => {
     if (chem) {
       console.log(chem);
@@ -62,7 +62,7 @@ router.get('/:id', (req, res) => {
 /**
  * GET Edit - Show the chem edit form
  */
-router.get('/:id/edit', auth.isAdmin, (req, res) => {
+router.get('/:id/edit', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Chem.getById(req.params.id).then((chem) => {
     if (chem) {
       console.log(chem);
@@ -81,7 +81,7 @@ router.get('/:id/edit', auth.isAdmin, (req, res) => {
 /**
  * PUT Update - Update a chem in the database
  */
-router.put('/:id', auth.isAdmin, (req, res) => {
+router.put('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const chem = {
     name: req.body.name
   };
@@ -96,7 +96,7 @@ router.put('/:id', auth.isAdmin, (req, res) => {
 /**
  * DELETE Destroy - Removes a chem from the databse
  */
-router.delete('/:id', auth.isAdmin, (req, res) => {
+router.delete('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Chem.delete(req.params.id).catch((error) => {
     console.log(error);
     res.redirect('/error');

@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
   description: String,
   unit: {
     type: String,
-    enum: ['kg', 'unidade'],
+    enum: ['Quilograma', 'Unidade'],
     required: true
   },
   active: {
@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema({
     default: true
   },
   // fields:
-  chem: [{
+  chems: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Chem'
   }]
@@ -46,7 +46,7 @@ class Product {
    */
   static getAll() {
     return new Promise((resolve, reject) => {
-      ProductModel.find({}).populate('chem').exec().then((results) => {
+      ProductModel.find({}).populate('chems').exec().then((results) => {
         resolve(results);
       }).catch((err) => {
         reject(err);
@@ -61,7 +61,7 @@ class Product {
    */
   static getById(id) {
     return new Promise((resolve, reject) => {
-      ProductModel.findById(id).populate('chem').exec().then((result) => {
+      ProductModel.findById(id).populate('chems').exec().then((result) => {
         resolve(result.toObject());
       }).catch((err) => {
         reject(err);
@@ -118,7 +118,7 @@ class Product {
    */
   static getAllByCategory(value) {
     return new Promise((resolve, reject) => {
-      ProductModel.find({ category: value }).populate('chem').then((result) => {
+      ProductModel.find({ category: value }).populate('chems').then((result) => {
         resolve(result);
       }).catch((err) => {
         reject(err);
@@ -134,7 +134,7 @@ class Product {
    */
   static getByQuerySorted(query, sort) {
     return new Promise((resolve, reject) => {
-      ProductModel.find(query).sort(sort).populate('chem').then((result) => {
+      ProductModel.find(query).sort(sort).populate('chems').then((result) => {
         resolve(result);
       }).catch((err) => {
         reject(err);

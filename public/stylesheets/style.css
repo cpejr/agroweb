@@ -6252,16 +6252,16 @@ img.footer-brand {
 .info {
   border: none;
   width: 2000px;
-  height: 370px;
+  height: 69vh;
   overflow: scroll;
   /* Scrollbar styles */ }
 
 .info::-webkit-scrollbar {
   width: 8px;
-  height: 8px; }
+  height: 0px; }
 
 .info::-webkit-scrollbar-track {
-  border: 1px solid yellowgreen; }
+  border: 0px solid yellowgreen; }
 
 .info::-webkit-scrollbar-thumb {
   background: yellowgreen; }

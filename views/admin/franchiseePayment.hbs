@@ -1,0 +1,61 @@
+{{#section 'stylesheets'}}
+{{/section}}
+
+<div class="">
+  <div class="text-center pb-3 gradient-background text-white">
+    <h3 class="font-black">Taxas dos franqueados</h3>
+  </div>
+
+  {{#if users}}
+
+  <div class="text-center p-3">
+    <button type="button col-1 color-muted" name="button" class="btn ml-1">
+      <i class="fas fa-sort-amount-down float-left"></i>
+    </button>
+    <button type="button col-1 color-muted" name="button" class="btn ml-1">
+      <i class="fas fa-filter float-left"></i>
+    </button>
+  </div>
+
+<div style="overflow-x:auto;">
+  <table class="table table-light table-striped text-center">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Valor a pagar</th>
+        <th scope="col">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {{#each users}}
+      {{#ifCond type "Franqueado"}}
+      {{#ifNotEq pendingPayment 0}}
+      <tr>
+        <th scope="row">{{fullName}}</th>
+        <th scope="row">R$ {{pendingPayment}}</th>
+        <th>
+          <form action="/admin/payFranchisee/{{id}}" method="POST">
+            <input type="hidden" name="pendingPayment" value = 0></input>
+            <button type="submit" align="center" class="btn btn-outline-info" name="status">
+              Pago
+            </button>
+          </form>
+        </th>
+      </tr>
+      {{/ifNotEq}}
+      {{/ifCond}}
+      {{/each}}
+
+    </tbody>
+  </table>
+</div>
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Ainda não há pagamentos necessários para os franqueados.</p>
+</div>
+{{/if}}
+  </div>
+</div>
+{{#section 'scripts'}}
+{{/section}}

@@ -35,7 +35,7 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 /**
  * GET Show - Show details of a group
  */
-router.get('/:id', (req, res) => {
+router.get('/:id', auth.isAuthenticated, (req, res) => {
   Group.getById(req.params.id).then((group) => {
     if (group) {
       console.log(group);
@@ -54,7 +54,7 @@ router.get('/:id', (req, res) => {
 /**
  * PUT Update - Update a group in the database
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', auth.isAuthenticated, (req, res) => {
   const group = req.body.group;
   Group.update(req.params.id, group).catch((error) => {
     console.log(error);
@@ -66,7 +66,7 @@ router.put('/:id', (req, res) => {
 /**
  * DELETE Destroy - Removes a group from the databse
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth.isAuthenticated, (req, res) => {
   Group.delete(req.params.id).catch((error) => {
     console.log(error);
     res.redirect('/error');

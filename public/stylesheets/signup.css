@@ -1,5 +1,6 @@
 body {
   background-color: #232323;
+  height: 100vh
 }
 
 @media (min-width: 720px) {

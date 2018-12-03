@@ -190,7 +190,7 @@ router.post('/signup', (req, res) => {
       req.session.status = 'Aguardando aprovação';
       req.session._id = docId;
       if (req.session.userType === 'Indústria') {
-        res.render('industryMegaPremio', { title: 'Indústria', layout: 'layout' });
+        res.render('industryMegaPremio', { title: 'Indústria' });
       }
       else if (req.session.userType === 'Revendedor') {
         res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout' });

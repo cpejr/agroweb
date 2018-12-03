@@ -139,10 +139,13 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
  * GET Profile/index - Show all user's details
  */
 router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
+  const { userType } = req.session;
+  const userId = req.session._id;
   User.getById(req.params.id).then((user) => {
     if (user) {
       User.getAgreementListById(req.session._id).then((client) => {
-        res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, client, ...req.session});
+        console.log(userId);
+        res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, userType, userId, client, ...req.session});
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');

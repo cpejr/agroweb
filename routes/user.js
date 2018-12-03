@@ -42,10 +42,11 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  * GET orders - Show all user's orders
  */
 router.get('/orders', auth.isAuthenticated, (req, res) => {
+  const userId = req.session._id;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOpenOrdersByUserId(req.session._id).then((transactions) => {
-        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session });
+        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session});
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -68,8 +69,10 @@ router.get('/sales', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
   const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
+
     if (user) {
       User.getAllOpenSalesByUserId(req.session._id).then((transactions) => {
+        console.log(userId);
         res.render('orders', { title: 'Demandas', transactions, userId, userType });
       }).catch((error) => {
         console.log(error);

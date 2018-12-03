@@ -256,6 +256,19 @@ router.put('/:id', (req, res) => {
             req.flash('danger', 'Não foi possível enviar email de venda.');
             res.redirect('/user');
           });
+            if (transaction.franchisee) {
+              const Trans = transaction;
+              User.getById(transaction.franchisee).then((franchi) => {
+                Trans.franchisee = franchi;
+              });
+              console.log('PUTA QUE PARIU');
+              console.log(Trans.franchisee.fullName);
+              console.log('MEU SACO MALHADO');
+              Email.FranchiseeEmail(Trans).catch((error) => {
+                req.flash('danger', 'Não foi possível enviar email do Franqueado.');
+                res.redirect('/user');
+              });
+            }
           Email.adminNewTransactionEmail(transaction).catch((error) => {
             req.flash('danger', 'Não foi possível enviar email para o administrador.');
             res.redirect('/user');

@@ -70,6 +70,33 @@ class Email {
    * @param {Object} data - Email Document Data
    * @returns {Object} Information
    */
+  static signupEmail(data) {
+    console.log('Signup Email');
+    return new Promise((resolve) => {
+      const content = `Prezado(a) ${data.fullName},
+      Bem vindo(a) à plataforma Megapool! Estamos felizes com a sua solitição de cadastro, vamos analisar seus dados e em breve entraremos em contato quando for analisada por nossa equipe.`;
+      const subject = 'MEGAPOOL: Cadastro realizado com sucesso';
+      const emailContent = {
+        // clientEmail: data.buyer.email,
+        // clientEmail: 'admcpejr@megapool.com.br',
+        clientEmail: 'lucassouza@cpejr.com.br',
+        subject,
+        content
+      };
+      return new Promise((resolve) => {
+        Email.sendEmail(emailContent).then((info) => {
+          resolve(info);
+        });
+      });
+    });
+  }
+
+
+  /**
+   * Send an email to the buyer
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
   static buyEmail(data) {
     console.log('Buyer Email');
     return new Promise((resolve) => {

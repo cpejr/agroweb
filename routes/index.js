@@ -189,6 +189,10 @@ router.post('/signup', (req, res) => {
       req.session.userUid = user.uid;
       req.session.status = 'Aguardando aprovação';
       req.session._id = docId;
+      Email.signupEmail(userData).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar email para o usuário.');
+        res.redirect('/user');
+      });
       if (req.session.userType === 'Indústria') {
         res.render('industryMegaPremio', { title: 'Indústria' });
       }
@@ -196,6 +200,7 @@ router.post('/signup', (req, res) => {
         res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout' });
       }
       else {
+        console.log("Passou aqui");
         res.redirect('/user');
       }
     }).catch((error) => {

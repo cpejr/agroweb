@@ -23,9 +23,8 @@ class Email {
    */
   static sendEmail(data) {
     const config = {
-      from: data.clientEmail,
-      to: 'lucassouza@cpejr.com.br',
-      // to: 'admcpejr@megapool.com.br',
+      from: 'admcpejr@megapool.com.br',
+      to: data.clientEmail,
       subject: data.subject,
       text: data.content
     };
@@ -95,9 +94,56 @@ class Email {
     });
   }
 
+  static activatedUsersEmail(data) {
+    console.log('Email reativado enviado');
+    const content = `Prezado(a) ${data.firstName},
+     Sua conta Megapool acabou de ser reativada. A partir de agora você poderá entrar com seu email e senha na plataforma, fazendo suas atividades normalmente. Bem vindo(a) novamente!`;
+    const subject = 'MEGAPOOL: Conta reativada';
+    const emailContent = {
+      clientEmail: data.email,
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
 
+  static inactivatedUsersEmail(data) {
+    console.log('Email inativado enviado');
+    const content = `Prezado(a) ${data.firstName},
+     Sua conta Megapool acabou de ser inativada. Já se passou muito tempo desde seu último acesso. Para reativá-la, basta logar novamente na plaforma. A reativação será feita imediatamente no acesso.`;
+    const subject = 'MEGAPOOL: Conta inativada';
+    const emailContent = {
+      clientEmail: data.email,
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
 
-
+  static blockedUsersEmail(data) {
+    console.log('Email bloqueado enviado');
+    const content = `Prezado(a) ${data.firstName},
+     Sua conta Megapool acabou de ser bloqueada. Nossa equipe analisou o caso e decidiu que essa ação fosse necessária. Portanto, não será mais possível utilizar sua conta.`;
+    const subject = 'MEGAPOOL: Conta bloqueada';
+    const emailContent = {
+      clientEmail: data.email,
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
 
   /**
    * Send an update email
@@ -276,9 +322,6 @@ class Email {
        });
      });
    }
-
-
-
 
   static FranchiseeEmail(data) {
     console.log('Franchisee Email');

@@ -204,22 +204,27 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
 
 router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   User.getById(req.params.id).then((user) => {
-    if (user.status === 'Aguardando aprovação') {
-      if (req.body.status === 'Aprovado') {
+      if (req.body.status === 'Ativo') {
         console.log('Enviando email para aprovar um usuário');
-        Email.approvedUsersEmail(user).catch((error) => {
+        Email.activatedUsersEmail(user).catch((error) => {
           req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
           res.redirect('/login');
         });
       }
       else if (req.body.status === 'Bloqueado') {
         console.log('Enviando email para aprovar um usuário');
-        Email.disapprovedUsersEmail(user).catch((error) => {
+        Email.blockedUsersEmail(user).catch((error) => {
           req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
           res.redirect('/login');
         });
       }
-    }
+      else if (req.body.status === 'Inativo') {
+        console.log('Enviando email para aprovar um usuário');
+        Email.inactivatedUsersEmail(user).catch((error) => {
+          req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+          res.redirect('/login');
+        });
+      }
   });
 
   const user = {
@@ -247,20 +252,15 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
 });
 
 router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  console.log('Passou aqui');
   User.getById(req.params.id).then((user) => {
     if (user.status === 'Aguardando aprovação') {
-      console.log('Aqui tbm');
-      console.log(req.body.status);
       if (req.body.status === 'Ativo') {
-        console.log('Enviando email para aprovar um usuário');
         Email.approvedUsersEmail(user).catch((error) => {
           req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
           res.redirect('/login');
         });
       }
       else if (req.body.status === 'Bloqueado') {
-        console.log('Enviando email para aprovar um usuário');
         Email.disapprovedUsersEmail(user).catch((error) => {
           req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
           res.redirect('/login');

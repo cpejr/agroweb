@@ -8,39 +8,56 @@
       <div class="text-center pb-3 gradient-background text-white">
         <h3 class="font-black">Princípios ativos</h3>
       </div>
-      <div class="text-center p-3">
+      <div class="text-center pt-5">
         <button onclick="location.href = '/chems/new'" class="btn font-book btn-outline-primary">Adicionar novo princípio ativo</button>
       </div>
   </div>
 
-<!-- Chems list -->
-<div style="overflow-x:auto;">
-<table class="table table-light table-striped text-center">
-  <thead>
-    <tr>
-      <th scope="col font-black">Nome</th>
-      <th colspan="2" scope="col font-black">Opções</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each chems}}
-    <tr>
-      <th scope="row" class="font-book">{{name}}</th>
-      <th scope="row">
-        <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-warning font-book">Editar</button>
-      </th>
-      <th>
-        <form action="/chems/{{id}}?_method=DELETE" method="POST">
-          <button type="submit" class="btn btn-outline-danger font-book">Excluir</button>
-        </form>
-      </th>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
-</div>
-</div>
-<!-- end chems list -->
+  <div style="overflow-x:auto;">
+    <div class="container">
+      <p>Digite logo abaixo para buscar algum princípio ativo específico:</p>
+      <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+      <br>
+
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th colspan="2" class="text-center">Opções</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+          {{#each chems}}
+          <tr>
+            <th scope="row" class="font-book">{{name}}</th>
+            <th scope="row">
+              <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-warning font-book">Editar</button>
+            </th>
+            <th>
+              <form action="/chems/{{id}}?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-outline-danger font-book">Excluir</button>
+              </form>
+            </th>
+          </tr>
+          {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
 {{#section 'scripts'}}
+<script src="/javascripts/navbar.js"></script>
+<!-- <script src="/javascripts/filter.js"></script> -->
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

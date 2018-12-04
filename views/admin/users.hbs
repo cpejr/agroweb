@@ -6,7 +6,113 @@
     <h3 class="font-black">Usuários cadastrados</h3>
   </div>
 
-  <div class="text-center p-3">
+  <div style="overflow-x:auto;">
+    <div class="container">
+      <p>Digite logo abaixo para buscar algum usuário específico:</p>
+      <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+      <br>
+
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Status</th>
+            <th>Tipo</th>
+            <th>E-mail</th>
+            <th>CPF/CNPJ</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+          {{#each users}}
+          {{#ifCond status 'Aguardando aprovação'}}
+          {{else}}
+          <tr>
+            <th scope="row">{{fullName}}</th>
+              <td>
+              <div class="dropdown">
+                <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                {{#ifCond status 'Ativo'}}
+                class="btn btn-outline-success dropdown-toggle col-12">
+                Ativo
+
+                {{else ifCond status 'Inativo'}}
+                class="btn btn-outline-warning dropdown-toggle col-12">
+                Inativo
+
+                {{else ifCond status 'Bloqueado'}}
+                class="btn btn-outline-danger dropdown-toggle col-12">
+                Bloqueado
+
+                {{/ifCond}}
+
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+                  <a class="dropdown-item" href="#">
+                    <button type="submit" align="center" class="btn btn-outline-success col-12" name="status" value="Ativo">
+                      Ativo
+                    </button>
+                  </a>
+                </form>
+                <form method= "POST" action="/admin/{{id}}/updateUserActive">
+                  <a class="dropdown-item " href="#">
+                    <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Inativo">
+                    Inativo
+                    </button>
+                  </a>
+                </form>
+                <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+                  <a class="dropdown-item" href="#">
+                    <button type="submit" align="center" class="btn btn-outline-danger col-12" name="status" value="Bloqueado">
+                      Bloqueado
+                    </button>
+                  </a>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+        </td>
+            <td>{{type}}</td>
+            <td>{{email}}</td>
+            <td>{{doc}}</td>
+            <td scope="row" class="font-light">
+              <button onclick="location.href='/user/profile/{{id}}'" class="btn btn-outline-info font-book">Ver</button>
+            </td>
+          </tr>
+          {{/ifCond}}
+
+          {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="text-center p-3">
     <button type="button col-1 color-muted" name="button" class="btn ml-1">
       <i class="fas fa-sort-amount-down float-left"></i>
     </button>
@@ -15,7 +121,7 @@
     </button>
   </div>
 <!-- Users list -->
-<div style="overflow-x:auto;">
+<!-- <div style="overflow-x:auto;">
       <table class="table table-light table-striped text-center">
         <thead>
           <tr>
@@ -92,6 +198,20 @@
       </table>
     </div>
   </div>
-</div>
+</div> -->
 {{#section 'scripts'}}
+<script src="/javascripts/navbar.js"></script>
+<!-- <script src="/javascripts/filter.js"></script> -->
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

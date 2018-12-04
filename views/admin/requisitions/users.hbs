@@ -1,24 +1,67 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<div class="">
+
   <div class="text-center pb-3 gradient-background text-white">
     <h3 class="font-black">Requisições de cadastro</h3>
   </div>
 
-  {{#if users}}
+<div style="overflow-x:auto;">
+  <div class="container">
+  <p>Digite logo abaixo para buscar alguma requisição de cadastro específica:</p>
+  <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+  <br>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th colspan="3" class="text-center">Opções</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+      {{#each users}}
+      {{#ifCond status 'Aguardando aprovação'}}
+      <tr>
+        <th scope="row">{{fullName}}</th>
+        <td>{{type}}</td>
+        <td>
+          <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">
+            Perfil
+          </button>
+        </td>
+        <td>
+          <form  method= "POST" action="/admin/{{id}}/requisitions/users">
+            <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
+              Aceitar
+            </button>
+          </form>
+        </td>
+        <td>
+          <form  method= "POST" action="/admin/{{id}}/requisitions/users">
+            <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
+              Bloquear
+            </button>
+          </form>
+        </td>
+      </tr>
+          {{/ifCond}}
+          {{/each}}
+        </tbody>
+</div>
 
-  <div class="text-center p-3">
+<!-- {{#if users}}
+  <!-- <div class="text-center p-3">
     <button type="button col-1 color-muted" name="button" class="btn ml-1">
       <i class="fas fa-sort-amount-down float-left"></i>
     </button>
     <button type="button col-1 color-muted" name="button" class="btn ml-1">
       <i class="fas fa-filter float-left"></i>
     </button>
-  </div>
+  </div> -->
 <!-- Users list -->
 
-<div style="overflow-x:auto;">
+<!-- <div style="overflow-x:auto;">
   <table class="table table-light table-striped text-center">
     <thead>
       <tr>
@@ -56,7 +99,7 @@
         </td>
       </tr>
       {{/ifCond}}
-      {{/each}}
+      {{/each}} -->
 
     </tbody>
   </table>
@@ -69,4 +112,18 @@
   </div>
 </div>
 {{#section 'scripts'}}
+<script src="/javascripts/navbar.js"></script>
+<!-- <script src="/javascripts/filter.js"></script> -->
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

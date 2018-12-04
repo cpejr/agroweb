@@ -7,32 +7,51 @@
 </div>
 
 <div style="overflow-x:auto;">
-<table class="table table-light table-striped  text-center">
-  <thead>
-    <tr>
-      <th scope="col">Nome</th>
-      <th scope="col">Email</th>
-      <th scope="col">Opções</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each users}}
-    <tr>
-      <td class="font-book">{{fullName}}</td>
-      <td class="font-book">{{email}}</td>
-      <th scope="row">
-        <form action="/newsletter/{{id}}?_method=DELETE" method="POST">
-          <button type="submit" class="btn btn-outline-danger">
-            Remover
-          </button>
-        </form>
-      </th>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
-</div>
-</div>
+  <div class="container">
+    <p>Digite logo abaixo para buscar algum e-mail específico:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+    <br>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+        {{#each users}}
+        <tr>
+          <td class="font-book">{{fullName}}</td>
+          <td class="font-book">{{email}}</td>
+          <th scope="row">
+            <form action="/newsletter/{{id}}?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-outline-danger">
+                Remover
+              </button>
+            </form>
+          </th>
+        </tr>
+        {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
 
 {{#section 'scripts'}}
+<script src="/javascripts/navbar.js"></script>
+<!-- <script src="/javascripts/filter.js"></script> -->
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

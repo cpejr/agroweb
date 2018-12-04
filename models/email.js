@@ -48,7 +48,7 @@ class Email {
     console.log('Email aguardando aprovação enviado');
     const content = `Prezado(a) ${data.name},
     Você acabou de cadastrar na plataforma Megapool. Seus dados foram enviados para nossa equipe e avaliaremos se será aprovado ou não. Aguarde essa avaliação para começar a utilizar as funcionalidades.`;
-    const subject = 'MEGAPOOL: Casdastro feito com sucesso';
+    const subject = 'MEGAPOOL: Cadastro feito com sucesso';
     const emailContent = {
       clientEmail: data.email,
       subject,
@@ -60,6 +60,42 @@ class Email {
       });
     });
   }
+
+  static approvedUsersEmail(data) {
+    console.log('Email aprovado enviado');
+    const content = `Prezado(a) ${data.firstName},
+    Sua conta Megapool acabou de ser ativada. A partir de agora você poderá entrar com seu email e senha na plataforma, começando a fazer suas atividades. Aproveite!`;
+    const subject = 'MEGAPOOL: Cadastro aceito';
+    const emailContent = {
+      clientEmail: data.email,
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
+
+  static disapprovedUsersEmail(data) {
+    console.log('Email reprovado enviado');
+    const content = `Prezado(a) ${data.firstName},
+     Analisamos a sua solicitação de cadastro e, infelizmente, seu pedido não foi aceito por nossa equipe. Portanto, não será possível utilizar as funcionalidades da plataforma Megapool.`;
+    const subject = 'MEGAPOOL: Cadastro reprovado';
+    const emailContent = {
+      clientEmail: data.email,
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
+
+
 
 
 

@@ -35,6 +35,15 @@ const transactionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  franchiseeTaxStatus: {
+    type: String,
+    enum: ['Não necessário', 'Pendente', 'Pago'],
+    default: 'Não necessário'
+  },
+  franchiseeTaxValue: {
+    type: Number,
+    default: 0
+  },
   group: {
     type: Boolean,
     default: false

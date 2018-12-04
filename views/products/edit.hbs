@@ -4,6 +4,8 @@
   <h3 class="text-center font-black">Editar produto</h3>
 </div>
 
+<div class="pl-5 pr-5 pt-2">
+
 <form action="/products/{{id}}?_method=PUT" method="POST">
   <div class="row d-flex justify-content-between">
     <div class="form-group col-md-3 col-10 mx-4 my-2">
@@ -15,35 +17,14 @@
        <input name="product[name]" type="text" class="form-control" value="{{name}}" id="name"></input>
       </div>
     </div>
-    <div class="form-group col-md-3 mx-4 my-2">
-      <label for="category" class="editlabel">Categoria</label>
+
+    <div class="form-group col-md-3 col-10 mx-4 my-2">
+      <label for="name" class="editlabel">Categoria</label>
       <div class="input-group mb-2">
        <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-boxes"></i></div>
+         <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
        </div>
-       <select class="form-control" name="product[category]" id="category">
-         {{#ifCond category 'Defensivos agrícolas/agrotóxicos'}}
-           <option selected value="Defensivos agrícolas/agrotóxicos">Defensivos agrícolas/agrotóxicos</option>
-           <option value="Fertilizantes sólidos">Fertilizantes sólidos</option>
-           <option value="Sementes">Sementes</option>
-           <option value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
-         {{else ifCond category 'Defensivos agrícolas/agrotóxicos'}}
-           <option selected value="Sementes">Sementes</option>
-           <option value="Fertilizantes sólidos">Fertilizantes sólidos</option>
-           <option value="Defensivos agrícolas/agrotóxicos"></option>
-           <option value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
-         {{else ifCond category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
-           <option selected value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
-           <option value="Fertilizantes sólidos">Fertilizantes sólidos</option>
-           <option value="Defensivos agrícolas/agrotóxicos"></option>
-           <option value="Sementes">Sementes</option>
-         {{else ifCond category 'Fertilizantes sólidos'}}
-           <option selected value="Fertilizantes sólidos">Fertilizantes sólidos</option>
-           <option value="Defensivos agrícolas/agrotóxicos"></option>
-           <option value="Sementes">Sementes</option>
-           <option value="Fertilizantes líquidos/adjuvantes/biológicos">Fertilizantes líquidos/adjuvantes/biológicos</option>
-         {{/ifCond}}
-       </select>
+       <input name="product[category]" type="text" class="form-control" value="{{category}}" id="name" readonly></input>
       </div>
     </div>
 
@@ -67,53 +48,58 @@
          </div>
          <input name="product[manufacturer]" type="text" value="{{manufacturer}}" class="form-control" id="manufacturer">
         </div>
-         <input type="radio" name="product[generic]" value="Original"></input>
+        {{#ifCond generic 'Similar'}}
+        <label>Produto genérico</label>
+        {{else ifCond generic 'Original'}}
         <label>Produto não genérico</label>
+        {{/ifCond}}
       </div>
 
-      <div class="form-group col-md-3 mx-4  my-2">
-        <label for="unit" class="editlabel">Unidade</label>
+
+      <div class="form-group col-md-3 col-10 mx-4 my-2">
+        <label for="name" class="editlabel">Medida</label>
         <div class="input-group mb-2">
          <div class="input-group-prepend">
-           <div class="input-group-text"><i class="fas fa-balance-scale"></i></div>
+           <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
          </div>
-         <select class="form-control" name="product[unit]" id="un">
-           {{#ifCond unit 'kg'}}
-             <option selected value="kg">Kilogramas</option>
-             <option value="unidade">Unidade</option>
-           {{else ifCond unit 'unidade'}}
-             <option selected value="unidade">Unidade</option>
-             <option value="kg">Kilogramas</option>
-           {{/ifCond}}
-         </select>
+         <input name="product[unit]" type="text" class="form-control" value="{{unit}}" id="unit" readonly></input>
         </div>
       </div>
-
       <div class="form-group col-md-3 col-10 mx-4  my-2">
         <p hidden>Hidden paragraph for alignment purposes.</p>
       </div>
 
     </div>
 
-    <div class="row d-flex justify-content-between">
-      <div class="form-group col-md-12 mx-4 my-2">
-        <label for="activeIng" class="rounded bg-black"><i class="fas fa-flask fa-sm mr-2"></i>Princípio Ativo</label>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="user-input ml-3">
+          <br/>
+          <div class="form-group mb-2">
+            <div class="input-group" id="chems-list">
+            </div>
+          </div>
+        </div>
+        <label for="name" class="editlabel">Princípios ativos</label>
+        </div>
         <div class="row">
-          {{#each chem}}
-            <label class="d-block col-3"><input checked type="checkbox" name="product[chem][]" class="mr-1" value="{{_id}}" id="activeIng">{{name}}</label>
-          {{/each}}
-          {{#ifCond product.chem.id chem}}
+        {{#each chems}}
+        <span class="badge badge-success chem-badge">
+          {{name}}
+          <input type="hidden" name="chem[]" value="{{name}}">
+        </span>
+        {{/each}}
+        <div class="" id="select-chem">
 
-          {{else}}
-          {{#each chems}}
-            <label class="d-block col-3"><input type="checkbox" name="product[chem][]" class="mr-1" value="{{_id}}" id="activeIng">{{name}}</label>
-          {{/each}}
-          {{/ifCond}}
         </div>
       </div>
-  </div>
+
+    </div>
+
   <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
 </form>
+</div>
 
 {{#section 'scripts'}}
+<script src="/javascripts/chem.dropdown.js"></script>
 {{/section}}

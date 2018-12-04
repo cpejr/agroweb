@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const Money = require('../functions/money');
+const Transaction = require('../models/transaction');
 
 const transporter = nodemailer.createTransport({
   host: `${process.env.EMAIL_HOST}`,
@@ -201,23 +202,66 @@ class Email {
     Email: ${data.buyer.email}
     Telefone: ${data.buyer.phone}
     Celular: ${data.buyer.cellphone}`;
-    const subject = 'MEGAPOOL: Uma nova transação foi realizada';
-    const emailContent = {
-      clientEmail: 'lucassouza@cpejr.com.br',
-      // clientEmail: 'admcpejr@megapool.com.br',
-      content,
-      subject
-    };
+        const subject = 'MEGAPOOL: Uma nova transação foi realizada';
+        const emailContent = {
+          clientEmail: 'lucassouza@cpejr.com.br',
+          // clientEmail: 'admcpejr@megapool.com.br',
+          content,
+          subject
+        };
+        return new Promise((resolve) => {
+          Email.sendEmail(emailContent).then((info) => {
+            resolve(info);
+          });
+        });
+      }).catch((err) => {
+        console.log(err);
+        return err;
+      });
+});
+  }
+
+  static FranchiseeEmail(data) {
+    console.log('Franchisee Email');
+
     return new Promise((resolve) => {
-      Email.sendEmail(emailContent).then((info) => {
-        resolve(info);
+      Money.getUsdValue().then((usd) => {
+        const totalPrice = data.priceBought * usd;
+        const unitPrice = data.unitPrice * usd;
+        const content = `Oi franqueado ${data.Trans.franchisee.fullName},
+        Uma cotação realizada por você foi aprovada para compra ${data.offer.product.name}.
+        A transação foi aprovada e pode ser consultada no caminho Dashboard -> Minhas compras
+        Confira abaixo os detalhes da transação realizada:
+
+        Transação #${data._id}
+        Produto: ${data.offer.product.name}
+        Entrega: ${data.offer.delivery}
+        Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
+        Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
+        Preço: R$ ${unitPrice}/${data.offer.product.unit}
+        Total: R$ ${totalPrice}
+
+        Dados do comprador:
+        Nome: ${data.buyer.fullName}
+        Email: ${data.buyer.email}
+        Telefone: ${data.buyer.phone}
+        Celular: ${data.buyer.cellphone}`;
+        const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
+        const emailContent = {
+          clientEmail: 'lucassouza@cpejr.com.br',
+          subject,
+          content
+        };
+        return new Promise((resolve) => {
+          Email.sendEmail(emailContent).then((info) => {
+            resolve(info);
+          });
+        });
+      }).catch((err) => {
+        console.log(err);
+        return err;
       });
     });
-  }).catch((err) => {
-    console.log(err);
-    return err;
-  });
-});
   }
 }
 

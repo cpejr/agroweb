@@ -437,20 +437,4 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
    });
  });
 
-/**
- * GET status - Show if user is blocked or waiting
- */
-router.get('/status', auth.isAuthenticated, (req, res) => {
-  User.getById(req.session._id).then((user) => {
-    delete req.session.userType;
-    delete req.session.firstName;
-    delete req.session.fullName;
-    delete req.session._id;
-    delete req.session.userUid;
-    delete req.session.email;
-    delete req.session.status;
-    res.render('status', { title: 'Aviso', layout: 'layoutError', user});
-  });
-});
-
 module.exports = router;

@@ -6,12 +6,19 @@ const Offer = require('../models/offer');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
 const Transaction = require('../models/transaction.js');
+const Dollar = require('../functions/money');
 
 const router = express.Router();
 
 /* GET Admin Home page */
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('admin/index', { title: 'Administrador', layout: 'layoutDashboard' });
+  Dollar.getUsdValue().then((dollar) => {
+    console.log(dollar);
+    res.render('admin/index', { dollar, title: 'Administrador', layout: 'layoutDashboard' });
+  }).catch((error) => {
+    req.flash('danger', 'Não foi possível obter o valor do dólar. Aguarde um momento.');
+    res.redirect('/user');
+  });
 });
 
 /* GET Users - Show all users */

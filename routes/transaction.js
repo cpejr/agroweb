@@ -260,13 +260,12 @@ router.put('/:id', (req, res) => {
               const Trans = transaction;
               User.getById(transaction.franchisee).then((franchi) => {
                 Trans.franchisee = franchi;
-              });
-              console.log('PUTA QUE PARIU');
-              console.log(Trans.franchisee.fullName);
-              console.log('MEU SACO MALHADO');
-              Email.FranchiseeEmail(Trans).catch((error) => {
-                req.flash('danger', 'Não foi possível enviar email do Franqueado.');
-                res.redirect('/user');
+                console.log('doideira');
+                console.log(Trans.franchisee);
+                Email.FranchiseeEmail(Trans).catch((error) => {
+                  req.flash('danger', 'Não foi possível enviar email do Franqueado.');
+                  res.redirect('/user');
+                });
               });
             }
           Email.adminNewTransactionEmail(transaction).catch((error) => {

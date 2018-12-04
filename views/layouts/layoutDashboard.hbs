@@ -82,24 +82,16 @@
     {{#ifCond userType 'Indústria'}}
       {{else}}
       <row>
-        <div class="mb-5 col-12">
           <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
                <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
                <label for="searchbar-icon" class="fas fa-search input-icon"></label>
           </form>
-        </div>
-          </row>
-        <div class="text-right col-11 ml-5 mt-2 ">
-          <h6 class="font3 mobile-font "> {{dollar}}
-            {{#ifCond title  'Administrador'}}
-              <i class="fas fa-arrow-alt-circle-up fa-lg"></i>
-            {{/ifCond}}
-            {{#ifCond title 'vrau'}}
-            <i class="fas fa-arrow-alt-circle-down fa-lg"></i>
-            {{/ifCond}}
-          </h6>
-        </div>
-
+          <div class="float-right mt-3 mr-3">
+            <h6 class="font3 mobile-font2 text-light">USD: {{usdValue}}
+            {{{rising}}}
+            </h6>
+          </div>
+      </row>
 
 
       {{/ifCond}}
@@ -117,6 +109,11 @@
     <script src="/typeahead/typeahead.bundle.js"></script>
     <script src="/bootstrap/js/bootstrap.bundle.min.js" charset="utf-8"></script>
     <script src="/javascripts/navbar.js" charset="utf-8"></script>
+    <script>
+    $(document).ready(() => {
+      rising = {{rising}}
+    });
+    </script>
     {{{_sections.scripts}}}
   </body>
 </html>

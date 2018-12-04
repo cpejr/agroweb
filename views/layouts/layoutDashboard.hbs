@@ -76,17 +76,32 @@
           <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars fa-2x"></i>
           </button>
+
           </row>
-          <div class="ml-5 my-0">
-              <h5> {{dollar}} (setinha pra cima)</h5>
-          </div>
+
     {{#ifCond userType 'Indústria'}}
       {{else}}
-        <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
+      <row>
+        <div class="mb-5 col-12">
+          <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
+               <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+               <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+          </form>
+        </div>
+          </row>
+        <div class="text-right col-11 ml-5 mt-2 ">
+          <h6 class="font3 mobile-font "> {{dollar}}
+            {{#ifCond title  'Administrador'}}
+              <i class="fas fa-arrow-alt-circle-up fa-lg"></i>
+            {{/ifCond}}
+            {{#ifCond title 'vrau'}}
+            <i class="fas fa-arrow-alt-circle-down fa-lg"></i>
+            {{/ifCond}}
+          </h6>
+        </div>
 
-             <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
-             <label for="searchbar-icon" class="fas fa-search input-icon"></label>
-        </form>
+
+
       {{/ifCond}}
       </nav>
     </div>

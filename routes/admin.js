@@ -23,13 +23,21 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 
 /* GET Users - Show all users */
 router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  User.getByQuerySorted().then((users) => {
-    console.log(users);
-    res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
+  Dollar.getUsdValue().then((dollar) => {
+    console.log(dollar);
+    User.getByQuerySorted().then((users) => {
+      console.log(users);
+      res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    req.flash('danger', 'Não foi possível obter o valor do dólar. Aguarde um momento.');
+    res.redirect('/user');
   });
+
+
 });
 
 /* GET Products - Show all products docs */
@@ -105,6 +113,7 @@ router.get('/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res)
     console.log(error);
     res.redirect('/error');
   });
+
 });
 
 /* GET Users - Show all users */

@@ -22,6 +22,7 @@ const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const schedule = require('node-schedule');
 const configJson = require('./docs/config.json');
+const fs = require('fs');
 
 /**
  * Functions
@@ -58,11 +59,26 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
     console.log(error);
   });
 
+global.rising = 'true';
+console.log(global.rising);
+// Money.createPrevDollarJSON();
+
 /**
  * Getting dollar quotation everyday
  */
 schedule.scheduleJob('0 0 3 * * *', () => {
   Money.dailyDollarUpdate();
+  Money.getUsdValue().then((dollar) => {
+    Money.getPrevUsdValue().then((prevDollar) => {
+      if (dollar > prevDollar) {
+        global.rising = 'true';
+      }
+      else {
+        global.rising = 'false';
+      }
+      Money.createPrevDollarJSON();
+    });
+  });
 });
 
 /**
@@ -70,6 +86,18 @@ schedule.scheduleJob('0 0 3 * * *', () => {
  */
 schedule.scheduleJob('0 */10 * * * *', () => {
   Money.createDollarJSON();
+  Money.getUsdValue().then((dollar) => {
+    // console.log(dollar);
+    global.dollar = dollar;
+  });
+});
+
+/**
+ * Initializing dollar value
+ */
+Money.getUsdValue().then((dollar) => {
+  // console.log(dollar);
+  global.dollar = dollar;
 });
 
 /**
@@ -111,6 +139,7 @@ app.engine('hbs', exphbs({
       this._sections[name] = options.fn(this);
       return null;
     },
+
     // If variable equals...
     ifCond(v1, v2, options) {
       if (v1 === v2) {
@@ -124,6 +153,17 @@ app.engine('hbs', exphbs({
         return options.fn(this);
       }
       return options.inverse(this);
+    },
+
+    usdValue() {
+      // console.log(global.dollar);
+      return global.dollar;
+    },
+    rising() {
+      if (global.rising === 'true') {
+        return '<i class="fas fa-arrow-alt-circle-up fa-lg"></i>';
+      }
+      return '<i class="fas fa-arrow-alt-circle-down fa-lg"></i>';
     }
   }
 }));

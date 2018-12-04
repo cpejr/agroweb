@@ -28,7 +28,6 @@ class Email {
       subject: data.subject,
       text: data.content
     };
-    // console.log(config);
     return new Promise((resolve) => {
       transporter.sendMail(config, (error, info) => {
         if (error) {
@@ -42,7 +41,11 @@ class Email {
     });
   }
 
-
+  /**
+   * Send an email to waiting approval users
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
   static waitingForApprovalEmail(data) {
     console.log('Email aguardando aprovação enviado');
     const content = `Prezado(a) ${data.name},
@@ -60,6 +63,11 @@ class Email {
     });
   }
 
+  /**
+   * Send an email to approved users
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
   static approvedUsersEmail(data) {
     console.log('Email aprovado enviado');
     const content = `Prezado(a) ${data.firstName},
@@ -77,6 +85,11 @@ class Email {
     });
   }
 
+  /**
+   * Send an email to disapprovedUsers
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
   static disapprovedUsersEmail(data) {
     console.log('Email reprovado enviado');
     const content = `Prezado(a) ${data.firstName},
@@ -94,6 +107,11 @@ class Email {
     });
   }
 
+  /**
+   * Send an email to activate users
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
   static activatedUsersEmail(data) {
     console.log('Email reativado enviado');
     const content = `Prezado(a) ${data.firstName},
@@ -111,6 +129,11 @@ class Email {
     });
   }
 
+  /**
+   * Send an email to inactive users
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
   static inactivatedUsersEmail(data) {
     console.log('Email inativado enviado');
     const content = `Prezado(a) ${data.firstName},
@@ -128,6 +151,11 @@ class Email {
     });
   }
 
+  /**
+   * Send an email to blocked users
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
   static blockedUsersEmail(data) {
     console.log('Email bloqueado enviado');
     const content = `Prezado(a) ${data.firstName},

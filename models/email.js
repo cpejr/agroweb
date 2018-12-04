@@ -228,7 +228,7 @@ class Email {
       Money.getUsdValue().then((usd) => {
         const totalPrice = data.priceBought * usd;
         const unitPrice = data.unitPrice * usd;
-        const content = `Novidades,
+        const content = `Oi franqueado ${data.Trans.franchisee.fullName},
         Uma cotação realizada por você foi aprovada para compra ${data.offer.product.name}.
         A transação foi aprovada e pode ser consultada no caminho Dashboard -> Minhas compras
         Confira abaixo os detalhes da transação realizada:

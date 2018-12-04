@@ -76,17 +76,18 @@
           <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars fa-2x"></i>
           </button>
-        </row>
-
-        {{#ifCond userType 'Indústria'}}
-        {{else}}
-        <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar font-light">
-          <row>
-            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
-            <label for="searchbar-icon" class="fas fa-search input-icon"></label>
           </row>
+          <div class="ml-5 my-0">
+              <h5> {{dollar}} (setinha pra cima)</h5>
+          </div>
+    {{#ifCond userType 'Indústria'}}
+      {{else}}
+        <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
+
+             <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+             <label for="searchbar-icon" class="fas fa-search input-icon"></label>
         </form>
-        {{/ifCond}}
+      {{/ifCond}}
       </nav>
     </div>
 

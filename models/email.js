@@ -226,31 +226,31 @@ class Email {
 
     return new Promise((resolve) => {
       Money.getUsdValue().then((usd) => {
-        const totalPrice = data.priceBought * usd;
-        const unitPrice = data.unitPrice * usd;
-        const content = `Oi franqueado ${data.Trans.franchisee.fullName},
-        Uma cotação realizada por você foi aprovada para compra ${data.offer.product.name}.
-        A transação foi aprovada e pode ser consultada no caminho Dashboard -> Minhas compras
-        Confira abaixo os detalhes da transação realizada:
+      const totalPrice = data.priceBought * usd;
+      const unitPrice = data.unitPrice * usd;
+      const content = `Prezado ${data.franchisee.fullName},
+      Uma cotação realizada por você foi aprovada para compra ${data.offer.product.name}.
+      A transação foi aprovada e pode ser consultada no caminho Dashboard -> Minhas compras
+      Confira abaixo os detalhes da transação realizada:
 
-        Transação #${data._id}
-        Produto: ${data.offer.product.name}
-        Entrega: ${data.offer.delivery}
-        Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
-        Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
-        Preço: R$ ${unitPrice}/${data.offer.product.unit}
-        Total: R$ ${totalPrice}
+      Transação #${data._id}
+      Produto: ${data.offer.product.name}
+      Entrega: ${data.offer.delivery}
+      Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
+      Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
+      Preço: R$ ${unitPrice}/${data.offer.product.unit}
+      Total: R$ ${totalPrice}
 
-        Dados do comprador:
-        Nome: ${data.buyer.fullName}
-        Email: ${data.buyer.email}
-        Telefone: ${data.buyer.phone}
-        Celular: ${data.buyer.cellphone}`;
-        const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
-        const emailContent = {
-          clientEmail: 'lucassouza@cpejr.com.br',
-          subject,
-          content
+      Dados do comprador:
+      Nome: ${data.buyer.fullName}
+      Email: ${data.buyer.email}
+      Telefone: ${data.buyer.phone}
+      Celular: ${data.buyer.cellphone}`;
+      const subject = `Olá ${data.franchisee.fullName}, uma cotação sua foi comprada.`;
+      const emailContent = {
+        clientEmail: 'lucassouza@cpejr.com.br',
+        subject,
+        content
         };
         return new Promise((resolve) => {
           Email.sendEmail(emailContent).then((info) => {

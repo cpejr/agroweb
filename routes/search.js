@@ -17,8 +17,7 @@ router.get('/', (req, res) => {
   const groupPromises = [];
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
     products.forEach((product) => {
-      // const queryOffer = { product: product._id, delivery: '48 horas' };
-      const queryOffer = { product: product._id };
+      const queryOffer = { product: product._id, delivery: '48 horas' };
       const sortOffer = { 'price.low': 1 };
       const queryGroup = { productId: product._id };
       const sortGroup = {};
@@ -29,10 +28,20 @@ router.get('/', (req, res) => {
     });
     Promise.all(offerPromises).then((offerResults) => {
       Promise.all(groupPromises).then((groupResults) => {
-        // const groups = groupResults[0].concat(groupResults[1]);
-        // const offers = offerResults[0].concat(offerResults[1]);
-        const groups = groupResults[0];
-        const offers = offerResults[0];
+        const groups = groupResults[0].concat(groupResults[1]);
+        const offers = offerResults[0].concat(offerResults[1]);
+        console.log(groups);
+        console.log(offers);
+        let index = groups.indexOf(undefined);
+        if (index > -1) {
+          groups.splice(index, 1);
+        }
+        index = offers.indexOf(undefined);
+        if (index > -1) {
+          offers.splice(index, 1);
+        }
+        console.log(groups);
+        console.log(offers);
         res.render('results', { title: `Resultados para "${req.query.filter}"`, groups, offers });
       }).catch((error) => {
         console.log(error);
@@ -57,7 +66,7 @@ router.get('/products', (req, res) => {
   const sortProduct = { name: 1 };
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
     products.forEach((product) => {
-      if(product.status == "Aprovado"){
+      if (product.status === 'Aprovado') {
         names.push(product.name);
       }
     });

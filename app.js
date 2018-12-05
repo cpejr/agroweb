@@ -73,6 +73,7 @@ schedule.scheduleJob('0 0 3 * * *', () => {
     console.log('Closed all groups successfully');
   }).catch((error) => {
     console.log(error);
+  });
   Money.getUsdValue().then((dollar) => {
     Money.getPrevUsdValue().then((prevDollar) => {
       if (dollar > prevDollar) {

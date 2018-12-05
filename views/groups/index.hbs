@@ -25,7 +25,7 @@
       <th scope="col font-black">Preço atual</th>
       <th scope="col font-black">Dono</th>
       <th scope="col font-black">Quantidade sendo contada</th>
-      <th scope="col font-black">Preço total</th>
+      <th scope="col font-black">Fechamento</th>
     </tr>
   </thead>
   <tbody>
@@ -36,7 +36,12 @@
       <td class="font-book">{{price}}</td>
       <td class="font-book">{{offer.seller.responsible.name}}</td>
       <td class="font-book">{{amount}}</td>
-      <td class="font-book">Em definição</td>
+      <td class="font-book">
+        <form action="/groups/{{id}}?_method=PUT" method="POST">
+          <input type="date" name="group[closeDate]" class="form-control" value="{{closeDate}}">
+          <button type="submit" class="btn bg-green text-light2">Salvar</button>
+        </form>
+      </td>
     </tr>
       {{/each}}
     </tbody>

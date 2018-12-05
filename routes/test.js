@@ -11,36 +11,27 @@ const Transaction = require('../models/transaction');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
 const fs = require('fs');
+const config = require('../docs/config.json');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  // const names = [];
-  // const queryProduct = {};
-  // const sortProduct = { name: 1 };
-  // Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
-  //   products.forEach((product) => {
-  //     names.push(product.name);
-  //   });
-  //   console.log(names);
-  //   res.locals.names = names;
-  //   console.log(res);
-  //   // res.send(names);
-  // }).catch((error) => {
-  //   console.log(error);
-  //   res.redirect('/error');
-  // });
-  Dollar.createDollarJSON().then(() => {
-    Dollar.getUsdValue().then((dollar) => {
-      console.log(dollar);
-    }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-  }).catch((error) => {
+  res.render('teste', { title: 'Teste' });
+});
+
+router.put('/:id', (req, res) => {
+  const { group } = req.body;
+  console.log(group.closeDate);
+  console.log(typeof (group.closeDate));
+
+  const b = group.closeDate.split(/\D/);
+  console.log(b);
+  group.closeDate = new Date(b[0], --b[1], b[2]);
+  Group.update(req.params.id, group).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
+  res.redirect('/test');
 });
 
 router.get('/test', (req, res) => {

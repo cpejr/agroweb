@@ -3,8 +3,9 @@ const Group = require('../models/group');
 const Offer = require('../models/offer');
 const Product = require('../models/product');
 const User = require('../models/user');
-const auth = require('./middleware/auth');
 const Dollar = require('../functions/money');
+const auth = require('./middleware/auth');
+const config = require('../docs/config.json');
 
 const router = express.Router();
 
@@ -33,6 +34,33 @@ router.get('/new', auth.canSell, (req, res) => {
  */
 router.post('/', (req, res) => {
   const { offer } = req.body;
+
+  const today = new Date();
+  const { cropDate } = config.development;
+  const { smallCropDate } = config.development;
+
+  const crop = new Date(today);
+  crop.setDate(Number(cropDate.slice(0, 2)));
+  crop.setMonth(Number(cropDate.slice(-2)) - 1);
+
+  const smallCrop = new Date(today);
+  smallCrop.setDate(Number(smallCropDate.slice(0, 2)));
+  smallCrop.setMonth(Number(smallCropDate.slice(-2)) - 1);
+
+  const cropCloseDate = new Date(crop);
+  cropCloseDate.setDate(cropCloseDate.getDate() - 15);
+
+  const smallCropCloseDate = new Date(smallCrop);
+  smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
+
+  if (today === crop) {
+    cropCloseDate.setFullYear(crop.getFullYear() + 1);
+  }
+
+  if (today === smallCrop) {
+    smallCropCloseDate.setFullYear(crop.getFullYear() + 1);
+  }
+
   User.getById(req.session._id).then((user) => {
     offer.seller = user;
     Product.getByQuerySorted({ name: offer.product }, {}).then((product) => {
@@ -94,6 +122,12 @@ router.post('/', (req, res) => {
                   productId: offer.product,
                   delivery: offer.delivery
                 };
+                if (newGroup.delivery === 'Safra') {
+                  newGroup.closeDate = cropCloseDate;
+                }
+                if (newGroup.delivery === 'Safrinha') {
+                  newGroup.closeDate = smallCropCloseDate;
+                }
                 Group.create(newGroup).then((groupId) => {
                   console.log(`Created new group with id: ${groupId}`);
                 }).catch((error) => {

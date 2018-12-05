@@ -27,6 +27,7 @@ const configJson = require('./docs/config.json');
  * Functions
  */
 const Money = require('./functions/money');
+const Delivery = require('./functions/delivery');
 
 /**
  * Global Variables
@@ -63,6 +64,11 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
  */
 schedule.scheduleJob('0 0 3 * * *', () => {
   Money.dailyDollarUpdate();
+  Delivery.closeGroups().then(() => {
+    console.log('Closed all groups successfully');
+  }).catch((error) => {
+    console.log(error);
+  });
 });
 
 /**

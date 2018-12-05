@@ -2,13 +2,115 @@
   <!-- -->
 {{/section}}
 <div class="text-center pb-3 gradient-background text-white">
-  <h3 class="font-black">{{title}} </h3>
+  <h3 class="font-black">{{title}}</h3>
 </div>
+
+<div style="overflow-x:auto;">
+  <div class="container col-sm-12 col-md-9 col-lg-6">
+    <p>Digite logo abaixo para buscar {{title}} específicas:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+    <br>
+  </div>
+</div>
+
+<div id="results-list" class="row justify-content-center mt-2 mx-0">
+  <div class="col-sm-12 col-md-9 col-lg-6 btn p-3">
+    <table id="myTable" class="col-12">
+    <tbody>
+  {{#if offers}}
+    {{#each offers}}
+    <tr class="col-12">
+      <td class="d-none">{{product.name}}</td>
+      <td class="d-none">{{price.low}}</td>
+      <td class="d-none">{{product.unit}}</td>
+      <td class="d-none">{{delivery}}</td>
+      <td class="d-none">{{stock}}</td>
+      <td class="">
+
+    <div class="p-1" >
+        <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/offers/{{_id}}'">
+          <div class="text-right">
+            <div class="row px-3">
+              <div class="col-3 d-inline-block text-center align-self-center">
+                <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
+              </div>
+
+              <div class="col p-2">
+                <div class="vl">
+                  <div class="ml-2">
+                    <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+                      {{product.name}}
+                    </h5>
+                  </div>
+                  <div class="ml-2 mt-3 text-left">
+                    {{#ifCond active false}}
+                      <span class="badge badge-danger mb-3">
+                        <h6>Inativo</h6>
+                      </span>
+                    {{else}}
+                      <span class="badge badge-success mb-3">
+                        <h6>Ativo</h6>
+                      </span>
+                    {{/ifCond}}
+                    <div class="text-left side-animation">
+                      <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
+                        R$ {{price.low}}
+                      </h4>
+
+                      <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                        / {{product.unit}}
+                      </i>
+                    </div>
+                  </div>
+                  <div class="smaller-font d-flex text-center mt-3 align-bottom">
+                    <div class="ml-2 text-gray3">
+                      <p class="text-uppercase font-book mobile-font2">Compra
+                        <span class="count font-light mobile-font2"> <br/>solo</span>
+                      </p>
+                    </div>
+                    <div class="ml-4 text-gray3">
+                      <p class="text-uppercase font-book mobile-font2">Entrega
+                        <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
+                      </p>
+                    </div>
+                    <div class="ml-4 text-gray3">
+                      <p class="text-uppercase font-book mobile-font2">Estoque
+                        <span class="count font-light mobile-font2"> <br/>{{stock}} {{product.unit}}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+      </td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="p-1">
 <!-- OrdersList-->
 <div class="row justify-content-center mt-2 mx-0">
-<div class="col-sm-12 col-md-7 col-lg-6 col-xl-5 btn p-3">
+<div class="col-sm-12 col-md-7 col-lg-6 col-xl-6 btn p-3">
   {{#if transactions}}
   {{#ifCond userType 'Franqueado'}}
   {{#each transactions}}
@@ -18,11 +120,17 @@
   <div class="mb-3">
   <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
       <div class="text-right p-2">
+
         {{#ifCond taxStatus 'Aguardando pagamento'}}
         <div class="pagination float-right">
           <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
         </div>
+        {{else ifCond taxStatus 'Aguardando boleto'}}
+        <div class="pagination float-right">
+          <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+        </div>
         {{/ifCond}}
+
         <div class="row">
           <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
@@ -79,18 +187,18 @@
                   </p>
                 </div>
 
-                <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                   <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
                     <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
                   </p>
                 </div>
 
-                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                   <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
                     <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                   </p>
                 </div>
-                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                   <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
                     Custo por unidade
                     {{#ifCond offer.usd false}}
@@ -130,11 +238,17 @@
 <div class="mb-3">
 <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
     <div class="text-right p-2">
+
       {{#ifCond taxStatus 'Aguardando pagamento'}}
       <div class="pagination float-right">
         <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
       </div>
+      {{else ifCond taxStatus 'Aguardando boleto'}}
+      <div class="pagination float-right">
+        <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+      </div>
       {{/ifCond}}
+
       <div class="row">
         <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
@@ -191,18 +305,18 @@
                 </p>
               </div>
 
-              <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+              <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                 <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
                   <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
                 </p>
               </div>
 
-              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                 <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
                   <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                 </p>
               </div>
-              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                 <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
                   Custo por unidade
                   {{#ifCond offer.usd false}}
@@ -236,115 +350,123 @@
 {{/each}}
 
 {{else}}
-{{#each transactions}}
-{{#ifCond status 'Cancelado'}}
-{{else ifCond status 'Cotado'}}
-{{else}}
-<div class="mb-3">
-<div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
-    <div class="text-right p-2">
-      {{#ifCond taxStatus 'Aguardando pagamento'}}
-      <div class="pagination float-right">
-        <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
-      </div>
-      {{/ifCond}}
-      <div class="row">
-        <div class="col-2 d-inline-block text-center align-self-center mx-1">
+  {{#each transactions}}
+  {{#ifCond status 'Cancelado'}}
+  {{else ifCond status 'Cotado'}}
+  {{else}}
+  <div class="mb-3">
+  <div class="my-1 bg-light2 card1 card">
+      <div class="text-right p-2">
 
-          {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
-          <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
-          <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
-          <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
-          {{else ifCond offer.product.category 'Sementes'}}
-          <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
-          <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
-          <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-          {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
-          <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
-          <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
-          <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-          {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
-          <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
-          <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
-          <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-          {{/ifCond}}
+        {{#ifCond taxStatus 'Aguardando pagamento'}}
+        <div class="pagination float-right">
+          <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active  pagination-mini__dot pagination__dot--active"></div>
+        </div>
+        {{else ifCond taxStatus 'Aguardando boleto'}}
+        <div class="pagination float-right">
+          <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
         </div>
 
-        <div class="p-2">
-          <div class="vl">
-            <div class="ml-1 mb-1 mb-md-2 mb-xl-3 text-gray3">
-              <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4  text-uppercase">
-                {{offer.product.name}}
-              </h5>
-            </div>
+        {{/ifCond}}
+        <div onclick="location.href = '/transaction/{{_id}}'">
+        <div class="row">
+          <div class="col-2 d-inline-block text-center align-self-center mx-1">
+
+            {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+            <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+            {{else ifCond offer.product.category 'Sementes'}}
+            <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
+            {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+            <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
+            {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+            <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
+            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
+            <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
+            {{/ifCond}}
+          </div>
+
+          <div class="p-2">
+            <div class="vl">
+              <div class="ml-1 mb-1 mb-md-2 mb-xl-3 text-gray3">
+                <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4  text-uppercase">
+                  {{offer.product.name}}
+                </h5>
+              </div>
+
+              <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
+              <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
+                  {{status}}
+                </h5>
+              </div>
 
             <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
-            <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
-                {{status}}
-              </h5>
+              <div class="text-left side-animation">
+                <h4 class="font-book text-gray4  mobile-font2  d-inline" data-usd={{offer.usd}}>
+                  R$ {{priceBought}}
+                </h4>
+
+              </div>
             </div>
-
-          <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
-            <div class="text-left side-animation">
-              <h4 class="font-book text-gray4  mobile-font2  d-inline" data-usd={{offer.usd}}>
-                R$ {{priceBought}}
-              </h4>
-
-            </div>
-          </div>
-          <div class="row align-right">
-            <div class="smaller-font d-flex text-center align-bottom">
-              <div class="ml-3 ml-lg-4 text-gray3">
-                <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2  ">Compra
-                  {{#ifCond offer.delivery '48 horas'}}
-                  <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                  {{else }}
-                  <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
-                  {{/ifCond}}
-                </p>
-              </div>
-
-              <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
-                  <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
-                </p>
-              </div>
-
-              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
-                  <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
-                </p>
-              </div>
-              <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
-                  Custo por unidade
-                  {{#ifCond offer.usd false}}
-                  <span class="count text-center text-dark  mobile-font0 text-dark mobile-font2  mt-0"> <br/>R$ {{unitPrice}}</span>
-                  {{/ifCond}}
+            <div class="row align-right">
+              <div class="smaller-font d-flex text-center align-bottom">
+                <div class="ml-3 ml-lg-4 text-gray3">
+                  <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2  ">Compra
+                    {{#ifCond offer.delivery '48 horas'}}
+                    <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
+                    {{else }}
+                    <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
+                    {{/ifCond}}
                   </p>
-                  {{#ifCond offer.usd true}}
-                  <span class="count text-center text-dark  mobile-font1  mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
-                  <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                    / {{offer.product.unit}}
-                  </i>
-                  {{/ifCond}}
+                </div>
+
+                <div class="ml-1  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
+                  <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
+                    <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                  </p>
+                </div>
+
+                <div class="ml-1 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
+                  <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
+                    <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
+                  </p>
+                </div>
+                <div class="ml-1 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
+                  <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
+                    Custo por unidade
+                    {{#ifCond offer.usd false}}
+                    <span class="count text-center text-dark  mobile-font0 text-dark mobile-font2  mt-0"> <br/>R$ {{unitPrice}}</span>
+                    {{/ifCond}}
+                    </p>
+                    {{#ifCond offer.usd true}}
+                    <span class="count text-center text-dark  mobile-font1  mt-0" data-usd={{offer.usd}}> <br/>R$ {{unitPrice}}</span>
+                    <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                      / {{offer.product.unit}}
+                    </i>
+                    {{/ifCond}}
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>
-</div>
-</div>
-{{/ifCond}}
-{{/each}}
-{{/ifCond}}
+  </div>
+  {{/ifCond}}
+  {{/each}}
+  {{/ifCond}}
 
-{{else}}
-<div class="container">
-  <p class="text-center font-light">Você não realizou nenhum compra ainda.</p>
-</div>
+  {{else}}
+  <div class="container">
+    <p class="text-center font-light">Você não realizou nenhum compra ainda.</p>
+  </div>
 {{/if}}
 </div>
 </div>

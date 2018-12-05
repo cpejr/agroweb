@@ -6,27 +6,43 @@ const Offer = require('../models/offer');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
 const Transaction = require('../models/transaction.js');
+const Dollar = require('../functions/money');
+const Email = require('../models/email');
 
 const router = express.Router();
 
 /* GET Admin Home page */
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('admin/index', { title: 'Administrador', layout: 'layoutDashboard' });
+  Dollar.getUsdValue().then((dollar) => {
+    console.log(dollar);
+    res.render('admin/index', { dollar, title: 'Administrador', layout: 'layoutDashboard' });
+  }).catch((error) => {
+    req.flash('danger', 'Não foi possível obter o valor do dólar. Aguarde um momento.');
+    res.redirect('/user');
+  });
 });
 
 /* GET Users - Show all users */
 router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  User.getByQuerySorted().then((users) => {
-    console.log(users);
-    res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
+  Dollar.getUsdValue().then((dollar) => {
+    console.log(dollar);
+    User.getByQuerySorted().then((users) => {
+      console.log(users);
+      res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    req.flash('danger', 'Não foi possível obter o valor do dólar. Aguarde um momento.');
+    res.redirect('/user');
   });
+
+
 });
 
 /* GET Products - Show all products docs */
-router.get('/products', (req, res) => {
+router.get('/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Product.getByQuerySorted({ status: 'Aprovado' }).then((products) => {
     console.log(products);
     res.render('admin/products', { title: 'Produtos', layout: 'layout', products });
@@ -51,6 +67,16 @@ router.get('/newsletter', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Offer.getAll().then((offers) => {
     res.render('admin/offer', { title: 'Administrador', layout: 'layout', offers });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/* GET Offers - Show all offers */
+router.get('/franchiseePayment', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  User.getAll().then((users) => {
+    res.render('admin/franchiseePayment', { title: 'Taxas dos franqueados', layout: 'layout', users, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -88,6 +114,7 @@ router.get('/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res)
     console.log(error);
     res.redirect('/error');
   });
+
 });
 
 /* GET Users - Show all users */
@@ -113,6 +140,38 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
     res.redirect('/error');
   });
   res.redirect('/user/orders');
+});
+
+/**
+ * GET updateTransaction - Update a Transaction in the database
+ */
+router.post('/payFranchisee/:id', auth.isAuthenticated, (req, res) => {
+  const user = {
+    pendingPayment: 0
+  };
+  User.update(req.params.id, user).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+
+  User.getAllTransactionsByUserId(req.params.id).then((transactions) => {
+    transactions.forEach((transaction) => {
+      if (transaction.franchiseeTaxStatus == 'Pendente') {
+         status = {
+           franchiseeTaxStatus: 'Pago'
+         };
+        Transaction.update(transaction._id, status).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+      }
+    });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  req.flash('success', 'Pagamento do franqueado confirmado');
+  res.redirect('/admin/franchiseePayment');
 });
 
 router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
@@ -144,6 +203,30 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
 });
 
 router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  User.getById(req.params.id).then((user) => {
+      if (req.body.status === 'Ativo') {
+        console.log('Enviando email para aprovar um usuário');
+        Email.activatedUsersEmail(user).catch((error) => {
+          req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
+          res.redirect('/login');
+        });
+      }
+      else if (req.body.status === 'Bloqueado') {
+        console.log('Enviando email para aprovar um usuário');
+        Email.blockedUsersEmail(user).catch((error) => {
+          req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+          res.redirect('/login');
+        });
+      }
+      else if (req.body.status === 'Inativo') {
+        console.log('Enviando email para aprovar um usuário');
+        Email.inactivatedUsersEmail(user).catch((error) => {
+          req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+          res.redirect('/login');
+        });
+      }
+  });
+
   const user = {
     status: req.body.status
   };
@@ -169,9 +252,26 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
 });
 
 router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  User.getById(req.params.id).then((user) => {
+    if (user.status === 'Aguardando aprovação') {
+      if (req.body.status === 'Ativo') {
+        Email.approvedUsersEmail(user).catch((error) => {
+          req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
+          res.redirect('/login');
+        });
+      }
+      else if (req.body.status === 'Bloqueado') {
+        Email.disapprovedUsersEmail(user).catch((error) => {
+          req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+          res.redirect('/login');
+        });
+      }
+    }
+  });
   const user = {
     status: req.body.status
   };
+
   User.update(req.params.id, user).catch((error) => {
     console.log(error);
     res.redirect('/error');

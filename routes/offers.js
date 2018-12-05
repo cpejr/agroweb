@@ -66,7 +66,6 @@ router.post('/', (req, res) => {
     Product.getByQuerySorted({ name: offer.product }, {}).then((product) => {
       offer.product = product[0]._id;
       Offer.create(offer).then((offerId) => {
-        console.log(`Created new offer with id: ${offerId}`);
         if (offer.delivery !== '48 horas') {
           const queryGroup = { productId: offer.product, delivery: offer.delivery };
           Group.getOneByQuery(queryGroup).then((group) => {
@@ -151,16 +150,16 @@ router.post('/', (req, res) => {
         req.flash('success', 'Oferta criada com sucesso.');
         res.redirect(`/offers/${offerId}`);
       }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+        req.flash('danger', 'Não foi possivel criar a oferta. Tente novamente');
+        res.redirect('new');
       });
     }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
+      req.flash('danger', 'O produto escolhido não existe.');
+      res.redirect('new');
     });
   }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
+    req.flash('danger', 'Faça seu login novamente.');
+    res.redirect('/login');
   });
 });
 

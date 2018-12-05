@@ -74,9 +74,12 @@
       </div>
       {{/each}}
       {{else}}
+      {{#if groups}}
+      {{else}}
       <div class="container">
-        <p class="text-center font-light">Não foram encontrados resultados para sua busca.</p>
+        <p class="text-center font-light">Não foram encontrados resultados de ofertas para sua busca.</p>
       </div>
+      {{/if}}
 
     {{/if}}
 

@@ -5,6 +5,7 @@
     <title>{{ title }}</title>   <!-- título da aba da página*/ -->
     <link rel='stylesheet' href='/stylesheets/style.css'>
     <link rel='stylesheet' href='/stylesheets/estilos.css'>
+    <link rel="manifest" href="/manifest.json">
     {{{_sections.stylesheets}}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:600|Montserrat:700|Varela+Round">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -75,17 +76,25 @@
           <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars fa-2x"></i>
           </button>
-        </row>
 
-        {{#ifCond userType 'Indústria'}}
-        {{else}}
-        <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar font-light">
-          <row>
-            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
-            <label for="searchbar-icon" class="fas fa-search input-icon"></label>
           </row>
-        </form>
-        {{/ifCond}}
+
+    {{#ifCond userType 'Indústria'}}
+      {{else}}
+      <row>
+          <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
+               <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+               <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+          </form>
+          <div class="float-right mt-3 mr-3">
+            <h6 class="font3 mobile-font2 text-light">USD: {{usdValue}}
+            {{{rising}}}
+            </h6>
+          </div>
+      </row>
+
+
+      {{/ifCond}}
       </nav>
     </div>
 
@@ -100,6 +109,11 @@
     <script src="/typeahead/typeahead.bundle.js"></script>
     <script src="/bootstrap/js/bootstrap.bundle.min.js" charset="utf-8"></script>
     <script src="/javascripts/navbar.js" charset="utf-8"></script>
+    <script>
+    $(document).ready(() => {
+      rising = {{rising}}
+    });
+    </script>
     {{{_sections.scripts}}}
   </body>
 </html>

@@ -1,363 +1,375 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<div class="container">
-  <div class="justify-content-center mx-sm-auto">
-    <div class="row">
-      <div class="col-12 ml-1 mb-3 text-center justify-content-center">
-        <h2 class="my-0 py-0">{{offer.product.name}}</h2>
-        <i class="text-muted">Produto {{offer.product.generic}}</i>
-      </div>
-      {{#ifCond userType 'Produtor'}}
-      <!-- Seller info -->
-      <div class="col-12 col-md-6 mt-3">
-        <h2 class="mb-4">Dados do vendedor</h2>
-        <h4>Empresa</h4>
-        <p class="mb-4">{{offer.seller.fantasyName}}</p>
-        <h4>Contato</h4>
-        <p>Telefone: {{offer.seller.logistics.phone}}</p>
-        <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
-        <h4>Endereço</h4>
-        <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
-      </div>
-      <!-- end Seller info -->
-      {{else ifCond userType 'Indústria'}}
-      <!-- Buyer info -->
-      <div class="col-12 col-md-6 mt-3">
-        <h2 class="mb-4">Dados do comprador</h2>
-        <h4>Nome</h4>
-        <p class="mb-4">{{buyer.fullName}}</p>
-        <h4>Contato</h4>
-        <p>Telefone: {{buyer.phone}}</p>
-        <p class="mb-4">E-mail: {{buyer.email}}</p>
-        <h4>Endereço</h4>
-        <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
-      </div>
+<div class="pl-5 pr-5">
+  <div class="container">
+    <div class="row justify-content-center mx-sm-auto mx-md-9">
+    <div class="justify-content-center mx-sm-auto">
+      <div class="row">
+        <div class="col-12 ml-1 mb-3 text-center justify-content-center">
+          <h2 class="my-0 py-0">{{offer.product.name}}</h2>
+          <i class="text-muted">Produto {{offer.product.generic}}</i>
+        </div>
+        {{#ifCond userType 'Produtor'}}
+        <!-- Seller info -->
+        <div class="col-12 col-md-6 mt-3">
+          <h2 class="mb-4 text-center">Dados do vendedor</h2>
+          <h4>Empresa</h4>
+          <p class="mb-4">{{offer.seller.fantasyName}}</p>
+          <h4>Contato</h4>
+          <p>Telefone: {{offer.seller.logistics.phone}}</p>
+          <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
+          <h4>Endereço</h4>
+          <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
+        </div>
+        <!-- end Seller info -->
+        {{else ifCond userType 'Indústria'}}
+        <!-- Buyer info -->
+        <div class="col-12 col-md-6 mt-3">
+          <h2 class="mb-4 text-center">Dados do comprador</h2>
+          <h4>Nome</h4>
+          <p class="mb-4">{{buyer.fullName}}</p>
+          <h4>Contato</h4>
+          <p>Telefone: {{buyer.phone}}</p>
+          <p class="mb-4">E-mail: {{buyer.email}}</p>
+          <h4>Endereço</h4>
+          <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
+        </div>
 
-      {{else ifCond userType 'Revendedor'}}
-      <!-- Seller info -->
-      {{#ifCond myOffer 0}}
-      <div class="col-12 col-md-6 mt-3">
-        <h2 class="mb-4">Dados do vendedor</h2>
-        <h4>Empresa</h4>
-        <p class="mb-4">{{offer.seller.fantasyName}}</p>
-        <h4>Contato</h4>
-        <p>Telefone: {{offer.seller.logistics.phone}}</p>
-        <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
-        <h4>Endereço</h4>
-        <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
-      </div>
-      <!-- end Seller info -->
-      <!-- Buyer info -->
-      {{else ifCond myOffer 1}}
-      <div class="col-12 col-md-6 mt-3 ">
-        <h2 class="mb-4">Dados do comprador</h2>
-        <h4>Nome</h4>
-        <p class="mb-4">{{buyer.fullName}}</p>
-        <h4>Contato</h4>
-        <p>Telefone: {{buyer.phone}}</p>
-        <p class="mb-4">E-mail: {{buyer.email}}</p>
-        <h4>Endereço</h4>
-        <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
-      </div>
-      {{/ifCond}}
-      <!-- end Buyer info -->
-      {{else}}
-      <!-- Seller info -->
-      <div class="col-12 col-md-6 mt-3">
-        <h2 class="mb-4">Dados do vendedor</h2>
-        <h4>Empresa</h4>
-        <p class="mb-4">{{offer.seller.fantasyName}}</p>
-        <h4>Contato</h4>
-        <p>Telefone: {{offer.seller.logistics.phone}}</p>
-        <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
-        <h4>Endereço</h4>
-        <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
-      </div>
-      <!-- end Seller info -->
-      <!-- Buyer info -->
-      <div class="col-12 col-md-6 mt-3 ">
-        <h2 class="mb-4">Dados do comprador</h2>
-        <h4>Nome</h4>
-        <p class="mb-4">{{buyer.fullName}}</p>
-        <h4>Contato</h4>
-        <p>Telefone: {{buyer.phone}}</p>
-        <p class="mb-4">E-mail: {{buyer.email}}</p>
-        <h4>Endereço</h4>
-        <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
-      </div>
-      <!-- end Buyer info -->
-      {{/ifCond}}
-
-      <!-- Transaction info -->
-      <div class="col-12 col-md-6 mt-3">
-          <h4>Entrega</h4>
-          <p>{{offer.delivery}}</p>
-
-          <h4>Quantidade comprada</h4>
-          <p>{{amountBought}} {{offer.product.unit}}</p>
-
-          <h4>Preço total</h4>
-          <p data-usd={{offer.usd}}>R$ {{priceBought}}</p>
-
-          <h4>Status da compra</h4>
-          <p>{{status}}</p>
-
-          {{#ifCond userType 'Administrador'}}
-          <h4 class="mt-5">Alterar status da taxa</h4>
-          <div class="dropdown pb-4">
-            <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-            {{#ifCond taxStatus 'Aguardando boleto'}}
-            class="btn btn-info dropdown-toggle col-6">
-            Aguardando boleto
-
-            {{else ifCond taxStatus 'Aguardando pagamento'}}
-            class="btn btn-warning dropdown-toggle col-6">
-            Aguardando pagamento
-
-            {{else ifCond taxStatus 'Pagamento confirmado'}}
-            class="btn btn-success  dropdown-toggle col-6">
-            Pagamento confirmado
-
-            {{else}}
-            class="btn  dropdown-toggle btn-danger col-6">
-            Cancelado
-            {{/ifCond}}
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-            <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
-                  Aguardando boleto
-                </button>
-              </a>
-            </form>
-            <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-              <a class="dropdown-item " href="#">
-                <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
-                  Aguardando pagamento
-                </button>
-              </a>
-            </form>
-            <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
-                  Pagamento confirmado
-                </button>
-              </a>
-            </form>
-
-            <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
-                  Cancelado
-                </button>
-              </a>
-            </form>
-          </div>
-          </div>
-
-          {{else ifCond userType 'Indústria'}}
-          <h4 class="mt-5">Alterar status</h4>
-          <div class="dropdown pb-4">
-            <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-            {{#ifCond status 'Aguardando boleto'}}
-            class="btn btn-warning dropdown-toggle col-6">
-            Aguardando boleto
-
-            {{else ifCond status 'Aguardando pagamento'}}
-            class="btn btn-warning dropdown-toggle col-6">
-            Aguardando pagamento
-
-            {{else ifCond status 'Pagamento confirmado'}}
-            class="btn btn-secondary  dropdown-toggle col-6">
-            Pagamento confirmado
-
-            {{else ifCond status 'Produto a caminho'}}
-            class="btn btn-primary  dropdown-toggle col-6">
-            Produto a caminho
-
-            {{else ifCond status 'Entregue'}}
-            class="btn btn-success  dropdown-toggle col-6">
-            Entregue
-
-            {{else}}
-            class="btn  dropdown-toggle btn-danger col-6">
-            Cancelado
-            {{/ifCond}}
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-            <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
-                  Aguardando boleto
-                </button>
-              </a>
-            </form>
-
-            <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item " href="#">
-                <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
-                  Aguardando pagamento
-                </button>
-              </a>
-            </form>
-
-            <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Pagamento confirmado">
-                  Pagamento confirmado
-                </button>
-              </a>
-            </form>
-
-            <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Produto a caminho">
-                  Produto a caminho
-                </button>
-              </a>
-            </form>
-
-            <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
-                  Entregue
-                </button>
-              </a>
-            </form>
-
-            <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
-                  Cancelado
-                </button>
-              </a>
-            </form>
-          </div>
-          </div>
-
-          {{else ifCond userType 'Revendedor'}}
-          {{#ifCond myOffer 1}}
-          <h4 class="mt-5">Alterar status</h4>
-          <div class="dropdown pb-4">
-            <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-            {{#ifCond status 'Aguardando boleto'}}
-            class="btn btn-warning dropdown-toggle col-6">
-            Aguardando boleto
-
-            {{else ifCond status 'Aguardando pagamento'}}
-            class="btn btn-warning dropdown-toggle col-6">
-            Aguardando pagamento
-
-            {{else ifCond status 'Pagamento confirmado'}}
-            class="btn btn-secondary  dropdown-toggle col-6">
-            Pagamento confirmado
-
-            {{else ifCond status 'Produto a caminho'}}
-            class="btn btn-primary  dropdown-toggle col-6">
-            Produto a caminho
-
-            {{else ifCond status 'Entregue'}}
-            class="btn btn-success  dropdown-toggle col-6">
-            Entregue
-
-            {{else}}
-            class="btn  dropdown-toggle btn-danger col-6">
-            Cancelado
-            {{/ifCond}}
-            {{/ifCond}}
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-            <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
-                  Aguardando boleto
-                </button>
-              </a>
-            </form>
-
-            <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item " href="#">
-                <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
-                  Aguardando pagamento
-                </button>
-              </a>
-            </form>
-
-            <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Pagamento confirmado">
-                  Pagamento confirmado
-                </button>
-              </a>
-            </form>
-
-            <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Produto a caminho">
-                  Produto a caminho
-                </button>
-              </a>
-            </form>
-
-            <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
-                  Entregue
-                </button>
-              </a>
-            </form>
-
-            <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-              <a class="dropdown-item" href="#">
-                <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
-                  Cancelado
-                </button>
-              </a>
-            </form>
-          </div>
-          </div>
-
-          {{/ifCond}}
-
-      </div>
-    </div>
-      <!-- end Transaction info -->
-
-
-
-    <div class="pb-2 mb-2 mt-2">
-      <h4>Descrição</h4>
-      <p>{{offer.product.description}}</p>
-    </div>
-
-    <div class="mx-auto col-10 col-md-5 pb-2 mb-2 mt-4">
-      {{#ifNotEq userType 'Administrador'}}
+        {{else ifCond userType 'Revendedor'}}
+        <!-- Seller info -->
         {{#ifCond myOffer 0}}
-        {{#if franchisee}}
-          {{#ifCond userType 'Franqueado'}}
-          {{#ifCond status 'Cotado'}}
-            <form action="/transaction/{{id}}?_method=PUT" method="POST">
-              <button class="btn btn-success col-12" type="submit" name="button" type="submit" name="button">Confirmar compra</button>
-            </form>
-         {{/ifCond}}
-          {{/ifCond}}
+        <div class="col-12 col-md-6 mt-3">
+          <h2 class="mb-4 text-center">Dados do vendedor</h2>
+          <h4>Empresa</h4>
+          <p class="mb-4">{{offer.seller.fantasyName}}</p>
+          <h4>Contato</h4>
+          <p>Telefone: {{offer.seller.logistics.phone}}</p>
+          <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
+          <h4>Endereço</h4>
+          <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
+        </div>
+        <!-- end Seller info -->
+        <!-- Buyer info -->
+        {{else ifCond myOffer 1}}
+        <div class="col-12 col-md-6 mt-3 ">
+          <h2 class="mb-4 text-center">Dados do comprador</h2>
+          <h4>Nome</h4>
+          <p class="mb-4">{{buyer.fullName}}</p>
+          <h4>Contato</h4>
+          <p>Telefone: {{buyer.phone}}</p>
+          <p class="mb-4">E-mail: {{buyer.email}}</p>
+          <h4>Endereço</h4>
+          <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
+        </div>
+        {{/ifCond}}
+        <!-- end Buyer info -->
         {{else}}
-          {{#ifCond status 'Cotado'}}
-            <form action="/transaction/{{id}}?_method=PUT" method="POST">
-              <button class="btn btn-success col-12" type="submit" name="button" type="submit" name="button">Confirmar compra</button>
-            </form>
-         {{/ifCond}}
-        {{/if}}
-       {{/ifCond}}
-      {{/ifNotEq}}
+        <!-- Seller info -->
+        <div class="col-12 col-md-6 mt-3">
+          <h2 class="mb-4 text-center">Dados do vendedor</h2>
+          <h4>Empresa</h4>
+          <p class="mb-4">{{offer.seller.fantasyName}}</p>
+          <h4>Contato</h4>
+          <p>Telefone: {{offer.seller.logistics.phone}}</p>
+          <p class="mb-4">E-mail: {{offer.seller.logistics.email}}</p>
+          <h4>Endereço</h4>
+          <p class="mb-4">{{offer.seller.address.street}}, {{offer.seller.address.number}}, {{offer.seller.address.city}}, {{offer.seller.address.state}}</p>
+        </div>
+        <!-- end Seller info -->
+        <!-- Buyer info -->
+        <div class="col-12 col-md-6 mt-3 ">
+          <h2 class="mb-4 text-center">Dados do comprador</h2>
+          <h4>Nome</h4>
+          <p class="mb-4">{{buyer.fullName}}</p>
+          <h4>Contato</h4>
+          <p>Telefone: {{buyer.phone}}</p>
+          <p class="mb-4">E-mail: {{buyer.email}}</p>
+          <h4>Endereço</h4>
+          <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
+        </div>
+        <!-- end Buyer info -->
+        {{/ifCond}}
 
-      {{#ifNotEq status 'Cancelado'}}
+        <!-- Transaction info -->
+        <div class="col-12 col-md-6 mt-3">
+            <h4>Entrega</h4>
+            <p>{{offer.delivery}}</p>
+
+            <h4>Quantidade comprada</h4>
+            <p>{{amountBought}} {{offer.product.unit}}</p>
+
+            <h4>Preço total</h4>
+            <p data-usd={{offer.usd}}>R$ {{priceBought}}</p>
+
+            <h4>Status da compra</h4>
+            <p>{{status}}</p>
+
+            {{#ifCond userType 'Administrador'}}
+            <h4 class="mt-5">Alterar status da taxa</h4>
+            <div class="dropdown pb-4">
+              <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              {{#ifCond taxStatus 'Aguardando boleto'}}
+              class="btn btn-info dropdown-toggle col-6">
+              Aguardando boleto
+
+              {{else ifCond taxStatus 'Aguardando pagamento'}}
+              class="btn btn-warning dropdown-toggle col-6">
+              Aguardando pagamento
+
+              {{else ifCond taxStatus 'Pagamento confirmado'}}
+              class="btn btn-success  dropdown-toggle col-6">
+              Pagamento confirmado
+
+              {{else}}
+              class="btn  dropdown-toggle btn-danger col-6">
+              Cancelado
+              {{/ifCond}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+              <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
+                    Aguardando boleto
+                  </button>
+                </a>
+              </form>
+              <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+                <a class="dropdown-item " href="#">
+                  <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
+                    Aguardando pagamento
+                  </button>
+                </a>
+              </form>
+              <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
+                    Pagamento confirmado
+                  </button>
+                </a>
+              </form>
+
+              <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
+                    Cancelado
+                  </button>
+                </a>
+              </form>
+            </div>
+            </div>
+
+            {{else ifCond userType 'Indústria'}}
+            <h4 class="mt-5">Alterar status</h4>
+            <div class="dropdown pb-4">
+              <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              {{#ifCond status 'Aguardando boleto'}}
+              class="btn btn-warning dropdown-toggle col-8">
+              Aguardando boleto
+
+              {{else ifCond status 'Aguardando pagamento'}}
+              class="btn btn-warning dropdown-toggle col-8">
+              Aguardando pagamento
+
+              {{else ifCond status 'Pagamento confirmado'}}
+              class="btn btn-secondary  dropdown-toggle col-8">
+              Pagamento confirmado
+
+              {{else ifCond status 'Produto a caminho'}}
+              class="btn btn-primary  dropdown-toggle col-8">
+              Produto a caminho
+
+              {{else ifCond status 'Entregue'}}
+              class="btn btn-success  dropdown-toggle col-8">
+              Entregue
+
+              {{else}}
+              class="btn  dropdown-toggle btn-danger col-8">
+              Cancelado
+              {{/ifCond}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+              <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
+                    Aguardando boleto
+                  </button>
+                </a>
+              </form>
+
+              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item " href="#">
+                  <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
+                    Aguardando pagamento
+                  </button>
+                </a>
+              </form>
+
+              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Pagamento confirmado">
+                    Pagamento confirmado
+                  </button>
+                </a>
+              </form>
+
+              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Produto a caminho">
+                    Produto a caminho
+                  </button>
+                </a>
+              </form>
+
+              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
+                    Entregue
+                  </button>
+                </a>
+              </form>
+
+              <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
+                    Cancelado
+                  </button>
+                </a>
+              </form>
+            </div>
+            </div>
+
+            {{else ifCond userType 'Revendedor'}}
+            {{#ifCond myOffer 1}}
+            <h4 class="mt-5">Alterar status</h4>
+            <div class="dropdown pb-4">
+              <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              {{#ifCond status 'Aguardando boleto'}}
+              class="btn btn-warning dropdown-toggle col-6">
+              Aguardando boleto
+
+              {{else ifCond status 'Aguardando pagamento'}}
+              class="btn btn-warning dropdown-toggle col-6">
+              Aguardando pagamento
+
+              {{else ifCond status 'Pagamento confirmado'}}
+              class="btn btn-secondary  dropdown-toggle col-6">
+              Pagamento confirmado
+
+              {{else ifCond status 'Produto a caminho'}}
+              class="btn btn-primary  dropdown-toggle col-6">
+              Produto a caminho
+
+              {{else ifCond status 'Entregue'}}
+              class="btn btn-success  dropdown-toggle col-6">
+              Entregue
+
+              {{else}}
+              class="btn  dropdown-toggle btn-danger col-6">
+              Cancelado
+              {{/ifCond}}
+              {{/ifCond}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+              <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
+                    Aguardando boleto
+                  </button>
+                </a>
+              </form>
+
+              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item " href="#">
+                  <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
+                    Aguardando pagamento
+                  </button>
+                </a>
+              </form>
+
+              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Pagamento confirmado">
+                    Pagamento confirmado
+                  </button>
+                </a>
+              </form>
+
+              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Produto a caminho">
+                    Produto a caminho
+                  </button>
+                </a>
+              </form>
+
+              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
+                    Entregue
+                  </button>
+                </a>
+              </form>
+
+              <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+                <a class="dropdown-item" href="#">
+                  <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
+                    Cancelado
+                  </button>
+                </a>
+              </form>
+            </div>
+            </div>
+
+            {{/ifCond}}
+
+        </div>
+      </div>
+        <!-- end Transaction info -->
+
+
+
+      <div class="pb-2 mb-2 mt-2">
+        <h4>Descrição</h4>
+        <p>{{offer.product.description}}</p>
+      </div>
+
+      <div class="mx-auto col-12 col-md-5 pb-2 mb-2 mt-4">
         {{#ifNotEq userType 'Administrador'}}
           {{#ifCond myOffer 0}}
           {{#if franchisee}}
             {{#ifCond userType 'Franqueado'}}
+            {{#ifCond status 'Cotado'}}
+              <form action="/transaction/{{id}}?_method=PUT" method="POST">
+                <button class="btn btn-success col-12" type="submit" name="button" type="submit" name="button">Confirmar compra</button>
+              </form>
+           {{/ifCond}}
+            {{/ifCond}}
+          {{else}}
+            {{#ifCond status 'Cotado'}}
+              <form action="/transaction/{{id}}?_method=PUT" method="POST">
+                <button class="btn btn-success col-12" type="submit" name="button" type="submit" name="button">Confirmar compra</button>
+              </form>
+           {{/ifCond}}
+          {{/if}}
+         {{/ifCond}}
+        {{/ifNotEq}}
+
+        {{#ifNotEq status 'Cancelado'}}
+          {{#ifNotEq userType 'Administrador'}}
+            {{#ifCond myOffer 0}}
+            {{#if franchisee}}
+              {{#ifCond userType 'Franqueado'}}
+                <div class="text-center my-3 justify-content-center">
+                  <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+                    <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
+                      Cancelar compra
+                    </button>
+                  </form>
+                </div>
+
+              {{/ifCond}}
+            {{else}}
               <div class="text-center my-3 justify-content-center">
                 <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
                   <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
@@ -365,21 +377,13 @@
                   </button>
                 </form>
               </div>
-
+            {{/if}}
             {{/ifCond}}
-          {{else}}
-            <div class="text-center my-3 justify-content-center">
-              <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-                <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
-                  Cancelar compra
-                </button>
-              </form>
-            </div>
-          {{/if}}
-          {{/ifCond}}
+          {{/ifNotEq}}
         {{/ifNotEq}}
-      {{/ifNotEq}}
-    <!-- end Product Description -->
+      <!-- end Product Description -->
+    </div>
+    </div>
   </div>
 </div>
 

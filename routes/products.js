@@ -22,12 +22,7 @@ router.get('/', (req, res) => {
  */
 router.get('/new', (req, res) => {
   const { userType } = req.session;
-  Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
-    res.render('products/new', { title: 'Novo Produto', chems, userType });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
+  res.render('products/new', { title: 'Novo Produto', userType });
 });
 
 /**
@@ -36,20 +31,39 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const { product } = req.body;
   const { userType } = req.session;
-  if(userType == 'Administrador'){
+  if (userType == 'Administrador'){
     product.status = 'Aprovado';
   }
-  else{
+  else {
     product.status = 'Aguardando';
   }
-  Product.create(product).then((id) => {
-    console.log(`Created new product with id: ${id}`);
-    if(userType == 'Administrador'){
-      req.flash('success', 'Produto criado com sucesso.');    }
-    else{
+
+  const promises = [];
+  const chemsIDs = [];
+
+  req.body.chem.forEach((chemName) => {
+    const regex = new RegExp(chemName, 'i');
+    const promise = Chem.getOneByQuery({ name: regex });
+    promises.push(promise);
+  });
+  Promise.all(promises).then((chems) => {
+    chems.forEach((chem) => {
+      chemsIDs.push(chem._id);
+    });
+    product.chems = chemsIDs;
+    Product.create(product).then((id) => {
+      console.log(`Created new product with id: ${id}`);
+      if (userType == 'Administrador') {
+      req.flash('success', 'Produto criado com sucesso.');
+      }
+      else {
       req.flash('success', 'Pedido de aprovação do produto feito com sucesso.');
-    }
-    res.redirect(`/products/${id}`);
+      }
+      res.redirect(`/products/${id}`);
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -63,6 +77,7 @@ router.get('/:id', (req, res) => {
   const { userType } = req.session;
   Product.getById(req.params.id).then((product) => {
     if (product) {
+      console.log(product);
       res.render('products/show', { title: product.name, id: req.params.id, ...product, userType });
     }
     else {
@@ -78,25 +93,20 @@ router.get('/:id', (req, res) => {
 /**
  * GET Edit - Show the product edit form
  */
- router.get('/:id/edit', auth.canSell, (req, res) => {
-   Chem.getByQuerySorted({}, { name: 1 }).then((chems) => {
-     Product.getById(req.params.id).then((product) => {
-       if (product) {
-         res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product, chems });
-       }
-       else {
-         console.log('Product not found!');
-         res.redirect('/user');
-       }
-     }).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-   }).catch((error) => {
-     console.log(error);
-     res.redirect('/error');
-   });
- });
+router.get('/:id/edit', auth.canSell, (req, res) => {
+  Product.getById(req.params.id).then((product) => {
+    if (product) {
+      res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product });
+    }
+    else {
+      console.log('Product not found!');
+      res.redirect('/user');
+    }
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
 
 /**
  * PUT Update - Update a product in the database

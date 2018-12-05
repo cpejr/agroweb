@@ -146,11 +146,12 @@ router.post('/recoverPassword', (req, res) => {
  */
 router.get('/logout', auth.isAuthenticated, (req, res) => {
   firebase.auth().signOut().then(() => {
-    if (req.session.status === 'Aguardando aprovação' || req.session.status === 'Bloqueado') {
-      const { status } = req.session;
-      res.redirect('/user/status');
+    if (req.session.status === 'Aguardando aprovação')  {
+      req.flash('warning', 'Sua solicitação de cadastro foi enviada para a equipe, que avaliará seus dados antes de ativar sua conta.');
     }
-    else {
+    else if (req.session.status === 'Bloqueado') {
+      req.flash('warning', 'Essa conta não pode ser utilizada, porque está bloqueada.')
+    }
       delete req.session.userType;
       delete req.session.firstName;
       delete req.session.fullName;
@@ -158,8 +159,7 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
       delete req.session.userUid;
       delete req.session.email;
       delete req.session.status;
-      res.redirect('/');
-    }
+      res.redirect('/login');
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -182,6 +182,10 @@ router.post('/signup', (req, res) => {
     userData.uid = user.uid;
     delete userData.password;
     User.create(userData).then((docId) => {
+      Email.waitingForApprovalEmail(userData).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar o email para o novo usuário.');
+        res.redirect('/login');
+      });
       req.session.userType = userData.type;
       req.session.firstName = userData.firstName;
       req.session.fullName = userData.name;
@@ -190,7 +194,7 @@ router.post('/signup', (req, res) => {
       req.session.status = 'Aguardando aprovação';
       req.session._id = docId;
       if (req.session.userType === 'Indústria') {
-        res.render('industryMegaPremio', { title: 'Indústria', layout: 'layout' });
+        res.render('industryMegaPremio', { title: 'Indústria' });
       }
       else if (req.session.userType === 'Revendedor') {
         res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout' });

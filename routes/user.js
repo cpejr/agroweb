@@ -42,10 +42,11 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  * GET orders - Show all user's orders
  */
 router.get('/orders', auth.isAuthenticated, (req, res) => {
+  const userId = req.session._id;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOpenOrdersByUserId(req.session._id).then((transactions) => {
-        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session });
+        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session});
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -66,10 +67,13 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
  */
 router.get('/sales', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
+  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
+
     if (user) {
       User.getAllOpenSalesByUserId(req.session._id).then((transactions) => {
-        res.render('orders', { title: 'Demandas', layout: 'layout', transactions, userId });
+        console.log(userId);
+        res.render('orders', { title: 'Demandas', transactions, userId, userType });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -89,10 +93,11 @@ router.get('/sales', auth.isAuthenticated, (req, res) => {
  * GET offers - Show all user's offers
  */
 router.get('/offers', auth.isAuthenticated, (req, res) => {
+  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOffersByUserId(req.session._id).then((offers) => {
-        res.render('offers/index', { title: 'Produtos oferecidos', layout: 'layout', offers });
+        res.render('offers/index', { title: 'Produtos oferecidos', layout: 'layout', offers, userType });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -112,11 +117,12 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
  * GET history - Show the user's buying history
  */
 router.get('/history', auth.isAuthenticated, (req, res) => {
+  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
         console.log(transactions);
-        res.render('orders', { title: 'Histórico', layout: 'layout', transactions });
+        res.render('orders', { title: 'Histórico', transactions, userType });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -159,9 +165,10 @@ router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
  * GET Edit - Show the user edit form
  */
 router.get('/edit', auth.isAuthenticated, (req, res) => {
+  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     if (user) {
-      res.render('profile/edit', { title: 'Editar', layout: 'layout', user });
+      res.render('profile/edit', { title: 'Editar', layout: 'layout', user, userType });
     }
     else {
       console.log('User not found!');
@@ -368,7 +375,7 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
             });
           }
         }
-        
+
         else{
           User.removeFromMyCart(quotation.buyer._id, quotation._id).catch((error) => {
           console.log(error);
@@ -429,21 +436,5 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
      res.redirect('/user/agreementList');
    });
  });
-
-/**
- * GET status - Show if user is blocked or waiting
- */
-router.get('/status', (req, res) => {
-  User.getById(req.session._id).then((user) => {
-    delete req.session.userType;
-    delete req.session.firstName;
-    delete req.session.fullName;
-    delete req.session._id;
-    delete req.session.userUid;
-    delete req.session.email;
-    delete req.session.status;
-    res.render('status', { title: 'Aviso', layout: 'layoutError', user});
-  });
-});
 
 module.exports = router;

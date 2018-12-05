@@ -2,6 +2,7 @@ var express = require('express');
 const Group = require('../models/group');
 const Offer = require('../models/offer');
 const Product = require('../models/product');
+const Chem = require('../models/chem');
 
 var router = express.Router();
 
@@ -16,7 +17,8 @@ router.get('/', (req, res) => {
   const groupPromises = [];
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
     products.forEach((product) => {
-      const queryOffer = { product: product._id, delivery: '48 horas' };
+      // const queryOffer = { product: product._id, delivery: '48 horas' };
+      const queryOffer = { product: product._id };
       const sortOffer = { 'price.low': 1 };
       const queryGroup = { productId: product._id };
       const sortGroup = {};
@@ -31,7 +33,7 @@ router.get('/', (req, res) => {
         // const offers = offerResults[0].concat(offerResults[1]);
         const groups = groupResults[0];
         const offers = offerResults[0];
-        res.render('results', { title: `Resultados para "${req.query.filter}"`, layout: 'layout', groups, offers });
+        res.render('results', { title: `Resultados para "${req.query.filter}"`, groups, offers });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -57,7 +59,7 @@ router.get('/products', (req, res) => {
     products.forEach((product) => {
       if(product.status == "Aprovado"){
         names.push(product.name);
-      }      
+      }
     });
     console.log(names);
     res.send(names);
@@ -67,4 +69,19 @@ router.get('/products', (req, res) => {
   });
 });
 
+router.get('/chems', (req, res) => {
+  const names = [];
+  const queryChem = {};
+  const sortChem = { name: 1 };
+  Chem.getByQuerySorted(queryChem, sortChem).then((chems) => {
+    chems.forEach((chem) => {
+      names.push(chem.name);
+    });
+    console.log(names);
+    res.send(names);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
 module.exports = router;

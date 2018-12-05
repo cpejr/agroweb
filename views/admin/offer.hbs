@@ -8,6 +8,7 @@
   </div>
 </div>
 
+{{#if offers}}
 <div style="overflow-x:auto;">
   <div class="container">
     <p>Digite logo abaixo para buscar algum boleto específico:</p>
@@ -45,10 +46,15 @@
           </td>
         </tr>
         {{/each}}
-          </tbody>
-        </table>
-      </div>
-    </div>
+      </tbody>
+    </table>
+  </div>
+</div>
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há nenhuma oferta.</p>
+</div>
+{{/if}}
 
 {{#section 'scripts'}}
 <script src="/javascripts/money.js"></script>
@@ -64,6 +70,4 @@ $(document).ready(function(){
   });
 });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

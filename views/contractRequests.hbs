@@ -1,16 +1,16 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
+
 <div class="text-center pb-3 gradient-background text-white">
-  <h3 class="font-black">Requisições de cadastro</h3>
+  <h3 class="font-black">Requisições de contrato</h3>
 </div>
 
-{{#if users}}
-<div class="container">
-  <p>Digite logo abaixo para buscar alguma requisição de cadastro específica:</p>
-  <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
-  <br>
-  <div style="overflow-x:auto;">
+<div style="overflow-x:auto;">
+  <div class="container">
+    <p>Digite logo abaixo para buscar alguma requisição de contrato específica:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+    <br>
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -21,7 +21,6 @@
       </thead>
       <tbody id="myTable">
         {{#each users}}
-        {{#ifCond status 'Aguardando aprovação'}}
         <tr>
           <th scope="row">{{fullName}}</th>
           <td>{{type}}</td>
@@ -31,35 +30,31 @@
             </button>
           </td>
           <td>
-            <form  method= "POST" action="/admin/{{id}}/requisitions/users">
+            <form  method= "POST" action="/user/contract">
+              <input name="clientId" type="hidden" class="form-control font-light" value="{{id}}"></input>
               <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
                 Aceitar
               </button>
             </form>
           </td>
           <td>
-            <form  method= "POST" action="/admin/{{id}}/requisitions/users">
+            <form  method= "POST" action="/user/denyContract">
+              <input name="clientId" type="hidden" class="form-control font-light" value="{{id}}"></input>
               <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
-                Bloquear
+                Recusar
               </button>
             </form>
           </td>
         </tr>
-        {{/ifCond}}
         {{/each}}
       </tbody>
     </table>
   </div>
 </div>
 
-{{else}}
-<div class="container">
-  <p class="text-center font-light">Não há novas requisições de cadastro.</p>
-</div>
-{{/if}}
-
 {{#section 'scripts'}}
 <script src="/javascripts/navbar.js"></script>
+<!-- <script src="/javascripts/filter.js"></script> -->
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {

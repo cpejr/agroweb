@@ -12,6 +12,7 @@
   {{#each users}}
   {{#ifCond type 'Franqueado'}}
   {{#ifCond moreClients true}}
+  {{#ifCond status 'Ativo'}}
   <div class="col-sm-12 col-md-6 col-lg-6 btn card m-3" >
       <div class="my-1 bg-light2 card1"  onclick="location.href = '/user/profile/{{_id}}'">
         <div class="text-right p-2">
@@ -60,6 +61,7 @@
       </div>
   </div>
 <!-- end CARD PADRÃO -->
+      {{/ifCond}}
       {{/ifCond}}
       {{/ifCond}}
       {{/each}}

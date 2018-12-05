@@ -1,11 +1,11 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-<div class="">
 <div class="pb-3 text-center gradient-background text-white">
   <h3 class="font-black">Newsletter</h3>
 </div>
 
+{{#if users}}
 <div style="overflow-x:auto;">
   <div class="container">
     <p>Digite logo abaixo para buscar algum e-mail específico:</p>
@@ -34,14 +34,19 @@
           </th>
         </tr>
         {{/each}}
-          </tbody>
-        </table>
-      </div>
-    </div>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há nenhum email na newsletter.</p>
+</div>
+{{/if}}
 
 {{#section 'scripts'}}
 <script src="/javascripts/navbar.js"></script>
-<!-- <script src="/javascripts/filter.js"></script> -->
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
@@ -52,6 +57,4 @@ $(document).ready(function(){
   });
 });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

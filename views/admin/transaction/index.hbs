@@ -1,60 +1,68 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-    <div class="text-center pb-3 gradient-background text-white">
-      <h3 class="font-black">Boletos pendentes</h3>
-    </div>
+<div class="text-center pb-3 gradient-background text-white">
+  <h3 class="font-black">Boletos pendentes</h3>
+</div>
 
-    <div style="overflow-x:auto;">
-      <div class="container">
-        <p>Digite logo abaixo para buscar algum boleto específico:</p>
-        <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
-        <br>
+{{#if transactions}}
+<div style="overflow-x:auto;">
+  <div class="container">
+    <p>Digite logo abaixo para buscar algum boleto específico:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+    <br>
 
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Código da compra</th>
-              <th>Comprador</th>
-              <th>Preço</th>
-              <th>Status</th>
-              <th>Opções</th>
-            </tr>
-          </thead>
-          <tbody id="myTable">
-            {{#each transactions}}
-            {{#ifCond taxStatus 'Aguardando boleto'}}
-            <tr>
-              <td>{{_id}}</td>
-              <td>{{buyer.fullName}}</td>
-              <td>{{priceBought}}</td>
-              <td>{{taxStatus}}</td>
-              <td scope="row" class="font-light">
-                <form action="/transaction/{{_id}}" method="GET">
-                  <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
-                </form>
-              </td>
-              {{else ifCond taxStatus 'Aguardando pagamento'}}
-              <tr>
-                <td>{{_id}}</td>
-                <td>{{buyer.fullName}}</td>
-                <td>{{priceBought}}</td>
-                <td>{{taxStatus}}</td>
-                <td scope="row" class="font-light">
-                  <form action="/transaction/{{_id}}" method="GET">
-                    <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
-                  </form>
-                </td>
-                {{/ifCond}}
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Código da compra</th>
+          <th>Comprador</th>
+          <th>Preço</th>
+          <th>Status</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+        {{#each transactions}}
+        {{#ifCond taxStatus 'Aguardando boleto'}}
+        <tr>
+          <td>{{_id}}</td>
+          <td>{{buyer.fullName}}</td>
+          <td>{{priceBought}}</td>
+          <td>{{taxStatus}}</td>
+          <td scope="row" class="font-light">
+            <form action="/transaction/{{_id}}" method="GET">
+              <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
+            </form>
+          </td>
+        </tr>
+        {{else ifCond taxStatus 'Aguardando pagamento'}}
+        <tr>
+          <td>{{_id}}</td>
+          <td>{{buyer.fullName}}</td>
+          <td>{{priceBought}}</td>
+          <td>{{taxStatus}}</td>
+          <td scope="row" class="font-light">
+            <form action="/transaction/{{_id}}" method="GET">
+              <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
+            </form>
+          </td>
+        </tr>
+        {{/ifCond}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há nenhum boleto pendente.</p>
+</div>
+{{/if}}
 
 {{#section 'scripts'}}
   <script src="/javascripts/navbar.js"></script>
-  <!-- <script src="/javascripts/filter.js"></script> -->
   <script>
   $(document).ready(function(){
     $("#myInput").on("keyup", function() {

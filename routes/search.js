@@ -32,14 +32,29 @@ router.get('/', (req, res) => {
         const offers = offerResults[0].concat(offerResults[1]);
         console.log(groups);
         console.log(offers);
+
+        let indexes = [];
         let index = groups.indexOf(undefined);
-        if (index > -1) {
-          groups.splice(index, 1);
+        while (index !== -1) {
+          indexes.push(index);
+          index = groups.indexOf(undefined, index + 1);
         }
+        indexes.reverse();
+        indexes.forEach((idx) => {
+          groups.splice(idx, 1);
+        });
+
+        indexes = [];
         index = offers.indexOf(undefined);
-        if (index > -1) {
-          offers.splice(index, 1);
+        while (index !== -1) {
+          indexes.push(index);
+          index = offers.indexOf(undefined, index + 1);
         }
+        indexes.reverse();
+        indexes.forEach((idx) => {
+          offers.splice(idx, 1);
+        });
+
         console.log(groups);
         console.log(offers);
         res.render('results', { title: `Resultados para "${req.query.filter}"`, groups, offers });

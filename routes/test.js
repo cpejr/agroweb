@@ -16,6 +16,22 @@ const config = require('../docs/config.json');
 const router = express.Router();
 
 router.get('/', (req, res) => {
+
+  const groups = [0, undefined, 1, 2, 5, 2, undefined, undefined, undefined, 7, 5, 4, 3, undefined];
+
+  let indexes = [];
+  let index = groups.indexOf(undefined);
+  while (index !== -1) {
+    indexes.push(index);
+    index = groups.indexOf(undefined, index + 1);
+  }
+  indexes.reverse();
+  indexes.forEach((idx) => {
+    groups.splice(idx, 1);
+  });
+  console.log(indexes);
+  console.log(groups);
+
   res.render('teste', { title: 'Teste' });
 });
 

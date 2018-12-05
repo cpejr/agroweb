@@ -59,6 +59,12 @@
       </div>
 
       <div class="form-group">
+        <h5 class="row col text-bold" align="justify">Total de clientes:</h5>
+        <p class="font-book mb-4">{{user.totalCustomers}}</p>
+      </div>
+
+      {{#ifCond userType 'Administrador'}}
+      <div class="form-group">
         <h5 class="row col text-bold" align="justify">Possui carteira de cliente que cotam produtos:</h5>
         <p class="font-book mb-4">{{user.actualCustomers}}</p>
       </div>
@@ -69,14 +75,10 @@
       </div>
 
       <div class="form-group">
-        <h5 class="row col text-bold" align="justify">Total de clientes:</h5>
-        <p class="font-book mb-4">{{user.totalCustomers}}</p>
-      </div>
-
-      <div class="form-group">
         <h5 class="row col text-bold" align="justify">Como a Megapool poderia ser importante para seu négocio:</h5>
         <p class="font-book mb-4">{{user.whyIsMegapoolImportant}}</p>
       </div>
+      {{/ifCond}}
 
     {{else ifCond user.type 'Revendedor'}}
       <div class="form-group">
@@ -176,6 +178,7 @@
     </div>
 
     {{else ifCond user.type 'Produtor'}}
+    {{#ifCond client.0.uid user.uid}}
       <div class="form-group">
         <h5 class="row col text-bold" align="justify">Telefone fixo:</h5>
         <p class="font-book mb-4">{{user.phone}}</p>
@@ -236,7 +239,10 @@
         <p class="font-book mb-4">{{user.stateRegistration}}</p>
       </div>
 
-
+      {{else}}
+        <h5> Observação: </h5>
+        <p> Esse usuário não é seu cliente. Portanto, você não possui permissão para ver as informações específicas dele.</p> 
+      {{/ifCond}}
 
     {{else ifCond user.type 'Indústria'}}
       <div class="form-group">

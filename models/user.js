@@ -474,11 +474,22 @@ class User {
       UserModel.findByIdAndUpdate(id, { $push: { agreementList: user } }).catch((err) => {
         reject(err);
       });
+    });
+  }
+
+  /**
+   * Increase to agreementList
+   * @param {string} id - User Id
+   * @returns {null}
+   */
+  static increaseTotalCustomers(id) {
+    return new Promise((resolve, reject) => {
       UserModel.findByIdAndUpdate(id, { $inc: { totalCustomers: 1 } }).catch((err) => {
         reject(err);
       });
     });
   }
+
 
   /**
    * Remove from agreementList
@@ -491,6 +502,16 @@ class User {
       UserModel.findByIdAndUpdate(id, { $pull: { agreementList: user } }).catch((err) => {
         reject(err);
       });
+    });
+  }
+
+  /**
+   * Remove from agreementList
+   * @param {string} id - User Id
+   * @returns {null}
+   */
+  static decreaseTotalCustomers(id) {
+    return new Promise((resolve, reject) => {
       UserModel.findByIdAndUpdate(id, { $inc: { totalCustomers: -1 } }).catch((err) => {
         reject(err);
       });
@@ -503,7 +524,7 @@ class User {
    * @param {string} user - User Id
    * @returns {null}
    */
-  static askToClient(id, user) {
+  static addContract(id, user) {
     return new Promise((resolve, reject) => {
       UserModel.findByIdAndUpdate(id, { $push: { contractRequests: user } }).catch((err) => {
         reject(err);

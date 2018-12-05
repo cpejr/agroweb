@@ -376,10 +376,12 @@
 {{/ifCond}}
 
 {{else ifCond userType 'Franqueado'}}
+{{#ifCond client.0.uid user.uid}}
 <form action="/user/cancel" method="post">
   <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
   <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-danger mx-auto d-block my-2" type="submit" name="button">Cancelar Contrato</button>
 </form>
+{{/ifCond}}
 
 {{else ifCond userType 'Administrador'}}
 {{#ifCond user.status 'Aguardando aprovação'}}

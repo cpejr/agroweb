@@ -2,17 +2,15 @@
 {{/section}}
 
 <div class="justify-content-center  mx-0">
-
-    <div class="text-center pb-3 gradient-background text-white">
-      <h3 class="font-black">Produtos disponíveis</h3>
-    </div>
-
-    <div class="text-center pt-5">
-      <button onclick="location.href = '/products/new'" class="btn font-book btn-outline-primary">Adicionar novo produto</button>
-    </div>
-
+  <div class="text-center pb-3 gradient-background text-white">
+    <h3 class="font-black">Produtos disponíveis</h3>
+  </div>
+  <div class="text-center pt-5">
+    <button onclick="location.href = '/products/new'" class="btn font-book btn-outline-primary">Adicionar novo produto</button>
+  </div>
 </div>
 
+{{#if products}}
 <div style="overflow-x:auto;">
   <div class="container">
     <p>Digite logo abaixo para buscar algum produto específico:</p>
@@ -30,33 +28,35 @@
       </thead>
       <tbody id="myTable">
         {{#each products}}
-          <tr>
-            <th scope="row" class="font-book">{{name}}</th>
-            <th scope="row" class="font-light">{{category}}</th>
-            <th scope="row" class="font-light">{{manufacturer}}</th>
-            <th scope="row" class="font-light">
-              <button onclick="location.href='/products/{{id}}'" class="btn btn-outline-success font-book">Ver</button>
-            </th>
-            <th scope="row" class="font-light">
-              <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-warning font-book">Editar</button>
-            </th>
-            <th scope="row" class="font-light">
-              <form action="/products/{{id}}?_method=DELETE" method="POST">
-                <button type="submit" class="btn btn-outline-danger font-book">Excluir</button>
-              </form>
-            </th>
-          </tr>
+        <tr>
+          <th scope="row" class="font-book">{{name}}</th>
+          <th scope="row" class="font-light">{{category}}</th>
+          <th scope="row" class="font-light">{{manufacturer}}</th>
+          <th scope="row" class="font-light">
+            <button onclick="location.href='/products/{{id}}'" class="btn btn-outline-success font-book">Ver</button>
+          </th>
+          <th scope="row" class="font-light">
+            <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-warning font-book">Editar</button>
+          </th>
+          <th scope="row" class="font-light">
+            <form action="/products/{{id}}?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-outline-danger font-book">Excluir</button>
+            </form>
+          </th>
+        </tr>
         {{/each}}
-          </tbody>
-        </table>
-      </div>
-    </div>
-<!-- Chems list -->
-<!-- end chems list -->
+      </tbody>
+    </table>
+  </div>
+</div>
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há nenhum produto.</p>
+</div>
+{{/if}}
 
 {{#section 'scripts'}}
 <script src="/javascripts/navbar.js"></script>
-<!-- <script src="/javascripts/filter.js"></script> -->
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
@@ -67,6 +67,4 @@ $(document).ready(function(){
   });
 });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

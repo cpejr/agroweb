@@ -1,49 +1,47 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-  <div class="text-center pb-3 gradient-background text-white">
-    <h3 class="font-black">Taxas dos franqueados</h3>
-  </div>
-
-  <div style="overflow-x:auto;">
-    <div class="container">
-      <p>Digite logo abaixo para buscar alguma taxa dos franqueados:</p>
-      <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
-      <br>
-
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Valor a pagar</th>
-            <th>Opções</th>
-          </tr>
-        </thead>
-        <tbody id="myTable">
-          {{#each users}}
-          {{#ifCond type "Franqueado"}}
-          {{#ifNotEq pendingPayment 0}}
-          <tr>
-            <th scope="row">{{fullName}}</th>
-            <th scope="row">R$ {{pendingPayment}}</th>
-            <th>
-              <form action="/admin/payFranchisee/{{id}}" method="POST">
-                <input type="hidden" name="pendingPayment" value = 0></input>
-                <button type="submit" align="center" class="btn btn-outline-info" name="status">
-                  Pago
-                </button>
-              </form>
-            </th>
-          </tr>
-          {{/ifNotEq}}
-          {{/ifCond}}
-          {{/each}}
-            </tbody>
-          </table>
-        </div>
-      </div>
+<div class="text-center pb-3 gradient-background text-white">
+  <h3 class="font-black">Taxas dos franqueados</h3>
+</div>
 
 {{#if users}}
+<div style="overflow-x:auto;">
+  <div class="container">
+    <p>Digite logo abaixo para buscar alguma taxa dos franqueados:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+    <br>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Valor a pagar</th>
+          <th>Opções</th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+        {{#each users}}
+        {{#ifCond type "Franqueado"}}
+        {{#ifNotEq pendingPayment 0}}
+        <tr>
+          <th scope="row">{{fullName}}</th>
+          <th scope="row">R$ {{pendingPayment}}</th>
+          <th>
+            <form action="/admin/payFranchisee/{{id}}" method="POST">
+              <input type="hidden" name="pendingPayment" value = 0></input>
+              <button type="submit" align="center" class="btn btn-outline-info" name="status">
+                Pago
+              </button>
+            </form>
+          </th>
+        </tr>
+        {{/ifNotEq}}
+        {{/ifCond}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
 
 {{else}}
 <div class="container">
@@ -53,7 +51,6 @@
 
 {{#section 'scripts'}}
 <script src="/javascripts/navbar.js"></script>
-<!-- <script src="/javascripts/filter.js"></script> -->
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
@@ -64,6 +61,4 @@ $(document).ready(function(){
   });
 });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

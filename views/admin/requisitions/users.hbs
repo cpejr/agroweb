@@ -1,119 +1,65 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
+<div class="text-center pb-3 gradient-background text-white">
+  <h3 class="font-black">Requisições de cadastro</h3>
+</div>
 
-  <div class="text-center pb-3 gradient-background text-white">
-    <h3 class="font-black">Requisições de cadastro</h3>
-  </div>
-
-<div style="overflow-x:auto;">
-  <div class="container">
+{{#if users}}
+<div class="container">
   <p>Digite logo abaixo para buscar alguma requisição de cadastro específica:</p>
   <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
   <br>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Tipo</th>
-        <th colspan="3" class="text-center">Opções</th>
-      </tr>
-    </thead>
-    <tbody id="myTable">
-      {{#each users}}
-      {{#ifCond status 'Aguardando aprovação'}}
-      <tr>
-        <th scope="row">{{fullName}}</th>
-        <td>{{type}}</td>
-        <td>
-          <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">
-            Perfil
-          </button>
-        </td>
-        <td>
-          <form  method= "POST" action="/admin/{{id}}/requisitions/users">
-            <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
-              Aceitar
+  <div style="overflow-x:auto;">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Tipo</th>
+          <th colspan="3" class="text-center">Opções</th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+        {{#each users}}
+        {{#ifCond status 'Aguardando aprovação'}}
+        <tr>
+          <th scope="row">{{fullName}}</th>
+          <td>{{type}}</td>
+          <td>
+            <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">
+              Perfil
             </button>
-          </form>
-        </td>
-        <td>
-          <form  method= "POST" action="/admin/{{id}}/requisitions/users">
-            <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
-              Bloquear
-            </button>
-          </form>
-        </td>
-      </tr>
-          {{/ifCond}}
-          {{/each}}
-        </tbody>
+          </td>
+          <td>
+            <form  method= "POST" action="/admin/{{id}}/requisitions/users">
+              <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
+                Aceitar
+              </button>
+            </form>
+          </td>
+          <td>
+            <form  method= "POST" action="/admin/{{id}}/requisitions/users">
+              <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
+                Bloquear
+              </button>
+            </form>
+          </td>
+        </tr>
+        {{/ifCond}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<!-- {{#if users}}
-  <!-- <div class="text-center p-3">
-    <button type="button col-1 color-muted" name="button" class="btn ml-1">
-      <i class="fas fa-sort-amount-down float-left"></i>
-    </button>
-    <button type="button col-1 color-muted" name="button" class="btn ml-1">
-      <i class="fas fa-filter float-left"></i>
-    </button>
-  </div> -->
-<!-- Users list -->
-
-<!-- <div style="overflow-x:auto;">
-  <table class="table table-light table-striped text-center">
-    <thead>
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Tipo</th>
-        <th colspan="3" scope="col font-black">Opções</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      {{#each users}}
-
-      {{#ifCond status 'Aguardando aprovação'}}
-      <tr>
-        <th scope="row">{{fullName}}</th>
-        <td>{{type}}</td>
-        <td>
-          <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">
-            Perfil
-          </button>
-        </td>
-        <td>
-          <form  method= "POST" action="/admin/{{id}}/requisitions/users">
-            <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
-              Aceitar
-            </button>
-          </form>
-        </td>
-        <td>
-          <form  method= "POST" action="/admin/{{id}}/requisitions/users">
-            <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
-              Bloquear
-            </button>
-          </form>
-        </td>
-      </tr>
-      {{/ifCond}}
-      {{/each}} -->
-
-    </tbody>
-  </table>
-</div>
 {{else}}
 <div class="container">
   <p class="text-center font-light">Não há novas requisições de cadastro.</p>
 </div>
 {{/if}}
-  </div>
-</div>
+
 {{#section 'scripts'}}
 <script src="/javascripts/navbar.js"></script>
-<!-- <script src="/javascripts/filter.js"></script> -->
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {

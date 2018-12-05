@@ -40,7 +40,8 @@ const groupSchema = new mongoose.Schema({
   rising: {
     type: Boolean,
     default: false
-  }
+  },
+  closeDate: Date
 }, { timestamps: true, strict: false });
 
 const GroupModel = mongoose.model('Group', groupSchema);

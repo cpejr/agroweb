@@ -21,7 +21,7 @@
             <th>Preço atual</th>
             <th>Dono</th>
             <th>Quantidade sendo contada</th>
-            <th>Preço total</th>
+            <th>Fechamento</th>
           </tr>
         </thead>
         <tbody id="myTable">
@@ -32,7 +32,12 @@
             <td class="font-book">{{price}}</td>
             <td class="font-book">{{offer.seller.responsible.name}}</td>
             <td class="font-book">{{amount}}</td>
-            <td class="font-book">Em definição</td>
+            <td class="font-book">
+              <form action="/groups/{{id}}?_method=PUT" method="POST">
+                <input type="date" name="group[closeDate]" class="form-control" value="{{closeDate}}">
+                <button type="submit" class="btn bg-green text-light2">Salvar</button>
+              </form>
+            </td>
           </tr>
             {{/each}}
             </tbody>

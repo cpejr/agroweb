@@ -55,12 +55,14 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
  * PUT Update - Update a group in the database
  */
 router.put('/:id', auth.isAuthenticated, (req, res) => {
-  const group = req.body.group;
+  const { group } = req.body;
+  const array = group.closeDate.split(/\D/);
+  group.closeDate = new Date(array[0], --array[1], array[2]);
   Group.update(req.params.id, group).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect(`/groups/${req.params.id}`);
+  res.redirect('/groups');
 });
 
 /**

@@ -28,6 +28,7 @@ const fs = require('fs');
  * Functions
  */
 const Money = require('./functions/money');
+const Delivery = require('./functions/delivery');
 
 /**
  * Global Variables
@@ -68,6 +69,10 @@ console.log(global.rising);
  */
 schedule.scheduleJob('0 0 3 * * *', () => {
   Money.dailyDollarUpdate();
+  Delivery.closeGroups().then(() => {
+    console.log('Closed all groups successfully');
+  }).catch((error) => {
+    console.log(error);
   Money.getUsdValue().then((dollar) => {
     Money.getPrevUsdValue().then((prevDollar) => {
       if (dollar > prevDollar) {

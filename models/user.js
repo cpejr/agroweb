@@ -60,6 +60,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
+  contractRequests: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   transactions: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Transaction'
@@ -429,6 +433,21 @@ class User {
   }
 
   /**
+   * Get all contract request clients from a franchisee by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of users
+   */
+  static getContractRequestsById(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({ path: 'contractRequests' }).exec().then((result) => {
+        resolve(result.contractRequests);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
    * Get all Users that match the desired query
    * @param {Object} query - Object that defines the filter
    * @param {Object} sort - Object that defines the sort method
@@ -478,6 +497,33 @@ class User {
     });
   }
 
+  /**
+   * Send a invite to agreementList
+   * @param {string} id - User Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static askToClient(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { contractRequests: user } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Remove from contractRequests
+   * @param {string} id - User Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static removeContract(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { contractRequests: user } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 
 }
 module.exports = User;

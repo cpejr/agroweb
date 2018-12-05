@@ -142,10 +142,14 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
  * GET Profile/index - Show all user's details
  */
 router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
+  const userId = req.session._id;
   User.getById(req.params.id).then((user) => {
     if (user) {
+      const franchisee = user.agreementList[0];
       User.getAgreementListById(req.session._id).then((client) => {
-        res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, client, ...req.session});
+        console.log(userId);
+        console.log(user);
+        res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, client, userId, franchisee, ...req.session});
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -296,6 +300,18 @@ router.get('/franchisee', auth.isAuthenticated, (req, res) => {
   });
 });
 
+/*
+ * GET contract request page
+ */
+router.get('/contractRequests', auth.isAuthenticated, (req, res) => {
+  User.getContractRequestsById(req.session._id).then((users) => {
+    res.render('contractRequests', { title: 'Requisições de contrato', layout: 'layout', users, ...req.session });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
 /**
  * GET clients page
  */
@@ -334,19 +350,53 @@ router.delete('/:id', (req, res) => {
      }
      else {
        const userId = req.session._id;
-       User.addClient(req.body.franchiseeID, userId).catch((error) => {
-         console.log(req.body.franchisee);
+       User.addClient(req.body.clientId, userId).catch((error) => {
          res.redirect('/error');
        });
-       User.addClient(userId, req.body.franchiseeID).catch((error) => {
+       User.addClient(userId, req.body.clientId).catch((error) => {
          console.log(error);
          res.redirect('/error');
        });
-       req.flash('success', 'Franqueado contratado.');
+       User.removeContract(req.body.clientId, userId).catch((error) => {
+         console.log(error);
+         res.redirect('/error');
+       });
+       User.removeContract(userId, req.body.clientId).catch((error) => {
+         console.log(error);
+         res.redirect('/error');
+       });
+       req.flash('success', 'Contrato de franqueamento aceito.');
        res.redirect('/user/agreementList');
      }
    });
  });
+
+
+ /**
+  * POST contract - Generate Contract franchisee request
+  */
+  router.post('/generateContractRequest', auth.isAuthenticated, (req, res) => {
+    User.getAgreementListById(req.session._id).then((client) => {
+      if(client.uid){
+        req.flash('danger', 'Não é possível contratar mais de um franqueado.');
+        res.redirect('/user');
+      }
+      else {
+        const userId = req.session._id;
+        User.askToClient(req.body.franchiseeId, userId).catch((error) => {
+          console.log(req.body.franchisee);
+          res.redirect('/error');
+        });
+        User.askToClient(userId, req.body.franchiseeId).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
+        req.flash('success', 'Solitação enviada para o franqueado. Aguarde a resposta dele.');
+        res.redirect('/user');
+      }
+    });
+  });
+
 
 /**
  * POST cancel - Cancel franchisee
@@ -408,6 +458,26 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
   });
   req.flash('success', 'Franqueamento cancelado.');
   res.redirect('/user/agreementList');
+});
+
+
+/**
+ * POST cancel - Cancel franchisee
+ */
+router.post('/denyContract', auth.isAuthenticated, (req, res) => {
+  const userId = req.session._id;
+  console.log(req.body.clientId);
+  console.log(userId);
+  User.removeContract(req.body.clientId, userId).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  User.removeContract(userId, req.body.clientId).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  req.flash('success', 'Pedido de fraqueamento recusado.');
+  res.redirect('/user/contractRequests');
 });
 
 /**

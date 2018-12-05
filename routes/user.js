@@ -143,6 +143,7 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
  */
 router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
+  const userType = req.session;
   User.getById(req.params.id).then((user) => {
     if (user) {
       const franchisee = user.agreementList[0];
@@ -150,7 +151,7 @@ router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
         User.getContractRequestsById(req.session._id).then((contract) => {
           console.log(userId);
           console.log(user);
-          res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, client, userId, franchisee, ...req.session});
+          res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, userType, client, userId, franchisee, ...req.session});
         }).catch((error) => {
           console.log(error);
           res.redirect('/error');

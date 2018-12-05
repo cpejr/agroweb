@@ -63,7 +63,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
         }
         // Create a new transaction
         Transaction.create(transactionData).then((transaction) => {
-          const balanceOffer = offer.balance + transactionData.amountBought;
+          const balanceOffer = parseInt(offer.balance) + parseInt(transactionData.amountBought);
           const offerData = {
             balance: balanceOffer
           };

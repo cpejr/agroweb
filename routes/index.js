@@ -33,6 +33,18 @@ router.get('/franchiseeOption', (req, res) => {
   res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layoutHome' });
 });
 
+router.get('/industryOption', (req, res) => {
+  res.render('industryOption', { title: 'Informações Indústria', layout: 'layoutHome' });
+});
+
+router.get('/dealerOption', (req, res) => {
+  res.render('dealerOption', { title: 'Informações Revendedor', layout: 'layoutHome' });
+});
+
+router.get('/producerOption', (req, res) => {
+  res.render('producerOption', { title: 'Informações Produtor', layout: 'layoutHome' });
+});
+
 /**
  * GET SUCCESS - TESTES
  */

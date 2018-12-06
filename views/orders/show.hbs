@@ -105,6 +105,10 @@
             <h4>Status da compra</h4>
             <p>{{status}}</p>
 
+            <h4>Descrição</h4>
+            <p>{{offer.product.description}}</p>
+
+
             {{#ifCond userType 'Administrador'}}
             <h4 class="mt-5">Alterar status da taxa</h4>
             <div class="dropdown pb-4">
@@ -327,13 +331,6 @@
       </div>
         <!-- end Transaction info -->
 
-
-
-      <div class="pb-2 mb-2 mt-2">
-        <h4>Descrição</h4>
-        <p>{{offer.product.description}}</p>
-      </div>
-
       <div class="mx-auto col-12 col-md-5 pb-2 mb-2 mt-4">
         {{#ifNotEq userType 'Administrador'}}
           {{#ifCond myOffer 0}}
@@ -360,6 +357,15 @@
             {{#ifCond myOffer 0}}
             {{#if franchisee}}
               {{#ifCond userType 'Franqueado'}}
+              {{#ifCond status 'Cotado'}}
+                <div class="text-center my-3 justify-content-center">
+                  <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+                    <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
+                      Cancelar cotação
+                    </button>
+                  </form>
+                </div>
+                {{else}}
                 <div class="text-center my-3 justify-content-center">
                   <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
                     <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
@@ -367,9 +373,19 @@
                     </button>
                   </form>
                 </div>
+                {{/ifCond}}
 
               {{/ifCond}}
             {{else}}
+            {{#ifCond status 'Cotado'}}
+              <div class="text-center my-3 justify-content-center">
+                <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+                  <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
+                    Cancelar cotação
+                  </button>
+                </form>
+              </div>
+              {{else}}
               <div class="text-center my-3 justify-content-center">
                 <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
                   <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
@@ -377,6 +393,7 @@
                   </button>
                 </form>
               </div>
+              {{/ifCond}}
             {{/if}}
             {{/ifCond}}
           {{/ifNotEq}}

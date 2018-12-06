@@ -30,7 +30,19 @@ router.get('/forgotPassword', (req, res) => {
  * GET Franchisee Option page - TESTES
  */
 router.get('/franchiseeOption', (req, res) => {
-  res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layout' });
+  res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layoutHome' });
+});
+
+router.get('/industryOption', (req, res) => {
+  res.render('industryOption', { title: 'Informações Indústria', layout: 'layoutHome' });
+});
+
+router.get('/dealerOption', (req, res) => {
+  res.render('dealerOption', { title: 'Informações Revendedor', layout: 'layoutHome' });
+});
+
+router.get('/producerOption', (req, res) => {
+  res.render('producerOption', { title: 'Informações Produtor', layout: 'layoutHome' });
 });
 
 /**
@@ -182,10 +194,6 @@ router.post('/signup', (req, res) => {
     userData.uid = user.uid;
     delete userData.password;
     User.create(userData).then((docId) => {
-      Email.waitingForApprovalEmail(userData).catch((error) => {
-        req.flash('danger', 'Não foi possível enviar o email para o novo usuário.');
-        res.redirect('/login');
-      });
       req.session.userType = userData.type;
       req.session.firstName = userData.firstName;
       req.session.fullName = userData.name;
@@ -193,6 +201,11 @@ router.post('/signup', (req, res) => {
       req.session.userUid = user.uid;
       req.session.status = 'Aguardando aprovação';
       req.session._id = docId;
+      console.log(userData);
+      Email.waitingForApprovalEmail(userData).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar o email para o novo usuário.');
+        res.redirect('/login');
+      });
       if (req.session.userType === 'Indústria') {
         res.render('industryMegaPremio', { title: 'Indústria' });
       }

@@ -4,6 +4,12 @@ const chemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
+  },
+  status: {
+    type: String,
+    enum: ['Ativo', 'Inativo'],
+    required: true,
+    default: 'Ativo'
   }
 }, { timestamps: true, strict: false });
 

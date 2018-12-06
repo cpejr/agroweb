@@ -23,7 +23,9 @@ router.get('/', (req, res) => {
  * GET Contact page
  */
 router.get('/contact', (req, res) => {
-  res.render('site/contact', { title: 'Contato', layout: 'layoutHome' });
+  console.log(req.session._id);
+    res.render('site/contact', { title: 'Contato', layout: 'layoutHome' });
+
 });
 
 
@@ -53,11 +55,9 @@ router.get('/franchisee', (req, res) => {
  * POST Contact Request
  */
 router.post('/contact', (req, res) => {
-  const emailData = req.body.user;
-  console.log(req.body.user);
-  Email.sendEmail(emailData).then((user) => {
-    console.log(user);
-    res.redirect('/success');
+  Email.contactEmail(req.body).then((user) => {
+    req.flash('success', 'Mensagem enviada com sucesso para o administrador.');
+    res.redirect('/user');
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

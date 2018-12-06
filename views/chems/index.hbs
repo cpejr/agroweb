@@ -21,19 +21,16 @@
       <thead>
         <tr>
           <th>Nome</th>
-          <th colspan="2" class="text-center">Opções</th>
+          <th>Opções</th>
         </tr>
       </thead>
       <tbody id="myTable">
         {{#each chems}}
         <tr>
           <th scope="row" class="font-book">{{name}}</th>
-          <th scope="row">
-            <button onclick="location.href='/chems/{{id}}/edit'" class="btn btn-outline-warning font-book">Editar</button>
-          </th>
           <th>
-            <form action="/chems/{{id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-outline-danger font-book">Excluir</button>
+            <form action="/chems/{{id}}" method="POST">
+              <button type="submit" class="btn btn-outline-danger font-book">Desativar</button>
             </form>
           </th>
         </tr>

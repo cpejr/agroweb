@@ -48,7 +48,7 @@
         <label class="font-bold" for="amount">Quantidade</label>
         <input type="hidden" name="_id" value="{{_id}}">
         <div class="input-group">
-        <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}">
+        <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
         <div class="input-group-prepend">
           <div class="input-group-text">{{product.unit}}</div>
         </div>
@@ -60,7 +60,7 @@
             <label class="font-light" for="amount">Quantidade</label>
             <div class="input-group">
               <input type="hidden" name="_id" value="{{_id}}">
-              <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}" required>
+              <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}" required>
               <div class="input-group-prepend">
                 <div class="input-group-text">{{product.unit}}</div>
               </div>
@@ -101,7 +101,7 @@
             <label class="font-bold" for="amount">Quantidade</label>
             <div class="input-group">
               <input type="hidden" name="_id" value="{{_id}}">
-              <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}">
+              <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
               <div class="input-group-prepend">
                 <div class="input-group-text">{{product.unit}}</div>
               </div>
@@ -114,7 +114,7 @@
       <form action="/transaction" method="post">
             <label class="font-bold" for="amount">Quantidade</label>
               <input type="hidden" name="_id" value="{{_id}}">
-              <input class="form-control" type="number" min="{{minAmount}}" name="amountBought" id="amount" value="{{minAmount}}">
+              <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
               <div class="input-group-prepend">
                 <div class="input-group-text">{{product.unit}}</div>
               </div>

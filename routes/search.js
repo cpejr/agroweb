@@ -95,7 +95,7 @@ router.get('/products', (req, res) => {
 
 router.get('/chems', (req, res) => {
   const names = [];
-  const queryChem = {};
+  const queryChem = { status: 'Ativo' };
   const sortChem = { name: 1 };
   Chem.getByQuerySorted(queryChem, sortChem).then((chems) => {
     chems.forEach((chem) => {

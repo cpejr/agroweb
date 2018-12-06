@@ -1,22 +1,74 @@
 {{#section 'stylesheets'}}
+  <link rel='stylesheet' href='/stylesheets/home.css'>
 {{/section}}
 
-<body>
-<h4 class="mt-3 text-center">Contacte-nos</h4>
-<div class="row d-flex justify-content-center">
-  <div class="form-group col-md-3 mx-4 my-2">
-    <form action="/contact" method="POST">
-      <p>Diga-nos o seu nome</p>
-      <input name="data[clientname]" class="form-control" type="text"></input>
-      <p>Coloque seu e-mail aqui</p>
-      <input name="data[clientemail]" class="form-control" type="email"></input>
-      <p>Qual assunto deseja tratar?</p>
-      <input name="data[subject]" class="form-control" type="text"></input>
-      <p>Descreva o que você procura!</p>
-      <input name="data[content]" class="form-control" type="text"></input>
-      <p>Obrigado por nos contactar, entraremos em contato em breve!</p>
-      <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Enviar</button>
-    </form>
+<div class="container mb-5 mx-auto">
+  <div class="row mb-5" id="contact">
+    <div class="col-12">
+      <div class="mt-5 p-3 text-center mx-auto">
+        <h1>Contato</h1>
+      </div>
+      <!-- Contact Form -->
+      <!-- novalidate -->
+      <!-- <form action="/site/contact" method="POST" novalidate> -->
+      <div class="mx-auto col-sm-12 col-md-10 col-lg-6">
+        <div class="mx-auto">
+          <form action="/site/contact" method="POST" novalidate>
+
+            <div class="user-input">
+              <br/>
+              <div class="input-group mb-2">
+               <div class="input-group-prepend">
+                 <div class="input-group-text"><i class="fas fa-user"></i></div>
+               </div>
+              <input name="name" type="text" class="form-control input-text" required/>
+              <label class="floating-label text-dark2">Nome</label>
+                </div>
+            </div>
+
+            <div class="user-input">
+              <br/>
+              <div class="input-group mb-2">
+               <div class="input-group-prepend">
+                 <div class="input-group-text"><i class="fas fa-at"></i></div>
+               </div>
+              <input name="clientEmail" type="email" class="form-control input-text" required/>
+              <label class="floating-label text-dark2">E-mail</label>
+                </div>
+            </div>
+
+            <div class="user-input">
+              <br/>
+              <div class="input-group mb-2">
+               <div class="input-group-prepend">
+                 <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+               </div>
+              <input name="subject" type="text" class="form-control input-text" required/>
+              <label class="floating-label text-dark2">Assunto</label>
+                </div>
+            </div>
+
+            <div class="user-input">
+              <br/>
+              <div class="input-group mb-2">
+               <div class="input-group-prepend">
+                 <div class="input-group-text"><i class="fas fa-comment"></i></div>
+               </div>
+              <textarea name="content" type="text" class="form-control input-text" rows="3" required/></textarea>
+              <label class="floating-label text-dark2">Mensagem</label>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+              <div class="col-12 col-sm-4 col-md-4 mx-auto">
+                <button type="submit" class=" btn w-100 bg-green text-white">Enviar</button>
+              </div>
+            </div>
+          </form>
+          <!-- end Contact Form -->
+        </div>
+    </div>
+  </div>
   </div>
 </div>
 

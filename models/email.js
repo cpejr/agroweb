@@ -41,6 +41,26 @@ class Email {
     });
   }
 
+  static contactEmail(data) {
+    const config = {
+      from: data.clientEmail,
+      to: 'admcpejr@megapool.com.br',
+      subject: data.subject,
+      text: data.content
+    };
+    return new Promise((resolve) => {
+      transporter.sendMail(config, (error, info) => {
+        if (error) {
+          resolve(error);
+        }
+        else {
+          console.log(`Email enviado ${info.response}`);
+          resolve(info);
+        }
+      });
+    });
+  }
+
   /**
    * Send an email to waiting approval users
    * @param {Object} data - Email Document Data
@@ -48,7 +68,7 @@ class Email {
    */
   static waitingForApprovalEmail(data) {
     console.log('Email aguardando aprovação enviado');
-    const content = `Prezado(a) ${data.name},
+    const content = `Prezado(a) ${data.firstName},
     Você acabou de cadastrar na plataforma Megapool. Seus dados foram enviados para nossa equipe e avaliaremos se será aprovado ou não. Aguarde essa avaliação para começar a utilizar as funcionalidades.`;
     const subject = 'MEGAPOOL: Cadastro feito com sucesso';
     const emailContent = {
@@ -72,7 +92,7 @@ class Email {
     console.log('Email aprovado enviado');
     const content = `Prezado(a) ${data.firstName},
     Sua conta Megapool acabou de ser ativada. A partir de agora você poderá entrar com seu email e senha na plataforma, começando a fazer suas atividades. Aproveite!`;
-    const subject = 'MEGAPOOL: Cadastro aceito';
+    const subject = 'MEGAPOOL: Conta ativada';
     const emailContent = {
       clientEmail: data.email,
       subject,
@@ -113,10 +133,10 @@ class Email {
    * @returns {Object} Information
    */
   static activatedUsersEmail(data) {
-    console.log('Email reativado enviado');
+    console.log('Email ativado enviado');
     const content = `Prezado(a) ${data.firstName},
-     Sua conta Megapool acabou de ser reativada. A partir de agora você poderá entrar com seu email e senha na plataforma, fazendo suas atividades normalmente. Bem vindo(a) novamente!`;
-    const subject = 'MEGAPOOL: Conta reativada';
+    Sua conta Megapool acabou de ser ativada. A partir de agora você poderá entrar com seu email e senha na plataforma, começando a fazer suas atividades. Aproveite!`;
+    const subject = 'MEGAPOOL: Conta ativada';
     const emailContent = {
       clientEmail: data.email,
       subject,
@@ -228,9 +248,7 @@ class Email {
         Se você não fez essa compra, clique no link: `;
         const subject = 'MEGAPOOL: Compra realizada com sucesso';
         const emailContent = {
-          // clientEmail: data.buyer.email,
-          // clientEmail: 'admcpejr@megapool.com.br',
-          clientEmail: 'lucassouza@cpejr.com.br',
+          clientEmail: data.buyer.email,
           subject,
           content
         };
@@ -279,7 +297,7 @@ class Email {
       Celular: ${data.buyer.cellphone}`;
         const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
         const emailContent = {
-          clientEmail: 'lucassouza@cpejr.com.br',
+          clientEmail: data.seller.email,
           subject,
           content
         };
@@ -334,8 +352,7 @@ class Email {
          Celular: ${data.buyer.cellphone}`;
          const subject = 'MEGAPOOL: Uma nova transação foi realizada';
          const emailContent = {
-           clientEmail: 'lucassouza@cpejr.com.br',
-           // clientEmail: 'admcpejr@megapool.com.br',
+           clientEmail: 'admcpejr@megapool.com.br',
            content,
            subject
          };
@@ -358,7 +375,7 @@ class Email {
       Money.getUsdValue().then((usd) => {
       const totalPrice = data.priceBought * usd;
       const unitPrice = data.unitPrice * usd;
-      const content = `Prezado ${data.franchisee.fullName},
+      const content = `Prezado ${data.franchisee.firstName},
       Uma cotação realizada por você foi aprovada para compra ${data.offer.product.name}.
       A transação foi aprovada e pode ser consultada no caminho Dashboard -> Minhas compras
       Confira abaixo os detalhes da transação realizada:
@@ -378,7 +395,7 @@ class Email {
       Celular: ${data.buyer.cellphone}`;
       const subject = `Olá ${data.franchisee.fullName}, uma cotação sua foi comprada.`;
       const emailContent = {
-        clientEmail: 'lucassouza@cpejr.com.br',
+        clientEmail: data.franchisee.email,
         subject,
         content
         };

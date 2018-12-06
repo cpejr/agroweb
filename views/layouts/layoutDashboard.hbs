@@ -15,6 +15,7 @@
     <div class="pos-f-t">
       <div class="collapse" id="navbarToggleExternalContent">
         <div class="gradient-background pl-2 pt-2">
+          <div class="p-3">
           <h4 class="text-white">{{firstName}} {{lastName}}</h4>
           <ul class="navbar-nav mr-auto ml-5 mt-4">
             <div class="row">
@@ -46,7 +47,7 @@
                 <div class="col-md-6 my-auto">
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link font3" href="/site/contact">
+                  <a class="nav-link font3" href="/user/contact">
                     SUPORTE E CONTATO
                   </a>
                 </li>
@@ -70,6 +71,9 @@
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+    
 
       <nav class="navbar gradient-background">
         <row>
@@ -77,24 +81,24 @@
             <i class="fas fa-bars fa-2x"></i>
           </button>
 
-          </row>
+        </row>
 
-    {{#ifCond userType 'Indústria'}}
-      {{else}}
-      <row>
+        {{#ifCond userType 'Indústria'}}
+        {{else}}
+        <row>
           <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-               <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
-               <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+            <label for="searchbar-icon" class="fas fa-search input-icon"></label>
           </form>
           <div class="float-right mt-3 mr-3">
             <h6 class="font3 mobile-font2 text-light">USD: {{usdValue}}
-            {{{rising}}}
+              {{{rising}}}
             </h6>
           </div>
-      </row>
+        </row>
 
 
-      {{/ifCond}}
+        {{/ifCond}}
       </nav>
     </div>
 

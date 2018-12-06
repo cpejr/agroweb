@@ -30,7 +30,7 @@ router.get('/forgotPassword', (req, res) => {
  * GET Franchisee Option page - TESTES
  */
 router.get('/franchiseeOption', (req, res) => {
-  res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layout' });
+  res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layoutHome' });
 });
 
 /**

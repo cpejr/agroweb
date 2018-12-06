@@ -113,6 +113,11 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
   });
 });
 
+router.get('/contact', (req, res) => {
+  const { userType } = req.session;
+  res.render('contact', { title: 'Contato', userType });
+});
+
 /**
  * GET history - Show the user's buying history
  */

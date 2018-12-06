@@ -28,6 +28,7 @@ class Email {
       subject: data.subject,
       text: data.content
     };
+    console.log('Config' + config);
     return new Promise((resolve) => {
       transporter.sendMail(config, (error, info) => {
         if (error) {
@@ -103,6 +104,7 @@ class Email {
    */
   static waitingForApprovalEmail(data) {
     console.log('Email aguardando aprovação enviado');
+    console.log(data);
     const content = `Prezado(a) ${data.firstName},
     Você acabou de cadastrar na plataforma Megapool. Seus dados foram enviados para nossa equipe e avaliaremos se será aprovado ou não. Aguarde essa avaliação para começar a utilizar as funcionalidades.`;
     const subject = 'MEGAPOOL: Cadastro feito com sucesso';

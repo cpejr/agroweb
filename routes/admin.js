@@ -75,7 +75,7 @@ router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 
 /* GET Offers - Show all offers */
 router.get('/franchiseePayment', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  User.getAll().then((users) => {
+  User.getByQuerySorted({type: 'Franqueado', pendingPayment: { $ne: 0 } }, {}).then((users) => {
     res.render('admin/franchiseePayment', { title: 'Taxas dos franqueados', layout: 'layout', users, ...req.session });
   }).catch((error) => {
     console.log(error);

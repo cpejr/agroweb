@@ -457,9 +457,9 @@ class Email {
       const content = `Prezado administrador,
       O seguinte usuário quer uma recomendação de franqueado:
       Nome: ${data.fullName}
-      Email:  ${data.email}
+      Email: ${data.email}
       Telefone: ${data.phone}
-      Celular:  ${data.cellphone} `;
+      Celular: ${data.cellphone}  `;
       const subject = `Olá administrador, um cliente gostaria de uma indicação`;
       const emailContent = {
         clientEmail: 'andrecosta.leao@gmail.com',

@@ -16,7 +16,7 @@ const router = express.Router();
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
   const { userType } = req.session;
-  Transaction.getAll().then((transactions) => {
+  User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
     res.render('history', { title: 'Histórico', transactions, userType });
   }).catch((error) => {
     console.log(error);

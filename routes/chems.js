@@ -8,7 +8,7 @@ const router = express.Router();
  * GET Index - Show all chems
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
-  Chem.getAll().then((chems) => {
+  Chem.getByQuerySorted({status: 'Ativo'}, {}).then((chems) => {
     console.log(chems);
     res.render('chems/index', { title: 'Princípios ativos', chems });
   }).catch((error) => {
@@ -62,28 +62,28 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
 /**
  * GET Edit - Show the chem edit form
  */
-router.get('/:id/edit', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Chem.getById(req.params.id).then((chem) => {
-    if (chem) {
-      console.log(chem);
-      res.render('chems/edit', { title: `Editar ${chem.name}`, id: req.params.id, ...chem });
-    }
-    else {
-      console.log('Chem not found!');
-      res.redirect('/user');
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
+// router.get('/:id/edit', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+//   Chem.getById(req.params.id).then((chem) => {
+//     if (chem) {
+//       console.log(chem);
+//       res.render('chems/edit', { title: `Editar ${chem.name}`, id: req.params.id, ...chem });
+//     }
+//     else {
+//       console.log('Chem not found!');
+//       res.redirect('/user');
+//     }
+//   }).catch((error) => {
+//     console.log(error);
+//     res.redirect('/error');
+//   });
+// });
 
 /**
  * PUT Update - Update a chem in the database
  */
-router.put('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.post('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const chem = {
-    name: req.body.name
+    status: 'Inativo'
   };
   Chem.update(req.params.id, chem).catch((error) => {
     console.log(error);
@@ -96,13 +96,13 @@ router.put('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 /**
  * DELETE Destroy - Removes a chem from the databse
  */
-router.delete('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Chem.delete(req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  req.flash('success', 'Princípio ativo removido.');
-  res.redirect('/chems');
-});
+// router.delete('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+//   Chem.delete(req.params.id).catch((error) => {
+//     console.log(error);
+//     res.redirect('/error');
+//   });
+//   req.flash('success', 'Princípio ativo removido.');
+//   res.redirect('/chems');
+// });
 
 module.exports = router;

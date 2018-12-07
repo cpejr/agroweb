@@ -522,4 +522,24 @@ router.post('/change', auth.isAuthenticated, (req, res) => {
   });
 });
 
+router.post('/indication', (req, res) => {
+User.getById(req.session._id).then((users) => {
+    console.log(users);
+    Email.Indication(users).catch((error) => {
+
+    });
+    User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: true }, {}).then((users) => {
+      res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  }).catch((error) => {
+    console.log(error);
+    req.flash('danger', 'Não foi possível enviar email de compra.');
+    res.redirect('/error');
+});
+req.flash('success', 'Um aviso foi enviado para o administrador, ele te retornará em seu email em breve');
+});
+
 module.exports = router;

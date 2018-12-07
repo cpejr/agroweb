@@ -112,6 +112,9 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
   });
 });
 
+/**
+ * GET contact page
+ */
 router.get('/contact', (req, res) => {
   const { userType } = req.session;
   res.render('contact', { title: 'Contato', userType });

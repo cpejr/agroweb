@@ -8,7 +8,7 @@ const router = express.Router();
  * GET Index - Show all chems
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
-  Chem.getByQuerySorted({status: 'Ativo'}, {}).then((chems) => {
+  Chem.getAll().then((chems) => {
     console.log(chems);
     res.render('chems/index', { title: 'Princípios ativos', chems });
   }).catch((error) => {
@@ -82,9 +82,7 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
  * PUT Update - Update a chem in the database
  */
 router.post('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  const chem = {
-    status: 'Inativo'
-  };
+  const { chem } = req.body;
   Chem.update(req.params.id, chem).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -96,13 +94,13 @@ router.post('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 /**
  * DELETE Destroy - Removes a chem from the databse
  */
-// router.delete('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-//   Chem.delete(req.params.id).catch((error) => {
-//     console.log(error);
-//     res.redirect('/error');
-//   });
-//   req.flash('success', 'Princípio ativo removido.');
-//   res.redirect('/chems');
-// });
+router.delete('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Chem.delete(req.params.id).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  req.flash('success', 'Princípio ativo removido.');
+  res.redirect('/chems');
+});
 
 module.exports = router;

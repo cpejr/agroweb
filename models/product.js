@@ -30,7 +30,6 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  // fields:
   chems: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Chem'
@@ -92,7 +91,9 @@ class Product {
    */
   static update(id, product) {
     return new Promise((resolve, reject) => {
-      ProductModel.findByIdAndUpdate(id, product).catch((err) => {
+      ProductModel.findByIdAndUpdate(id, product).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });
@@ -105,7 +106,9 @@ class Product {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      ProductModel.findByIdAndDelete(id).catch((err) => {
+      ProductModel.findByIdAndUpdate(id, { active: false }).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

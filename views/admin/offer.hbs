@@ -40,9 +40,9 @@
             </button>
           </td>
           <td class="font-book">
-            <button onclick="location.href='/admin/{{id}}/deleteOffer'" class="btn btn-outline-danger">
-              Excluir
-            </button>
+            <form action="/offers/{{id}}?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-outline-danger">Excluir</button>
+            </form>
           </td>
         </tr>
         {{/each}}

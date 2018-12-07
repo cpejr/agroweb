@@ -58,22 +58,24 @@ router.put('/:id', auth.isAuthenticated, (req, res) => {
   const { group } = req.body;
   const array = group.closeDate.split(/\D/);
   group.closeDate = new Date(array[0], --array[1], array[2]);
-  Group.update(req.params.id, group).catch((error) => {
+  Group.update(req.params.id, group).then(() => {
+    res.redirect('/groups');
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/groups');
 });
 
 /**
  * DELETE Destroy - Removes a group from the databse
  */
 router.delete('/:id', auth.isAuthenticated, (req, res) => {
-  Group.delete(req.params.id).catch((error) => {
+  Group.delete(req.params.id).then(() => {
+    res.redirect('/groups');
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/groups');
 });
 
 module.exports = router;

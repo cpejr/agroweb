@@ -17,9 +17,9 @@ router.get('/', (req, res) => {
   const groupPromises = [];
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
     products.forEach((product) => {
-      const queryOffer = { product: product._id, delivery: '48 horas' };
+      const queryOffer = { product: product._id, delivery: '48 horas', active: true };
       const sortOffer = { 'price.low': 1 };
-      const queryGroup = { productId: product._id };
+      const queryGroup = { productId: product._id, active: true };
       const sortGroup = {};
       let promise = Offer.getByQuerySorted(queryOffer, sortOffer);
       offerPromises.push(promise);
@@ -77,7 +77,7 @@ router.get('/', (req, res) => {
  */
 router.get('/products', (req, res) => {
   const names = [];
-  const queryProduct = {};
+  const queryProduct = { active: true };
   const sortProduct = { name: 1 };
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
     products.forEach((product) => {
@@ -95,7 +95,7 @@ router.get('/products', (req, res) => {
 
 router.get('/chems', (req, res) => {
   const names = [];
-  const queryChem = {};
+  const queryChem = { active: true };
   const sortChem = { name: 1 };
   Chem.getByQuerySorted(queryChem, sortChem).then((chems) => {
     chems.forEach((chem) => {

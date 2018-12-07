@@ -112,7 +112,9 @@ class Offer {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      OfferModel.findByIdAndDelete(id).catch((err) => {
+      OfferModel.findByIdAndUpdate(id, { active: false }).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

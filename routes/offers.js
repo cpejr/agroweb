@@ -150,14 +150,17 @@ router.post('/', (req, res) => {
         req.flash('success', 'Oferta criada com sucesso.');
         res.redirect(`/offers/${offerId}`);
       }).catch((error) => {
+        console.log(error);
         req.flash('danger', 'Não foi possivel criar a oferta. Tente novamente');
         res.redirect('new');
       });
     }).catch((error) => {
+      console.log(error);
       req.flash('danger', 'O produto escolhido não existe.');
       res.redirect('new');
     });
   }).catch((error) => {
+    console.log(error);
     req.flash('danger', 'Faça seu login novamente.');
     res.redirect('/login');
   });
@@ -169,11 +172,11 @@ router.post('/', (req, res) => {
 router.get('/:id', auth.isAuthenticated, (req, res) => {
   const { userType } = req.session;
   const userId = req.session._id;
-  var myOffer = 0;
+  let myOffer = 0;
 
   User.getAgreementListById(req.session._id).then((clients) => {
     Offer.getById(req.params.id).then((offer) => {
-      if(userId == offer.seller._id){
+      if (userId === offer.seller._id) {
         myOffer = 1;
       }
       if (offer) {
@@ -187,14 +190,17 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
       console.log(error);
       res.redirect('/error');
     });
-});
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 /**
  * GET Edit - Show the offer edit form
  */
 router.get('/:id/edit', auth.canSell, (req, res) => {
-  const {userType} = req.session;
+  const { userType } = req.session;
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);
@@ -288,12 +294,13 @@ router.put('/:id', (req, res) => {
         res.redirect('/error');
       });
     }
-    Offer.update(req.params.id, offer).catch((error) => {
+    Offer.update(req.params.id, offer).then(() => {
+      req.flash('success', 'Oferta editada com sucesso.');
+      res.redirect(`/offers/${req.params.id}`);
+    }).catch((error) => {
       console.log(error);
       res.redirect('/error');
     });
-    req.flash('success', 'Oferta editada com sucesso.');
-    res.redirect(`/offers/${req.params.id}`);
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -304,12 +311,18 @@ router.put('/:id', (req, res) => {
  * DELETE Destroy - Removes a offer from the databse
  */
 router.delete('/:id', (req, res) => {
-  Offer.delete(req.params.id).catch((error) => {
+  Offer.delete(req.params.id).then(() => {
+    req.flash('success', 'Oferta deletada.');
+    if (req.session.userType === 'Administrador') {
+      res.redirect('/admin/offers');
+    }
+    else {
+      res.redirect('/offers');
+    }
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  req.flash('success', 'Oferta deletada.');
-  res.redirect('/offers');
 });
 
 module.exports = router;

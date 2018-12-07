@@ -13,32 +13,18 @@ const router = express.Router();
 
 /* GET Admin Home page */
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Dollar.getUsdValue().then((dollar) => {
-    console.log(dollar);
-    res.render('admin/index', { dollar, title: 'Administrador', layout: 'layoutDashboard' });
-  }).catch((error) => {
-    req.flash('danger', 'Não foi possível obter o valor do dólar. Aguarde um momento.');
-    res.redirect('/user');
-  });
+  res.render('admin/index', { title: 'Administrador', layout: 'layoutDashboard' });
 });
 
 /* GET Users - Show all users */
 router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Dollar.getUsdValue().then((dollar) => {
-    console.log(dollar);
-    User.getByQuerySorted().then((users) => {
-      console.log(users);
-      res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
-    }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
+  User.getByQuerySorted().then((users) => {
+    console.log(users);
+    res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
   }).catch((error) => {
-    req.flash('danger', 'Não foi possível obter o valor do dólar. Aguarde um momento.');
-    res.redirect('/user');
+    console.log(error);
+    res.redirect('/error');
   });
-
-
 });
 
 /* GET Products - Show all products docs */
@@ -83,18 +69,6 @@ router.get('/franchiseePayment', auth.isAuthenticated, auth.isAdmin, (req, res) 
   });
 });
 
-/**
- * GET DeleteOffer - Delete a Offer in the database
- */
-router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Offer.delete(req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  req.flash('success', 'Oferta deletada.');
-  res.redirect('/admin/offers');
-});
-
 /* GET Transaction - Show all pending tickets */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Transaction.getAll().then((transactions) => {
@@ -106,7 +80,7 @@ router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 });
 
 
-/* GET Users - Show all users */
+/* GET requisitions/users - Show all users requisitions */
 router.get('/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   User.getByQuerySorted({ status: 'Aguardando aprovação' }).then((users) => {
     res.render('admin/requisitions/users', { title: 'Requisições de cadastro', layout: 'layout', users });
@@ -114,10 +88,9 @@ router.get('/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res)
     console.log(error);
     res.redirect('/error');
   });
-
 });
 
-/* GET Users - Show all users */
+/* GET products/requisitions - Show all products requisitions */
 router.get('/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Product.getByQuerySorted({ status: 'Aguardando' }).then((products) => {
     console.log(products);
@@ -129,7 +102,7 @@ router.get('/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, r
 });
 
 /**
- * GET updateTransaction - Update a Transaction in the database
+ * POST updateTransaction - Update a Transaction in the database
  */
 router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
   const transaction = {
@@ -143,7 +116,7 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
 });
 
 /**
- * GET updateTransaction - Update a Transaction in the database
+ * POST payFranchisse - make the franchisee payment
  */
 router.post('/payFranchisee/:id', auth.isAuthenticated, (req, res) => {
   const user = {
@@ -153,13 +126,12 @@ router.post('/payFranchisee/:id', auth.isAuthenticated, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-
   User.getAllTransactionsByUserId(req.params.id).then((transactions) => {
     transactions.forEach((transaction) => {
-      if (transaction.franchiseeTaxStatus == 'Pendente') {
-         status = {
-           franchiseeTaxStatus: 'Pago'
-         };
+      if (transaction.franchiseeTaxStatus === 'Pendente') {
+        const status = {
+          franchiseeTaxStatus: 'Pago'
+        };
         Transaction.update(transaction._id, status).catch((error) => {
           console.log(error);
           res.redirect('/error');
@@ -174,6 +146,9 @@ router.post('/payFranchisee/:id', auth.isAuthenticated, (req, res) => {
   res.redirect('/admin/franchiseePayment');
 });
 
+/**
+ * POST updateTaxTransaction - Update the tax status of a Transaction in the database
+ */
 router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const transaction = {
     taxStatus: req.body.taxStatus
@@ -183,50 +158,49 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
     console.log(error);
     res.redirect('/error');
   });
-  switch(transaction.taxStatus) {
-  case 'Aguardando aprovação':
+  switch (transaction.taxStatus) {
+    case 'Aguardando aprovação':
       req.flash('success', 'Status da taxa de transação atualizado para: Aguardando aprovação.');
       break;
-  case 'Aguardando pagamento':
+    case 'Aguardando pagamento':
       req.flash('success', 'Status da taxa de transação atualizado para: Aguardando pagamento.');
       break;
-  case 'Pagamento confirmado':
+    case 'Pagamento confirmado':
       req.flash('success', 'Status da taxa de transação atualizado para: Pagamento confirmado.');
       break;
-  case 'Cancelado':
+    case 'Cancelado':
       req.flash('success', 'Status da taxa de transação atualizado para: Cancelado.');
       break;
-  default:
+    default:
       req.flash('success', 'Status da taxa de transação atualizado.');
-    }
+  }
   res.redirect('/admin/transaction');
 });
 
 router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   User.getById(req.params.id).then((user) => {
-      if (req.body.status === 'Ativo') {
-        console.log('Enviando email para aprovar um usuário');
-        Email.activatedUsersEmail(user).catch((error) => {
-          req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
-          res.redirect('/login');
-        });
-      }
-      else if (req.body.status === 'Bloqueado') {
-        console.log('Enviando email para aprovar um usuário');
-        Email.blockedUsersEmail(user).catch((error) => {
-          req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
-          res.redirect('/login');
-        });
-      }
-      else if (req.body.status === 'Inativo') {
-        console.log('Enviando email para aprovar um usuário');
-        Email.inactivatedUsersEmail(user).catch((error) => {
-          req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
-          res.redirect('/login');
-        });
-      }
+    if (req.body.status === 'Ativo') {
+      console.log('Enviando email para aprovar um usuário');
+      Email.activatedUsersEmail(user).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
+        res.redirect('/login');
+      });
+    }
+    else if (req.body.status === 'Bloqueado') {
+      console.log('Enviando email para aprovar um usuário');
+      Email.blockedUsersEmail(user).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+        res.redirect('/login');
+      });
+    }
+    else if (req.body.status === 'Inativo') {
+      console.log('Enviando email para aprovar um usuário');
+      Email.inactivatedUsersEmail(user).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+        res.redirect('/login');
+      });
+    }
   });
-
   const user = {
     status: req.body.status
   };
@@ -234,19 +208,19 @@ router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, r
     console.log(error);
     res.redirect('/error');
   });
-  switch(user.status) {
-  case 'Ativo':
+  switch (user.status) {
+    case 'Ativo':
       req.flash('success', 'Usuário ativado.');
       break;
-  case 'Inativo':
+    case 'Inativo':
       req.flash('success', 'Usuário inativado.');
       break;
-  case 'Bloqueado':
+    case 'Bloqueado':
       req.flash('success', 'Usuário bloqueado.');
       break;
-  default:
+    default:
       req.flash('success', 'Usuário atualizado.');
-    }
+  }
   res.redirect('/admin/users');
   console.log(req.body.status);
 });
@@ -276,22 +250,22 @@ router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req,
     console.log(error);
     res.redirect('/error');
   });
-  switch(user.status) {
-  case 'Ativo':
+  switch (user.status) {
+    case 'Ativo':
       req.flash('success', 'Usuário ativado.');
       break;
-  case 'Bloqueado':
+    case 'Bloqueado':
       req.flash('success', 'Usuário bloqueado.');
       break;
-  default:
+    default:
       req.flash('warning', 'Usuário atualizado.');
-    }
+  }
   res.redirect('/admin/requisitions/users');
 });
 
 router.post('/:id/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const product = {
-    status: "Aprovado"
+    status: 'Aprovado'
   };
   Product.update(req.params.id, product).catch((error) => {
     console.log(error);
@@ -311,7 +285,7 @@ router.delete('/:id', (req, res) => {
 });
 
 
-/* GET Offers - Show all offers */
+/* GET Groups - Show all groups */
 router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Offer.getAll().then((groups) => {
     res.render('groups/index', { title: 'Grupos de Compra', layout: 'layout', groups });

@@ -31,7 +31,7 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const { product } = req.body;
   const { userType } = req.session;
-  if (userType == 'Administrador'){
+  if (userType === 'Administrador') {
     product.status = 'Aprovado';
   }
   else {
@@ -53,11 +53,11 @@ router.post('/', (req, res) => {
     product.chems = chemsIDs;
     Product.create(product).then((id) => {
       console.log(`Created new product with id: ${id}`);
-      if (userType == 'Administrador') {
-      req.flash('success', 'Produto criado com sucesso.');
+      if (userType === 'Administrador') {
+        req.flash('success', 'Produto criado com sucesso.');
       }
       else {
-      req.flash('success', 'Pedido de aprovação do produto feito com sucesso.');
+        req.flash('success', 'Pedido de aprovação do produto feito com sucesso.');
       }
       res.redirect(`/products/${id}`);
     }).catch((error) => {
@@ -113,24 +113,26 @@ router.get('/:id/edit', auth.canSell, (req, res) => {
  */
 router.put('/:id', (req, res) => {
   const { product } = req.body;
-  Product.update(req.params.id, product).catch((error) => {
+  Product.update(req.params.id, product).then(() => {
+    req.flash('success', 'Produto editado com sucesso.');
+    res.redirect('/admin/products');
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  req.flash('success', 'Produto editado com sucesso.');
-  res.redirect(`/admin/products`);
 });
 
 /**
  * DELETE Destroy - Removes a product from the databse
  */
 router.delete('/:id', (req, res) => {
-  Product.delete(req.params.id).catch((error) => {
+  Product.delete(req.params.id).then(() => {
+    req.flash('success', 'Produto removido.');
+    res.redirect('/admin/products');
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  req.flash('success', 'Produto removido.');
-  res.redirect('/admin/products');
 });
 
 module.exports = router;

@@ -22,7 +22,6 @@ const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const schedule = require('node-schedule');
 const configJson = require('./docs/config.json');
-const fs = require('fs');
 
 /**
  * Functions
@@ -116,14 +115,12 @@ const productsRouter = require('./routes/products');
 const maintenanceRouter = require('./routes/maintenance');
 const adminRouter = require('./routes/admin');
 const newsletterRouter = require('./routes/newsletter');
-const PDFRouter = require('./routes/PDF');
 const groupsRouter = require('./routes/groups');
 const quotationRouter = require('./routes/quotations');
 const productRouter = require('./routes/products');
 const transactionRouter = require('./routes/transaction');
 const chemRouter = require('./routes/chems');
 const testRouter = require('./routes/test');
-const termsRouter = require('./routes/terms');
 const searchRouter = require('./routes/search');
 const componentsRouter = require('./routes/components');
 const siteRouter = require('./routes/site');
@@ -208,7 +205,6 @@ app.use('/products', productsRouter);
 app.use('/maintenance', maintenanceRouter);
 app.use('/admin', adminRouter);
 app.use('/newsletter', newsletterRouter);
-app.use('/PDF', PDFRouter);
 app.use('/groups', groupsRouter);
 app.use('/quotations', quotationRouter);
 app.use('/products', productRouter);
@@ -216,7 +212,6 @@ app.use('/search', searchRouter);
 app.use('/transaction', transactionRouter);
 app.use('/chems', chemRouter);
 app.use('/test', testRouter);
-app.use('/terms', termsRouter);
 app.use('/components', componentsRouter);
 app.use('/site', siteRouter);
 
@@ -236,7 +231,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error', {title: 'Erro', layout: 'layoutError'});
+  res.render('error', { title: 'Erro', layout: 'layoutError' });
 });
 
 module.exports = app;

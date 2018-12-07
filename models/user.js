@@ -1,509 +1,554 @@
-const express = require('express');
-const Email = require('../models/email');
-const Transaction = require('../models/transaction');
-const User = require('../models/user');
-const auth = require('./middleware/auth');
+const mongoose = require('mongoose');
 
-const router = express.Router();
+const userSchema = new mongoose.Schema({
+  uid: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  name: {
+    type: String
+  },
+  fullName: {
+    type: String,
+    required: true
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  doc: {
+    type: Number,
+    unique: true
+  },
+  email: {
+    type: String,
+    lowercase: true,
+    required: true,
+    unique: true
+  },
+  type: {
+    type: String,
+    enum: ['Administrador', 'Indústria', 'Revendedor', 'Franqueado', 'Produtor']
+  },
+  address: {
+    cep: Number,
+    street: String,
+    number: Number,
+    city: String,
+    state: String
+  },
+  store: {
+    type: Boolean,
+    default: false
+  },
+  moreClients: {
+    type: Boolean,
+    default: true
+  },
+  pendingPayment: {
+    type: Number,
+    default: 0
+  },
+  status: {
+    type: String,
+    enum: ['Inativo', 'Bloqueado', 'Aguardando aprovação', 'Ativo'],
+    default: 'Aguardando aprovação',
+    required: true
+  },
+  agreementList: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  contractRequests: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  transactions: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
+  }],
+  myCart: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
+  }],
+  offers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Offer'
+  }],
+  phone: String,
+  cellphone: String,
+  fantasyName: String,
+  secondaryEmail: String,
+  responsible: {
+    name: String,
+    phone: String,
+    cellphone: String
+  },
+  delivery: {
+    stock: String,
+    maxDistance: Number,
+    dealer: String,
+    groups: String,
+    repechage: String,
+    fractional: String
+  },
+  logistics: {
+    phone: String,
+    email: String
+  },
+  headquarter: String,
+  regionalResponsible: String,
+  whereIsStock: String,
+  interestedStates: String,
+  activities: String,
+  actualCustomers: String,
+  possibleCustomers: String,
+  totalCustomers: {
+    type: Number,
+    default: 0
+  },
+  area: Number,
+  whyIsMegapoolImportant: String,
+  farm: {
+    name: String,
+    distanceToCity: Number,
+    deliveryScript: String,
+    area: Number,
+    soy: Number,
+    corn: Number,
+    cotton: Number,
+    otherCultivations: Number
+  },
+  wpp: String,
+  stateRegistration: Number
+}, { timestamps: true, static: false });
 
-/**
- * GET User Home page
- */
-router.get('/', auth.isAuthenticated, (req, res) => {
-  if (req.session.status === 'Ativo' || req.session.status === 'Inativo') {
-    if (req.session.status === 'Inativo') {
-      User.update(req.session._id, { status: 'Ativo' }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+const UserModel = mongoose.model('User', userSchema);
+
+class User {
+  /**
+   * Get all Users from database
+   * @returns {Array} Array of Users
+   */
+  static getAll() {
+    return new Promise((resolve, reject) => {
+      UserModel.find({}).exec().then((results) => {
+        resolve(results);
+      }).catch((err) => {
+        reject(err);
       });
-    }
-    if (req.session.userType === 'Administrador') {
-      res.redirect('/admin');
-    }
-    else if (req.session.userType === 'Franqueado') {
-      res.render('user', { title: 'Franqueado', layout: 'layoutDashboard', ...req.session });
-    }
-    else if (req.session.userType === 'Indústria') {
-      res.render('user', { title: 'Indústria', layout: 'layoutDashboard', ...req.session });
-    }
-    else if (req.session.userType === 'Produtor') {
-      res.render('user', { title: 'Produtor', layout: 'layoutDashboard', ...req.session });
-    }
-    else if (req.session.userType === 'Revendedor') {
-      res.render('user', { title: 'Revendedor', layout: 'layoutDashboard', ...req.session });
-    }
+    });
   }
-  else {
-    res.redirect('/logout');
+
+  /**
+   * Get a User by it's id
+   * @param {string} id - User Id
+   * @returns {Object} - User Document Data
+   */
+  static getById(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).exec().then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
   }
-});
 
-/**
- * GET orders - Show all user's orders
- */
-router.get('/orders', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
-  User.getById(req.session._id).then((user) => {
-    if (user) {
-      User.getAllOpenOrdersByUserId(req.session._id).then((transactions) => {
-        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session});
-      }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-    }
-    else {
-      console.log('User not found!');
-      res.redirect('/user');
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/**
- * GET orders - Show all user's orders
- */
-router.get('/sales', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
-  const { userType } = req.session;
-  User.getById(req.session._id).then((user) => {
-
-    if (user) {
-      User.getAllOpenSalesByUserId(req.session._id).then((transactions) => {
-        console.log(userId);
-        res.render('orders', { title: 'Demandas', transactions, userId, userType });
-      }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-    }
-    else {
-      console.log('User not found!');
-      res.redirect('/user');
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/**
- * GET offers - Show all user's offers
- */
-router.get('/offers', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
-  User.getById(req.session._id).then((user) => {
-    if (user) {
-      User.getAllOffersByUserId(req.session._id).then((offers) => {
-        res.render('offers/index', { title: 'Produtos oferecidos', layout: 'layout', offers, userType });
-      }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-    }
-    else {
-      console.log('User not found!');
-      res.redirect('/user');
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/**
- * GET contact page
- */
-router.get('/contact', (req, res) => {
-  const { userType } = req.session;
-  res.render('contact', { title: 'Contato', userType });
-});
-
-/**
- * GET history - Show the user's buying history
- */
-router.get('/history', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
-  User.getById(req.session._id).then((user) => {
-    if (user) {
-      User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
-        console.log(transactions);
-        res.render('orders', { title: 'Histórico', transactions, userType });
-      }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-    }
-    else {
-      console.log('User not found!');
-      res.redirect('/user');
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/**
- * GET Profile/index - Show all user's details
- */
-router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
-  const userType = req.session;
-  User.getById(req.params.id).then((user) => {
-    if (user) {
-      const franchisee = user.agreementList[0];
-      User.getAgreementListById(req.session._id).then((client) => {
-        User.getContractRequestsById(req.session._id).then((contract) => {
-          console.log(userId);
-          console.log(user);
-          res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, userType, client, userId, franchisee, ...req.session});
-        }).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
-        });
-      }).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-    }
-    else {
-      console.log('User not found!');
-      res.redirect('/user');
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/**
- * GET Edit - Show the user edit form
- */
-router.get('/edit', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
-  User.getById(req.session._id).then((user) => {
-    if (user) {
-      res.render('profile/edit', { title: 'Editar', layout: 'layout', user, userType });
-    }
-    else {
-      console.log('User not found!');
-      res.redirect('/user');
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/**
- * POST buy - Buy all products from myCart
- */
-router.post('/buy', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
-  const transaction = {
-    status: 'Aguardando boleto'
-  };
-  User.getAllQuotationsByUserId(userId).then((quotations) => {
-    quotations.forEach((quotation) => {
-      User.addTransaction(userId, quotation._id).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      Email.buyEmail(quotation).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      User.addTransaction(quotation.offer.seller._id, quotation._id).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      Email.sellEmail(quotation).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      Email.adminNewTransactionEmail(quotation).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      User.removeFromMyCart(userId, quotation._id).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      Transaction.update(quotation._id, transaction).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-    })
-    req.flash('success', 'Compra realizada.');
-    res.redirect('/user');
-  });
-});
-
-/**
- * PUT Update - Update a user in the database
- */
-router.post('/update', auth.isAuthenticated, (req, res) => {
-  const userData = req.body.user;
-
-  // Separates the first name from the rest
-  const position = userData.fullName.indexOf(' ');
-  userData.firstName = userData.fullName.slice(0, position);
-
-  User.update(req.session._id, userData).then(() => {
-    req.flash('success', 'Perfil atualizado.');
-    res.redirect('/user');
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/*
- * GET contract page
- */
-router.get('/franchisee', auth.isAuthenticated, (req, res) => {
-  User.getAll().then((users) => {
-    res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/*
- * GET contract request page
- */
-router.get('/contractRequests', auth.isAuthenticated, (req, res) => {
-  User.getContractRequestsById(req.session._id).then((users) => {
-    res.render('contractRequests', { title: 'Requisições de contrato', layout: 'layout', users, ...req.session });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/**
- * GET clients page
- */
-router.get('/agreementList', auth.isAuthenticated, (req, res) => {
-  User.getAgreementListById(req.session._id).then((clients) => {
-    if (req.session.userType === 'Produtor') {
-      res.render('clients', { title: 'Meu Franqueado', layout: 'layout', clients, ...req.session });
-    }
-    else if (req.session.userType === 'Franqueado') {
-      res.render('clients', { title: 'Meus Clientes', layout: 'layout', clients, ...req.session });
-    }
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/**
- * DELETE Destroy - Update a user status to 'Inativo'
- */
-router.delete('/:id', (req, res) => {
-  User.delete(req.params.id).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  res.redirect('/logout');
-});
-
-/**
- * POST contract - Contract franchisee
- */
-router.post('/contract', auth.isAuthenticated, (req, res) => {
-  User.getContractRequestsById(req.body.clientId).then((users) => {
-    const userId = req.session._id;
-    User.addClient(req.body.clientId, userId).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-    User.addClient(userId, req.body.clientId).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-    User.increaseTotalCustomers(userId).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-    Email.contractApprovedEmail(req.body.clientId, userId).catch((error) => {
-      req.flash('danger', 'Não foi possível enviar o email para o cliente do franqueado.');
-      res.redirect('/login');
-    });
-
-    users.forEach((user) => {
-      User.removeContract(user._id, req.body.clientId).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      User.removeContract(req.body.clientId, user._id).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+  /**
+   * Create a new User
+   * @param {Object} user - User Document Data
+   * @returns {string} - New User Id
+   */
+  static create(user) {
+    return new Promise((resolve, reject) => {
+      UserModel.create(user).then((result) => {
+        resolve(result._id);
+      }).catch((err) => {
+        reject(err);
       });
     });
-    req.flash('success', 'Contrato de franqueamento aceito.');
-    res.redirect('/user/agreementList');
-  }).catch((error) => {
-    console.log(error);
-    req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
-    res.redirect('/user');
-  });
-});
+  }
 
-
-/**
-* POST contract - Generate Contract franchisee request
-*/
-router.post('/generateContractRequest', auth.isAuthenticated, (req, res) => {
-  User.getAgreementListById(req.session._id).then((client) => {
-    if (client.uid) {
-      req.flash('danger', 'Não é possível contratar mais de um franqueado.');
-      res.redirect('/user');
-    }
-    else {
-      const userId = req.session._id;
-      User.addContract(req.body.franchiseeId, userId).catch((error) => {
-        console.log(req.body.franchisee);
-        res.redirect('/error');
+  /**
+   * Update a User
+   * @param {string} id - User Id
+   * @param {Object} User - User Document Data
+   * @returns {null}
+   */
+  static update(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, user).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
       });
-      User.addContract(userId, req.body.franchiseeId).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+    });
+  }
+
+  /**
+   * Delete a User
+   * @param {string} id - User Id
+   * @returns {null}
+   */
+  static delete(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { status: 'Inativo' }).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
       });
-      req.flash('success', 'Solicitação enviada para o franqueado. Aguarde a resposta dele.');
-      res.redirect('/user/franchisee');
-    }
-  });
-});
+    });
+  }
 
+  /**
+   * Get a User by it's uid
+   * @param {string} id - User Uid
+   * @returns {Object} - User Document Data
+   */
+  static getByUid(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findOne({ uid: id }).exec().then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 
-/**
- * POST cancel - Cancel franchisee
- */
-router.post('/cancel', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
-  const userType = req.session.userType;
+  /**
+   * Add a transaction
+   * @param {string} id - User Id
+   * @param {string} transaction - Transaction Id
+   * @returns {null}
+   */
+  static addTransaction(id, transaction) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { transactions: transaction } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 
-  const transaction = {
-    status: 'Cancelado'
-  };
+  /**
+   * Remove a transaction
+   * @param {string} id - User Id
+   * @param {string} transaction - Transaction Id
+   * @returns {null}
+   */
+  static removeTransaction(id, transaction) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { transactions: transaction } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 
-  User.getAllQuotationsByUserId(userId).then((quotations) => {
-    quotations.forEach((quotation) => {
-      if (quotation.franchisee) {
-        if (userType === 'Franqueado') {
-          if (quotation.buyer._id === req.body.franchiseeID) {
-            User.removeFromMyCart(quotation.buyer._id, quotation._id).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
-            });
-            User.removeFromMyCart(quotation.franchisee._id, quotation._id).catch((error) => {
-              console.log(error);
-              res.redirect('/error');
-            });
+  /**
+   * Add to myCart
+   * @param {string} id - User Id
+   * @param {string} transaction - Transaction Id
+   * @returns {null}
+   */
+  static addToMyCart(id, transaction) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { myCart: transaction } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Remove from myCart
+   * @param {string} id - User Id
+   * @param {string} transaction - Transaction Id
+   * @returns {null}
+   */
+  static removeFromMyCart(id, transaction) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { myCart: transaction } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Add offer
+   * @param {string} id - User Id
+   * @param {string} offer - Offer Id
+   * @returns {null}
+   */
+  static addOffer(id, offer) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { offers: offer } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Remove from offers
+   * @param {string} id - User Id
+   * @param {string} offer - Offer Id
+   * @returns {null}
+   */
+  static removeOffer(id, offer) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { offers: offer } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all transactions from a user by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of transactions
+   */
+  static getAllTransactionsByUserId(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({
+        path: 'transactions',
+        populate: {
+          path: 'buyer offer franchisee',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
           }
         }
-
-        else {
-          User.removeFromMyCart(quotation.buyer._id, quotation._id).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
-          });
-
-          User.removeFromMyCart(quotation.franchisee._id, quotation._id).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
-          });
-        }
-      }
-      Transaction.update(quotation._id, transaction).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
+      }).exec().then((result) => {
+        resolve(result.transactions);
+      }).catch((err) => {
+        reject(err);
       });
     });
-  });
-
-  User.removeClient(req.body.franchiseeID, userId).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  User.removeClient(userId, req.body.franchiseeID).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  if (userType === 'Franqueado') {
-    console.log('Decrementando seu numero');
-    User.decreaseTotalCustomers(userId, req.body.franchiseeID).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-  }
-  else if (userType === 'Produtor') {
-    console.log('Decrementando numero do franqueado');
-    User.decreaseTotalCustomers(req.body.franchiseeID).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
   }
 
-  req.flash('success', 'Franqueamento cancelado.');
-  res.redirect('/user/agreementList');
-});
+  /**
+   * Get all quotations from a user by its uid
+   * @param {string} id - User uid
+   * @returns {Array} - Array of transactions
+   */
+  static getAllQuotationsByUserId(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({
+        path: 'myCart',
+        match: { status: { $nin: ['Cancelado'] } },
+        populate: {
+          path: 'buyer offer franchisee',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
+      }).exec().then((result) => {
+        resolve(result.myCart);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all open orders from a user by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of transactions
+   */
+  static getAllOpenOrdersByUserId(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({
+        path: 'transactions',
+        match: { status: { $nin: ['Cancelado', 'Entregue'] }, $or: [ { buyer: { $eq: id } }, { franchisee: { $eq: id} } ] },
+        populate: {
+          path: 'buyer offer franchisee',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
+      }).exec().then((result) => {
+        resolve(result.transactions);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all open sales from a user by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of transactions
+   */
+  static getAllOpenSalesByUserId(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({
+        path: 'transactions',
+        match: { status: { $nin: ['Cancelado', 'Entregue'] }, buyer: { $ne: id } },
+        populate: {
+          path: 'buyer offer',
+          populate: {
+            path: 'seller product',
+            populate: { path: 'chem' }
+          }
+        }
+      }).exec().then((result) => {
+        resolve(result.transactions);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all offers from a user by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of offers
+   */
+  static getAllOffersByUserId(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({
+        path: 'offers',
+        populate: {
+          path: 'product',
+          populate: { path: 'chem' }
+        }
+      }).exec().then((result) => {
+        resolve(result.offers);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all clients from a franchisee by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of users
+   */
+  static getAgreementListById(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({ path: 'agreementList' }).exec().then((result) => {
+        resolve(result.agreementList);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all contract request clients from a franchisee by its id
+   * @param {string} id - User uid
+   * @returns {Array} - Array of users
+   */
+  static getContractRequestsById(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findById(id).populate({ path: 'contractRequests' }).exec().then((result) => {
+        resolve(result.contractRequests);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Get all Users that match the desired query
+   * @param {Object} query - Object that defines the filter
+   * @param {Object} sort - Object that defines the sort method
+   * @returns {Object} User Document Data
+   */
+  static getByQuerySorted(query, sort) {
+    return new Promise((resolve, reject) => {
+      UserModel.find(query).sort(sort).populate('requisitions').then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Add to agreementList
+   * @param {string} id - User Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static addClient(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { agreementList: user } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Increase to agreementList
+   * @param {string} id - User Id
+   * @returns {null}
+   */
+  static increaseTotalCustomers(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $inc: { totalCustomers: 1 } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 
 
-/**
- * POST cancel - Cancel franchisee
- */
-router.post('/denyContract', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
-  console.log(req.body.clientId);
-  console.log(userId);
-  User.removeContract(req.body.clientId, userId).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  User.removeContract(userId, req.body.clientId).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  Email.contractRepprovedEmail(req.body.clientId, userId).catch((error) => {
-    req.flash('danger', 'Não foi possível enviar o email para o cliente recusado do franqueado.');
-    res.redirect('/login');
-  });
-  req.flash('success', 'Pedido de fraqueamento recusado.');
-  res.redirect('/user/contractRequests');
-});
+  /**
+   * Remove from agreementList
+   * @param {string} id - User Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static removeClient(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { agreementList: user } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 
-/**
- * POST change - Change franchisee
- */
-router.post('/change', auth.isAuthenticated, (req, res) => {
-  User.getAgreementListById(req.session._id).then((client) => {
-    const userId = req.session._id;
-    User.removeClient(client[0]._id, userId).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
+  /**
+   * Remove from agreementList
+   * @param {string} id - User Id
+   * @returns {null}
+   */
+  static decreaseTotalCustomers(id) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $inc: { totalCustomers: -1 } }).catch((err) => {
+        reject(err);
+      });
     });
-    User.removeClient(userId, client[0]._id).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-    User.addContract(req.body.franchiseeId, userId).catch((error) => {
-      console.log(req.body.franchisee);
-      res.redirect('/error');
-    });
-    User.addContract(userId, req.body.franchiseeId).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-    req.flash('success', 'Troca de franqueado realizada.');
-    res.redirect('/user');
-  });
-});
+  }
 
-module.exports = router;
+  /**
+   * Send a invite to agreementList
+   * @param {string} id - User Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static addContract(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $push: { contractRequests: user } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Remove from contractRequests
+   * @param {string} id - User Id
+   * @param {string} user - User Id
+   * @returns {null}
+   */
+  static removeContract(id, user) {
+    return new Promise((resolve, reject) => {
+      UserModel.findByIdAndUpdate(id, { $pull: { contractRequests: user } }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+}
+module.exports = User;

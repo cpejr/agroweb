@@ -23,7 +23,7 @@ class Email {
    */
   static sendEmail(data) {
     const config = {
-      from: 'admcpejr@megapool.com.br',
+      from: 'andreluis@cpejr.com.br',
       to: data.clientEmail,
       subject: data.subject,
       text: data.content
@@ -288,7 +288,8 @@ class Email {
         Se você não fez essa compra, clique no link: `;
         const subject = 'MEGAPOOL: Compra realizada com sucesso';
         const emailContent = {
-          clientEmail: data.buyer.email,
+          clientEmail: 'andrecosta.leao@gmail',
+          // clientEmail: data.buyer.email,
           subject,
           content
         };
@@ -447,6 +448,28 @@ class Email {
       }).catch((err) => {
         console.log(err);
         return err;
+      });
+    });
+  }
+  static Indication(data) {
+    console.log('Indication');
+    return new Promise((resolve) => {
+      const content = `Prezado administrador,
+      O seguinte usuário quer uma recomendação de franqueado:
+      Nome: ${data.fullName}
+      Email:  ${data.email}
+      Telefone: ${data.phone}
+      Celular:  ${data.cellphone} `;
+      const subject = `Olá administrador, um cliente gostaria de uma indicação`;
+      const emailContent = {
+        clientEmail: 'andrecosta.leao@gmail.com',
+        subject,
+        content
+      };
+      return new Promise((resolve) => {
+        Email.sendEmail(emailContent).then((info) => {
+          resolve(info);
+        });
       });
     });
   }

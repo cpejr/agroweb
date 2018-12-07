@@ -522,4 +522,17 @@ router.post('/change', auth.isAuthenticated, (req, res) => {
   });
 });
 
+router.post('/indication', (req, res) => {
+User.getById(req.session._id).then((users) => {
+  console.log(users);
+    Email.Indication().catch((error) => {
+      req.flash('danger', 'Não foi possível enviar email de compra.');
+    });
+    res.render('contract', { title: 'Contrate um franqueado',});
+}).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+});
+});
+
 module.exports = router;

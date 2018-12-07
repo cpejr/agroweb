@@ -57,7 +57,7 @@ router.get('/franchisee', (req, res) => {
 router.post('/contact', (req, res) => {
   Email.contactEmail(req.body).then((user) => {
     req.flash('success', 'Mensagem enviada com sucesso para o administrador.');
-    res.redirect('/user');
+    res.redirect('/home');
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

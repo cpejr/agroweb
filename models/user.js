@@ -179,7 +179,9 @@ class User {
    */
   static update(id, user) {
     return new Promise((resolve, reject) => {
-      UserModel.findByIdAndUpdate(id, user).catch((err) => {
+      UserModel.findByIdAndUpdate(id, user).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });
@@ -192,7 +194,9 @@ class User {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      UserModel.findByIdAndUpdate(id, { status: 'Inativo' }).catch((err) => {
+      UserModel.findByIdAndUpdate(id, { status: 'Inativo' }).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

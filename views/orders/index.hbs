@@ -5,16 +5,19 @@
   <h3 class="font-black">{{title}} </h3>
 </div>
 
-<div style="overflow-x:auto;">
-  <div class="container col-sm-12 col-md-9 col-lg-6">
-    <p>Digite logo abaixo para buscar algum produto específico:</p>
-    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
-    <br>
-  </div>
-</div>
 
 <div class="p-1">
 <!-- OrdersList-->
+  {{#if transactions}}
+  <div style="overflow-x:auto;">
+    <div class="container col-sm-12 col-md-9 col-lg-6">
+      <p>Digite logo abaixo para buscar algum produto específico:</p>
+      <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+      <br>
+    </div>
+  </div>
+  {{/if}}
+
   <div class="row justify-content-center mt-2 mx-0">
     <div class="col-sm-12 col-md-7 col-lg-6 col-xl-6 btn p-3">
       <table id="myTable" class="col-12">
@@ -36,16 +39,6 @@
       <div class="mb-3">
       <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
           <div class="text-right p-2">
-
-            {{#ifCond taxStatus 'Aguardando pagamento'}}
-            <div class="pagination float-right">
-              <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
-            </div>
-            {{else ifCond taxStatus 'Aguardando boleto'}}
-            <div class="pagination float-right">
-              <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
-            </div>
-            {{/ifCond}}
 
             <div class="row">
               <div class="col-2 d-inline-block text-center align-self-center mx-1">
@@ -162,16 +155,6 @@
     <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
         <div class="text-right p-2">
 
-          {{#ifCond taxStatus 'Aguardando pagamento'}}
-          <div class="pagination float-right">
-            <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
-          </div>
-          {{else ifCond taxStatus 'Aguardando boleto'}}
-          <div class="pagination float-right">
-            <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
-          </div>
-          {{/ifCond}}
-
           <div class="row">
             <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
@@ -203,7 +186,7 @@
                 </div>
 
                 <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
-                <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
+                  <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
                     {{status}}
                   </h5>
                 </div>
@@ -213,9 +196,9 @@
                   <h4 class="font-book text-gray4  mobile-font2  d-inline" data-usd={{offer.usd}}>
                     R$ {{priceBought}}
                   </h4>
-
                 </div>
               </div>
+
               <div class="row align-right">
                 <div class="smaller-font d-flex text-center align-bottom">
                   <div class="ml-3 ml-lg-4 text-gray3">
@@ -269,10 +252,10 @@
     </div>
     </div>
     {{/ifCond}}
-
     {{/each}}
 
     {{else}}
+
     {{#each transactions}}
     <tr class="col-12">
       <td class="d-none">{{product.name}}</td>
@@ -285,20 +268,9 @@
     {{else ifCond status 'Cotado'}}
     {{else}}
     <div class="mb-3">
-    <div class="my-1 bg-light2 card1 card">
+    <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
         <div class="text-right p-2">
-          {{#ifCond taxStatus 'Aguardando pagamento'}}
-          {{#ifCond title 'Demandas'}}
-          <div class="pagination float-right">
-            <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active  pagination-mini__dot pagination__dot--active"></div>
-          </div>
-          {{else ifCond taxStatus 'Aguardando boleto'}}
-          <div class="pagination float-right">
-            <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
-          </div>
-          {{/ifCond}}
-          {{/ifCond}}
-          <div onclick="location.href = '/transaction/{{_id}}'">
+
           <div class="row">
             <div class="col-2 d-inline-block text-center align-self-center mx-1">
 
@@ -330,7 +302,7 @@
                 </div>
 
                 <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
-                <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
+                  <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
                     {{status}}
                   </h5>
                 </div>
@@ -340,9 +312,9 @@
                   <h4 class="font-book text-gray4  mobile-font2  d-inline" data-usd={{offer.usd}}>
                     R$ {{priceBought}}
                   </h4>
-
                 </div>
               </div>
+
               <div class="row align-right">
                 <div class="smaller-font d-flex text-center align-bottom">
                   <div class="ml-3 ml-lg-4 text-gray3">
@@ -355,18 +327,18 @@
                     </p>
                   </div>
 
-                  <div class="ml-1  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
+                  <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                     <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
                       <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
                     </p>
                   </div>
 
-                  <div class="ml-1 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
+                  <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                     <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
                       <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                     </p>
                   </div>
-                  <div class="ml-1 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
+                  <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                     <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
                       Custo por unidade
                       {{#ifCond offer.usd false}}
@@ -385,13 +357,10 @@
             </div>
           </div>
         </div>
-        </div>
       </div>
     </div>
     </div>
     {{/ifCond}}
-      </td>
-    </tr>
     {{/each}}
     {{/ifCond}}
 

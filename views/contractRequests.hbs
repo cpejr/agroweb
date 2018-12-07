@@ -6,6 +6,7 @@
   <h3 class="font-black">Requisições de contrato</h3>
 </div>
 
+{{#if users}}
 <div style="overflow-x:auto;">
   <div class="container">
     <p>Digite logo abaixo para buscar alguma requisição de contrato específica:</p>
@@ -51,10 +52,14 @@
     </table>
   </div>
 </div>
+{{else}}
+<div class="container">
+  <p class="text-center font-light"> Não há nenhuma solicitação de produtores </p>
+</div>
+{{/if}}
 
 {{#section 'scripts'}}
 <script src="/javascripts/navbar.js"></script>
-<!-- <script src="/javascripts/filter.js"></script> -->
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {

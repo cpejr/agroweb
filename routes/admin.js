@@ -25,9 +25,7 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 /* GET Users - Show all users */
 router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Dollar.getUsdValue().then((dollar) => {
-    console.log(dollar);
     User.getByQuerySorted().then((users) => {
-      console.log(users);
       res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
     }).catch((error) => {
       console.log(error);
@@ -97,7 +95,7 @@ router.get('/:id/deleteOffer', auth.isAuthenticated, auth.isAdmin, (req, res) =>
 
 /* GET Transaction - Show all pending tickets */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Transaction.getAll().then((transactions) => {
+  Transaction.getByQuerySorted( {status: {$ne: 'Cancelado'} }, {} ).then((transactions) => {
     res.render('admin/transaction/index', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((error) => {
     console.log(error);
@@ -204,22 +202,23 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
 
 router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   User.getById(req.params.id).then((user) => {
+    console.log('Status: ' + req.body.status);
       if (req.body.status === 'Ativo') {
-        console.log('Enviando email para aprovar um usuário');
+        console.log('Enviando email para ativar um usuário');
         Email.activatedUsersEmail(user).catch((error) => {
           req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
           res.redirect('/login');
         });
       }
       else if (req.body.status === 'Bloqueado') {
-        console.log('Enviando email para aprovar um usuário');
+        console.log('Enviando email para bloquear um usuário');
         Email.blockedUsersEmail(user).catch((error) => {
           req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
           res.redirect('/login');
         });
       }
       else if (req.body.status === 'Inativo') {
-        console.log('Enviando email para aprovar um usuário');
+        console.log('Enviando email para inativar um usuário');
         Email.inactivatedUsersEmail(user).catch((error) => {
           req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
           res.redirect('/login');

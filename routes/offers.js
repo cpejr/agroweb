@@ -176,10 +176,11 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
 
   User.getAgreementListById(req.session._id).then((clients) => {
     Offer.getById(req.params.id).then((offer) => {
-      if (userId === offer.seller._id) {
+      if (userId == offer.seller._id) {
         myOffer = 1;
       }
       if (offer) {
+        console.log(myOffer);
         res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, myOffer, clients, ...offer });
       }
       else {

@@ -69,7 +69,6 @@ router.get('/sales', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
   const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
-
     if (user) {
       User.getAllOpenSalesByUserId(req.session._id).then((transactions) => {
         console.log(userId);
@@ -228,7 +227,7 @@ router.post('/buy', auth.isAuthenticated, (req, res) => {
         console.log(error);
         res.redirect('/error');
       });
-    })
+    });
     req.flash('success', 'Compra realizada.');
     res.redirect('/user');
   });
@@ -286,12 +285,13 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
   const position = userData.fullName.indexOf(' ');
   userData.firstName = userData.fullName.slice(0, position);
 
-  User.update(req.session._id, userData).catch((error) => {
+  User.update(req.session._id, userData).then(() => {
+    req.flash('success', 'Perfil atualizado.');
+    res.redirect('/user');
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  req.flash('success', 'Perfil atualizado.');
-  res.redirect('/user');
 });
 
 /*
@@ -321,19 +321,19 @@ router.get('/contractRequests', auth.isAuthenticated, (req, res) => {
 /**
  * GET clients page
  */
- router.get('/agreementList', auth.isAuthenticated, (req, res) => {
-   User.getAgreementListById(req.session._id).then((clients) => {
-     if (req.session.userType === 'Produtor') {
-       res.render('clients', { title: 'Meu Franqueado', layout: 'layout', clients, ...req.session });
-     }
-     else if (req.session.userType === 'Franqueado') {
-       res.render('clients', { title: 'Meus Clientes', layout: 'layout', clients, ...req.session });
-     }
-   }).catch((error) => {
+router.get('/agreementList', auth.isAuthenticated, (req, res) => {
+  User.getAgreementListById(req.session._id).then((clients) => {
+    if (req.session.userType === 'Produtor') {
+      res.render('clients', { title: 'Meu Franqueado', layout: 'layout', clients, ...req.session });
+    }
+    else if (req.session.userType === 'Franqueado') {
+      res.render('clients', { title: 'Meus Clientes', layout: 'layout', clients, ...req.session });
+    }
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
- });
+});
 
 /**
  * DELETE Destroy - Update a user status to 'Inativo'
@@ -349,65 +349,65 @@ router.delete('/:id', (req, res) => {
 /**
  * POST contract - Contract franchisee
  */
- router.post('/contract', auth.isAuthenticated, (req, res) => {
-    User.getContractRequestsById(req.body.clientId).then((users) => {
-     const userId = req.session._id;
-     User.addClient(req.body.clientId, userId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-     User.addClient(userId, req.body.clientId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-     User.increaseTotalCustomers(userId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-
-     users.forEach((user) => {
-       User.removeContract(user._id, req.body.clientId).catch((error) => {
-         console.log(error);
-         res.redirect('/error');
-       });
-       User.removeContract(req.body.clientId, user._id).catch((error) => {
-         console.log(error);
-         res.redirect('/error');
-       });
-     });
-      req.flash('success', 'Contrato de franqueamento aceito.');
-      res.redirect('/user/agreementList');
-   }).catch((error) => {
-     req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
-     res.redirect('/user');
-  });
- });
-
-
- /**
-  * POST contract - Generate Contract franchisee request
-  */
-  router.post('/generateContractRequest', auth.isAuthenticated, (req, res) => {
-    User.getAgreementListById(req.session._id).then((client) => {
-      if(client.uid){
-        req.flash('danger', 'Não é possível contratar mais de um franqueado.');
-        res.redirect('/user');
-      }
-      else {
-        const userId = req.session._id;
-        User.addContract(req.body.franchiseeId, userId).catch((error) => {
-          console.log(req.body.franchisee);
-          res.redirect('/error');
-        });
-        User.addContract(userId, req.body.franchiseeId).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
-        });
-        req.flash('success', 'Solicitação enviada para o franqueado. Aguarde a resposta dele.');
-        res.redirect('/user/franchisee');
-      }
+router.post('/contract', auth.isAuthenticated, (req, res) => {
+  User.getContractRequestsById(req.body.clientId).then((users) => {
+    const userId = req.session._id;
+    User.addClient(req.body.clientId, userId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
     });
+    User.addClient(userId, req.body.clientId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    User.increaseTotalCustomers(userId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    users.forEach((user) => {
+      User.removeContract(user._id, req.body.clientId).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+      User.removeContract(req.body.clientId, user._id).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    });
+    req.flash('success', 'Contrato de franqueamento aceito.');
+    res.redirect('/user/agreementList');
+  }).catch((error) => {
+    console.log(error);
+    req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
+    res.redirect('/user');
   });
+});
+
+
+/**
+* POST contract - Generate Contract franchisee request
+*/
+router.post('/generateContractRequest', auth.isAuthenticated, (req, res) => {
+  User.getAgreementListById(req.session._id).then((client) => {
+    if (client.uid) {
+      req.flash('danger', 'Não é possível contratar mais de um franqueado.');
+      res.redirect('/user');
+    }
+    else {
+      const userId = req.session._id;
+      User.addContract(req.body.franchiseeId, userId).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+      User.addContract(userId, req.body.franchiseeId).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+      req.flash('success', 'Solicitação enviada para o franqueado. Aguarde a resposta dele.');
+      res.redirect('/user/franchisee');
+    }
+  });
+});
 
 
 /**
@@ -415,7 +415,7 @@ router.delete('/:id', (req, res) => {
  */
 router.post('/cancel', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
-  const userType = req.session.userType;
+  const { userType } = req.session;
 
   const transaction = {
     status: 'Cancelado'
@@ -423,42 +423,36 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
 
   User.getAllQuotationsByUserId(userId).then((quotations) => {
     quotations.forEach((quotation) => {
-      if(quotation.franchisee){
-        if(userType == "Franqueado"){
-          if(quotation.buyer._id == req.body.franchiseeID){
+      if (quotation.franchisee) {
+        if (userType === 'Franqueado') {
+          if (quotation.buyer._id === req.body.franchiseeID) {
             User.removeFromMyCart(quotation.buyer._id, quotation._id).catch((error) => {
-            console.log(error);
-            res.redirect('/error');
+              console.log(error);
+              res.redirect('/error');
             });
-
             User.removeFromMyCart(quotation.franchisee._id, quotation._id).catch((error) => {
               console.log(error);
               res.redirect('/error');
             });
           }
         }
-
         else {
           User.removeFromMyCart(quotation.buyer._id, quotation._id).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
+            console.log(error);
+            res.redirect('/error');
           });
-
           User.removeFromMyCart(quotation.franchisee._id, quotation._id).catch((error) => {
             console.log(error);
             res.redirect('/error');
           });
         }
       }
-
       Transaction.update(quotation._id, transaction).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
+        console.log(error);
+        res.redirect('/error');
       });
-
     });
   });
-
   User.removeClient(req.body.franchiseeID, userId).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -468,20 +462,17 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
     res.redirect('/error');
   });
   if (userType === 'Franqueado') {
-    console.log('Decrementando seu numero');
     User.decreaseTotalCustomers(userId, req.body.franchiseeID).catch((error) => {
       console.log(error);
       res.redirect('/error');
     });
   }
   else if (userType === 'Produtor') {
-    console.log('Decrementando numero do franqueado');
     User.decreaseTotalCustomers(req.body.franchiseeID).catch((error) => {
       console.log(error);
       res.redirect('/error');
     });
   }
-
   req.flash('success', 'Franqueamento cancelado.');
   res.redirect('/user/agreementList');
 });
@@ -509,28 +500,28 @@ router.post('/denyContract', auth.isAuthenticated, (req, res) => {
 /**
  * POST change - Change franchisee
  */
- router.post('/change', auth.isAuthenticated, (req, res) => {
-   User.getAgreementListById(req.session._id).then((client) => {
-     const userId = req.session._id;
-     User.removeClient(client[0]._id, userId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-     User.removeClient(userId, client[0]._id).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-     User.addContract(req.body.franchiseeId, userId).catch((error) => {
-       console.log(req.body.franchisee);
-       res.redirect('/error');
-     });
-     User.addContract(userId, req.body.franchiseeId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-     req.flash('success', 'Troca de franqueado realizada.');
-     res.redirect('/user');
-   });
- });
+router.post('/change', auth.isAuthenticated, (req, res) => {
+  User.getAgreementListById(req.session._id).then((client) => {
+    const userId = req.session._id;
+    User.removeClient(client[0]._id, userId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    User.removeClient(userId, client[0]._id).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    User.addContract(req.body.franchiseeId, userId).catch((error) => {
+      console.log(req.body.franchisee);
+      res.redirect('/error');
+    });
+    User.addContract(userId, req.body.franchiseeId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    req.flash('success', 'Troca de franqueado realizada.');
+    res.redirect('/user');
+  });
+});
 
 module.exports = router;

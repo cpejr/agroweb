@@ -34,7 +34,7 @@ const groupSchema = new mongoose.Schema({
   },
   delivery: {
     type: String,
-    enum: ['Em até 31 dias', 'Em até 48 horas', 'Safra', 'Safrinha'],
+    enum: ['31 dias', 'Safra', 'Safrinha'],
     required: true
   },
   rising: {
@@ -111,7 +111,9 @@ class Group {
    */
   static update(id, group) {
     return new Promise((resolve, reject) => {
-      GroupModel.findByIdAndUpdate(id, group).catch((err) => {
+      GroupModel.findByIdAndUpdate(id, group).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });
@@ -124,7 +126,9 @@ class Group {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      GroupModel.findByIdAndDelete(id).catch((err) => {
+      GroupModel.findByIdAndDelete(id).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

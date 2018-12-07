@@ -57,7 +57,8 @@ router.post('/contact', (req, res) => {
   console.log(req.body.user);
   Email.sendEmail(emailData).then((user) => {
     console.log(user);
-    res.redirect('/success');
+    req.flash('success', 'Recebemos sua mensagem e responderemos em breve.');
+    res.redirect('/home');
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

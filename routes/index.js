@@ -20,6 +20,13 @@ router.get('/', (req, res) => {
 });
 
 /**
+ * GET Terms page
+ */
+router.get('/', (req, res) => {
+  res.render('terms', { title: 'Termos', layout: 'layout' });
+});
+
+/**
  * GET Forgot my Password page
  */
 router.get('/forgotPassword', (req, res) => {
@@ -27,17 +34,10 @@ router.get('/forgotPassword', (req, res) => {
 });
 
 /**
- * GET Franchisee Option page - TESTES
+ * GET Franchisee Option page
  */
 router.get('/franchiseeOption', (req, res) => {
   res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layout' });
-});
-
-/**
- * GET SUCCESS - TESTES
- */
-router.get('/success', (req, res) => {
-  res.render('success', { title: 'Sucesso', layout: 'layout' });
 });
 
 /**
@@ -104,26 +104,24 @@ router.post('/login', (req, res) => {
       res.redirect('/error');
     });
   }).catch((error) => {
-
-    switch(error.code) {
-    case 'auth/wrong-password':
+    switch (error.code) {
+      case 'auth/wrong-password':
         req.flash('danger', 'Senha incorreta.');
         break;
-    case 'auth/user-not-found':
+      case 'auth/user-not-found':
         req.flash('danger', 'Email não cadastrado.');
         break;
-    case 'auth/invalid-email':
+      case 'auth/invalid-email':
         req.flash('danger', 'Verifique se o email está digitado corretamente.');
         break;
-    case 'auth/network-request-failed':
+      case 'auth/network-request-failed':
         req.flash('danger', 'Falha na internet. Verifique sua conexão de rede.');
         break;
-    default:
+      default:
         req.flash('danger', 'Erro indefinido.');
-      }
-
-    console.log('Error Code: ' + error.code);
-    console.log('Error Message: ' + error.message);
+    }
+    console.log(`Error Code: ${error.code}`);
+    console.log(`Error Message: ${error.message}`);
     res.redirect('/login');
   });
 });
@@ -134,7 +132,8 @@ router.post('/login', (req, res) => {
 router.post('/recoverPassword', (req, res) => {
   const mail = req.body;
   firebase.auth().sendPasswordResetEmail(mail.email).then(() => {
-    res.redirect('/success');
+    req.flash('success', 'Enviamos um e-mail de redefinição para a sua conta.');
+    res.redirect('/login');
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -146,20 +145,20 @@ router.post('/recoverPassword', (req, res) => {
  */
 router.get('/logout', auth.isAuthenticated, (req, res) => {
   firebase.auth().signOut().then(() => {
-    if (req.session.status === 'Aguardando aprovação')  {
-      req.flash('warning', 'Sua solicitação de cadastro foi enviada para a equipe, que avaliará seus dados antes de ativar sua conta.');
+    if (req.session.status === 'Aguardando aprovação') {
+      req.flash('warning', 'Sua solicitação de cadastro foi enviada para a equipe que avaliará seus dados antes de ativar sua conta.');
     }
     else if (req.session.status === 'Bloqueado') {
-      req.flash('warning', 'Essa conta não pode ser utilizada, porque está bloqueada.')
+      req.flash('warning', 'Essa conta não pode ser utilizada porque está bloqueada.')
     }
-      delete req.session.userType;
-      delete req.session.firstName;
-      delete req.session.fullName;
-      delete req.session._id;
-      delete req.session.userUid;
-      delete req.session.email;
-      delete req.session.status;
-      res.redirect('/login');
+    delete req.session.userType;
+    delete req.session.firstName;
+    delete req.session.fullName;
+    delete req.session._id;
+    delete req.session.userUid;
+    delete req.session.email;
+    delete req.session.status;
+    res.redirect('/login');
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -183,7 +182,7 @@ router.post('/signup', (req, res) => {
     delete userData.password;
     User.create(userData).then((docId) => {
       Email.waitingForApprovalEmail(userData).catch((error) => {
-        req.flash('danger', 'Não foi possível enviar o email para o novo usuário.');
+        req.flash('danger', 'Ocorreu um problema ao enviar um e-mail para sua conta, tente novamente.');
         res.redirect('/login');
       });
       req.session.userType = userData.type;
@@ -203,58 +202,35 @@ router.post('/signup', (req, res) => {
         res.redirect('/user');
       }
     }).catch((error) => {
-      switch(error.code) {
-      case '11000':
+      switch (error.code) {
+        case '11000':
           req.flash('danger', 'O CPF já está cadastrado.');
           break;
-      default:
+        default:
           req.flash('danger', 'Erro indefinido.');
-        }
-      console.log('Error Code: ' + error.code);
-      console.log('Error Message: ' + error.message);
+      }
+      console.log(`Error Code: ${error.code}`);
+      console.log(`Error Message: ${error.message}`);
       res.redirect('/signup');
     });
   }).catch((error) => {
-    switch(error.code) {
-    case 'auth/email-already-in-use':
+    switch (error.code) {
+      case 'auth/email-already-in-use':
         req.flash('danger', 'Email já cadastrado');
         break;
-    case 'auth/network-request-failed':
+      case 'auth/network-request-failed':
         req.flash('danger', 'Falha na internet. Verifique sua conexão de rede.');
         break;
-    case 'auth/invalid-email':
+      case 'auth/invalid-email':
         req.flash('danger', 'Verifique se o email está digitado corretamente.');
         break;
-    default:
+      default:
         req.flash('danger', 'Erro indefinido.');
-      }
-    console.log('Error Code: ' + error.code);
-    console.log('Error Message: ' + error.message);
+    }
+    console.log(`Error Code: ${error.code}`);
+    console.log(`Error Message: ${error.message}`);
     res.redirect('/signup');
   });
 });
-
-// router.post('/contact', (req, res) => {
-//   console.log("Email enviado");
-//   const emailData = req.body.user;
-//   console.log(req.body.user);
-//   Email.sendEmail(emailData).then((user) => {
-//     console.log(user);
-//     res.redirect('/success');
-//   }).catch((error) => {
-//   console.log(error);
-//   res.redirect('/error');
-// });
-// });
-
-// /**
-//  * POST NewsletterMail Request
-//  */
-// router.post('/newslettermail', (req, res) => {
-//   var clientList = firebase.firestore().collection('newsletter');
-//   var mailList = clientList.where('email', '==', true);
-//   console.log(mailList);
-//   res.redirect('/success');
-// });
 
 module.exports = router;

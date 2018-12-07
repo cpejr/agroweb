@@ -94,7 +94,13 @@
               <h4>Qtd. mínima</h4>
               <p class="font-light">{{minAmount}} {{product.unit}}</p>
             </div>
-
+            <div class="text-center my-3 justify-content-center">
+              <form action="/offers/{{id}}?_method=DELETE" method="POST" id="form-delete">
+                <button type="submit" class="btn btn-danger col-8" name="status">
+                  Excluir
+                </button>
+              </form>
+            </div>
       {{else ifCond userType 'Revendedor'}}
       <form action="/transaction" method="post">
           <div class="form-group col">

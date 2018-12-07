@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
   const { newsletter } = req.body;
   Newsletter.create(newsletter).then((id) => {
     console.log(`Created new newsletter with id: ${id}`);
-    res.redirect(`/user`);
+    res.redirect('/user');
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

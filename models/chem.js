@@ -4,6 +4,10 @@ const chemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
+  },
+  active: {
+    type: Boolean,
+    default: true
   }
 }, { timestamps: true, strict: false });
 
@@ -62,7 +66,9 @@ class Chem {
    */
   static update(id, chem) {
     return new Promise((resolve, reject) => {
-      ChemModel.findByIdAndUpdate(id, chem).catch((err) => {
+      ChemModel.findByIdAndUpdate(id, chem).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });
@@ -75,7 +81,9 @@ class Chem {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      ChemModel.findByIdAndDelete(id).catch((err) => {
+      ChemModel.findByIdAndUpdate(id, { active: false }).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

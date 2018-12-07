@@ -79,21 +79,19 @@
             <i class="fas fa-arrow-left fa-2x "></i>
           </button>
           </row>
-    {{#ifCond userType 'Indústria'}}
-      {{else}}
       <row>
+    {{#ifNotEq userType 'Indústria'}}
           <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
                <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
                <label for="searchbar-icon" class="fas fa-search input-icon"></label>
           </form>
+      {{/ifNotEq}}
           <div class="float-right mt-3 mr-3">
-            <h6 class="font3 mobile-font2 ">USD: {{usdValue}}
+            <h6 class="font3 mobile-font2 text-light">USD: {{usdValue}}
               {{{rising}}}
             </h6>
           </div>
       </row>
-      {{/ifCond}}
-
 
         <!-- <form id="navbar-form" action="../search" method="get" class="float-right my-2 my-lg-0 my-sm-0">
           <row>

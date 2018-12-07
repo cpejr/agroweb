@@ -132,7 +132,9 @@ class Transaction {
    */
   static delete(id) {
     return new Promise((resolve, reject) => {
-      TransactionModel.findByIdAndUpdate(id, { status: 'Cancelado' }).catch((err) => {
+      TransactionModel.findByIdAndUpdate(id, { status: 'Cancelado' }).then(() => {
+        resolve();
+      }).catch((err) => {
         reject(err);
       });
     });

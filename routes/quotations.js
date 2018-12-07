@@ -17,24 +17,5 @@ router.get('/', auth.isAuthenticated, (req, res) => {
   });
 });
 
-// /**
-//  * GET Show - Show details of a quotation
-//  */
-// router.get('/:id', auth.isAuthenticated, (req, res) => {
-//   Transaction.getById(req.params.id).then((transaction) => {
-//     if (transaction) {
-//       console.log(transaction);
-//       res.render('products/show', { title: , id: req.params.id, ...transaction });
-//     }
-//     else {
-//       console.log('Product not found!');
-//       res.redirect('/user');
-//     }
-//   }).catch((error) => {
-//   console.log(error);
-//   res.redirect('/error');
-// });
-// });
-
 
 module.exports = router;

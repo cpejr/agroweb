@@ -71,7 +71,7 @@ router.get('/franchiseePayment', auth.isAuthenticated, auth.isAdmin, (req, res) 
 
 /* GET Transaction - Show all pending tickets */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Transaction.getAll().then((transactions) => {
+  Transaction.getByQuerySorted( {status: {$ne: 'Cancelado'} }, {} ).then((transactions) => {
     res.render('admin/transaction/index', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((error) => {
     console.log(error);

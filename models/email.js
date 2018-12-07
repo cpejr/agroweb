@@ -29,6 +29,7 @@ class Email {
       text: data.content
     };
     console.log('Config' + config);
+    console.log(config.to);
     return new Promise((resolve) => {
       transporter.sendMail(config, (error, info) => {
         if (error) {
@@ -64,9 +65,10 @@ class Email {
 
 
   static contractApprovedEmail(data, franchisee) {
+    console.log('Franqueado: '+ franchisee);
     console.log('Email contrato aprovado');
     const content = `Prezado(a) ${data.firstName},
-     O franqueado ${franchisee.email} acabou de aceitar sua solicitação. A partir de agora, ele poderá realizar cotações e compras para você, facilitando muito sua experiência na plataforma Megapool.`;
+     ${franchisee} acabou de aceitar sua solicitação de franqueamento. A partir de agora, ele poderá realizar cotações e compras para você, facilitando muito sua experiência na plataforma Megapool.`;
     const subject = 'MEGAPOOL: Pedido aceito';
     const emailContent = {
       clientEmail: data.email,
@@ -81,9 +83,10 @@ class Email {
   }
 
   static contractRepprovedEmail(data, franchisee) {
+    console.log('Franqueado: '+ franchisee);
     console.log('Email contrato reprovado');
     const content = `Prezado(a) ${data.firstName},
-     O franqueado ${franchisee.email} acabou de recusar sua solicitação. Portanto, ele não será capaz de realizar cotações e compras para você.`;
+     ${franchisee} acabou de recusar sua solicitação de franqueamento. Portanto, ele não será capaz de realizar cotações e compras para você.`;
     const subject = 'MEGAPOOL: Pedido recusado';
     const emailContent = {
       clientEmail: data.email,

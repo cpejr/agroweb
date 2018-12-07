@@ -184,6 +184,7 @@ router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
 router.get('/edit', auth.isAuthenticated, (req, res) => {
   const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
+    console.log(user);
     if (user) {
       res.render('profile/edit', { title: 'Editar', layout: 'layout', user, userType });
     }
@@ -250,7 +251,6 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
   // Separates the first name from the rest
   const position = userData.fullName.indexOf(' ');
   userData.firstName = userData.fullName.slice(0, position);
-
   User.update(req.session._id, userData).then(() => {
     req.flash('success', 'Perfil atualizado.');
     res.redirect('/user');
@@ -264,7 +264,7 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
  * GET contract page
  */
 router.get('/franchisee', auth.isAuthenticated, (req, res) => {
-  User.getAll().then((users) => {
+  User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: true }, {}).then((users) => {
     res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
   }).catch((error) => {
     console.log(error);
@@ -315,42 +315,48 @@ router.delete('/:id', (req, res) => {
 /**
  * POST contract - Contract franchisee
  */
-router.post('/contract', auth.isAuthenticated, (req, res) => {
-  User.getContractRequestsById(req.body.clientId).then((users) => {
-    const userId = req.session._id;
-    User.addClient(req.body.clientId, userId).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-    User.addClient(userId, req.body.clientId).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-    User.increaseTotalCustomers(userId).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
-    Email.contractApprovedEmail(req.body.clientId, userId).catch((error) => {
-      req.flash('danger', 'Não foi possível enviar o email para o cliente do franqueado.');
-      res.redirect('/login');
-    });
+ router.post('/contract', auth.isAuthenticated, (req, res) => {
+    User.getContractRequestsById(req.body.clientId).then((users) => {
+     const userId = req.session._id;
+     User.addClient(req.body.clientId, userId).catch((error) => {
+       console.log(error);
+       res.redirect('/error');
+     });
+     User.addClient(userId, req.body.clientId).catch((error) => {
+       console.log(error);
+       res.redirect('/error');
+     });
+     User.increaseTotalCustomers(userId).catch((error) => {
+       console.log(error);
+       res.redirect('/error');
+     });
 
-    users.forEach((user) => {
-      User.removeContract(user._id, req.body.clientId).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-      User.removeContract(req.body.clientId, user._id).catch((error) => {
-        console.log(error);
-        res.redirect('/error');
-      });
-    });
-    req.flash('success', 'Contrato de franqueamento aceito.');
-    res.redirect('/user/agreementList');
-  }).catch((error) => {
-    console.log(error);
-    req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
-    res.redirect('/user');
+     User.getById(req.body.clientId).then((user) => {
+       const userName = req.session.firstName;
+       Email.contractApprovedEmail(user, userName).catch((error) => {
+         req.flash('danger', 'Não foi possível enviar o email para o cliente do franqueado.');
+         res.redirect('/login');
+       });
+     }).catch((error) => {
+       req.flash('warning', 'Não foi possível encontrar usuário.');
+       res.redirect('/user');
+     });
+
+     users.forEach((user) => {
+       User.removeContract(user._id, req.body.clientId).catch((error) => {
+         console.log(error);
+         res.redirect('/error');
+       });
+       User.removeContract(req.body.clientId, user._id).catch((error) => {
+         console.log(error);
+         res.redirect('/error');
+       });
+     });
+      req.flash('success', 'Contrato de franqueamento aceito.');
+      res.redirect('/user/contractRequests');
+   }).catch((error) => {
+     req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
+     res.redirect('/user');
   });
 });
 
@@ -464,10 +470,17 @@ router.post('/denyContract', auth.isAuthenticated, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  Email.contractRepprovedEmail(req.body.clientId, userId).catch((error) => {
-    req.flash('danger', 'Não foi possível enviar o email para o cliente recusado do franqueado.');
-    res.redirect('/login');
-  });
+
+  User.getById(req.body.clientId).then((user) => {
+    const userName = req.session.firstName;
+    Email.contractRepprovedEmail(user, userName).catch((error) => {
+      req.flash('danger', 'Não foi possível enviar o email para o cliente recusado do franqueado.');
+      res.redirect('/login');
+    });
+    }).catch((error) => {
+      req.flash('warning', 'Não foi possível encontrar usuário.');
+      res.redirect('/user');
+    });
   req.flash('success', 'Pedido de fraqueamento recusado.');
   res.redirect('/user/contractRequests');
 });

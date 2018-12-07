@@ -146,7 +146,7 @@ class Transaction {
    * @param {Object} sort - Object that defines the sort method
    * @returns {Object} Transaction Document Data
    */
-  static getAllByQueryStatus(query, sort) {
+  static getByQuerySorted(query, sort) {
     return new Promise((resolve, reject) => {
       TransactionModel.find(query).sort(sort).populate({
         path: 'buyer offer',

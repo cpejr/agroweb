@@ -4,69 +4,100 @@
 <div class="pb-3 gradient-background text-white">
   <h3 class="text-center font-black">Contrate um franqueado</h3>
 </div>
+
 <div class="p-3">
-<div class="container p-3 text-center">
-<p> Selecione algum dos franqueados a seguir para exibir seu perfil e conhecer características da cada um deles. Assim poderá contratá-lo para gerenciar suas atividades dentro da plataforma Megapool com mais facilidade, garantindo maior conforto e segurança para sua produção.</p>
-</div>
-<div class="row justify-content-center">
-  {{#each users}}
-  {{#ifCond type 'Franqueado'}}
-  {{#ifCond moreClients true}}
-  {{#ifCond status 'Ativo'}}
-  <div class="col-sm-12 col-md-6 col-lg-6 btn card m-3" >
-      <div class="my-1 bg-light2 card1"  onclick="location.href = '/user/profile/{{_id}}'">
-        <div class="text-right p-2">
-          <div class="row">
-            <div class="col-3 d-inline-block text-center align-self-center">
-              <i class="d-inline d-sm-none card-icon fas fa-user fa-2x align-self-center"></i>
-              <i class="d-none d-sm-inline d-xl-none card-icon fas fa-user fa-3x align-self-center"></i>
-              <i class="d-none d-xl-inline card-icon fas fa-user fa-4x align-self-center"></i>
-            </div>
 
-            <div class="col p-2">
-              <div class="vl">
-                <div class="ml-2">
-                  <p class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
-                    {{fullName}}
-                  </p>
-                </div>
+  {{#if users}}
+  <div style="overflow-x:auto;">
+    <div class="container col-sm-12 col-md-9 col-lg-6">
+      <p>Digite logo abaixo para buscar algum franqueado específico:</p>
+      <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+      <br>
+    </div>
+  </div>
 
-                <div class="ml-2 mt-3">
-                  <div class="text-left">
-                    <p class="font-book mobile-font4 mobile-font5  d-inline">
-                      {{email}}
-                    </p>
-                  </div>
-                </div>
+  <div id="results-list" class="row justify-content-center mt-2 mx-0">
+    <div class="col-sm-12 col-md-9 col-lg-6 btn p-3">
+      <table id="myTable" class="col-12">
+        <tbody>
+          {{#each users}}
+          <tr class="col-12">
+            <td class="d-none">{{name}}</td>
+            <td class="d-none">{{email}}</td>
+            <td class="d-none">{{phone}}</td>
+            <td class="d-none">{{address.city}}</td>
+            <td class="">
 
-                <div class="ml-2 mt-3">
-                  <div class="text-left">
-                    <p class="font-book mobile-font4 mobile-font5  d-inline">
-                      {{phone}}
-                    </p>
-                  </div>
-                </div>
+              <div class="p-1" >
+                <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/user/profile/{{_id}}'">
+                  <div class="text-right">
+                    <div class="row px-3">
+                      <div class="col-3 d-inline-block text-center align-self-center">
+                        <i class="d-inline d-sm-none card-icon fas fa-user fa-2x align-self-center"></i>
+                        <i class="d-none d-sm-inline d-xl-none card-icon fas fa-user fa-3x align-self-center"></i>
+                        <i class="d-none d-xl-inline card-icon fas fa-user fa-4x align-self-center"></i>
+                      </div>
 
-                <div class="ml-2 mt-3">
-                  <div class="text-left">
-                    <p class="font-book mobile-font4 mobile-font5  d-inline">
-                      {{address.city}}
-                    </p>
+                      <div class="col p-2">
+                        <div class="vl">
+                          <div class="ml-2">
+                            <p class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+                              {{fullName}}
+                            </p>
+                          </div>
+
+                          <div class="ml-2 mt-3">
+                            <div class="text-left">
+                              <p class="font-book mobile-font4 mobile-font5  d-inline">
+                                {{email}}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="ml-2 mt-3">
+                            <div class="text-left">
+                              <p class="font-book mobile-font4 mobile-font5  d-inline">
+                                {{phone}}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="ml-2 mt-3">
+                            <div class="text-left">
+                              <p class="font-book mobile-font4 mobile-font5  d-inline">
+                                {{address.city}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </td>
+          </tr>
+          <!-- end CARD PADRÃO -->
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
   </div>
-<!-- end CARD PADRÃO -->
-      {{/ifCond}}
-      {{/ifCond}}
-      {{/ifCond}}
-      {{/each}}
-</div>
-</div>
+  {{else}}
+  <div class="container">
+    <p class="text-center font-light">Não há nenhum franqueado.</p>
+  </div>
+  {{/if}}
 
 {{#section 'scripts'}}
+<script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
 {{/section}}

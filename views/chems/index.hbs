@@ -21,6 +21,7 @@
       <thead>
         <tr>
           <th>Nome</th>
+          <th>Status</th>
           <th>Opções</th>
         </tr>
       </thead>
@@ -28,6 +29,13 @@
         {{#each chems}}
         <tr>
           <th scope="row" class="font-book">{{name}}</th>
+          <th scope="row" class="font-book">
+            {{#if active}}
+            Ativo
+            {{else}}
+            Inativo
+            {{/if}}
+          </th>
           <th>
             <form action="/chems/{{id}}?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-outline-danger font-book">Desativar</button>

@@ -372,6 +372,16 @@ router.post('/generateContractRequest', auth.isAuthenticated, (req, res) => {
     }
     else {
       const userId = req.session._id;
+
+      User.removeContract(req.body.franchiseeId, userId).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+      User.removeContract(userId, req.body.franchiseeId).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+
       User.addContract(req.body.franchiseeId, userId).catch((error) => {
         console.log(error);
         res.redirect('/error');

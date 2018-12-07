@@ -2,7 +2,7 @@ const express = require('express');
 const Email = require('../models/email');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
-const auth = require('./middleware/auth');
+const auth = require('../routes/middleware/auth');
 
 const router = express.Router();
 

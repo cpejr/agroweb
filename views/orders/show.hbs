@@ -336,48 +336,35 @@
           {{#ifCond myOffer 0}}
             {{#if franchisee}}
               {{#ifCond userType 'Franqueado'}}
+                {{#ifCond status 'Cotado'}}
+                  <div class="text-center my-3 justify-content-center">
+                    <form action="/transaction/{{id}}?_method=PUT" method="POST">
+                      <button class="btn btn-success col-12" type="submit" name="button" type="submit" name="button">Confirmar compra</button>
+                    </form>
+                  </div>
+                  <div class="text-center my-3 justify-content-center">
+                    <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+                      <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
+                        Cancelar cotação
+                      </button>
+                    </form>
+                  </div>
+                {{/ifCond}}
+              {{/ifCond}}
+            {{else}}
               {{#ifCond status 'Cotado'}}
                 <div class="text-center my-3 justify-content-center">
                   <form action="/transaction/{{id}}?_method=PUT" method="POST">
                     <button class="btn btn-success col-12" type="submit" name="button" type="submit" name="button">Confirmar compra</button>
                   </form>
+                </div>
+                <div class="text-center my-3 justify-content-center">
                   <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
                     <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
                       Cancelar cotação
                     </button>
                   </form>
                 </div>
-                {{else}}
-                <div class="text-center my-3 justify-content-center">
-                  <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-                    <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
-                      Cancelar compra
-                    </button>
-                  </form>
-                </div>
-                {{/ifCond}}
-
-              {{/ifCond}}
-            {{else}}
-            {{#ifCond status 'Cotado'}}
-              <div class="text-center my-3 justify-content-center">
-                 <form action="/transaction/{{id}}?_method=PUT" method="POST">
-                  <button class="btn btn-success col-12" type="submit" name="button" type="submit" name="button">Confirmar compra</button>
-                </form>
-                <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-                  <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
-                    Cancelar cotação
-                  </button>
-                </form>
-              </div>
-              {{else}}
-              <div class="text-center my-3 justify-content-center">
-                <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-                  <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
-                    Cancelar compra
-                  </button>
-                </form>
-              </div>
               {{/ifCond}}
             {{/if}}
           {{/ifCond}}
@@ -385,10 +372,20 @@
 
         {{#ifNotEq status 'Cancelado'}}
           {{#ifNotEq status 'Entregue'}}
-            {{#ifNotEq userType 'Administrador'}}
-              {{#ifCond myOffer 0}}
-                {{#if franchisee}}
-                  {{#ifCond userType 'Franqueado'}}
+          {{#ifNotEq status 'Cotado'}}
+              {{#ifNotEq userType 'Administrador'}}
+                {{#ifCond myOffer 0}}
+                  {{#if franchisee}}
+                    {{#ifCond userType 'Franqueado'}}
+                      <div class="text-center my-3 justify-content-center">
+                        <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+                          <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
+                            Cancelar compra
+                          </button>
+                        </form>
+                      </div>
+                    {{/ifCond}}
+                  {{else}}
                     <div class="text-center my-3 justify-content-center">
                       <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
                         <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
@@ -396,17 +393,9 @@
                         </button>
                       </form>
                     </div>
-                  {{/ifCond}}
-                {{else}}
-                  <div class="text-center my-3 justify-content-center">
-                    <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-                      <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
-                        Cancelar compra
-                      </button>
-                    </form>
-                  </div>
-                {{/if}}
-              {{/ifCond}}
+                  {{/if}}
+                {{/ifCond}}
+              {{/ifNotEq}}
             {{/ifNotEq}}
           {{/ifNotEq}}
         {{/ifNotEq}}

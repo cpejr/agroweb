@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 /**
  * GET Terms page
  */
-router.get('/', (req, res) => {
+router.get('/terms', (req, res) => {
   res.render('terms', { title: 'Termos', layout: 'layout' });
 });
 

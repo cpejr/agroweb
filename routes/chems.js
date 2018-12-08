@@ -81,7 +81,7 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
 /**
  * PUT Update - Update a chem in the database
  */
-router.post('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+router.put('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const { chem } = req.body;
   Chem.update(req.params.id, chem).catch((error) => {
     console.log(error);
@@ -99,7 +99,7 @@ router.delete('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
     console.log(error);
     res.redirect('/error');
   });
-  req.flash('success', 'Princípio ativo removido.');
+  req.flash('success', 'Princípio ativo desativado.');
   res.redirect('/chems');
 });
 

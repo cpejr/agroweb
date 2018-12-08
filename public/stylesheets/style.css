@@ -6217,7 +6217,9 @@ nav .form-control {
     transition: width 1s;
     transition-timing-function: cubic-bezier(0.42, 0, 0.58, 1); }
   .card1:hover .side-animation {
-    width: 10.0em; } }
+    width: 10.0em; }
+  .card1:hover {
+    cursor: pointer; } }
 
 .smaller-font {
   font-size: .7em; }
@@ -6828,5 +6830,8 @@ a.more-link {
   -moz-animation-name: fadeInDown;
   -o-animation-name: fadeInDown;
   animation-name: fadeInDown; }
+
+.cursor-default {
+  cursor: default !important; }
 
 /*# sourceMappingURL=style.css.map */

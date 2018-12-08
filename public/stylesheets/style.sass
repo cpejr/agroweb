@@ -16,6 +16,7 @@ $gray-color3: #606060
 $gray-color4: #caccce
 $red-color: #db4437
 $green-color3: #b2ca00
+
 //
 // Default settings
 //
@@ -92,7 +93,6 @@ body
 //
 // Default fonts
 //
-
 @font-face
   font-family: 'gotham-bold'
   src: url("../fonts/officialfonts/GOTHAM-BOLD.otf") format("opentype")
@@ -207,6 +207,9 @@ nav .form-control
 
   .card1:hover .side-animation
     width: 10.0em
+
+  .card1:hover
+    cursor: pointer
 
 .smaller-font
   font-size: .7em
@@ -900,3 +903,5 @@ a.more-link
 	-o-animation-name: fadeInDown
 	animation-name: fadeInDown
 
+.cursor-default
+  cursor: default !important

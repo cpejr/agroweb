@@ -14,9 +14,9 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>Valor a pagar</th>
-          <th>Opções</th>
+          <th class="text-center">Nome</th>
+          <th class="text-center">Valor a pagar</th>
+          <th class="text-center">Opções</th>
         </tr>
       </thead>
       <tbody id="myTable">
@@ -24,8 +24,8 @@
         {{#ifCond type "Franqueado"}}
         {{#ifNotEq pendingPayment 0}}
         <tr>
-          <th scope="row">{{fullName}}</th>
-          <th scope="row">R$ {{pendingPayment}}</th>
+          <th class="text-center" scope="row">{{fullName}}</th>
+          <th class="text-center" scope="row">R$ {{pendingPayment}}</th>
           <th>
             <form action="/admin/payFranchisee/{{id}}" method="POST">
               <input type="hidden" name="pendingPayment" value = 0></input>

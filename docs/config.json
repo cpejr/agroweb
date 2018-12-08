@@ -1,7 +1,7 @@
 {
     "development": {
         "config_id": "development",
-        "cropDate": "12/11",
+        "cropDate": "15/09",
         "smallCropDate": "31/12",
         "solidFertilizerTax": "0.0025",
         "liquidFertilizerTax": "0.0075",
@@ -14,7 +14,7 @@
     },
     "production": {
         "config_id": "production",
-        "cropDate": "12/11",
+        "cropDate": "15/09",
         "smallCropDate": "31/12",
         "solidFertilizerTax": "0.0025",
         "liquidFertilizerTax": "0.0075",

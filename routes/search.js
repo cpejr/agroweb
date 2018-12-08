@@ -16,56 +16,62 @@ router.get('/', (req, res) => {
   const offerPromises = [];
   const groupPromises = [];
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
-    products.forEach((product) => {
-      const queryOffer = { product: product._id, delivery: '48 horas', active: true };
-      const sortOffer = { 'price.low': 1 };
-      const queryGroup = { productId: product._id, active: true };
-      const sortGroup = {};
-      let promise = Offer.getByQuerySorted(queryOffer, sortOffer);
-      offerPromises.push(promise);
-      promise = Group.getByQuerySorted(queryGroup, sortGroup);
-      groupPromises.push(promise);
-    });
-    Promise.all(offerPromises).then((offerResults) => {
-      Promise.all(groupPromises).then((groupResults) => {
-        const groups = groupResults[0].concat(groupResults[1]);
-        const offers = offerResults[0].concat(offerResults[1]);
-        console.log(groups);
-        console.log(offers);
+    console.log(products.length);
+    if (products.length !== 0) {
+      products.forEach((product) => {
+        const queryOffer = { product: product._id, delivery: '48 horas', active: true };
+        const sortOffer = { 'price.low': 1 };
+        const queryGroup = { productId: product._id, active: true };
+        const sortGroup = {};
+        let promise = Offer.getByQuerySorted(queryOffer, sortOffer);
+        offerPromises.push(promise);
+        promise = Group.getByQuerySorted(queryGroup, sortGroup);
+        groupPromises.push(promise);
+      });
+      Promise.all(offerPromises).then((offerResults) => {
+        Promise.all(groupPromises).then((groupResults) => {
+          const groups = groupResults[0].concat(groupResults[1]);
+          const offers = offerResults[0].concat(offerResults[1]);
+          console.log(groups);
+          console.log(offers);
 
-        let indexes = [];
-        let index = groups.indexOf(undefined);
-        while (index !== -1) {
-          indexes.push(index);
-          index = groups.indexOf(undefined, index + 1);
-        }
-        indexes.reverse();
-        indexes.forEach((idx) => {
-          groups.splice(idx, 1);
+          let indexes = [];
+          let index = groups.indexOf(undefined);
+          while (index !== -1) {
+            indexes.push(index);
+            index = groups.indexOf(undefined, index + 1);
+          }
+          indexes.reverse();
+          indexes.forEach((idx) => {
+            groups.splice(idx, 1);
+          });
+
+          indexes = [];
+          index = offers.indexOf(undefined);
+          while (index !== -1) {
+            indexes.push(index);
+            index = offers.indexOf(undefined, index + 1);
+          }
+          indexes.reverse();
+          indexes.forEach((idx) => {
+            offers.splice(idx, 1);
+          });
+
+          console.log(groups);
+          console.log(offers);
+          res.render('results', { title: `Resultados para "${req.query.filter}"`, groups, offers });
+        }).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
         });
-
-        indexes = [];
-        index = offers.indexOf(undefined);
-        while (index !== -1) {
-          indexes.push(index);
-          index = offers.indexOf(undefined, index + 1);
-        }
-        indexes.reverse();
-        indexes.forEach((idx) => {
-          offers.splice(idx, 1);
-        });
-
-        console.log(groups);
-        console.log(offers);
-        res.render('results', { title: `Resultados para "${req.query.filter}"`, groups, offers });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
       });
-    }).catch((error) => {
-      console.log(error);
-      res.redirect('/error');
-    });
+    }
+    else {
+      res.render('results', { title: `Resultados para "${req.query.filter}"` });
+    }
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

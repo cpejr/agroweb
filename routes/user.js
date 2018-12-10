@@ -27,6 +27,7 @@ router.get('/', auth.isAuthenticated, (req, res) => {
       res.render('user', { title: 'Indústria', layout: 'layoutDashboard', ...req.session });
     }
     else if (req.session.userType === 'Produtor') {
+      console.log(req.session);
       res.render('user', { title: 'Produtor', layout: 'layoutDashboard', ...req.session });
     }
     else if (req.session.userType === 'Revendedor') {

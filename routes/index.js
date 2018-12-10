@@ -100,6 +100,9 @@ router.post('/login', (req, res) => {
         req.session.userUid = user.uid;
         req.session.email = currentLogged.email;
         req.session.status = currentLogged.status;
+        if (currentLogged.type === 'Produtor') {
+          req.session.franchisee = currentLogged.agreementList;
+        }
         if (req.session.userType === 'Administrador') {
           res.redirect('/admin');
         }
@@ -244,6 +247,10 @@ router.post('/signup', (req, res) => {
     console.log(`Error Message: ${error.message}`);
     res.redirect('/signup');
   });
+});
+//terms
+router.get('/terms', (req, res) => {
+  res.render('terms', { title: 'Termos de uso', layout: 'layoutDashboard' });
 });
 
 module.exports = router;

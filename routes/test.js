@@ -34,6 +34,10 @@ router.get('/', (req, res) => {
 
   res.render('teste', { title: 'Teste' });
 });
+//rotapara industryMegaPremio
+router.get('/MegaPremio', (req, res) => {
+  res.render('industryMegaPremio', { title: 'MegaPremio', layout: 'layoutHome' });
+});
 
 router.put('/:id', (req, res) => {
   const { group } = req.body;

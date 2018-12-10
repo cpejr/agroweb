@@ -57,16 +57,7 @@
 
 
     <div class="col-md-4">
-        <div class="user-input">
-          <br/>
-          <div class="input-group mb-2">
-           <div class="input-group-prepend">
-             <div class="input-group-text"><i class="fas fa-industry"></i></div>
-           </div>
-           <input name="product[manufacturer]" type="text" class="form-control input-text" required/>
-           <label class="floating-label text-dark2">Fabricante</label>
-          </div>
-        </div>
+      <input type="hidden" class="bg-light form-control" name="product[manufacturer]" value={{user.fantasyName}} readonly>
 
       <div class="user-input">
         <br/>

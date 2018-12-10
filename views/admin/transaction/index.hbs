@@ -15,37 +15,33 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Código da compra</th>
-          <th>Comprador</th>
-          <th>Preço</th>
-          <th>Status</th>
-          <th>Opções</th>
+          <th class="text-center">Código da compra</th>
+          <th class="text-center">Comprador</th>
+          <th class="text-center">Preço</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Opções</th>
         </tr>
       </thead>
       <tbody id="myTable">
         {{#each transactions}}
         {{#ifCond taxStatus 'Aguardando boleto'}}
         <tr>
-          <td>{{_id}}</td>
-          <td>{{buyer.fullName}}</td>
-          <td>{{priceBought}}</td>
-          <td>{{taxStatus}}</td>
+          <td class="text-center">{{_id}}</td>
+          <td class="text-center">{{buyer.fullName}}</td>
+          <td class="text-center">{{priceBought}}</td>
+          <td class="text-center">{{taxStatus}}</td>
           <td scope="row" class="font-light">
-            <form action="/transaction/{{_id}}" method="GET">
-              <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
-            </form>
+            <a href="/transaction/{{_id}}" class="btn btn-outline-primary font-book">Ver</a>
           </td>
         </tr>
         {{else ifCond taxStatus 'Aguardando pagamento'}}
         <tr>
-          <td>{{_id}}</td>
-          <td>{{buyer.fullName}}</td>
-          <td>{{priceBought}}</td>
-          <td>{{taxStatus}}</td>
+          <td class="text-center">{{_id}}</td>
+          <td class="text-center">{{buyer.fullName}}</td>
+          <td class="text-center">{{priceBought}}</td>
+          <td class="text-center">{{taxStatus}}</td>
           <td scope="row" class="font-light">
-            <form action="/transaction/{{_id}}" method="GET">
-              <button type="submit" class="btn btn-outline-primary font-book">Ver</button>
-            </form>
+            <a href="/transaction/{{_id}}" class="btn btn-outline-primary font-book">Ver</a>
           </td>
         </tr>
         {{/ifCond}}
@@ -73,6 +69,4 @@
     });
   });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

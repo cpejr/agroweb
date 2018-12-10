@@ -14,12 +14,12 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>Status</th>
-          <th>Tipo</th>
-          <th>E-mail</th>
-          <th>CPF/CNPJ</th>
-          <th>Opções</th>
+          <th class="text-center">Nome</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Tipo</th>
+          <th class="text-center">E-mail</th>
+          <th class="text-center">CPF/CNPJ</th>
+          <th class="text-center">Opções</th>
         </tr>
       </thead>
       <tbody id="myTable">
@@ -75,7 +75,7 @@
         <td>{{type}}</td>
         <td>{{email}}</td>
         <td>{{doc}}</td>
-        <td scope="row" class="font-light">
+        <td scope="row" class="font-light text-center">
           <button onclick="location.href='/user/profile/{{id}}'" class="btn btn-outline-info font-book">Ver</button>
         </td>
       </tr>

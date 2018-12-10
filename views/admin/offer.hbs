@@ -18,28 +18,28 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Quantidade em Estoque</th>
-          <th>Preço</th>
-          <th>Entrega</th>
-          <th>Vendedor</th>
-          <th>Produto</th>
+          <th class="text-center">Quantidade em Estoque</th>
+          <th class="text-center">Preço</th>
+          <th class="text-center">Entrega</th>
+          <th class="text-center">Vendedor</th>
+          <th class="text-center">Produto</th>
           <th colspan="2" class="text-center">Opções</th>
         </tr>
       </thead>
       <tbody id="myTable">
         {{#each offers}}
         <tr>
-          <td class="font-book">{{stock}}</td>
-          <td class="font-book" data-usd={{usd}}>R$ {{price.average}}</td>
-          <td class="font-book">{{delivery}}</td>
-          <td class="font-book">{{seller.fullName}}</td>
-          <td class="font-book">{{product.name}}</td>
-          <td class="font-book">
+          <td class="font-book text-center">{{stock}}</td>
+          <td class="font-book text-center" data-usd={{usd}}>R$ {{price.average}}</td>
+          <td class="font-book text-center">{{delivery}}</td>
+          <td class="font-book text-center">{{seller.fullName}}</td>
+          <td class="font-book text-center">{{product.name}}</td>
+          <td class="font-book text-center">
             <button onclick="location.href='/offers/{{id}}'" class="btn btn-outline-info">
               Ver
             </button>
           </td>
-          <td class="font-book">
+          <td class="font-book text-center">
             <form action="/offers/{{id}}?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-outline-danger">Excluir</button>
             </form>

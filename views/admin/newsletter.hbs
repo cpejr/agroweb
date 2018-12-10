@@ -15,16 +15,16 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Opções</th>
+          <th class="text-center">Nome</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Opções</th>
         </tr>
       </thead>
       <tbody id="myTable">
         {{#each users}}
         <tr>
-          <td class="font-book">{{fullName}}</td>
-          <td class="font-book">{{email}}</td>
+          <td class="font-book text-center">{{fullName}}</td>
+          <td class="font-book text-center">{{email}}</td>
           <th scope="row">
             <form action="/newsletter/{{id}}?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-outline-danger">

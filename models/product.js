@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
   description: String,
   unit: {
     type: String,
-    enum: ['Quilograma', 'Unidade'],
+    enum: ['kg', 'un', 'L', 'ton'],
     required: true
   },
   active: {

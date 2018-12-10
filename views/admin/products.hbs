@@ -20,9 +20,9 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>Categoria</th>
-          <th>Fabricante</th>
+          <th class="text-center">Nome</th>
+          <th class="text-center">Categoria</th>
+          <th class="text-center">Fabricante</th>
           <th colspan="3" class="text-center">Opções</th>
         </tr>
       </thead>
@@ -32,13 +32,13 @@
           <th scope="row" class="font-book">{{name}}</th>
           <th scope="row" class="font-light">{{category}}</th>
           <th scope="row" class="font-light">{{manufacturer}}</th>
-          <th scope="row" class="font-light">
+          <th scope="row" class="font-light text-center">
             <button onclick="location.href='/products/{{id}}'" class="btn btn-outline-success font-book">Ver</button>
           </th>
-          <th scope="row" class="font-light">
+          <th scope="row" class="font-light text-center">
             <button onclick="location.href='/products/{{id}}/edit'" class="btn btn-outline-warning font-book">Editar</button>
           </th>
-          <th scope="row" class="font-light">
+          <th scope="row" class="font-light text-center">
             <form action="/products/{{id}}?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-outline-danger font-book">Excluir</button>
             </form>

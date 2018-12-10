@@ -20,26 +20,25 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>Status</th>
-          <th>Opções</th>
+          <th class="text-center">Nome</th>
+          <th></th>
         </tr>
       </thead>
       <tbody id="myTable">
         {{#each chems}}
         <tr>
           <th scope="row" class="font-book">{{name}}</th>
-          <th scope="row" class="font-book">
+          <th class="text-center">
             {{#if active}}
-            Ativo
-            {{else}}
-            Inativo
-            {{/if}}
-          </th>
-          <th>
             <form action="/chems/{{id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-outline-danger font-book">Desativar</button>
+              <button type="submit" class="btn btn-outline-danger font-book col-4">Desativar</button>
             </form>
+            {{else}}
+            <form action="/chems/{{id}}?_method=PUT" method="POST">
+              <input type="hidden" name="chem[active]" value="true">
+              <button type="submit" class="btn btn-outline-success font-book col-4">Ativar</button>
+            </form>
+            {{/if}}
           </th>
         </tr>
         {{/each}}
@@ -65,6 +64,4 @@ $(document).ready(function(){
   });
 });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {{/section}}

@@ -57,16 +57,7 @@
 
 
     <div class="col-md-4">
-        <div class="user-input">
-          <br/>
-          <div class="input-group mb-2">
-           <div class="input-group-prepend">
-             <div class="input-group-text"><i class="fas fa-industry"></i></div>
-           </div>
-           <input name="product[manufacturer]" type="text" class="form-control input-text" required/>
-           <label class="floating-label text-dark2">Fabricante</label>
-          </div>
-        </div>
+      <input type="hidden" class="bg-light form-control" name="product[manufacturer]" value={{user.fantasyName}} readonly>
 
       <div class="user-input">
         <br/>
@@ -76,8 +67,10 @@
          </div>
          <select class="form-control new-shadow" name="product[unit]" id="un">
            <option disabled selected value> -- Unidade -- </option>
-           <option value="Quilograma">Quilograma</option>
-           <option value="Unidade">Unidade</option>
+           <option value="kg">Quilograma</option>
+           <option value="un.">Unidade</option>
+           <option value="L">Litros</option>
+           <option value="ton">Toneladas</option>
          </select>
         </div>
         <input type="radio" name="product[generic]" value="Original"></input>

@@ -8,7 +8,7 @@
 
 <!-- ResultsList -->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
-  <div class="col-sm-12 col-md-5 col-lg-4 btn p-3">
+  <div class="col-sm-12 col-md-5 col-lg-4 btn p-3 cursor-default">
     {{#if offers}}
       {{#each offers}}
       <div class="p-1">
@@ -76,13 +76,12 @@
       {{else}}
       {{#if groups}}
       {{else}}
+    </div>
       <div class="container">
         <p class="text-center font-light">Não foram encontrados resultados de ofertas para sua busca.</p>
       </div>
       {{/if}}
-
     {{/if}}
-
     {{#if groups}}
       {{#each groups}}
       <div class="p-1">
@@ -100,7 +99,6 @@
                 <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
                 {{/ifCond}}
               </div>
-
 
                 <div class="col p-2">
                   <div class="vl">
@@ -141,7 +139,6 @@
       </div>
       {{/each}}
     {{/if}}
-
   </div>
 </div>
 <!-- end ResultsList -->

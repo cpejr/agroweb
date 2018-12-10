@@ -1,6 +1,7 @@
 const express = require('express');
 const Chem = require('../models/chem');
 const Product = require('../models/product');
+const User = require('../models/user');
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -22,7 +23,13 @@ router.get('/', (req, res) => {
  */
 router.get('/new', (req, res) => {
   const { userType } = req.session;
-  res.render('products/new', { title: 'Novo Produto', userType });
+  User.getById(req.session._id).then((user) => {
+    console.log(user);
+    res.render('products/new', { title: 'Novo Produto', userType, user });
+  }).catch((error) => {
+    req.flash('danger', 'Não foi possível fazer o pedido.');
+    res.redirect('/user');
+  });
 });
 
 /**

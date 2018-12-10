@@ -14,12 +14,14 @@
       <h4>Descrição</h4>
       <p class="font-light"> {{product.description}} </p>
 
+      {{#ifNotEq delivery '48 horas'}}
       <h4>Vendedor(a)</h4>
       <p class="font-light">{{seller.fullName}}</p>
-
+      {{/ifNotEq}}
+      
       <h4>Ingredientes ativos</h4>
-      {{#each product.chem}}
-        <p class="font-light">{{name}}</p>
+      {{#each chems}}
+        <p class="font-light">..{{name}}</p>
       {{/each}}
 
       <h4>Forma de entrega</h4>

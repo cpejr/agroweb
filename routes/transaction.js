@@ -6,7 +6,6 @@ const Product = require('../models/product');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
 const Dollar = require('../functions/money');
-const Config = require('../functions/config')
 const auth = require('./middleware/auth');
 
 const router = express.Router();
@@ -185,7 +184,6 @@ router.get('/:id', (req, res) => {
  * PUT Update - Update a transaction in the database
  */
 router.put('/:id', (req, res) => {
-  Config.getConfigValue().then((config) => {
     Transaction.getById(req.params.id).then((transaction) => {
       let transactionData = {};
       const data = {
@@ -196,19 +194,23 @@ router.put('/:id', (req, res) => {
         transactionData.status = 'Aguardando boleto';
         if (transaction.franchisee) {
           let tax = 0;
-
+          console.log(global.gConfig);
           if (transaction.offer.product.category === 'Fertilizantes sólidos') {
-            tax = config.solidFertilizerTax;
+            tax = global.gConfig.solidFertilizerTax;
           }
           else if (transaction.offer.product.category === 'Defensivos agrícolas/agrotóxicos') {
-            tax = config.defensiveTax;
+            tax = global.gConfig.defensiveTax;
           }
           else if (transaction.offer.product.category === 'Sementes') {
-            tax = config.seedTax;
+            tax = global.gConfig.seedTax;
           }
           else if (transaction.offer.product.category === 'Fertilizantes líquidos/adjuvantes/biológicos') {
-            tax = config.liquidFertilizerTax;
+            tax = global.gConfig.liquidFertilizerTax;
           }
+
+          console.log(transaction.offer.product.category);
+          console.log(tax);
+          console.log(transaction.priceBought);
 
           transactionData.taxStatus = 'Aguardando boleto';
           transactionData.franchiseeTaxStatus = 'Não necessário';
@@ -403,11 +405,6 @@ router.put('/:id', (req, res) => {
       req.flash('danger', 'Não foi possível encontrar essa transação.');
       res.redirect('/user');
     });
-  }).catch((error) => {
-    console.log(error);
-    req.flash('danger', 'Não foi possível pegar o valor da taxa sobre essa categoria de produto.');
-    res.redirect('/user');
-  });
 });
 
 /**
@@ -502,12 +499,6 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
             req.flash('danger', 'Não foi possível atualizar o usuário.');
             res.redirect('/user');
           });
-          Transaction.update(transaction._id, transaction).then(() => {
-            res.redirect('/user/sales');
-          }).catch((error) => {
-            req.flash('danger', 'Não foi possível atualizaçar transação.');
-            res.redirect('/user');
-          });
         }
       }).catch((error) => {
         req.flash('danger', 'Não foi possível encontrar o usuário.');
@@ -532,7 +523,7 @@ router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
         req.flash('success', 'Status da transação atualizado para: Pagamento confirmado.');
         break;
       case 'Produto a caminho':
-        req.flash('success', 'Status da transação atualizado para: Pagamento confirmado.');
+        req.flash('success', 'Status da transação atualizado para: Produto a caminho.');
         break;
       case 'Entregue':
         req.flash('success', 'Produto entregue.');

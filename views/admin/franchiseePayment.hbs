@@ -26,7 +26,7 @@
         <tr>
           <th class="text-center" scope="row">{{fullName}}</th>
           <th class="text-center" scope="row">R$ {{pendingPayment}}</th>
-          <th>
+          <th class="text-center">
             <form action="/admin/payFranchisee/{{id}}" method="POST">
               <input type="hidden" name="pendingPayment" value = 0></input>
               <button type="submit" align="center" class="btn btn-outline-info" name="status">

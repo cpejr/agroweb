@@ -70,10 +70,12 @@
               </ul>
             </div>
           </div>
-          <nav class="navbar gradient-background pl-2 pt-2">
+          <nav class="navbar gradient-background pl-2 pt-2 ">
             <row>
               <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars fa-2x"></i>
+                <i class="d-inline d-sm-none card-icon fas fa-bars fa-sm align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bars fa-2x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-bars fa-2x align-self-center"></i>
               </button>
             </row>
             <row>
@@ -87,7 +89,7 @@
                 </form>
                 {{/ifCond}}
                 {{else}}
-                <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
+                <form action="../search" method="get" class="input-wrapper float-right mt-0 mb-3  searchbar">
                   <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
                   <label for="searchbar-icon" class="fas fa-search input-icon"></label>
                 </form>
@@ -95,8 +97,8 @@
                 {{/ifNotEq}}
               </div>
 
-              <div class="col-sd-6 float-right pt-3 m-3">
-                <h6 class="font3 mobile-font2 text-light">Dólar: {{usdValue}}
+              <div class="col-sd-6 float-right pt-4 mx-3 mt-2">
+                <h6 class="font3 mobile-font0 text-light">Dólar: {{usdValue}}
                   {{{rising}}}
                 </h6>
               </div>

@@ -70,17 +70,23 @@
               </ul>
             </div>
           </div>
-          <nav class="navbar gradient-background pl-2 pt-2">
+          <nav class="navbar gradient-background pl-2 pt-3">
             <row>
               <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars fa-2x"></i>
+                <i class="d-inline d-sm-none card-icon fas fa-bars fa-xs align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bars fa-2x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-bars fa-2x align-self-center"></i>
               </button>
               <button class="btn btn-outline-dark  nav-color-change float-left" type="button" onclick="history.back()">
-                <i class="fas fa-arrow-left fa-2x "></i>
+                <i class="d-inline d-sm-none card-icon fas fa-arrow-left fa-xs align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-arrow-left fa-2x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-arrow-left fa-2x align-self-center"></i>
+
+
               </button>
             </row>
             <row>
-              <div class="col-sd-6 float-right mt-3 mr-3">
+              <div class="col-sd-6 float-right mt-2 mb-0 mr-0">
                 {{#ifNotEq userType 'Indústria'}}
                 {{#if franchisee}}
                 {{#ifCond userType 'Franqueado'}}
@@ -98,8 +104,8 @@
                 {{/ifNotEq}}
               </div>
 
-              <div class="col-sd-6 float-right m-3 pt-3">
-                <h6 class="font3 mobile-font2 text-light">Dólar: {{usdValue}}
+              <div class="col-sd-6 float-left mt-3 mr-1 mt-md-2  pt-3">
+                <h6 class="font3 mobile-font0 text-light">Dólar: {{usdValue}}
                   {{{rising}}}
                 </h6>
               </div>

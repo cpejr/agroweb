@@ -50,7 +50,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  -webkit-tap-highlight-color: transparent; }
 
 @-ms-viewport {
   width: device-width; }
@@ -7931,11 +7931,13 @@ a.more-link {
 /* Responsive style changes */
 @media (max-width: 375px) {
   .mobile-font0 {
-    font-size: .6em !important; }
+    font-size: .7em !important; }
   .mobile-fontCT {
     font-size: .9em !important; } }
 
 @media (max-width: 769px) {
+  .mobile-font0 {
+    font-size: .9em; }
   .mobile-font1 {
     font-size: .7em; }
   .mobile-font2 {
@@ -7965,7 +7967,7 @@ a.more-link {
     -moz-transition: all .5s;
     transition: all .5s; }
   .searchbar input[type=search]:focus {
-    width: 100px;
+    width: 80px;
     background-color: transparent;
     border-color: #66CC75;
     -webkit-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);

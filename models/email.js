@@ -142,7 +142,7 @@ class Email {
     const subject = 'MEGAPOOL: Conta ativada';
     const emailContent = {
       // clientEmail: data.email,
-      clientEmail: 'lucaschaia@hotmail.com',      
+      clientEmail: 'lucaschaia@hotmail.com',
       subject,
       content
     };
@@ -205,7 +205,7 @@ class Email {
   static inactivatedUsersEmail(data) {
     console.log('Email inativado enviado');
     const content = `Prezado(a) ${data.firstName},
-     Sua conta Megapool acabou de ser inativada. Para reativá-la, basta logar novamente na plaforma. A reativação será feita imediatamente no acesso.`;
+     Sua conta Megapool acabou de ser inativada. Para reativá-la, basta logar novamente na plataforma. A reativação será feita imediatamente no acesso.`;
     const subject = 'MEGAPOOL: Conta inativada';
     const emailContent = {
       clientEmail: data.email,
@@ -291,9 +291,7 @@ class Email {
         Nome: ${data.offer.seller.fullName}
         Email: ${data.offer.seller.email}
         Telefone: ${data.offer.seller.phone}
-        Celular: ${data.offer.seller.cellphone}
-
-        Se você não fez essa compra, clique no link: `;
+        Celular: ${data.offer.seller.cellphone} `;
         const subject = 'MEGAPOOL: Compra realizada com sucesso';
         const emailContent = {
           clientEmail: data.buyer.email,

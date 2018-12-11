@@ -21,20 +21,20 @@
       <tbody id="myTable">
         {{#each products}}
         <tr>
-          <th scope="row">{{name}}</th>
-          <td>
+          <th scope="row" class="text-center">{{name}}</th>
+          <td class="text-center">
             <button onclick="location.href='/products/{{_id}}'" class="btn btn-outline-info font-book">
               Ver
             </button>
           </td>
-          <td>
+          <td class="text-center">
             <form  method= "POST" action="/admin/{{id}}/requisitions/products">
               <button type="submit" align="center" class="btn btn-outline-success" name="status">
                 Aprovar
               </button>
             </form>
           </td>
-          <td>
+          <td class="text-center">
             <form action="/admin/{{id}}?_method=DELETE" method="POST">
               <button type="submit" align="center" class="btn btn-outline-danger" name="status">
                 Reprovar

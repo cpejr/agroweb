@@ -51,7 +51,7 @@
                       </a>
                     </li>
                     <li class="nav-item active">
-                      <a class="nav-link font3" href="#">
+                      <a class="nav-link font3" href="/user/doubts">
                         DÚVIDAS FREQUENTES
                       </a>
                     </li>
@@ -70,51 +70,41 @@
               </ul>
             </div>
           </div>
-      <nav class="navbar gradient-background pl-2 pt-2">
-        <row>
-          <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars fa-2x"></i>
-          </button>
-          <button class="btn btn-outline-dark  nav-color-change float-left" type="button" onclick="history.back()">
-            <i class="fas fa-arrow-left fa-2x "></i>
-          </button>
-          </row>
-      <row>
-    {{#ifNotEq userType 'Indústria'}}
-    {{#if franchisee}}
-      {{#ifCond userType 'Franqueado'}}
-        <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-          <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
-          <label for="searchbar-icon" class="fas fa-search input-icon"></label>
-        </form>
-      {{/ifCond}}
-    {{else}}
-          <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-               <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
-               <label for="searchbar-icon" class="fas fa-search input-icon"></label>
-          </form>
-    {{/if}}
-      {{/ifNotEq}}
-          <div class="float-right mt-3 mr-3">
-            <h6 class="font3 mobile-font2 text-light">Dólar: {{usdValue}}
-              {{{rising}}}
-            </h6>
-          </div>
-      </row>
+          <nav class="navbar gradient-background pl-2 pt-2">
+            <row>
+              <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars fa-2x"></i>
+              </button>
+              <button class="btn btn-outline-dark  nav-color-change float-left" type="button" onclick="history.back()">
+                <i class="fas fa-arrow-left fa-2x "></i>
+              </button>
+            </row>
+            <row>
+              <div class="col-sd-6 float-right mt-3 mr-3">
+                {{#ifNotEq userType 'Indústria'}}
+                {{#if franchisee}}
+                {{#ifCond userType 'Franqueado'}}
+                <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
+                  <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+                  <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+                </form>
+                {{/ifCond}}
+                {{else}}
+                <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
+                  <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+                  <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+                </form>
+                {{/if}}
+                {{/ifNotEq}}
+              </div>
 
-        <!-- <form id="navbar-form" action="../search" method="get" class="float-right my-2 my-lg-0 my-sm-0">
-          <row>
-          <input class="form-control my-2 my-sm-0 pr-4 float-right col-9" type="search" name="filter" placeholder="Buscar">
-          <button class="btn btn-outline-dark " type="button" id="show">
-            <i class="fas fa-search fa-2x"></i>
-          </button>
-          <button class="btn btn-outline-dark d-none float-left" type="submit" id="search">
-            <i class="fas fa-search fa-2x"></i>
-          </button>
-        </row>
-        </form> -->
-
-      </nav>
+              <div class="col-sd-6 float-right m-3 pt-3">
+                <h6 class="font3 mobile-font2 text-light">Dólar: {{usdValue}}
+                  {{{rising}}}
+                </h6>
+              </div>
+            </row>
+          </nav>
     </div>
     <!-- end Header and NavBar -->
     <div class="agro-alert col-12 col-lg-4 col-md-6">

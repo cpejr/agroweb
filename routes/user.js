@@ -526,7 +526,7 @@ router.post('/change', auth.isAuthenticated, (req, res) => {
 router.post('/indication', (req, res) => {
 User.getById(req.session._id).then((users) => {
     console.log(users);
-    Email.Indication(users).catch((error) => {
+    Email.indication(users).catch((error) => {
 
     });
     User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: true }, {}).then((users) => {
@@ -540,7 +540,14 @@ User.getById(req.session._id).then((users) => {
     req.flash('danger', 'Não foi possível enviar email de compra.');
     res.redirect('/error');
 });
-req.flash('success', 'Um aviso foi enviado para o administrador, ele te retornará em seu email em breve');
+req.flash('success', 'Um aviso foi enviado para o administrador. Em breve, ele te retornará em seu email.');
+});
+
+/*
+ * GET contract request page
+ */
+router.get('/doubts', auth.isAuthenticated, (req, res) => {
+  res.render('doubts', { title: 'Dúvidas frequentes', layout: 'layout' });
 });
 
 module.exports = router;

@@ -23,7 +23,7 @@ class Email {
    */
   static sendEmail(data) {
     const config = {
-      from: 'andreluis@cpejr.com.br',
+      from: 'admcpejr@megapool.com.br',
       to: data.clientEmail,
       subject: data.subject,
       text: data.content
@@ -65,7 +65,6 @@ class Email {
 
 
   static contractApprovedEmail(data, franchisee) {
-    console.log('Franqueado: '+ franchisee);
     console.log('Email contrato aprovado');
     const content = `Prezado(a) ${data.firstName},
      ${franchisee} acabou de aceitar sua solicitação de franqueamento. A partir de agora, ele poderá realizar cotações e compras para você, facilitando muito sua experiência na plataforma Megapool.`;
@@ -131,10 +130,19 @@ class Email {
   static approvedUsersEmail(data) {
     console.log('Email aprovado enviado');
     const content = `Prezado(a) ${data.firstName},
-    Sua conta Megapool acabou de ser ativada. A partir de agora você poderá entrar com seu email e senha na plataforma, começando a fazer suas atividades. Aproveite!`;
+    Sua conta Megapool acabou de ser ativada. A partir de agora você poderá entrar com seu email e senha na plataforma, começando a fazer suas atividades.
+    Os usuários da plataforma devem pagar à equipe Megapool uma taxa sob suas vendas proporcional ao valor do produto negociado e que dependente da categoria do produto. Esses valores podem ser vistos a seguir:
+    Defensivos agrícolas/Agroquímicos -> 1%
+    Sementes em geral -> 2%
+    Fertilizantes sólidos de base -> 0,65%
+    Fertilizantes liquidos/Adjuvantes/Biológicos -> 3%
+    Produtos Mega Oportunidade -> 3%
+
+    Aproveite!`;
     const subject = 'MEGAPOOL: Conta ativada';
     const emailContent = {
-      clientEmail: data.email,
+      // clientEmail: data.email,
+      clientEmail: 'lucaschaia@hotmail.com',      
       subject,
       content
     };
@@ -288,8 +296,7 @@ class Email {
         Se você não fez essa compra, clique no link: `;
         const subject = 'MEGAPOOL: Compra realizada com sucesso';
         const emailContent = {
-          clientEmail: 'andrecosta.leao@gmail',
-          // clientEmail: data.buyer.email,
+          clientEmail: data.buyer.email,
           subject,
           content
         };
@@ -409,7 +416,7 @@ class Email {
      });
    }
 
-  static FranchiseeEmail(data) {
+  static franchiseeEmail(data) {
     console.log('Franchisee Email');
 
     return new Promise((resolve) => {
@@ -451,7 +458,7 @@ class Email {
       });
     });
   }
-  static Indication(data) {
+  static indication(data) {
     console.log('Indication');
     return new Promise((resolve) => {
       const content = `Prezado administrador,
@@ -462,7 +469,7 @@ class Email {
       Celular: ${data.cellphone}  `;
       const subject = `Olá administrador, um cliente gostaria de uma indicação`;
       const emailContent = {
-        clientEmail: 'andrecosta.leao@gmail.com',
+        clientEmail: 'admcpejr@megapool.com.br',
         subject,
         content
       };

@@ -262,7 +262,7 @@ router.put('/:id', (req, res) => {
               User.getById(transaction.franchisee).then((franchi) => {
                 Trans.franchisee = franchi;
                 console.log(Trans.franchisee);
-                Email.FranchiseeEmail(Trans).catch((error) => {
+                Email.franchiseeEmail(Trans).catch((error) => {
                   console.log(error);
                   req.flash('danger', 'Não foi possível enviar email do Franqueado.');
                   res.redirect('/user');

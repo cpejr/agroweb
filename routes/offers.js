@@ -181,7 +181,8 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
       }
       if (offer) {
         console.log(myOffer);
-        res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, myOffer, clients, ...offer });
+        const chems = offer.product.chems;
+        res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, myOffer, chems, clients, ...offer });
       }
       else {
         console.log('Offer not found!');

@@ -407,10 +407,54 @@
     </form>
   </div>
 </div>
-{{/ifCond}}
-{{/ifCond}}
+{{else}}
+  <div class="dropdown pr-4 pb-4 mx-auto">
+    <div class="pl-lg-3 pr-lg-3 ml-lg-3 mr-lg-3 mx-auto">
+    <div class="pl-lg-5 pr-lg-5 pb-lg-5 ml-lg-5 mr-lg-5 mx-auto">
+
+    <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+    {{#ifCond user.status 'Ativo'}}
+    class="btn btn-outline-success dropdown-toggle col-lg-2 col-md-4 col-sm-6 mx-auto">
+    Ativo
+
+    {{else ifCond user.status 'Inativo'}}
+    class="btn btn-outline-warning dropdown-toggle col-lg-2 col-md-4 col-sm-6 mx-auto">
+    Inativo
+
+    {{else ifCond user.status 'Bloqueado'}}
+    class="btn btn-outline-danger dropdown-toggle col-lg-2 col-md-4 col-sm-6 mx-auto">
+    Bloqueado
+
+    {{/ifCond}}
+
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+    <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+      <a class="dropdown-item" href="#">
+        <button type="submit" align="center" class="btn btn-outline-success col-12" name="status" value="Ativo">
+          Ativar
+        </button>
+      </a>
+    </form>
+    <form method= "POST" action="/admin/{{id}}/updateUserActive">
+      <a class="dropdown-item " href="#">
+        <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Inativo">
+          Inativar
+        </button>
+      </a>
+    </form>
+    <form  method= "POST" action="/admin/{{id}}/updateUserActive">
+      <a class="dropdown-item" href="#">
+        <button type="submit" align="center" class="btn btn-outline-danger col-12" name="status" value="Bloqueado">
+          Bloquear
+        </button>
+      </a>
+    </form>
+  </div>
 
 
+{{/ifCond}}
+{{/ifCond}}
 
 {{#section 'scripts'}}
 {{/section}}

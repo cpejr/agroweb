@@ -19,6 +19,7 @@
           <th class="text-center">Tipo</th>
           <th class="text-center">E-mail</th>
           <th class="text-center">CPF/CNPJ</th>
+          <th class="d-none text-center"></th>
           <th class="text-center">Opções</th>
         </tr>
       </thead>
@@ -26,9 +27,29 @@
         {{#each users}}
         {{#ifCond status 'Aguardando aprovação'}}
         {{else}}
+
         <tr>
           <td scope="row" class="text-center">{{fullName}}</td>
           <td class="text-center">
+            <div class="dropdown">
+              <button name="taxStatus"  type="" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              {{#ifCond status 'Ativo'}}
+              class="btn btn-success col-12">
+              {{status}}
+
+              {{else ifCond status 'Inativo'}}
+              class="btn btn-warning col-12">
+              {{status}}
+
+              {{else ifCond status 'Bloqueado'}}
+              class="btn btn-danger col-12">
+              {{status}}
+
+              {{/ifCond}}
+
+            </button>
+          </td>
+          <!-- <td>
             <div class="dropdown">
               <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
               {{#ifCond status 'Ativo'}}
@@ -41,7 +62,6 @@
 
               {{else ifCond status 'Bloqueado'}}
               class="btn btn-outline-danger dropdown-toggle col-12">
-              Bloqueado
 
               {{/ifCond}}
 
@@ -70,7 +90,6 @@
               </form>
             </div>
           </div>
-
         </td>
         <td class="text-center">{{type}}</td>
         <td class="text-center">{{email}}</td>

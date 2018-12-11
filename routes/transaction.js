@@ -163,7 +163,7 @@ router.get('/:id', (req, res) => {
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
       let myOffer;
-      if (transaction.offer.seller._id === req.session._id) {
+      if (transaction.offer.seller._id == req.session._id) {
         myOffer = 1;
       }
       else {

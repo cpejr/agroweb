@@ -40,6 +40,10 @@ const transactionSchema = new mongoose.Schema({
     enum: ['Não necessário', 'Pendente', 'Pago'],
     default: 'Não necessário'
   },
+  taxValue: {
+    type: Number,
+    default: 0
+  },
   franchiseeTaxValue: {
     type: Number,
     default: 0

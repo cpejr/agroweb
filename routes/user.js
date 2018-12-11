@@ -113,6 +113,26 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
   });
 });
 
+router.post('/inactive', auth.isAuthenticated, (req, res) => {
+  User.getById(req.session._id).then((user) => {
+      console.log('Enviando email para aprovar um usuário');
+      Email.inactivatedUsersEmail(user).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar o email para o usuário inativado.');
+        res.redirect('/login');
+      });
+  });
+  const user = {
+    status: 'Inativo'
+  };
+  User.update(req.session._id, user).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  req.flash('success', 'Usuário inativado.');
+  res.redirect('/logout');
+});
+
+
 /**
  * GET contact page
  */

@@ -21,15 +21,13 @@
       <tbody id="myTable">
         {{#each products}}
         <tr>
-          <th scope="row">{{name}}</th>
-          <td>
-            <div class="row">
-              <button onclick="location.href='/products/{{_id}}'" class="btn btn-outline-info font-book mx-auto">
-                Ver
-              </button>
-            </div>
+          <th scope="row" class="text-center">{{name}}</th>
+          <td class="text-center">
+            <button onclick="location.href='/products/{{_id}}'" class="btn btn-outline-info font-book">
+              Ver
+            </button>
           </td>
-          <td>
+          <td class="text-center">
             <form  method= "POST" action="/admin/{{id}}/requisitions/products">
               <div class="row">
                 <button type="submit" align="center" class="btn btn-outline-success mx-auto" name="status">
@@ -38,7 +36,7 @@
               </div>
             </form>
           </td>
-          <td>
+          <td class="text-center">
             <form action="/admin/{{id}}?_method=DELETE" method="POST">
               <div class="row">
                 <button type="submit" align="center" class="btn btn-outline-danger mx-auto" name="status">

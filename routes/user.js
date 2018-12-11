@@ -113,6 +113,26 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
   });
 });
 
+router.post('/inactive', auth.isAuthenticated, (req, res) => {
+  User.getById(req.session._id).then((user) => {
+      console.log('Enviando email para aprovar um usuário');
+      Email.inactivatedUsersEmail(user).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar o email para o usuário inativado.');
+        res.redirect('/login');
+      });
+  });
+  const user = {
+    status: 'Inativo'
+  };
+  User.update(req.session._id, user).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+  req.flash('success', 'Usuário inativado.');
+  res.redirect('/logout');
+});
+
+
 /**
  * GET contact page
  */
@@ -526,7 +546,7 @@ router.post('/change', auth.isAuthenticated, (req, res) => {
 router.post('/indication', (req, res) => {
 User.getById(req.session._id).then((users) => {
     console.log(users);
-    Email.Indication(users).catch((error) => {
+    Email.indication(users).catch((error) => {
 
     });
     User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: true }, {}).then((users) => {
@@ -540,7 +560,14 @@ User.getById(req.session._id).then((users) => {
     req.flash('danger', 'Não foi possível enviar email de compra.');
     res.redirect('/error');
 });
-req.flash('success', 'Um aviso foi enviado para o administrador, ele te retornará em seu email em breve');
+req.flash('success', 'Um aviso foi enviado para o administrador. Em breve, ele te retornará em seu email.');
+});
+
+/*
+ * GET contract request page
+ */
+router.get('/doubts', auth.isAuthenticated, (req, res) => {
+  res.render('doubts', { title: 'Dúvidas frequentes', layout: 'layout' });
 });
 
 module.exports = router;

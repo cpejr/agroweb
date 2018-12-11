@@ -163,7 +163,7 @@ router.get('/:id', (req, res) => {
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
       let myOffer;
-      if (transaction.offer.seller._id === req.session._id) {
+      if (transaction.offer.seller._id == req.session._id) {
         myOffer = 1;
       }
       else {
@@ -262,7 +262,7 @@ router.put('/:id', (req, res) => {
               User.getById(transaction.franchisee).then((franchi) => {
                 Trans.franchisee = franchi;
                 console.log(Trans.franchisee);
-                Email.FranchiseeEmail(Trans).catch((error) => {
+                Email.franchiseeEmail(Trans).catch((error) => {
                   console.log(error);
                   req.flash('danger', 'Não foi possível enviar email do Franqueado.');
                   res.redirect('/user');

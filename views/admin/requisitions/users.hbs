@@ -23,21 +23,21 @@
         {{#each users}}
         {{#ifCond status 'Aguardando aprovação'}}
         <tr>
-          <th scope="row">{{fullName}}</th>
-          <td>{{type}}</td>
-          <td>
+          <th scope="row" class="text-center">{{fullName}}</th>
+          <td class="text-center">{{type}}</td>
+          <td class="text-center">
             <button onclick="location.href='/user/profile/{{_id}}'" class="btn btn-outline-info font-book">
               Perfil
             </button>
           </td>
-          <td>
+          <td class="text-center">
             <form  method= "POST" action="/admin/{{id}}/requisitions/users">
               <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
                 Aceitar
               </button>
             </form>
           </td>
-          <td>
+          <td class="text-center">
             <form  method= "POST" action="/admin/{{id}}/requisitions/users">
               <button type="submit" align="center" class="btn btn-outline-danger " name="status" value="Bloqueado">
                 Bloquear

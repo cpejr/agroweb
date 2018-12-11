@@ -21,13 +21,24 @@
       <thead>
         <tr>
           <th class="text-center">Nome</th>
-          <th></th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Opções</th>
         </tr>
       </thead>
       <tbody id="myTable">
         {{#each chems}}
         <tr>
-          <th scope="row" class="font-book">{{name}}</th>
+          <th scope="row" class="font-book text-center">{{name}}</th>
+          <!-- <th scope="row" class="font-book">{{active}}</th> -->
+
+          <th class="text-center">
+            {{#if active}}
+            <p scope="row" class="font-book">Ativo</p>
+            {{else}}
+            <p scope="row" class="font-book">Inativo</p>
+            {{/if}}
+          </th>
+
           <th class="text-center">
             {{#if active}}
             <form action="/chems/{{id}}?_method=DELETE" method="POST">

@@ -10,6 +10,8 @@
 <div class="p-3">
 <div class="pt-3 mt-5 p-3 ml-lg-4 text-center row">
 
+
+
   <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
     <form action="/user/update" method="post">
       <div class="form-group">
@@ -126,6 +128,22 @@
             <option selected hidden value  = {{user.moreClients}}>Sim </option>
           {{/ifCond}}
           {{#ifCond user.moreClients false}}
+          <option selected hidden value  = {{user.moreClients}}>Não </option>
+          {{/ifCond}}
+          <option value = false >Não</option>
+          <option value = true >Sim</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
+      <div class="form-group">
+        <p class="row col text-bold" align="justify">Status da conta:</p>
+        <select class="form-control font-light"  name="user[moreClients]"  id="type" type="Boolean">
+          {{#ifCond user.status 'Ativo'}}
+            <option selected hidden value  = {{user.moreClients}}>Sim </option>
+          {{/ifCond}}
+          {{#ifCond user.status 'Inativo'}}
           <option selected hidden value  = {{user.moreClients}}>Não </option>
           {{/ifCond}}
           <option value = false >Não</option>
@@ -552,10 +570,17 @@
       </div>
     </div>
       {{/ifCond}}
-<div class="col-sm-12  col-md-12 col-lg-12 text-center ">
-  <button class="btn btn-default bg-green text-light2 mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
+<div class="col-sm-12 col-md-12 col-lg-12 text-center ">
+  <button class="btn btn-default bg-green text-light2 mx-auto mt-4 px-5 d-block col-md-4 col-12" type="submit">Salvar</button>
 </div>
 </form>
+
+<div class="col-sm-12 col-md-12 col-lg-12 text-center ">
+  <form action="/user/inactive" method="post">
+      <button class="btn btn-secondary text-light2 mx-auto mt-4 px-5 mb-3 d-block col-md-4 col-12" type="submit">Inativar conta</button>
+  </form>
+</div>
+
 </div>
 <!-- end ordinary fields -->
 

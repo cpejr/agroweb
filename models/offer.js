@@ -47,7 +47,7 @@ class Offer {
     return new Promise((resolve, reject) => {
       OfferModel.find({}).populate({
         path: 'seller product',
-        populate: { path: 'chem' }
+        populate: { path: 'chems' }
       }).exec().then((results) => {
         resolve(results);
       }).catch((err) => {
@@ -65,7 +65,7 @@ class Offer {
     return new Promise((resolve, reject) => {
       OfferModel.findById(id).populate({
         path: 'seller product',
-        populate: { path: 'chem' }
+        populate: { path: 'chems' }
       }).exec().then((result) => {
         resolve(result.toObject());
       }).catch((err) => {
@@ -130,7 +130,7 @@ class Offer {
     return new Promise((resolve, reject) => {
       OfferModel.find(query).sort(sort).populate({
         path: 'seller product',
-        populate: { path: 'chem' }
+        populate: { path: 'chems' }
       }).then((result) => {
         resolve(result);
       }).catch((err) => {

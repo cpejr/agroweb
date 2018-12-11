@@ -15,98 +15,97 @@
     <div class="pos-f-t">
       <div class="collapse" id="navbarToggleExternalContent">
         <div class="gradient-background pl-2 pt-2">
-          <div class="p-3">
-          <h4 class="text-white">{{firstName}} {{lastName}}</h4>
-          <ul class="navbar-nav mr-auto ml-5 mt-4">
-            <div class="row">
-              <div class="col-md-6">
-                <li class="nav-item active">
-                  <a class="nav-link opacity-changes d-inline-block" href="/user">
-                    <i class="fas fa-home fa-sm mt-2 float-left"></i>
-                    <h3 class="font3 mobile-font float-right">Menu principal</h3>
-                  </a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link opacity-changes d-inline-block" href="/user/edit">
-                    <i class="fas fa-user fa-sm mt-2 float-left"></i>
-                    <h3 class="font3 mobile-font float-right">Minha conta</h3>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link opacity-changes d-inline-block" href="/transaction/">
-                    <i class="fas fa-hdd fa-sm mt-2 float-left"></i>
-                    <h3 class="font3 mobile-font float-right">Histórico</h3>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link opacity-changes d-inline-block" href="/logout">
-                    <i class="fas fa-sign-out-alt fa-sm mt-2 float-left"></i>
-                    <h3 class="font3 mobile-font float-right">Logout</h3>
-                  </a>
+            <h4 class="text-white">{{firstName}} {{lastName}}</h4>
+            <ul class="navbar-nav mr-auto ml-5 mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <li class="nav-item active">
+                    <a class="nav-link opacity-changes d-inline-block" href="/user">
+                      <i class="fas fa-home fa-sm mt-2 float-left"></i>
+                      <h3 class="font3 mobile-font float-right">Menu principal</h3>
+                    </a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link opacity-changes d-inline-block" href="/user/edit">
+                      <i class="fas fa-user fa-sm mt-2 float-left"></i>
+                      <h3 class="font3 mobile-font float-right">Minha conta</h3>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link opacity-changes d-inline-block" href="/transaction/">
+                      <i class="fas fa-hdd fa-sm mt-2 float-left"></i>
+                        <h3 class="font3 mobile-font float-right">Histórico</h3>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link opacity-changes d-inline-block" href="/logout">
+                      <i class="fas fa-sign-out-alt fa-sm mt-2 float-left"></i>
+                      <h3 class="font3 mobile-font float-right">Logout</h3>
+                    </a>
+                  </div>
+                  <div class="col-md-6 my-auto">
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link font3" href="/user/contact">
+                        SUPORTE E CONTATO
+                      </a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link font3" href="/user/doubts">
+                        DÚVIDAS FREQUENTES
+                      </a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link font3" href="/terms">
+                        TERMOS DE USO
+                      </a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link font3" href="https://www.facebook.com/megapoolagro">
+                        CURTA NOSSA PÁGINA
+                      </a>
+                    </li>
+                  </div>
                 </div>
-                <div class="col-md-6 my-auto">
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link font3" href="/user/contact">
-                    SUPORTE E CONTATO
-                  </a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link font3" href="#">
-                    DÚVIDAS FREQUENTES
-                  </a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link font3" href="/terms">
-                    TERMOS DE USO
-                  </a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link font3" href="https://www.facebook.com/megapoolagro">
-                    CURTA NOSSA PÁGINA
-                  </a>
-                </li>
-              </div>
+              </ul>
             </div>
-          </ul>
-        </div>
-      </div>
+          </div>
+          <nav class="navbar gradient-background pl-2 pt-2 ">
+            <row>
+              <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="d-inline d-sm-none card-icon fas fa-bars fa-sm align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bars fa-2x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-bars fa-2x align-self-center"></i>
+              </button>
+            </row>
+            <row>
+              <div class="col-sd-6 float-right mt-3 mr-3">
+                {{#ifNotEq userType 'Indústria'}}
+                {{#if franchisee}}
+                {{#ifCond userType 'Franqueado'}}
+                <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
+                  <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+                  <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+                </form>
+                {{/ifCond}}
+                {{else}}
+                <form action="../search" method="get" class="input-wrapper float-right mt-0 mb-3  searchbar">
+                  <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+                  <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+                </form>
+                {{/if}}
+                {{/ifNotEq}}
+              </div>
+
+              <div class="col-sd-6 float-right pt-4 mx-3 mt-2">
+                <h6 class="font3 mobile-font0 text-light">Dólar: {{usdValue}}
+                  {{{rising}}}
+                </h6>
+              </div>
+            </row>
+          </nav>
     </div>
-  </div>
-
-
-      <nav class="navbar gradient-background">
-        <row>
-          <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars fa-2x"></i>
-          </button>
-        </row>
-      <row>
-    {{#ifNotEq userType 'Indústria'}}
-    {{#if franchisee}}
-      {{#ifCond userType 'Franqueado'}}
-        <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-          <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
-          <label for="searchbar-icon" class="fas fa-search input-icon"></label>
-        </form>
-      {{/ifCond}}
-    {{else}}
-          <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
-            <label for="searchbar-icon" class="fas fa-search input-icon"></label>
-          </form>
-    {{/if}}
-      {{/ifNotEq}}
-      <div class="float-right mt-3 mr-3">
-        <h6 class="font3 mobile-font2 text-light">Dólar: {{usdValue}}
-        {{{rising}}}
-        </h6>
-      </div>
-  </row>
-      </nav>
-    </div>
-
-
+    <!-- end Header and NavBar -->
     <div class="agro-alert col-12 col-lg-4 col-md-6">
     {{> messages}}
     </div>

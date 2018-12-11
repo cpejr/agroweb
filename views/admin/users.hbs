@@ -30,7 +30,25 @@
 
         <tr>
           <td scope="row">{{fullName}}</td>
-          <td>{{status}}</td>
+          <td>
+            <div class="dropdown">
+              <button name="taxStatus"  type="" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              {{#ifCond status 'Ativo'}}
+              class="btn btn-success col-12">
+              {{status}}
+
+              {{else ifCond status 'Inativo'}}
+              class="btn btn-warning col-12">
+              {{status}}
+
+              {{else ifCond status 'Bloqueado'}}
+              class="btn btn-danger col-12">
+              {{status}}
+
+              {{/ifCond}}
+
+            </button>
+          </td>
           <!-- <td>
             <div class="dropdown">
               <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
@@ -44,7 +62,6 @@
 
               {{else ifCond status 'Bloqueado'}}
               class="btn btn-outline-danger dropdown-toggle col-12">
-              Bloqueado
 
               {{/ifCond}}
 

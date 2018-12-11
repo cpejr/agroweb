@@ -197,7 +197,7 @@ class Email {
   static inactivatedUsersEmail(data) {
     console.log('Email inativado enviado');
     const content = `Prezado(a) ${data.firstName},
-     Sua conta Megapool acabou de ser inativada. Já se passou muito tempo desde seu último acesso. Para reativá-la, basta logar novamente na plaforma. A reativação será feita imediatamente no acesso.`;
+     Sua conta Megapool acabou de ser inativada. Para reativá-la, basta logar novamente na plaforma. A reativação será feita imediatamente no acesso.`;
     const subject = 'MEGAPOOL: Conta inativada';
     const emailContent = {
       clientEmail: data.email,

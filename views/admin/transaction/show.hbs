@@ -82,9 +82,31 @@
             </div>
             <div class="col-12">
               <h4>Preços:</h4>
-              <p class="font-light">Baixo: R$ {{price.low}}</p>
-              <p class="font-light">Médio: R$ {{price.average}}</p>
-              <p class="font-light">Alto: R$ {{price.high}}</p>
+              <p class="font-light">
+                Baixo:
+                {{#if usd}}
+                  R$ {{math (usdValue) "*" price.low}}
+                {{else}}
+                  R$ {{price.low}}
+                {{/if}}
+              </p>
+
+              <p class="font-light">
+                Médio:
+                {{#if usd}}
+                  R$ {{math (usdValue) "*" price.average}}
+                {{else}}
+                  R$ {{price.average}}
+                {{/if}}
+              </p>
+
+              <p class="font-light">Alto:
+                {{#if usd}}
+                  R$ {{math (usdValue) "*" price.high}}
+                {{else}}
+                  R$ {{price.high}}
+                {{/if}}
+              </p>
             </div>
             <div class="col-12">
               <h4>Qtd. mínima:</h4>
@@ -105,5 +127,4 @@
 </div>
 
 {{#section 'scripts'}}
-<script src="/javascripts/money.js"></script>
 {{/section}}

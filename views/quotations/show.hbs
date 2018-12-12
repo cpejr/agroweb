@@ -25,7 +25,13 @@
         </div>
         <div class="col-4">
           <h4>Preço total</h4>
-          <p data-usd={{offer.usd}}>R$ {{priceBought}}</p>
+          <p>
+            {{#if offer.usd}}
+              R$ {{math (usdValue) "*" priceBought}}
+            {{else}}
+              R$ {{priceBought}}
+            {{/if}}
+          </p>
         </div>
       </div>
       <!-- end Quotation info -->
@@ -96,5 +102,4 @@
 </div>
 
 {{#section 'scripts'}}
-  <script src="/javascripts/money.js"></script>
 {{/section}}

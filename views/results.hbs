@@ -45,8 +45,12 @@
 
                   <div class="ml-2 mt-3">
                     <div class="text-left side-animation">
-                      <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
-                        R$ {{price.low}}
+                      <h4 class="font-book mobile-font4 mobile-font5  d-inline">
+                        {{#if usd}}
+                          R$ {{math (usdValue) "*" price.high}}
+                        {{else}}
+                          R$ {{price.high}}
+                        {{/if}}
                       </h4>
 
                       <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
@@ -110,8 +114,12 @@
 
                   <div class="ml-2 mt-3 side-animation">
                     <div class="text-left">
-                      <h4 class="font-book mobile-font4 mobile-font5  d-inline" data-usd={{usd}}>
-                        R$ {{price}}
+                      <h4 class="font-book mobile-font4 mobile-font5  d-inline">
+                        {{#if offer.usd}}
+                          R$ {{math (usdValue) "*" price}}
+                        {{else}}
+                          R$ {{price}}
+                        {{/if}}
                       </h4>
 
                       <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
@@ -144,5 +152,4 @@
 <!-- end ResultsList -->
 
 {{#section 'scripts'}}
-<script src="/javascripts/money.js"></script>
 {{/section}}

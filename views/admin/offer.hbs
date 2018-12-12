@@ -30,7 +30,13 @@
         {{#each offers}}
         <tr>
           <td class="font-book text-center">{{stock}}</td>
-          <td class="font-book text-center" data-usd={{usd}}>R$ {{price.average}}</td>
+          <td class="font-book text-center">
+            {{#if usd}}
+              R$ {{math (usdValue) "*" price.high}}
+            {{else}}
+              R$ {{price.high}}
+            {{/if}}
+          </td>
           <td class="font-book text-center">{{delivery}}</td>
           <td class="font-book text-center">{{seller.fullName}}</td>
           <td class="font-book text-center">{{product.name}}</td>
@@ -57,9 +63,7 @@
 {{/if}}
 
 {{#section 'scripts'}}
-<script src="/javascripts/money.js"></script>
 <script src="/javascripts/navbar.js"></script>
-<!-- <script src="/javascripts/filter.js"></script> -->
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {

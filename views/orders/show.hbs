@@ -100,7 +100,13 @@
             <p>{{amountBought}} {{offer.product.unit}}</p>
 
             <h4>Preço total</h4>
-            <p data-usd={{offer.usd}}>R$ {{priceBought}}</p>
+            <p>
+              {{#if offer.usd}}
+                R$ {{math (usdValue) "*" priceBought}}
+              {{else}}
+                R$ {{priceBought}}
+              {{/if}}
+            </p>
 
             <h4>Status da compra</h4>
             <p>{{status}}</p>
@@ -397,5 +403,4 @@
 </div>
 
 {{#section 'scripts'}}
-<script src="/javascripts/money.js"></script>
 {{/section}}

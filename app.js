@@ -162,6 +162,19 @@ app.engine('hbs', exphbs({
         return '<i class="fas fa-arrow-alt-circle-up fa-lg"></i>';
       }
       return '<i class="fas fa-arrow-alt-circle-down fa-lg"></i>';
+    },
+
+    math(lvalue, operator, rvalue, options) {
+      lvalue = parseFloat(lvalue);
+      rvalue = parseFloat(rvalue);
+
+      return {
+        '+': lvalue + rvalue,
+        '-': lvalue - rvalue,
+        '*': (lvalue * rvalue).toFixed(2),
+        '/': (lvalue / rvalue).toFixed(2),
+        '%': lvalue % rvalue
+      }[operator];
     }
   }
 }));

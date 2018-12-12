@@ -25,9 +25,7 @@ router.get('/', (req, res) => {
 router.get('/contact', (req, res) => {
   console.log(req.session._id);
     res.render('site/contact', { title: 'Contato', layout: 'layoutHome' });
-
 });
-
 
 /**
  * GET About page
@@ -43,7 +41,6 @@ router.get('/partners', (req, res) => {
   res.render('site/partners', { title: 'Parceiros', layout: 'layoutHome' });
 });
 
-
 /**
  * GET Franchisee page
  */
@@ -57,7 +54,7 @@ router.get('/franchisee', (req, res) => {
 router.post('/contact', (req, res) => {
   Email.contactEmail(req.body).then((user) => {
     req.flash('success', 'Mensagem enviada com sucesso para o administrador.');
-    res.redirect('/home');
+    res.redirect('/login');
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

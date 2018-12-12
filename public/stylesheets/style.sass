@@ -434,7 +434,7 @@ a.more-link
 
 // tooltips
 
-@media (min-width:769px)
+@media (min-width:100px)
   .pagination
     top: 0
     bottom: 0
@@ -448,8 +448,6 @@ a.more-link
     &__dot
       width: 22px
       height: 22px
-      border: 2px solid
-      border-color: #000000
       border-radius: 100px
       display: inline-block
       cursor: pointer
@@ -473,102 +471,102 @@ a.more-link
             top: -18px
             opacity: 1
 
-      &:before
-        position: relative
-        top: -45px
-        left: -125px
-        background: #ff3333
-        width: 250px
-        font-size: 14px
-        padding: 8px 8px
-        border-radius: 20px
-        border: 2px solid
-        border-color: #000000
-        content: 'A taxa não foi paga ao MegaPool'
-        opacity: 0
-        transition: .3s
+      // &:before
+      //   position: relative
+      //   top: -45px
+      //   left: -125px
+      //   background: #ff3333
+      //   width: 250px
+      //   font-size: 14px
+      //   padding: 8px 8px
+      //   border-radius: 20px
+      //   border: 2px solid
+      //   border-color: #000000
+      //   content: 'A taxa não foi paga ao MegaPool'
+      //   opacity: 0
+      //   transition: .3s
 
-      &:after
-        position: relative
-        width: 10px
-        height: 0
-        top: -8px !important
-        left: -250px
-        border-top: 10px solid lighten(#000000, 0%)
-        border-right: 10px solid transparent
-        border-bottom: 10px solid transparent
-        border-left: 10px solid transparent
-        content: ""
-        opacity: 0
-        transition: .3s
-
-
-@media (max-width:769px)
-  .pagination-mini
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-    height: 15px
-    margin: auto
-    text-align: center
+      // &:after
+      //   position: relative
+      //   width: 10px
+      //   height: 0
+      //   top: -8px !important
+      //   left: -250px
+      //   border-top: 10px solid lighten(#000000, 0%)
+      //   border-right: 10px solid transparent
+      //   border-bottom: 10px solid transparent
+      //   border-left: 10px solid transparent
+      //   content: ""
+      //   opacity: 0
+      //   transition: .3s
 
 
-    &__dot
-      width: 16px
-      height: 16px
-      border: 1px solid
-      border-color: #000000
-      border-radius: 100px
-      display: inline-block
-      cursor: pointer
-      margin: 0px 0px
-      transition: .3s
-      background: #FF0000
-
-      &--active
-        background: #FF0000
-
-      &:active
-          width: 20px
-          height: 20px
-          border-color: #000000
-          &:before
-            top: -45px
-            opacity: 1
-
-          &:after
-            top: -18px
-            opacity: 1
-
-      &:before
-        position: relative
-        top: -45px
-        left: -200px
-        background: #ff3333
-        width: 250px
-        font-size: 14px
-        padding: 8px 8px
-        border-radius: 20px
-        border: 1px solid
-        border-color: #000000
-        content: 'A taxa não foi paga ao MegaPool'
-        opacity: 0
-        transition: .3s
-
-      &:after
-        position: relative
-        width: 10px
-        height: 0
-        top: -8px !important
-        left: -250px
-        border-top: 10px solid lighten(#000000, 0%)
-        border-right: 10px solid transparent
-        border-bottom: 10px solid transparent
-        border-left: 10px solid transparent
-        content: ""
-        opacity: 0
-        transition: .3s
+// @media (max-width:769px)
+//   .pagination-mini
+//     top: 0
+//     bottom: 0
+//     left: 0
+//     right: 0
+//     height: 15px
+//     margin: auto
+//     text-align: center
+//
+//
+//     &__dot
+//       width: 16px
+//       height: 16px
+//       border: 1px solid
+//       border-color: #000000
+//       border-radius: 100px
+//       display: inline-block
+//       cursor: pointer
+//       margin: 0px 0px
+//       transition: .3s
+//       background: #FF0000
+//
+//       &--active
+//         background: #FF0000
+//
+//       &:active
+//           width: 20px
+//           height: 20px
+//           border-color: #000000
+//           &:before
+//             top: -45px
+//             opacity: 1
+//
+//           &:after
+//             top: -18px
+//             opacity: 1
+//
+//       &:before
+//         position: relative
+//         top: -45px
+//         left: -200px
+//         background: #ff3333
+//         width: 250px
+//         font-size: 14px
+//         padding: 8px 8px
+//         border-radius: 20px
+//         border: 1px solid
+//         border-color: #000000
+//         content: 'A taxa não foi paga ao MegaPool'
+//         opacity: 0
+//         transition: .3s
+//
+//       &:after
+//         position: relative
+//         width: 10px
+//         height: 0
+//         top: -8px !important
+//         left: -250px
+//         border-top: 10px solid lighten(#000000, 0%)
+//         border-right: 10px solid transparent
+//         border-bottom: 10px solid transparent
+//         border-left: 10px solid transparent
+//         content: ""
+//         opacity: 0
+//         transition: .3s
 // navbar
 .searchbar input
 	outline: none

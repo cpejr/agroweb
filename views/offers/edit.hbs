@@ -100,7 +100,7 @@
 
       <div class="col-md-4">
         <div class="form-group mx-4 my-2 mt-3">
-          <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Quantidade para mudança de preço: </label>
+          <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Mudança de preço e entrega: </label>
         </div>
 
         <div class="user-input">
@@ -110,9 +110,15 @@
               <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
             </div>
             <input name="offer[breakpoints][low]" type="number" class="form-control input-text" value="{{breakpoints.low}}" required/>
+            <div class="input-group-append">
+              <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+                data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'baixo' a partir do valor inserido neste campo">
+                ?
+              </button>
+            </div>
           </div>
         </div>
-        
+
         <div class="user-input">
           <label class="text-dark2">Muda para médio</label>
           <div class="input-group mb-2">
@@ -120,6 +126,12 @@
               <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
             </div>
             <input name="offer[breakpoints][average]" type="number" class="form-control input-text" value="{{breakpoints.average}}" required/>
+            <div class="input-group-append">
+              <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+                data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'médio' a partir do valor inserido neste campo">
+                ?
+              </button>
+            </div>
           </div>
         </div>
 
@@ -152,4 +164,9 @@
 
 {{#section 'scripts'}}
   <script src="/javascripts/product.dropdown.js"></script>
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+  </script>
 {{/section}}

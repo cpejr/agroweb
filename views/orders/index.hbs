@@ -5,7 +5,6 @@
   <h3 class="font-black">{{title}} </h3>
 </div>
 
-
 <div class="p-1">
 <!-- OrdersList-->
   {{#if transactions}}
@@ -272,7 +271,7 @@
         <div class="text-right p-2">
           {{#ifCond taxStatus 'Aguardando pagamento'}}
           <div class="pagination float-right">
-            <div data-tooltip="Tooltip 1" class="pagination__dot pagination__dot--active"></div>
+            <div data-toggle="tooltip" data-placement="top" title="Não se esqueça da taxa de R$ {{taxValue}} da MegaPool" class="pagination__dot pagination__dot--active"></div>
           </div>
           {{/ifCond}}
           <div class="row">
@@ -382,15 +381,20 @@
 
 <!-- end OrdersList -->
 {{#section 'scripts'}}
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  <script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
     });
-  });
-});
-</script>
-<script src="/javascripts/money.js"></script>
+
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+  </script>
+
+  <script src="/javascripts/money.js"></script>
 {{/section}}

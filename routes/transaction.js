@@ -194,18 +194,17 @@ router.put('/:id', (req, res) => {
         transactionData.status = 'Aguardando boleto';
         if (transaction.franchisee) {
           let tax = 0;
-          console.log(global.gConfig);
           if (transaction.offer.product.category === 'Fertilizantes sólidos') {
-            tax = global.gConfig.solidFertilizerTax;
+            tax = global.config.tax.franchisee.solidFertilizer;
           }
           else if (transaction.offer.product.category === 'Defensivos agrícolas/agrotóxicos') {
-            tax = global.gConfig.defensiveTax;
+            tax = global.config.tax.franchisee.defensive;
           }
           else if (transaction.offer.product.category === 'Sementes') {
-            tax = global.gConfig.seedTax;
+            tax = global.config.tax.franchisee.seed;
           }
           else if (transaction.offer.product.category === 'Fertilizantes líquidos/adjuvantes/biológicos') {
-            tax = global.gConfig.liquidFertilizerTax;
+            tax = global.config.tax.franchisee.solidFertilizer;
           }
 
           console.log(transaction.offer.product.category);

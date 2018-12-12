@@ -3,22 +3,45 @@
         "config_id": "development",
         "cropDate": "15/09",
         "smallCropDate": "31/12",
-        "solidFertilizerTax": "0.0025",
-        "liquidFertilizerTax": "0.0075",
-        "defensiveTax": "0.002",
-        "seedTax": "0.005"
-    },
-    "testing": {
-        "config_id": "testing",
-        "database": "my-app-db-test"
+        "tax" : {
+      		"franchisee" : {
+      			"solidFertilizer": "0.0025",
+      			"liquidFertilizer": "0.0075",
+      			"defensive": "0.002",
+      			"seed": "0.005"
+      		},
+      		"megapool" : {
+      			"solidFertilizer": "0.0065",
+      			"liquidFertilizer": "0.03",
+      			"defensive": "0.01",
+      			"seed": "0.02",
+      			"megaOportunidade" : "0,03"
+      		}
+      	}
     },
     "production": {
         "config_id": "production",
         "cropDate": "15/09",
         "smallCropDate": "31/12",
-        "solidFertilizerTax": "0.0025",
-        "liquidFertilizerTax": "0.0075",
-        "defensiveTax": "0.002",
-        "seedTax": "0.005"
+        "tax" : {
+      		"franchisee" : {
+      			"solidFertilizer": "0.0025",
+      			"liquidFertilizer": "0.0075",
+      			"defensive": "0.002",
+      			"seed": "0.005"
+      		},
+      		"megapool" : {
+      			"solidFertilizer": "0.0065",
+      			"liquidFertilizer": "0.03",
+      			"defensive": "0.01",
+      			"seed": "0.02",
+      			"megaOportunidade" : "0,03"
+      		}
+      	}
+    },
+    "testing" : {
+        "config_id": "testing",
+        "database": "my-app-db-test"
+
     }
 }

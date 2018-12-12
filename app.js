@@ -33,7 +33,7 @@ const Delivery = require('./functions/delivery');
  * Global Variables
  */
 const globalConfig = configJson.development;
-global.gConfig = globalConfig;
+global.config = globalConfig;
 
 /**
  * Firebase Setup
@@ -58,10 +58,6 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PA
     console.log('Database connection failed!');
     console.log(error);
   });
-
-global.rising = 'true';
-console.log(global.rising);
-// Money.createPrevDollarJSON();
 
 /**
  * Getting dollar quotation everyday
@@ -92,7 +88,6 @@ schedule.scheduleJob('0 0 3 * * *', () => {
 schedule.scheduleJob('0 */10 * * * *', () => {
   Money.createDollarJSON();
   Money.getUsdValue().then((dollar) => {
-    // console.log(dollar);
     global.dollar = dollar;
   });
 });
@@ -101,8 +96,8 @@ schedule.scheduleJob('0 */10 * * * *', () => {
  * Initializing dollar value
  */
 Money.getUsdValue().then((dollar) => {
-  // console.log(dollar);
   global.dollar = dollar;
+  global.rising = 'true';
 });
 
 /**
@@ -159,9 +154,9 @@ app.engine('hbs', exphbs({
     },
 
     usdValue() {
-      // console.log(global.dollar);
       return global.dollar;
     },
+
     rising() {
       if (global.rising === 'true') {
         return '<i class="fas fa-arrow-alt-circle-up fa-lg"></i>';

@@ -5,7 +5,14 @@
   <h3 class="text-center font-black">Contrate um franqueado</h3>
 </div>
 
+<div class="p-1">
+
   {{#if users}}
+  <div class="text-center mt-3 ">
+    <form action="/user/indication" method="POST">
+      <button class=" submit btn bg-green text-light p-3" type="submit" name="button" >Quero indicação de um franqueado</button>
+    </form>
+  </div>
   <div style="overflow-x:auto;">
     <div class="container col-sm-12 col-md-9 col-lg-6">
       <p>Digite logo abaixo para buscar algum franqueado específico:</p>
@@ -14,7 +21,7 @@
   </div>
 
   <div id="results-list" class="row justify-content-center mt-2 mx-0">
-    <div class="col-sm-12 col-md-9 col-lg-6 btn p-3">
+    <div class="col-sm-12 col-md-9 col-lg-6 btn">
       <table id="myTable" class="col-12">
         <tbody>
           {{#each users}}
@@ -28,8 +35,8 @@
                 <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/user/profile/{{_id}}'">
                   <div class="text-right">
                     <div class="row px-3">
-                      <div class="col-3 d-inline-block text-center align-self-center">
-                        <i class="d-inline d-sm-none card-icon fas fa-user fa-2x align-self-center"></i>
+                      <div class="col-md-3 col-1 d-inline-block text-center align-self-center">
+                        <i class="d-inline d-sm-none card-icon fas fa-user align-self-center"></i>
                         <i class="d-none d-sm-inline d-xl-none card-icon fas fa-user fa-3x align-self-center"></i>
                         <i class="d-none d-xl-inline card-icon fas fa-user fa-4x align-self-center"></i>
                       </div>
@@ -44,7 +51,7 @@
 
                           <div class="ml-2 mt-3">
                             <div class="text-left">
-                              <p class="font-book mobile-font4 mobile-font5  d-inline">
+                              <p class="text-left align-text-top card-text mobile-font1 text-uppercase">
                                 {{email}}
                               </p>
                             </div>
@@ -52,7 +59,7 @@
 
                           <div class="ml-2 mt-3">
                             <div class="text-left">
-                              <p class="font-book mobile-font4 mobile-font5  d-inline">
+                              <p class="text-left align-text-top card-text mobile-font1 text-uppercase">
                                 {{phone}}
                               </p>
                             </div>
@@ -60,7 +67,7 @@
 
                           <div class="ml-2 mt-3">
                             <div class="text-left">
-                              <p class="font-book mobile-font4 mobile-font5  d-inline">
+                              <p class="text-left align-text-top card-text mobile-font1 text-uppercase">
                                 {{address.city}}
                               </p>
                             </div>
@@ -76,12 +83,14 @@
           {{/each}}
         </tbody>
       </table>
+
 <!-- Botão quero uma indicação -->
       <div class="text-center mb-5 mt-3 ">
         <form action="/user/indication" method="POST">
           <button class=" submit btn bg-green text-light p-3" type="submit" name="button" >Quero indicação de um franqueado</button>
         </form>
       </div>
+
 
     </div>
   </div>

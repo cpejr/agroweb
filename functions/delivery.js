@@ -15,8 +15,8 @@ class Delivery {
     return new Promise((resolve, reject) => {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      const { cropDate } = config.development;
-      const { smallCropDate } = config.development;
+      const cropDate = config.development.date.crop;
+      const smallCropDate = config.development.date.smallCrop;
 
       const crop = new Date(today);
       crop.setDate(Number(cropDate.slice(0, 2)));

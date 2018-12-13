@@ -5,14 +5,11 @@
   <h3 class="text-center font-black">Contrate um franqueado</h3>
 </div>
 
-<div class="p-3">
-
   {{#if users}}
   <div style="overflow-x:auto;">
     <div class="container col-sm-12 col-md-9 col-lg-6">
       <p>Digite logo abaixo para buscar algum franqueado específico:</p>
       <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
-      <br>
     </div>
   </div>
 
@@ -26,7 +23,6 @@
             <td class="d-none">{{email}}</td>
             <td class="d-none">{{phone}}</td>
             <td class="d-none">{{address.city}}</td>
-            <td class="">
 
               <div class="p-1" >
                 <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/user/profile/{{_id}}'">
@@ -75,18 +71,17 @@
                   </div>
                 </div>
               </div>
-            </td>
           </tr>
           <!-- end CARD PADRÃO -->
           {{/each}}
         </tbody>
       </table>
+<!-- Botão quero uma indicação -->
       <div class="text-center mb-5 mt-3 ">
         <form action="/user/indication" method="POST">
           <button class=" submit btn bg-green text-light p-3" type="submit" name="button" >Quero indicação de um franqueado</button>
         </form>
       </div>
-
 
     </div>
   </div>
@@ -95,7 +90,6 @@
     <p class="text-center font-light">Não há nenhum franqueado.</p>
   </div>
   {{/if}}
-
 {{#section 'scripts'}}
 <script>
   $(document).ready(function(){

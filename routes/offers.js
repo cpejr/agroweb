@@ -34,7 +34,7 @@ router.get('/new', auth.canSell, (req, res) => {
  */
 router.post('/', (req, res) => {
   const { offer } = req.body;
-
+  if (offer.breakpoints.low > offer.breakpoints.average) {
   const today = new Date();
   const { cropDate } = config.development;
   const { smallCropDate } = config.development;
@@ -164,6 +164,11 @@ router.post('/', (req, res) => {
     req.flash('danger', 'Faça seu login novamente.');
     res.redirect('/login');
   });
+  }
+  else {
+    req.flash('danger', 'O ponto que muda para valor médio deve ser menor do que o ponto que muda para valor baixo.');
+    res.redirect('/offers/new');
+  }
 });
 
 /**

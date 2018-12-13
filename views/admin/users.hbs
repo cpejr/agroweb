@@ -49,48 +49,7 @@
 
             </button>
           </td>
-          <!-- <td>
-            <div class="dropdown">
-              <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-              {{#ifCond status 'Ativo'}}
-              class="btn btn-outline-success dropdown-toggle col-12">
-              Ativo
-
-              {{else ifCond status 'Inativo'}}
-              class="btn btn-outline-warning dropdown-toggle col-12">
-              Inativo
-
-              {{else ifCond status 'Bloqueado'}}
-              class="btn btn-outline-danger dropdown-toggle col-12">
-
-              {{/ifCond}}
-
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-              <form  method= "POST" action="/admin/{{id}}/updateUserActive">
-                <a class="dropdown-item" href="#">
-                  <button type="submit" align="center" class="btn btn-outline-success col-12" name="status" value="Ativo">
-                    Ativo
-                  </button>
-                </a>
-              </form>
-              <form method= "POST" action="/admin/{{id}}/updateUserActive">
-                <a class="dropdown-item " href="#">
-                  <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Inativo">
-                    Inativo
-                  </button>
-                </a>
-              </form>
-              <form  method= "POST" action="/admin/{{id}}/updateUserActive">
-                <a class="dropdown-item" href="#">
-                  <button type="submit" align="center" class="btn btn-outline-danger col-12" name="status" value="Bloqueado">
-                    Bloqueado
-                  </button>
-                </a>
-              </form>
-            </div>
-          </div>
-        </td>
+          
         <td class="text-center">{{type}}</td>
         <td class="text-center">{{email}}</td>
         <td class="text-center">{{doc}}</td>

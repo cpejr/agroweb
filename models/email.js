@@ -343,7 +343,7 @@ class Email {
       Celular: ${data.buyer.cellphone}`;
         const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
         const emailContent = {
-          clientEmail: data.seller.email,
+          clientEmail: data.offer.seller.email,
           subject,
           content
         };

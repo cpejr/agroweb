@@ -5,6 +5,13 @@
   <div class="row justify-content-center mx-sm-auto mx-md-9">
     <!-- Product Title -->
     <div class="col-12 col-md-12 mb-4 justify-content-center">
+      {{#if megaOpportunity}}
+      <div class="text-center pb-2">
+        <h5 class="badge badge-success ">
+            Mega oportunidade
+        </h5>
+      </div>
+      {{/if}}
       <h5 class="text-muted text-center">Produto {{product.generic}}</h5>
       <h2 class="my-0 py-0 mb-4 text-center">{{product.name}}</h2>
     </div>

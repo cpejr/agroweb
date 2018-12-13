@@ -56,7 +56,7 @@
             <input type="email" class="bg-light form-control" name="user[email]" id="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
             <label for="password" class="mt-3">Senha<span class="text-red"> *</span></label>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite uma senha com no mínimo 8 caracteres. Crie uma senha forte.">
+            <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite uma senha com no mínimo 8 caracteres. Crie uma senha forte.">
               ?
             </button>
             <input type="password" class="bg-light form-control" name="user[password]" minlength="8" id="password" required>
@@ -68,7 +68,7 @@
             <input type="number" class="bg-light form-control" name="user[doc]"id="doc" maxlength="11" pattern="[0-9]+$" placeholder="Apenas números" required>
 
             <label for="cep" id="cep" class="mt-3">CEP<span class="text-red"> *</span></label>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números. Assim que preencher, lembre de clicar no botão Pesquisar.">
+            <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números. Assim que preencher, lembre de clicar no botão Pesquisar.">
               ?
             </button>
             <input type="search" class="bg-light form-control" name="user[address][cep]" id="cep" placeholder="Apenas números" maxlength="8" pattern="[0-9]+$" required>
@@ -91,13 +91,13 @@
             <input type="hidden" class="bg-light form-control" name="user[type]" value="Indústria" id="type" readonly>
 
             <label for="phone" class="mt-3">Telefone fixo<span class="text-red"> *</span></label>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+            <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
               ?
             </button>
             <input type="tel" class="bg-light form-control" name="user[phone]"id="phone" maxlength="12" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$" OnKeyPress="formatar('## ####-####', this)" required >
 
             <label for="cellphone" class="mt-3">Celular<span class="text-red"> *</span></label>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+            <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
               ?
             </button>
             <input type="tel" class="bg-light form-control" name="user[cellphone]"id="cellphone" maxlength="13" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$" OnKeyPress="formatar('## #####-####', this)" required>
@@ -123,7 +123,7 @@
 
             <label for="acceptDeliver" class="mt-3">Aceita entregar a uma distância de até: <span class="text-red"> *</span></label>
             <div class="input-group-append">
-              <input type="number" class="bg-light form-control" name="user[delivery][maxDistance]" min="0" step="50" id="acceptDeliver">
+              <input type="number" class="bg-light form-control" name="user[delivery][maxDistance]" min="0" step="1" id="acceptDeliver">
               <span class="input-group-text">km</span>
             </div>
 
@@ -142,7 +142,7 @@
             <label for="Rphone" class="mt-3">
               Telefone fixo do Responsável pela conta Mega Pool
               <span class="text-red"> *</span>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
                 ?
               </button>
             </label>
@@ -152,7 +152,7 @@
             <label for="Rcellphone" class="mt-3">
               Celular do Responsável pela conta Mega Pool
               <span class="text-red"> *</span>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
                 ?
               </button>
             </label>
@@ -245,7 +245,7 @@
             <input type="email" class="bg-light form-control" name="user[email]" id="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
             <label for="password" class="mt-3">Senha<span class="text-red"> *</span></label>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite uma senha com no mínimo 8 caracteres. Crie uma senha forte.">
+            <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite uma senha com no mínimo 8 caracteres. Crie uma senha forte.">
               ?
             </button>
             <input type="password" class="bg-light form-control" name="user[password]" minlength="8" id="password" required>
@@ -257,7 +257,7 @@
             <input type="number" class="bg-light form-control" name="user[doc]"id="doc" maxlength="11" pattern="[0-9]+$" placeholder="Apenas números" required>
 
             <label for="cep" class="mt-3">CEP<span class="text-red"> *</span></label>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números. Assim que preencher, lembre de clicar no botão Pesquisar.">
+            <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números. Assim que preencher, lembre de clicar no botão Pesquisar.">
               ?
             </button>
             <input type="search" class="bg-light form-control" name="user[address][cep]" id="cep1" placeholder="Apenas números" maxlength="8" pattern="[0-9]+$" required>
@@ -280,13 +280,13 @@
             <input type="hidden" class="bg-light form-control" name="user[type]" value="Produtor" id="type" readonly>
 
             <label for="phone" class="mt-3">Telefone fixo<span class="text-red"> *</span></label>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+            <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
               ?
             </button>
             <input type="tel" class="bg-light form-control" name="user[phone]"id="phone" maxlength="12" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$" OnKeyPress="formatar('## ####-####', this)" required>
 
             <label for="cellphone" class="mt-3">Celular<span class="text-red"> *</span></label>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+            <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
               ?
             </button>
             <input type="tel" class="bg-light form-control" name="user[cellphone]"id="cellphone" maxlength="13" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$" OnKeyPress="formatar('## #####-####', this)" required>
@@ -305,7 +305,7 @@
             </div>
 
             <label for="script" class="mt-3">Roteiro de entrega<span class="text-red"> *</span></label>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Descreva o procedimento padrão das entregas de produtos na sua propriedade.">
+            <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Descreva o procedimento padrão das entregas de produtos na sua propriedade.">
               ?
             </button>
             <input type="text" class="bg-light form-control" name="user[farm][deliveryScript]" id="script">
@@ -390,7 +390,7 @@
               <input type="email" class="bg-light form-control" name="user[email]" id="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
               <label for="password" class="mt-3">Senha<span class="text-red"> *</span></label>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite uma senha com no mínimo 8 caracteres. Crie uma senha forte.">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite uma senha com no mínimo 8 caracteres. Crie uma senha forte.">
                 ?
               </button>
               <input type="password" class="bg-light form-control" name="user[password]" minlength="8" id="password" required>
@@ -402,7 +402,7 @@
               <input type="number" class="bg-light form-control" name="user[doc]"id="doc" maxlength="11" pattern="[0-9]+$" placeholder="Apenas números" required>
 
               <label for="cep" id="cep2" class="mt-3">CEP<span class="text-red"> *</span></label>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números. Assim que preencher, lembre de clicar no botão Pesquisar.">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números. Assim que preencher, lembre de clicar no botão Pesquisar.">
                 ?
               </button>
               <input type="search" class="bg-light form-control" name="user[address][cep]" id="cep2" placeholder="Apenas números" maxlength="8" pattern="[0-9]+$" required>
@@ -425,13 +425,13 @@
               <input type="hidden" class="bg-light form-control" name="user[type]" value="Franqueado" id="type" readonly>
 
               <label for="phone" class="mt-3">Telefone fixo<span class="text-red"> *</span></label>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
                 ?
               </button>
               <input type="tel" class="bg-light form-control" name="user[phone]"id="phone" maxlength="12" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$" OnKeyPress="formatar('## ####-####', this)" required>
 
               <label for="cellphone" class="mt-3">Celular<span class="text-red"> *</span></label>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
                 ?
               </button>
               <input type="tel" class="bg-light form-control" name="user[cellphone]"id="cellphone" maxlength="13" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$" OnKeyPress="formatar('## #####-####', this)" required>
@@ -477,7 +477,7 @@
               <input type="email" class="bg-light form-control" name="user[email]" id="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
               <label for="password" class="mt-3">Senha<span class="text-red"> *</span></label>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite uma senha com no mínimo 8 caracteres. Crie uma senha forte.">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite uma senha com no mínimo 8 caracteres. Crie uma senha forte.">
                 ?
               </button>
               <input type="password" class="bg-light form-control" name="user[password]" minlength="8" id="password" required>
@@ -489,7 +489,7 @@
               <input type="number" class="bg-light form-control" name="user[doc]"id="doc" maxlength="11" pattern="[0-9]+$" placeholder="Apenas números" required>
 
               <label for="cep" class="mt-3">CEP<span class="text-red"> *</span></label>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números. Assim que preencher, lembre de clicar no botão Pesquisar.">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números. Assim que preencher, lembre de clicar no botão Pesquisar.">
                 ?
               </button>
               <input type="search" class="bg-light form-control" name="user[address][cep]" id="cep3" placeholder="Apenas números" maxlength="8" pattern="[0-9]+$" required>
@@ -512,13 +512,13 @@
               <input type="hidden" class="bg-light form-control" name="user[type]" value="Revendedor" id="type" readonly>
 
               <label for="phone" class="mt-3">Telefone fixo<span class="text-red"> *</span></label>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
                 ?
               </button>
               <input type="tel" class="bg-light form-control" name="user[phone]"id="phone" maxlength="12" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$" OnKeyPress="formatar('## ####-####', this)" required>
 
               <label for="cellphone" class="mt-3">Celular<span class="text-red"> *</span></label>
-              <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+              <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
                 ?
               </button>
               <input type="tel" class="bg-light form-control" name="user[cellphone]"id="cellphone" maxlength="13" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$" OnKeyPress="formatar('## #####-####', this)" required>
@@ -564,7 +564,7 @@
               <label for="Rphone" class="mt-3">
                 Telefone fixo do Responsável pela conta Mega Pool
                 <span class="text-red"> *</span>
-                <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+                <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
                   ?
                 </button>
               </label>
@@ -573,7 +573,7 @@
               <label for="Rcellphone" class="mt-3">
                 Celular do Responsável pela conta Mega Pool
                 <span class="text-red"> *</span>
-                <button type="button" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
+                <button type="button" class="btn btn-sm btn-success" data-placement="top" title="Digite apenas números, que o texto se auto-formatará. Lembre-se do DDD da sua região. Ex: 22998769876">
                   ?
                 </button>
               </label>

@@ -92,7 +92,7 @@ router.get('/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res)
 
 /* GET products/requisitions - Show all products requisitions */
 router.get('/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Product.getByQuerySorted({ status: 'Aguardando' }).then((products) => {
+  Product.getByQuerySorted({ status: 'Aguardando', active: true }).then((products) => {
     console.log(products);
     res.render('admin/requisitions/products', { title: 'Requisições de produtos', layout: 'layout', products });
   }).catch((error) => {

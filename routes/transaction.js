@@ -193,27 +193,45 @@ router.put('/:id', (req, res) => {
       if (transaction.status === 'Cotado') {
         transactionData.status = 'Aguardando boleto';
         if (transaction.franchisee) {
-          let tax = 0;
+          let taxFranchisee = 0;
           if (transaction.offer.product.category === 'Fertilizantes sólidos') {
-            tax = global.config.tax.franchisee.solidFertilizer;
+            taxFranchisee = global.config.tax.franchisee.solidFertilizer;
           }
           else if (transaction.offer.product.category === 'Defensivos agrícolas/agrotóxicos') {
-            tax = global.config.tax.franchisee.defensive;
+            taxFranchisee = global.config.tax.franchisee.defensive;
           }
           else if (transaction.offer.product.category === 'Sementes') {
-            tax = global.config.tax.franchisee.seed;
+            taxFranchisee = global.config.tax.franchisee.seed;
           }
           else if (transaction.offer.product.category === 'Fertilizantes líquidos/adjuvantes/biológicos') {
-            tax = global.config.tax.franchisee.solidFertilizer;
+            taxFranchisee = global.config.tax.franchisee.solidFertilizer;
+          }
+
+          let taxMegapool = 0;
+          if (transaction.offer.product.category === 'Fertilizantes sólidos') {
+            taxMegapool = global.config.tax.megapool.solidFertilizer;
+          }
+          else if (transaction.offer.product.category === 'Defensivos agrícolas/agrotóxicos') {
+            taxMegapool = global.config.tax.megapool.defensive;
+          }
+          else if (transaction.offer.product.category === 'Sementes') {
+            taxFranchisee = global.config.tax.megapool.seed;
+          }
+          else if (transaction.offer.product.category === 'Fertilizantes líquidos/adjuvantes/biológicos') {
+            taxFranchisee = global.config.tax.megapool.solidFertilizer;
+          }
+          else if (transaction.offer.product.category === 'Mega Oportunidade') {
+            taxFranchisee = global.config.tax.megapool.solidFertilizer;
           }
 
           console.log(transaction.offer.product.category);
-          console.log(tax);
+          console.log(taxMegapool);
           console.log(transaction.priceBought);
 
           transactionData.taxStatus = 'Aguardando boleto';
           transactionData.franchiseeTaxStatus = 'Não necessário';
-          transactionData.franchiseeTaxValue = transaction.priceBought * tax;
+          transactionData.taxValue = transaction.priceBought * taxMegapool;
+          transactionData.franchiseeTaxValue = transaction.priceBought * taxFranchisee;
         }
         const offerData = {};
         if (transaction.offer.stock < transaction.amountBought) {

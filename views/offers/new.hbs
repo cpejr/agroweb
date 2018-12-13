@@ -105,6 +105,12 @@
           <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Mudança de preço e entrega: </label>
         </div>
 
+        <div class="user-input justify-content-between">
+          <input type="checkbox" name="product[generic]" value="Original" id="select"></input>
+          <label>Oferta Mega Oportunidade</label>
+        </div>
+
+        <div id="megaoportunidade">
         <div class="user-input">
           <br/>
           <div class="input-group mb-2">
@@ -159,6 +165,7 @@
           </div>
         </div>
         </div>
+        </div>
       </div>
     <div>
       <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Enviar</button>
@@ -173,4 +180,5 @@
       $('[data-toggle="tooltip"]').tooltip()
     });
   </script>
+  <script src="/javascripts/megaoportunidade.js"></script>
 {{/section}}

@@ -33,6 +33,10 @@ const offerSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true
+  },
+  megaOpportunity: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true, strict: false });
 

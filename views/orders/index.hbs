@@ -27,8 +27,8 @@
       {{#each transactions}}
       <tr class="col-12">
         <td class="d-none">{{product.name}}</td>
-        <td class="d-none">{{price.low}}</td>
-        <td class="d-none">{{product.unit}}</td>
+        <td class="d-none">{{price.high}}</td>
+        <td class="d-none">{{unitPrice}}</td>
         <td class="d-none">{{delivery}}</td>
         <td class="d-none">{{stock}}</td>
         <td class="">
@@ -119,7 +119,6 @@
                         </p>
                         {{#ifCond offer.usd true}}
                         <span class="count text-center text-dark  mobile-font1  mt-0">
-                          <br/>
                           {{#if offer.usd}}
                             R$ {{math (usdValue) "*" unitPrice}}
                           {{else}}
@@ -153,7 +152,7 @@
     {{#each transactions}}
     <tr class="col-12">
       <td class="d-none">{{product.name}}</td>
-      <td class="d-none">{{price.low}}</td>
+      <td class="d-none">{{price.high}}</td>
       <td class="d-none">{{product.unit}}</td>
       <td class="d-none">{{delivery}}</td>
       <td class="d-none">{{stock}}</td>
@@ -245,7 +244,6 @@
                       </p>
                       {{#ifCond offer.usd true}}
                       <span class="count text-center text-dark  mobile-font1  mt-0">
-                        <br/>
                         {{#if offer.usd}}
                           R$ {{math (usdValue) "*" unitPrice}}
                         {{else}}
@@ -376,7 +374,6 @@
                       </p>
                       {{#ifCond offer.usd true}}
                       <span class="count text-center text-dark  mobile-font1  mt-0">
-                        <br/>
                         {{#if offer.usd}}
                           R$ {{math (usdValue) "*" unitPrice}}
                         {{else}}

@@ -19,7 +19,7 @@
       <thead>
         <tr>
           <th class="text-center">Quantidade em Estoque</th>
-          <th class="text-center">Preço</th>
+          <th class="text-center">Preço (R$)</th>
           <th class="text-center">Entrega</th>
           <th class="text-center">Vendedor</th>
           <th class="text-center">Produto</th>
@@ -32,9 +32,9 @@
           <td class="font-book text-center">{{stock}}</td>
           <td class="font-book text-center">
             {{#if usd}}
-              R$ {{math (usdValue) "*" price.high}}
+              {{math (usdValue) "*" price.high}}
             {{else}}
-              R$ {{price.high}}
+              {{price.high}}
             {{/if}}
           </td>
           <td class="font-book text-center">{{delivery}}</td>

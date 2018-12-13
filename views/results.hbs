@@ -37,6 +37,12 @@
 
               <div class="col p-2">
                 <div class="vl">
+                  {{#if megaOpportunity}}
+                  <div class="pagination float-right">
+                    <div data-toggle="tooltip" data-placement="top" title="Essa oferta é uma mega oportunidade" class="pagination__dot pagination__dot--mega"></div>
+                  </div>
+                  {{/if}}
+
                   <div class="ml-2">
                     <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
                       {{product.name}}
@@ -106,6 +112,12 @@
 
                 <div class="col p-2">
                   <div class="vl">
+                    {{#if offer.megaOpportunity}}
+                    <div class="pagination float-right">
+                      <div data-toggle="tooltip" data-placement="top" title="Essa oferta é uma mega oportunidade" class="pagination__dot pagination__dot--mega"></div>
+                    </div>
+                    {{/if}}
+
                     <div class="ml-2">
                       <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
                         {{offer.product.name}}

@@ -7769,6 +7769,8 @@ a.more-link {
       transition: .3s; }
       .pagination__dot--active {
         background: #FF0000; }
+      .pagination__dot--mega {
+        background: #00B800; }
       .pagination__dot:hover {
         transition: .3s;
         width: 27px;

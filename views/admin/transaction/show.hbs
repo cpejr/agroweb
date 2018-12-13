@@ -19,7 +19,7 @@
 
       <dt class="font-bold">Ingredientes ativos</dt>
       {{#each product.chem}}
-        <dd class="font-light">{{name}}</dd>
+      <dd class="font-light">{{name}}</dd>
       {{/each}}
 
       <dt class="font-bold">Forma de entrega</dt>
@@ -85,26 +85,26 @@
               <p class="font-light">
                 Baixo:
                 {{#if usd}}
-                  R$ {{math (usdValue) "*" price.low}}
+                R$ {{math (usdValue) "*" price.low}}
                 {{else}}
-                  R$ {{price.low}}
+                R$ {{price.low}}
                 {{/if}}
               </p>
 
               <p class="font-light">
                 Médio:
                 {{#if usd}}
-                  R$ {{math (usdValue) "*" price.average}}
+                R$ {{math (usdValue) "*" price.average}}
                 {{else}}
-                  R$ {{price.average}}
+                R$ {{price.average}}
                 {{/if}}
               </p>
 
               <p class="font-light">Alto:
                 {{#if usd}}
-                  R$ {{math (usdValue) "*" price.high}}
+                R$ {{math (usdValue) "*" price.high}}
                 {{else}}
-                  R$ {{price.high}}
+                R$ {{price.high}}
                 {{/if}}
               </p>
             </div>
@@ -118,7 +118,7 @@
       {{else}}
       <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
       <form action="/offers/{{_id}}?_method=DELETE" method="POST">
-          <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
+        <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
       </form>
       {{/ifCond}}
     </div>

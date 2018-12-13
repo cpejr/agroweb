@@ -22,19 +22,19 @@
 <!-- ProductsList -->
 <div class="justify-content-center">
   <div id="results-list" class="row justify-content-left mt-2 mx-0">
-  {{#each products}}
+    {{#each products}}
     <div class="col-12 col-md-5">
       <div class="card mb-1">
         <div class="card-body text-right">
           {{#ifCond category 'Defensivos'}}
           <!-- offer.product.category -->
-            <i class="card-icon fas fa-bug fa-3x float-left align-middle"></i>
+          <i class="card-icon fas fa-bug fa-3x float-left align-middle"></i>
           {{else ifCond category 'Sementes'}}
-            <i class="card-icon fas fa-dot-circle fa-3x float-left align-middle"></i>
+          <i class="card-icon fas fa-dot-circle fa-3x float-left align-middle"></i>
           {{else ifCond category 'Fertilizantes'}}
-            <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
+          <i class="card-icon fas fa-seedling fa-3x float-left align-middle"></i>
           {{else ifCond category 'Fertilizantes Líquidos'}}
-            <i class="card-icon fas fa-tint fa-3x float-left align-middle"></i>
+          <i class="card-icon fas fa-tint fa-3x float-left align-middle"></i>
           {{/ifCond}}
           <h5 class="card-title align-text-top">{{product.name}}</h5>
           <!-- <h5 class="card-title align-text-top">{{offer.product.name}}</h5> -->
@@ -43,9 +43,9 @@
         </div>
       </div>
     </div>
-        {{/each}}
-    </div>
+    {{/each}}
   </div>
+</div>
 
 <!-- end QuotationsList -->
 

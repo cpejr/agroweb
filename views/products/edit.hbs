@@ -6,47 +6,47 @@
 
 <div class="pl-5 pr-5 pt-2">
 
-<form action="/products/{{id}}?_method=PUT" method="POST">
-  <div class="row d-flex justify-content-between">
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="name" class="editlabel">Nome do produto</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
-       </div>
-       <input name="product[name]" type="text" class="form-control" value="{{name}}" id="name"></input>
-      </div>
-    </div>
-
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="name" class="editlabel">Categoria</label>
-      <div class="input-group mb-2">
-       <div class="input-group-prepend">
-         <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
-       </div>
-       <input name="product[category]" type="text" class="form-control" value="{{category}}" id="name" readonly></input>
-      </div>
-    </div>
-
-    <div class="form-group col-md-3 col-10 mx-4 my-2">
-      <label for="description" class="editlabel">Descrição</label>
+  <form action="/products/{{id}}?_method=PUT" method="POST">
+    <div class="row d-flex justify-content-between">
+      <div class="form-group col-md-3 col-10 mx-4 my-2">
+        <label for="name" class="editlabel">Nome do produto</label>
         <div class="input-group mb-2">
-         <div class="input-group-prepend">
-           <div class="input-group-text"><i class="fas fa-newspaper"></i></div>
-         </div>
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+          </div>
+          <input name="product[name]" type="text" class="form-control" value="{{name}}" id="name"></input>
+        </div>
+      </div>
+
+      <div class="form-group col-md-3 col-10 mx-4 my-2">
+        <label for="name" class="editlabel">Categoria</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+          </div>
+          <input name="product[category]" type="text" class="form-control" value="{{category}}" id="name" readonly></input>
+        </div>
+      </div>
+
+      <div class="form-group col-md-3 col-10 mx-4 my-2">
+        <label for="description" class="editlabel">Descrição</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-newspaper"></i></div>
+          </div>
           <textarea rows="4" name="product[description]" value="{{description}}" type="text" class="form-control" id="description">{{description}}</textarea>
         </div>
+      </div>
     </div>
-  </div>
 
     <div class="row d-flex justify-content-between">
       <div class="form-group col-md-3 col-10 mx-4 my-2">
         <label for="manufacturer" class="editlabel">Fabricante</label>
         <div class="input-group mb-2">
-         <div class="input-group-prepend">
-           <div class="input-group-text"><i class="fas fa-industry"></i></div>
-         </div>
-         <input name="product[manufacturer]" type="text" value="{{manufacturer}}" class="form-control" id="manufacturer">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-industry"></i></div>
+          </div>
+          <input name="product[manufacturer]" type="text" value="{{manufacturer}}" class="form-control" id="manufacturer">
         </div>
         {{#ifCond generic 'Similar'}}
         <label>Produto genérico</label>
@@ -59,10 +59,10 @@
       <div class="form-group col-md-3 col-10 mx-4 my-2">
         <label for="name" class="editlabel">Medida</label>
         <div class="input-group mb-2">
-         <div class="input-group-prepend">
-           <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
-         </div>
-         <input name="product[unit]" type="text" class="form-control" value="{{unit}}" id="unit" readonly></input>
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-cart-arrow-down"></i></div>
+          </div>
+          <input name="product[unit]" type="text" class="form-control" value="{{unit}}" id="unit" readonly></input>
         </div>
       </div>
       <div class="form-group col-md-3 col-10 mx-4  my-2">
@@ -81,8 +81,8 @@
           </div>
         </div>
         <label for="name" class="editlabel">Princípios ativos</label>
-        </div>
-        <div class="row">
+      </div>
+      <div class="row">
         {{#each chems}}
         <span class="badge badge-success chem-badge">
           {{name}}
@@ -96,8 +96,8 @@
 
     </div>
 
-  <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
-</form>
+    <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
+  </form>
 </div>
 
 {{#section 'scripts'}}

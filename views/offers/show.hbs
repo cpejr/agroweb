@@ -21,7 +21,7 @@
 
       <h4>Ingredientes ativos</h4>
       {{#each product.chems}}
-        <dd>{{name}}</dd>
+      <dd>{{name}}</dd>
       {{/each}}
 
       <h4>Forma de entrega</h4>
@@ -41,7 +41,7 @@
       {{#ifCond myOffer 1}}
       <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
       <form action="/offers/{{_id}}?_method=DELETE" method="POST">
-          <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
+        <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
       </form>
 
       {{else}}
@@ -50,107 +50,107 @@
         <label class="font-bold" for="amount">Quantidade</label>
         <input type="hidden" name="_id" value="{{_id}}">
         <div class="input-group">
-        <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
-        <div class="input-group-prepend">
-          <div class="input-group-text">{{product.unit}}</div>
+          <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
+          <div class="input-group-prepend">
+            <div class="input-group-text">{{product.unit}}</div>
+          </div>
         </div>
-      </div>
         <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
       </form>
       {{else ifCond userType 'Franqueado'}}
       <form action="/transaction" method="post">
-            <label class="font-light" for="amount">Quantidade</label>
-            <div class="input-group">
-              <input type="hidden" name="_id" value="{{_id}}">
-              <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}" required>
-              <div class="input-group-prepend">
-                <div class="input-group-text">{{product.unit}}</div>
-              </div>
-            </div>
-            <label class="mt-2 font-light" for="amount">Selecione o cliente responsável por esta cotação</label>
-            <select class="form-control new-shadow" name="buyer" required/>
-              <option disabled selected value>-- Cliente --</option>
-              {{#each clients}}
-              <option value={{_id}}>{{fullName}}</option>
-              {{/each}}
-            </select>
-        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-      </form>
-
-      {{else ifCond userType 'Administrador'}}
-            <div class="col-12">
-              <h4>Estoque</h4>
-              <p class="font-light">{{stock}} {{product.unit}}</p>
-            </div>
-            <div class="col-12">
-              <h4>Entrega</h4>
-              <p class="font-light">{{delivery}}</p>
-            </div>
-            <div class="col-12">
-              <h4>Preços</h4>
-              <p class="font-light">Baixo:
-                {{#if usd}}
-                  R$ {{math (usdValue) "*" price.low}}
-                {{else}}
-                  R$ {{price.low}}
-                {{/if}}
-              </p>
-              <p class="font-light">Médio:
-                {{#if usd}}
-                  R$ {{math (usdValue) "*" price.average}}
-                {{else}}
-                  R$ {{price.average}}
-                {{/if}}
-              </p>
-              <p class="font-light">Alto:
-                {{#if usd}}
-                  R$ {{math (usdValue) "*" price.high}}
-                {{else}}
-                  R$ {{price.high}}
-                {{/if}}
-              </p>
-            </div>
-            <div class="col-12">
-              <h4>Qtd. mínima</h4>
-              <p class="font-light">{{minAmount}} {{product.unit}}</p>
-            </div>
-            <div class="text-center my-3 justify-content-center">
-              <form action="/offers/{{id}}?_method=DELETE" method="POST" id="form-delete">
-                <button type="submit" class="btn btn-danger col-8" name="status">
-                  Excluir
-                </button>
-              </form>
-            </div>
-      {{else ifCond userType 'Revendedor'}}
-      <form action="/transaction" method="post">
-          <div class="form-group col">
-            <label class="font-bold" for="amount">Quantidade</label>
-            <div class="input-group">
-              <input type="hidden" name="_id" value="{{_id}}">
-              <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
-              <div class="input-group-prepend">
-                <div class="input-group-text">{{product.unit}}</div>
-              </div>
-            </div>
+        <label class="font-light" for="amount">Quantidade</label>
+        <div class="input-group">
+          <input type="hidden" name="_id" value="{{_id}}">
+          <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}" required>
+          <div class="input-group-prepend">
+            <div class="input-group-text">{{product.unit}}</div>
           </div>
-        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-      </form>
+        </div>
+        <label class="mt-2 font-light" for="amount">Selecione o cliente responsável por esta cotação</label>
+        <select class="form-control new-shadow" name="buyer" required/>
+        <option disabled selected value>-- Cliente --</option>
+        {{#each clients}}
+        <option value={{_id}}>{{fullName}}</option>
+        {{/each}}
+      </select>
+      <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+    </form>
 
-      {{else ifCond userType 'Indústria'}}
-      <form action="/transaction" method="post">
-            <label class="font-bold" for="amount">Quantidade</label>
-              <input type="hidden" name="_id" value="{{_id}}">
-              <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
-              <div class="input-group-prepend">
-                <div class="input-group-text">{{product.unit}}</div>
-              </div>
-        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-      </form>
-      {{/ifCond}}
-      {{/ifCond}}
+    {{else ifCond userType 'Administrador'}}
+    <div class="col-12">
+      <h4>Estoque</h4>
+      <p class="font-light">{{stock}} {{product.unit}}</p>
     </div>
-    <!-- end Quotation -->
+    <div class="col-12">
+      <h4>Entrega</h4>
+      <p class="font-light">{{delivery}}</p>
+    </div>
+    <div class="col-12">
+      <h4>Preços</h4>
+      <p class="font-light">Baixo:
+        {{#if usd}}
+        R$ {{math (usdValue) "*" price.low}}
+        {{else}}
+        R$ {{price.low}}
+        {{/if}}
+      </p>
+      <p class="font-light">Médio:
+        {{#if usd}}
+        R$ {{math (usdValue) "*" price.average}}
+        {{else}}
+        R$ {{price.average}}
+        {{/if}}
+      </p>
+      <p class="font-light">Alto:
+        {{#if usd}}
+        R$ {{math (usdValue) "*" price.high}}
+        {{else}}
+        R$ {{price.high}}
+        {{/if}}
+      </p>
+    </div>
+    <div class="col-12">
+      <h4>Qtd. mínima</h4>
+      <p class="font-light">{{minAmount}} {{product.unit}}</p>
+    </div>
+    <div class="text-center my-3 justify-content-center">
+      <form action="/offers/{{id}}?_method=DELETE" method="POST" id="form-delete">
+        <button type="submit" class="btn btn-danger col-8" name="status">
+          Excluir
+        </button>
+      </form>
+    </div>
+    {{else ifCond userType 'Revendedor'}}
+    <form action="/transaction" method="post">
+      <div class="form-group col">
+        <label class="font-bold" for="amount">Quantidade</label>
+        <div class="input-group">
+          <input type="hidden" name="_id" value="{{_id}}">
+          <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
+          <div class="input-group-prepend">
+            <div class="input-group-text">{{product.unit}}</div>
+          </div>
+        </div>
+      </div>
+      <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+    </form>
+
+    {{else ifCond userType 'Indústria'}}
+    <form action="/transaction" method="post">
+      <label class="font-bold" for="amount">Quantidade</label>
+      <input type="hidden" name="_id" value="{{_id}}">
+      <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
+      <div class="input-group-prepend">
+        <div class="input-group-text">{{product.unit}}</div>
+      </div>
+      <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+    </form>
+    {{/ifCond}}
+    {{/ifCond}}
   </div>
+  <!-- end Quotation -->
+</div>
 </div>
 
 {{#section 'scripts'}}

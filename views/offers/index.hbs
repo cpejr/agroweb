@@ -20,109 +20,109 @@
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
   <div class="col-sm-12 col-md-9 col-lg-6 btn p-3">
     <table id="myTable" class="col-12">
-    <tbody>
-  {{#if offers}}
-    {{#each offers}}
-    <tr class="col-12">
-      <td class="d-none">{{product.name}}</td>
-      <td class="d-none">{{price.low}}</td>
-      <td class="d-none">{{product.unit}}</td>
-      <td class="d-none">{{delivery}}</td>
-      <td class="d-none">{{stock}}</td>
-      <td class="">
+      <tbody>
+        {{#if offers}}
+        {{#each offers}}
+        <tr class="col-12">
+          <td class="d-none">{{product.name}}</td>
+          <td class="d-none">{{price.low}}</td>
+          <td class="d-none">{{product.unit}}</td>
+          <td class="d-none">{{delivery}}</td>
+          <td class="d-none">{{stock}}</td>
+          <td class="">
 
-    <div class="p-1" >
-        <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/offers/{{_id}}'">
-          <div class="text-right">
-            <div class="row px-3">
-              <div class="col-3 d-inline-block text-center align-self-center">
-                <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
-                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
-                <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
-              </div>
+            <div class="p-1" >
+              <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/offers/{{_id}}'">
+                <div class="text-right">
+                  <div class="row px-3">
+                    <div class="col-3 d-inline-block text-center align-self-center">
+                      <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
+                      <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
+                      <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
+                    </div>
 
-              <div class="col p-2">
-                <div class="vl">
-                  <div class="ml-2">
-                    <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
-                      {{product.name}}
-                    </h5>
-                  </div>
-                  <div class="ml-2 mt-3 text-left">
-                    {{#ifCond active false}}
-                      <span class="badge badge-danger mb-3">
-                        <h6>Inativo</h6>
-                      </span>
-                    {{else}}
-                      <span class="badge badge-success mb-3">
-                        <h6>Ativo</h6>
-                      </span>
-                    {{/ifCond}}
-                    <div class="text-left side-animation">
-                      <h4 class="font-book mobile-font4 mobile-font5  d-inline">
-                        {{#if offer.usd}}
-                          R$ {{math (usdValue) "*" price.high}}
-                        {{else}}
-                          R$ {{price.high}}
-                        {{/if}}
-                      </h4>
+                    <div class="col p-2">
+                      <div class="vl">
+                        <div class="ml-2">
+                          <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
+                            {{product.name}}
+                          </h5>
+                        </div>
+                        <div class="ml-2 mt-3 text-left">
+                          {{#ifCond active false}}
+                          <span class="badge badge-danger mb-3">
+                            <h6>Inativo</h6>
+                          </span>
+                          {{else}}
+                          <span class="badge badge-success mb-3">
+                            <h6>Ativo</h6>
+                          </span>
+                          {{/ifCond}}
+                          <div class="text-left side-animation">
+                            <h4 class="font-book mobile-font4 mobile-font5  d-inline">
+                              {{#if offer.usd}}
+                              R$ {{math (usdValue) "*" price.high}}
+                              {{else}}
+                              R$ {{price.high}}
+                              {{/if}}
+                            </h4>
 
-                      <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                        / {{product.unit}}
-                      </i>
-                    </div>
-                  </div>
-                  <div class="smaller-font d-flex text-center mt-3 align-bottom">
-                    <div class="ml-2 text-gray3">
-                      <p class="text-uppercase font-book mobile-font2">Compra
-                        <span class="count font-light mobile-font2"> <br/>solo</span>
-                      </p>
-                    </div>
-                    <div class="ml-4 text-gray3">
-                      <p class="text-uppercase font-book mobile-font2">Entrega
-                        <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
-                      </p>
-                    </div>
-                    <div class="ml-4 text-gray3">
-                      <p class="text-uppercase font-book mobile-font2">Estoque
-                        <span class="count font-light mobile-font2"> <br/>{{stock}} {{product.unit}}</span>
-                      </p>
+                            <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                              / {{product.unit}}
+                            </i>
+                          </div>
+                        </div>
+                        <div class="smaller-font d-flex text-center mt-3 align-bottom">
+                          <div class="ml-2 text-gray3">
+                            <p class="text-uppercase font-book mobile-font2">Compra
+                              <span class="count font-light mobile-font2"> <br/>solo</span>
+                            </p>
+                          </div>
+                          <div class="ml-4 text-gray3">
+                            <p class="text-uppercase font-book mobile-font2">Entrega
+                              <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
+                            </p>
+                          </div>
+                          <div class="ml-4 text-gray3">
+                            <p class="text-uppercase font-book mobile-font2">Estoque
+                              <span class="count font-light mobile-font2"> <br/>{{stock}} {{product.unit}}</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-    </div>
-      </td>
-    </tr>
-    {{/each}}
-    </tbody>
-  </table>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
 
-  <!-- </div> -->
-  {{else}}
-  <div class="container">
-    <p class="text-center font-light">Você não está oferecendo nenhum produto ainda.</p>
+    <!-- </div> -->
+    {{else}}
+    <div class="container">
+      <p class="text-center font-light">Você não está oferecendo nenhum produto ainda.</p>
+    </div>
+    {{/if}}
   </div>
-  {{/if}}
-</div>
 </div>
 <!-- end OrdersList -->
 
 {{#section 'scripts'}}
-  <script src="/javascripts/sales.js"></script>
-  <script src="/javascripts/navbar.js"></script>
-  <!-- <script src="/javascripts/filter.js"></script> -->
-  <script>
-    $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
+<script src="/javascripts/sales.js"></script>
+<script src="/javascripts/navbar.js"></script>
+<!-- <script src="/javascripts/filter.js"></script> -->
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
-  </script>
+  });
+});
+</script>
 {{/section}}

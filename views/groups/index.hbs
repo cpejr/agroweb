@@ -3,57 +3,57 @@
 <stylesheet src="/stylesheets/estilos.css"></stylesheet>
 {{/section}}
 
-  <div class="text-center p-3 gradient-background text-white">
-    <h3 class="font-black">Grupos de compra</h3>
+<div class="text-center p-3 gradient-background text-white">
+  <h3 class="font-black">Grupos de compra</h3>
+</div>
+
+<div style="overflow-x:auto;">
+  <div class="container">
+    <p>Digite logo abaixo para buscar algum grupo de compras específico:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+    <br>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th class="text-center">Código do produto</th>
+          <th class="text-center">Nome do produto</th>
+          <th class="text-center">Preço atual</th>
+          <th class="text-center">Dono</th>
+          <th class="text-center">Quantidade sendo contada</th>
+          <th class="text-center">Tipo de entrega</th>
+          <th class="text-center">Fechamento</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+        {{#each groups}}
+        <tr>
+          <td class="font-book text-center">{{_id}}</td>
+          <td class="font-book text-center">{{offer.product.name}}</td>
+          <td class="font-book text-center">{{price}}</td>
+          <td class="font-book text-center">{{offer.seller.responsible.name}}</td>
+          <td class="font-book text-center">{{amount}}</td>
+          <td class="font-book text-center">{{delivery}}</td>
+          {{#if date}}
+          <form action="/groups/{{id}}?_method=PUT" method="POST">
+            <td class="font-book">
+              <input type="date" name="group[closeDate]" class="form-control" value="{{date}}">
+            </td>
+            <td class="font-book">
+              <button type="submit" class="btn bg-green text-light2">Salvar</button>
+            </td>
+          </form>
+          {{else}}
+          <td class="text-center">-</td>
+          <td></td>
+          {{/if}}
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
-
-  <div style="overflow-x:auto;">
-    <div class="container">
-      <p>Digite logo abaixo para buscar algum grupo de compras específico:</p>
-      <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
-      <br>
-
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th class="text-center">Código do produto</th>
-            <th class="text-center">Nome do produto</th>
-            <th class="text-center">Preço atual</th>
-            <th class="text-center">Dono</th>
-            <th class="text-center">Quantidade sendo contada</th>
-            <th class="text-center">Tipo de entrega</th>
-            <th class="text-center">Fechamento</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="myTable">
-          {{#each groups}}
-          <tr>
-            <td class="font-book text-center">{{_id}}</td>
-            <td class="font-book text-center">{{offer.product.name}}</td>
-            <td class="font-book text-center">{{price}}</td>
-            <td class="font-book text-center">{{offer.seller.responsible.name}}</td>
-            <td class="font-book text-center">{{amount}}</td>
-            <td class="font-book text-center">{{delivery}}</td>
-            {{#if date}}
-            <form action="/groups/{{id}}?_method=PUT" method="POST">
-              <td class="font-book">
-                <input type="date" name="group[closeDate]" class="form-control" value="{{date}}">
-              </td>
-              <td class="font-book">
-                <button type="submit" class="btn bg-green text-light2">Salvar</button>
-              </td>
-            </form>
-            {{else}}
-            <td class="text-center">-</td>
-            <td></td>
-            {{/if}}
-          </tr>
-            {{/each}}
-            </tbody>
-          </table>
-        </div>
-      </div>
+</div>
 
 {{#section 'scripts'}}
 <script src="/javascripts/navbar.js"></script>

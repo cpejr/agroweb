@@ -2,76 +2,76 @@
 {{/section}}
 
 <div class="">
-<div class="">
-  <div class="text-center pb-3 gradient-background text-white">
-    <h3 class="font-black">Ofertas atuais</h3>
+  <div class="">
+    <div class="text-center pb-3 gradient-background text-white">
+      <h3 class="font-black">Ofertas atuais</h3>
+    </div>
   </div>
-</div>
 
-{{#if offers}}
-<div style="overflow-x:auto;">
-  <div class="container">
-    <p>Digite logo abaixo para buscar algum boleto específico:</p>
-    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
-    <br>
+  {{#if offers}}
+  <div style="overflow-x:auto;">
+    <div class="container">
+      <p>Digite logo abaixo para buscar algum boleto específico:</p>
+      <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+      <br>
 
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th class="text-center">Quantidade em Estoque</th>
-          <th class="text-center">Preço</th>
-          <th class="text-center">Entrega</th>
-          <th class="text-center">Vendedor</th>
-          <th class="text-center">Produto</th>
-          <th colspan="2" class="text-center">Opções</th>
-        </tr>
-      </thead>
-      <tbody id="myTable">
-        {{#each offers}}
-        <tr>
-          <td class="font-book text-center">{{stock}}</td>
-          <td class="font-book text-center">
-            {{#if usd}}
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th class="text-center">Quantidade em Estoque</th>
+            <th class="text-center">Preço</th>
+            <th class="text-center">Entrega</th>
+            <th class="text-center">Vendedor</th>
+            <th class="text-center">Produto</th>
+            <th colspan="2" class="text-center">Opções</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+          {{#each offers}}
+          <tr>
+            <td class="font-book text-center">{{stock}}</td>
+            <td class="font-book text-center">
+              {{#if usd}}
               R$ {{math (usdValue) "*" price.high}}
-            {{else}}
+              {{else}}
               R$ {{price.high}}
-            {{/if}}
-          </td>
-          <td class="font-book text-center">{{delivery}}</td>
-          <td class="font-book text-center">{{seller.fullName}}</td>
-          <td class="font-book text-center">{{product.name}}</td>
-          <td class="font-book text-center">
-            <button onclick="location.href='/offers/{{id}}'" class="btn btn-outline-info">
-              Ver
-            </button>
-          </td>
-          <td class="font-book text-center">
-            <form action="/offers/{{id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-outline-danger">Excluir</button>
-            </form>
-          </td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
+              {{/if}}
+            </td>
+            <td class="font-book text-center">{{delivery}}</td>
+            <td class="font-book text-center">{{seller.fullName}}</td>
+            <td class="font-book text-center">{{product.name}}</td>
+            <td class="font-book text-center">
+              <button onclick="location.href='/offers/{{id}}'" class="btn btn-outline-info">
+                Ver
+              </button>
+            </td>
+            <td class="font-book text-center">
+              <form action="/offers/{{id}}?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-outline-danger">Excluir</button>
+              </form>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-{{else}}
-<div class="container">
-  <p class="text-center font-light">Não há nenhuma oferta.</p>
-</div>
-{{/if}}
+  {{else}}
+  <div class="container">
+    <p class="text-center font-light">Não há nenhuma oferta.</p>
+  </div>
+  {{/if}}
 
-{{#section 'scripts'}}
-<script src="/javascripts/navbar.js"></script>
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  {{#section 'scripts'}}
+  <script src="/javascripts/navbar.js"></script>
+  <script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
     });
   });
-});
 </script>
 {{/section}}

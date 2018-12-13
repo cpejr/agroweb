@@ -125,7 +125,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
               res.redirect('/user');
             });
             if (transactionData.franchisee) {
-              User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
+              User.addToMyCart(transactionData.franchisee, transaction).catch((error) => {
                 req.flash('danger', 'Não foi possível adicionar a transação no carrinho do franqueado.');
                 res.redirect('/user');
               });

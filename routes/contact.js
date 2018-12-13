@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var hbs = require('handlebars');
-var nodemailer = require('nodemailer');
+const express = require('express');
+const router = express.Router();
+const hbs = require('handlebars');
+const nodemailer = require('nodemailer');
 
 
 /* GET home page. */
@@ -19,7 +19,7 @@ router.post('/login', (req,res,next) => {
   const email = req.body.email;
   const emailcontents = req.body.email;
   // Criamos nosso transporte
-  var transporte = nodemailer.createTransport({
+  const transporte = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
       user: 'sayuriyamaguchi22@gmail.com',
@@ -27,21 +27,21 @@ router.post('/login', (req,res,next) => {
     }
   });
 
-  // Criamos um template bacana para nosso e-mail, com algumas variáveis
+  // Criamos um template bacana para nosso e-mail, com algumas constiáveis
   // para deixar o mesmo bem pessoal.
-  var template = hbs.compile('' +
+  const template = hbs.compile('' +
     '<h1>Olá {{nome}} {{sobrenome}}!</h1>' +
     '<p>É com grande prazer que venho dizer oi!</p>' +
     '');
 
   // Algumas configurações padrões para nossos e-mails
-  var config = {
+  const config = {
     remetente: 'sayuriyamaguchi22@gmail.com',
     assunto: 'Teste Agroweb!'
   };
 
   // Agora só falta uma lista de usuários para enviar
-  var usuario = [
+  const usuario = [
     {
       nome: 'Brenda',
       sobrenome: 'Yamaguchi',
@@ -55,8 +55,8 @@ router.post('/login', (req,res,next) => {
     if(!usuario) // Se usuários for false (undefined), significa que a array já terminou
       return console.log('Acabamos de enviar!'); // O return funciona como um break
 
-    // Passamos as variáveis para nosso template
-    var html = template(usuario);
+    // Passamos as constiáveis para nosso template
+    const html = template(usuario);
 
     // Hora de disparar o e-mail usando as configurações pré
     // definidas e as informações pessoas do usuário

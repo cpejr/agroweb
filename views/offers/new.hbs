@@ -45,8 +45,13 @@
             <input name="offer[minAmount]" type="number" class="form-control input-text" required/>
             <label class="floating-label text-dark2">Quantidade mínima</label>
           </div>
+          <div class="mt-4 ml-2">
+            <input type="checkbox" name="offer[megaOpportunity]" value="true"></input>
+            <label>Mega Oportunidade</label>
+          </div>
         </div>
       </div>
+
 
       <div class="col-md-4">
         <div class="form-group mx-4 my-2">
@@ -60,8 +65,8 @@
              <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
            </div>
            <select class="form-control new-shadow" name="offer[usd]" required/>
-             <option value="1">Dólar americano (U$)</option>
-             <option value="0" selected>Real (R$)</option>
+             <option value="true">Dólar americano (U$)</option>
+             <option value="false" selected>Real (R$)</option>
            </select>
           </div>
         </div>

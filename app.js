@@ -69,26 +69,24 @@ schedule.scheduleJob('0 0 3 * * *', () => {
   }).catch((error) => {
     console.log(error);
   });
-  Money.getUsdValue().then((dollar) => {
-    Money.getPrevUsdValue().then((prevDollar) => {
-      if (dollar > prevDollar) {
-        global.rising = 'true';
-      }
-      else {
-        global.rising = 'false';
-      }
-      Money.createPrevDollarJSON();
+  Money.getUsdValue().then((prevDollar) => {
+    Money.createDollarJSON().then(() => {
+      Money.getUsdValue().then((dollar) => {
+        global.dollar = dollar;
+        if (dollar > prevDollar) {
+          global.rising = 'true';
+        }
+        else {
+          global.rising = 'false';
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+    }).catch((error) => {
+      console.log(error);
     });
-  });
-});
-
-/**
- * Getting dollar quotation everyday
- */
-schedule.scheduleJob('0 */10 * * * *', () => {
-  Money.createDollarJSON();
-  Money.getUsdValue().then((dollar) => {
-    global.dollar = dollar;
+  }).catch((error) => {
+    console.log(error);
   });
 });
 

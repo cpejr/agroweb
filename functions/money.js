@@ -15,24 +15,7 @@ class Money {
           reject(err);
         }
         const dataJSON = JSON.parse(data);
-        console.log(dataJSON);
-        resolve(dataJSON.ask);
-      });
-    });
-  }
-
-  /**
-   * Get the dollar commercial quotation
-   * @returns {null}
-   */
-  static getPrevUsdValue() {
-    return new Promise((resolve, reject) => {
-      fs.readFile('./docs/prevDollar.json', (err, data) => {
-        if (err) {
-          reject(err);
-        }
-        const dataJSON = JSON.parse(data);
-        console.log(dataJSON);
+        //console.log(dataJSON);
         resolve(dataJSON.ask);
       });
     });
@@ -113,35 +96,6 @@ class Money {
           reject(response.err);
         }
         fs.writeFile('./docs/dollar.json', JSON.stringify(response.body[0]), (err) => {
-          if (err) {
-            reject(err);
-          }
-          console.log('The dollar file has been saved!');
-          resolve();
-        });
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-
-  /**
-   * Get the dollar quotation and create a JSON
-   * @returns {null}
-   */
-  static createPrevDollarJSON() {
-    return new Promise((resolve, reject) => {
-      request({
-        method: 'GET',
-        url: 'https://economia.awesomeapi.com.br/json/USD-BRL/1',
-        json: true,
-        resolveWithFullResponse: true
-      }).then((response) => {
-        if (response.err) {
-          console.log(response.err);
-          reject(response.err);
-        }
-        fs.writeFile('./docs/prevDollar.json', JSON.stringify(response.body[0]), (err) => {
           if (err) {
             reject(err);
           }

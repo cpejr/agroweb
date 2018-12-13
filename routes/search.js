@@ -19,10 +19,10 @@ router.get('/', (req, res) => {
     console.log(products.length);
     if (products.length !== 0) {
       products.forEach((product) => {
-        const queryOffer = { product: product._id, delivery: '48 horas', active: true };
-        const sortOffer = { 'price.low': 1 };
+        const queryOffer = { product: product._id, $or: [{ delivery: '48 horas' }, { megaOpportunity: true }], active: true };
+        const sortOffer = { 'product.name': 1, delivery: -1, 'price.low': 1 };
         const queryGroup = { productId: product._id, active: true };
-        const sortGroup = {};
+        const sortGroup = { 'offer.product.name': 1, delivery: -1, price: 1 };
         let promise = Offer.getByQuerySorted(queryOffer, sortOffer);
         offerPromises.push(promise);
         promise = Group.getByQuerySorted(queryGroup, sortGroup);

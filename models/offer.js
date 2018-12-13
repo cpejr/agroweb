@@ -33,7 +33,12 @@ const offerSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true
-  }
+  },
+  megaOpportunity: {
+    type: Boolean,
+    default: false
+  },
+  damage: String
 }, { timestamps: true, strict: false });
 
 const OfferModel = mongoose.model('Offer', offerSchema);

@@ -49,18 +49,18 @@
 
             </button>
           </td>
-        <td class="text-center">{{type}}</td>
-        <td class="text-center">{{email}}</td>
-        <td class="text-center">{{doc}}</td>
-        <td scope="row" class="font-light text-center">
-          <button onclick="location.href='/user/profile/{{id}}'" class="btn btn-outline-info font-book">Ver</button>
-        </td>
-      </tr>
-      {{/ifCond}}
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+          <td class="text-center">{{type}}</td>
+          <td class="text-center">{{email}}</td>
+          <td class="text-center">{{doc}}</td>
+          <td scope="row" class="font-light text-center">
+            <button onclick="location.href='/user/profile/{{id}}'" class="btn btn-outline-info font-book">Ver</button>
+          </td>
+        </tr>
+        {{/ifCond}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 {{#section 'scripts'}}

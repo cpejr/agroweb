@@ -5,109 +5,107 @@
   <h3 class="text-center font-black">Contrate um franqueado</h3>
 </div>
 
-<div class="p-1">
 
-  {{#if users}}
-  <div class="text-center mt-3 ">
-    <form action="/user/indication" method="POST">
-      <button class=" submit btn bg-green text-light p-3" type="submit" name="button" >Quero indicação de um franqueado</button>
-    </form>
+{{#if users}}
+<div style="overflow-x:auto;">
+  <div class="container col-sm-12 col-md-9 col-lg-6">
+    <p>Digite logo abaixo para buscar algum franqueado específico:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+
   </div>
-  <div style="overflow-x:auto;">
-    <div class="container col-sm-12 col-md-9 col-lg-6">
-      <p>Digite logo abaixo para buscar algum franqueado específico:</p>
-      <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
-    </div>
-  </div>
+</div>
 
-  <div id="results-list" class="row justify-content-center mt-2 mx-0">
-    <div class="col-sm-12 col-md-9 col-lg-6 btn">
-      <table id="myTable" class="col-12">
-        <tbody>
-          {{#each users}}
-          <tr class="col-12">
-            <td class="d-none">{{name}}</td>
-            <td class="d-none">{{email}}</td>
-            <td class="d-none">{{phone}}</td>
-            <td class="d-none">{{address.city}}</td>
 
-              <div class="p-1" >
-                <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/user/profile/{{_id}}'">
-                  <div class="text-right">
-                    <div class="row px-3">
-                      <div class="col-md-3 col-1 d-inline-block text-center align-self-center">
-                        <i class="d-inline d-sm-none card-icon fas fa-user align-self-center"></i>
-                        <i class="d-none d-sm-inline d-xl-none card-icon fas fa-user fa-3x align-self-center"></i>
-                        <i class="d-none d-xl-inline card-icon fas fa-user fa-4x align-self-center"></i>
+<div id="results-list" class="row justify-content-center mt-2 mx-0">
+  <div class="col-sm-12 col-md-9 col-lg-6 btn p-3">
+    <table id="myTable" class="col-12">
+      <tbody>
+        {{#each users}}
+        <tr class="col-12">
+          <td class="d-none">{{name}}</td>
+          <td class="d-none">{{email}}</td>
+          <td class="d-none">{{phone}}</td>
+          <td class="d-none">{{address.city}}</td>
+
+          <div class="p-1" >
+            <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/user/profile/{{_id}}'">
+              <div class="text-right">
+                <div class="row px-3">
+                  <div class="col-1 col-md-3 d-inline-block text-center align-self-center">
+                    <i class="d-inline d-sm-none card-icon fas fa-user align-self-center"></i>
+                    <i class="d-none d-sm-inline d-xl-none card-icon fas fa-user fa-3x align-self-center"></i>
+                    <i class="d-none d-xl-inline card-icon fas fa-user fa-4x align-self-center"></i>
+                  </div>
+
+                  <div class="col p-2">
+                    <div class="vl">
+                      <div class="ml-2">
+                        <h4 class="text-left align-text-top card-text mobile-font1 text-uppercase text-green font-black">
+                          {{fullName}}
+                        </h4>
                       </div>
 
-                      <div class="col p-2">
-                        <div class="vl">
-                          <div class="ml-2">
-                            <p class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
-                              {{fullName}}
-                            </p>
-                          </div>
 
-                          <div class="ml-2 mt-3">
-                            <div class="text-left">
-                              <p class="text-left align-text-top card-text mobile-font1 text-uppercase">
-                                {{email}}
-                              </p>
-                            </div>
-                          </div>
+                      <div class="ml-2 mt-3">
+                        <div class="text-left">
+                          <p class="text-left align-text-top card-text mobile-fontCT mobile-font4  ">
+                            {{email}}
+                          </p>
+                        </div>
+                      </div>
 
-                          <div class="ml-2 mt-3">
-                            <div class="text-left">
-                              <p class="text-left align-text-top card-text mobile-font1 text-uppercase">
-                                {{phone}}
-                              </p>
-                            </div>
-                          </div>
+                      <div class="ml-2 mt-3">
+                        <div class="text-left">
+                          <p class="text-left align-text-top card-text mobile-fontCT mobile-font4">
+                            {{phone}}
+                          </p>
+                        </div>
+                      </div>
 
-                          <div class="ml-2 mt-3">
-                            <div class="text-left">
-                              <p class="text-left align-text-top card-text mobile-font1 text-uppercase">
-                                {{address.city}}
-                              </p>
-                            </div>
-                          </div>
+                      <div class="ml-2 mt-3">
+                        <div class="text-left">
+                          <p class="text-left align-text-top card-text mobile-fontCT mobile-font4 ">
+                            {{address.city}}
+                          </p>
+
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-          </tr>
-          <!-- end CARD PADRÃO -->
-          {{/each}}
-        </tbody>
-      </table>
 
-<!-- Botão quero uma indicação -->
-      <div class="text-center mb-5 mt-3 ">
-        <form action="/user/indication" method="POST">
-          <button class=" submit btn bg-green text-light p-3" type="submit" name="button" >Quero indicação de um franqueado</button>
-        </form>
-      </div>
+            </div>
+          </div>
+        </tr>
+        <!-- end CARD PADRÃO -->
+        {{/each}}
+      </tbody>
+    </table>
 
-
+  </div>
+</div>
+    <!-- Botão quero uma indicação -->
+    <div class="text-center pb-3">
+      <form action="/user/indication" method="POST">
+        <button class=" submit btn bg-green text-light p-3" type="submit" name="button" >Quero indicação de um franqueado</button>
+      </form>
     </div>
-  </div>
-  {{else}}
-  <div class="container">
-    <p class="text-center font-light">Não há nenhum franqueado.</p>
-  </div>
-  {{/if}}
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há nenhum franqueado.</p>
+</div>
+{{/if}}
+
 {{#section 'scripts'}}
 <script>
-  $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#myTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+});
 </script>
 {{/section}}

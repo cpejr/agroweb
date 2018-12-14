@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <title>{{ title }}</title>   <!-- título da aba da página*/ -->
-    <link rel='stylesheet' href='/stylesheets/style.css'>
-    <link rel='stylesheet' href='/stylesheets/estilos.css'>
-    <link rel="manifest" href="/manifest.json">
-    {{{_sections.stylesheets}}}
+<head>
+  <title>{{ title }}</title>   <!-- título da aba da página*/ -->
+  <link rel='stylesheet' href='/stylesheets/style.css'>
+  <link rel='stylesheet' href='/stylesheets/estilos.css'>
+  <link rel="manifest" href="/manifest.json">
+  {{{_sections.stylesheets}}}
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:600|Montserrat:700|Varela+Round">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  </head>
-  <body>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dosis:600|Montserrat:700|Varela+Round">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
 
-    <div class="agro-alert col-12 col-lg-4 col-md-6">
+  <div class="agro-alert col-12 col-lg-4 col-md-6">
     {{> messages}}
-    </div>
+  </div>
 
-    {{{ body }}}
+  {{{ body }}}
 
-    <script src="/javascripts/jquery.js" charset="utf-8"></script>
-    <script src="/typeahead/typeahead.bundle.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.bundle.min.js" charset="utf-8"></script>
-    <script src="/javascripts/navbar.js" charset="utf-8"></script>
-    {{{_sections.scripts}}}
-  </body>
+  <script src="/javascripts/jquery.js" charset="utf-8"></script>
+  <script src="/typeahead/typeahead.bundle.min.js"></script>
+  <script src="/bootstrap/js/bootstrap.bundle.min.js" charset="utf-8"></script>
+  <script src="/javascripts/navbar.js" charset="utf-8"></script>
+  {{{_sections.scripts}}}
+</body>
 </html>

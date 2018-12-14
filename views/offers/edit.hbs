@@ -51,6 +51,7 @@
         <div class="user-input">
           <label class="text-dark2">Moeda utilizada</label>
           <div class="input-group mb-2">
+
            <div class="input-group-prepend">
              <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
            </div>
@@ -69,71 +70,54 @@
         <div class="user-input">
           <label class="text-dark2">Baixo</label>
           <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><i class="fas fa-arrow-down"></i></div>
-            </div>
-            <input name="offer[price][low]" type="number" class="form-control input-text" value="{{price.low}}" required/>
-          </div>
-        </div>
 
-        <div class="user-input">
-          <label class="text-dark2">Médio</label>
-          <div class="input-group mb-2">
             <div class="input-group-prepend">
-              <div class="input-group-text"><i class="fas fa-arrow-right"></i></div>
+              <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
             </div>
-            <input name="offer[price][average]" type="number" class="form-control input-text" value="{{price.average}}" required/>
-          </div>
+            <select class="form-control new-shadow" name="offer[usd]" required/>
+            {{#ifCond usd 1}}
+            <option value="0">Real (R$)</option>
+            <option value="1" selected>Dólar americano (U$)</option>
+            {{else}}
+            <option value="1">Dólar americano (U$)</option>
+            <option value="0" selected>Real (R$)</option>
+            {{/ifCond}}
+          </select>
         </div>
-
-        <div class="user-input">
-          <label class="text-dark2">Alto</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><i class="fas fa-arrow-up"></i></div>
-            </div>
-            <input name="offer[price][high]" type="number" class="form-control input-text" value="{{price.high}}" required/>
-          </div>
-        </div>
-
       </div>
 
-      <div class="col-md-4">
-        <div class="form-group mx-4 my-2 mt-3">
-          <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Mudança de preço e entrega: </label>
-        </div>
-
-        <div class="user-input">
-          <label class="text-dark2">Muda para baixo</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-            </div>
-            <input name="offer[breakpoints][low]" type="number" class="form-control input-text" value="{{breakpoints.low}}" required/>
-            <div class="input-group-append">
-              <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
-                data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'baixo' a partir do valor inserido neste campo">
-                ?
-              </button>
-            </div>
+      <div class="user-input">
+        <label class="text-dark2">Baixo</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-arrow-down"></i></div>
           </div>
+          <input name="offer[price][low]" type="number" class="form-control input-text" value="{{price.low}}" required/>
         </div>
+      </div>
 
-        <div class="user-input">
-          <label class="text-dark2">Muda para médio</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-            </div>
-            <input name="offer[breakpoints][average]" type="number" class="form-control input-text" value="{{breakpoints.average}}" required/>
-            <div class="input-group-append">
-              <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
-                data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'médio' a partir do valor inserido neste campo">
-                ?
-              </button>
-            </div>
+      <div class="user-input">
+        <label class="text-dark2">Médio</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-arrow-right"></i></div>
           </div>
+          <input name="offer[price][average]" type="number" class="form-control input-text" value="{{price.average}}" required/>
         </div>
+      </div>
+
+      <div class="user-input">
+        <label class="text-dark2">Alto</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-arrow-up"></i></div>
+          </div>
+          <input name="offer[price][high]" type="number" class="form-control input-text" value="{{price.high}}" required/>
+        </div>
+      </div>
+
+    </div>
+
 
         <div class="user-input">
           <label class="text-dark2">Forma de entrega</label>
@@ -166,21 +150,66 @@
                {{/ifCond}}
              {{/ifCond}}
            </select>
+
           </div>
-        </div>
+          <input name="offer[breakpoints][low]" type="number" class="form-control input-text" value="{{breakpoints.low}}" required/>
+          <div class="input-group-append">
+            <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+            data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'baixo' a partir do valor inserido neste campo">
+            ?
+          </button>
         </div>
       </div>
-    <div>
-      <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
     </div>
-  </form>
+
+    <div class="user-input">
+      <label class="text-dark2">Muda para médio</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+        </div>
+        <input name="offer[breakpoints][average]" type="number" class="form-control input-text" value="{{breakpoints.average}}" required/>
+        <div class="input-group-append">
+          <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+          data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'médio' a partir do valor inserido neste campo">
+          ?
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-input">
+    <label class="text-dark2">Forma de entrega</label>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text"><i class="fas fa-car"></i></div>
+      </div>
+      <select class="form-control new-shadow" name="offer[delivery]">
+        <option disabled selected value>{{delivery}}</option>
+        {{#ifCond userType 'Revendedor'}}
+        <option value="Em até 48 horas">Em até 48 horas</option>
+        <option value="Em até 31 dias">Em até 31 dias</option>
+        {{else ifCond userType 'Indústria'}}
+        <option value="Em até 31 dias">Em até 31 dias</option>
+        <option value="Safra">Safra</option>
+        <option value="Safrinha">Safrinha</option>
+        {{/ifCond}}
+      </select>
+    </div>
+  </div>
+</div>
+</div>
+<div>
+  <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
+</div>
+</form>
 </div>
 
 {{#section 'scripts'}}
-  <script src="/javascripts/product.dropdown.js"></script>
-  <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    });
-  </script>
+<script src="/javascripts/product.dropdown.js"></script>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
+</script>
 {{/section}}

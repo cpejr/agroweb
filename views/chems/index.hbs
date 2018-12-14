@@ -12,57 +12,57 @@
 
 <div style="overflow-x:auto;">
   <div class="container">
-  {{#if chems}}
+    {{#if chems}}
 
-      <p>Digite logo abaixo para buscar algum princípio ativo específico:</p>
-      <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
-      <br>
+    <p>Digite logo abaixo para buscar algum princípio ativo específico:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+    <br>
 
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th class="text-center">Nome</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Opções</th>
-          </tr>
-        </thead>
-        <tbody id="myTable">
-          {{#each chems}}
-          <tr>
-            <th scope="row" class="font-book text-center">{{name}}</th>
-            <!-- <th scope="row" class="font-book">{{active}}</th> -->
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th class="text-center">Nome</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Opções</th>
+        </tr>
+      </thead>
+      <tbody id="myTable">
+        {{#each chems}}
+        <tr>
+          <th scope="row" class="font-book text-center">{{name}}</th>
+          <!-- <th scope="row" class="font-book">{{active}}</th> -->
 
-            <th class="text-center">
-              {{#if active}}
-              <p scope="row" class="font-book">Ativo</p>
-              {{else}}
-              <p scope="row" class="font-book">Inativo</p>
-              {{/if}}
-            </th>
+          <th class="text-center">
+            {{#if active}}
+            <p scope="row" class="font-book">Ativo</p>
+            {{else}}
+            <p scope="row" class="font-book">Inativo</p>
+            {{/if}}
+          </th>
 
-            <th class="text-center">
-              {{#if active}}
-              <form action="/chems/{{id}}?_method=DELETE" method="POST">
-                <button type="submit" class="btn btn-outline-danger font-book mx-auto">Desativar</button>
-              </form>
-              {{else}}
-              <form action="/chems/{{id}}?_method=PUT" method="POST">
-                <input type="hidden" name="chem[active]" value="true">
-                <button type="submit" class="btn btn-outline-success font-book mx-auto">Ativar</button>
-              </form>
-              {{/if}}
-            </th>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
+          <th class="text-center">
+            {{#if active}}
+            <form action="/chems/{{id}}?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-outline-danger font-book mx-auto">Desativar</button>
+            </form>
+            {{else}}
+            <form action="/chems/{{id}}?_method=PUT" method="POST">
+              <input type="hidden" name="chem[active]" value="true">
+              <button type="submit" class="btn btn-outline-success font-book mx-auto">Ativar</button>
+            </form>
+            {{/if}}
+          </th>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
-  {{else}}
-  <div class="container">
-    <p class="text-center font-light">Não há nenhum princípio ativo.</p>
-  </div>
-  {{/if}}
+</div>
+{{else}}
+<div class="container">
+  <p class="text-center font-light">Não há nenhum princípio ativo.</p>
+</div>
+{{/if}}
 
 {{#section 'scripts'}}
 <script src="/javascripts/navbar.js"></script>

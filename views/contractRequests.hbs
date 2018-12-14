@@ -37,21 +37,21 @@
           <td>
             <form  method= "POST" action="/user/contract">
               <input name="clientId" type="hidden" class="form-control font-light" value="{{id}}"></input>
-                <div class="row">
-                  <button type="submit" align="center" class="btn btn-outline-success mx-auto" name="status" value="Ativo">
-                    Aceitar
-                  </button>
-                </div>
+              <div class="row">
+                <button type="submit" align="center" class="btn btn-outline-success mx-auto" name="status" value="Ativo">
+                  Aceitar
+                </button>
+              </div>
             </form>
           </td>
           <td>
             <form  method= "POST" action="/user/denyContract">
               <input name="clientId" type="hidden" class="form-control font-light" value="{{id}}"></input>
-                <div class="row">
-                  <button type="submit" align="center" class="btn btn-outline-danger mx-auto" name="status" value="Bloqueado">
-                    Recusar
-                  </button>
-                </div>
+              <div class="row">
+                <button type="submit" align="center" class="btn btn-outline-danger mx-auto" name="status" value="Bloqueado">
+                  Recusar
+                </button>
+              </div>
             </form>
           </td>
         </tr>

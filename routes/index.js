@@ -259,7 +259,7 @@ router.post('/signup', (req, res) => {
 
   }
   else {
-    req.flash('success', 'A plataforma Megapool não está disponível na sua região.');
+    req.flash('success', 'A plataforma MegaPool não está disponível na sua região.');
     res.redirect('/logout');
   }
 });

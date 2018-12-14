@@ -17,7 +17,7 @@
         <tr>
           <th class="text-center">Código da compra</th>
           <th class="text-center">Comprador</th>
-          <th class="text-center">Preço</th>
+          <th class="text-center">Valor da taxa (R$)</th>
           <th class="text-center">Status</th>
           <th class="text-center">Opções</th>
         </tr>
@@ -28,7 +28,7 @@
         <tr>
           <td class="text-center">{{_id}}</td>
           <td class="text-center">{{buyer.fullName}}</td>
-          <td class="text-center">{{priceBought}}</td>
+          <td class="text-center">{{taxValue}}</td>
           <td class="text-center">{{taxStatus}}</td>
           <td scope="row" class="font-light text-center">
             <a href="/transaction/{{_id}}" class="btn btn-outline-primary font-book">Ver</a>

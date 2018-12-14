@@ -1,47 +1,50 @@
 {
-    "development": {
-        "config_id": "development",
-        "cropDate": "15/09",
-        "smallCropDate": "31/12",
-        "tax" : {
-      		"franchisee" : {
-      			"solidFertilizer": "0.0025",
-      			"liquidFertilizer": "0.0075",
-      			"defensive": "0.002",
-      			"seed": "0.005"
-      		},
-      		"megapool" : {
-      			"solidFertilizer": "0.0065",
-      			"liquidFertilizer": "0.03",
-      			"defensive": "0.01",
-      			"seed": "0.02",
-      			"megaOportunidade" : "0,03"
-      		}
-      	}
+  "development": {
+    "config_id": "development",
+    "date": {
+      "crop": "15/09",
+      "smallCrop": "15/01"
     },
-    "production": {
-        "config_id": "production",
-        "cropDate": "15/09",
-        "smallCropDate": "31/12",
-        "tax" : {
-      		"franchisee" : {
-      			"solidFertilizer": "0.0025",
-      			"liquidFertilizer": "0.0075",
-      			"defensive": "0.002",
-      			"seed": "0.005"
-      		},
-      		"megapool" : {
-      			"solidFertilizer": "0.0065",
-      			"liquidFertilizer": "0.03",
-      			"defensive": "0.01",
-      			"seed": "0.02",
-      			"megaOportunidade" : "0,03"
-      		}
-      	}
+    "tax": {
+  		"franchisee": {
+  			"solidFertilizer": "0.0025",
+  			"liquidFertilizer": "0.0075",
+  			"defensive": "0.002",
+  			"seed": "0.005"
+  		},
+  		"megapool": {
+  			"solidFertilizer": "0.0065",
+  			"liquidFertilizer": "0.03",
+  			"defensive": "0.01",
+  			"seed": "0.02",
+  			"megaOportunidade": "0,03"
+  		}
+  	}
+  },
+  "production": {
+    "config_id": "production",
+    "date": {
+      "crop": "15/09",
+      "smallCrop": "15/01"
     },
-    "testing" : {
-        "config_id": "testing",
-        "database": "my-app-db-test"
-
-    }
+    "tax": {
+  		"franchisee": {
+  			"solidFertilizer": "0.0025",
+  			"liquidFertilizer": "0.0075",
+  			"defensive": "0.002",
+  			"seed": "0.005"
+  		},
+  		"megapool": {
+  			"solidFertilizer": "0.0065",
+  			"liquidFertilizer": "0.03",
+  			"defensive": "0.01",
+  			"seed": "0.02",
+  			"megaOportunidade": "0,03"
+  		}
+  	}
+  },
+  "testing": {
+    "config_id": "testing",
+    "database": "my-app-db-test"
+  }
 }

@@ -21,16 +21,20 @@
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
   <div class="col-sm-12 col-md-9 col-lg-6 btn p-3">
     <table id="myTable" class="col-12">
-      <tbody>
-        {{#ifCond userType 'Franqueado'}}
-        {{#each quotations}}
-        <tr class="col-12">
-          <td class="d-none">{{product.name}}</td>
-          <td class="d-none">{{priceBought}}</td>
-          <td class="d-none">{{amountBought}}</td>
-          <td class="d-none">{{delivery}}</td>
-          <td class="d-none">{{price.low}}</td>
-          <td class="">
+
+    <tbody>
+  {{#if quotations}}
+
+  {{#ifCond userType 'Franqueado'}}
+  {{#each quotations}}
+  <tr class="col-12">
+    <td class="d-none">{{product.name}}</td>
+    <td class="d-none">{{priceBought}}</td>
+    <td class="d-none">{{amountBought}}</td>
+    <td class="d-none">{{delivery}}</td>
+    <td class="d-none">{{unitPrice}}</td>
+    <td class="">
+
 
             <div class="p-1" >
               <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/transaction/{{_id}}'">

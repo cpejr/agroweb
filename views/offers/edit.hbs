@@ -51,6 +51,26 @@
         <div class="user-input">
           <label class="text-dark2">Moeda utilizada</label>
           <div class="input-group mb-2">
+
+           <div class="input-group-prepend">
+             <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+           </div>
+           <select class="form-control new-shadow" name="offer[usd]" required/>
+              {{#if usd}}
+                <option value="false">Real (R$)</option>
+                <option value="true" selected>Dólar americano (U$)</option>
+              {{else}}
+                <option value="true">Dólar americano (U$)</option>
+                <option value="false" selected>Real (R$)</option>
+              {{/if}}
+           </select>
+          </div>
+        </div>
+
+        <div class="user-input">
+          <label class="text-dark2">Baixo</label>
+          <div class="input-group mb-2">
+
             <div class="input-group-prepend">
               <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
             </div>
@@ -98,16 +118,39 @@
 
     </div>
 
-    <div class="col-md-4">
-      <div class="form-group mx-4 my-2 mt-3">
-        <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Mudança de preço e entrega: </label>
-      </div>
 
-      <div class="user-input">
-        <label class="text-dark2">Muda para baixo</label>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+        <div class="user-input">
+          <label class="text-dark2">Forma de entrega</label>
+          <div class="input-group mb-2">
+           <div class="input-group-prepend">
+             <div class="input-group-text"><i class="fas fa-car"></i></div>
+           </div>
+           <select class="form-control new-shadow" name="offer[delivery]">
+             {{#ifCond userType 'Revendedor'}}
+              {{#ifCond delivery '48 horas'}}
+                <option value="48 horas" selected>Em até 48 horas</option>
+                <option value="31 dias">Em até 31 dias</option>
+              {{else ifCond delivery '31 dias'}}
+                <option value="48 horas">Em até 48 horas</option>
+                <option value="31 dias" selected>Em até 31 dias</option>
+              {{/ifCond}}
+             {{else ifCond userType 'Indústria'}}
+               {{#ifCond delivery '31 dias'}}
+                 <option value="31 dias" selected>Em até 31 dias</option>
+                 <option value="Safra">Safra</option>
+                 <option value="Safrinha">Safrinha</option>
+               {{else ifCond delivery 'Safra'}}
+                 <option value="31 dias">Em até 31 dias</option>
+                 <option value="Safra" selected>Safra</option>
+                 <option value="Safrinha">Safrinha</option>
+               {{else ifCond delivery 'Safrinha'}}
+                 <option value="31 dias">Em até 31 dias</option>
+                 <option value="Safra">Safra</option>
+                 <option value="Safrinha" selected>Safrinha</option>
+               {{/ifCond}}
+             {{/ifCond}}
+           </select>
+
           </div>
           <input name="offer[breakpoints][low]" type="number" class="form-control input-text" value="{{breakpoints.low}}" required/>
           <div class="input-group-append">

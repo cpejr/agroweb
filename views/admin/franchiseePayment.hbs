@@ -15,7 +15,7 @@
       <thead>
         <tr>
           <th class="text-center">Nome</th>
-          <th class="text-center">Valor a pagar</th>
+          <th class="text-center">Valor a pagar (R$)</th>
           <th class="text-center">Opções</th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@
         {{#ifNotEq pendingPayment 0}}
         <tr>
           <th class="text-center" scope="row">{{fullName}}</th>
-          <th class="text-center" scope="row">R$ {{pendingPayment}}</th>
+          <th class="text-center" scope="row">{{pendingPayment}}</th>
           <th class="text-center">
             <form action="/admin/payFranchisee/{{id}}" method="POST">
               <input type="hidden" name="pendingPayment" value = 0></input>

@@ -46,7 +46,7 @@
             <label class="floating-label text-dark2">Quantidade mínima</label>
           </div>
           <div class="mt-4 ml-2">
-            <input type="checkbox" name="offer[megaOpportunity]" value="true"></input>
+            <input type="checkbox" name="offer[megaOpportunity]" id="my-check" onclick="myFunction()"></input>
             <label>Mega Oportunidade</label>
           </div>
         </div>
@@ -54,6 +54,7 @@
 
 
       <div class="col-md-4">
+        <div id="text3" style="display:block">
         <div class="form-group mx-4 my-2">
           <label for="price" class="rounded bg-black"><i class="fas fa-dollar-sign fa-sm mr-2"></i> Preços: </label>
         </div>
@@ -62,128 +63,135 @@
           <br/>
           <div class="input-group mb-2">
 
-           <div class="input-group-prepend">
-             <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-           </div>
-           <select class="form-control new-shadow" name="offer[usd]" required/>
-             <option value="true">Dólar americano (U$)</option>
-             <option value="false" selected>Real (R$)</option>
-           </select>
-          </div>
-        </div>
-
-        <div class="user-input">
-          <br/>
-          <div class="input-group mb-2">
-
             <div class="input-group-prepend">
               <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
             </div>
-
-            <input name="offer[price][low]" type="number" class="form-control input-text" required/>
-            <label class="floating-label text-dark2">Baixo</label>
-            <div class="input-group-append">
-              <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
-                data-toggle="tooltip" data-placement="top" title="Valor mais barato, cobrado para grandes quantidades de produtos.">
-                ?
-              </button>
-            </div>
-          </div>
-
+            <select class="form-control new-shadow" name="offer[usd]" required/>
+            <option value="true">Dólar americano (U$)</option>
+            <option value="false" selected>Real (R$)</option>
+          </select>
         </div>
-      </div>
-
-
-        <div class="user-input">
-          <br/>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><i class="fas fa-arrow-right"></i></div>
-            </div>
-            <input name="offer[price][average]" type="number" class="form-control input-text" required/>
-            <label class="floating-label text-dark2">Médio</label>
-            <div class="input-group-append">
-              <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
-                data-toggle="tooltip" data-placement="top" title="Valor intermediário, cobrado para médias quantidades de produtos.">
-                ?
-              </button>
-            </div>
-
-          </div>
-          <input name="offer[price][low]" type="number" class="form-control input-text" required/>
-          <label class="floating-label text-dark2">Baixo</label>
-        </div>
-      </div>
-
-
-        <div class="user-input">
-          <br/>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><i class="fas fa-arrow-up"></i></div>
-            </div>
-            <input name="offer[price][high]" type="number" class="form-control input-text" required/>
-            <label class="floating-label text-dark2">Alto</label>
-            <div class="input-group-append">
-              <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
-                data-toggle="tooltip" data-placement="top" title="Valor mais caro, cobrado para pequenas quantidades de produtos.">
-                ?
-              </button>
-            </div>
-
-          </div>
-          <input name="offer[price][average]" type="number" class="form-control input-text" required/>
-          <label class="floating-label text-dark2">Médio</label>
-        </div>
-      </div>
-
-
-      <div class="col-md-4">
-        <div class="form-group mx-4 my-2 mt-3">
-          <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Mudança de preço e entrega: </label>
-        </div>
-
-        <div id="megaoportunidade">
-        <div class="user-input">
-          <br/>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-            </div>
-            <input name="offer[breakpoints][low]" type="number" class="form-control input-text" required/>
-            <label class="floating-label text-dark2">Muda para baixo</label>
-            <div class="input-group-append">
-              <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
-                data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'baixo' a partir do valor inserido neste campo">
-                ?
-              </button>
-            </div>
-
-          </div>
-          <input name="offer[price][high]" type="number" class="form-control input-text" required/>
-          <label class="floating-label text-dark2">Alto</label>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="form-group mx-4 my-2 mt-3">
-        <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Mudança de preço e entrega: </label>
       </div>
 
       <div class="user-input">
         <br/>
         <div class="input-group mb-2">
+
           <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+            <div class="input-group-text"><i class="fas fa-arrow-down"></i></div>
           </div>
-          <input name="offer[breakpoints][low]" type="number" class="form-control input-text" required/>
-          <label class="floating-label text-dark2">Muda para baixo</label>
+
+          <input name="offer[price][low]" type="number" class="form-control input-text" required/>
+          <label class="floating-label text-dark2">Baixo</label>
           <div class="input-group-append">
             <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
-            data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'baixo' a partir do valor inserido neste campo">
+            data-toggle="tooltip" data-placement="top" title="Valor mais barato, cobrado para grandes quantidades de produtos.">
             ?
           </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="user-input">
+      <br/>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fas fa-arrow-right"></i></div>
+        </div>
+        <input name="offer[price][average]" type="number" class="form-control input-text" required/>
+        <label class="floating-label text-dark2">Médio</label>
+        <div class="input-group-append">
+          <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+          data-toggle="tooltip" data-placement="top" title="Valor intermediário, cobrado para médias quantidades de produtos.">
+          ?
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-input">
+    <br/>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text"><i class="fas fa-arrow-up"></i></div>
+      </div>
+      <input name="offer[price][high]" type="number" class="form-control input-text" required/>
+      <label class="floating-label text-dark2">Alto</label>
+      <div class="input-group-append">
+        <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+        data-toggle="tooltip" data-placement="top" title="Valor mais caro, cobrado para pequenas quantidades de produtos.">
+        ?
+      </button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div id="text4" style="display:none">
+<div class="form-group mx-4 my-2">
+  <label for="price" class="rounded bg-black"><i class="fas fa-dollar-sign fa-sm mr-2"></i> Preços: </label>
+</div>
+
+<div class="user-input">
+  <br/>
+  <div class="input-group mb-2">
+
+    <div class="input-group-prepend">
+      <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+    </div>
+    <select id="input3" class="form-control new-shadow" required/>
+    <option value="true">Dólar americano (U$)</option>
+    <option value="false" selected>Real (R$)</option>
+  </select>
+</div>
+</div>
+
+
+
+<div class="user-input">
+<br/>
+<div class="input-group mb-2">
+<div class="input-group-prepend">
+<div class="input-group-text"><i class="fas fa-arrow-up"></i></div>
+</div>
+<input id="input4" type="number" class="form-control input-text" required/>
+<label class="floating-label text-dark2">Valor</label>
+<div class="input-group-append">
+<button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+data-toggle="tooltip" data-placement="top" title="Valor mais caro, cobrado para pequenas quantidades de produtos.">
+?
+</button>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-md-4">
+
+
+  <div id="text1" style="display:block">
+    <div class="form-group mx-4 my-2 mt-3">
+      <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Mudança de preço e entrega: </label>
+    </div>
+    <div class="user-input">
+      <br/>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+        </div>
+        <input name="offer[breakpoints][low]" type="number" class="form-control input-text" required/>
+        <label class="floating-label text-dark2">Muda para baixo</label>
+        <div class="input-group-append">
+          <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+          data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'baixo' a partir do valor inserido neste campo">
+          ?
+        </button>
         </div>
       </div>
     </div>
@@ -194,36 +202,74 @@
         <div class="input-group-prepend">
           <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
         </div>
-
+        <input name="offer[breakpoints][low]" type="number" class="form-control input-text" required/>
+        <label class="floating-label text-dark2">Muda para baixo</label>
+        <div class="input-group-append">
+          <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+          data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'baixo' a partir do valor inserido neste campo">
+          ?
+        </button>
         </div>
+      </div>
+    </div>
 
+    <div class="user-input">
+      <br/>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fas fa-car"></i></div>
+        </div>
+        <select class="form-control new-shadow" name="offer[delivery]" required/>
+        <option disabled selected value>-- Forma de entrega --</option>
+        {{#ifCond userType 'Indústria'}}
+        <option value="31 dias">Em até 31 dias</option>
+        <option value="Safra">Safra</option>
+        <option value="Safrinha">Safrinha</option>
+        {{else ifCond userType 'Revendedor'}}
+        <option value="31 dias">Em até 31 dias</option>
+        <option value="48 horas">Em até 48 horas</option>
+        {{/ifCond}}
+      </select>
       </div>
     </div>
   </div>
 
-  <div class="user-input">
-    <br/>
-    <div class="input-group mb-2">
-      <div class="input-group-prepend">
-        <div class="input-group-text"><i class="fas fa-car"></i></div>
+  <div id="text2" style="display:none">
+    <div class="form-group mx-4 my-2 mt-3">
+      <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Forma de entrega e defeitos: </label>
+    </div>
+
+    <div class="user-input">
+      <br/>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fas fa-car"></i></div>
+        </div>
+        <select id="input1" class="form-control new-shadow" name="offer[delivery]" required/>
+        <option disabled selected value>-- Forma de entrega --</option>
+        <option value="31 dias">Em até 31 dias</option>
+        <option value="48 horas">Em até 48 horas</option>
+      </select>
       </div>
-      <select class="form-control new-shadow" name="offer[delivery]" required/>
-      <option disabled selected value>-- Forma de entrega --</option>
-      {{#ifCond userType 'Indústria'}}
-      <option value="31 dias">Em até 31 dias</option>
-      <option value="Safra">Safra</option>
-      <option value="Safrinha">Safrinha</option>
-      {{else ifCond userType 'Revendedor'}}
-      <option value="31 dias">Em até 31 dias</option>
-      <option value="48 horas">Em até 48 horas</option>
-      {{/ifCond}}
-    </select>
+    </div>
+
+    <div class="user-input">
+      <br/>
+      <div id="input2" class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text"><i class="fas fa-newspaper"></i></div>
+       </div>
+       <textarea rows="4" name="product[description]" class="form-control input-text" required/></textarea>
+       <label class="floating-label text-dark2">Defeitos do produto</label>
+       </div>
+    </div>
   </div>
+
 </div>
-</div>
-</div>
-<div>
+
+<div class="mx-auto">
   <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Enviar</button>
+</div>
 </div>
 </form>
 </div>
@@ -236,6 +282,7 @@
       $('[data-toggle="tooltip"]').tooltip()
     });
   </script>
+
   <script src="/javascripts/megaoportunidade.js"></script>
 
 {{/section}}

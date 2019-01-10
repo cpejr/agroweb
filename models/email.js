@@ -129,16 +129,21 @@ class Email {
    */
   static approvedUsersEmail(data) {
     console.log('Email aprovado enviado');
-    const content = `Prezado(a) ${data.firstName},
-    Sua conta Megapool acabou de ser ativada. A partir de agora você poderá entrar com seu email e senha na plataforma, começando a fazer suas atividades.
-    Os usuários da plataforma devem pagar à equipe Megapool uma taxa sob suas vendas proporcional ao valor do produto negociado e que dependente da categoria do produto. Esses valores podem ser vistos a seguir:
+    const content = `Caro(a) ${data.firstName},
+    Sua conta na plataforma MEGAPOOL, foi aprovada.
+    Entre na site da MEGAPOOL, com seu login e senha e tenha acesso a tudo que a plataforma possa lhe proporcionar!
+
+    Os usuários da plataforma devem pagar à equipe MEGAPOOL uma taxa sob suas vendas proporcional ao valor do produto negociado e que dependente da categoria do produto. Esses valores podem ser vistos a seguir:
     Defensivos agrícolas/Agroquímicos -> 1%
     Sementes em geral -> 2%
     Fertilizantes sólidos de base -> 0,65%
     Fertilizantes liquidos/Adjuvantes/Biológicos -> 3%
     Produtos Mega Oportunidade -> 3%
 
-    Aproveite!`;
+    Bons negócios!
+    Dúvidas, entre em contato conosco: suportemegapool@megapool.com.br
+
+    Equipe MEGAPOOL`;
     const subject = 'MEGAPOOL: Conta ativada';
     const emailContent = {
       // clientEmail: data.email,
@@ -204,8 +209,13 @@ class Email {
    */
   static inactivatedUsersEmail(data) {
     console.log('Email inativado enviado');
-    const content = `Prezado(a) ${data.firstName},
-     Sua conta Megapool acabou de ser inativada. Para reativá-la, basta logar novamente na plataforma. A reativação será feita imediatamente no acesso.`;
+    const content = `Caro(a) ${data.firstName},
+    Sua conta encontra-se inativada.
+
+    Por favor, entre em contato com nosso suporte para que possamos resolver: suportemegapool@megapool.com.br
+
+    Obrigado
+    Equipe MEGAPOOL`;
     const subject = 'MEGAPOOL: Conta inativada';
     const emailContent = {
       clientEmail: data.email,
@@ -226,8 +236,13 @@ class Email {
    */
   static blockedUsersEmail(data) {
     console.log('Email bloqueado enviado');
-    const content = `Prezado(a) ${data.firstName},
-     Sua conta Megapool acabou de ser bloqueada. Nossa equipe analisou o caso e decidiu que essa ação fosse necessária. Portanto, não será mais possível utilizar sua conta.`;
+    const content = `Caro(a) ${data.firstName},
+    Sua conta encontra-se bloqueada.
+
+    Por favor, entre em contato com nosso suporte para que possamos resolver: suportemegapool@megapool.com.br
+
+    Obrigado
+    Equipe MEGAPOOL`;
     const subject = 'MEGAPOOL: Conta bloqueada';
     const emailContent = {
       clientEmail: data.email,
@@ -249,8 +264,8 @@ class Email {
    */
   static updateEmail(data, status) {
     console.log('Update email');
-    const text = `Prezado(a) ${data.firstName},
-    o status do seu pedido foi atualizado para "${status}"`;
+    const text = `Caro(a) ${data.firstName},
+    Seu pedido teve atualização de status para:"${status}"`;
     const subject = 'MEGAPOOL: Atualização no status do seu pedido';
     const emailContent = {
       ...data,
@@ -275,11 +290,11 @@ class Email {
       Money.getUsdValue().then((usd) => {
         const totalPrice = data.priceBought * usd;
         const unitPrice = data.unitPrice * usd;
-        const content = `Prezado(a) ${data.buyer.firstName},
-        Sua compra do produto ${data.offer.product.name} foi realizada com sucesso.
-        A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para você.
+        const content = `Caro(a) ${data.buyer.firstName},
+        Sua compra do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "aguardando boleto para pagamento" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
 
-        Confira abaixo os detalhes da sua compra:
+        Confira os dados de sua compra abaixo:
+
         Compra #${data._id}
         Produto: ${data.offer.product.name}
         Entrega: ${data.offer.delivery}
@@ -291,7 +306,10 @@ class Email {
         Nome: ${data.offer.seller.fullName}
         Email: ${data.offer.seller.email}
         Telefone: ${data.offer.seller.phone}
-        Celular: ${data.offer.seller.cellphone} `;
+        Celular: ${data.offer.seller.cellphone}
+
+        Qualquer divergência entre em contato conosco: suportemegapool@megapool.com.br
+        Equipe MEGAPOOL`;
         const subject = 'MEGAPOOL: Compra realizada com sucesso';
         const emailContent = {
           clientEmail: data.buyer.email,
@@ -321,11 +339,18 @@ class Email {
       Money.getUsdValue().then((usd) => {
         const totalPrice = data.priceBought * usd;
         const unitPrice = data.unitPrice * usd;
-        const content = `Prezado(a) ${data.offer.seller.firstName},
-      Você tem uma nova demanda do produto ${data.offer.product.name}.
-      A transação aguarda sua aprovação e pode ser consultada no caminho Dashboard -> Boletos pendentes
-      O comprador terá acesso ao boleto uma vez que você aprove a transação e gere o boleto.
-      O administrador irá gerar o boleto referente à parcela da Megapool sobre a venda.
+        const content = `Caro(a) ${data.offer.seller.firstName},
+
+      Parabéns, você fez uma nova venda do produto ${data.offer.product.name}, existe pedido pendente para sua aprovação em seu
+      ambiente virtual em Dashboard -> Boletos pendentes, entre e confirme por favor.
+      - Confira o volume, preço e condição de entrega.
+      - Estando de acordo, emita o boleto para o cliente e mude o status da venda para boleto
+      aguardando pagamento.
+      - Assim que receber o valor acertado, comunique no status que o boleto foi pago e
+      proceda com a entrega.
+      - O administrador irá gerar o boleto referente à parcela da MEGAPOOL sobre a venda.
+      - *** Caso não queira concretizar o negócio, cancele a venda, porém saiba que estará
+      sujeito as implicações previstas.
 
       Confira abaixo os detalhes da sua venda:
       Transação #${data._id}
@@ -340,7 +365,11 @@ class Email {
       Nome: ${data.buyer.fullName}
       Email: ${data.buyer.email}
       Telefone: ${data.buyer.phone}
-      Celular: ${data.buyer.cellphone}`;
+      Celular: ${data.buyer.cellphone}
+      
+      Ótimos negócios.
+
+      Equipe MEGAPOOL`;
         const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
         const emailContent = {
           clientEmail: data.offer.seller.email,

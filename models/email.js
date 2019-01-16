@@ -366,7 +366,7 @@ class Email {
       Email: ${data.buyer.email}
       Telefone: ${data.buyer.phone}
       Celular: ${data.buyer.cellphone}
-      
+
       Ótimos negócios.
 
       Equipe MEGAPOOL`;
@@ -507,6 +507,112 @@ class Email {
       });
     });
   }
+  /**
+  * Send an email to the franchisee when it sign up at MEGAPOOl
+  * @returns {Object} Information
+  */
+
+ static signedUpFranchisee() {
+    const text = `Olá, caro profissional
+  Seu pré cadastro será analisado pelo nosso departamento de franquias e será deferido ou indeferido no prazo máximo de 3 dias.
+  Outras informações complementares poderão ser solicitadas.
+  Caso aprovado, será enviado o contrato de franqueado para que possa ler e assinar se estiver de acordo.
+
+  À disposição,
+  Equipe de franquias MEGAPOOL.`;
+    const subject = 'MEGAPOOL: Pré-cadastro efetuado';
+    const emailContent = {
+      text,
+      subject
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
+
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
+  static franchiseeContract(data, status) {
+    const text = `Olá, ${data.firstName}
+    Após análise do seu pré cadastro, seu pedido como franqueado foi aceito.
+    Segue em anexo o contrato de franqueado:
+    - Deverá ser lido e assinado.
+    - Devolvido a MEGAPOOL. (franqueado@megapool.com.br)
+    - Será enviado também o boleto da taxa de franquia, que deverá ser pago e enviado o comprovante no mesmo e-mail.
+    Após esse processo sua senha de operação será liberada.
+
+    A disposição
+    Equipe de franquias MEGAPOOL`;
+    const subject = 'MEGAPOOL: Contrato';
+    const emailContent = {
+      ...data,
+      text,
+      subject
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
+
+  /**
+   * Send to the franchisee the acceptance e-mail notice
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
+  static acceptFranchisee(data, status) {
+    const text = `Parabéns, ${data.firstName}
+    Você agora é um franqueado MEGAPOOL e faz parte do maior grupo de compras online do Brasil, tendo acesso a todas informações disponíveis na plataforma para desenvolver seu trabalho através de seu escritório virtual:
+    Link do site: https://www.megapool.com.br
+
+    Em caso de duvidas ou suporte entra em contato: suportemegapool@megapool.com.br
+
+    Desejamos ótimos negócios
+    Equipe de franquias MEGAPOOL.`;
+    const subject = 'MEGAPOOL: cadastro aceito';
+    const emailContent = {
+      ...data,
+      text,
+      subject
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
+
+  /**
+   * Send the franchisee the rejection e-mail notice
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
+  static rejectFranchisee(data, status) {
+    const text = `Após análise do seu pré cadastro, seu pedido como franqueado foi indeferido. O indeferimento do pedido de franqueado ocorre por 2 motivos principais, são eles:
+    - Perfil do profissional incompatível com a função.
+    - Números de franqueado máximo atingido na mesma região.
+    O pedido pode ser feito novamente após 60 dias, onde ele irá passar novamente por avaliação.
+
+    Agradecemos o seu interesse e estamos a disposição: suportemegapool@megapool.com.br
+    Equipe de franquias MEGAPOOL.`;
+    const subject = 'MEGAPOOL: cadastro rejeitado';
+    const emailContent = {
+      ...data,
+      text,
+      subject
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
+
+
 }
 
 module.exports = Email;

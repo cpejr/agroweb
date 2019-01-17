@@ -532,7 +532,7 @@ class Email {
     });
   }
 
-   * @param {Object} data - Email Document Data
+   /* @param {Object} data - Email Document Data
    * @returns {Object} Information
    */
   static franchiseeContract(data, status) {

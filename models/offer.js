@@ -111,6 +111,21 @@ class Offer {
   }
 
   /**
+   * Active a Offer
+   * @param {string} id - Offer Id
+   * @returns {null}
+   */
+  static active(id) {
+    return new Promise((resolve, reject) => {
+      OfferModel.findByIdAndUpdate(id, { active: true }).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
    * Delete a Offer
    * @param {string} id - Offer Id
    * @returns {null}

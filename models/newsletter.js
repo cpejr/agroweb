@@ -81,6 +81,20 @@ class Newsletter {
       });
     });
   }
+
+  /**
+   * Deletes all Newsletters from DB
+   * @returns {null}
+   */
+  static clear() {
+    return new Promise((resolve, reject) => {
+      NewsletterModel.deleteMany({}).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
 
 module.exports = Newsletter;

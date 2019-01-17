@@ -550,5 +550,42 @@ class User {
     });
   }
 
+  /**
+   * Deletes all users from DB
+   * @returns {null}
+   */
+  static clear() {
+    return new Promise((resolve, reject) => {
+      UserModel.deleteMany({}).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Deletes all transactions from users
+   * @returns {null}
+   */
+  static clearTransactions() {
+    return new Promise((resolve, reject) => {
+      UserModel.update({}, { $set: { transactions: [], myCart: [] } }, { multi: true }).then().catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Deletes all offers from users
+   * @returns {null}
+   */
+  static clearOffers() {
+    return new Promise((resolve, reject) => {
+      UserModel.update({}, { $set: { offers: [] } }, { multi: true }).then().catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
 module.exports = User;

@@ -164,7 +164,7 @@
 
         <div id="mega-block-delivery">
           <div class="form-group mx-4 my-2">
-            <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Entrega: </label>
+            <label for="price" class="rounded bg-black"><i class="fas fa-boxes fa-sm mr-2"></i> Entrega e Avaria: </label>
           </div>
 
           <div class="user-input">
@@ -178,8 +178,19 @@
               <option value="31 dias">Em até 31 dias</option>
               <option value="48 horas">Em até 48 horas</option>
             </select>
+            </div>
           </div>
-        </div>
+
+          <div class="user-input">
+            <br/>
+            <div class="input-group mb-2">
+             <div class="input-group-prepend">
+               <div class="input-group-text"><i class="fas fa-newspaper"></i></div>
+             </div>
+             <textarea id="damage-input" rows="4" name="offer[damage]" class="form-control input-text" required/></textarea>
+             <label class="floating-label text-dark2">Avaria</label>
+             </div>
+          </div>
         </div>
 
         <div id="change-prices">

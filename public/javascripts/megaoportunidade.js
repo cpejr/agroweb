@@ -19,6 +19,7 @@ $(document).ready(() => {
               $('#average-breakpoint').removeAttr('required');
               $('#normal-delivery').removeAttr('required');
               $('#mega-delivery').attr('required','required');
+              $('#damage-input').attr('required','required');
               $('#low-breakpoint').val(2)
               $('#average-breakpoint').val(1)
           } else {
@@ -36,6 +37,7 @@ $(document).ready(() => {
               $('#average-breakpoint').attr('required','required');
               $('#normal-delivery').attr('required','required');
               $('#mega-delivery').removeAttr('required');
+              $('#damage-input').removeAttr('required');
               $('#low-breakpoint').val(0)
               $('#average-breakpoint').val(0)
           }

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./user');
 
 const offerSchema = new mongoose.Schema({
   stock: Number,
@@ -153,6 +154,24 @@ class Offer {
         populate: { path: 'chems' }
       }).then((result) => {
         resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Deletes all offers from DB
+   * @returns {null}
+   */
+  static clear() {
+    return new Promise((resolve, reject) => {
+      OfferModel.deleteMany({}).then(() => {
+        User.clearOffers.then(() => {
+          resolve();
+        }).catch((err) => {
+          reject(err);
+        });
       }).catch((err) => {
         reject(err);
       });

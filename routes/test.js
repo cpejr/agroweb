@@ -115,4 +115,95 @@ router.get('/search', (req, res) => {
   });
 });
 
+/**
+ * GET Clean page
+ */
+router.get('/clean', (req, res) => {
+  res.render('clean', { layout: 'layout' });
+});
+
+/**
+ * GET Clean groups DB
+ */
+router.get('/clean/group', (req, res) => {
+  Group.clear().then(() => {
+    res.redirect('/test/clean');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * GET Clean offers DB
+ */
+router.get('/clean/offer', (req, res) => {
+  Offer.clear().then(() => {
+    res.redirect('/test/clean');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * GET Clean products DB
+ */
+router.get('/clean/product', (req, res) => {
+  Product.clear().then(() => {
+    res.redirect('/test/clean');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * GET Clean chems DB
+ */
+router.get('/clean/chem', (req, res) => {
+  Chem.clear().then(() => {
+    res.redirect('/test/clean');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * GET Clean transactions DB
+ */
+router.get('/clean/transaction', (req, res) => {
+  Transaction.clear().then(() => {
+    res.redirect('/test/clean');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * GET Clean users DB
+ */
+router.get('/clean/user', (req, res) => {
+  User.clear().then(() => {
+    res.redirect('/test/clean');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * GET Clean newsletters DB
+ */
+router.get('/clean/newsletter', (req, res) => {
+  Newsletter.clear().then(() => {
+    res.redirect('/test/clean');
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
 module.exports = router;

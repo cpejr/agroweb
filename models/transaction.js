@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./user');
 
 const transactionSchema = new mongoose.Schema({
   buyer: {
@@ -160,6 +161,24 @@ class Transaction {
         }
       }).then((result) => {
         resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+
+  /**
+   * Deletes all transactions from DB
+   * @returns {null}
+   */
+  static clear() {
+    return new Promise((resolve, reject) => {
+      TransactionModel.deleteMany({}).then(() => {
+        User.clearTransactions.then(() => {
+          resolve();
+        }).catch((err) => {
+          reject(err);
+        });
       }).catch((err) => {
         reject(err);
       });

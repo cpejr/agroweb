@@ -160,6 +160,20 @@ class Product {
       });
     });
   }
+
+  /**
+   * Deletes all products from DB
+   * @returns {null}
+   */
+  static clear() {
+    return new Promise((resolve, reject) => {
+      ProductModel.deleteMany({}).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
 
 module.exports = Product;

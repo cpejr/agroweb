@@ -296,6 +296,20 @@ class Group {
       });
     });
   }
+
+  /**
+   * Deletes all groups from DB
+   * @returns {null}
+   */
+  static clear() {
+    return new Promise((resolve, reject) => {
+      GroupModel.deleteMany({}).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
 
 module.exports = Group;

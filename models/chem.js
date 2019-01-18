@@ -119,6 +119,20 @@ class Chem {
       });
     });
   }
+
+  /**
+   * Deletes all chems from DB
+   * @returns {null}
+   */
+  static clear() {
+    return new Promise((resolve, reject) => {
+      ChemModel.deleteMany({}).then(() => {
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
 }
 
 module.exports = Chem;

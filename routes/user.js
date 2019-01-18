@@ -69,10 +69,11 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
 router.get('/sales', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
   const { userType } = req.session;
-  User.getById(req.session._id).then((user) => {
+  User.getById(userId).then((user) => {
     if (user) {
-      User.getAllOpenSalesByUserId(req.session._id).then((transactions) => {
+      User.getAllOpenSalesByUserId(userId).then((transactions) => {
         console.log(userId);
+        console.log(transactions);
         res.render('orders', { title: 'Demandas', transactions, userId, userType });
       }).catch((error) => {
         console.log(error);
@@ -97,7 +98,7 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOffersByUserId(req.session._id).then((offers) => {
-        res.render('offers/index', { title: 'Produtos oferecidos', layout: 'layout', offers, userType });
+        res.render('offers', { title: 'Produtos oferecidos', layout: 'layout', offers, userType });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');

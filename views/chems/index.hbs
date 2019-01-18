@@ -43,12 +43,12 @@
           <th class="text-center">
             {{#if active}}
             <form action="/chems/{{id}}?_method=DELETE" method="POST">
-              <button type="submit" class="btn btn-outline-danger font-book mx-auto">Desativar</button>
+              <button type="submit" onclick="return confirm('Tem certeza que deseja desativar este princípio ativo?');" class="btn btn-outline-danger font-book mx-auto">Desativar</button>
             </form>
             {{else}}
             <form action="/chems/{{id}}?_method=PUT" method="POST">
               <input type="hidden" name="chem[active]" value="true">
-              <button type="submit" class="btn btn-outline-success font-book mx-auto">Ativar</button>
+              <button type="submit" onclick="return confirm('Tem certeza que deseja ativar este princípio ativo?');" class="btn btn-outline-success font-book mx-auto">Ativar</button>
             </form>
             {{/if}}
           </th>

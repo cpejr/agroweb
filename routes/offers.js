@@ -313,16 +313,34 @@ router.put('/:id', (req, res) => {
 });
 
 /**
- * DELETE Destroy - Removes a offer from the databse
+ * POST Active - Active a offer from the databse
  */
-router.delete('/:id', (req, res) => {
-  Offer.delete(req.params.id).then(() => {
-    req.flash('success', 'Oferta deletada.');
+router.post('/active/:id', (req, res) => {
+  Offer.active(req.params.id).then(() => {
+    req.flash('success', 'Oferta ativada.');
     if (req.session.userType === 'Administrador') {
       res.redirect('/admin/offers');
     }
     else {
-      res.redirect('/offers');
+      res.redirect('/user/offers');
+    }
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * DELETE Destroy - Removes a offer from the databse
+ */
+router.delete('/:id', (req, res) => {
+  Offer.delete(req.params.id).then(() => {
+    req.flash('success', 'Oferta inativada.');
+    if (req.session.userType === 'Administrador') {
+      res.redirect('/admin/offers');
+    }
+    else {
+      res.redirect('/user/offers');
     }
   }).catch((error) => {
     console.log(error);

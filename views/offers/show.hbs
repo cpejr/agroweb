@@ -18,8 +18,16 @@
 
     <div class="col-12 col-md-4 mb-5 ml-md-5 justify-content-center">
       <!-- Product Description -->
-      <h4>Descrição</h4>
-      <p class="font-light"> {{product.description}} </p>
+
+      {{#if megaOpportunity}}
+        <h4>Avaria</h4>
+        <p class="font-light"> {{offer.damage}} </p>
+      </div>
+      {{else}}
+        <h4>Descrição</h4>
+        <p class="font-light"> {{product.description}} </p>
+      {{/if}}
+
 
       {{#ifNotEq delivery '48 horas'}}
       <h4>Vendedor(a)</h4>
@@ -46,10 +54,17 @@
     <!-- Quotation -->
     <div class="col-12 col-md-4 mb-5 justify-content-center">
       {{#ifCond myOffer 1}}
+      {{#ifCond active true }}
       <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
       <form action="/offers/{{_id}}?_method=DELETE" method="POST">
-        <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
+        <button type="submit" onclick="return confirm('Tem certeza que deseja inativar esta oferta?');" class="w-100 text-white btn btn-danger my-2">Inativar oferta</button>
       </form>
+
+      {{else}}
+      <form action="/offers/active/{{_id}}" method="POST">
+        <button type="submit" onclick="return confirm('Tem certeza que deseja ativar esta oferta?');" class="w-100 text-white btn btn-success my-2">Ativar oferta</button>
+      </form>
+      {{/ifCond}}
 
       {{else}}
       {{#ifCond userType 'Produtor'}}

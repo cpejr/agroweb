@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
  */
 router.get('/contact', (req, res) => {
   console.log(req.session._id);
-    res.render('site/contact', { title: 'Contato', layout: 'layoutHome' });
+  res.render('site/contact', { title: 'Contato', layout: 'layoutHome' });
 });
 
 /**

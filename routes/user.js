@@ -47,6 +47,7 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOpenOrdersByUserId(req.session._id).then((transactions) => {
+        console.log(transactions);
         res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session});
       }).catch((error) => {
         console.log(error);

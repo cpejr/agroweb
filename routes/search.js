@@ -59,7 +59,7 @@ router.get('/', (req, res) => {
 
           console.log(groups);
           console.log(offers);
-          res.render('results', { title: `Resultados para "${req.query.filter}"`, groups, offers });
+          res.render('results', { title: `Resultados para "${req.query.filter}"`, groups, offers, ...req.session });
         }).catch((error) => {
           console.log(error);
           res.redirect('/error');

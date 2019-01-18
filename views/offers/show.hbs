@@ -144,6 +144,7 @@
       </form>
     </div>
     {{else ifCond userType 'Revendedor'}}
+    {{#ifNotEq megaOpportunity true}}
     <form action="/transaction" method="post">
       <div class="form-group col">
         <label class="font-bold" for="amount">Quantidade</label>
@@ -157,6 +158,7 @@
       </div>
       <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
     </form>
+    {{/ifNotEq}}
 
     {{else ifCond userType 'Indústria'}}
     <form action="/transaction" method="post">

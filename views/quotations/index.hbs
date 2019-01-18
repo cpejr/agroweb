@@ -21,7 +21,6 @@
     <table id="myTable" class="col-12">
 
     <tbody>
-  {{#if quotations}}
 
   {{#ifCond userType 'Franqueado'}}
   {{#each quotations}}
@@ -345,9 +344,9 @@
         </div>
         {{/each}}
         {{/ifCond}}
-        {{else}}
       </div>
     </div>
+    {{else}}
     <div class="container">
       <p class="text-center font-light">Não existem novas cotações na sua conta.</p>
     </div>
@@ -355,15 +354,15 @@
   </div>
   <!-- end QuotationsList -->
 
-  {{#section 'scripts'}}
-  <script>
-  $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#myTable tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
+{{#section 'scripts'}}
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
-  </script>
-  {{/section}}
+});
+</script>
+{{/section}}

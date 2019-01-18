@@ -30,26 +30,35 @@ router.get('/terms', (req, res) => {
  * GET Forgot my Password page
  */
 router.get('/forgotPassword', (req, res) => {
-  res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layoutHome' });
+  res.render('forgotPassword', { title: 'Esqueci minha senha', layout: 'layoutLogin' });
 });
 
 /**
  * GET Franchisee Option page
  */
 router.get('/franchiseeOption', (req, res) => {
-  res.render('franchiseeOption', { title: 'Informações Franqueado', layout: 'layoutHome' });
+  res.render('franchisee', { title: 'Informações Franqueado', layout: 'layoutHome' });
 });
 
+/**
+ * GET Industry Option page
+ */
 router.get('/industryOption', (req, res) => {
-  res.render('industryOption', { title: 'Informações Indústria', layout: 'layoutHome' });
+  res.render('industryOption', { title: 'Informações Indústria', layout: 'layoutLogin' });
 });
 
+/**
+ * GET Dealer Option page
+ */
 router.get('/dealerOption', (req, res) => {
-  res.render('dealerOption', { title: 'Informações Revendedor', layout: 'layoutHome' });
+  res.render('dealerOption', { title: 'Informações Revendedor', layout: 'layoutLogin' });
 });
 
+/**
+ * GET Producer Option page
+ */
 router.get('/producerOption', (req, res) => {
-  res.render('producerOption', { title: 'Informações Produtor', layout: 'layoutHome' });
+  res.render('producerOption', { title: 'Informações Produtor', layout: 'layoutLogin' });
 });
 
 /**
@@ -66,7 +75,7 @@ router.get('/login', (req, res) => {
     }
   }
   else {
-    res.render('login', { title: 'Login', layout: 'layoutHome' });
+    res.render('login', { title: 'Login', layout: 'layoutLogin' });
   }
 });
 
@@ -82,7 +91,7 @@ router.get('/signup', (req, res) => {
       res.redirect('/user');
     }
   }
-  res.render('signup', { title: 'Cadastro', layout: 'layoutHome' });
+  res.render('signup', { title: 'Cadastro', layout: 'layoutLogin' });
 });
 
 /**

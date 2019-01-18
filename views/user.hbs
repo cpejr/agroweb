@@ -3,6 +3,12 @@
 <div class="p-3">
 
   {{#ifCond userType 'Revendedor'}}
+  <style> body{
+  background-image: url('../images/dealer-bg.jpg');
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.3) 100%), url('../images/dealer-bg.jpg');
+  }
+  </style>
+
   <div class="p-3">
     <div class="row justify-content-center">
       <div onclick="location.href = '/quotations'" class="btn-index col-lg-3 list-group-item pt-4 pb-4 mr-2 ml-2 mt-5 mobile-font2 text-center">
@@ -35,6 +41,12 @@
 
 
   {{else ifCond userType 'Indústria'}}
+  <style> body{
+  background-image: url('../images/industry-bg.jpg');
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%), url('../images/industry-bg.jpg');
+  }
+  </style>
+
   <div class="p-3">
     <div class="row justify-content-center">
       <div onclick="location.href = '/products/new'" class="btn-index col-lg-3 list-group-item pt-4 pb-4 mr-2 ml-2 mt-5 mobile-font2 text-center">
@@ -61,6 +73,13 @@
   </div>
 
   {{else ifCond userType 'Produtor'}}
+  <style> body{
+  background-image: url('../images/producer-bg.jpg');
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.3) 100%), url('../images/producer-bg.jpg');
+  }
+  </style>
+
+  </style>
   <div class="p-3">
     <div class="row justify-content-center">
 
@@ -93,6 +112,11 @@
   </div>
 
   {{else ifCond userType 'Franqueado'}}
+  <style> body{
+  background-image: url('../images/franchisee-bg.jpg');
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%), url('../images/franchisee-bg.jpg');
+  }
+  </style>
   <div class="row justify-content-center">
     <div onclick="location.href = '/quotations'" class="btn-index col-lg-3 list-group-item pt-4 pb-4 mr-2 ml-2 mt-5 mobile-font2 text-center">
       <i class="fas fa-cart-arrow-down fa-lg ml-3 mr-4 float-left"></i>

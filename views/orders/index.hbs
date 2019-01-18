@@ -1,5 +1,4 @@
 {{#section 'stylesheets'}}
-<!-- -->
 {{/section}}
 <div class="text-center pb-3 gradient-background text-white">
   <h3 class="font-black">{{title}} </h3>
@@ -125,6 +124,7 @@
                           {{else}}
                             R$ {{unitPrice}}
                           {{/if}}
+                        {{/ifCond}}
                         </div>
                       </div>
                     </div>
@@ -175,9 +175,9 @@
               <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
               <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-
               {{/ifCond}}
-              {{/each}}
+      {{/ifCond}}
+      {{/each}}
 
               {{else ifCond userType 'Produtor'}}
               {{#each transactions}}
@@ -323,60 +323,33 @@
                       </i>
 
                       {{/ifCond}}
-                      {{/each}}
-                      {{/ifCond}}
+                  {{/ifCond}}
+              {{/each}}
+            {{/ifCond}}
 
                       {{else}}
                       <div class="container">
                         <p class="text-center font-light">Você não realizou nenhum compra ainda.</p>
                       </div>
                       {{/if}}
-
-
-                  <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
-                    <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
-                      <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
-                    </p>
-                  </div>
-                  <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
-                    <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
-                      Custo por unidade
-                      {{#ifCond offer.usd false}}
-                      <span class="count text-center text-dark  mobile-font0 text-dark mobile-font2  mt-0"> <br/>R$ {{unitPrice}}</span>
-                      {{/ifCond}}
-                      </p>
-                      {{#ifCond offer.usd true}}
-                      <span class="count text-center text-dark  mobile-font1  mt-0">
-                        {{#if offer.usd}}
-                          R$ {{math (usdValue) "*" unitPrice}}
-                        {{else}}
-                          R$ {{unitPrice}}
-                        {{/if}}
-                      </span>
-                      <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                        / {{offer.product.unit}}
-                      </i>
-                      {{/ifCond}}
-                  </div>
-
                 </div>
               </div>
             </div>
 
             <!-- end OrdersList -->
-            {{#section 'scripts'}}
-            <script>
-            $(document).ready(function(){
-              $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
-                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-              });
-            });
+  {{#section 'scripts'}}
+  <script>
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
 
-            $(function () {
-              $('[data-toggle="tooltip"]').tooltip()
-            });
-            </script>
-            {{/section}}
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+  </script>
+  {{/section}}

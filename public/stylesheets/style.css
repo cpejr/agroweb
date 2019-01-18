@@ -7509,9 +7509,9 @@ nav .form-control {
   display: none; }
 
 .nav-color-change {
-  background-color: #3b9939; }
+  background-color: #000; }
   .nav-color-change:hover {
-    background-color: #006600; }
+    background-color: #000; }
 
 .card {
   color: #000 !important;
@@ -7842,7 +7842,7 @@ a.more-link {
   color: #999; }
 
 .gradient-background {
-  background-image: linear-gradient(to right, #3b9939, #00b800); }
+  background-image: linear-gradient(to right, #000, #000); }
 
 /* Responsive style changes */
 @media (max-width: 375px) {

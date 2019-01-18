@@ -18,8 +18,16 @@
 
     <div class="col-12 col-md-4 mb-5 ml-md-5 justify-content-center">
       <!-- Product Description -->
-      <h4>Descrição</h4>
-      <p class="font-light"> {{product.description}} </p>
+
+      {{#if megaOpportunity}}
+        <h4>Avaria</h4>
+        <p class="font-light"> {{offer.damage}} </p>
+      </div>
+      {{else}}
+        <h4>Descrição</h4>
+        <p class="font-light"> {{product.description}} </p>
+      {{/if}}
+
 
       {{#ifNotEq delivery '48 horas'}}
       <h4>Vendedor(a)</h4>

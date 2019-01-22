@@ -111,9 +111,13 @@
             <h4>Status da compra</h4>
             <p>{{status}}</p>
 
+            {{#if offer.megaOpportunity}}
+            <h4>Avaria</h4>
+            <p>{{offer.damage}}</p>
+            {{else}}
             <h4>Descrição</h4>
             <p>{{offer.product.description}}</p>
-
+            {{/if}}
 
             {{#ifCond userType 'Administrador'}}
             <h4 class="mt-5">Alterar status da taxa</h4>

@@ -82,10 +82,17 @@
           {{/ifCond}}
 
           <!-- Product description -->
+          {{#if offer.megaOpportunity}}
+          <div class="col-6 pb-2 mb-2 mt-4">
+            <h2>Avaria</h2>
+            <p>{{offer.damage}}</p>
+          </div>
+          {{else}}
           <div class="col-6 pb-2 mb-2 mt-4">
             <h2>Descrição</h2>
             <p>{{offer.product.description}}</p>
           </div>
+          {{/if}}
           <!-- end Product description -->
         </div>
       </div>

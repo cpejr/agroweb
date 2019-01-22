@@ -52,6 +52,7 @@
 
     <!-- Quotation -->
     <div class="col-12 col-md-4 mb-5 justify-content-center">
+      {{#ifCond hasStock 1}}
       {{#ifCond myOffer 1}}
       {{#ifCond active true }}
       <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
@@ -170,6 +171,10 @@
       <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
     </form>
     {{/ifCond}}
+    {{/ifCond}}
+    {{else}}
+    <h4>Aviso:</h4>
+    <p class="font-light"> Não há estoque suficiente para realizar uma compra. </p>
     {{/ifCond}}
   </div>
   <!-- end Quotation -->

@@ -45,7 +45,7 @@ router.get('/partners', (req, res) => {
  * GET Franchisee page
  */
 router.get('/franchisee', (req, res) => {
-  res.render('site/franchisee', { title: 'Trabalhe conosco', layout: 'layoutHome' });
+  res.render('site/franchisee', { title: 'Franqueado', layout: 'layoutHome' });
 });
 
 /**

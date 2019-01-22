@@ -179,16 +179,22 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
   const { userType } = req.session;
   const userId = req.session._id;
   let myOffer = 0;
+  let hasStock = 1;
 
   User.getAgreementListById(req.session._id).then((clients) => {
     Offer.getById(req.params.id).then((offer) => {
       if (userId == offer.seller._id) {
         myOffer = 1;
       }
+
+      if (offer.stock < offer.minAmount) {
+        hasStock = 0;
+      }
+
       if (offer) {
         console.log(myOffer);
         const chems = offer.product.chems;
-        res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, myOffer, chems, clients, ...offer });
+        res.render('offers/show', { title: offer.product.name, id: req.params.id, userType, myOffer, hasStock, chems, clients, ...offer });
       }
       else {
         console.log('Offer not found!');

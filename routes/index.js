@@ -195,15 +195,14 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
 router.post('/signup', (req, res) => {
   const userData = req.body.user;
   console.log(userData.address.city);
-  if ((userData.address.city == 'Sorriso')||
-      (userData.address.city == 'Nova Ubiratã')||
-      (userData.address.city == 'Ipiranga do Norte')||
-      (userData.address.city == 'Boa Esperança')||
-      (userData.address.city == 'Ipiranga do Norte')||
-      (userData.address.city == 'Tapurah')||
-      (userData.address.city == 'Vera')||
-      (userData.address.city == 'Feliz Natal')) {
-
+  if ((userData.address.city === 'Sorriso') ||
+      (userData.address.city === 'Nova Ubiratã') ||
+      (userData.address.city === 'Ipiranga do Norte') ||
+      (userData.address.city === 'Boa Esperança') ||
+      (userData.address.city === 'Ipiranga do Norte') ||
+      (userData.address.city === 'Tapurah') ||
+      (userData.address.city === 'Vera') ||
+      (userData.address.city === 'Feliz Natal')) {
     // Separates the first name from the rest
     const position = userData.name.indexOf(' ');
     userData.firstName = userData.name.slice(0, position);
@@ -233,6 +232,13 @@ router.post('/signup', (req, res) => {
           res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout' });
         }
         else {
+          if (req.session.userType === 'Franqueado') {
+            Email.signedUpFranchisee(userData.email).catch((error) => {
+              console.log(error);
+              req.flash('danger', 'Falha no envio do email.');
+              res.redirect('/login');
+            });
+          }
           res.redirect('/user');
         }
       }).catch((error) => {

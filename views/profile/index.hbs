@@ -239,6 +239,67 @@
             <p class="font-book mb-4">{{user.stateRegistration}}</p>
           </div>
 
+          {{else ifCond userType 'Administrador'}}
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Telefone fixo:</h5>
+            <p class="font-book mb-4">{{user.phone}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Celular:</h5>
+            <p class="font-book mb-4">{{user.cellphone}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Nome da fazenda:</h5>
+            <p class="font-book mb-4">{{user.farm.name}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Distância aproximadada cidade até a fazenda:</h5>
+            <p class="font-book mb-4">{{user.farm.distanceToCity}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Roteiro de entrega:</h5>
+            <p class="font-book mb-4">{{user.farm.deliveryScript}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Área plantada(ha):</h5>
+            <p class="font-book mb-4">{{user.farm.area}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Soja:</h5>
+            <p class="font-book mb-4">{{user.farm.soy}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Milho:</h5>
+            <p class="font-book mb-4">{{user.farm.corn}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Algodão:</h5>
+            <p class="font-book mb-4">{{user.farm.cotton}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Outras culturas:</h5>
+            <p class="font-book mb-4">{{user.farm.otherCultivations}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Pode se comunicar por Whatsapp:</h5>
+            <p class="font-book mb-4">{{user.wpp}}</p>
+          </div>
+
+          <div class="form-group">
+            <h5 class="row col text-bold" align="justify">Inscrição Estadual:</h5>
+            <p class="font-book mb-4">{{user.stateRegistration}}</p>
+          </div>
+
           {{else}}
           <h5> Observação: </h5>
           <p> Esse usuário não é seu cliente. Portanto, você não possui permissão para ver as informações específicas dele.</p>

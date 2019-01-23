@@ -247,10 +247,11 @@ router.post('/signup', (req, res) => {
             req.flash('danger', 'O CPF já está cadastrado.');
             break;
           default:
-            req.flash('danger', 'Erro indefinido.');
+            req.flash('danger', 'Erro ao criar o perfil.');
         }
         console.log(`Error Code: ${error.code}`);
         console.log(`Error Message: ${error.message}`);
+        console.log(error);
         res.redirect('/signup');
       });
     }).catch((error) => {
@@ -265,7 +266,7 @@ router.post('/signup', (req, res) => {
           req.flash('danger', 'Verifique se o email está digitado corretamente.');
           break;
         default:
-          req.flash('danger', 'Erro indefinido.');
+          req.flash('danger', 'Erro ao preencher os campos.');
       }
       console.log(`Error Code: ${error.code}`);
       console.log(`Error Message: ${error.message}`);

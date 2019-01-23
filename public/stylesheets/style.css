@@ -7448,6 +7448,9 @@ body {
 .text-light2 {
   color: #FDFEFE; }
 
+.double-border {
+  border-style: double; }
+
 @font-face {
   font-family: 'gotham-bold';
   src: url("../fonts/officialfonts/GOTHAM-BOLD.otf") format("opentype"); }

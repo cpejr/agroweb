@@ -179,111 +179,120 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
 
 router.post('/:id/updateUserActive', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   User.getById(req.params.id).then((user) => {
-    if (req.body.status === 'Ativo') {
-      console.log('Enviando email para aprovar um usuário');
-      Email.activatedUsersEmail(user).catch((error) => {
-        req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
-        res.redirect('/login');
-      });
-    }
-    else if (req.body.status === 'Bloqueado') {
-      console.log('Enviando email para aprovar um usuário');
-      Email.blockedUsersEmail(user).catch((error) => {
-        req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
-        res.redirect('/login');
-      });
-    }
-    else if (req.body.status === 'Inativo') {
-      console.log('Enviando email para aprovar um usuário');
-      Email.inactivatedUsersEmail(user).catch((error) => {
-        req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
-        res.redirect('/login');
-      });
-    }
-  });
-  const user = {
-    status: req.body.status
-  };
-  User.update(req.params.id, user).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-  switch (user.status) {
-    case 'Ativo':
-      req.flash('success', 'Usuário ativado.');
-      break;
-    case 'Inativo':
-      req.flash('success', 'Usuário inativado.');
-      break;
-    case 'Bloqueado':
-      req.flash('success', 'Usuário bloqueado.');
-      break;
-    default:
-      req.flash('success', 'Usuário atualizado.');
-  }
-  res.redirect('/admin/users');
-  console.log(req.body.status);
-});
-
-router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  User.getById(req.params.id).then((user) => {
-    if (user.status === 'Aguardando aprovação') {
+    const userData = {
+      status: req.body.status
+    };
+    User.update(req.params.id, userData).then(() => {
       if (req.body.status === 'Ativo') {
-        Email.approvedUsersEmail(user).catch((error) => {
+        console.log('Enviando email para aprovar um usuário');
+        Email.activatedUsersEmail(user).catch((error) => {
           req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
           res.redirect('/login');
         });
       }
       else if (req.body.status === 'Bloqueado') {
-        Email.disapprovedUsersEmail(user).catch((error) => {
+        console.log('Enviando email para bloquear um usuário');
+        Email.blockedUsersEmail(user).catch((error) => {
           req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
           res.redirect('/login');
         });
       }
-    }
-  });
-  const user = {
-    status: req.body.status
-  };
-
-  User.update(req.params.id, user).catch((error) => {
+      else if (req.body.status === 'Inativo') {
+        console.log('Enviando email para inativar um usuário');
+        Email.inactivatedUsersEmail(user).catch((error) => {
+          req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+          res.redirect('/login');
+        });
+      }
+      switch (userData.status) {
+        case 'Ativo':
+          req.flash('success', 'Usuário ativado.');
+          break;
+        case 'Inativo':
+          req.flash('success', 'Usuário inativado.');
+          break;
+        case 'Bloqueado':
+          req.flash('success', 'Usuário bloqueado.');
+          break;
+        default:
+          req.flash('success', 'Usuário atualizado.');
+      }
+      res.redirect('/admin/users');
+      console.log(req.body.status);
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  switch (user.status) {
-    case 'Ativo':
-      req.flash('success', 'Usuário ativado.');
-      break;
-    case 'Bloqueado':
-      req.flash('success', 'Usuário bloqueado.');
-      break;
-    default:
-      req.flash('warning', 'Usuário atualizado.');
-  }
-  res.redirect('/admin/requisitions/users');
+});
+
+router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  User.getById(req.params.id).then((user) => {
+    const userData = {
+      status: req.body.status
+    };
+
+    User.update(req.params.id, userData).then(() => {
+      if (user.status === 'Aguardando aprovação') {
+        if (req.body.status === 'Ativo') {
+          Email.approvedUsersEmail(user).catch((error) => {
+            req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
+            res.redirect('/login');
+          });
+        }
+        else if (req.body.status === 'Bloqueado') {
+          Email.disapprovedUsersEmail(user).catch((error) => {
+            req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+            res.redirect('/login');
+          });
+        }
+      }
+      switch (userData.status) {
+        case 'Ativo':
+          req.flash('success', 'Usuário ativado.');
+          break;
+        case 'Bloqueado':
+          req.flash('success', 'Usuário bloqueado.');
+          break;
+        default:
+          req.flash('warning', 'Usuário atualizado.');
+      }
+      res.redirect('/admin/requisitions/users');
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 router.post('/:id/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const product = {
     status: 'Aprovado'
   };
-  Product.update(req.params.id, product).catch((error) => {
+  Product.update(req.params.id, product).then(() => {
+    req.flash('success', 'Produto aprovado e adicionado à plataforma.');
+    res.redirect('/admin/requisitions/products');
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  req.flash('success', 'Produto aprovado e adicionado à plataforma.');
-  res.redirect('/admin/requisitions/products');
 });
 
 router.delete('/:id', (req, res) => {
-  Product.delete(req.params.id).catch((error) => {
+  Product.delete(req.params.id).then(() => {
+    req.flash('success', 'Produto recusado.');
+    res.redirect('/admin/requisitions/products');
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  req.flash('success', 'Produto recusado.');
-  res.redirect('/admin/requisitions/products');
 });
-
 
 /* GET Groups - Show all groups */
 router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {

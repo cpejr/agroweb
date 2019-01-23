@@ -28,7 +28,7 @@ class Email {
       subject: data.subject,
       text: data.content
     };
-    console.log('Config' + config);
+    console.log(`Config ${config}`);
     console.log(config.to);
     return new Promise((resolve) => {
       transporter.sendMail(config, (error, info) => {
@@ -82,7 +82,7 @@ class Email {
   }
 
   static contractRepprovedEmail(data, franchisee) {
-    console.log('Franqueado: '+ franchisee);
+    console.log(`Franqueado: ${franchisee}`);
     console.log('Email contrato reprovado');
     const content = `Prezado(a) ${data.firstName},
      ${franchisee} acabou de recusar sua solicitação de franqueamento. Portanto, ele não será capaz de realizar cotações e compras para você.`;
@@ -512,7 +512,7 @@ class Email {
   * @returns {Object} Information
   */
 
- static signedUpFranchisee() {
+ static signedUpFranchisee(email) {
     const text = `Olá, caro profissional
   Seu pré cadastro será analisado pelo nosso departamento de franquias e será deferido ou indeferido no prazo máximo de 3 dias.
   Outras informações complementares poderão ser solicitadas.
@@ -522,6 +522,7 @@ class Email {
   Equipe de franquias MEGAPOOL.`;
     const subject = 'MEGAPOOL: Pré-cadastro efetuado';
     const emailContent = {
+      clientEmail: email,
       text,
       subject
     };
@@ -532,10 +533,11 @@ class Email {
     });
   }
 
-   /* @param {Object} data - Email Document Data
+  /**
+   * @param {Object} data - Email Document Data
    * @returns {Object} Information
    */
-  static franchiseeContract(data, status) {
+  static franchiseeContract(data) {
     const text = `Olá, ${data.firstName}
     Após análise do seu pré cadastro, seu pedido como franqueado foi aceito.
     Segue em anexo o contrato de franqueado:
@@ -548,7 +550,7 @@ class Email {
     Equipe de franquias MEGAPOOL`;
     const subject = 'MEGAPOOL: Contrato';
     const emailContent = {
-      ...data,
+      clientEmail: data.email,
       text,
       subject
     };
@@ -564,7 +566,7 @@ class Email {
    * @param {Object} data - Email Document Data
    * @returns {Object} Information
    */
-  static acceptFranchisee(data, status) {
+  static acceptFranchisee(data) {
     const text = `Parabéns, ${data.firstName}
     Você agora é um franqueado MEGAPOOL e faz parte do maior grupo de compras online do Brasil, tendo acesso a todas informações disponíveis na plataforma para desenvolver seu trabalho através de seu escritório virtual:
     Link do site: https://www.megapool.com.br
@@ -575,7 +577,7 @@ class Email {
     Equipe de franquias MEGAPOOL.`;
     const subject = 'MEGAPOOL: cadastro aceito';
     const emailContent = {
-      ...data,
+      clientEmail: data.email,
       text,
       subject
     };
@@ -588,10 +590,10 @@ class Email {
 
   /**
    * Send the franchisee the rejection e-mail notice
-   * @param {Object} data - Email Document Data
+   * @param {Object} email - Franchisee's Email Address
    * @returns {Object} Information
    */
-  static rejectFranchisee(data, status) {
+  static rejectFranchisee(email) {
     const text = `Após análise do seu pré cadastro, seu pedido como franqueado foi indeferido. O indeferimento do pedido de franqueado ocorre por 2 motivos principais, são eles:
     - Perfil do profissional incompatível com a função.
     - Números de franqueado máximo atingido na mesma região.
@@ -601,7 +603,7 @@ class Email {
     Equipe de franquias MEGAPOOL.`;
     const subject = 'MEGAPOOL: cadastro rejeitado';
     const emailContent = {
-      ...data,
+      clientEmail: email,
       text,
       subject
     };
@@ -611,8 +613,6 @@ class Email {
       });
     });
   }
-
-
 }
 
 module.exports = Email;

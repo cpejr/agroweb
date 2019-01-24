@@ -228,6 +228,7 @@ router.post('/signup', (req, res) => {
             req.flash('danger', 'Falha no envio do email.');
             res.redirect('/login');
           });
+          res.redirect('/user');
         }
         else {
           Email.waitingForApprovalEmail(userData).catch((error) => {

@@ -3,11 +3,15 @@
 <stylesheet src="/stylesheets/estilos.css"></stylesheet>
 {{/section}}
 <div class="p-3">
-  <form class="form-group" action="/admin/ptax" method="post">
-    <input type="number" step="0.0001" name="ptax">
-    <button type="submit">Salvar</button>
-  </form>
-
+  <section class="text-center">
+    <form class="form-group" action="/admin/ptax" method="post">
+      <label for="ptax-value"> Insira aqui o valor do PTAX a ser atualizado na plataforma:</label></br>
+      <div class="row justify-content-center">
+        <input type="number" step="0.0001" class="form-control col-4 mr-1" name="ptax">
+        <button type="submit" class="btn btn-success">Salvar</button>
+      </div>
+    </form>
+  </section>
 
   <div class="row justify-content-center">
 

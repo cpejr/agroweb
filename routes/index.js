@@ -222,25 +222,27 @@ router.post('/signup', (req, res) => {
         req.session.status = 'Aguardando aprovação';
         req.session._id = docId;
         console.log(userData);
-        Email.waitingForApprovalEmail(userData).catch((error) => {
-          req.flash('danger', 'Não foi possível enviar o email para o novo usuário.');
-          res.redirect('/login');
-        });
-        if (req.session.userType === 'Indústria') {
-          res.render('industryMegaPremio', { title: 'Indústria' });
-        }
-        else if (req.session.userType === 'Revendedor') {
-          res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout' });
+        if (req.session.userType === 'Franqueado') {
+          Email.signedUpFranchisee(userData.email).catch((error) => {
+            console.log(error);
+            req.flash('danger', 'Falha no envio do email.');
+            res.redirect('/login');
+          });
         }
         else {
-          if (req.session.userType === 'Franqueado') {
-            Email.signedUpFranchisee(userData.email).catch((error) => {
-              console.log(error);
-              req.flash('danger', 'Falha no envio do email.');
-              res.redirect('/login');
-            });
+          Email.waitingForApprovalEmail(userData).catch((error) => {
+            req.flash('danger', 'Não foi possível enviar o email para o novo usuário.');
+            res.redirect('/login');
+          });
+          if (req.session.userType === 'Indústria') {
+            res.render('industryMegaPremio', { title: 'Indústria' });
           }
-          res.redirect('/user');
+          else if (req.session.userType === 'Revendedor') {
+            res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout' });
+          }
+          else {
+            res.redirect('/user');
+          }
         }
       }).catch((error) => {
         switch (error.code) {
@@ -273,7 +275,6 @@ router.post('/signup', (req, res) => {
       console.log(`Error Message: ${error.message}`);
       res.redirect('/signup');
     });
-
   }
   else {
     req.flash('success', 'A plataforma MegaPool não está disponível na sua região.');

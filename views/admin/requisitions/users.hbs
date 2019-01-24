@@ -30,6 +30,20 @@
               Perfil
             </button>
           </td>
+          {{#ifCond type 'Franqueado'}}
+            <td>
+              <div class="text-center">
+                <form action="/admin/send-contract" enctype="multipart/form-data" method="post">
+                  <small><small><input type="file" name="contract"></small></small>
+                  <input type="hidden" name="id" value="{{_id}}">
+                  <button type="submit" class="btn btn-outline-secondary mt-1">Enviar contrato</button>
+                </form>
+              </div>
+            </td>
+            {{else}}
+            <td>
+            </td>
+          {{/ifCond}}
           <td class="text-center">
             <form  method= "POST" action="/admin/{{id}}/requisitions/users">
               <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">

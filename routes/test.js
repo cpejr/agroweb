@@ -42,26 +42,10 @@ router.post('/', (req, res) => {
       Email.franchiseeContract(data).catch((erro) => {
         console.log(erro);
       });
-      res.write('File uploaded and moved!');
+      // res.write('File uploaded and moved!');
       res.end();
     });
   });
-
-  // const form = new formidable.IncomingForm();
-  // form.parse(req, (err, fields, files) => {
-  //   console.log('form parse');
-  // });
-  //
-  // form.on('field', (name, value) => {
-  //   console.log('in field', name, value); // gives you the field names with value
-  // });
-  // form.on('file', (name, value) => {
-  //   console.log('in file');
-  // });
-  //
-  // form.on('end', (fields, files) => {
-  //   this.openedFiles[x].path; // gives the file path
-  // });
 });
 
 // rotapara industryMegaPremio

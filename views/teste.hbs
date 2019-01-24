@@ -8,5 +8,19 @@
 
 <form action="/test" enctype="multipart/form-data" method="post">
   <input type="file" name="contract">
-  <button type="submit">Envia essa bosta</button>
+  <button type="submit">Enviar</button>
 </form>
+
+
+
+<!-- Como fazer na página de requisições -->
+<form action="/admin/send-contract" enctype="multipart/form-data" method="post">
+  <input type="file" name="contract">
+  <input type="hidden" name="id" value="{{_id}}">
+  <button type="submit">Enviar contrato</button>
+</form>
+
+
+{{#if userType 'Franqueado'}}
+
+{{/if}}

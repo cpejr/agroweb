@@ -563,7 +563,7 @@ A disposição
 Equipe de franquias MEGAPOOL`;
     const subject = 'MEGAPOOL: Contrato';
     const emailContent = {
-      clientEmail: 'felipesouza@cpejr.com.br',
+      clientEmail: data.email,
       content,
       subject,
       attachments: [{ path: data.path }]
@@ -585,7 +585,7 @@ Equipe de franquias MEGAPOOL`;
    */
   static acceptFranchisee(data) {
     const content = `Parabéns, ${data.firstName}
-    
+
     Você agora é um franqueado MEGAPOOL e faz parte do maior grupo de compras online do Brasil, tendo acesso a todas informações disponíveis na plataforma para desenvolver seu trabalho através de seu escritório virtual:
     Link do site: https://www.megapool.com.br
 

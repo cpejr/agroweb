@@ -1,5 +1,7 @@
 const express = require('express');
 const firebase = require('firebase');
+const formidable = require('formidable');
+const fs = require('fs');
 const Newsletter = require('../models/newsletter');
 const Product = require('../models/product');
 const Offer = require('../models/offer');
@@ -314,6 +316,33 @@ router.delete('/:id', (req, res) => {
 router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Offer.getAll().then((groups) => {
     res.render('groups/index', { title: 'Grupos de Compra', layout: 'layout', groups });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/* POST Contracts - Send the contract to the franchisee */
+router.post('/send-contract', (req, res) => {
+  User.getById(req.body.id).then((user) => {
+    const form = new formidable.IncomingForm();
+    form.parse(req, (err, fields, files) => {
+      const oldpath = files.contract.path;
+      const newpath = `./contracts/${files.contract.name}`;
+      fs.rename(oldpath, newpath, (error) => {
+        if (error) throw error;
+        const data = {
+          path: newpath,
+          ...user
+        };
+        Email.franchiseeContract(data).catch(() => {
+          req.flash('danger', 'Não foi possível enviar o contrato para o franqueado.');
+          res.redirect('/login');
+        });
+        // res.redirect('/requisitions/users');
+        res.end();
+      });
+    });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

@@ -240,7 +240,7 @@ router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req,
     User.update(req.params.id, userData).then(() => {
       if (user.status === 'Aguardando aprovação') {
         if (req.body.status === 'Ativo') {
-          if (user.userType === 'Franqueado') {
+          if (user.type === 'Franqueado') {
             Email.acceptFranchisee(user).catch((error) => {
               req.flash('danger', 'Não foi possível enviar o email para o fraqueado aprovado.');
               res.redirect('/login');
@@ -254,7 +254,7 @@ router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req,
           }
         }
         else if (req.body.status === 'Bloqueado') {
-          if (user.userType === 'Franqueado') {
+          if (user.type === 'Franqueado') {
             Email.rejectFranchisee(user).catch((error) => {
               req.flash('danger', 'Não foi possível enviar o email para o fraqueado reprovado.');
               res.redirect('/login');

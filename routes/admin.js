@@ -349,4 +349,27 @@ router.post('/send-contract', (req, res) => {
   });
 });
 
+/* POST ptax - Updates ptax value */
+router.post('/ptax', (req, res) => {
+  Dollar.getPtaxValue().then((oldPtax) => {
+    console.log(oldPtax);
+    if (oldPtax < req.body.ptax) {
+      global.risingPtax = 'true';
+    }
+    else {
+      global.risingPtax = 'false';
+    }
+    Dollar.ptaxUpdate(req.body.ptax).then(() => {
+      global.ptax = req.body.ptax;
+      res.redirect('/admin');
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
 module.exports = router;

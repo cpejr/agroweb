@@ -27,6 +27,16 @@ router.get('/MegaPremio', (req, res) => {
   res.render('industryMegaPremio', { title: 'MegaPremio', layout: 'layoutHome' });
 });
 
+router.post('/', (req, res) => {
+  console.log(req.body);
+  console.log(req.files);
+});
+
+// rotapara industryMegaPremio
+router.get('/MegaPremio', (req, res) => {
+  res.render('industryMegaPremio', { title: 'MegaPremio', layout: 'layoutHome' });
+});
+
 router.put('/:id', (req, res) => {
   const { group } = req.body;
   console.log(group.closeDate);

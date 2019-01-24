@@ -286,45 +286,43 @@ class Email {
    */
   static buyEmail(data) {
     console.log('Buyer Email');
-    return new Promise((resolve) => {
-      Money.getUsdValue().then((usd) => {
-        const totalPrice = data.priceBought * usd;
-        const unitPrice = data.unitPrice * usd;
-        const content = `Caro(a) ${data.buyer.firstName},
-        Sua compra do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "aguardando boleto para pagamento" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
+    Money.getUsdValue().then((usd) => {
+      const totalPrice = data.priceBought * usd;
+      const unitPrice = data.unitPrice * usd;
+      const content = `Caro(a) ${data.buyer.firstName},
+      Sua compra do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "aguardando boleto para pagamento" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
 
-        Confira os dados de sua compra abaixo:
+      Confira os dados de sua compra abaixo:
 
-        Compra #${data._id}
-        Produto: ${data.offer.product.name}
-        Entrega: ${data.offer.delivery}
-        Quantidade: ${data.amountBought} ${data.offer.product.unit}
-        Preço: R$ ${unitPrice}/${data.offer.product.unit}
-        Total: R$ ${totalPrice}
+      Compra #${data._id}
+      Produto: ${data.offer.product.name}
+      Entrega: ${data.offer.delivery}
+      Quantidade: ${data.amountBought} ${data.offer.product.unit}
+      Preço: R$ ${unitPrice}/${data.offer.product.unit}
+      Total: R$ ${totalPrice}
 
-        Dados do vendedor:
-        Nome: ${data.offer.seller.fullName}
-        Email: ${data.offer.seller.email}
-        Telefone: ${data.offer.seller.phone}
-        Celular: ${data.offer.seller.cellphone}
+      Dados do vendedor:
+      Nome: ${data.offer.seller.fullName}
+      Email: ${data.offer.seller.email}
+      Telefone: ${data.offer.seller.phone}
+      Celular: ${data.offer.seller.cellphone}
 
-        Qualquer divergência entre em contato conosco: suportemegapool@megapool.com.br
-        Equipe MEGAPOOL`;
-        const subject = 'MEGAPOOL: Compra realizada com sucesso';
-        const emailContent = {
-          clientEmail: data.buyer.email,
-          subject,
-          content
-        };
-        return new Promise((resolve) => {
-          Email.sendEmail(emailContent).then((info) => {
-            resolve(info);
-          });
+      Qualquer divergência entre em contato conosco: suportemegapool@megapool.com.br
+      Equipe MEGAPOOL`;
+      const subject = 'MEGAPOOL: Compra realizada com sucesso';
+      const emailContent = {
+        clientEmail: data.buyer.email,
+        subject,
+        content
+      };
+      return new Promise((resolve) => {
+        Email.sendEmail(emailContent).then((info) => {
+          resolve(info);
         });
-      }).catch((err) => {
-        console.log(err);
-        return err;
       });
+    }).catch((err) => {
+      console.log(err);
+      return err;
     });
   }
 
@@ -335,56 +333,54 @@ class Email {
    */
   static sellEmail(data) {
     console.log('Seller Email');
-    return new Promise((resolve) => {
-      Money.getUsdValue().then((usd) => {
-        const totalPrice = data.priceBought * usd;
-        const unitPrice = data.unitPrice * usd;
-        const content = `Caro(a) ${data.offer.seller.firstName},
+    Money.getUsdValue().then((usd) => {
+      const totalPrice = data.priceBought * usd;
+      const unitPrice = data.unitPrice * usd;
+      const content = `Caro(a) ${data.offer.seller.firstName},
 
-      Parabéns, você fez uma nova venda do produto ${data.offer.product.name}, existe pedido pendente para sua aprovação em seu
-      ambiente virtual em Dashboard -> Boletos pendentes, entre e confirme por favor.
-      - Confira o volume, preço e condição de entrega.
-      - Estando de acordo, emita o boleto para o cliente e mude o status da venda para boleto
-      aguardando pagamento.
-      - Assim que receber o valor acertado, comunique no status que o boleto foi pago e
-      proceda com a entrega.
-      - O administrador irá gerar o boleto referente à parcela da MEGAPOOL sobre a venda.
-      - *** Caso não queira concretizar o negócio, cancele a venda, porém saiba que estará
-      sujeito as implicações previstas.
+    Parabéns, você fez uma nova venda do produto ${data.offer.product.name}, existe pedido pendente para sua aprovação em seu
+    ambiente virtual em Dashboard -> Boletos pendentes, entre e confirme por favor.
+    - Confira o volume, preço e condição de entrega.
+    - Estando de acordo, emita o boleto para o cliente e mude o status da venda para boleto
+    aguardando pagamento.
+    - Assim que receber o valor acertado, comunique no status que o boleto foi pago e
+    proceda com a entrega.
+    - O administrador irá gerar o boleto referente à parcela da MEGAPOOL sobre a venda.
+    - *** Caso não queira concretizar o negócio, cancele a venda, porém saiba que estará
+    sujeito as implicações previstas.
 
-      Confira abaixo os detalhes da sua venda:
-      Transação #${data._id}
-      Produto: ${data.offer.product.name}
-      Entrega: ${data.offer.delivery}
-      Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
-      Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
-      Preço: R$ ${unitPrice}/${data.offer.product.unit}
-      Total: R$ ${totalPrice}
+    Confira abaixo os detalhes da sua venda:
+    Transação #${data._id}
+    Produto: ${data.offer.product.name}
+    Entrega: ${data.offer.delivery}
+    Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
+    Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
+    Preço: R$ ${unitPrice}/${data.offer.product.unit}
+    Total: R$ ${totalPrice}
 
-      Dados do comprador:
-      Nome: ${data.buyer.fullName}
-      Email: ${data.buyer.email}
-      Telefone: ${data.buyer.phone}
-      Celular: ${data.buyer.cellphone}
+    Dados do comprador:
+    Nome: ${data.buyer.fullName}
+    Email: ${data.buyer.email}
+    Telefone: ${data.buyer.phone}
+    Celular: ${data.buyer.cellphone}
 
-      Ótimos negócios.
+    Ótimos negócios.
 
-      Equipe MEGAPOOL`;
-        const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
-        const emailContent = {
-          clientEmail: data.offer.seller.email,
-          subject,
-          content
-        };
-        return new Promise((resolve) => {
-          Email.sendEmail(emailContent).then((info) => {
-            resolve(info);
-          });
+    Equipe MEGAPOOL`;
+      const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
+      const emailContent = {
+        clientEmail: data.offer.seller.email,
+        subject,
+        content
+      };
+      return new Promise((resolve) => {
+        Email.sendEmail(emailContent).then((info) => {
+          resolve(info);
         });
-      }).catch((err) => {
-        console.log(err);
-        return err;
       });
+    }).catch((err) => {
+      console.log(err);
+      return err;
     });
   }
 
@@ -393,61 +389,63 @@ class Email {
    * @param {Object} data - Email Document Data
    * @returns {Object} Information
    */
-   static adminNewTransactionEmail(data) {
-     console.log('Admin Email');
-     return new Promise((resolve) => {
-       Money.getUsdValue().then((usd) => {
-         const totalPrice = data.priceBought * usd;
-         const unitPrice = data.unitPrice * usd;
-         console.log('admin Email');
-         const content = `Nova compra realizada sob o número #${data._id}.
-         A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para o comprador.
-         Esse terá acesso ao boleto uma vez que o vendedor aprove a transação e gere o boleto.
-         Para transação ocorrer com sucesso, é preciso emitir o boleto para o vendedor referente à parcela da Megapoll sobre a venda.
+  static adminNewTransactionEmail(data) {
+    console.log('Admin Email');
+    Money.getUsdValue().then((usd) => {
+      const totalPrice = data.priceBought * usd;
+      const unitPrice = data.unitPrice * usd;
+      console.log('admin Email');
+      const content = `Nova compra realizada sob o número #${data._id}.
+      A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para o comprador.
+      Esse terá acesso ao boleto uma vez que o vendedor aprove a transação e gere o boleto.
+      Para transação ocorrer com sucesso, é preciso emitir o boleto para o vendedor referente à parcela da Megapoll sobre a venda.
 
-         Confira abaixo os detalhes da transação:
-         Transação #${data._id}
-         Produto: ${data.offer.product.name}
-         Entrega: ${data.offer.delivery}
-         Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
-         Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
-         Preço: R$ ${unitPrice}/${data.offer.product.unit}
-         Total: R$ ${totalPrice}
+      Confira abaixo os detalhes da transação:
+      Transação #${data._id}
+      Produto: ${data.offer.product.name}
+      Entrega: ${data.offer.delivery}
+      Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
+      Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
+      Preço: R$ ${unitPrice}/${data.offer.product.unit}
+      Total: R$ ${totalPrice}
 
-         Dados do vendedor:
-         Nome: ${data.offer.seller.fullName}
-         Email: ${data.offer.seller.email}
-         Telefone: ${data.offer.seller.phone}
-         Celular: ${data.offer.seller.cellphone}
+      Dados do vendedor:
+      Nome: ${data.offer.seller.fullName}
+      Email: ${data.offer.seller.email}
+      Telefone: ${data.offer.seller.phone}
+      Celular: ${data.offer.seller.cellphone}
 
-         Dados do comprador:
-         Nome: ${data.buyer.fullName}
-         Email: ${data.buyer.email}
-         Telefone: ${data.buyer.phone}
-         Celular: ${data.buyer.cellphone}`;
-         const subject = 'MEGAPOOL: Uma nova transação foi realizada';
-         const emailContent = {
-           clientEmail: 'admcpejr@megapool.com.br',
-           content,
-           subject
-         };
-         return new Promise((resolve) => {
-           Email.sendEmail(emailContent).then((info) => {
-             resolve(info);
-           });
-         });
-       }).catch((err) => {
-         console.log(err);
-         return err;
-       });
-     });
-   }
+      Dados do comprador:
+      Nome: ${data.buyer.fullName}
+      Email: ${data.buyer.email}
+      Telefone: ${data.buyer.phone}
+      Celular: ${data.buyer.cellphone}`;
+      const subject = 'MEGAPOOL: Uma nova transação foi realizada';
+      const emailContent = {
+        clientEmail: 'admcpejr@megapool.com.br',
+        content,
+        subject
+      };
+      return new Promise((resolve) => {
+        Email.sendEmail(emailContent).then((info) => {
+          resolve(info);
+        });
+      });
+    }).catch((err) => {
+      console.log(err);
+      return err;
+    });
+  }
 
+
+  /**
+   * Send an email to the franchisee about a new transaction
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
   static franchiseeEmail(data) {
     console.log('Franchisee Email');
-
-    return new Promise((resolve) => {
-      Money.getUsdValue().then((usd) => {
+    Money.getUsdValue().then((usd) => {
       const totalPrice = data.priceBought * usd;
       const unitPrice = data.unitPrice * usd;
       const content = `Prezado ${data.franchisee.firstName},
@@ -473,53 +471,58 @@ class Email {
         clientEmail: data.franchisee.email,
         subject,
         content
-        };
-        return new Promise((resolve) => {
-          Email.sendEmail(emailContent).then((info) => {
-            resolve(info);
-          });
-        });
-      }).catch((err) => {
-        console.log(err);
-        return err;
-      });
-    });
-  }
-  static indication(data) {
-    console.log('Indication');
-    return new Promise((resolve) => {
-      const content = `Prezado administrador,
-      O seguinte usuário quer uma recomendação de franqueado:
-      Nome: ${data.fullName}
-      Email: ${data.email}
-      Telefone: ${data.phone}
-      Celular: ${data.cellphone}  `;
-      const subject = `Olá administrador, um cliente gostaria de uma indicação`;
-      const emailContent = {
-        clientEmail: 'admcpejr@megapool.com.br',
-        subject,
-        content
       };
       return new Promise((resolve) => {
         Email.sendEmail(emailContent).then((info) => {
           resolve(info);
         });
       });
+    }).catch((err) => {
+      console.log(err);
+      return err;
     });
   }
+
+
   /**
-  * Send an email to the franchisee when it sign up at MEGAPOOl
-  * @returns {Object} Information
-  */
+   * Send an email to the admin asking for a indication
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
+  static indication(data) {
+    console.log('Indication');
+    const content = `Prezado administrador,
+    O seguinte usuário quer uma recomendação de franqueado:
+    Nome: ${data.fullName}
+    Email: ${data.email}
+    Telefone: ${data.phone}
+    Celular: ${data.cellphone}  `;
+    const subject = 'Olá administrador, um cliente gostaria de uma indicação';
+    const emailContent = {
+      clientEmail: 'admcpejr@megapool.com.br',
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
 
- static signedUpFranchisee(email) {
+  /**
+   * Send an email to the franchisee when it sign up at MEGAPOOl
+   * @param {Object} email - Franchisee's email
+   * @returns {Object} Information
+   */
+  static signedUpFranchisee(email) {
     const text = `Olá, caro profissional
-  Seu pré cadastro será analisado pelo nosso departamento de franquias e será deferido ou indeferido no prazo máximo de 3 dias.
-  Outras informações complementares poderão ser solicitadas.
-  Caso aprovado, será enviado o contrato de franqueado para que possa ler e assinar se estiver de acordo.
+    Seu pré cadastro será analisado pelo nosso departamento de franquias e será deferido ou indeferido no prazo máximo de 3 dias.
+    Outras informações complementares poderão ser solicitadas.
+    Caso aprovado, será enviado o contrato de franqueado para que possa ler e assinar se estiver de acordo.
 
-  À disposição,
-  Equipe de franquias MEGAPOOL.`;
+    À disposição,
+    Equipe de franquias MEGAPOOL.`;
     const subject = 'MEGAPOOL: Pré-cadastro efetuado';
     const emailContent = {
       clientEmail: email,
@@ -534,6 +537,7 @@ class Email {
   }
 
   /**
+   * Send an email to the franchisee with the contract
    * @param {Object} data - Email Document Data
    * @returns {Object} Information
    */

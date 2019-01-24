@@ -238,16 +238,32 @@ router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req,
     User.update(req.params.id, userData).then(() => {
       if (user.status === 'Aguardando aprovação') {
         if (req.body.status === 'Ativo') {
-          Email.approvedUsersEmail(user).catch((error) => {
-            req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
-            res.redirect('/login');
-          });
+          if (user.userType === 'Franqueado') {
+            Email.acceptFranchisee(user).catch((error) => {
+              req.flash('danger', 'Não foi possível enviar o email para o fraqueado aprovado.');
+              res.redirect('/login');
+            });
+          }
+          else {
+            Email.approvedUsersEmail(user).catch((error) => {
+              req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
+              res.redirect('/login');
+            });
+          }
         }
         else if (req.body.status === 'Bloqueado') {
-          Email.disapprovedUsersEmail(user).catch((error) => {
-            req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
-            res.redirect('/login');
-          });
+          if (user.userType === 'Franqueado') {
+            Email.rejectFranchisee(user).catch((error) => {
+              req.flash('danger', 'Não foi possível enviar o email para o fraqueado reprovado.');
+              res.redirect('/login');
+            });
+          }
+          else {
+            Email.disapprovedUsersEmail(user).catch((error) => {
+              req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+              res.redirect('/login');
+            });
+          }
         }
       }
       switch (userData.status) {

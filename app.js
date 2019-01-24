@@ -69,6 +69,9 @@ schedule.scheduleJob('0 0 3 * * *', () => {
   }).catch((error) => {
     console.log(error);
   });
+});
+
+schedule.scheduleJob('0 0/1 * * * *', () => {
   Money.getUsdValue().then((prevDollar) => {
     Money.createDollarJSON().then(() => {
       Money.getUsdValue().then((dollar) => {

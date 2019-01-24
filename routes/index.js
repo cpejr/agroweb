@@ -100,6 +100,7 @@ router.get('/signup', (req, res) => {
 router.post('/login', (req, res) => {
   const userData = req.body.user;
   firebase.auth().signInWithEmailAndPassword(userData.email, userData.password).then((user) => {
+    console.log(user);
     User.getByUid(user.uid).then((currentLogged) => {
       if (currentLogged) {
         req.session.userType = currentLogged.type;

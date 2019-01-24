@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 const Money = require('../functions/money');
 const Transaction = require('../models/transaction');
 
@@ -22,12 +23,17 @@ class Email {
    * @returns {Object} Information
    */
   static sendEmail(data) {
-    const config = {
-      from: 'admcpejr@megapool.com.br',
-      to: data.clientEmail,
-      subject: data.subject,
-      text: data.content
-    };
+
+      const config = {
+        from: 'admcpejr@megapool.com.br',
+        to: data.clientEmail,
+        subject: data.subject,
+        text: data.content,
+        attachments: data.attachments
+      };
+
+
+
     console.log(`Config ${config}`);
     console.log(config.to);
     return new Promise((resolve) => {
@@ -264,12 +270,12 @@ class Email {
    */
   static updateEmail(data, status) {
     console.log('Update email');
-    const text = `Caro(a) ${data.firstName},
+    const content = `Caro(a) ${data.firstName},
     Seu pedido teve atualização de status para:"${status}"`;
     const subject = 'MEGAPOOL: Atualização no status do seu pedido';
     const emailContent = {
       ...data,
-      text,
+      content,
       subject
     };
     return new Promise((resolve) => {
@@ -492,6 +498,7 @@ class Email {
   static indication(data) {
     console.log('Indication');
     const content = `Prezado administrador,
+
     O seguinte usuário quer uma recomendação de franqueado:
     Nome: ${data.fullName}
     Email: ${data.email}
@@ -516,7 +523,8 @@ class Email {
    * @returns {Object} Information
    */
   static signedUpFranchisee(email) {
-    const text = `Olá, caro profissional
+    const content = `Olá, caro profissional
+
     Seu pré cadastro será analisado pelo nosso departamento de franquias e será deferido ou indeferido no prazo máximo de 3 dias.
     Outras informações complementares poderão ser solicitadas.
     Caso aprovado, será enviado o contrato de franqueado para que possa ler e assinar se estiver de acordo.
@@ -526,7 +534,7 @@ class Email {
     const subject = 'MEGAPOOL: Pré-cadastro efetuado';
     const emailContent = {
       clientEmail: email,
-      text,
+      content,
       subject
     };
     return new Promise((resolve) => {
@@ -542,25 +550,30 @@ class Email {
    * @returns {Object} Information
    */
   static franchiseeContract(data) {
-    const text = `Olá, ${data.firstName}
-    Após análise do seu pré cadastro, seu pedido como franqueado foi aceito.
-    Segue em anexo o contrato de franqueado:
-    - Deverá ser lido e assinado.
-    - Devolvido a MEGAPOOL. (franqueado@megapool.com.br)
-    - Será enviado também o boleto da taxa de franquia, que deverá ser pago e enviado o comprovante no mesmo e-mail.
-    Após esse processo sua senha de operação será liberada.
+    const content = `Olá, ${data.firstName}
 
-    A disposição
-    Equipe de franquias MEGAPOOL`;
+Após análise do seu pré cadastro, seu pedido como franqueado foi aceito.
+Segue em anexo o contrato de franqueado:
+- Deverá ser lido e assinado.
+- Devolvido a MEGAPOOL. (franqueado@megapool.com.br)
+- Será enviado também o boleto da taxa de franquia, que deverá ser pago e enviado o comprovante no mesmo e-mail.
+Após esse processo sua senha de operação será liberada.
+
+A disposição
+Equipe de franquias MEGAPOOL`;
     const subject = 'MEGAPOOL: Contrato';
     const emailContent = {
-      clientEmail: data.email,
-      text,
-      subject
+      clientEmail: 'felipesouza@cpejr.com.br',
+      content,
+      subject,
+      attachments: [{ path: data.path }]
     };
     return new Promise((resolve) => {
       Email.sendEmail(emailContent).then((info) => {
-        resolve(info);
+        fs.unlink(data.path, (err) => {
+          if (err) throw err;
+          resolve(info);
+        });
       });
     });
   }
@@ -571,7 +584,8 @@ class Email {
    * @returns {Object} Information
    */
   static acceptFranchisee(data) {
-    const text = `Parabéns, ${data.firstName}
+    const content = `Parabéns, ${data.firstName}
+    
     Você agora é um franqueado MEGAPOOL e faz parte do maior grupo de compras online do Brasil, tendo acesso a todas informações disponíveis na plataforma para desenvolver seu trabalho através de seu escritório virtual:
     Link do site: https://www.megapool.com.br
 
@@ -582,7 +596,7 @@ class Email {
     const subject = 'MEGAPOOL: cadastro aceito';
     const emailContent = {
       clientEmail: data.email,
-      text,
+      content,
       subject
     };
     return new Promise((resolve) => {
@@ -598,7 +612,7 @@ class Email {
    * @returns {Object} Information
    */
   static rejectFranchisee(email) {
-    const text = `Após análise do seu pré cadastro, seu pedido como franqueado foi indeferido. O indeferimento do pedido de franqueado ocorre por 2 motivos principais, são eles:
+    const content = `Após análise do seu pré cadastro, seu pedido como franqueado foi indeferido. O indeferimento do pedido de franqueado ocorre por 2 motivos principais, são eles:
     - Perfil do profissional incompatível com a função.
     - Números de franqueado máximo atingido na mesma região.
     O pedido pode ser feito novamente após 60 dias, onde ele irá passar novamente por avaliação.
@@ -608,7 +622,7 @@ class Email {
     const subject = 'MEGAPOOL: cadastro rejeitado';
     const emailContent = {
       clientEmail: email,
-      text,
+      content,
       subject
     };
     return new Promise((resolve) => {

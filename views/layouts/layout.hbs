@@ -91,7 +91,7 @@
           {{#if franchisee}}
           {{#ifCond userType 'Franqueado'}}
           <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light typeahead">
             <label for="searchbar-icon" class="fas fa-search input-icon"></label>
           </form>
           {{/ifCond}}
@@ -104,18 +104,17 @@
           {{/ifNotEq}}
         </div>
 
+        <div class="col-sd-6 float-right pt-4 mx-3 mt-2 d-lg-block d-none">
+          <h6 class="font3 mobile-font0 text-light">Dólar comercial: R${{usdValue}}
+            {{{rising}}}
+          </h6>
+        </div>
 
-              <div class="col-sd-6 float-left mt-3 mr-3 mt-md-2  pt-3">
-                <h6 class="font3 mobile-font0 text-light">Dólar comercial: {{usdValue}}
-                  {{{rising}}}
-                </h6>
-              </div>
-
-              <div class="col-sd-6 float-right pt-4 mx-3 mt-2">
-                <h6 class="font3 mobile-font0 text-light">PTAX: {{ptaxValue}}
-                  {{{risingPtax}}}
-                </h6>
-              </div>
+        <div class="col-sd-6 float-right pt-4 mx-3 mt-2">
+          <h6 class="font3 mobile-font0 text-light">PTAX: R${{ptaxValue}}
+            {{{risingPtax}}}
+          </h6>
+        </div>
             </row>
           </nav>
     </div>

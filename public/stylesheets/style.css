@@ -7795,7 +7795,7 @@ a.more-link {
 
 .searchbar input[type=search] {
   -webkit-appearance: textfield;
-  -webkit-box-sizing: content-box !important;
+  -webkit-box-sizing: content-box;
   font-family: inherit;
   font-size: 100%; }
 
@@ -7822,20 +7822,20 @@ a.more-link {
 
 .searchbar input[type=search] {
   width: 150px;
-    width-background-color: #E5E7E9 !important;
-  -webkit-border-radius: 10em !important;
-  -moz-border-radius: 10em !important;
-  border-radius: 10em !important;
-  -webkit-transition: all .5s !important;
-  -moz-transition: all .5s !important;
-  transition: all .5s !important; }
+    width-background-color: #E5E7E9;
+  -webkit-border-radius: 10em;
+  -moz-border-radius: 10em;
+  border-radius: 10em;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s; }
 
 .searchbar input[type=search]:focus {
   width: 190px !important;
-  background-color: #FFF !important;
+  background-color: #FFF;
   border-color: #CCC;
-  -webkit-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5) !important;
-  -moz-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5) !important;
+  -webkit-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
+  -moz-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
   box-shadow: 0 0 5px rgba(109, 207, 246, 0.5); }
 
 .searchbar input:-moz-placeholder {
@@ -7887,8 +7887,8 @@ a.more-link {
     transition: all .5s; }
   .searchbar input[type=search]:focus {
     width: 80px;
-    background-color: transparent;
-    border-color: #66CC75;
+    background-color: transparent !important;
+    border-color: #ccc;
     -webkit-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
     -moz-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
     box-shadow: 0 0 5px rgba(109, 207, 246, 0.5); }
@@ -8109,5 +8109,8 @@ a.more-link {
 .youtube:hover {
   background: #c4302b;
   color: #FFF; }
+
+.typeahead {
+  background-color: transparent; }
 
 /*# sourceMappingURL=style.css.map */

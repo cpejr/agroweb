@@ -6,7 +6,7 @@ const fs = require('fs');
 class Money {
   /**
    * Get the dollar commercial quotation
-   * @returns {null}
+   * @returns {Number} Dollar value
    */
   static getUsdValue() {
     return new Promise((resolve, reject) => {
@@ -15,8 +15,43 @@ class Money {
           reject(err);
         }
         const dataJSON = JSON.parse(data);
-        //console.log(dataJSON);
         resolve(dataJSON.ask);
+      });
+    });
+  }
+
+  /**
+   * Get the ptax quotation
+   * @returns {Number} Ptax value
+   */
+  static getPtaxValue() {
+    return new Promise((resolve, reject) => {
+      fs.readFile('./docs/ptax.json', (err, data) => {
+        if (err) {
+          reject(err);
+        }
+        const dataJSON = JSON.parse(data);
+        resolve(dataJSON.ptax);
+      });
+    });
+  }
+
+  /**
+   * Update the ptax value
+   * @param {Number} ptax - Ptax Value
+   * @returns {null}
+   */
+  static ptaxUpdate(ptax) {
+    return new Promise((resolve, reject) => {
+      const object = {
+        ptax
+      };
+      fs.writeFile('./docs/ptax.json', JSON.stringify(object), (err) => {
+        if (err) {
+          reject(err);
+        }
+        console.log('The ptax file has been saved!');
+        resolve();
       });
     });
   }

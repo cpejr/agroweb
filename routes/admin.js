@@ -1,5 +1,7 @@
 const express = require('express');
 const firebase = require('firebase');
+const formidable = require('formidable');
+const fs = require('fs');
 const Newsletter = require('../models/newsletter');
 const Product = require('../models/product');
 const Offer = require('../models/offer');
@@ -238,16 +240,32 @@ router.post('/:id/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req,
     User.update(req.params.id, userData).then(() => {
       if (user.status === 'Aguardando aprovação') {
         if (req.body.status === 'Ativo') {
-          Email.approvedUsersEmail(user).catch((error) => {
-            req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
-            res.redirect('/login');
-          });
+          if (user.type === 'Franqueado') {
+            Email.acceptFranchisee(user).catch((error) => {
+              req.flash('danger', 'Não foi possível enviar o email para o fraqueado aprovado.');
+              res.redirect('/login');
+            });
+          }
+          else {
+            Email.approvedUsersEmail(user).catch((error) => {
+              req.flash('danger', 'Não foi possível enviar o email para o usuário aprovado.');
+              res.redirect('/login');
+            });
+          }
         }
         else if (req.body.status === 'Bloqueado') {
-          Email.disapprovedUsersEmail(user).catch((error) => {
-            req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
-            res.redirect('/login');
-          });
+          if (user.type === 'Franqueado') {
+            Email.rejectFranchisee(user).catch((error) => {
+              req.flash('danger', 'Não foi possível enviar o email para o fraqueado reprovado.');
+              res.redirect('/login');
+            });
+          }
+          else {
+            Email.disapprovedUsersEmail(user).catch((error) => {
+              req.flash('danger', 'Não foi possível enviar o email para o usuário reprovado.');
+              res.redirect('/login');
+            });
+          }
         }
       }
       switch (userData.status) {
@@ -298,6 +316,56 @@ router.delete('/:id', (req, res) => {
 router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Offer.getAll().then((groups) => {
     res.render('groups/index', { title: 'Grupos de Compra', layout: 'layout', groups });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/* POST Contracts - Send the contract to the franchisee */
+router.post('/send-contract', (req, res) => {
+  User.getById(req.body.id).then((user) => {
+    const form = new formidable.IncomingForm();
+    form.parse(req, (err, fields, files) => {
+      const oldpath = files.contract.path;
+      const newpath = `./contracts/${files.contract.name}`;
+      fs.rename(oldpath, newpath, (error) => {
+        if (error) throw error;
+        const data = {
+          path: newpath,
+          ...user
+        };
+        Email.franchiseeContract(data).catch(() => {
+          req.flash('danger', 'Não foi possível enviar o contrato para o franqueado.');
+          res.redirect('/login');
+        });
+        // res.redirect('/requisitions/users');
+        res.end();
+      });
+    });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/* POST ptax - Updates ptax value */
+router.post('/ptax', (req, res) => {
+  Dollar.getPtaxValue().then((oldPtax) => {
+    console.log(oldPtax);
+    if (oldPtax < req.body.ptax) {
+      global.risingPtax = 'true';
+    }
+    else {
+      global.risingPtax = 'false';
+    }
+    Dollar.ptaxUpdate(req.body.ptax).then(() => {
+      global.ptax = req.body.ptax;
+      res.redirect('/admin');
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

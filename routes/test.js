@@ -12,6 +12,7 @@ const User = require('../models/user');
 const auth = require('./middleware/auth');
 const fs = require('fs');
 const config = require('../docs/config.json');
+const formidable = require('formidable');
 
 
 const router = express.Router();
@@ -20,6 +21,31 @@ router.get('/', (req, res) => {
   const { dollar } = global;
   console.log(dollar);
   res.render('teste', { title: 'Teste', dollar });
+});
+
+// rotapara industryMegaPremio
+router.get('/MegaPremio', (req, res) => {
+  res.render('industryMegaPremio', { title: 'MegaPremio', layout: 'layoutHome' });
+});
+
+router.post('/', (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    const oldpath = files.contract.path;
+    const newpath = `./contracts/${files.contract.name}`;
+    fs.rename(oldpath, newpath, (error) => {
+      if (error) throw error;
+      const data = {
+        path: newpath,
+        firstName: 'Felipe'
+      };
+      Email.franchiseeContract(data).catch((erro) => {
+        console.log(erro);
+      });
+      // res.write('File uploaded and moved!');
+      res.end();
+    });
+  });
 });
 
 // rotapara industryMegaPremio

@@ -488,7 +488,6 @@ class Email {
     });
   }
 
-
   /**
    * Send an email to the admin asking for a indication
    * @param {Object} data - Email Document Data

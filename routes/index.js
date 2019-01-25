@@ -100,7 +100,6 @@ router.get('/signup', (req, res) => {
 router.post('/login', (req, res) => {
   const userData = req.body.user;
   firebase.auth().signInWithEmailAndPassword(userData.email, userData.password).then((user) => {
-    console.log(user);
     User.getByUid(user.uid).then((currentLogged) => {
       if (currentLogged) {
         req.session.userType = currentLogged.type;
@@ -221,7 +220,6 @@ router.post('/signup', (req, res) => {
         req.session.userUid = user.uid;
         req.session.status = 'Aguardando aprovação';
         req.session._id = docId;
-        console.log(userData);
         if (req.session.userType === 'Franqueado') {
           Email.signedUpFranchisee(userData.email).catch((error) => {
             console.log(error);

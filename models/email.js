@@ -525,12 +525,12 @@ class Email {
   static signedUpFranchisee(email) {
     const content = `Olá, caro profissional
 
-    Seu pré cadastro será analisado pelo nosso departamento de franquias e será deferido ou indeferido no prazo máximo de 3 dias.
-    Outras informações complementares poderão ser solicitadas.
-    Caso aprovado, será enviado o contrato de franqueado para que possa ler e assinar se estiver de acordo.
+Seu pré cadastro será analisado pelo nosso departamento de franquias e será deferido ou indeferido no prazo máximo de 3 dias.
+Outras informações complementares poderão ser solicitadas.
+Caso aprovado, será enviado o contrato de franqueado para que possa ler e assinar se estiver de acordo.
 
-    À disposição,
-    Equipe de franquias MEGAPOOL.`;
+À disposição,
+Equipe de franquias MEGAPOOL.`;
     const subject = 'MEGAPOOL: Pré-cadastro efetuado';
     const emailContent = {
       clientEmail: email,
@@ -586,14 +586,14 @@ Equipe de franquias MEGAPOOL`;
   static acceptFranchisee(data) {
     const content = `Parabéns, ${data.firstName}
 
-    Você agora é um franqueado MEGAPOOL e faz parte do maior grupo de compras online do Brasil, tendo acesso a todas informações disponíveis na plataforma para desenvolver seu trabalho através de seu escritório virtual:
-    Link do site: https://www.megapool.com.br
+Você agora é um franqueado MEGAPOOL e faz parte do maior grupo de compras online do Brasil, tendo acesso a todas informações disponíveis na plataforma para desenvolver seu trabalho através de seu escritório virtual:
+Link do site: https://www.megapool.com.br
 
-    Em caso de duvidas ou suporte entra em contato: suportemegapool@megapool.com.br
+Em caso de duvidas ou suporte entra em contato: suportemegapool@megapool.com.br
 
-    Desejamos ótimos negócios
-    Equipe de franquias MEGAPOOL.`;
-    const subject = 'MEGAPOOL: cadastro aceito';
+Desejamos ótimos negócios
+Equipe de franquias MEGAPOOL.`;
+    const subject = 'MEGAPOOL: Cadastro aceito';
     const emailContent = {
       clientEmail: data.email,
       content,
@@ -613,13 +613,13 @@ Equipe de franquias MEGAPOOL`;
    */
   static rejectFranchisee(email) {
     const content = `Após análise do seu pré cadastro, seu pedido como franqueado foi indeferido. O indeferimento do pedido de franqueado ocorre por 2 motivos principais, são eles:
-    - Perfil do profissional incompatível com a função.
-    - Números de franqueado máximo atingido na mesma região.
-    O pedido pode ser feito novamente após 60 dias, onde ele irá passar novamente por avaliação.
+- Perfil do profissional incompatível com a função.
+- Números de franqueado máximo atingido na mesma região.
+O pedido pode ser feito novamente após 60 dias, onde ele irá passar novamente por avaliação.
 
-    Agradecemos o seu interesse e estamos a disposição: suportemegapool@megapool.com.br
-    Equipe de franquias MEGAPOOL.`;
-    const subject = 'MEGAPOOL: cadastro rejeitado';
+Agradecemos o seu interesse e estamos a disposição: suportemegapool@megapool.com.br
+Equipe de franquias MEGAPOOL.`;
+    const subject = 'MEGAPOOL: Cadastro rejeitado';
     const emailContent = {
       clientEmail: email,
       content,

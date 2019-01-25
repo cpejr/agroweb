@@ -13,11 +13,40 @@
 </head>
 <body>
 
-  <div class="agro-alert col-12 col-lg-4 col-md-6">
-    {{> messages}}
-  </div>
+
+  <!-- NavBar -->
+  <header class="bg-dark">
+    <h1 class="d-none">MegaPool</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <a href="/site/">
+        <img class="ml-2 mt-2 navbar-brand text-center pr-3" src="/images/logo menor.png" alt="MegaPool"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link pr-2" href="/site/about">Sobre</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pr-2" href="/site/franchisee" onkeyup="">Franqueado</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/site/contact">Contato</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
 
   {{{ body }}}
+
+
+    <div class="agro-alert col-12 col-lg-4 col-md-6 margin-flash">
+      {{> messages}}
+    </div>
+
 
   <script src="/javascripts/jquery.js" charset="utf-8"></script>
   <script src="/typeahead/typeahead.bundle.min.js"></script>

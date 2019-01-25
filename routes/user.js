@@ -376,7 +376,7 @@ router.delete('/:id', (req, res) => {
        });
      });
       req.flash('success', 'Contrato de franqueamento aceito. Não se esqueça de enviar o contrato para o cliente.');
-      res.redirect('/user/contractRequests');
+      res.redirect('/user');
    }).catch((error) => {
      req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
      res.redirect('/user');

@@ -24,21 +24,20 @@ class Email {
    */
   static sendEmail(data) {
 
-      const config = {
-        from: 'admcpejr@megapool.com.br',
-        to: data.clientEmail,
-        subject: data.subject,
-        text: data.content,
-        attachments: data.attachments
-      };
-
-
+    const config = {
+      from: 'admcpejr@megapool.com.br',
+      to: data.clientEmail,
+      subject: data.subject,
+      text: data.content,
+      attachments: data.attachments
+    };
 
     console.log(`Config ${config}`);
     console.log(config.to);
     return new Promise((resolve) => {
       transporter.sendMail(config, (error, info) => {
         if (error) {
+          console.log(error);
           resolve(error);
         }
         else {

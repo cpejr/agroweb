@@ -324,28 +324,31 @@ router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 
 /* POST Contracts - Send the contract to the franchisee */
 router.post('/send-contract', (req, res) => {
-  User.getById(req.body.id).then((user) => {
-    const form = new formidable.IncomingForm();
-    form.parse(req, (err, fields, files) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    User.getById(fields.id).then((user) => {
       const oldpath = files.contract.path;
       const newpath = `./contracts/${files.contract.name}`;
       fs.rename(oldpath, newpath, (error) => {
         if (error) throw error;
         const data = {
           path: newpath,
-          ...user
+          email: user.email,
+          firstName: user.firstName
         };
-        Email.franchiseeContract(data).catch(() => {
+        Email.franchiseeContract(data).then(() => {
+          req.flash('success', 'Contrato enviado')
+          res.redirect('/admin/requisitions/users');
+          res.end();
+        }).catch(() => {
           req.flash('danger', 'Não foi possível enviar o contrato para o franqueado.');
           res.redirect('/login');
         });
-        // res.redirect('/requisitions/users');
-        res.end();
       });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
     });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
   });
 });
 

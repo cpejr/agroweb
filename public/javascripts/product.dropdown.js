@@ -1,4 +1,4 @@
-const substringMatcher = (strs) => {
+const substringProduct = (strs) => {
   return function findMatches(q, cb) {
     var matches;
     // an array that will be populated with substring matches
@@ -19,15 +19,24 @@ const substringMatcher = (strs) => {
   };
 };
 
-$.get('../search/products', (result) => {
+$.get('/search/products', (result) => {
   const products = result;
-  $('#products-list .typeahead').typeahead({
-    hint: true,
-    highlight: true,
-    minLength: 1
-  },
-  {
-    name: 'products',
-    source: substringMatcher(products)
-  });
+  $('#products-list .typeahead').typeahead(
+    {
+      hint: true,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      name: 'products',
+      source: substringProduct(products),
+      templates: {
+        empty: [
+          '<div class="empty-search">',
+          '<small>Ops! Não encontramos resultados para essa busca.</small>',
+          '</div>'
+        ].join('\n')
+      }
+    }
+  );
 });

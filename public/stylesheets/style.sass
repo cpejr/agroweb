@@ -618,9 +618,9 @@ a.more-link
 	transition: all .5s
 
 .searchbar input[type=search]:focus
-	width: 190px
-	background-color: transparent
-	border-color: #66CC75
+	width: 190px !important
+	background-color: #FFF
+	border-color: #CCC
 	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5)
 	-moz-box-shadow: 0 0 5px rgba(109,207,246,.5)
 	box-shadow: 0 0 5px rgba(109,207,246,.5)
@@ -687,8 +687,8 @@ a.more-link
 
   .searchbar input[type=search]:focus
   	width: 80px
-  	background-color: transparent
-  	border-color: #66CC75
+  	background-color: transparent !important
+  	border-color: #ccc
   	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5)
   	-moz-box-shadow: 0 0 5px rgba(109,207,246,.5)
   	box-shadow: 0 0 5px rgba(109,207,246,.5)
@@ -940,6 +940,31 @@ a.more-link
 .youtube:hover
   background: #c4302b;color:#FFF
 
+.typeahead-search
+    background-color: transparent
+
+.empty-search
+  padding: 5px 10px
+  text-align: center
+
+.typeahead-menu
+  position: absolute
+  top: 100%
+  left: 0
+  z-index: 1000
+  display: none
+  float: left
+  min-width: 10rem
+  padding: 0.5rem 0
+  margin: 0.125rem 0 0
+  font-size: 1rem
+  color: #212529
+  text-align: left
+  list-style: none
+  background-color: #fff
+  background-clip: padding-box
+  border: 1px solid rgba(0, 0, 0, 0.15)
+  border-radius: 0.25rem
 
 .margin-flash
   margin-top: 4.7em

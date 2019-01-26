@@ -86,36 +86,37 @@
         </button>
       </row>
       <row>
-        <div class="col-sd-6 float-right mt-2 mb-0 mr-0">
+        <div class="col-sd-6 float-right mt-3 mr-3" id="search-list">
           {{#ifNotEq userType 'Indústria'}}
           {{#if franchisee}}
           {{#ifCond userType 'Franqueado'}}
           <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-searchbar typeahead-search">
             <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+            <button type="submit" class="d-none"></button>
           </form>
           {{/ifCond}}
           {{else}}
-          <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light">
+          <form action="../search" method="get" class="input-wrapper float-right mt-0 mb-3 searchbar">
+            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-searchbar typeahead-search">
             <label for="searchbar-icon" class="fas fa-search input-icon"></label>
+            <button type="submit" class="d-none"></button>
           </form>
           {{/if}}
           {{/ifNotEq}}
         </div>
 
+        <div class="col-sd-6 float-right pt-4 mx-3 mt-2 d-lg-block d-none">
+          <h6 class="font3 mobile-font0 text-light">Dólar comercial: R${{usdValue}}
+            {{{rising}}}
+          </h6>
+        </div>
 
-              <div class="col-sd-6 float-left mt-3 mr-3 mt-md-2  pt-3">
-                <h6 class="font3 mobile-font0 text-light">Dólar comercial: {{usdValue}}
-                  {{{rising}}}
-                </h6>
-              </div>
-
-              <div class="col-sd-6 float-right pt-4 mx-3 mt-2">
-                <h6 class="font3 mobile-font0 text-light">PTAX: {{ptaxValue}}
-                  {{{risingPtax}}}
-                </h6>
-              </div>
+        <div class="col-sd-6 float-right pt-4 mx-3 mt-2">
+          <h6 class="font3 mobile-font0 text-light">PTAX: R${{ptaxValue}}
+            {{{risingPtax}}}
+          </h6>
+        </div>
             </row>
           </nav>
     </div>
@@ -132,6 +133,7 @@
   <script src="/typeahead/typeahead.bundle.min.js"></script>
   <script src="/bootstrap/js/bootstrap.bundle.min.js" charset="utf-8"></script>
   <script src="/javascripts/navbar.js" charset="utf-8"></script>
+  <script src="/javascripts/search.js"></script>
   {{{_sections.scripts}}}
 </body>
 </html>

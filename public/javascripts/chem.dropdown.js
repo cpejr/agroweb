@@ -26,7 +26,7 @@ function removeMe(element) {
   }
 }
 
-const substringMatcher = (strs) => {
+const substringChem = (strs) => {
   return function findMatches(q, cb) {
     var matches;
     // an array that will be populated with substring matches
@@ -57,7 +57,14 @@ $.get('../search/chems', (result) => {
     },
     {
       name: 'chems',
-      source: substringMatcher(chems)
+      source: substringChem(chems),
+      templates: {
+        empty: [
+          '<div class="empty-search">',
+          '<small>Ops! Não encontramos resultados para essa busca.</small>',
+          '</div>'
+        ].join('\n')
+      }
     }
   );
 });

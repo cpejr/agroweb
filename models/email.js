@@ -295,7 +295,7 @@ class Email {
       const totalPrice = data.priceBought * usd;
       const unitPrice = data.unitPrice * usd;
       const content = `Caro(a) ${data.buyer.firstName},
-      Sua compra do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "aguardando boleto para pagamento" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
+      Sua compra* do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "aguardando boleto para pagamento" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
 
       Confira os dados de sua compra abaixo:
 
@@ -311,6 +311,8 @@ class Email {
       Email: ${data.offer.seller.email}
       Telefone: ${data.offer.seller.phone}
       Celular: ${data.offer.seller.cellphone}
+
+      *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento.
 
       Qualquer divergência entre em contato conosco: suportemegapool@megapool.com.br
       Equipe MEGAPOOL`;
@@ -343,7 +345,7 @@ class Email {
       const unitPrice = data.unitPrice * usd;
       const content = `Caro(a) ${data.offer.seller.firstName},
 
-    Parabéns, você fez uma nova venda do produto ${data.offer.product.name}, existe pedido pendente para sua aprovação em seu
+    Parabéns, você fez uma nova venda* do produto ${data.offer.product.name}, existe pedido pendente para sua aprovação em seu
     ambiente virtual em Dashboard -> Boletos pendentes, entre e confirme por favor.
     - Confira o volume, preço e condição de entrega.
     - Estando de acordo, emita o boleto para o cliente e mude o status da venda para boleto
@@ -368,6 +370,8 @@ class Email {
     Email: ${data.buyer.email}
     Telefone: ${data.buyer.phone}
     Celular: ${data.buyer.cellphone}
+
+    *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento.
 
     Ótimos negócios.
 
@@ -400,7 +404,7 @@ class Email {
       const totalPrice = data.priceBought * usd;
       const unitPrice = data.unitPrice * usd;
       console.log('admin Email');
-      const content = `Nova compra realizada sob o número #${data._id}.
+      const content = `Nova compra* realizada sob o número #${data._id}.
       A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para o comprador.
       Esse terá acesso ao boleto uma vez que o vendedor aprove a transação e gere o boleto.
       Para transação ocorrer com sucesso, é preciso emitir o boleto para o vendedor referente à parcela da Megapoll sobre a venda.
@@ -424,7 +428,8 @@ class Email {
       Nome: ${data.buyer.fullName}
       Email: ${data.buyer.email}
       Telefone: ${data.buyer.phone}
-      Celular: ${data.buyer.cellphone}`;
+      Celular: ${data.buyer.cellphone}
+      *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento. `;
       const subject = 'MEGAPOOL: Uma nova transação foi realizada';
       const emailContent = {
         clientEmail: 'admcpejr@megapool.com.br',
@@ -454,7 +459,7 @@ class Email {
       const totalPrice = data.priceBought * usd;
       const unitPrice = data.unitPrice * usd;
       const content = `Prezado ${data.franchisee.firstName},
-      Uma cotação realizada por você foi aprovada para compra ${data.offer.product.name}.
+      Uma cotação realizada por você foi aprovada para compra* ${data.offer.product.name}.
       A transação foi aprovada e pode ser consultada no caminho Dashboard -> Minhas compras
       Confira abaixo os detalhes da transação realizada:
 
@@ -470,7 +475,8 @@ class Email {
       Nome: ${data.buyer.fullName}
       Email: ${data.buyer.email}
       Telefone: ${data.buyer.phone}
-      Celular: ${data.buyer.cellphone}`;
+      Celular: ${data.buyer.cellphone}
+      *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento. `;
       const subject = `Olá ${data.franchisee.fullName}, uma cotação sua foi comprada.`;
       const emailContent = {
         clientEmail: data.franchisee.email,
@@ -583,8 +589,8 @@ Equipe de franquias MEGAPOOL`;
    */
   static acceptFranchisee(data) {
     const content = `Parabéns, ${data.firstName}
-
-Você agora é um franqueado MEGAPOOL e faz parte do maior grupo de compras online do Brasil, tendo acesso a todas informações disponíveis na plataforma para desenvolver seu trabalho através de seu escritório virtual:
+Você agora é um franqueado MEGAPOOL e faz parte do maior grupo de compras online do Brasil!
+Você terá acesso a todas informações disponíveis na plataforma para desenvolver seu trabalho através de seu escritório virtual:
 Link do site: https://www.megapool.com.br
 
 Em caso de duvidas ou suporte entra em contato: suportemegapool@megapool.com.br

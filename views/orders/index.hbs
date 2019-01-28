@@ -5,6 +5,7 @@
 </div>
 
 <div class="p-1">
+
   <!-- OrdersList-->
   {{#if transactions}}
   <div style="overflow-x:auto;">
@@ -49,9 +50,9 @@
             <div class="row">
               <div class="col-2 d-inline-block text-center align-self-center mx-1">
                 {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
-                <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
-                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
-                <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+                <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
+                <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
+                <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
                 {{else ifCond offer.product.category 'Sementes'}}
                 <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
@@ -180,9 +181,9 @@
           <div class="row">
             <div class="col-2 d-inline-block text-center align-self-center mx-1">
               {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
-              <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
-              <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
-              <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+              <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
+              <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
+              <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
               {{else ifCond offer.product.category 'Sementes'}}
               <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
@@ -305,9 +306,9 @@
                         <div class="row">
                           <div class="col-2 d-inline-block text-center align-self-center mx-1">
                             {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
-                            <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
-                            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
-                            <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+                            <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
+                            <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
+                            <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
                             {{else ifCond offer.product.category 'Sementes'}}
                             <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                             <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
@@ -435,9 +436,9 @@
                     <div class="row">
                       <div class="col-2 d-inline-block text-center align-self-center mx-1">
                         {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
-                        <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
-                        <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
-                        <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+                        <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
+                        <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
+                        <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
                         {{else ifCond offer.product.category 'Sementes'}}
                         <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                         <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
@@ -535,7 +536,11 @@
 
       {{else}}
       <div class="container">
-        <p class="text-center font-light">Você não realizou nenhum compra ainda.</p>
+        {{#ifCond userType 'Indústria'}}
+        <p class="text-center font-light">Você não possui nenhuma demanda.</p>
+        {{else}}
+        <p class="text-center font-light">Você não possui nenhuma compra.</p>
+        {{/ifCond}}
       </div>
       {{/if}}
       <!-- end OrdersList -->

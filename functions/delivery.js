@@ -1,10 +1,8 @@
-const request = require('request-promise');
 const Email = require('../models/email');
 const Group = require('../models/group');
 const Offer = require('../models/offer');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
-const config = require('../docs/config.json');
 
 class Delivery {
   /**
@@ -14,8 +12,8 @@ class Delivery {
     return new Promise((resolve, reject) => {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      const cropDate = config.development.date.crop;
-      const smallCropDate = config.development.date.smallCrop;
+      const cropDate = global.config.date.crop;
+      const smallCropDate = global.config.date.smallCrop;
 
       const crop = new Date(today);
       crop.setDate(Number(cropDate.slice(0, 2)));
@@ -25,35 +23,40 @@ class Delivery {
       smallCrop.setDate(Number(smallCropDate.slice(0, 2)));
       smallCrop.setMonth(Number(smallCropDate.slice(-2)) - 1);
 
-      const cropCloseDate = new Date(crop);
-      cropCloseDate.setDate(cropCloseDate.getDate() - 15);
-
-      const smallCropCloseDate = new Date(smallCrop);
-      smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
-
-      if (today > crop) {
+      if (today.getTime() > crop.getTime()) {
         crop.setFullYear(crop.getFullYear() + 1);
       }
 
-      if (today === crop) {
+      if (today.getTime() > smallCrop.getTime()) {
+        smallCrop.setFullYear(smallCrop.getFullYear() + 1);
+      }
+
+      const cropCloseDate = new Date(crop);
+
+      const smallCropCloseDate = new Date(smallCrop);
+
+      if (today.getTime() === crop.getTime()) {
         cropCloseDate.setFullYear(crop.getFullYear() + 1);
       }
 
-      if (today === smallCrop) {
+      if (today.getTime() === smallCrop.getTime()) {
         smallCropCloseDate.setFullYear(crop.getFullYear() + 1);
       }
+
+      cropCloseDate.setDate(cropCloseDate.getDate() - 15);
+      smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
 
       Group.getAll().then((groups) => {
         groups.forEach((group) => {
           let groupData = {};
-          if (group.closeDate === today) {
+          if (group.closeDate.getTime() === today.getTime()) {
             groupData.active = false;
             Group.update(group._id, groupData).catch((error) => {
               console.log(error);
               reject(error);
             });
           }
-          if (crop === today) {
+          if (crop.getTime() === today.getTime()) {
             if (group.delivery === 'Safra') {
               Group.getAllTransactions().then((transactions) => {
                 transactions.forEach((transaction) => {
@@ -150,7 +153,7 @@ class Delivery {
               });
             }
           }
-          if (smallCrop === today) {
+          if (smallCrop.getTime() === today.getTime()) {
             if (group.delivery === 'Safrinha') {
               Group.getAllTransactions().then((transactions) => {
                 transactions.forEach((transaction) => {

@@ -52,8 +52,9 @@ router.post('/', (req, res) => {
     console.log(offer.breakpoints.average, typeof (offer.breakpoints.average));
     if (parseInt(offer.breakpoints.low, 10) > parseInt(offer.breakpoints.average, 10)) {
       const today = new Date();
-      const cropDate = config.development.date.crop;
-      const smallCropDate = config.development.date.smallCrop;
+      today.setHours(0, 0, 0, 0);
+      const cropDate = global.config.date.crop;
+      const smallCropDate = global.config.date.smallCrop;
 
       const crop = new Date(today);
       crop.setDate(Number(cropDate.slice(0, 2)));
@@ -63,19 +64,29 @@ router.post('/', (req, res) => {
       smallCrop.setDate(Number(smallCropDate.slice(0, 2)));
       smallCrop.setMonth(Number(smallCropDate.slice(-2)) - 1);
 
+      if (today.getTime() > crop.getTime()) {
+        crop.setFullYear(crop.getFullYear() + 1);
+      }
+
+      if (today.getTime() > smallCrop.getTime()) {
+        smallCrop.setFullYear(smallCrop.getFullYear() + 1);
+      }
+
       const cropCloseDate = new Date(crop);
-      cropCloseDate.setDate(cropCloseDate.getDate() - 15);
 
       const smallCropCloseDate = new Date(smallCrop);
-      smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
 
-      if (today === crop) {
+      if (today.getTime() === crop.getTime()) {
         cropCloseDate.setFullYear(crop.getFullYear() + 1);
       }
 
-      if (today === smallCrop) {
+      if (today.getTime() === smallCrop.getTime()) {
         smallCropCloseDate.setFullYear(crop.getFullYear() + 1);
       }
+
+      cropCloseDate.setDate(cropCloseDate.getDate() - 15);
+      smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
+
       User.getById(req.session._id).then((user) => {
         offer.seller = user;
         Product.getByQuerySorted({ name: offer.product }, {}).then((product) => {

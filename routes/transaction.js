@@ -70,7 +70,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
         // Update the offer
         Offer.update(transactionData.offer, offerData).catch((error) => {
           console.log(error);
-          req.flash('danger', 'Não foi possível atualizar a transação.');
+          req.flash('danger', 'Não foi possível atualizar a oferta.');
           res.redirect('/user');
         });
         User.addToMyCart(transactionData.buyer, transaction).catch((error) => {
@@ -275,19 +275,9 @@ router.put('/:id', (req, res) => {
               res.redirect('/user');
             });
           }
-          Email.buyEmail(transaction).catch((error) => {
-            console.log(error);
-            req.flash('danger', 'Não foi possível enviar email de compra.');
-            res.redirect('/user');
-          });
           User.addTransaction(transaction.offer.seller._id, req.params.id).catch((error) => {
             console.log(error);
             req.flash('danger', 'Não foi possível adicionar a compra para o vendedor.');
-            res.redirect('/user');
-          });
-          Email.sellEmail(transaction).catch((error) => {
-            console.log(error);
-            req.flash('danger', 'Não foi possível enviar email de venda.');
             res.redirect('/user');
           });
           if (transaction.franchisee) {
@@ -302,11 +292,24 @@ router.put('/:id', (req, res) => {
               });
             });
           }
-          Email.adminNewTransactionEmail(transaction).catch((error) => {
-            console.log(error);
-            req.flash('danger', 'Não foi possível enviar email para o administrador.');
-            res.redirect('/user');
-          });
+          console.log(transaction);
+          
+          // Email.buyEmail(transaction).catch((error) => {
+          //   console.log(error);
+          //   req.flash('danger', 'Não foi possível enviar email de compra.');
+          //   res.redirect('/user');
+          // });
+          // Email.sellEmail(transaction).catch((error) => {
+          //   console.log(error);
+          //   req.flash('danger', 'Não foi possível enviar email de venda.');
+          //   res.redirect('/user');
+          // });
+          // Email.adminNewTransactionEmail(transaction).catch((error) => {
+          //   console.log(error);
+          //   req.flash('danger', 'Não foi possível enviar email para o administrador.');
+          //   res.redirect('/user');
+          // });
+
           req.flash('success', 'Compra realizada.');
           res.redirect('/user/orders');
         }).catch((error) => {

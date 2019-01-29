@@ -39,9 +39,9 @@
                     <div class="col-3 d-inline-block text-center align-self-center">
 
                       {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
-                      <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
-                      <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
-                      <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+                      <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
+                      <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
+                      <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
                       {{else ifCond offer.product.category 'Sementes'}}
                       <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                       <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
@@ -58,6 +58,11 @@
                     </div>
                     <div class="col p-2">
                       <div class="vl">
+                        {{#if offer.megaOpportunity}}
+                        <div class="pagination float-right">
+                          <div data-toggle="tooltip" data-placement="top" title="Essa oferta é uma mega oportunidade" class="pagination__dot pagination__dot--mega"></div>
+                        </div>
+                        {{/if}}
                         <div class="ml-2 mt-3">
                           <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
                             {{offer.product.name}}
@@ -143,9 +148,9 @@
                 <div class="col-2 ml-2 ml-lg-4 mr-1 d-inline-block text-center align-self-center">
 
                   {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
-                  <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
-                  <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
-                  <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+                  <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
+                  <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
+                  <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
                   {{else ifCond offer.product.category 'Sementes'}}
                   <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
@@ -162,6 +167,11 @@
                 </div>
                 <div class="col p-2">
                   <div class="vl">
+                    {{#if offer.megaOpportunity}}
+                    <div class="pagination float-right">
+                      <div data-toggle="tooltip" data-placement="top" title="Essa oferta é uma mega oportunidade" class="pagination__dot pagination__dot--mega"></div>
+                    </div>
+                    {{/if}}
                     <div class="ml-2  mb-2 mb-lg-3 text-gray3">
                       <h5 class="text-left align-text-top card-text font-black text-green mobile-font2   text-uppercase">
                         {{offer.product.name}}
@@ -245,9 +255,9 @@
                 <div class="col-2 ml-2 ml-lg-4 mr-1 d-inline-block text-center align-self-center">
 
                   {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
-                  <i class="d-inline d-sm-none card-icon fas fa-bug fa-2x align-self-center"></i>
-                  <i class="d-none d-sm-inline d-xl-none card-icon fas fa-bug fa-3x align-self-center"></i>
-                  <i class="d-none d-xl-inline card-icon fas fa-bug fa-4x text-left"></i>
+                  <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
+                  <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
+                  <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
                   {{else ifCond offer.product.category 'Sementes'}}
                   <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
@@ -264,6 +274,11 @@
                 </div>
                 <div class="col p-2">
                   <div class="vl">
+                    {{#if offer.megaOpportunity}}
+                    <div class="pagination mr-5">
+                      <div data-toggle="tooltip" data-placement="top" title="Essa oferta é uma mega oportunidade" class="pagination__dot pagination__dot--mega"></div>
+                    </div>
+                    {{/if}}
                     <div class="ml-2  mb-2 mb-lg-3 text-gray3">
                       <h5 class="text-left align-text-top card-text font-black text-green mobile-font2   text-uppercase">
                         {{offer.product.name}}

@@ -8,6 +8,7 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700");
 @import url("https://fonts.googleapis.com/css?family=Catamaran:400,800");
+@import url(./tiptool.css);
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -7767,21 +7768,20 @@ a.more-link {
     margin: auto;
     text-align: center; }
     .pagination__dot {
-      width: 22px;
-      height: 22px;
-      border-radius: 100px;
+      width: 50px;
+      height: 32px;
       display: inline-block;
       cursor: pointer;
-      margin: 0 6px;
+      margin: 0 15px;
       transition: .3s; }
       .pagination__dot--active {
         background: #FF0000; }
       .pagination__dot--mega {
-        background: #00B800; }
+        background: url("../images/megaOportunidade_icon.png") 2px no-repeat scroll white; }
       .pagination__dot:hover {
         transition: .3s;
-        width: 27px;
-        height: 27px;
+        color: #3b9939;
+        box-shadow: -5px -5px #3b9939, 5px 5px #3b9939;
         border-color: #000000; }
         .pagination__dot:hover:before {
           top: -45px;

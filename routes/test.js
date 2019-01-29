@@ -20,6 +20,10 @@ const router = express.Router();
 router.get('/', (req, res) => {
   const { dollar } = global;
   console.log(dollar);
+  let x = {
+    number: 10.213123
+  };
+  console.log('Teste = ', x.number.toFixed(2));
   res.render('teste', { title: 'Teste', dollar });
 });
 

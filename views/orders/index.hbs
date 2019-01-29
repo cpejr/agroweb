@@ -17,7 +17,7 @@
   </div>
 
   <div class="row justify-content-center mt-2 mx-0">
-    <div class="col-sm-12 col-md-7 col-lg-6 col-xl-5 btn p-3">
+    <div class="col-sm-12 col-md-7 col-lg-6 col-xl-5 btn p-3 cursor-default">
       <table id="myTable" class="col-12">
       <tbody>
 
@@ -91,11 +91,7 @@
                 <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
                   <div class="text-left side-animation">
                     <h4 class="font-book text-gray4  mobile-font2  d-inline">
-                      {{#if offer.usd}}
-                        R$ {{math (usdValue) "*" priceBought}}
-                      {{else}}
                         R$ {{priceBought}}
-                      {{/if}}
                     </h4>
                   </div>
                 </div>
@@ -221,11 +217,7 @@
               <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
                 <div class="text-left side-animation">
                   <h4 class="font-book text-gray4  mobile-font2  d-inline">
-                    {{#if offer.usd}}
-                      R$ {{math (usdValue) "*" priceBought}}
-                    {{else}}
                       R$ {{priceBought}}
-                    {{/if}}
                   </h4>
                 </div>
               </div>
@@ -347,11 +339,7 @@
                               <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
                                 <div class="text-left side-animation">
                                   <h4 class="font-book text-gray4  mobile-font2  d-inline">
-                                    {{#if offer.usd}}
-                                    R$ {{math (usdValue) "*" priceBought}}
-                                    {{else}}
                                     R$ {{priceBought}}
-                                    {{/if}}
                                   </h4>
                                 </div>
                               </div>
@@ -470,11 +458,7 @@
                         <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
                           <div class="text-left side-animation">
                             <h4 class="font-book text-gray4  mobile-font2  d-inline">
-                              {{#if offer.usd}}
-                                R$ {{math (usdValue) "*" priceBought}}
-                              {{else}}
                                 R$ {{priceBought}}
-                              {{/if}}
                             </h4>
                           </div>
                         </div>

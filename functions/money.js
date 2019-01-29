@@ -15,7 +15,7 @@ class Money {
           reject(err);
         }
         const dataJSON = JSON.parse(data);
-        resolve(dataJSON.ask);
+        resolve(parseFloat(dataJSON.ask).toFixed(4));
       });
     });
   }

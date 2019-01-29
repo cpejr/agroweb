@@ -34,6 +34,7 @@ router.get('/new', auth.canSell, (req, res) => {
 router.post('/', (req, res) => {
   const { dollar } = global;
   const { offer } = req.body;
+  console.log(offer);
   User.getAllOffersByUserId(req.session._id).then((offers) => {
     offers.forEach((object) => {
       if (object.product.name === offer.product && object.delivery === offer.delivery) {
@@ -48,7 +49,9 @@ router.post('/', (req, res) => {
       offer.price.high = offer.price.mega;
       delete offer.price.mega;
     }
-    if (offer.breakpoints.low > offer.breakpoints.average) {
+    console.log(offer.breakpoints.low, typeof (offer.breakpoints.low));
+    console.log(offer.breakpoints.average, typeof (offer.breakpoints.average));
+    if (parseInt(offer.breakpoints.low, 10) > parseInt(offer.breakpoints.average, 10)) {
       const today = new Date();
       const cropDate = config.development.date.crop;
       const smallCropDate = config.development.date.smallCrop;
@@ -74,7 +77,6 @@ router.post('/', (req, res) => {
       if (today === smallCrop) {
         smallCropCloseDate.setFullYear(crop.getFullYear() + 1);
       }
-
       User.getById(req.session._id).then((user) => {
         offer.seller = user;
         Product.getByQuerySorted({ name: offer.product }, {}).then((product) => {

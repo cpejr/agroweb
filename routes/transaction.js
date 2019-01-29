@@ -59,9 +59,11 @@ router.post('/', auth.isAuthenticated, (req, res) => {
         transactionData.unitPrice *= dollar;
         transactionData.priceBought *= dollar;
       }
+      transactionData.unitPrice = transactionData.unitPrice.toFixed(2);
+      transactionData.priceBought = transactionData.priceBought.toFixed(2);
       // Create a new transaction
       Transaction.create(transactionData).then((transaction) => {
-        const balanceOffer = parseInt(offer.balance) + parseInt(transactionData.amountBought);
+        const balanceOffer = parseInt(offer.balance, 10) + parseInt(transactionData.amountBought, 10);
         const offerData = {
           balance: balanceOffer
         };
@@ -109,6 +111,8 @@ router.post('/', auth.isAuthenticated, (req, res) => {
           transactionData.unitPrice *= dollar;
           transactionData.priceBought *= dollar;
         }
+        transactionData.unitPrice = transactionData.unitPrice.toFixed(2);
+        transactionData.priceBought = transactionData.priceBought.toFixed(2);
         Transaction.create(transactionData).then((transaction) => {
           Group.update(group._id, { unitPrice: transactionData.unitPrice, amount: balanceGroup }).then(() => {
             Group.updateAllTransactions(group._id).catch((error) => {

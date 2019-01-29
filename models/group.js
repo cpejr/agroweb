@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Dollar = require('../functions/money');
 const Transaction = require('./transaction');
 
 const groupSchema = new mongoose.Schema({

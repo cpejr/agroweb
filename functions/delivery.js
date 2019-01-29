@@ -1,5 +1,5 @@
 const request = require('request-promise');
-const Dollar = require('./money');
+// const Dollar = require('./money');
 const Email = require('../models/email');
 const Group = require('../models/group');
 const Offer = require('../models/offer');
@@ -116,37 +116,32 @@ class Delivery {
                   Offer.getByQuerySorted({ product: group.productId, active: true, delivery: 'Safra' }, {}).then((offers) => {
                     groupData.unitPrice = offers[0].price.high;
                     groupData.offer = offers[0]._id;
-                    Dollar.getUsdValue().then((dollar) => {
-                      offers.forEach((offerElement) => {
-                        Offer.getById(groupData.offer).then((groupOffer) => {
-                          let offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
-                          let offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
-                          if (groupOffer.usd) {
-                            offerGroupPrice *= dollar;
-                          }
-                          if (offerElement.usd) {
-                            offerPrice *= dollar;
-                          }
-                          if (offerGroupPrice > offerPrice) {
+                    offers.forEach((offerElement) => {
+                      Offer.getById(groupData.offer).then((groupOffer) => {
+                        let offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
+                        let offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
+                        // if (groupOffer.usd) {
+                        //   offerGroupPrice *= dollar;
+                        // }
+                        // if (offerElement.usd) {
+                        //   offerPrice *= dollar;
+                        // }
+                        if (offerGroupPrice > offerPrice) {
+                          groupData.offer = offerElement._id;
+                        }
+                        else if (offerGroupPrice === offerPrice) {
+                          if (groupOffer.stock < offerElement.stock) {
                             groupData.offer = offerElement._id;
                           }
-                          else if (offerGroupPrice === offerPrice) {
-                            if (groupOffer.stock < offerElement.stock) {
-                              groupData.offer = offerElement._id;
-                            }
-                          }
-                          Group.update(group._id, groupData).catch((error) => {
-                            console.log(error);
-                            reject(error);
-                          });
-                        }).catch((error) => {
+                        }
+                        Group.update(group._id, groupData).catch((error) => {
                           console.log(error);
                           reject(error);
                         });
+                      }).catch((error) => {
+                        console.log(error);
+                        reject(error);
                       });
-                    }).catch((error) => {
-                      console.log(error);
-                      reject(error);
                     });
                   }).catch((error) => {
                     console.log(error);
@@ -223,37 +218,32 @@ class Delivery {
                   Offer.getByQuerySorted({ product: group.productId, active: true, delivery: 'Safrinha' }, {}).then((offers) => {
                     groupData.unitPrice = offers[0].price.high;
                     groupData.offer = offers[0]._id;
-                    Dollar.getUsdValue().then((dollar) => {
-                      offers.forEach((offerElement) => {
-                        Offer.getById(groupData.offer).then((groupOffer) => {
-                          let offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
-                          let offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
-                          if (groupOffer.usd) {
-                            offerGroupPrice *= dollar;
-                          }
-                          if (offerElement.usd) {
-                            offerPrice *= dollar;
-                          }
-                          if (offerGroupPrice > offerPrice) {
+                    offers.forEach((offerElement) => {
+                      Offer.getById(groupData.offer).then((groupOffer) => {
+                        let offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
+                        let offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
+                        // if (groupOffer.usd) {
+                        //   offerGroupPrice *= dollar;
+                        // }
+                        // if (offerElement.usd) {
+                        //   offerPrice *= dollar;
+                        // }
+                        if (offerGroupPrice > offerPrice) {
+                          groupData.offer = offerElement._id;
+                        }
+                        else if (offerGroupPrice === offerPrice) {
+                          if (groupOffer.stock < offerElement.stock) {
                             groupData.offer = offerElement._id;
                           }
-                          else if (offerGroupPrice === offerPrice) {
-                            if (groupOffer.stock < offerElement.stock) {
-                              groupData.offer = offerElement._id;
-                            }
-                          }
-                          Group.update(group._id, groupData).catch((error) => {
-                            console.log(error);
-                            reject(error);
-                          });
-                        }).catch((error) => {
+                        }
+                        Group.update(group._id, groupData).catch((error) => {
                           console.log(error);
                           reject(error);
                         });
+                      }).catch((error) => {
+                        console.log(error);
+                        reject(error);
                       });
-                    }).catch((error) => {
-                      console.log(error);
-                      reject(error);
                     });
                   }).catch((error) => {
                     console.log(error);

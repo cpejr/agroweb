@@ -32,7 +32,7 @@ router.get('/new', auth.canSell, (req, res) => {
  * POST Create - Add new offer to DB
  */
 router.post('/', (req, res) => {
-  const { dollar } = global;
+  // const { dollar } = global;
   const { offer } = req.body;
   console.log(offer);
   User.getAllOffersByUserId(req.session._id).then((offers) => {
@@ -91,12 +91,12 @@ router.post('/', (req, res) => {
                   console.log('Compares and changes the groups offer');
                   let offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
                   let offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
-                  if (group.offer.usd) {
-                    offerGroupPrice *= dollar;
-                  }
-                  if (offer.usd) {
-                    offerPrice *= dollar;
-                  }
+                  // if (group.offer.usd) {
+                  //   offerGroupPrice *= dollar;
+                  // }
+                  // if (offer.usd) {
+                  //   offerPrice *= dollar;
+                  // }
                   if (offerGroupPrice > offerPrice) {
                     groupData.offer = offer._id;
                     if (group.amount < offer.breakpoints.average) {
@@ -249,7 +249,7 @@ router.get('/:id/edit', auth.canSell, (req, res) => {
  * PUT Update - Update a offer in the database
  */
 router.put('/:id', (req, res) => {
-  const { dollar } = global;
+  // const { dollar } = global;
   const { offer } = req.body;
   console.log(offer);
   Product.getByQuerySorted({ name: offer.product }, {}).then((product) => {
@@ -263,12 +263,12 @@ router.put('/:id', (req, res) => {
           console.log('Compares and changes the groups offer');
           let offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
           let offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
-          if (group.offer.usd) {
-            offerGroupPrice *= dollar;
-          }
-          if (offer.usd) {
-            offerPrice *= dollar;
-          }
+          // if (group.offer.usd) {
+          //   offerGroupPrice *= dollar;
+          // }
+          // if (offer.usd) {
+          //   offerPrice *= dollar;
+          // }
           if (offerGroupPrice > offerPrice) {
             groupData.offer = offer._id;
             if (group.amount < offer.breakpoints.average) {

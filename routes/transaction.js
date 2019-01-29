@@ -26,7 +26,7 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  * POST Create - Add new transaction to DB
  */
 router.post('/', auth.isAuthenticated, (req, res) => {
-  const { dollar } = global;
+  // const { dollar } = global;
   const transactionData = {
     amountBought: req.body.amountBought,
     offer: req.body._id,
@@ -55,10 +55,10 @@ router.post('/', auth.isAuthenticated, (req, res) => {
         transactionData.unitPrice = offer.price.low;
         transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
       }
-      if (offer.usd) {
-        transactionData.unitPrice *= dollar;
-        transactionData.priceBought *= dollar;
-      }
+      // if (offer.usd) {
+      //   transactionData.unitPrice *= dollar;
+      //   transactionData.priceBought *= dollar;
+      // }
       transactionData.unitPrice = transactionData.unitPrice.toFixed(2);
       transactionData.priceBought = transactionData.priceBought.toFixed(2);
       // Create a new transaction
@@ -107,10 +107,10 @@ router.post('/', auth.isAuthenticated, (req, res) => {
           transactionData.unitPrice = group.offer.price.low;
           transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
         }
-        if (group.offer.usd) {
-          transactionData.unitPrice *= dollar;
-          transactionData.priceBought *= dollar;
-        }
+        // if (group.offer.usd) {
+        //   transactionData.unitPrice *= dollar;
+        //   transactionData.priceBought *= dollar;
+        // }
         transactionData.unitPrice = transactionData.unitPrice.toFixed(2);
         transactionData.priceBought = transactionData.priceBought.toFixed(2);
         Transaction.create(transactionData).then((transaction) => {
@@ -197,7 +197,7 @@ router.get('/:id', (req, res) => {
  * PUT Update - Update a transaction in the database
  */
 router.put('/:id', (req, res) => {
-  const { dollar } = global;
+  // const { dollar } = global;
   Transaction.getById(req.params.id).then((transaction) => {
     let transactionData = {};
     const data = {
@@ -293,7 +293,7 @@ router.put('/:id', (req, res) => {
             });
           }
           console.log(transaction);
-          
+
           // Email.buyEmail(transaction).catch((error) => {
           //   console.log(error);
           //   req.flash('danger', 'Não foi possível enviar email de compra.');
@@ -338,12 +338,12 @@ router.put('/:id', (req, res) => {
                   Offer.getById(groupData.offer).then((groupOffer) => {
                     let offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
                     let offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
-                    if (groupOffer.usd) {
-                      offerGroupPrice *= dollar;
-                    }
-                    if (offerElement.usd) {
-                      offerPrice *= dollar;
-                    }
+                    // if (groupOffer.usd) {
+                    //   offerGroupPrice *= dollar;
+                    // }
+                    // if (offerElement.usd) {
+                    //   offerPrice *= dollar;
+                    // }
                     if (offerGroupPrice > offerPrice) {
                       groupData.offer = offerElement._id;
                     }

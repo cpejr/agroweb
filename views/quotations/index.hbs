@@ -71,7 +71,7 @@
                         <div class="ml-2 mt-3 text-gray3">
                           <div class="text-left side-animation">
                             <h4 class="font-book mobile-font2 d-inline">
-                              R$ {{priceBought}}
+                              U$ {{priceBought}}
                             </h4>
                           </div>
                         </div>
@@ -102,18 +102,14 @@
                               <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
                                 Custo por unidade
                                 {{#ifCond offer.usd false}}
-                                <span class="count text-center font-light mobile-font1 mobile-font0 mt-2"> <br/>R$ {{unitPrice}}</span>
+                                <span class="count text-center font-light mobile-font1 mobile-font0 mt-2"> <br/>U$ {{unitPrice}}</span>
                                 {{/ifCond}}
                               </p>
                               <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
                                 {{#ifCond offer.usd true}}
                                 <span class="count text-center font-light mobile-font1 mobile-font0 mt-0">
                                   <br/>
-                                  {{#if offer.usd}}
-                                  R$ {{math (usdValue) "*" unitPrice}}
-                                  {{else}}
-                                  R$ {{unitPrice}}
-                                  {{/if}}
+                                  U$ {{unitPrice}}
                                 </span>
                                 <i class="text-gray3  font-light mobile-font1 d-inline">
                                   / {{offer.product.unit}}
@@ -180,7 +176,7 @@
                     <div class="ml-2  text-gray3">
                       <div class="text-left side-animation">
                         <h4 class="font-book mobile-font2 d-inline">
-                          R$ {{priceBought}}
+                          U$ {{priceBought}}
                         </h4>
                       </div>
                     </div>
@@ -211,18 +207,14 @@
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
                             Custo por unidade
                             {{#ifCond offer.usd false}}
-                            <span class="count text-center font-light mobile-font1 mobile-font0 mt-2"> <br/>R$ {{unitPrice}}</span>
+                            <span class="count text-center font-light mobile-font1 mobile-font0 mt-2"> <br/>U$ {{unitPrice}}</span>
                             {{/ifCond}}
                           </p>
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
                             {{#ifCond offer.usd true}}
                             <span class="count text-center font-light mobile-font1 mobile-font0 mt-0">
                               <br/>
-                              {{#if offer.usd}}
-                              R$ {{math (usdValue) "*" unitPrice}}
-                              {{else}}
-                              R$ {{unitPrice}}
-                              {{/if}}
+                              U$ {{unitPrice}}
                             </span>
                             <i class="text-gray3  font-light mobile-font1 d-inline">
                               / {{offer.product.unit}}
@@ -287,7 +279,7 @@
                     <div class="ml-2  text-gray3">
                       <div class="text-left side-animation">
                         <h4 class="font-book mobile-font2 d-inline">
-                          R$ {{priceBought}}
+                          U$ {{priceBought}}
                         </h4>
                       </div>
                     </div>
@@ -318,18 +310,14 @@
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
                             Custo por unidade
                             {{#ifCond offer.usd false}}
-                            <span class="count text-center font-light mobile-font1 mobile-font0 mt-2"> <br/>R$ {{unitPrice}}</span>
+                            <span class="count text-center font-light mobile-font1 mobile-font0 mt-2"> <br/>U$ {{unitPrice}}</span>
                             {{/ifCond}}
                           </p>
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
                             {{#ifCond offer.usd true}}
                             <span class="count text-center font-light mobile-font1 mobile-font0 mt-0">
                               <br/>
-                              {{#if offer.usd}}
-                              R$ {{math (usdValue) "*" unitPrice}}
-                              {{else}}
-                              R$ {{unitPrice}}
-                              {{/if}}
+                              U$ {{unitPrice}}
                             </span>
                             <i class="text-gray3  font-light mobile-font1 d-inline">
                               / {{offer.product.unit}}

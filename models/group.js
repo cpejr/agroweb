@@ -231,22 +231,13 @@ class Group {
           }
         }
       }).exec().then((result) => {
-        Dollar.getUsdValue().then((dollar) => {
-          result.transactions.forEach((transaction) => {
-            let unitPrice = 0;
-            if (result.offer.usd) {
-              unitPrice = result.unitPrice * dollar;
-            }
-            else {
-              unitPrice = result.unitPrice;
-            }
-            const priceBought = unitPrice * transaction.amountBought;
-            Transaction.update(transaction._id, { unitPrice, priceBought, offer: result.offer }).catch((err) => {
-              reject(err);
-            });
+        result.transactions.forEach((transaction) => {
+          let unitPrice = 0;
+          unitPrice = result.unitPrice;
+          const priceBought = (unitPrice * transaction.amountBought).toFixed(2);
+          Transaction.update(transaction._id, { unitPrice, priceBought, offer: result.offer }).catch((err) => {
+            reject(err);
           });
-        }).catch((err) => {
-          reject(err);
         });
       }).catch((err) => {
         reject(err);

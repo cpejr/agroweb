@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
       if (object.product.name === offer.product && object.delivery === offer.delivery) {
         req.flash('danger', 'Já existe uma oferta para esse produto com esse tipo de entrega.');
         res.redirect('/offers/new');
-        res.end();
+        return;
       }
     });
     if (offer.price.mega) {

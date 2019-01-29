@@ -111,25 +111,13 @@
     <div class="col-12">
       <h4>Preços</h4>
       <p class="font-light">Baixo:
-        {{#if usd}}
-        R$ {{math (usdValue) "*" price.low}}
-        {{else}}
-        R$ {{price.low}}
-        {{/if}}
+        U$ {{price.low}}
       </p>
       <p class="font-light">Médio:
-        {{#if usd}}
-        R$ {{math (usdValue) "*" price.average}}
-        {{else}}
-        R$ {{price.average}}
-        {{/if}}
+        U$ {{price.average}}
       </p>
       <p class="font-light">Alto:
-        {{#if usd}}
-        R$ {{math (usdValue) "*" price.high}}
-        {{else}}
-        R$ {{price.high}}
-        {{/if}}
+        U$ {{price.high}}
       </p>
     </div>
     <div class="col-12">

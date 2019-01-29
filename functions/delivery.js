@@ -1,5 +1,4 @@
 const request = require('request-promise');
-// const Dollar = require('./money');
 const Email = require('../models/email');
 const Group = require('../models/group');
 const Offer = require('../models/offer');
@@ -58,7 +57,7 @@ class Delivery {
             if (group.delivery === 'Safra') {
               Group.getAllTransactions().then((transactions) => {
                 transactions.forEach((transaction) => {
-                  let dataClient = {
+                  const dataClient = {
                     name: transaction.buyer.firstName,
                     email: transaction.buyer.email
                   };
@@ -83,7 +82,7 @@ class Delivery {
                       reject(error);
                     });
                     if (transaction.franchisee) {
-                      let dataFranchisee = {
+                      const dataFranchisee = {
                         name: transaction.franchisee.firstName,
                         email: transaction.franchisee.email
                       };
@@ -118,14 +117,8 @@ class Delivery {
                     groupData.offer = offers[0]._id;
                     offers.forEach((offerElement) => {
                       Offer.getById(groupData.offer).then((groupOffer) => {
-                        let offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
-                        let offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
-                        // if (groupOffer.usd) {
-                        //   offerGroupPrice *= dollar;
-                        // }
-                        // if (offerElement.usd) {
-                        //   offerPrice *= dollar;
-                        // }
+                        const offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
+                        const offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
                         if (offerGroupPrice > offerPrice) {
                           groupData.offer = offerElement._id;
                         }
@@ -161,11 +154,11 @@ class Delivery {
             if (group.delivery === 'Safrinha') {
               Group.getAllTransactions().then((transactions) => {
                 transactions.forEach((transaction) => {
-                  let dataClient = {
+                  const dataClient = {
                     name: transaction.buyer.firstName,
                     email: transaction.buyer.email
                   };
-                  let transactionData = {
+                  const transactionData = {
                     status: 'Cancelado'
                   };
                   if (transaction.status === 'Cotado') {
@@ -220,14 +213,8 @@ class Delivery {
                     groupData.offer = offers[0]._id;
                     offers.forEach((offerElement) => {
                       Offer.getById(groupData.offer).then((groupOffer) => {
-                        let offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
-                        let offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
-                        // if (groupOffer.usd) {
-                        //   offerGroupPrice *= dollar;
-                        // }
-                        // if (offerElement.usd) {
-                        //   offerPrice *= dollar;
-                        // }
+                        const offerGroupPrice = ((groupOffer.price.high * 3) + (groupOffer.price.average * 1)) / 4;
+                        const offerPrice = ((offerElement.price.high * 3) + (offerElement.price.average * 1)) / 4;
                         if (offerGroupPrice > offerPrice) {
                           groupData.offer = offerElement._id;
                         }

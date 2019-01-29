@@ -203,12 +203,22 @@ router.post('/signup', (req, res) => {
       (userData.address.city === 'Tapurah') ||
       (userData.address.city === 'Vera') ||
       (userData.address.city === 'Feliz Natal')) {
+        
     // Separates the first name from the rest
     const position = userData.name.indexOf(' ');
-    userData.firstName = userData.name.slice(0, position);
+
+    if (position) {
+      userData.firstName = userData.name.slice(0, position);
+    }
+    else {
+      userData.firstName = userData.name;
+    }
 
     userData.fullName = userData.name;
-    delete userData.name;
+
+    // console.log(userData.firstName);
+
+    // delete userData.name;
     firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
       userData.uid = user.uid;
       delete userData.password;

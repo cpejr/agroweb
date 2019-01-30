@@ -7771,7 +7771,7 @@ a.more-link {
       height: 32px;
       display: inline-block;
       cursor: pointer;
-      margin: 0 10px;
+      margin: 0 0.2em;
       transition: .3s; }
       .pagination__dot--active {
         background: #FF0000; }

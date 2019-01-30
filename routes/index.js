@@ -203,7 +203,7 @@ router.post('/signup', (req, res) => {
       (userData.address.city === 'Tapurah') ||
       (userData.address.city === 'Vera') ||
       (userData.address.city === 'Feliz Natal')) {
-        
+
     // Separates the first name from the rest
     const position = userData.name.indexOf(' ');
 
@@ -254,6 +254,11 @@ router.post('/signup', (req, res) => {
           }
         }
       }).catch((error) => {
+        var user = firebase.auth().currentUser;
+        user.delete().catch(function(error) {
+          req.flash('danger', 'Não foi possível liberar o email para nova utilização');
+        });
+
         switch (error.code) {
           case '11000':
             req.flash('danger', 'O CPF já está cadastrado.');

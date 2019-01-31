@@ -363,7 +363,7 @@ router.post('/ptax', (req, res) => {
       global.risingPtax = 'false';
     }
     Dollar.ptaxUpdate(req.body.ptax).then(() => {
-      global.ptax = req.body.ptax;
+      global.ptax = parseFloat(req.body.ptax).toFixed(4);
       res.redirect('/admin');
     }).catch((error) => {
       console.log(error);

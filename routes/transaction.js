@@ -162,16 +162,10 @@ router.post('/', auth.isAuthenticated, (req, res) => {
  */
 router.get('/:id', (req, res) => {
   const { userType } = req.session;
+  const userId = req.session._id;
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
-      let myOffer;
-      if (transaction.offer.seller._id == req.session._id) {
-        myOffer = 1;
-      }
-      else {
-        myOffer = 0;
-      }
-      res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, myOffer });
+      res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, userId });
     }
     else {
       req.flash('danger', 'Não foi possível a transação.');
@@ -235,10 +229,11 @@ router.put('/:id', (req, res) => {
       if (transaction.offer.stock < transaction.amountBought) {
         req.flash('danger', 'Tarde demais, o fornecedor não tem mais estoque para atender seu pedido.');
         res.redirect('/user');
+        return;
       }
       offerData.stock = transaction.offer.stock - transaction.amountBought;
       offerData.balance = transaction.offer.balance - transaction.amountBought;
-      if (transaction.offer.stock === 0) {
+      if (transaction.offer.stock < transaction.offer.minAmount) {
         offerData.active = false;
       }
       Offer.update(transaction.offer._id, offerData).then(() => {
@@ -401,7 +396,7 @@ router.put('/:id', (req, res) => {
       Transaction.update(req.params.id, transactionData).then(() => {
         Email.updateEmail(data, transactionData.status).catch((error) => {
           console.log(error);
-          req.flash('danger', 'Não foi possível atualizar o email.');
+          req.flash('danger', 'Não foi possível enviar o email.');
           res.redirect('/user');
         });
         req.flash('success', 'Compra realizada.');

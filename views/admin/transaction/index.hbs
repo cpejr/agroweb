@@ -24,7 +24,7 @@
       </thead>
       <tbody id="myTable">
         {{#each transactions}}
-        {{#ifCond taxStatus 'Aguardando boleto'}}
+        {{#compare taxStatus 'Aguardando boleto'}}
         <tr>
           <td class="text-center">{{_id}}</td>
           <td class="text-center">{{buyer.fullName}}</td>
@@ -34,7 +34,7 @@
             <a href="/transaction/{{_id}}" class="btn btn-outline-primary font-book">Ver</a>
           </td>
         </tr>
-        {{else ifCond taxStatus 'Aguardando pagamento'}}
+        {{else compare taxStatus 'Aguardando pagamento'}}
         <tr>
           <td class="text-center">{{_id}}</td>
           <td class="text-center">{{buyer.fullName}}</td>
@@ -44,7 +44,7 @@
             <a href="/transaction/{{_id}}" class="btn btn-outline-primary font-book">Ver</a>
           </td>
         </tr>
-        {{/ifCond}}
+        {{/compare}}
         {{/each}}
       </tbody>
     </table>

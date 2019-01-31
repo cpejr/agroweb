@@ -62,7 +62,7 @@ router.get('/', (req, res) => {
   //   number: 10.213123
   // };
   // console.log('Teste = ', x.number.toFixed(2));
-  // res.render('teste', { title: 'Teste', dollar });
+  res.render('teste', { title: 'Teste' });
 });
 
 // rotapara industryMegaPremio

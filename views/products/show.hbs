@@ -4,7 +4,7 @@
   <h3 class="text-center font-black">Ver produto</h3>
 </div>
 
-{{#ifCond userType 'Administrador'}}
+{{#compare userType 'Administrador'}}
 
 <div class="container">
   <div class="col-12 mb-5 text-center">
@@ -51,7 +51,7 @@
   </div>
 
 
-  {{#ifCond status 'Aguardando'}}
+  {{#compare status 'Aguardando'}}
   <div class="row justify-content-center mb-3">
     <div class="pl-5 pr-5 p-2">
       <form  method= "POST" action="/admin/{{id}}/requisitions/products">
@@ -68,7 +68,7 @@
       </form>
     </div>
   </div>
-  {{/ifCond}}
+  {{/compare}}
 </div>
 
 {{else}}
@@ -78,12 +78,12 @@
     <h2 class="my-0 py-0 mb-4">{{name}}</h2>
   </div>
 
-  {{#ifCond status 'Aprovado'}}
-  {{else ifCond status 'Aguardando'}}
+  {{#compare status 'Aprovado'}}
+  {{else compare status 'Aguardando'}}
   <div class="mb-5">
     <p class="text-center font-light">A requisição para adicionar esse produto à plataforma foi enviada para o administrador. Aguarde até que ele possa analisá-la.</p>
   </div>
-  {{/ifCond}}
+  {{/compare}}
 
   <div class="row justify-content-center mx-sm-auto mx-md-9">
     <div class="col-12 col-md-4 mb-5">
@@ -123,7 +123,7 @@
     <!-- end Payment Options -->
   </div>
 </div>
-{{/ifCond}}
+{{/compare}}
 
 {{#section 'scripts'}}
 {{/section}}

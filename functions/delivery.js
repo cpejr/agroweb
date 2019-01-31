@@ -110,7 +110,8 @@ class Delivery {
                   price: group.offer.price.high,
                   productId: group.offer.product,
                   delivery: group.offer.delivery,
-                  closeDate: cropCloseDate
+                  closeDate: cropCloseDate,
+                  date: crop
                 };
                 Group.create(newGroup).then((groupId) => {
                   console.log(`Created new group with id: ${groupId}`);
@@ -206,7 +207,8 @@ class Delivery {
                   price: group.offer.price.high,
                   productId: group.offer.product,
                   delivery: group.offer.delivery,
-                  closeDate: smallCropCloseDate
+                  closeDate: smallCropCloseDate,
+                  date: smallCrop
                 };
                 Group.create(newGroup).then((groupId) => {
                   console.log(`Created new group with id: ${groupId}`);

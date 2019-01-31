@@ -31,7 +31,7 @@ class Money {
           reject(err);
         }
         const dataJSON = JSON.parse(data);
-        resolve(dataJSON.ptax);
+        resolve(parseFloat(dataJSON.ptax).toFixed(4));
       });
     });
   }

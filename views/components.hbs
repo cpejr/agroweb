@@ -21,14 +21,14 @@
       <div class="text-right p-2">
         <div class="row">
           <div class="col-3 d-inline-block text-center align-self-center">
-            <!-- {{#ifCond product.category 'Sementes'}}
+            <!-- {{#compare product.category 'Sementes'}}
             <i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
             {{else}} -->
             <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
             <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
             <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
 
-            <!-- {{/ifCond}} -->
+            <!-- {{/compare}} -->
           </div>
 
           <div class="col p-2">
@@ -40,22 +40,22 @@
                 </h5>
                 <!-- <div class="dropdown">
                 <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                {{#ifCond taxStatus 'Aguardando boleto'}}
+                {{#compare taxStatus 'Aguardando boleto'}}
                 class="btn btn-outline-info dropdown-toggle col-12">
                 Aguardando boleto
 
-                {{else ifCond taxStatus 'Aguardando pagamento'}}
+                {{else compare taxStatus 'Aguardando pagamento'}}
                 class="btn btn-outline-warning dropdown-toggle col-12">
                 Aguardando pagamento
 
-                {{else ifCond taxStatus 'Pagamento confirmado'}}
+                {{else compare taxStatus 'Pagamento confirmado'}}
                 class="btn btn-outline-success  dropdown-toggle col-12">
                 Pagamento confirmado
 
                 {{else}}
                 class="btn  dropdown-toggle btn-outline-danger col-12">
                 Cancelado
-                {{/ifCond}}
+                {{/compare}}
               </button>
               <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -139,14 +139,14 @@
     <div class="text-right p-2">
       <div class="row">
         <div class="col-3 d-inline-block text-center align-self-center">
-          <!-- {{#ifCond product.category 'Sementes'}}
+          <!-- {{#compare product.category 'Sementes'}}
           <i class="card-icon fas fa-seedling fa-3x text-center d-block mx-auto"></i>
           {{else}} -->
           <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
           <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
           <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
 
-          <!-- {{/ifCond}} -->
+          <!-- {{/compare}} -->
         </div>
 
         <div class="col p-2">
@@ -159,22 +159,22 @@
               <div class="ml-3 mr-3">
                 <div class="dropdown">
                   <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                  {{#ifCond taxStatus 'Aguardando boleto'}}
+                  {{#compare taxStatus 'Aguardando boleto'}}
                   class="btn btn-outline-info dropdown-toggle col-12">
                   Aguardando boleto
 
-                  {{else ifCond taxStatus 'Aguardando pagamento'}}
+                  {{else compare taxStatus 'Aguardando pagamento'}}
                   class="btn btn-outline-warning dropdown-toggle col-12">
                   Aguardando pagamento
 
-                  {{else ifCond taxStatus 'Pagamento confirmado'}}
+                  {{else compare taxStatus 'Pagamento confirmado'}}
                   class="btn btn-outline-success  dropdown-toggle col-12">
                   Pagamento confirmado
 
                   {{else}}
                   class="btn  dropdown-toggle btn-outline-danger col-12">
                   Cancelado
-                  {{/ifCond}}
+                  {{/compare}}
                 </button>
                 <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >

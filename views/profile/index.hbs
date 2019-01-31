@@ -51,7 +51,7 @@
 
         <div class="col-md-6">
 
-          {{#ifCond user.type 'Franqueado'}}
+          {{#compare user.type 'Franqueado'}}
           <div class="form-group">
             <div class="form-group">
               <h5 class="row col text-bold" align="justify">Resumo das atividades profissionais atuais:</h5>
@@ -63,7 +63,7 @@
               <p class="font-book mb-4">{{user.totalCustomers}}</p>
             </div>
 
-            {{#ifCond userType 'Administrador'}}
+            {{#compare userType 'Administrador'}}
             <div class="form-group">
               <h5 class="row col text-bold" align="justify">Possui carteira de cliente que cotam produtos:</h5>
               <p class="font-book mb-4">{{user.actualCustomers}}</p>
@@ -78,9 +78,9 @@
               <h5 class="row col text-bold" align="justify">Como a Megapool poderia ser importante para seu négocio:</h5>
               <p class="font-book mb-4">{{user.whyIsMegapoolImportant}}</p>
             </div>
-            {{/ifCond}}
+            {{/compare}}
 
-            {{else ifCond user.type 'Revendedor'}}
+            {{else compare user.type 'Revendedor'}}
             <div class="form-group">
               <h5 class="row col text-bold" align="justify">Telefone fixo:</h5>
               <p class="font-book mb-4">{{user.phone}}</p>
@@ -177,8 +177,8 @@
             </div>
           </div>
 
-          {{else ifCond user.type 'Produtor'}}
-          {{#ifCond client.0.uid user.uid}}
+          {{else compare user.type 'Produtor'}}
+          {{#compare client.0.uid user.uid}}
           <div class="form-group">
             <h5 class="row col text-bold" align="justify">Telefone fixo:</h5>
             <p class="font-book mb-4">{{user.phone}}</p>
@@ -239,7 +239,7 @@
             <p class="font-book mb-4">{{user.stateRegistration}}</p>
           </div>
 
-          {{else ifCond userType 'Administrador'}}
+          {{else compare userType 'Administrador'}}
           <div class="form-group">
             <h5 class="row col text-bold" align="justify">Telefone fixo:</h5>
             <p class="font-book mb-4">{{user.phone}}</p>
@@ -303,9 +303,9 @@
           {{else}}
           <h5> Observação: </h5>
           <p> Esse usuário não é seu cliente. Portanto, você não possui permissão para ver as informações específicas dele.</p>
-          {{/ifCond}}
+          {{/compare}}
 
-          {{else ifCond user.type 'Indústria'}}
+          {{else compare user.type 'Indústria'}}
           <div class="form-group">
             <h5 class="row col text-bold" align="justify">Telefone fixo:</h5>
             <p class="font-book mb-4">{{user.phone}}</p>
@@ -400,7 +400,7 @@
             <h5 class="row col text-bold" align="justify">Interesse em atender repiques com entregas no máximo até 30 dias:</h5>
             <p class="font-book mb-4">{{user.delivery.repechage}}</p>
           </div>
-          {{/ifCond}}
+          {{/compare}}
         </div>
       </div>
     </div>
@@ -410,21 +410,21 @@
 
 
 
-{{#ifCond userType 'Produtor'}}
-{{#ifCond client.0.uid user.uid}}
+{{#compare userType 'Produtor'}}
+{{#compare client.0.uid user.uid}}
 <form action="/user/cancel" method="post">
   <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
   <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-danger mx-auto d-block my-2" type="submit" name="button">Dispensar</button>
 </form>
 
 {{else}}
-{{#ifCond user.moreClients false}}
+{{#compare user.moreClients false}}
 <div class="container mb-5">
   <h4 class="text-center font-light">Este franqueado não está disponível.</h4>
 </div>
-{{/ifCond}}
+{{/compare}}
 
-{{#ifCond user.moreClients true}}
+{{#compare user.moreClients true}}
 
 {{#if client.0.uid}}
 <form action="/user/change" method="POST">
@@ -439,19 +439,19 @@
 </form>
 {{/if}}
 
-{{/ifCond}}
-{{/ifCond}}
+{{/compare}}
+{{/compare}}
 
-{{else ifCond userType 'Franqueado'}}
-{{#ifCond client.0.uid user.uid}}
+{{else compare userType 'Franqueado'}}
+{{#compare client.0.uid user.uid}}
 <form action="/user/cancel" method="post">
   <input name="franchiseeID" type="hidden" class="form-control font-light" value="{{user.id}}"></input>
   <button class="w-100 col-10 col-md-4 text-white btn btn-default bg-danger mx-auto d-block my-2" type="submit" name="button">Cancelar Contrato</button>
 </form>
-{{/ifCond}}
+{{/compare}}
 
-{{else ifCond userType 'Administrador'}}
-{{#ifCond user.status 'Aguardando aprovação'}}
+{{else compare userType 'Administrador'}}
+{{#compare user.status 'Aguardando aprovação'}}
 <div class="row justify-content-center">
   <div class="pl-5 pr-5">
     <form  method= "POST" action="/admin/{{id}}/updateUserActive">
@@ -474,19 +474,19 @@
     <div class="pl-lg-5 pr-lg-5 pb-lg-5 ml-lg-5 mr-lg-5 mx-auto">
 
       <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-      {{#ifCond user.status 'Ativo'}}
+      {{#compare user.status 'Ativo'}}
       class="btn btn-outline-success dropdown-toggle col-lg-2 col-md-4 col-sm-6 mx-auto">
       Ativo
 
-      {{else ifCond user.status 'Inativo'}}
+      {{else compare user.status 'Inativo'}}
       class="btn btn-outline-warning dropdown-toggle col-lg-2 col-md-4 col-sm-6 mx-auto">
       Inativo
 
-      {{else ifCond user.status 'Bloqueado'}}
+      {{else compare user.status 'Bloqueado'}}
       class="btn btn-outline-danger dropdown-toggle col-lg-2 col-md-4 col-sm-6 mx-auto">
       Bloqueado
 
-      {{/ifCond}}
+      {{/compare}}
 
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -514,8 +514,8 @@
     </div>
 
 
-    {{/ifCond}}
-    {{/ifCond}}
+    {{/compare}}
+    {{/compare}}
 
     {{#section 'scripts'}}
     {{/section}}

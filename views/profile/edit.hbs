@@ -99,7 +99,7 @@
 
         <!-- ordinary fields -->
 
-        {{#ifCond user.type 'Franqueado'}}
+        {{#compare user.type 'Franqueado'}}
         <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
           <div class="form-group">
             <div class="form-group">
@@ -124,12 +124,12 @@
           <div class="form-group">
             <p class="row col text-bold" align="justify">Deseja poder ser contrado como franqueado?</p>
             <select class="form-control font-light"  name="user[moreClients]"  id="type" type="Boolean">
-              {{#ifCond user.moreClients true}}
+              {{#compare user.moreClients true}}
               <option selected hidden value  = {{user.moreClients}}>Sim </option>
-              {{/ifCond}}
-              {{#ifCond user.moreClients false}}
+              {{/compare}}
+              {{#compare user.moreClients false}}
               <option selected hidden value  = {{user.moreClients}}>Não </option>
-              {{/ifCond}}
+              {{/compare}}
               <option value = false >Não</option>
               <option value = true >Sim</option>
             </select>
@@ -140,12 +140,12 @@
           <div class="form-group">
             <p class="row col text-bold" align="justify">Status da conta:</p>
             <select class="form-control font-light"  name="user[moreClients]"  id="type" type="Boolean">
-              {{#ifCond user.status 'Ativo'}}
+              {{#compare user.status 'Ativo'}}
               <option selected hidden value  = {{user.moreClients}}>Sim </option>
-              {{/ifCond}}
-              {{#ifCond user.status 'Inativo'}}
+              {{/compare}}
+              {{#compare user.status 'Inativo'}}
               <option selected hidden value  = {{user.moreClients}}>Não </option>
-              {{/ifCond}}
+              {{/compare}}
               <option value = false >Não</option>
               <option value = true >Sim</option>
             </select>
@@ -178,7 +178,7 @@
         </div>
 
 
-        {{else ifCond user.type 'Revendedor'}}
+        {{else compare user.type 'Revendedor'}}
         <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
           <div class="form-group">
             <p class="row col text-bold" align="justify">Telefone fixo:</p>
@@ -331,7 +331,7 @@
           </div>
         </div>
 
-        {{else ifCond user.type 'Produtor'}}
+        {{else compare user.type 'Produtor'}}
         <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
           <div class="form-group">
             <p class="row col text-bold" align="justify">Telefone fixo:</p>
@@ -420,7 +420,7 @@
           </div>
         </div>
 
-        {{else ifCond user.type 'Indústria'}}
+        {{else compare user.type 'Indústria'}}
 
         <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
           <div class="form-group">
@@ -568,7 +568,7 @@
             </select>
           </div>
         </div>
-        {{/ifCond}}
+        {{/compare}}
         <div class="col-sm-12 col-md-12 col-lg-12 text-center ">
           <button class="btn btn-default bg-green text-light2 mx-auto mt-4 px-5 d-block col-md-4 col-12" type="submit">Salvar</button>
         </div>

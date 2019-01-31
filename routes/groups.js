@@ -13,8 +13,10 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
     console.log(groups);
     groups.forEach((group) => {
       if (group.delivery === 'Safra' || group.delivery === 'Safrinha') {
-        group.date = group.closeDate.toISOString().slice(0, 10);
-        console.log(group.date);
+        group.closeDateFront = group.closeDate.toISOString().slice(0, 10);
+        group.dateFront = group.date.toISOString().slice(0, 10);
+        console.log(group.closeDateFront);
+        console.log(group.dateFront);
       }
     });
     res.render('groups/index', { title: 'Grupos de compras', groups });

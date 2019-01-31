@@ -274,7 +274,6 @@ router.put('/:id', (req, res) => {
             const Trans = transaction;
             User.getById(transaction.franchisee).then((franchi) => {
               Trans.franchisee = franchi;
-              console.log(Trans.franchisee);
               Email.franchiseeEmail(Trans).catch((error) => {
                 console.log(error);
                 req.flash('danger', 'Não foi possível enviar email do Franqueado.');
@@ -282,23 +281,21 @@ router.put('/:id', (req, res) => {
               });
             });
           }
-          console.log(transaction);
-
-          // Email.buyEmail(transaction).catch((error) => {
-          //   console.log(error);
-          //   req.flash('danger', 'Não foi possível enviar email de compra.');
-          //   res.redirect('/user');
-          // });
-          // Email.sellEmail(transaction).catch((error) => {
-          //   console.log(error);
-          //   req.flash('danger', 'Não foi possível enviar email de venda.');
-          //   res.redirect('/user');
-          // });
-          // Email.adminNewTransactionEmail(transaction).catch((error) => {
-          //   console.log(error);
-          //   req.flash('danger', 'Não foi possível enviar email para o administrador.');
-          //   res.redirect('/user');
-          // });
+          Email.buyEmail(transaction).catch((error) => {
+            console.log(error);
+            req.flash('danger', 'Não foi possível enviar email de compra.');
+            res.redirect('/user');
+          });
+          Email.sellEmail(transaction).catch((error) => {
+            console.log(error);
+            req.flash('danger', 'Não foi possível enviar email de venda.');
+            res.redirect('/user');
+          });
+          Email.adminNewTransactionEmail(transaction).catch((error) => {
+            console.log(error);
+            req.flash('danger', 'Não foi possível enviar email para o administrador.');
+            res.redirect('/user');
+          });
 
           req.flash('success', 'Compra realizada.');
           res.redirect('/user/orders');
@@ -307,6 +304,7 @@ router.put('/:id', (req, res) => {
           req.flash('danger', 'Não foi possível atualizar a transação.');
           res.redirect('/user');
         });
+
         if (transaction.group) {
           let groupData = {};
           Group.getOneByQuery({ offer: transaction.offer._id }).then((group) => {

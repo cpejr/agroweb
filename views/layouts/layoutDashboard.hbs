@@ -84,14 +84,14 @@
           {{#if franchisee}}
           {{#compare userType 'Franqueado'}}
           <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-            <input id="searchbar-icon" type="text" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-search">
+            <input id="searchbar-icon" type="text" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-searchbar typeahead-search">
             <label for="searchbar-icon" class="fas fa-search input-icon"></label>
             <button type="submit" class="d-none"></button>
           </form>
           {{/compare}}
           {{else}}
           <form action="../search" method="get" class="input-wrapper float-right mt-0 mb-3 searchbar">
-            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-search">
+            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-searchbar typeahead-search">
             <label for="searchbar-icon" class="fas fa-search input-icon"></label>
             <button type="submit" class="d-none"></button>
           </form>
@@ -100,15 +100,15 @@
         </div>
 
         <div class="col-sd-6 float-right pt-4 mx-3 mt-2 d-lg-block d-none">
-          <h6 class="font3 mobile-font0 text-light">Dólar comercial: R${{usdValue}}
+          <h5 class="font3 mobile-font1 text-success">Dólar comercial: R$ {{usdValue}}
             {{{rising}}}
-          </h6>
+          </h5>
         </div>
 
         <div class="col-sd-6 float-right pt-4 mx-3 mt-2">
-          <h6 class="font3 mobile-font0 text-light">PTAX: R${{ptaxValue}}
+          <h5 class="font3 mobile-font1 text-success">PTAX: R$ {{ptaxValue}}
             {{{risingPtax}}}
-          </h6>
+          </h5>
         </div>
       </row>
     </nav>

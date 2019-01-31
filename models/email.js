@@ -53,7 +53,9 @@ class Email {
       from: data.clientEmail,
       to: 'admcpejr@megapool.com.br',
       subject: data.subject,
-      text: data.content
+      text: `Mensagem enviada por: ${data.name}
+
+      ${data.content}`
     };
     return new Promise((resolve) => {
       transporter.sendMail(config, (error, info) => {
@@ -285,65 +287,59 @@ class Email {
   }
 
   /**
-   * Send an email to the buyer
-   * @param {Object} data - Email Document Data
-   * @returns {Object} Information
-   */
+  * Send an email to the buyer
+  * @param {Object} data - Email Document Data
+  * @returns {Object} Information
+  */
   static buyEmail(data) {
     console.log('Buyer Email');
-    Money.getUsdValue().then((usd) => {
-      const totalPrice = data.priceBought * usd;
-      const unitPrice = data.unitPrice * usd;
-      const content = `Caro(a) ${data.buyer.firstName},
-      Sua compra* do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "aguardando boleto para pagamento" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
+    const totalPrice = data.priceBought;
+    const unitPrice = data.unitPrice;
+    const content = `Caro(a) ${data.buyer.firstName},
+    Sua compra* do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "aguardando boleto para pagamento" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
 
-      Confira os dados de sua compra abaixo:
+    Confira os dados de sua compra abaixo:
 
-      Compra #${data._id}
-      Produto: ${data.offer.product.name}
-      Entrega: ${data.offer.delivery}
-      Quantidade: ${data.amountBought} ${data.offer.product.unit}
-      Preço: R$ ${unitPrice}/${data.offer.product.unit}
-      Total: R$ ${totalPrice}
+    Compra #${data._id}
+    Produto: ${data.offer.product.name}
+    Entrega: ${data.offer.delivery}
+    Quantidade: ${data.amountBought} ${data.offer.product.unit}
+    Preço: U$ ${unitPrice}/${data.offer.product.unit}
+    Total: U$ ${totalPrice}
 
-      Dados do vendedor:
-      Nome: ${data.offer.seller.fullName}
-      Email: ${data.offer.seller.email}
-      Telefone: ${data.offer.seller.phone}
-      Celular: ${data.offer.seller.cellphone}
+    Dados do vendedor:
+    Nome: ${data.offer.seller.fullName}
+    Email: ${data.offer.seller.email}
+    Telefone: ${data.offer.seller.phone}
+    Celular: ${data.offer.seller.cellphone}
 
-      *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento.
+    *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento.
 
-      Qualquer divergência entre em contato conosco: suportemegapool@megapool.com.br
-      Equipe MEGAPOOL`;
-      const subject = 'MEGAPOOL: Compra realizada com sucesso';
-      const emailContent = {
-        clientEmail: data.buyer.email,
-        subject,
-        content
-      };
-      return new Promise((resolve) => {
-        Email.sendEmail(emailContent).then((info) => {
-          resolve(info);
-        });
+    Qualquer divergência entre em contato conosco: suportemegapool@megapool.com.br
+    Equipe MEGAPOOL`;
+    const subject = 'MEGAPOOL: Compra realizada com sucesso';
+    const emailContent = {
+      clientEmail: data.buyer.email,
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
       });
-    }).catch((err) => {
-      console.log(err);
-      return err;
     });
   }
 
   /**
-   * Send an email to the seller
-   * @param {Object} data - Email Document Data
-   * @returns {Object} Information
-   */
+  * Send an email to the seller
+  * @param {Object} data - Email Document Data
+  * @returns {Object} Information
+  */
   static sellEmail(data) {
     console.log('Seller Email');
-    Money.getUsdValue().then((usd) => {
-      const totalPrice = data.priceBought * usd;
-      const unitPrice = data.unitPrice * usd;
-      const content = `Caro(a) ${data.offer.seller.firstName},
+    const totalPrice = data.priceBought;
+    const unitPrice = data.unitPrice;
+    const content = `Caro(a) ${data.offer.seller.firstName},
 
     Parabéns, você fez uma nova venda* do produto ${data.offer.product.name}, existe pedido pendente para sua aprovação em seu
     ambiente virtual em Dashboard -> Boletos pendentes, entre e confirme por favor.
@@ -362,8 +358,8 @@ class Email {
     Entrega: ${data.offer.delivery}
     Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
     Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
-    Preço: R$ ${unitPrice}/${data.offer.product.unit}
-    Total: R$ ${totalPrice}
+    Preço: U$ ${unitPrice}/${data.offer.product.unit}
+    Total: U$ ${totalPrice}
 
     Dados do comprador:
     Nome: ${data.buyer.fullName}
@@ -376,121 +372,106 @@ class Email {
     Ótimos negócios.
 
     Equipe MEGAPOOL`;
-      const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
-      const emailContent = {
-        clientEmail: data.offer.seller.email,
-        subject,
-        content
-      };
-      return new Promise((resolve) => {
-        Email.sendEmail(emailContent).then((info) => {
-          resolve(info);
-        });
+    const subject = `MEGAPOOL: Oi ${data.offer.seller.firstName}, você tem uma nova demanda`;
+    const emailContent = {
+      clientEmail: data.offer.seller.email,
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
       });
-    }).catch((err) => {
-      console.log(err);
-      return err;
     });
   }
 
   /**
-   * Send an email to the admin about a new transaction
-   * @param {Object} data - Email Document Data
-   * @returns {Object} Information
-   */
+  * Send an email to the admin about a new transaction
+  * @param {Object} data - Email Document Data
+  * @returns {Object} Information
+  */
   static adminNewTransactionEmail(data) {
     console.log('Admin Email');
-    Money.getUsdValue().then((usd) => {
-      const totalPrice = data.priceBought * usd;
-      const unitPrice = data.unitPrice * usd;
-      console.log('admin Email');
-      const content = `Nova compra* realizada sob o número #${data._id}.
-      A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para o comprador.
-      Esse terá acesso ao boleto uma vez que o vendedor aprove a transação e gere o boleto.
-      Para transação ocorrer com sucesso, é preciso emitir o boleto para o vendedor referente à parcela da Megapoll sobre a venda.
+    const totalPrice = data.priceBought;
+    const unitPrice = data.unitPrice;
+    const content = `Nova compra* realizada sob o número #${data._id}.
+    A transação permanecerá com o status "Aguardando boleto" até que o vendedor aprove a compra e envie o boleto para o comprador.
+    Esse terá acesso ao boleto uma vez que o vendedor aprove a transação e gere o boleto.
+    Para transação ocorrer com sucesso, é preciso emitir o boleto para o vendedor referente à parcela da Megapoll sobre a venda.
 
-      Confira abaixo os detalhes da transação:
-      Transação #${data._id}
-      Produto: ${data.offer.product.name}
-      Entrega: ${data.offer.delivery}
-      Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
-      Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
-      Preço: R$ ${unitPrice}/${data.offer.product.unit}
-      Total: R$ ${totalPrice}
+    Confira abaixo os detalhes da transação:
+    Transação #${data._id}
+    Produto: ${data.offer.product.name}
+    Entrega: ${data.offer.delivery}
+    Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
+    Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
+    Preço: U$ ${unitPrice}/${data.offer.product.unit}
+    Total: U$ ${totalPrice}
 
-      Dados do vendedor:
-      Nome: ${data.offer.seller.fullName}
-      Email: ${data.offer.seller.email}
-      Telefone: ${data.offer.seller.phone}
-      Celular: ${data.offer.seller.cellphone}
+    Dados do vendedor:
+    Nome: ${data.offer.seller.fullName}
+    Email: ${data.offer.seller.email}
+    Telefone: ${data.offer.seller.phone}
+    Celular: ${data.offer.seller.cellphone}
 
-      Dados do comprador:
-      Nome: ${data.buyer.fullName}
-      Email: ${data.buyer.email}
-      Telefone: ${data.buyer.phone}
-      Celular: ${data.buyer.cellphone}
-      *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento. `;
-      const subject = 'MEGAPOOL: Uma nova transação foi realizada';
-      const emailContent = {
-        clientEmail: 'admcpejr@megapool.com.br',
-        content,
-        subject
-      };
-      return new Promise((resolve) => {
-        Email.sendEmail(emailContent).then((info) => {
-          resolve(info);
-        });
+    Dados do comprador:
+    Nome: ${data.buyer.fullName}
+    Email: ${data.buyer.email}
+    Telefone: ${data.buyer.phone}
+    Celular: ${data.buyer.cellphone}
+    *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento. `;
+    const subject = 'MEGAPOOL: Uma nova transação foi realizada';
+    const emailContent = {
+      clientEmail: 'admcpejr@megapool.com.br',
+      content,
+      subject
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
       });
-    }).catch((err) => {
-      console.log(err);
-      return err;
     });
   }
 
 
   /**
-   * Send an email to the franchisee about a new transaction
-   * @param {Object} data - Email Document Data
-   * @returns {Object} Information
-   */
+  * Send an email to the franchisee about a new transaction
+  * @param {Object} data - Email Document Data
+  * @returns {Object} Information
+  */
   static franchiseeEmail(data) {
     console.log('Franchisee Email');
-    Money.getUsdValue().then((usd) => {
-      const totalPrice = data.priceBought * usd;
-      const unitPrice = data.unitPrice * usd;
-      const content = `Prezado ${data.franchisee.firstName},
-      Uma cotação realizada por você foi aprovada para compra* ${data.offer.product.name}.
-      A transação foi aprovada e pode ser consultada no caminho Dashboard -> Minhas compras
-      Confira abaixo os detalhes da transação realizada:
+    const totalPrice = data.priceBought;
+    const unitPrice = data.unitPrice;
+    const content = `Prezado ${data.franchisee.firstName},
+    Uma cotação realizada por você foi aprovada para compra* ${data.offer.product.name}.
+    A transação foi aprovada e pode ser consultada no caminho Dashboard -> Minhas compras
+    Confira abaixo os detalhes da transação realizada:
 
-      Transação #${data._id}
-      Produto: ${data.offer.product.name}
-      Entrega: ${data.offer.delivery}
-      Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
-      Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
-      Preço: R$ ${unitPrice}/${data.offer.product.unit}
-      Total: R$ ${totalPrice}
+    Transação #${data._id}
+    Produto: ${data.offer.product.name}
+    Entrega: ${data.offer.delivery}
+    Quantidade vendida: ${data.amountBought} ${data.offer.product.unit}
+    Quantidade em estoque: ${data.offer.stock} ${data.offer.product.unit}
+    Preço: U$ ${unitPrice}/${data.offer.product.unit}
+    Total: U$ ${totalPrice}
 
-      Dados do comprador:
-      Nome: ${data.buyer.fullName}
-      Email: ${data.buyer.email}
-      Telefone: ${data.buyer.phone}
-      Celular: ${data.buyer.cellphone}
-      *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento. `;
-      const subject = `Olá ${data.franchisee.fullName}, uma cotação sua foi comprada.`;
-      const emailContent = {
-        clientEmail: data.franchisee.email,
-        subject,
-        content
-      };
-      return new Promise((resolve) => {
-        Email.sendEmail(emailContent).then((info) => {
-          resolve(info);
-        });
+    Dados do comprador:
+    Nome: ${data.buyer.fullName}
+    Email: ${data.buyer.email}
+    Telefone: ${data.buyer.phone}
+    Celular: ${data.buyer.cellphone}
+    *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento. `;
+    const subject = `Olá ${data.franchisee.fullName}, uma cotação sua foi comprada.`;
+    const emailContent = {
+      clientEmail: data.franchisee.email,
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
       });
-    }).catch((err) => {
-      console.log(err);
-      return err;
     });
   }
 

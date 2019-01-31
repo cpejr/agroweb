@@ -203,12 +203,22 @@ router.post('/signup', (req, res) => {
       (userData.address.city === 'Tapurah') ||
       (userData.address.city === 'Vera') ||
       (userData.address.city === 'Feliz Natal')) {
+
     // Separates the first name from the rest
     const position = userData.name.indexOf(' ');
-    userData.firstName = userData.name.slice(0, position);
+
+    if (position) {
+      userData.firstName = userData.name.slice(0, position);
+    }
+    else {
+      userData.firstName = userData.name;
+    }
 
     userData.fullName = userData.name;
-    delete userData.name;
+
+    // console.log(userData.firstName);
+
+    // delete userData.name;
     firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
       userData.uid = user.uid;
       delete userData.password;
@@ -244,6 +254,11 @@ router.post('/signup', (req, res) => {
           }
         }
       }).catch((error) => {
+        var user = firebase.auth().currentUser;
+        user.delete().catch(function(error) {
+          req.flash('danger', 'Não foi possível liberar o email para nova utilização');
+        });
+
         switch (error.code) {
           case '11000':
             req.flash('danger', 'O CPF já está cadastrado.');

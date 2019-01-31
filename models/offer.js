@@ -20,7 +20,7 @@ const offerSchema = new mongoose.Schema({
   minAmount: Number,
   delivery: {
     type: String,
-    enum: ['48 horas', '31 dias', 'Safra', 'safrinha']
+    enum: ['48 horas', '31 dias', 'Safra', 'Safrinha']
   },
   usd: Boolean,
   seller: {

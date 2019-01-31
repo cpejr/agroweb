@@ -203,24 +203,23 @@ router.put('/:id', (req, res) => {
     if (transaction.status === 'Cotado') {
       transactionData.status = 'Aguardando boleto';
       if (transaction.franchisee) {
-        let tax = 0;
+        let taxFranchisee = 0;
         if (transaction.offer.product.category === 'Fertilizantes sólidos') {
-          tax = global.config.tax.franchisee.solidFertilizer;
+          taxFranchisee = global.config.tax.franchisee.solidFertilizer;
         }
         else if (transaction.offer.product.category === 'Defensivos agrícolas/agrotóxicos') {
-          tax = global.config.tax.franchisee.defensive;
+          taxFranchisee = global.config.tax.franchisee.defensive;
         }
         else if (transaction.offer.product.category === 'Sementes') {
-          tax = global.config.tax.franchisee.seed;
+          taxFranchisee = global.config.tax.franchisee.seed;
         }
         else if (transaction.offer.product.category === 'Fertilizantes líquidos/adjuvantes/biológicos') {
-          tax = global.config.tax.franchisee.solidFertilizer;
+          taxFranchisee = global.config.tax.franchisee.solidFertilizer;
         }
         transactionData.franchiseeTaxStatus = 'Não necessário';
-        transactionData.franchiseeTaxValue = transaction.priceBought * tax;
+        transactionData.franchiseeTaxValue = transaction.priceBought * taxFranchisee;
       }
       let taxMegapool = 0;
-      let taxFranchisee = 0;
       if (transaction.offer.megaOpportunity) {
         taxMegapool = parseFloat(global.config.tax.megapool.megaOportunidade);
       }
@@ -231,10 +230,10 @@ router.put('/:id', (req, res) => {
         taxMegapool = parseFloat(global.config.tax.megapool.defensive);
       }
       else if (transaction.offer.product.category === 'Sementes') {
-        taxFranchisee = parseFloat(global.config.tax.megapool.seed);
+        taxMegapool = parseFloat(global.config.tax.megapool.seed);
       }
       else if (transaction.offer.product.category === 'Fertilizantes líquidos/adjuvantes/biológicos') {
-        taxFranchisee = parseFloat(global.config.tax.megapool.solidFertilizer);
+        taxMegapool = parseFloat(global.config.tax.megapool.solidFertilizer);
       }
       transactionData.taxValue = transaction.priceBought * taxMegapool;
       const offerData = {};
@@ -281,7 +280,6 @@ router.put('/:id', (req, res) => {
             const Trans = transaction;
             User.getById(transaction.franchisee).then((franchi) => {
               Trans.franchisee = franchi;
-              console.log(Trans.franchisee);
               Email.franchiseeEmail(Trans).catch((error) => {
                 console.log(error);
                 req.flash('danger', 'Não foi possível enviar email do Franqueado.');
@@ -289,23 +287,21 @@ router.put('/:id', (req, res) => {
               });
             });
           }
-          console.log(transaction);
-
-          // Email.buyEmail(transaction).catch((error) => {
-          //   console.log(error);
-          //   req.flash('danger', 'Não foi possível enviar email de compra.');
-          //   res.redirect('/user');
-          // });
-          // Email.sellEmail(transaction).catch((error) => {
-          //   console.log(error);
-          //   req.flash('danger', 'Não foi possível enviar email de venda.');
-          //   res.redirect('/user');
-          // });
-          // Email.adminNewTransactionEmail(transaction).catch((error) => {
-          //   console.log(error);
-          //   req.flash('danger', 'Não foi possível enviar email para o administrador.');
-          //   res.redirect('/user');
-          // });
+          Email.buyEmail(transaction).catch((error) => {
+            console.log(error);
+            req.flash('danger', 'Não foi possível enviar email de compra.');
+            res.redirect('/user');
+          });
+          Email.sellEmail(transaction).catch((error) => {
+            console.log(error);
+            req.flash('danger', 'Não foi possível enviar email de venda.');
+            res.redirect('/user');
+          });
+          Email.adminNewTransactionEmail(transaction).catch((error) => {
+            console.log(error);
+            req.flash('danger', 'Não foi possível enviar email para o administrador.');
+            res.redirect('/user');
+          });
 
           req.flash('success', 'Compra realizada.');
           res.redirect('/user/orders');
@@ -314,6 +310,7 @@ router.put('/:id', (req, res) => {
           req.flash('danger', 'Não foi possível atualizar a transação.');
           res.redirect('/user');
         });
+
         if (transaction.group) {
           let groupData = {};
           Group.getOneByQuery({ offer: transaction.offer._id }).then((group) => {

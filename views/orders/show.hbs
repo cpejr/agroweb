@@ -7,6 +7,13 @@
     <div class="justify-content-center mx-sm-auto">
       <div class="row">
         <div class="col-12 ml-1 mb-3 text-center justify-content-center">
+          {{#if offer.megaOpportunity}}
+          <div class="text-center pb-2">
+            <h5 class="badge badge-success ">
+                Mega oportunidade
+            </h5>
+          </div>
+          {{/if}}
           <h2 class="my-0 py-0">{{offer.product.name}}</h2>
           <i class="text-muted">Produto {{offer.product.generic}}</i>
         </div>

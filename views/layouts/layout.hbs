@@ -89,13 +89,13 @@
         <div class="col-sd-6 float-right mt-3 mr-3" id="search-list">
           {{#ifNotEq userType 'Indústria'}}
           {{#if franchisee}}
-          {{#ifCond userType 'Franqueado'}}
+          {{#compare userType 'Franqueado'}}
           <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
             <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-searchbar typeahead-search">
             <label for="searchbar-icon" class="fas fa-search input-icon"></label>
             <button type="submit" class="d-none"></button>
           </form>
-          {{/ifCond}}
+          {{/compare}}
           {{else}}
           <form action="../search" method="get" class="input-wrapper float-right mt-0 mb-3 searchbar">
             <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-searchbar typeahead-search">

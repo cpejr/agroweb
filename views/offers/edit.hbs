@@ -107,29 +107,29 @@
              <div class="input-group-text"><i class="fas fa-car"></i></div>
            </div>
            <select class="form-control new-shadow" name="offer[delivery]">
-             {{#ifCond userType 'Revendedor'}}
-              {{#ifCond delivery '48 horas'}}
+             {{#compare userType 'Revendedor'}}
+              {{#compare delivery '48 horas'}}
                 <option value="48 horas" selected>Em até 48 horas</option>
                 <option value="31 dias">Em até 31 dias</option>
-              {{else ifCond delivery '31 dias'}}
+              {{else compare delivery '31 dias'}}
                 <option value="48 horas">Em até 48 horas</option>
                 <option value="31 dias" selected>Em até 31 dias</option>
-              {{/ifCond}}
-             {{else ifCond userType 'Indústria'}}
-               {{#ifCond delivery '31 dias'}}
+              {{/compare}}
+             {{else compare userType 'Indústria'}}
+               {{#compare delivery '31 dias'}}
                  <option value="31 dias" selected>Em até 31 dias</option>
                  <option value="Safra">Safra</option>
                  <option value="Safrinha">Safrinha</option>
-               {{else ifCond delivery 'Safra'}}
+               {{else compare delivery 'Safra'}}
                  <option value="31 dias">Em até 31 dias</option>
                  <option value="Safra" selected>Safra</option>
                  <option value="Safrinha">Safrinha</option>
-               {{else ifCond delivery 'Safrinha'}}
+               {{else compare delivery 'Safrinha'}}
                  <option value="31 dias">Em até 31 dias</option>
                  <option value="Safra">Safra</option>
                  <option value="Safrinha" selected>Safrinha</option>
-               {{/ifCond}}
-             {{/ifCond}}
+               {{/compare}}
+             {{/compare}}
            </select>
           </div>
       </div>

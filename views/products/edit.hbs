@@ -48,11 +48,11 @@
           </div>
           <input name="product[manufacturer]" type="text" value="{{manufacturer}}" class="form-control" id="manufacturer">
         </div>
-        {{#ifCond generic 'Similar'}}
+        {{#compare generic 'Similar'}}
         <label>Produto genérico</label>
-        {{else ifCond generic 'Original'}}
+        {{else compare generic 'Original'}}
         <label>Produto não genérico</label>
-        {{/ifCond}}
+        {{/compare}}
       </div>
 
 

@@ -21,27 +21,33 @@
       <table id="myTable" class="col-12">
       <tbody>
 
-      {{#ifCond userType 'Franqueado'}}
+      {{#compare userType 'Franqueado'}}
       {{#each transactions}}
       <tr class="col-12">
         <td class="d-none">{{offer.product.name}}</td>
         <td class="d-none">{{priceBought}}</td>
         <td class="d-none">{{offer.unitPrice}}</td>
-        <td class="d-none">{{offer.delivery}}</td>
+        <td class="d-none">{{offer.delivery}}
+          {{#ifNotEq offer.delivery '48 horas'}}
+            {{#ifNotEq offer.delivery '31 dias'}}
+              {{groupObject.date}}
+            {{/ifNotEq}}
+          {{/ifNotEq}}
+        </td>
         <td class="d-none">{{offer.stock}}</td>
         <td class="d-none">{{offer.product.category}}</td>
         <td class="d-none">
-          {{#ifCond offer.megaOpportunity true}}
+          {{#compare offer.megaOpportunity true}}
           Mega oportunidade
           {{else}}
           Normal
-          {{/ifCond}}
+          {{/compare}}
         </td>
         <td class="d-none">{{buyer.fullName}}</td>
         <td class="d-none">{{offer.seller.fullName}}</td>
         <td class="">
-      {{#ifCond status 'Cancelado'}}
-      {{else ifCond status 'Cotado'}}
+      {{#compare status 'Cancelado'}}
+      {{else compare status 'Cotado'}}
       {{else}}
       <div class="mb-3">
       <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
@@ -49,23 +55,23 @@
 
             <div class="row">
               <div class="col-2 d-inline-block text-center align-self-center mx-1">
-                {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+                {{#compare offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
                 <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
-                {{else ifCond offer.product.category 'Sementes'}}
+                {{else compare offer.product.category 'Sementes'}}
                 <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-                {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+                {{else compare offer.product.category 'Fertilizantes sólidos'}}
                 <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-                {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+                {{else compare offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
                 <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-                {{/ifCond}}
+                {{/compare}}
               </div>
 
               <div class="p-2">
@@ -100,17 +106,23 @@
                   <div class="smaller-font d-flex text-center align-bottom">
                     <div class="ml-3 ml-lg-4 text-gray3">
                       <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2 ">Compra
-                        {{#ifCond offer.delivery '48 horas'}}
+                        {{#compare offer.delivery '48 horas'}}
                         <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
                         {{else }}
                         <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
-                        {{/ifCond}}
+                        {{/compare}}
                       </p>
                     </div>
 
                     <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                       <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
-                        <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                        <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}
+                          {{#ifNotEq offer.delivery '48 horas'}}
+                            {{#ifNotEq offer.delivery '31 dias'}}
+                              {{groupObject.date}}
+                            {{/ifNotEq}}
+                          {{/ifNotEq}}
+                        </span>
                       </p>
                     </div>
 
@@ -135,53 +147,59 @@
       </div>
     </td>
   </tr>
-  {{/ifCond}}
+  {{/compare}}
   {{/each}}
 
-    {{else ifCond userType 'Produtor'}}
+    {{else compare userType 'Produtor'}}
     {{#each transactions}}
     <tr class="col-12">
       <td class="d-none">{{offer.product.name}}</td>
       <td class="d-none">{{priceBought}}</td>
       <td class="d-none">{{offer.product.unit}}</td>
-      <td class="d-none">{{offer.delivery}}</td>
+      <td class="d-none">{{offer.delivery}}
+        {{#ifNotEq offer.delivery '48 horas'}}
+          {{#ifNotEq offer.delivery '31 dias'}}
+            {{groupObject.date}}
+          {{/ifNotEq}}
+        {{/ifNotEq}}
+      </td>
       <td class="d-none">{{offer.stock}}</td>
       <td class="d-none">{{offer.product.category}}</td>
       <td class="d-none">
-        {{#ifCond offer.megaOpportunity true}}
+        {{#compare offer.megaOpportunity true}}
         Mega oportunidade
         {{else}}
         Normal
-        {{/ifCond}}
+        {{/compare}}
       </td>
       <td class="d-none">{{buyer.fullName}}</td>
       <td class="d-none">{{offer.seller.fullName}}</td>
       <td class="">
-    {{#ifCond status 'Cancelado'}}
-    {{else ifCond status 'Cotado'}}
+    {{#compare status 'Cancelado'}}
+    {{else compare status 'Cotado'}}
     {{else}}
     <div class="mb-3">
     <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
         <div class="text-right p-2">
           <div class="row">
             <div class="col-2 d-inline-block text-center align-self-center mx-1">
-              {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+              {{#compare offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
               <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
               <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
-              {{else ifCond offer.product.category 'Sementes'}}
+              {{else compare offer.product.category 'Sementes'}}
               <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
               <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-              {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+              {{else compare offer.product.category 'Fertilizantes sólidos'}}
               <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
               <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-              {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+              {{else compare offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
               <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
               <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-              {{/ifCond}}
+              {{/compare}}
             </div>
             <div class="p-2">
               <div class="vl">
@@ -215,17 +233,23 @@
                 <div class="smaller-font d-flex text-center align-bottom">
                   <div class="ml-3 ml-lg-4 text-gray3">
                     <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2">Compra
-                      {{#ifCond group 'true'}}
+                      {{#compare group 'true'}}
                       <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
                       {{else}}
                       <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                      {{/ifCond}}
+                      {{/compare}}
                     </p>
                   </div>
 
                   <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                     <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Entrega
-                      <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                      <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}
+                        {{#ifNotEq offer.delivery '48 horas'}}
+                          {{#ifNotEq offer.delivery '31 dias'}}
+                            {{groupObject.date}}
+                          {{/ifNotEq}}
+                        {{/ifNotEq}}
+                      </span>
                     </p>
                   </div>
 
@@ -250,28 +274,34 @@
     </div>
   </td>
 </tr>
-      {{/ifCond}}
+      {{/compare}}
       {{/each}}
 
-              {{else ifCond userType 'Indústria'}}
+              {{else compare userType 'Indústria'}}
               {{#each transactions}}
               <tr class="col-12">
                 <td class="d-none">{{offer.product.name}}</td>
                 <td class="d-none">{{priceBought}}</td>
                 <td class="d-none">{{offer.product.unit}}</td>
-                <td class="d-none">{{offer.delivery}}</td>
+                <td class="d-none">{{offer.delivery}}
+                  {{#ifNotEq offer.delivery '48 horas'}}
+                    {{#ifNotEq offer.delivery '31 dias'}}
+                      {{groupObject.date}}
+                    {{/ifNotEq}}
+                  {{/ifNotEq}}
+                </td>
                 <td class="d-none">{{offer.product.category}}</td>
                 <td class="d-none">
-                  {{#ifCond offer.megaOpportunity true}}
+                  {{#compare offer.megaOpportunity true}}
                   Mega oportunidade
                   {{else}}
                   Normal
-                  {{/ifCond}}
+                  {{/compare}}
                 </td>
                 <td class="d-none">{{buyer.fullName}}</td>
                 <td class="">
-                  {{#ifCond status 'Cancelado'}}
-                  {{else ifCond status 'Cotado'}}
+                  {{#compare status 'Cancelado'}}
+                  {{else compare status 'Cotado'}}
                   {{else}}
                   <div class="mb-3">
                     <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
@@ -279,23 +309,23 @@
 
                         <div class="row">
                           <div class="col-2 d-inline-block text-center align-self-center mx-1">
-                            {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+                            {{#compare offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
                             <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
                             <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
                             <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
-                            {{else ifCond offer.product.category 'Sementes'}}
+                            {{else compare offer.product.category 'Sementes'}}
                             <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                             <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
                             <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-                            {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+                            {{else compare offer.product.category 'Fertilizantes sólidos'}}
                             <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
                             <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
                             <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-                            {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+                            {{else compare offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
                             <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
                             <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
                             <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-                            {{/ifCond}}
+                            {{/compare}}
                           </div>
 
                           <div class="p-2">
@@ -330,17 +360,23 @@
                                 <div class="smaller-font d-flex text-center align-bottom">
                                   <div class="ml-3 ml-lg-4 text-gray3">
                                     <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2">Compra
-                                      {{#ifCond group 'true'}}
+                                      {{#compare group 'true'}}
                                       <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
                                       {{else}}
                                       <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                                      {{/ifCond}}
+                                      {{/compare}}
                                     </p>
                                   </div>
 
                                   <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                                     <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Entrega
-                                      <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                                      <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}
+                                        {{#ifNotEq offer.delivery '48 horas'}}
+                                          {{#ifNotEq offer.delivery '31 dias'}}
+                                            {{groupObject.date}}
+                                          {{/ifNotEq}}
+                                        {{/ifNotEq}}
+                                      </span>
                                     </p>
                                   </div>
 
@@ -375,45 +411,51 @@
                   </div>
 
 
-                  {{/ifCond}}
+                  {{/compare}}
               {{/each}}
-              {{else ifCond userType 'Revendedor'}}
+              {{else compare userType 'Revendedor'}}
               {{#each transactions}}
               <tr class="col-12">
                 <td class="d-none">{{offer.product.name}}</td>
                 <td class="d-none">{{priceBought}}</td>
                 <td class="d-none">{{offer.product.unit}}</td>
-                <td class="d-none">{{offer.delivery}}</td>
+                <td class="d-none">{{offer.delivery}}
+                  {{#ifNotEq offer.delivery '48 horas'}}
+                    {{#ifNotEq offer.delivery '31 dias'}}
+                      {{groupObject.date}}
+                    {{/ifNotEq}}
+                  {{/ifNotEq}}
+                </td>
                 <td class="d-none">{{offer.stock}}</td>
                 <td class="d-none">{{offer.product.category}}</td>
                 <td class="d-none">{{buyer.fullName}}</td>
                 <td class="d-none">{{offer.seller.fullName}}</td>
                 <td class="">
-              {{#ifCond status 'Cancelado'}}
-              {{else ifCond status 'Cotado'}}
+              {{#compare status 'Cancelado'}}
+              {{else compare status 'Cotado'}}
               {{else}}
               <div class="mb-3">
               <div class="my-1 bg-light2 card1 card" onclick="location.href = '/transaction/{{_id}}'">
                   <div class="text-right p-2">
                     <div class="row">
                       <div class="col-2 d-inline-block text-center align-self-center mx-1">
-                        {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+                        {{#compare offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
                         <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
                         <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
                         <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
-                        {{else ifCond offer.product.category 'Sementes'}}
+                        {{else compare offer.product.category 'Sementes'}}
                         <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                         <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
                         <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-                        {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+                        {{else compare offer.product.category 'Fertilizantes sólidos'}}
                         <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
                         <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
                         <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-                        {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+                        {{else compare offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
                         <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
                         <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
                         <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-                        {{/ifCond}}
+                        {{/compare}}
                       </div>
                       <div class="p-2">
                         <div class="vl">
@@ -441,17 +483,23 @@
                           <div class="smaller-font d-flex text-center align-bottom">
                             <div class="ml-3 ml-lg-4 text-gray3">
                               <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2">Compra
-                                {{#ifCond group 'true'}}
+                                {{#compare group 'true'}}
                                 <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
                                 {{else}}
                                 <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                                {{/ifCond}}
+                                {{/compare}}
                               </p>
                             </div>
 
                             <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                               <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Entrega
-                                <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                                <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}
+                                  {{#ifNotEq offer.delivery '48 horas'}}
+                                    {{#ifNotEq offer.delivery '31 dias'}}
+                                      {{groupObject.date}}
+                                    {{/ifNotEq}}
+                                  {{/ifNotEq}}
+                                </span>
                               </p>
                             </div>
 
@@ -476,10 +524,10 @@
               </div>
             </td>
           </tr>
-        {{/ifCond}}
+        {{/compare}}
         {{/each}}
 
-        {{/ifCond}}
+        {{/compare}}
         </div>
       </div>
     </div>
@@ -487,11 +535,11 @@
 
       {{else}}
       <div class="container">
-        {{#ifCond userType 'Indústria'}}
+        {{#compare userType 'Indústria'}}
         <p class="text-center font-light">Você não possui nenhuma demanda.</p>
         {{else}}
         <p class="text-center font-light">Você não possui nenhuma compra.</p>
-        {{/ifCond}}
+        {{/compare}}
       </div>
       {{/if}}
       <!-- end OrdersList -->

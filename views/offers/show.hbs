@@ -22,11 +22,12 @@
       {{#if megaOpportunity}}
         <h4>Avaria</h4>
         <p class="font-light"> {{damage}} </p>
+        <h4>Descrição</h4>
+        <p class="font-light"> {{product.description}} </p>
       {{else}}
         <h4>Descrição</h4>
         <p class="font-light"> {{product.description}} </p>
       {{/if}}
-
 
       {{#ifNotEq delivery '48 horas'}}
       <h4>Vendedor(a)</h4>
@@ -39,7 +40,13 @@
       {{/each}}
 
       <h4>Forma de entrega</h4>
-      <p class="font-light">{{delivery}}</p>
+      <p class="font-light">{{delivery}}
+        {{#ifNotEq delivery '48 horas'}}
+          {{#ifNotEq delivery '31 dias'}}
+            {{group.date}}
+          {{/ifNotEq}}
+        {{/ifNotEq}}
+      </p>
 
       <h4>Fabricante</h4>
       <p class="font-light">{{product.manufacturer}}</p>
@@ -52,118 +59,151 @@
 
     <!-- Quotation -->
     <div class="col-12 col-md-4 mb-5 justify-content-center">
-      {{#ifCond hasStock 1}}
-      {{#ifCond myOffer 1}}
-      {{#ifCond active true }}
-      <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
-      <form action="/offers/{{_id}}?_method=DELETE" method="POST">
-        <button type="submit" onclick="return confirm('Tem certeza que deseja inativar esta oferta?');" class="w-100 text-white btn btn-danger my-2">Inativar oferta</button>
-      </form>
-
-      {{else}}
-      <form action="/offers/active/{{_id}}" method="POST">
-        <button type="submit" onclick="return confirm('Tem certeza que deseja ativar esta oferta?');" class="w-100 text-white btn btn-success my-2">Ativar oferta</button>
-      </form>
-      {{/ifCond}}
-
-      {{else}}
-      {{#ifCond userType 'Produtor'}}
-      <form action="/transaction" method="post">
-        <label class="font-bold" for="amount">Quantidade</label>
-        <input type="hidden" name="_id" value="{{_id}}">
-        <div class="input-group">
-          <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
-          <div class="input-group-prepend">
-            <div class="input-group-text">{{product.unit}}</div>
-          </div>
-        </div>
-        <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-      </form>
-      {{else ifCond userType 'Franqueado'}}
-      <form action="/transaction" method="post">
-        <label class="font-light" for="amount">Quantidade</label>
-        <div class="input-group">
+      {{#compare userType 'Produtor'}}
+        {{#compare active true}}
+        <form action="/transaction" method="post">
+          <label class="font-bold" for="amount">Quantidade</label>
           <input type="hidden" name="_id" value="{{_id}}">
-          <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}" required>
-          <div class="input-group-prepend">
-            <div class="input-group-text">{{product.unit}}</div>
+          <div class="input-group">
+            <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
+            <div class="input-group-prepend">
+              <div class="input-group-text">{{product.unit}}</div>
+            </div>
           </div>
-        </div>
-        <label class="mt-2 font-light" for="amount">Selecione o cliente responsável por esta cotação</label>
-        <select class="form-control new-shadow" name="buyer" required/>
-        <option disabled selected value>-- Cliente --</option>
-        {{#each clients}}
-        <option value={{_id}}>{{fullName}}</option>
-        {{/each}}
-      </select>
-      <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-    </form>
-
-    {{else ifCond userType 'Administrador'}}
-    <div class="col-12">
-      <h4>Estoque</h4>
-      <p class="font-light">{{stock}} {{product.unit}}</p>
-    </div>
-    <div class="col-12">
-      <h4>Entrega</h4>
-      <p class="font-light">{{delivery}}</p>
-    </div>
-    <div class="col-12">
-      <h4>Preços</h4>
-      <p class="font-light">Baixo:
-        U$ {{price.low}}
-      </p>
-      <p class="font-light">Médio:
-        U$ {{price.average}}
-      </p>
-      <p class="font-light">Alto:
-        U$ {{price.high}}
-      </p>
-    </div>
-    <div class="col-12">
-      <h4>Qtd. mínima</h4>
-      <p class="font-light">{{minAmount}} {{product.unit}}</p>
-    </div>
-    <div class="text-center my-3 justify-content-center">
-      <form action="/offers/{{id}}?_method=DELETE" method="POST" id="form-delete">
-        <button type="submit" class="btn btn-danger col-8" name="status">
-          Excluir
-        </button>
-      </form>
-    </div>
-    {{else ifCond userType 'Revendedor'}}
-    {{#ifNotEq megaOpportunity true}}
-    <form action="/transaction" method="post">
-      <div class="form-group col">
-        <label class="font-bold" for="amount">Quantidade</label>
-        <div class="input-group">
-          <input type="hidden" name="_id" value="{{_id}}">
-          <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
-          <div class="input-group-prepend">
-            <div class="input-group-text">{{product.unit}}</div>
+          <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+        </form>
+        {{else}}
+        <h4>Aviso:</h4>
+        <p class="font-light text-center"> Não há estoque suficiente para realizar uma compra. </p>
+        {{/compare}}
+      {{else compare userType 'Franqueado'}}
+        {{#compare active true}}
+        <form action="/transaction" method="post">
+          <label class="font-light" for="amount">Quantidade</label>
+          <div class="input-group">
+            <input type="hidden" name="_id" value="{{_id}}">
+            <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}" required>
+            <div class="input-group-prepend">
+              <div class="input-group-text">{{product.unit}}</div>
+            </div>
           </div>
-        </div>
+          <label class="mt-2 font-light" for="amount">Selecione o cliente responsável por esta cotação</label>
+          <select class="form-control new-shadow" name="buyer" required/>
+          <option disabled selected value>-- Cliente --</option>
+          {{#each clients}}
+          <option value={{_id}}>{{fullName}}</option>
+          {{/each}}
+          </select>
+          <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+        </form>
+        {{else}}
+        <h4>Aviso:</h4>
+        <p class="font-light text-center"> Não há estoque suficiente para realizar uma compra. </p>
+        {{/compare}}
+      {{else compare userType 'Administrador'}}
+      <div class="col-12">
+        <h4>Estoque</h4>
+        <p class="font-light">{{stock}} {{product.unit}}</p>
       </div>
-      <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-    </form>
-    {{/ifNotEq}}
-
-    {{else ifCond userType 'Indústria'}}
-    <form action="/transaction" method="post">
-      <label class="font-bold" for="amount">Quantidade</label>
-      <input type="hidden" name="_id" value="{{_id}}">
-      <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
-      <div class="input-group-prepend">
-        <div class="input-group-text">{{product.unit}}</div>
+      <div class="col-12">
+        <h4>Status</h4>
+        {{#compare active true}}
+        <p class="font-light">Ativo</p>
+        {{else}}
+        <p class="font-light">Inativo</p>
+        {{/compare}}
       </div>
-      <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
-    </form>
-    {{/ifCond}}
-    {{/ifCond}}
-    {{else}}
-    <h4>Aviso:</h4>
-    <p class="font-light"> Não há estoque suficiente para realizar uma compra. </p>
-    {{/ifCond}}
+      <div class="col-12">
+        <h4>Entrega</h4>
+        <p class="font-light">{{delivery}}
+          {{#ifNotEq delivery '48 horas'}}
+            {{#ifNotEq delivery '31 dias'}}
+              {{group.date}}
+            {{/ifNotEq}}
+          {{/ifNotEq}}
+        </p>
+      </div>
+      <div class="col-12">
+        <h4>Preços</h4>
+        <p class="font-light">Baixo:
+          U$ {{price.low}}
+        </p>
+        <p class="font-light">Médio:
+          U$ {{price.average}}
+        </p>
+        <p class="font-light">Alto:
+          U$ {{price.high}}
+        </p>
+      </div>
+      <div class="col-12">
+        <h4>Qtd. mínima</h4>
+        <p class="font-light">{{minAmount}} {{product.unit}}</p>
+      </div>
+      <div class="text-center my-3 justify-content-center">
+        <form action="/offers/{{id}}?_method=DELETE" method="POST" id="form-delete">
+          <button type="submit" class="btn btn-danger col-8" name="status">
+            Excluir
+          </button>
+        </form>
+      </div>
+      {{else compare userType 'Revendedor'}}
+        {{#compare seller._id userId}}
+          {{#compare active true}}
+          <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
+          <form action="/offers/{{_id}}?_method=DELETE" method="POST">
+            <button type="submit" onclick="return confirm('Tem certeza que deseja inativar esta oferta?');" class="w-100 text-white btn btn-danger my-2">Inativar oferta</button>
+          </form>
+          {{else}}
+            {{#compare stock minAmount operator="<"}}
+            <p class="font-light text-center"> A oferta foi desativada por falta de estoque. Edite a oferta para reativá-la.</p>
+            <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
+            {{else}}
+            <form action="/offers/{{_id}}?_method=PUT" method="POST">
+              <button type="submit" onclick="return confirm('Tem certeza que deseja ativar esta oferta?');" class="w-100 text-white btn btn-success my-2">Ativar oferta</button>
+            </form>
+            {{/compare}}
+          {{/compare}}
+        {{else}}
+          {{#compare active true}}
+            {{#ifNotEq megaOpportunity true}}
+            <form action="/transaction" method="post">
+              <div class="form-group col">
+                <label class="font-bold" for="amount">Quantidade</label>
+                <div class="input-group">
+                  <input type="hidden" name="_id" value="{{_id}}">
+                  <input class="form-control" type="number" min="{{minAmount}}" max="{{stock}}" name="amountBought" id="amount" value="{{minAmount}}">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">{{product.unit}}</div>
+                  </div>
+                </div>
+              </div>
+              <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
+            </form>
+            {{/ifNotEq}}
+          {{else}}
+          <h4>Aviso:</h4>
+          <p class="font-light text-center"> Não há estoque suficiente para realizar uma compra. </p>
+          {{/compare}}
+        {{/compare}}
+      {{else compare userType 'Indústria'}}
+        {{#compare seller._id userId}}
+          {{#compare active true}}
+          <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
+          <form action="/offers/{{_id}}?_method=DELETE" method="POST">
+            <button type="submit" onclick="return confirm('Tem certeza que deseja inativar esta oferta?');" class="w-100 text-white btn btn-danger my-2">Inativar oferta</button>
+          </form>
+          {{else}}
+            {{#compare stock minAmount operator="<"}}
+            <p class="font-light text-center"> A oferta foi desativada por falta de estoque. Edite a oferta para reativá-la.</p>
+            <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
+            {{else}}
+            <form action="/offers/{{_id}}?_method=PUT" method="POST">
+              <button type="submit" onclick="return confirm('Tem certeza que deseja ativar esta oferta?');" class="w-100 text-white btn btn-success my-2">Ativar oferta</button>
+            </form>
+            {{/compare}}
+          {{/compare}}
+        {{/compare}}
+      {{/compare}}
   </div>
   <!-- end Quotation -->
 </div>

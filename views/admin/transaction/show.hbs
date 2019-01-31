@@ -23,7 +23,13 @@
       {{/each}}
 
       <dt class="font-bold">Forma de entrega</dt>
-      <dd class="font-light">{{delivery}}</dd>
+      <dd class="font-light">{{delivery}}
+        {{#ifNotEq delivery '48 horas'}}
+          {{#ifNotEq delivery '31 dias'}}
+            {{groupObject.date}}
+          {{/ifNotEq}}
+        {{/ifNotEq}}
+      </dd>
 
       <dt class="font-bold">Fabricante</dt>
       <dd class="font-light">{{product.manufacturer}}</dd>
@@ -36,7 +42,7 @@
 
     <!-- Quotation -->
     <div class="col-12 col-md-6 pb-2 mb-5">
-      {{#ifCond userType 'Produtor'}}
+      {{#compare userType 'Produtor'}}
       <form action="/transaction" method="post">
         <div class="row mb-3">
           <div class="form-group col">
@@ -52,7 +58,7 @@
         </div>
         <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
       </form>
-      {{else ifCond userType 'Franqueado'}}
+      {{else compare userType 'Franqueado'}}
       <form action="/transaction" method="post">
         <div class="row mb-3">
           <div class="form-group col">
@@ -68,7 +74,7 @@
         </div>
         <button class="w-100 text-white btn btn-default bg-green my-2" type="submit" name="button">Cotar produto</button>
       </form>
-      {{else ifCond userType 'Administrador'}}
+      {{else compare userType 'Administrador'}}
       <div class="row mb-3">
         <div class="col-12 col-md-6 mb-5">
           <div class="row">
@@ -78,7 +84,13 @@
             </div>
             <div class="col-12">
               <h4>Entrega:</h4>
-              <p class="font-light">{{delivery}}</p>
+              <p class="font-light">{{delivery}}
+                {{#ifNotEq delivery '48 horas'}}
+                  {{#ifNotEq delivery '31 dias'}}
+                    {{groupObject.date}}
+                  {{/ifNotEq}}
+                {{/ifNotEq}}
+              </p>
             </div>
             <div class="col-12">
               <h4>Preços:</h4>
@@ -108,7 +120,7 @@
       <form action="/offers/{{_id}}?_method=DELETE" method="POST">
         <button type="submit" class="w-100 text-white btn btn-danger my-2">Deletar oferta</button>
       </form>
-      {{/ifCond}}
+      {{/compare}}
     </div>
     <!-- end Quotation -->
   </div>

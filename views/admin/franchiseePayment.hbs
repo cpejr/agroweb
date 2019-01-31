@@ -21,7 +21,7 @@
       </thead>
       <tbody id="myTable">
         {{#each users}}
-        {{#ifCond type "Franqueado"}}
+        {{#compare type "Franqueado"}}
         {{#ifNotEq pendingPayment 0}}
         <tr>
           <th class="text-center" scope="row">{{fullName}}</th>
@@ -36,7 +36,7 @@
           </th>
         </tr>
         {{/ifNotEq}}
-        {{/ifCond}}
+        {{/compare}}
         {{/each}}
       </tbody>
     </table>

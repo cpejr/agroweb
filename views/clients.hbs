@@ -1,7 +1,7 @@
 {{#section 'stylesheets'}}
 {{/section}}
 
-{{#ifCond userType 'Franqueado'}}
+{{#compare userType 'Franqueado'}}
 <div class="pb-3 gradient-background text-white">
   <h3 class="text-center font-black">Meus clientes</h3>
 </div>
@@ -10,7 +10,7 @@
   <div class="row justify-content-center">
     {{#if clients}}
     {{#each clients}}
-    {{#ifCond client.status 'Aguardando aprovação'}}
+    {{#compare client.status 'Aguardando aprovação'}}
     {{else}}
     <div class="col-sm-12 col-md-6 col-lg-6 btn card m-3" >
       <div class="my-1 bg-light2 card1"  onclick="location.href = '/user/profile/{{_id}}'">
@@ -61,7 +61,7 @@
     </div>
 
     <!-- end CARD PADRÃO -->
-    {{/ifCond}}
+    {{/compare}}
     {{/each}}
     {{else}}
     <div class="container">
@@ -71,7 +71,7 @@
   </div>
 </div>
 
-{{else ifCond userType 'Produtor'}}
+{{else compare userType 'Produtor'}}
 <div class="pb-3 gradient-background text-white">
   <h3 class="text-center font-black">Meu franqueado</h3>
 </div>
@@ -137,7 +137,7 @@
     {{/if}}
   </div>
 </div>
-{{/ifCond}}
+{{/compare}}
 
 {{#section 'scripts'}}
 {{/section}}

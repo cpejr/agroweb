@@ -22,13 +22,19 @@
 
     <tbody>
 
-  {{#ifCond userType 'Franqueado'}}
+  {{#compare userType 'Franqueado'}}
   {{#each quotations}}
   <tr class="col-12">
-    <td class="d-none">{{product.name}}</td>
+    <td class="d-none">{{offer.product.name}}</td>
     <td class="d-none">{{priceBought}}</td>
     <td class="d-none">{{amountBought}}</td>
-    <td class="d-none">{{delivery}}</td>
+    <td class="d-none">{{offer.delivery}}
+      {{#ifNotEq offer.delivery '48 horas'}}
+        {{#ifNotEq offer.delivery '31 dias'}}
+          {{groupObject.date}}
+        {{/ifNotEq}}
+      {{/ifNotEq}}
+    </td>
     <td class="d-none">{{unitPrice}}</td>
     <td class="">
 
@@ -38,23 +44,23 @@
                   <div class="row px-3">
                     <div class="col-3 d-inline-block text-center align-self-center">
 
-                      {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+                      {{#compare offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
                       <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
                       <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
                       <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
-                      {{else ifCond offer.product.category 'Sementes'}}
+                      {{else compare offer.product.category 'Sementes'}}
                       <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                       <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
                       <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-                      {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+                      {{else compare offer.product.category 'Fertilizantes sólidos'}}
                       <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
                       <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
                       <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-                      {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+                      {{else compare offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
                       <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
                       <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
                       <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-                      {{/ifCond}}
+                      {{/compare}}
                     </div>
                     <div class="col p-2">
                       <div class="vl">
@@ -79,17 +85,23 @@
                           <div class="smaller-font d-flex text-center mt-3 align-bottom">
                             <div class="ml-3 ml-md-4 text-gray3 ">
                               <p class="text-uppercase font-book mobile-font1 mobile-font0 ">Compra
-                                {{#ifCond offer.delivery '48 horas'}}
+                                {{#compare offer.delivery '48 horas'}}
                                 <span class="count font-light mobile-font0 mobile-font1 mt-5"> <br/>Solo</span>
                                 {{else }}
                                 <span class="count font-light mobile-font0 mobile-font1 mt-5"> <br/>Grupo</span>
-                                {{/ifCond}}
+                                {{/compare}}
                               </p>
                             </div>
 
                             <div class="ml-2 ml-xs-3 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                               <p class="text-uppercase font-book mobile-font1 mobile-font0 ">Entrega
-                                <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}</span>
+                                <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}
+                                  {{#ifNotEq offer.delivery '48 horas'}}
+                                    {{#ifNotEq offer.delivery '31 dias'}}
+                                      {{groupObject.date}}
+                                    {{/ifNotEq}}
+                                  {{/ifNotEq}}
+                                </span>
                               </p>
                             </div>
 
@@ -101,12 +113,12 @@
                             <div class="ml-2 ml-xs-3 ml-md-3 ml-lg-3 text-gray3 ml-xl-4 ">
                               <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
                                 Custo por unidade
-                                {{#ifCond offer.usd false}}
+                                {{#compare offer.usd false}}
                                 <span class="count text-center font-light mobile-font1 mobile-font0 mt-2"> <br/>U$ {{unitPrice}}</span>
-                                {{/ifCond}}
+                                {{/compare}}
                               </p>
                               <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
-                                {{#ifCond offer.usd true}}
+                                {{#compare offer.usd true}}
                                 <span class="count text-center font-light mobile-font1 mobile-font0 mt-0">
                                   <br/>
                                   U$ {{unitPrice}}
@@ -114,7 +126,7 @@
                                 <i class="text-gray3  font-light mobile-font1 d-inline">
                                   / {{offer.product.unit}}
                                 </i>
-                                {{/ifCond}}
+                                {{/compare}}
                               </p>
                             </div>
                           </div>
@@ -135,7 +147,7 @@
           </td>
         </tr>
         {{/each}}
-        {{else ifCond userType 'Produtor'}}
+        {{else compare userType 'Produtor'}}
         {{#each quotations}}
         <div class="mb-3">
           <div class="my-1 bg-light2 card1 card"  onclick="location.href = '/transaction/{{_id}}'">
@@ -143,23 +155,23 @@
               <div class="row">
                 <div class="col-2 ml-2 ml-lg-4 mr-1 d-inline-block text-center align-self-center">
 
-                  {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+                  {{#compare offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
                   <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
                   <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
-                  {{else ifCond offer.product.category 'Sementes'}}
+                  {{else compare offer.product.category 'Sementes'}}
                   <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
                   <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-                  {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+                  {{else compare offer.product.category 'Fertilizantes sólidos'}}
                   <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
                   <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-                  {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+                  {{else compare offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
                   <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
                   <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-                  {{/ifCond}}
+                  {{/compare}}
                 </div>
                 <div class="col p-2">
                   <div class="vl">
@@ -169,7 +181,7 @@
                     </div>
                     {{/if}}
                     <div class="ml-2  mb-2 mb-lg-3 text-gray3">
-                      <h5 class="text-left align-text-top card-text font-black text-green mobile-font2   text-uppercase">
+                      <h5 class="text-left align-text-top card-text font-black text-green mobile-font2 text-uppercase">
                         {{offer.product.name}}
                       </h5>
                     </div>
@@ -184,17 +196,23 @@
                       <div class="smaller-font d-flex text-center mt-2 mt-lg-3 mt-md-2 align-bottom">
                         <div class="ml-3 ml-md-4 text-gray3 ">
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 ">Compra
-                            {{#ifCond offer.delivery '48 horas'}}
+                            {{#compare offer.delivery '48 horas'}}
                             <span class="count font-light mobile-font0 mobile-font1 mt-5"> <br/>Solo</span>
                             {{else }}
                             <span class="count font-light mobile-font0 mobile-font1 mt-5"> <br/>Grupo</span>
-                            {{/ifCond}}
+                            {{/compare}}
                           </p>
                         </div>
 
                         <div class="ml-2 ml-xs-3 ml-md-4 ml-lg-3 ml-xl-4 text-gray3">
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 ">Entrega
-                            <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}</span>
+                            <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}
+                              {{#ifNotEq offer.delivery '48 horas'}}
+                                {{#ifNotEq offer.delivery '31 dias'}}
+                                  {{groupObject.date}}
+                                {{/ifNotEq}}
+                              {{/ifNotEq}}
+                            </span>
                           </p>
                         </div>
 
@@ -206,12 +224,12 @@
                         <div class="ml-2 ml-xs-3 ml-md-4 ml-lg-3 text-gray3 ml-xl-4 ">
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
                             Custo por unidade
-                            {{#ifCond offer.usd false}}
+                            {{#compare offer.usd false}}
                             <span class="count text-center font-light mobile-font1 mobile-font0 mt-2"> <br/>U$ {{unitPrice}}</span>
-                            {{/ifCond}}
+                            {{/compare}}
                           </p>
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
-                            {{#ifCond offer.usd true}}
+                            {{#compare offer.usd true}}
                             <span class="count text-center font-light mobile-font1 mobile-font0 mt-0">
                               <br/>
                               U$ {{unitPrice}}
@@ -219,7 +237,7 @@
                             <i class="text-gray3  font-light mobile-font1 d-inline">
                               / {{offer.product.unit}}
                             </i>
-                            {{/ifCond}}
+                            {{/compare}}
                           </p>
                         </div>
                       </div>
@@ -246,23 +264,23 @@
               <div class="row">
                 <div class="col-2 ml-2 ml-lg-4 mr-1 d-inline-block text-center align-self-center">
 
-                  {{#ifCond offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
+                  {{#compare offer.product.category 'Defensivos agrícolas/agrotóxicos'}}
                   <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
                   <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
-                  {{else ifCond offer.product.category 'Sementes'}}
+                  {{else compare offer.product.category 'Sementes'}}
                   <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
                   <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-                  {{else ifCond offer.product.category 'Fertilizantes sólidos'}}
+                  {{else compare offer.product.category 'Fertilizantes sólidos'}}
                   <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
                   <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-                  {{else ifCond offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+                  {{else compare offer.product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
                   <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
                   <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
                   <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-                  {{/ifCond}}
+                  {{/compare}}
                 </div>
                 <div class="col p-2">
                   <div class="vl">
@@ -287,17 +305,23 @@
                       <div class="smaller-font d-flex text-center mt-3 align-bottom">
                         <div class="ml-3 ml-md-4 text-gray3 ">
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 ">Compra
-                            {{#ifCond offer.delivery '48 horas'}}
+                            {{#compare offer.delivery '48 horas'}}
                             <span class="count font-light mobile-font0 mobile-font1 mt-5"> <br/>Solo</span>
                             {{else }}
                             <span class="count font-light mobile-font0 mobile-font1 mt-5"> <br/>Grupo</span>
-                            {{/ifCond}}
+                            {{/compare}}
                           </p>
                         </div>
 
                         <div class="ml-2 ml-xs-3 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 ">Entrega
-                            <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}</span>
+                            <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}
+                              {{#ifNotEq offer.delivery '48 horas'}}
+                                {{#ifNotEq offer.delivery '31 dias'}}
+                                  {{groupObject.date}}
+                                {{/ifNotEq}}
+                              {{/ifNotEq}}
+                            </span>
                           </p>
                         </div>
 
@@ -309,12 +333,12 @@
                         <div class="ml-2 ml-xs-3 ml-md-3 ml-lg-3 text-gray3 ml-xl-4 ">
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
                             Custo por unidade
-                            {{#ifCond offer.usd false}}
+                            {{#compare offer.usd false}}
                             <span class="count text-center font-light mobile-font1 mobile-font0 mt-2"> <br/>U$ {{unitPrice}}</span>
-                            {{/ifCond}}
+                            {{/compare}}
                           </p>
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 mb-0" >
-                            {{#ifCond offer.usd true}}
+                            {{#compare offer.usd true}}
                             <span class="count text-center font-light mobile-font1 mobile-font0 mt-0">
                               <br/>
                               U$ {{unitPrice}}
@@ -322,7 +346,7 @@
                             <i class="text-gray3  font-light mobile-font1 d-inline">
                               / {{offer.product.unit}}
                             </i>
-                            {{/ifCond}}
+                            {{/compare}}
                           </p>
                         </div>
                       </div>
@@ -334,7 +358,7 @@
           </div>
         </div>
         {{/each}}
-        {{/ifCond}}
+        {{/compare}}
       </div>
     </div>
     {{else}}

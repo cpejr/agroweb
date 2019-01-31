@@ -21,7 +21,7 @@
       </thead>
       <tbody id="myTable">
         {{#each users}}
-        {{#ifCond status 'Aguardando aprovação'}}
+        {{#compare status 'Aguardando aprovação'}}
         <tr>
           <th scope="row" class="text-center">{{fullName}}</th>
           <td class="text-center">{{type}}</td>
@@ -30,7 +30,7 @@
               Perfil
             </button>
           </td>
-          {{#ifCond type 'Franqueado'}}
+          {{#compare type 'Franqueado'}}
             <td>
               <div class="text-center">
                 <form action="/admin/send-contract" enctype="multipart/form-data" method="post">
@@ -43,7 +43,7 @@
             {{else}}
             <td>
             </td>
-          {{/ifCond}}
+          {{/compare}}
           <td class="text-center">
             <form  method= "POST" action="/admin/{{id}}/requisitions/users">
               <button type="submit" align="center" class="btn btn-outline-success " name="status" value="Ativo">
@@ -59,7 +59,7 @@
             </form>
           </td>
         </tr>
-        {{/ifCond}}
+        {{/compare}}
         {{/each}}
       </tbody>
     </table>

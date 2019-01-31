@@ -32,7 +32,7 @@
           </div>
           <!-- end Quotation info -->
 
-          {{#ifCond userType 'Produtor'}}
+          {{#compare userType 'Produtor'}}
           <!-- Seller info -->
           <div class="col-12 col-md-5 mt-3">
             <h3 class="mb-4">Dados do vendedor</h3>
@@ -43,7 +43,7 @@
             <p>E-mail: {{offer.seller.logistics.email}}</p>
           </div>
           <!-- end Seller info -->
-          {{else ifCond userType 'Indústria'}}
+          {{else compare userType 'Indústria'}}
           <!-- Buyer info -->
           <div class="col-12 col-md-5 mt-3">
             <h3 class="mb-4">Dados do comprador</h3>
@@ -75,7 +75,7 @@
             <p>E-mail: {{buyer.email}}</p>
           </div>
           <!-- end Buyer info -->
-          {{/ifCond}}
+          {{/compare}}
 
           <!-- Product description -->
           {{#if offer.megaOpportunity}}

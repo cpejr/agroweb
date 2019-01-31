@@ -245,14 +245,14 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
             </div>
             <select id="normal-delivery" class="form-control new-shadow" name="offer[delivery]" required>
             <option disabled selected value>-- Forma de entrega --</option>
-            {{#ifCond userType 'Indústria'}}
+            {{#compare userType 'Indústria'}}
             <option value="31 dias">Em até 31 dias</option>
             <option value="Safra">Safra</option>
             <option value="Safrinha">Safrinha</option>
-            {{else ifCond userType 'Revendedor'}}
+            {{else compare userType 'Revendedor'}}
             <option value="31 dias">Em até 31 dias</option>
             <option value="48 horas">Em até 48 horas</option>
-            {{/ifCond}}
+            {{/compare}}
           </select>
         </div>
       </div>

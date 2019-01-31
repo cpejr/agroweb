@@ -15,7 +15,7 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
 <!-- ResultsList -->
 <div id="results-list" class="row justify-content-center mt-2 mx-0">
   <div class="col-sm-12 col-md-5 col-lg-4 btn p-3 cursor-default">
-    {{#ifCond userType 'Revendedor'}}
+    {{#compare userType 'Revendedor'}}
       {{#if offers}}
       {{#each offers}}
       {{#ifNotEq megaOpportunity true}}
@@ -24,23 +24,23 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
           <div class="text-right p-2">
             <div class="row">
               <div class="col-3 d-inline-block text-center align-self-center">
-                {{#ifCond product.category 'Defensivos agrícolas/agrotóxicos'}}
+                {{#compare product.category 'Defensivos agrícolas/agrotóxicos'}}
                 <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
-                {{else ifCond product.category 'Sementes'}}
+                {{else compare product.category 'Sementes'}}
                 <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-                {{else ifCond product.category 'Fertilizantes sólidos'}}
+                {{else compare product.category 'Fertilizantes sólidos'}}
                 <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-                {{else ifCond product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+                {{else compare product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
                 <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-                {{/ifCond}}
+                {{/compare}}
               </div>
 
                 <div class="col p-2">
@@ -98,7 +98,7 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
           <div class="text-right p-2">
             <div class="row">
               <div class="col-3 d-inline-block text-center align-self-center">
-                {{#ifCond product.category 'Sementes'}}
+                {{#compare product.category 'Sementes'}}
                 <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas  fa-seedling fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
@@ -106,7 +106,7 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
                 <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
                 <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
                 <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
-                {{/ifCond}}
+                {{/compare}}
               </div>
 
 
@@ -138,7 +138,13 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
                     </div>
                     <div class="ml-5 text-gray3">
                       <p class="text-uppercase font-book mobile-font2">Entrega
-                        <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
+                        <span class="count font-light mobile-font2"> <br/>{{delivery}}
+                          {{#ifNotEq delivery '48 horas'}}
+                            {{#ifNotEq delivery '31 dias'}}
+                              {{date}}
+                            {{/ifNotEq}}
+                          {{/ifNotEq}}
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -158,23 +164,23 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
         <div class="text-right p-2">
           <div class="row">
             <div class="col-3 d-inline-block text-center align-self-center">
-              {{#ifCond product.category 'Defensivos agrícolas/agrotóxicos'}}
+              {{#compare product.category 'Defensivos agrícolas/agrotóxicos'}}
               <i class="d-inline d-sm-none card-icon fas fa-archive fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-archive fa-3x align-self-center"></i>
               <i class="d-none d-xl-inline card-icon fas fa-archive fa-4x text-left"></i>
-              {{else ifCond product.category 'Sementes'}}
+              {{else compare product.category 'Sementes'}}
               <i class="d-inline d-sm-none card-icon fas fa-dot-circle fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-dot-circle fa-3x align-self-center"></i>
               <i class="d-none d-xl-inline card-icon fas fa-dot-circle fa-4x align-self-center"></i>
-              {{else ifCond product.category 'Fertilizantes sólidos'}}
+              {{else compare product.category 'Fertilizantes sólidos'}}
               <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-seedling fa-3x align-self-center"></i>
               <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
-              {{else ifCond product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
+              {{else compare product.category 'Fertilizantes líquidos/adjuvantes/biológicos'}}
               <i class="d-inline d-sm-none card-icon fas fa-tint fa-2x align-self-center"></i>
               <i class="d-none d-sm-inline d-xl-none card-icon fas fa-tint fa-3x align-self-center"></i>
               <i class="d-none d-xl-inline card-icon fas fa-tint fa-4x align-self-center"></i>
-              {{/ifCond}}
+              {{/compare}}
             </div>
 
               <div class="col p-2">
@@ -238,7 +244,7 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
       <div class="text-right p-2">
         <div class="row">
           <div class="col-3 d-inline-block text-center align-self-center">
-            {{#ifCond product.category 'Sementes'}}
+            {{#compare product.category 'Sementes'}}
             <i class="d-inline d-sm-none card-icon fas fa-seedling fa-2x align-self-center"></i>
             <i class="d-none d-sm-inline d-xl-none card-icon fas  fa-seedling fa-3x align-self-center"></i>
             <i class="d-none d-xl-inline card-icon fas fa-seedling fa-4x align-self-center"></i>
@@ -246,7 +252,7 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
             <i class="d-inline d-sm-none card-icon fas fa-leaf fa-2x align-self-center"></i>
             <i class="d-none d-sm-inline d-xl-none card-icon fas fa-leaf fa-3x align-self-center"></i>
             <i class="d-none d-xl-inline card-icon fas fa-leaf fa-4x align-self-center"></i>
-            {{/ifCond}}
+            {{/compare}}
           </div>
 
 
@@ -278,7 +284,13 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
                 </div>
                 <div class="ml-5 text-gray3">
                   <p class="text-uppercase font-book mobile-font2">Entrega
-                    <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
+                    <span class="count font-light mobile-font2"> <br/>{{delivery}}
+                      {{#ifNotEq delivery '48 horas'}}
+                        {{#ifNotEq delivery '31 dias'}}
+                          {{date}}
+                        {{/ifNotEq}}
+                      {{/ifNotEq}}
+                    </span>
                   </p>
                 </div>
               </div>
@@ -290,7 +302,7 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
   </div>
   {{/each}}
   {{/if}}
-  {{/ifCond}}
+  {{/compare}}
 </div>
 </div>
 <!-- end ResultsList -->

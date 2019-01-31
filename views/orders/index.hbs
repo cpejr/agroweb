@@ -27,7 +27,13 @@
         <td class="d-none">{{offer.product.name}}</td>
         <td class="d-none">{{priceBought}}</td>
         <td class="d-none">{{offer.unitPrice}}</td>
-        <td class="d-none">{{offer.delivery}}</td>
+        <td class="d-none">{{offer.delivery}}
+          {{#ifNotEq offer.delivery '48 horas'}}
+            {{#ifNotEq offer.delivery '31 dias'}}
+              {{groupObject.date}}
+            {{/ifNotEq}}
+          {{/ifNotEq}}
+        </td>
         <td class="d-none">{{offer.stock}}</td>
         <td class="d-none">{{offer.product.category}}</td>
         <td class="d-none">
@@ -110,7 +116,13 @@
 
                     <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                       <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
-                        <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                        <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}
+                          {{#ifNotEq offer.delivery '48 horas'}}
+                            {{#ifNotEq offer.delivery '31 dias'}}
+                              {{groupObject.date}}
+                            {{/ifNotEq}}
+                          {{/ifNotEq}}
+                        </span>
                       </p>
                     </div>
 
@@ -144,7 +156,13 @@
       <td class="d-none">{{offer.product.name}}</td>
       <td class="d-none">{{priceBought}}</td>
       <td class="d-none">{{offer.product.unit}}</td>
-      <td class="d-none">{{offer.delivery}}</td>
+      <td class="d-none">{{offer.delivery}}
+        {{#ifNotEq offer.delivery '48 horas'}}
+          {{#ifNotEq offer.delivery '31 dias'}}
+            {{groupObject.date}}
+          {{/ifNotEq}}
+        {{/ifNotEq}}
+      </td>
       <td class="d-none">{{offer.stock}}</td>
       <td class="d-none">{{offer.product.category}}</td>
       <td class="d-none">
@@ -225,7 +243,13 @@
 
                   <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                     <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Entrega
-                      <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                      <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}
+                        {{#ifNotEq offer.delivery '48 horas'}}
+                          {{#ifNotEq offer.delivery '31 dias'}}
+                            {{groupObject.date}}
+                          {{/ifNotEq}}
+                        {{/ifNotEq}}
+                      </span>
                     </p>
                   </div>
 
@@ -259,7 +283,13 @@
                 <td class="d-none">{{offer.product.name}}</td>
                 <td class="d-none">{{priceBought}}</td>
                 <td class="d-none">{{offer.product.unit}}</td>
-                <td class="d-none">{{offer.delivery}}</td>
+                <td class="d-none">{{offer.delivery}}
+                  {{#ifNotEq offer.delivery '48 horas'}}
+                    {{#ifNotEq offer.delivery '31 dias'}}
+                      {{groupObject.date}}
+                    {{/ifNotEq}}
+                  {{/ifNotEq}}
+                </td>
                 <td class="d-none">{{offer.product.category}}</td>
                 <td class="d-none">
                   {{#compare offer.megaOpportunity true}}
@@ -340,7 +370,13 @@
 
                                   <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                                     <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Entrega
-                                      <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                                      <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}
+                                        {{#ifNotEq offer.delivery '48 horas'}}
+                                          {{#ifNotEq offer.delivery '31 dias'}}
+                                            {{groupObject.date}}
+                                          {{/ifNotEq}}
+                                        {{/ifNotEq}}
+                                      </span>
                                     </p>
                                   </div>
 
@@ -383,7 +419,13 @@
                 <td class="d-none">{{offer.product.name}}</td>
                 <td class="d-none">{{priceBought}}</td>
                 <td class="d-none">{{offer.product.unit}}</td>
-                <td class="d-none">{{offer.delivery}}</td>
+                <td class="d-none">{{offer.delivery}}
+                  {{#ifNotEq offer.delivery '48 horas'}}
+                    {{#ifNotEq offer.delivery '31 dias'}}
+                      {{groupObject.date}}
+                    {{/ifNotEq}}
+                  {{/ifNotEq}}
+                </td>
                 <td class="d-none">{{offer.stock}}</td>
                 <td class="d-none">{{offer.product.category}}</td>
                 <td class="d-none">{{buyer.fullName}}</td>
@@ -451,7 +493,13 @@
 
                             <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                               <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Entrega
-                                <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                                <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}
+                                  {{#ifNotEq offer.delivery '48 horas'}}
+                                    {{#ifNotEq offer.delivery '31 dias'}}
+                                      {{groupObject.date}}
+                                    {{/ifNotEq}}
+                                  {{/ifNotEq}}
+                                </span>
                               </p>
                             </div>
 

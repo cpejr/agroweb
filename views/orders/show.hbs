@@ -94,7 +94,13 @@
         <!-- Transaction info -->
         <div class="col-12 col-md-6 mt-3">
             <h4>Entrega</h4>
-            <p>{{offer.delivery}}</p>
+            <p>{{offer.delivery}}
+              {{#ifNotEq delivery '48 horas'}}
+                {{#ifNotEq delivery '31 dias'}}
+                  {{group.date}}
+                {{/ifNotEq}}
+              {{/ifNotEq}}
+            </p>
 
             <h4>Quantidade comprada</h4>
             <p>{{amountBought}} {{offer.product.unit}}</p>

@@ -54,7 +54,6 @@ router.get('/', (req, res) => {
   cropCloseDate.setDate(cropCloseDate.getDate() - 15);
   smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
 
-
   // console.log(global);
   // const { dollar } = global;
   // console.log(dollar);

@@ -41,7 +41,7 @@ const groupSchema = new mongoose.Schema({
     default: false
   },
   closeDate: Date,
-  date: Date
+  date: String
 }, { timestamps: true, strict: false });
 
 const GroupModel = mongoose.model('Group', groupSchema);

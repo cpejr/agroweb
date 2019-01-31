@@ -143,14 +143,6 @@ app.engine('hbs', exphbs({
       return null;
     },
 
-    // If variable equals...
-    ifCond(v1, v2, options) {
-      if (v1 === v2) {
-        return options.fn(this);
-      }
-      return options.inverse(this);
-    },
-
     ifNotEq(v1, v2, options) {
       if (v1 !== v2) {
         return options.fn(this);
@@ -187,7 +179,6 @@ app.engine('hbs', exphbs({
       }
 
       const operator = options.hash.operator || '==';
-
       const operators = {
         '==': function(l, r) { return l == r; },
         '===': function(l, r) { return l === r; },
@@ -198,13 +189,10 @@ app.engine('hbs', exphbs({
         '>=': function(l, r) { return l >= r; },
         'typeof': function(l, r) { return typeof l == r; }
       }
-
       if (!operators[operator]) {
         throw new Error(`Handlerbars Helper 'compare' doesn't know the operator ${operator}`);
       }
-
       const result = operators[operator](lvalue, rvalue);
-
       if (result) {
         return options.fn(this);
       }

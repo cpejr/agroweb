@@ -73,8 +73,9 @@ router.post('/', (req, res) => {
       }
 
       const cropCloseDate = new Date(crop);
-
       const smallCropCloseDate = new Date(smallCrop);
+      const cropDateString = `${crop.getFullYear()}/${crop.getFullYear() + 1}`;
+      const smallCropDateString = smallCrop.getFullYear();
 
       if (today.getTime() === crop.getTime()) {
         cropCloseDate.setFullYear(crop.getFullYear() + 1);
@@ -142,11 +143,11 @@ router.post('/', (req, res) => {
                   };
                   if (newGroup.delivery === 'Safra') {
                     newGroup.closeDate = cropCloseDate;
-                    newGroup.date = crop;
+                    newGroup.date = cropDateString;
                   }
                   if (newGroup.delivery === 'Safrinha') {
                     newGroup.closeDate = smallCropCloseDate;
-                    newGroup.date = smallCrop;
+                    newGroup.date = smallCropDateString;
                   }
                   Group.create(newGroup).then((groupId) => {
                     console.log(`Created new group with id: ${groupId}`);
@@ -203,8 +204,19 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
   User.getAgreementListById(req.session._id).then((clients) => {
     Offer.getById(req.params.id).then((offer) => {
       if (offer) {
-        const chems = offer.product.chems;
-        res.render('offers/show', { title: offer.product.name, id: req.params.id, userId, userType, chems, clients, ...offer });
+        Group.getOneByQuery({ offer: offer._id }).then((group) => {
+          if (group) {
+            const chems = offer.product.chems;
+            res.render('offers/show', { title: offer.product.name, id: req.params.id, userId, userType, chems, clients, group, ...offer });
+          }
+          else {
+            const chems = offer.product.chems;
+            res.render('offers/show', { title: offer.product.name, id: req.params.id, userId, userType, chems, clients, ...offer });
+          }
+        }).catch((error) => {
+          console.log(error);
+          res.redirect('/error');
+        });
       }
       else {
         console.log('Offer not found!');
@@ -282,8 +294,9 @@ router.put('/:id', (req, res) => {
   }
 
   const cropCloseDate = new Date(crop);
-
   const smallCropCloseDate = new Date(smallCrop);
+  const cropDateString = `${crop.getFullYear()}/${crop.getFullYear() + 1}`;
+  const smallCropDateString = smallCrop.getFullYear();
 
   if (today.getTime() === crop.getTime()) {
     cropCloseDate.setFullYear(crop.getFullYear() + 1);
@@ -348,11 +361,11 @@ router.put('/:id', (req, res) => {
             };
             if (newGroup.delivery === 'Safra') {
               newGroup.closeDate = cropCloseDate;
-              newGroup.date = crop;
+              newGroup.date = cropDateString;
             }
             if (newGroup.delivery === 'Safrinha') {
               newGroup.closeDate = smallCropCloseDate;
-              newGroup.date = smallCrop;
+              newGroup.date = smallCropDateString;
             }
             Group.create(newGroup).then((groupId) => {
               console.log(`Created new group with id: ${groupId}`);

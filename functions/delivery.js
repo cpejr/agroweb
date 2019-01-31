@@ -32,8 +32,9 @@ class Delivery {
       }
 
       const cropCloseDate = new Date(crop);
-
       const smallCropCloseDate = new Date(smallCrop);
+      const cropDateString = `${crop.getFullYear()}/${crop.getFullYear() + 1}`;
+      const smallCropDateString = smallCrop.getFullYear();
 
       if (today.getTime() === crop.getTime()) {
         cropCloseDate.setFullYear(crop.getFullYear() + 1);
@@ -111,7 +112,7 @@ class Delivery {
                   productId: group.offer.product,
                   delivery: group.offer.delivery,
                   closeDate: cropCloseDate,
-                  date: crop
+                  date: cropDateString
                 };
                 Group.create(newGroup).then((groupId) => {
                   console.log(`Created new group with id: ${groupId}`);
@@ -198,7 +199,7 @@ class Delivery {
                   });
                 });
                 Group.delete(group._id).catch((error) => {
-                  console.log(error);
+                  console.log(error);+ '/' + (crop.getFullYear() + 1)
                   reject(error);
                 });
                 const newGroup = {
@@ -208,7 +209,7 @@ class Delivery {
                   productId: group.offer.product,
                   delivery: group.offer.delivery,
                   closeDate: smallCropCloseDate,
-                  date: smallCrop
+                  date: smallCropDateString
                 };
                 Group.create(newGroup).then((groupId) => {
                   console.log(`Created new group with id: ${groupId}`);

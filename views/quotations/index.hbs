@@ -25,10 +25,16 @@
   {{#compare userType 'Franqueado'}}
   {{#each quotations}}
   <tr class="col-12">
-    <td class="d-none">{{product.name}}</td>
+    <td class="d-none">{{offer.product.name}}</td>
     <td class="d-none">{{priceBought}}</td>
     <td class="d-none">{{amountBought}}</td>
-    <td class="d-none">{{delivery}}</td>
+    <td class="d-none">{{offer.delivery}}
+      {{#ifNotEq offer.delivery '48 horas'}}
+        {{#ifNotEq offer.delivery '31 dias'}}
+          {{groupObject.date}}
+        {{/ifNotEq}}
+      {{/ifNotEq}}
+    </td>
     <td class="d-none">{{unitPrice}}</td>
     <td class="">
 
@@ -89,7 +95,13 @@
 
                             <div class="ml-2 ml-xs-3 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                               <p class="text-uppercase font-book mobile-font1 mobile-font0 ">Entrega
-                                <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}</span>
+                                <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}
+                                  {{#ifNotEq offer.delivery '48 horas'}}
+                                    {{#ifNotEq offer.delivery '31 dias'}}
+                                      {{groupObject.date}}
+                                    {{/ifNotEq}}
+                                  {{/ifNotEq}}
+                                </span>
                               </p>
                             </div>
 
@@ -169,7 +181,7 @@
                     </div>
                     {{/if}}
                     <div class="ml-2  mb-2 mb-lg-3 text-gray3">
-                      <h5 class="text-left align-text-top card-text font-black text-green mobile-font2   text-uppercase">
+                      <h5 class="text-left align-text-top card-text font-black text-green mobile-font2 text-uppercase">
                         {{offer.product.name}}
                       </h5>
                     </div>
@@ -194,7 +206,13 @@
 
                         <div class="ml-2 ml-xs-3 ml-md-4 ml-lg-3 ml-xl-4 text-gray3">
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 ">Entrega
-                            <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}</span>
+                            <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}
+                              {{#ifNotEq offer.delivery '48 horas'}}
+                                {{#ifNotEq offer.delivery '31 dias'}}
+                                  {{groupObject.date}}
+                                {{/ifNotEq}}
+                              {{/ifNotEq}}
+                            </span>
                           </p>
                         </div>
 
@@ -297,7 +315,13 @@
 
                         <div class="ml-2 ml-xs-3 ml-md-3 ml-lg-3 ml-xl-4 text-gray3">
                           <p class="text-uppercase font-book mobile-font1 mobile-font0 ">Entrega
-                            <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}</span>
+                            <span class="count font-light mobile-font1 mobile-font0 mt-5 "> <br/>{{offer.delivery}}
+                              {{#ifNotEq offer.delivery '48 horas'}}
+                                {{#ifNotEq offer.delivery '31 dias'}}
+                                  {{groupObject.date}}
+                                {{/ifNotEq}}
+                              {{/ifNotEq}}
+                            </span>
                           </p>
                         </div>
 

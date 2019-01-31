@@ -23,7 +23,13 @@
       {{/each}}
 
       <dt class="font-bold">Forma de entrega</dt>
-      <dd class="font-light">{{delivery}}</dd>
+      <dd class="font-light">{{delivery}}
+        {{#ifNotEq delivery '48 horas'}}
+          {{#ifNotEq delivery '31 dias'}}
+            {{groupObject.date}}
+          {{/ifNotEq}}
+        {{/ifNotEq}}
+      </dd>
 
       <dt class="font-bold">Fabricante</dt>
       <dd class="font-light">{{product.manufacturer}}</dd>
@@ -78,7 +84,13 @@
             </div>
             <div class="col-12">
               <h4>Entrega:</h4>
-              <p class="font-light">{{delivery}}</p>
+              <p class="font-light">{{delivery}}
+                {{#ifNotEq delivery '48 horas'}}
+                  {{#ifNotEq delivery '31 dias'}}
+                    {{groupObject.date}}
+                  {{/ifNotEq}}
+                {{/ifNotEq}}
+              </p>
             </div>
             <div class="col-12">
               <h4>Preços:</h4>

@@ -138,7 +138,13 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
                     </div>
                     <div class="ml-5 text-gray3">
                       <p class="text-uppercase font-book mobile-font2">Entrega
-                        <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
+                        <span class="count font-light mobile-font2"> <br/>{{delivery}}
+                          {{#ifNotEq delivery '48 horas'}}
+                            {{#ifNotEq delivery '31 dias'}}
+                              {{date}}
+                            {{/ifNotEq}}
+                          {{/ifNotEq}}
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -278,7 +284,13 @@ para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior 
                 </div>
                 <div class="ml-5 text-gray3">
                   <p class="text-uppercase font-book mobile-font2">Entrega
-                    <span class="count font-light mobile-font2"> <br/>{{delivery}}</span>
+                    <span class="count font-light mobile-font2"> <br/>{{delivery}}
+                      {{#ifNotEq delivery '48 horas'}}
+                        {{#ifNotEq delivery '31 dias'}}
+                          {{date}}
+                        {{/ifNotEq}}
+                      {{/ifNotEq}}
+                    </span>
                   </p>
                 </div>
               </div>

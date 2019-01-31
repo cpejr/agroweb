@@ -52,6 +52,10 @@ const transactionSchema = new mongoose.Schema({
   group: {
     type: Boolean,
     default: false
+  },
+  groupObject: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Group'
   }
 }, { timestamps: true, strict: false });
 
@@ -65,7 +69,7 @@ class Transaction {
   static getAll() {
     return new Promise((resolve, reject) => {
       TransactionModel.find({}).populate({
-        path: 'buyer offer',
+        path: 'buyer offer groupObject',
         populate: {
           path: 'seller franchisee product',
           populate: { path: 'chem' }
@@ -86,7 +90,7 @@ class Transaction {
   static getById(id) {
     return new Promise((resolve, reject) => {
       TransactionModel.findById(id).populate({
-        path: 'buyer offer',
+        path: 'buyer offer groupObject',
         populate: {
           path: 'seller franchisee product',
           populate: { path: 'chem' }

@@ -311,7 +311,7 @@ class User {
       UserModel.findById(id).populate({
         path: 'transactions',
         populate: {
-          path: 'buyer offer franchisee',
+          path: 'buyer offer groupObject franchisee',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }
@@ -336,7 +336,7 @@ class User {
         path: 'myCart',
         match: { status: { $nin: ['Cancelado'] } },
         populate: {
-          path: 'buyer offer franchisee',
+          path: 'buyer offer groupObject franchisee',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }
@@ -361,7 +361,7 @@ class User {
         path: 'transactions',
         match: { status: { $nin: ['Cancelado', 'Entregue'] }, $or: [ { buyer: { $eq: id } }, { franchisee: { $eq: id} } ] },
         populate: {
-          path: 'buyer offer franchisee',
+          path: 'buyer offer groupObject franchisee',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }
@@ -386,7 +386,7 @@ class User {
         path: 'transactions',
         match: { status: { $nin: ['Cancelado', 'Entregue'] }, buyer: { $ne: id } },
         populate: {
-          path: 'buyer offer',
+          path: 'buyer groupObject offer',
           populate: {
             path: 'seller product',
             populate: { path: 'chem' }

@@ -104,6 +104,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
         }
         transactionData.unitPrice = transactionData.unitPrice.toFixed(2);
         transactionData.priceBought = transactionData.priceBought.toFixed(2);
+        transactionData.groupObject = group._id;
         Transaction.create(transactionData).then((transaction) => {
           Group.update(group._id, { unitPrice: transactionData.unitPrice, amount: balanceGroup }).then(() => {
             Group.updateAllTransactions(group._id).catch((error) => {
@@ -165,15 +166,26 @@ router.get('/:id', (req, res) => {
   const userId = req.session._id;
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
-      res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, userId });
+      Group.getOneByQuery({ offer: transaction.offer }).then((group) => {
+        if (group) {
+          res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, group, userId });
+        }
+        else {
+          res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, userId });
+        }
+      }).catch((error) => {
+        console.log(error);
+        req.flash('danger', 'Não foi possível recuperar a transação.');
+        res.redirect('/user');
+      });
     }
     else {
-      req.flash('danger', 'Não foi possível a transação.');
+      req.flash('danger', 'Não foi possível recuperar a transação.');
       res.redirect('/user');
     }
   }).catch((error) => {
     console.log(error);
-    req.flash('danger', 'Não foi possível a transação.');
+    req.flash('danger', 'Não foi possível recuperar a transação.');
     res.redirect('/user');
   });
 });

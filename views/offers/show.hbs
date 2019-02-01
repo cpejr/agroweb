@@ -105,10 +105,6 @@
         {{/compare}}
       {{else compare userType 'Administrador'}}
       <div class="col-12">
-        <h4>Estoque</h4>
-        <p class="font-light">{{stock}} {{product.unit}}</p>
-      </div>
-      <div class="col-12">
         <h4>Status</h4>
         {{#compare active true}}
         <p class="font-light">Ativo</p>
@@ -162,6 +158,7 @@
             <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
             {{else}}
             <form action="/offers/{{_id}}?_method=PUT" method="POST">
+              <input type="hidden" name="offer[active]" value="true">
               <button type="submit" onclick="return confirm('Tem certeza que deseja ativar esta oferta?');" class="w-100 text-white btn btn-success my-2">Ativar oferta</button>
             </form>
             {{/compare}}
@@ -201,6 +198,7 @@
             <button class="w-100 text-white btn btn-default bg-green my-2" name="button" onclick="location.href = '/offers/{{_id}}/edit'">Editar oferta</button>
             {{else}}
             <form action="/offers/{{_id}}?_method=PUT" method="POST">
+              <input type="hidden" name="offer[active]" value="true">
               <button type="submit" onclick="return confirm('Tem certeza que deseja ativar esta oferta?');" class="w-100 text-white btn btn-success my-2">Ativar oferta</button>
             </form>
             {{/compare}}

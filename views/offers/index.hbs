@@ -89,7 +89,15 @@
                         <div class="smaller-font d-flex text-center mt-3 align-bottom">
                           <div class="ml-2 text-gray3">
                             <p class="text-uppercase font-book mobile-font2">Compra
+                              {{#if megaOpportunity}}
                               <span class="count font-light mobile-font2"> <br/>solo</span>
+                              {{else}}
+                                {{#compare delivery '48 horas'}}
+                                <span class="count font-light mobile-font2"> <br/>solo</span>
+                                {{else}}
+                                <span class="count font-light mobile-font2"> <br/>em grupo</span>
+                                {{/compare}}
+                              {{/if}}
                             </p>
                           </div>
                           <div class="ml-4 text-gray3">
@@ -125,8 +133,6 @@
 
 {{#section 'scripts'}}
 <script src="/javascripts/sales.js"></script>
-<script src="/javascripts/navbar.js"></script>
-<!-- <script src="/javascripts/filter.js"></script> -->
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {

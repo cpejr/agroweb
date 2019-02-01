@@ -106,11 +106,15 @@
                   <div class="smaller-font d-flex text-center align-bottom">
                     <div class="ml-3 ml-lg-4 text-gray3">
                       <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2 ">Compra
-                        {{#compare offer.delivery '48 horas'}}
-                        <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                        {{else }}
-                        <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
-                        {{/compare}}
+                        {{#if offer.megaOpportunity}}
+                        <span class="count font-light mobile-font2"> <br/>solo</span>
+                        {{else}}
+                          {{#compare offer.delivery '48 horas'}}
+                          <span class="count font-light mobile-font2"> <br/>solo</span>
+                          {{else}}
+                          <span class="count font-light mobile-font2"> <br/>em grupo</span>
+                          {{/compare}}
+                        {{/if}}
                       </p>
                     </div>
 
@@ -233,11 +237,15 @@
                 <div class="smaller-font d-flex text-center align-bottom">
                   <div class="ml-3 ml-lg-4 text-gray3">
                     <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2">Compra
-                      {{#compare group 'true'}}
-                      <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
+                      {{#if offer.megaOpportunity}}
+                      <span class="count font-light mobile-font2"> <br/>solo</span>
                       {{else}}
-                      <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                      {{/compare}}
+                        {{#compare offer.delivery '48 horas'}}
+                        <span class="count font-light mobile-font2"> <br/>solo</span>
+                        {{else}}
+                        <span class="count font-light mobile-font2"> <br/>em grupo</span>
+                        {{/compare}}
+                      {{/if}}
                     </p>
                   </div>
 
@@ -360,11 +368,15 @@
                                 <div class="smaller-font d-flex text-center align-bottom">
                                   <div class="ml-3 ml-lg-4 text-gray3">
                                     <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2">Compra
-                                      {{#compare group 'true'}}
-                                      <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
+                                      {{#if offer.megaOpportunity}}
+                                      <span class="count font-light mobile-font2"> <br/>solo</span>
                                       {{else}}
-                                      <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                                      {{/compare}}
+                                        {{#compare offer.delivery '48 horas'}}
+                                        <span class="count font-light mobile-font2"> <br/>solo</span>
+                                        {{else}}
+                                        <span class="count font-light mobile-font2"> <br/>em grupo</span>
+                                        {{/compare}}
+                                      {{/if}}
                                     </p>
                                   </div>
 
@@ -483,11 +495,15 @@
                           <div class="smaller-font d-flex text-center align-bottom">
                             <div class="ml-3 ml-lg-4 text-gray3">
                               <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2">Compra
-                                {{#compare group 'true'}}
-                                <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
+                                {{#if offer.megaOpportunity}}
+                                <span class="count font-light mobile-font2"> <br/>solo</span>
                                 {{else}}
-                                <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                                {{/compare}}
+                                  {{#compare offer.delivery '48 horas'}}
+                                  <span class="count font-light mobile-font2"> <br/>solo</span>
+                                  {{else}}
+                                  <span class="count font-light mobile-font2"> <br/>em grupo</span>
+                                  {{/compare}}
+                                {{/if}}
                               </p>
                             </div>
 

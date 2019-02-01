@@ -108,7 +108,7 @@ class Delivery {
                 const newGroup = {
                   amount: 0,
                   offer: group.offer._id,
-                  price: group.offer.price.high,
+                  unitPrice: group.offer.price.high,
                   productId: group.offer.product,
                   delivery: group.offer.delivery,
                   closeDate: cropCloseDate,
@@ -205,7 +205,7 @@ class Delivery {
                 const newGroup = {
                   amount: 0,
                   offer: group.offer._id,
-                  price: group.offer.price.high,
+                  unitPrice: group.offer.price.high,
                   productId: group.offer.product,
                   delivery: group.offer.delivery,
                   closeDate: smallCropCloseDate,

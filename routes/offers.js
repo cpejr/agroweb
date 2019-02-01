@@ -34,6 +34,13 @@ router.get('/new', auth.canSell, (req, res) => {
 router.post('/', (req, res) => {
   const { offer } = req.body;
   console.log(offer);
+  offer.stock = parseFloat(offer.stock);
+  offer.minAmount = parseFloat(offer.minAmount);
+  offer.price.low = parseFloat(offer.price.low);
+  offer.price.average = parseFloat(offer.price.average);
+  offer.price.high = parseFloat(offer.price.high);
+  offer.breakpoints.low = parseFloat(offer.breakpoints.low);
+  offer.breakpoints.average = parseFloat(offer.breakpoints.average);
   User.getAllOffersByUserId(req.session._id).then((offers) => {
     offers.forEach((object) => {
       if (object.product.name === offer.product && object.delivery === offer.delivery) {
@@ -50,7 +57,7 @@ router.post('/', (req, res) => {
     }
     console.log(offer.breakpoints.low, typeof (offer.breakpoints.low));
     console.log(offer.breakpoints.average, typeof (offer.breakpoints.average));
-    if (parseInt(offer.breakpoints.low, 10) > parseInt(offer.breakpoints.average, 10)) {
+    if (offer.breakpoints.low > offer.breakpoints.average) {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const cropDate = global.config.date.crop;
@@ -137,7 +144,7 @@ router.post('/', (req, res) => {
                   const newGroup = {
                     amount: 0,
                     offer: offerId,
-                    price: offer.price.high,
+                    unitPrice: offer.price.high,
                     productId: offer.product,
                     delivery: offer.delivery
                   };
@@ -355,7 +362,7 @@ router.put('/:id', (req, res) => {
             const newGroup = {
               amount: 0,
               offer: offer._id,
-              price: offer.price.high,
+              unitPrice: offer.price.high,
               productId: offer.product,
               delivery: offer.delivery
             };

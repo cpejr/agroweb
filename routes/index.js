@@ -206,19 +206,15 @@ router.post('/signup', (req, res) => {
 
     // Separates the first name from the rest
     const position = userData.name.indexOf(' ');
-
-    if (position) {
+    if (position > -1) {
       userData.firstName = userData.name.slice(0, position);
     }
     else {
       userData.firstName = userData.name;
     }
-
     userData.fullName = userData.name;
 
-    // console.log(userData.firstName);
-
-    // delete userData.name;
+    delete userData.name;
     firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
       userData.uid = user.uid;
       delete userData.password;
@@ -254,8 +250,8 @@ router.post('/signup', (req, res) => {
           }
         }
       }).catch((error) => {
-        var user = firebase.auth().currentUser;
-        user.delete().catch(function(error) {
+        var userLogged = firebase.auth().currentUser;
+        userLogged.delete().catch((error) => {
           req.flash('danger', 'Não foi possível liberar o email para nova utilização');
         });
 

@@ -27,7 +27,7 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  */
 router.post('/', auth.isAuthenticated, (req, res) => {
   const transactionData = {
-    amountBought: req.body.amountBought,
+    amountBought: parseFloat(req.body.amountBought),
     offer: req.body._id,
   };
   if (req.session.userType === 'Franqueado') {
@@ -54,11 +54,11 @@ router.post('/', auth.isAuthenticated, (req, res) => {
         transactionData.unitPrice = offer.price.low;
         transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
       }
-      transactionData.unitPrice = transactionData.unitPrice.toFixed(2);
-      transactionData.priceBought = transactionData.priceBought.toFixed(2);
+      transactionData.unitPrice = parseFloat(transactionData.unitPrice.toFixed(2));
+      transactionData.priceBought = parseFloat(transactionData.priceBought.toFixed(2));
       // Create a new transaction
       Transaction.create(transactionData).then((transaction) => {
-        const balanceOffer = parseInt(offer.balance, 10) + parseInt(transactionData.amountBought, 10);
+        const balanceOffer = offer.balance + transactionData.amountBought;
         const offerData = {
           balance: balanceOffer
         };
@@ -102,8 +102,8 @@ router.post('/', auth.isAuthenticated, (req, res) => {
           transactionData.unitPrice = group.offer.price.low;
           transactionData.priceBought = transactionData.amountBought * transactionData.unitPrice;
         }
-        transactionData.unitPrice = transactionData.unitPrice.toFixed(2);
-        transactionData.priceBought = transactionData.priceBought.toFixed(2);
+        transactionData.unitPrice = parseFloat(transactionData.unitPrice.toFixed(2));
+        transactionData.priceBought = parseFloat(transactionData.priceBought.toFixed(2));
         transactionData.groupObject = group._id;
         Transaction.create(transactionData).then((transaction) => {
           Group.update(group._id, { unitPrice: transactionData.unitPrice, amount: balanceGroup }).then(() => {
@@ -205,16 +205,16 @@ router.put('/:id', (req, res) => {
       if (transaction.franchisee) {
         let taxFranchisee = 0;
         if (transaction.offer.product.category === 'Fertilizantes sólidos') {
-          taxFranchisee = global.config.tax.franchisee.solidFertilizer;
+          taxFranchisee = parseFloat(global.config.tax.franchisee.solidFertilizer);
         }
         else if (transaction.offer.product.category === 'Defensivos agrícolas/agrotóxicos') {
-          taxFranchisee = global.config.tax.franchisee.defensive;
+          taxFranchisee = parseFloat(global.config.tax.franchisee.defensive);
         }
         else if (transaction.offer.product.category === 'Sementes') {
-          taxFranchisee = global.config.tax.franchisee.seed;
+          taxFranchisee = parseFloat(global.config.tax.franchisee.seed);
         }
         else if (transaction.offer.product.category === 'Fertilizantes líquidos/adjuvantes/biológicos') {
-          taxFranchisee = global.config.tax.franchisee.solidFertilizer;
+          taxFranchisee = parseFloat(global.config.tax.franchisee.solidFertilizer);
         }
         transactionData.franchiseeTaxStatus = 'Não necessário';
         transactionData.franchiseeTaxValue = transaction.priceBought * taxFranchisee;

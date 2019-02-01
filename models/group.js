@@ -19,7 +19,7 @@ const groupSchema = new mongoose.Schema({
     ref: 'Offer',
     required: true
   },
-  price: {
+  unitPrice: {
     type: Number,
     required: true
   },
@@ -232,9 +232,8 @@ class Group {
         }
       }).exec().then((result) => {
         result.transactions.forEach((transaction) => {
-          let unitPrice = 0;
-          unitPrice = result.unitPrice;
-          const priceBought = (unitPrice * transaction.amountBought).toFixed(2);
+          let unitPrice = result.unitPrice;
+          const priceBought = parseFloat((unitPrice * transaction.amountBought).toFixed(2));
           Transaction.update(transaction._id, { unitPrice, priceBought, offer: result.offer }).catch((err) => {
             reject(err);
           });

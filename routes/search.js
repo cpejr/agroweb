@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
         const queryOffer = { product: product._id, $or: [{ delivery: '48 horas' }, { megaOpportunity: true }], active: true };
         const sortOffer = { 'product.name': 1, delivery: -1, 'price.low': 1 };
         const queryGroup = { productId: product._id, active: true };
-        const sortGroup = { 'offer.product.name': 1, delivery: -1, price: 1 };
+        const sortGroup = { 'offer.product.name': 1, delivery: -1, unitPrice: 1 };
         let promise = Offer.getByQuerySorted(queryOffer, sortOffer);
         offerPromises.push(promise);
         promise = Group.getByQuerySorted(queryGroup, sortGroup);

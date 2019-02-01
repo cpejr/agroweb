@@ -117,11 +117,10 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
 
 router.post('/inactive', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
-      console.log('Enviando email para aprovar um usuário');
-      Email.inactivatedUsersEmail(user).catch((error) => {
-        req.flash('danger', 'Não foi possível enviar o email para o usuário inativado.');
-        res.redirect('/login');
-      });
+    Email.inactivatedUsersEmail(user).catch((error) => {
+      req.flash('danger', 'Não foi possível enviar o email para o usuário inativado.');
+      res.redirect('/login');
+    });
   });
   const user = {
     status: 'Inativo'
@@ -273,7 +272,12 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
 
   // Separates the first name from the rest
   const position = userData.fullName.indexOf(' ');
-  userData.firstName = userData.fullName.slice(0, position);
+  if (position > -1) {
+    userData.firstName = userData.fullName.slice(0, position);
+  }
+  else {
+    userData.firstName = userData.fullName;
+  }
   User.update(req.session._id, userData).then(() => {
     req.flash('success', 'Perfil atualizado.');
     res.redirect('/user');

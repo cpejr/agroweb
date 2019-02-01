@@ -27,7 +27,7 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  */
 router.post('/', auth.isAuthenticated, (req, res) => {
   const transactionData = {
-    amountBought: req.body.amountBought,
+    amountBought: parseFloat(req.body.amountBought),
     offer: req.body._id,
   };
   if (req.session.userType === 'Franqueado') {

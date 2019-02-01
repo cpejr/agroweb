@@ -16,10 +16,8 @@ router.get('/', (req, res) => {
   const offerPromises = [];
   const groupPromises = [];
   Product.getByQuerySorted(queryProduct, sortProduct).then((products) => {
-    console.log(products.length);
     if (products.length !== 0) {
       products.forEach((product) => {
-        console.log(product);
         const queryOffer = { product: product._id, $or: [{ delivery: '48 horas' }, { megaOpportunity: true }], active: true };
         const sortOffer = { 'product.name': 1, delivery: -1, 'price.low': 1 };
         const queryGroup = { productId: product._id, active: true };
@@ -31,8 +29,6 @@ router.get('/', (req, res) => {
       });
       Promise.all(offerPromises).then((offerResults) => {
         Promise.all(groupPromises).then((groupResults) => {
-          console.log(offerResults);
-          console.log(groupResults);
           let groups = groupResults[0].concat(groupResults[1]);
           let offers = offerResults[0].concat(offerResults[1]);
           for (let i = 2; i < groupResults.length; i++) {

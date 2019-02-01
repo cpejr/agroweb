@@ -21,14 +21,12 @@
   </div>
   <!--Logo-->
   <div class="container" >
-
     <div class="row justify-content-center">
       <div class="col-12 col-sm-12 col-md-12 text-center">
         <img src="images/logo menor.png" alt="Logo do MegaPool">
       </div>
     </div>
   </div>
-
 </main>
 
 <footer class="fixed-bottom" style="">
@@ -42,16 +40,17 @@
     </div>
     <form action="/maintenance/newsletter" method="post">
       <div class="row justify-content-center form-row" id="form-nl">
-        <div class="col-6 col-md-2">
-          <select name="newsletter[type]" class="form-control"  class="form-control">
+        <div class="col-6 col-md-3">
+          <!-- <select name="newsletter[type]" class="form-control"  class="form-control">
             <option selected disabled hidden>Selecione</option>
             <option value="Indústria">Indústria</option>
             <option value="Produtor">Produtor</option>
             <option value="Franqueado">Franqueado</option>
             <option value="Revendedor">Revendedor</option>
-          </select>
+          </select> -->
+          <input type="text" placeholder="Nome completo" name="newsletter[fullName]" class="form-control">
         </div>
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-3">
           <input type="email" placeholder="email@exemplo.com" class="form-control" name="newsletter[email]" id="mail">
         </div>
         <div class="col-12 col-md-2">
@@ -61,6 +60,7 @@
     </form>
   </div>
 </footer>
+
 {{#section 'scripts'}}
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script>
@@ -80,5 +80,4 @@ $(function() {
   });
 });
 </script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 {{/section}}

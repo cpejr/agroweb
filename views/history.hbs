@@ -46,20 +46,20 @@
                   {{/if}}
 
                   <div class="ml-1 mb-1 mb-md-2 mb-xl-3 text-gray3">
-                    <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4  text-uppercase">
+                    <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4 text-uppercase">
                       {{offer.product.name}}
                     </h5>
                   </div>
 
                   <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
-                    <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
+                    <h5 class=" font-book text-left align-text-top card-text font-black text-gray4 mobile-font2">
                       {{status}}
                     </h5>
                   </div>
 
                   <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
                     <div class="text-left side-animation">
-                      <h4 class="font-book text-gray4  mobile-font2  d-inline">
+                      <h4 class="font-book text-gray4 mobile-font2 d-inline">
                         U$ {{priceBought}}
                       </h4>
 
@@ -68,48 +68,50 @@
                   <div class="row align-right">
                     <div class="smaller-font d-flex text-center align-bottom">
                       <div class="ml-3 ml-lg-4 text-gray3">
-                        <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2  ">Compra
-                          {{#compare offer.delivery '48 horas'}}
-                          <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                          {{else }}
-                          <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
-                          {{/compare}}
-                        </p>
-                      </div>
-
-                      <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                        <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
-                          <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                        <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Compra
+                          {{#if offer.megaOpportunity}}
+                          <span class="count font-light mobile-font2"> <br/>solo</span>
+                          {{else}}
+                            {{#compare offer.delivery '48 horas'}}
+                            <span class="count font-light mobile-font2"> <br/>solo</span>
+                            {{else}}
+                            <span class="count font-light mobile-font2"> <br/>em grupo</span>
+                            {{/compare}}
+                          {{/if}}
                         </p>
                       </div>
 
                       <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                        <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
+                        <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Entrega
+                          <span class="count text-dark mobile-font0"> <br/>{{offer.delivery}}
+                            {{#ifNotEq offer.delivery '48 horas'}}
+                              {{#ifNotEq offer.delivery '31 dias'}}
+                                {{groupObject.date}}
+                              {{/ifNotEq}}
+                            {{/ifNotEq}}
+                          </span>
+                        </p>
+                      </div>
+
+                      <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                        <p class="text-uppercase text-center text-dark font-book mobile-font0 mobile-font2">Qnt
                           <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
                         </p>
                       </div>
                       <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                        <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
+                        <p class="text-uppercase font-book mobile-font0 text-dark mobile-font2 mb-0" >
                           Custo por unidade
-                          {{#compare offer.usd false}}
-                          <span class="count text-center text-dark  mobile-font0 text-dark mobile-font2  mt-0"> <br/>U$ {{unitPrice}}</span>
-                          {{/compare}}
-                        </p>
-                        {{#compare offer.usd true}}
-                        <span class="count text-center text-dark  mobile-font1  mt-0">
-                          <br/>
-                          U$ {{unitPrice}}
-                        </span>
+                          <span class="count text-center text-dark mobile-font0 text-dark mobile-font2 mt-0"> <br/>U$ {{unitPrice}}</span>
                         <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
                           / {{offer.product.unit}}
+                        </p>
                         </i>
-                        {{/compare}}
                       </div>
                     </div>
                   </div>
                   {{#if franchisee}}
                   <div class="ml-2">
-                    <p class="smaller-font text-left align-text-top card-text font-book text-dark  mobile-font1 ">
+                    <p class="smaller-font text-left align-text-top card-text font-book text-dark mobile-font1 ">
                       Cliente: {{buyer.firstName}}
                     </p>
                   </div>
@@ -159,20 +161,20 @@
                   {{/if}}
 
                   <div class="ml-1 mb-1 mb-md-2 mb-xl-3 text-gray3">
-                    <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4  text-uppercase">
+                    <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4 text-uppercase">
                       {{offer.product.name}}
                     </h5>
                   </div>
 
                   <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
-                    <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
+                    <h5 class=" font-book text-left align-text-top card-text font-black text-gray4 mobile-font2">
                       {{status}}
                     </h5>
                   </div>
 
                   <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
                     <div class="text-left side-animation">
-                      <h4 class="font-book text-gray4  mobile-font2  d-inline">
+                      <h4 class="font-book text-gray4 mobile-font2 d-inline">
                         U$ {{priceBought}}
                       </h4>
 
@@ -181,48 +183,50 @@
                   <div class="row align-right">
                     <div class="smaller-font d-flex text-center align-bottom">
                       <div class="ml-3 ml-lg-4 text-gray3">
-                        <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2  ">Compra
-                          {{#compare offer.delivery '48 horas'}}
-                          <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                          {{else }}
-                          <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
-                          {{/compare}}
+                        <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Compra
+                          {{#if offer.megaOpportunity}}
+                          <span class="count font-light mobile-font2"> <br/>solo</span>
+                          {{else}}
+                            {{#compare offer.delivery '48 horas'}}
+                            <span class="count font-light mobile-font2"> <br/>solo</span>
+                            {{else}}
+                            <span class="count font-light mobile-font2"> <br/>em grupo</span>
+                            {{/compare}}
+                          {{/if}}
                         </p>
                       </div>
 
                       <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                        <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
-                          <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                        <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Entrega
+                          <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}
+                            {{#ifNotEq offer.delivery '48 horas'}}
+                              {{#ifNotEq offer.delivery '31 dias'}}
+                                {{groupObject.date}}
+                              {{/ifNotEq}}
+                            {{/ifNotEq}}
+                          </span>
                         </p>
                       </div>
 
                       <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                        <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
-                          <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
+                        <p class="text-uppercase text-center text-dark font-book mobile-font0 mobile-font2">Qnt
+                          <span class="count text-center text-dark mobile-font0"> <br/>{{amountBought}}</span>
                         </p>
                       </div>
                       <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                        <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
+                        <p class="text-uppercase font-book mobile-font0 text-dark mobile-font2 mb-0" >
                           Custo por unidade
-                          {{#compare offer.usd false}}
-                          <span class="count text-center text-dark  mobile-font0 text-dark mobile-font2  mt-0"> <br/>U$ {{unitPrice}}</span>
-                          {{/compare}}
+                          <span class="count text-center text-dark mobile-font0 text-dark mobile-font2 mt-0"> <br/>U$ {{unitPrice}}</span>
+                          <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                            / {{offer.product.unit}}
+                          </i>
                         </p>
-                        {{#compare offer.usd true}}
-                        <span class="count text-center text-dark  mobile-font1  mt-0">
-                          <br/>
-                          U$ {{unitPrice}}
-                        </span>
-                        <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                          / {{offer.product.unit}}
-                        </i>
-                        {{/compare}}
                       </div>
                     </div>
                   </div>
                   {{#if franchisee}}
                   <div class="ml-2">
-                    <p class="smaller-font text-left align-text-top card-text font-book text-dark  mobile-font1 ">
+                    <p class="smaller-font text-left align-text-top card-text font-book text-dark mobile-font1 ">
                       Franqueado: {{franchisee.firstName}}
                     </p>
                   </div>
@@ -272,20 +276,20 @@
                   {{/if}}
 
                   <div class="ml-1 mb-1 mb-md-2 mb-xl-3 text-gray3">
-                    <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4  text-uppercase">
+                    <h5 class="text-left align-text-top card-text font-black text-green mobile-fontCT mobile-font4 text-uppercase">
                       {{offer.product.name}}
                     </h5>
                   </div>
 
                   <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
-                    <h5 class=" font-book text-left align-text-top card-text font-black  text-gray4 mobile-font2 ">
+                    <h5 class=" font-book text-left align-text-top card-text font-black text-gray4 mobile-font2">
                       {{status}}
                     </h5>
                   </div>
 
                   <div class="ml-1 mb-1 mb-md-2 mb-xl-3">
                     <div class="text-left side-animation">
-                      <h4 class="font-book text-gray4  mobile-font2  d-inline">
+                      <h4 class="font-book text-gray4 mobile-font2 d-inline">
                         U$ {{priceBought}}
                       </h4>
 
@@ -294,41 +298,44 @@
                   <div class="row align-right">
                     <div class="smaller-font d-flex text-center align-bottom">
                       <div class="ml-3 ml-lg-4 text-gray3">
-                        <p class="text-uppercase  text-dark font-book mobile-font0 mobile-font2  ">Compra
-                          {{#compare offer.delivery '48 horas'}}
-                          <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Solo</span>
-                          {{else }}
-                          <span class="count text-dark mobile-font0 mobile-font2 "> <br/>Grupo</span>
-                          {{/compare}}
-                        </p>
-                      </div>
-
-                      <div class="ml-2  ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                        <p class="text-uppercase text-dark font-book mobile-font0   mobile-font2">Entrega
-                          <span class="count text-dark mobile-font0 "> <br/>{{offer.delivery}}</span>
+                        <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Compra
+                          {{#if offer.megaOpportunity}}
+                          <span class="count font-light mobile-font2"> <br/>solo</span>
+                          {{else}}
+                            {{#compare offer.delivery '48 horas'}}
+                            <span class="count font-light mobile-font2"> <br/>solo</span>
+                            {{else}}
+                            <span class="count font-light mobile-font2"> <br/>em grupo</span>
+                            {{/compare}}
+                          {{/if}}
                         </p>
                       </div>
 
                       <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                        <p class="text-uppercase text-center text-dark  font-book mobile-font0   mobile-font2">Qnt
-                          <span class="count text-center text-dark mobile-font0 "> <br/>{{amountBought}}</span>
+                        <p class="text-uppercase text-dark font-book mobile-font0 mobile-font2">Entrega
+                          <span class="count text-dark mobile-font0"> <br/>{{offer.delivery}}
+                            {{#ifNotEq offer.delivery '48 horas'}}
+                              {{#ifNotEq offer.delivery '31 dias'}}
+                                {{groupObject.date}}
+                              {{/ifNotEq}}
+                            {{/ifNotEq}}
+                          </span>
+                        </p>
+                      </div>
+
+                      <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
+                        <p class="text-uppercase text-center text-dark font-book mobile-font0 mobile-font2">Qnt
+                          <span class="count text-center text-dark mobile-font0"> <br/>{{amountBought}}</span>
                         </p>
                       </div>
                       <div class="ml-2 ml-md-3 ml-lg-3 ml-xl-5 text-gray3">
-                        <p class="text-uppercase font-book mobile-font0  text-dark mobile-font2  mb-0" >
+                        <p class="text-uppercase font-book mobile-font0 text-dark mobile-font2 mb-0" >
                           Custo por unidade
-                          {{#compare offer.usd false}}
-                          <span class="count text-center text-dark  mobile-font0 text-dark mobile-font2  mt-0"> <br/>U$ {{unitPrice}}</span>
-                          {{/compare}}
+                          <span class="count text-center text-dark mobile-font0 text-dark mobile-font2 mt-0"> <br/>U$ {{unitPrice}}</span>
+                          <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
+                            / {{offer.product.unit}}
+                          </i>
                         </p>
-                        {{#compare offer.usd true}}
-                        <span class="count text-center text-dark  mobile-font1  mt-0">
-                          U$ {{unitPrice}}
-                        </span>
-                        <i class="text-gray3 mt-2 font-light mobile-font1 d-inline">
-                          / {{offer.product.unit}}
-                        </i>
-                        {{/compare}}
                       </div>
                     </div>
                   </div>
@@ -338,7 +345,6 @@
           </div>
         </div>
       </div>
-
       {{/each}}
       {{/compare}}
     </div>

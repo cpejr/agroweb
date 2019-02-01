@@ -34,6 +34,9 @@
       <p class="font-light">{{seller.fullName}}</p>
       {{/ifNotEq}}
 
+      <h4>Estoque disponível</h4>
+      <p class="font-light">{{stock}} {{product.unit}}</p>
+
       <h4>Ingredientes ativos</h4>
       {{#each product.chems}}
       <dd>{{name}}</dd>

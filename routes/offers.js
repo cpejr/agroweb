@@ -144,7 +144,7 @@ router.post('/', (req, res) => {
                   const newGroup = {
                     amount: 0,
                     offer: offerId,
-                    price: offer.price.high,
+                    unitPrice: offer.price.high,
                     productId: offer.product,
                     delivery: offer.delivery
                   };
@@ -362,7 +362,7 @@ router.put('/:id', (req, res) => {
             const newGroup = {
               amount: 0,
               offer: offer._id,
-              price: offer.price.high,
+              unitPrice: offer.price.high,
               productId: offer.product,
               delivery: offer.delivery
             };

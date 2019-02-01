@@ -57,9 +57,12 @@ router.get('/', (req, res) => {
   // console.log(global);
   // const { dollar } = global;
   // console.log(dollar);
-  // let x = {
-  //   number: 10.213123
-  // };
+  let x = {
+    number: 10.213123
+  };
+  x = parseFloat(x.number.toFixed(2));
+  console.log(typeof (x));
+  console.log(x);
   // console.log('Teste = ', x.number.toFixed(2));
   res.render('teste', { title: 'Teste' });
 });

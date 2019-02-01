@@ -70,23 +70,37 @@ router.get('/MegaPremio', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const form = new formidable.IncomingForm();
-  form.parse(req, (err, fields, files) => {
-    const oldpath = files.contract.path;
-    const newpath = `./contracts/${files.contract.name}`;
-    fs.rename(oldpath, newpath, (error) => {
-      if (error) throw error;
-      const data = {
-        path: newpath,
-        firstName: 'Felipe'
-      };
-      Email.franchiseeContract(data).catch((erro) => {
-        console.log(erro);
-      });
-      // res.write('File uploaded and moved!');
-      res.end();
-    });
-  });
+  const position = req.body.name.indexOf(' ');
+  const userData = {
+    name: req.body.name
+  };
+
+  if (position > -1) {
+    userData.firstName = userData.name.slice(0, position);
+  }
+  else {
+    userData.firstName = userData.name;
+  }
+
+  userData.fullName = userData.name;
+  console.log(userData);
+  // const form = new formidable.IncomingForm();
+  // form.parse(req, (err, fields, files) => {
+  //   const oldpath = files.contract.path;
+  //   const newpath = `./contracts/${files.contract.name}`;
+  //   fs.rename(oldpath, newpath, (error) => {
+  //     if (error) throw error;
+  //     const data = {
+  //       path: newpath,
+  //       firstName: 'Felipe'
+  //     };
+  //     Email.franchiseeContract(data).catch((erro) => {
+  //       console.log(erro);
+  //     });
+  //     // res.write('File uploaded and moved!');
+  //     res.end();
+  //   });
+  // });
 });
 
 // rotapara industryMegaPremio

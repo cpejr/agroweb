@@ -273,7 +273,12 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
 
   // Separates the first name from the rest
   const position = userData.fullName.indexOf(' ');
-  userData.firstName = userData.fullName.slice(0, position);
+  if (position > -1) {
+    userData.firstName = userData.fullName.slice(0, position);
+  }
+  else {
+    userData.firstName = userData.fullName;
+  }
   User.update(req.session._id, userData).then(() => {
     req.flash('success', 'Perfil atualizado.');
     res.redirect('/user');

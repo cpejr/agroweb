@@ -153,21 +153,21 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
               <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
                     Aguardando boleto
                   </button>
                 </a>
               </form>
               <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                <a class="dropdown-item " href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
                     Aguardando pagamento
                   </button>
                 </a>
               </form>
               <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
                     Pagamento confirmado
                   </button>
@@ -175,7 +175,7 @@
               </form>
 
               <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
                     Cancelado
                   </button>
@@ -187,7 +187,7 @@
             {{else compare userType 'Indústria'}}
             <h4 class="mt-5">Alterar status</h4>
             <div class="dropdown pb-4">
-              <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              <button name="status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
               {{#compare status 'Aguardando boleto'}}
               class="btn btn-warning dropdown-toggle mx-auto">
               Aguardando boleto
@@ -215,7 +215,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
               <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
                     Aguardando boleto
                   </button>
@@ -223,7 +223,7 @@
               </form>
 
               <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item " href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
                     Aguardando pagamento
                   </button>
@@ -231,7 +231,7 @@
               </form>
 
               <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Pagamento confirmado">
                     Pagamento confirmado
                   </button>
@@ -239,7 +239,7 @@
               </form>
 
               <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Produto a caminho">
                     Produto a caminho
                   </button>
@@ -247,7 +247,7 @@
               </form>
 
               <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
                     Entregue
                   </button>
@@ -255,7 +255,7 @@
               </form>
 
               <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
                     Cancelado
                   </button>
@@ -268,7 +268,7 @@
             {{#compare offer.seller._id userId}}
             <h4 class="mt-5">Alterar status</h4>
             <div class="dropdown pb-4">
-              <button name="status"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              <button name="status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
               {{#compare status 'Aguardando boleto'}}
 
               class="btn btn-warning dropdown-toggle col-8">
@@ -298,7 +298,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
               <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
                     Aguardando boleto
                   </button>
@@ -306,7 +306,7 @@
               </form>
 
               <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item " href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
                     Aguardando pagamento
                   </button>
@@ -314,7 +314,7 @@
               </form>
 
               <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Pagamento confirmado">
                     Pagamento confirmado
                   </button>
@@ -322,7 +322,7 @@
               </form>
 
               <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Produto a caminho">
                     Produto a caminho
                   </button>
@@ -330,7 +330,7 @@
               </form>
 
               <form method= "POST" action="/transaction/{{id}}/updateTransaction">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
                     Entregue
                   </button>
@@ -338,7 +338,7 @@
               </form>
 
               <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-danger col-12" name="status" value="Cancelado">
                     Cancelado
                   </button>

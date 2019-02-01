@@ -8,7 +8,7 @@ const router = express.Router();
  * GET Maintenance page
  */
 router.get('/', (req, res) => {
-  res.render('maintenance', { title: 'Manutenção', layout: 'layout' });
+  res.render('maintenance', { title: 'Manutenção', layout: 'layoutError' });
 });
 
 /**

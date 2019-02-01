@@ -79,7 +79,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * GET Products Results page
+ * GET Products' names array
  */
 router.get('/products', (req, res) => {
   const names = [];
@@ -99,6 +99,21 @@ router.get('/products', (req, res) => {
   });
 });
 
+/**
+ * GET Product's object
+ */
+router.post('/products', (req, res) => {
+  Product.getByQuerySorted({ name: req.body.productName }, {}).then((product) => {
+    res.send(product);
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
+/**
+ * GET Chems' names array
+ */
 router.get('/chems', (req, res) => {
   const names = [];
   const queryChem = { active: true };
@@ -114,4 +129,5 @@ router.get('/chems', (req, res) => {
     res.redirect('/error');
   });
 });
+
 module.exports = router;

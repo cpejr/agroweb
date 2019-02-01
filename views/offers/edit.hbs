@@ -30,6 +30,9 @@
               <div class="input-group-text"><i class="fas fa-archive"></i></div>
             </div>
             <input name="offer[stock]" type="number" class="form-control input-text" value="{{stock}}" required/>
+            <div class="input-group-prepend">
+              <div class="input-group-text">{{product.unit}}</div>
+            </div>
           </div>
         </div>
 
@@ -40,6 +43,9 @@
               <div class="input-group-text"><i class="fas fa-archive"></i></div>
             </div>
             <input name="offer[minAmount]" type="number" class="form-control input-text" value="{{minAmount}}" required/>
+            <div class="input-group-prepend">
+              <div class="input-group-text">{{product.unit}}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -177,7 +183,6 @@
 </div>
 
 {{#section 'scripts'}}
-<script src="/javascripts/product.dropdown.js"></script>
 <script>
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()

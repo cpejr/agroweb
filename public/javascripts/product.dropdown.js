@@ -40,3 +40,9 @@ $.get('/search/products', (result) => {
     }
   );
 });
+
+$('.typeahead').bind('typeahead:select', (ev, suggestion) => {
+  $.post('/search/products', { productName: suggestion }, (productObject) => {
+    $('.product-unit').html(`<div class="input-group-text">${productObject[0].unit}</div>`)
+  });
+});

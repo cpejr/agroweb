@@ -2,11 +2,11 @@
 {{/section}}
 
 <div class="pb-3 gradient-background text-white">
-  {{#ifCond userType 'Administrador'}}
+  {{#compare userType 'Administrador'}}
   <h3 class="text-center font-black">Novo produto</h3>
-  {{else ifCond userType 'Indústria'}}
+  {{else compare userType 'Indústria'}}
   <h3 class="text-center font-black">Cadastrar novo produto</h3>
-  {{/ifCond}}
+  {{/compare}}
 </div>
 
 <div class="pl-5 pr-5 pt-2">

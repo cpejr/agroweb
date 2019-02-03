@@ -61,9 +61,9 @@ router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
-/* GET Offers - Show all offers */
+/* GET franchiseePayment */
 router.get('/franchiseePayment', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  User.getByQuerySorted({type: 'Franqueado', pendingPayment: { $ne: 0 } }, {}).then((users) => {
+  User.getByQuerySorted({ type: 'Franqueado', pendingPayment: { $ne: 0 } }, {}).then((users) => {
     res.render('admin/franchiseePayment', { title: 'Taxas dos franqueados', layout: 'layout', users, ...req.session });
   }).catch((error) => {
     console.log(error);
@@ -73,7 +73,7 @@ router.get('/franchiseePayment', auth.isAuthenticated, auth.isAdmin, (req, res) 
 
 /* GET Transaction - Show all pending tickets */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Transaction.getByQuerySorted( {status: {$ne: 'Cancelado'} }, {} ).then((transactions) => {
+  Transaction.getByQuerySorted({ status: { $ne: 'Cancelado' } }, {}).then((transactions) => {
     res.render('admin/transaction/index', { title: 'Administrador', layout: 'layout', transactions });
   }).catch((error) => {
     console.log(error);
@@ -161,9 +161,6 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
     res.redirect('/error');
   });
   switch (transaction.taxStatus) {
-    case 'Aguardando aprovação':
-      req.flash('success', 'Status da taxa de transação atualizado para: Aguardando aprovação.');
-      break;
     case 'Aguardando pagamento':
       req.flash('success', 'Status da taxa de transação atualizado para: Aguardando pagamento.');
       break;
@@ -322,7 +319,7 @@ router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
-/* POST Contracts - Send the contract to the franchisee */
+/* POST send-contract - Send the contract to the franchisee */
 router.post('/send-contract', (req, res) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
@@ -337,7 +334,7 @@ router.post('/send-contract', (req, res) => {
           firstName: user.firstName
         };
         Email.franchiseeContract(data).then(() => {
-          req.flash('success', 'Contrato enviado')
+          req.flash('success', 'Contrato enviado');
           res.redirect('/admin/requisitions/users');
           res.end();
         }).catch(() => {
@@ -372,6 +369,44 @@ router.post('/ptax', (req, res) => {
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
+  });
+});
+
+/* POST send-tax-ticket - Send the tax ticket to the client */
+router.post('/send-tax-ticket', (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    Transaction.getById(fields.transactionID).then((transaction) => {
+      const oldpath = files.ticket.path;
+      const newpath = `./tickets/${files.ticket.name}`;
+      fs.rename(oldpath, newpath, (error) => {
+        if (error) throw error;
+        const data = {
+          path: newpath,
+          email: transaction.offer.seller.email,
+          firstName: transaction.offer.seller.firstName,
+          transactionID: fields.transactionID
+        };
+        Email.taxTicket(data).then(() => {
+          req.flash('success', 'Boleto enviado');
+          const transactionData = {
+            taxStatus: 'Aguardando pagamento'
+          };
+          Transaction.update(fields.transactionID, transactionData).catch((error) => {
+            req.flash('danger', 'Não foi possível atualizar o status da transação.');
+            res.redirect('/error');
+          });
+          res.redirect('/admin/transactions');
+          res.end();
+        }).catch(() => {
+          req.flash('danger', 'Não foi possível enviar o boleto.');
+          res.redirect('/login');
+        });
+      });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
   });
 });
 

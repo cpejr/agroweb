@@ -198,7 +198,8 @@ router.put('/:id', (req, res) => {
     let transactionData = {};
     const data = {
       name: transaction.buyer.firstName,
-      email: transaction.buyer.email
+      email: transaction.buyer.email,
+      transactionID: req.params.id
     };
     if (transaction.status === 'Cotado') {
       transactionData.status = 'Aguardando boleto';

@@ -74,7 +74,7 @@ class Email {
   static contractApprovedEmail(data, franchisee) {
     console.log('Email contrato aprovado');
     const content = `Prezado(a) ${data.firstName},
-     ${franchisee} acabou de aceitar sua solicitação de franqueamento. A partir de agora, ele poderá realizar cotações e compras para você, facilitando muito sua experiência na plataforma Megapool.`;
+  ${franchisee} acabou de aceitar sua solicitação de franqueamento. A partir de agora, ele poderá realizar cotações e compras para você, facilitando muito sua experiência na plataforma Megapool.`;
     const subject = 'MEGAPOOL: Pedido aceito';
     const emailContent = {
       clientEmail: data.email,
@@ -173,7 +173,7 @@ class Email {
   static disapprovedUsersEmail(data) {
     console.log('Email reprovado enviado');
     const content = `Prezado(a) ${data.firstName},
-     Analisamos a sua solicitação de cadastro e, infelizmente, seu pedido não foi aceito por nossa equipe. Portanto, não será possível utilizar as funcionalidades da plataforma Megapool.`;
+  Analisamos a sua solicitação de cadastro e, infelizmente, seu pedido não foi aceito por nossa equipe. Portanto, não será possível utilizar as funcionalidades da plataforma Megapool.`;
     const subject = 'MEGAPOOL: Cadastro reprovado';
     const emailContent = {
       clientEmail: data.email,
@@ -272,8 +272,8 @@ class Email {
   static updateEmail(data, status) {
     console.log('Update email');
     const content = `Caro(a) ${data.firstName},
-    Seu pedido teve atualização de status para:"${status}"`;
-    const subject = 'MEGAPOOL: Atualização no status do seu pedido';
+    Seu pedido #${data.transactionID} teve atualização de status para:"${status}"`;
+    const subject = `MEGAPOOL: Atualização no status do pedido #${data.transactionID}`;
     const emailContent = {
       ...data,
       content,
@@ -296,7 +296,7 @@ class Email {
     const totalPrice = data.priceBought;
     const unitPrice = data.unitPrice;
     const content = `Caro(a) ${data.buyer.firstName},
-    Sua compra* do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "aguardando boleto para pagamento" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
+    Sua compra* do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "Aguardando boleto" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
 
     Confira os dados de sua compra abaixo:
 
@@ -341,16 +341,13 @@ class Email {
     const unitPrice = data.unitPrice;
     const content = `Caro(a) ${data.offer.seller.firstName},
 
-    Parabéns, você fez uma nova venda* do produto ${data.offer.product.name}, existe pedido pendente para sua aprovação em seu
-    ambiente virtual em Dashboard -> Boletos pendentes, entre e confirme por favor.
+    Parabéns, você fez uma nova venda* do produto ${data.offer.product.name}. Existe pedido pendente para sua aprovação em seu ambiente virtual em Dashboard -> Boletos pendentes, entre e confirme por favor.
     - Confira o volume, preço e condição de entrega.
-    - Estando de acordo, emita o boleto para o cliente e mude o status da venda para boleto
-    aguardando pagamento.
-    - Assim que receber o valor acertado, comunique no status que o boleto foi pago e
-    proceda com a entrega.
+    - Estando de acordo, emita o boleto para o cliente e envie o mesmo através da plataforma.
+    - Assim que receber o valor acertado, comunique no status que o boleto foi pago e proceda com a entrega.
     - O administrador irá gerar o boleto referente à parcela da MEGAPOOL sobre a venda.
-    - *** Caso não queira concretizar o negócio, cancele a venda, porém saiba que estará
-    sujeito as implicações previstas.
+    - Caso seja necessário gerar um novo boleto para a venda, retorne o status para "Boleto pendente" e a opção de enviar o boleto aparecerá novamente.
+    - *** Caso não queira concretizar o negócio, cancele a venda, porém saiba que estará sujeito às implicações previstas.
 
     Confira abaixo os detalhes da sua venda:
     Transação #${data._id}
@@ -613,6 +610,120 @@ Equipe de franquias MEGAPOOL.`;
     return new Promise((resolve) => {
       Email.sendEmail(emailContent).then((info) => {
         resolve(info);
+      });
+    });
+  }
+
+  /**
+   * Send an email to the client with the ticket
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
+  static ticket(data) {
+    const content = `Olá, ${data.firstName}
+
+Seu pedido #${data.transactionID} teve atualização de status para: "Aguardando pagamento".
+Segue em anexo o boleto para realizar o pagamento da sua compra. Não se esqueça de enviar o comprovante de pagamento pela plataforma.
+
+A disposição
+Equipe MEGAPOOL`;
+    const subject = `MEGAPOOL: Atualização no status do pedido #${data.transactionID}`;
+    const emailContent = {
+      clientEmail: data.email,
+      content,
+      subject,
+      attachments: [{ path: data.path }]
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        fs.unlink(data.path, (err) => {
+          if (err) throw err;
+          resolve(info);
+        });
+      });
+    });
+  }
+
+  /**
+   * Send an email to the client with the tax ticket
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
+  static taxTicket(data) {
+    const content = `Olá, ${data.firstName}
+
+Segue em anexo o boleto para realizar o pagamento da taxa referente à sua venda #${data.transactionID}.
+Não se esqueça de enviar o comprovante de pagamento pela plataforma.
+
+A disposição
+Equipe MEGAPOOL`;
+    const subject = `MEGAPOOL: Pagamento da taxa venda #${data.transactionID}`;
+    const emailContent = {
+      clientEmail: data.email,
+      content,
+      subject,
+      attachments: [{ path: data.path }]
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        fs.unlink(data.path, (err) => {
+          if (err) throw err;
+          resolve(info);
+        });
+      });
+    });
+  }
+
+  /**
+   * Send an email with the proof of payment
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
+  static paymentProof(data) {
+    const content = `Olá, ${data.firstName}
+
+Segue em anexo o comprovante de pagamento referente a venda #${data.transactionID}. Confira os dados e, caso esteja tudo certo, lembre-se de atualizar o status da venda para "Pagamento confirmado" na plataforma.
+
+A disposição
+Equipe MEGAPOOL`;
+    const subject = `MEGAPOOL: Comprovante de pagamento do pedido #${data.transactionID}`;
+    const emailContent = {
+      clientEmail: data.email,
+      content,
+      subject,
+      attachments: [{ path: data.path }]
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        fs.unlink(data.path, (err) => {
+          if (err) throw err;
+          resolve(info);
+        });
+      });
+    });
+  }
+
+  /**
+   * Send an email with the tax's proof of payment
+   * @param {Object} data - Email Document Data
+   * @returns {Object} Information
+   */
+  static taxPaymentProof(data) {
+    const content = `Segue em anexo o comprovante de pagamento da taxa Megapool referente a venda #${data.transactionID}.
+Confira os dados e, caso esteja tudo certo, lembre-se de atualizar o status para "Pagamento confirmado" na plataforma.`;
+    const subject = `MEGAPOOL: Comprovante de pagamento de taxa #${data.transactionID}`;
+    const emailContent = {
+      clientEmail: 'admcpejr@megapool.com.br',
+      content,
+      subject,
+      attachments: [{ path: data.path }]
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        fs.unlink(data.path, (err) => {
+          if (err) throw err;
+          resolve(info);
+        });
       });
     });
   }

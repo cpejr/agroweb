@@ -1,4 +1,6 @@
 const express = require('express');
+const formidable = require('formidable');
+const fs = require('fs');
 const Email = require('../models/email');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
@@ -342,48 +344,48 @@ router.delete('/:id', (req, res) => {
 /**
  * POST contract - Contract franchisee
  */
- router.post('/contract', auth.isAuthenticated, (req, res) => {
-    User.getContractRequestsById(req.body.clientId).then((users) => {
-     const userId = req.session._id;
-     User.addClient(req.body.clientId, userId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-     User.addClient(userId, req.body.clientId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-     User.increaseTotalCustomers(userId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
+router.post('/contract', auth.isAuthenticated, (req, res) => {
+  User.getContractRequestsById(req.body.clientId).then((users) => {
+    const userId = req.session._id;
+    User.addClient(req.body.clientId, userId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    User.addClient(userId, req.body.clientId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    User.increaseTotalCustomers(userId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
 
-     User.getById(req.body.clientId).then((user) => {
-       const userName = req.session.firstName;
-       Email.contractApprovedEmail(user, userName).catch((error) => {
-         req.flash('danger', 'Não foi possível enviar o email para o cliente do franqueado.');
-         res.redirect('/login');
-       });
-     }).catch((error) => {
-       req.flash('warning', 'Não foi possível encontrar usuário.');
-       res.redirect('/user');
-     });
-
-     users.forEach((user) => {
-       User.removeContract(user._id, req.body.clientId).catch((error) => {
-         console.log(error);
-         res.redirect('/error');
-       });
-       User.removeContract(req.body.clientId, user._id).catch((error) => {
-         console.log(error);
-         res.redirect('/error');
-       });
-     });
-      req.flash('success', 'Contrato de franqueamento aceito. Não se esqueça de enviar o contrato para o cliente.');
+    User.getById(req.body.clientId).then((user) => {
+      const userName = req.session.firstName;
+      Email.contractApprovedEmail(user, userName).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar o email para o cliente do franqueado.');
+        res.redirect('/login');
+      });
+    }).catch((error) => {
+      req.flash('warning', 'Não foi possível encontrar usuário.');
       res.redirect('/user');
-   }).catch((error) => {
-     req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
-     res.redirect('/user');
+    });
+
+    users.forEach((user) => {
+      User.removeContract(user._id, req.body.clientId).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+      User.removeContract(req.body.clientId, user._id).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    });
+    req.flash('success', 'Contrato de franqueamento aceito. Não se esqueça de enviar o contrato para o cliente.');
+    res.redirect('/user');
+  }).catch((error) => {
+    req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
+    res.redirect('/user');
   });
 });
 
@@ -514,10 +516,10 @@ router.post('/denyContract', auth.isAuthenticated, (req, res) => {
       req.flash('danger', 'Não foi possível enviar o email para o cliente recusado do franqueado.');
       res.redirect('/login');
     });
-    }).catch((error) => {
-      req.flash('warning', 'Não foi possível encontrar usuário.');
-      res.redirect('/user');
-    });
+  }).catch((error) => {
+    req.flash('warning', 'Não foi possível encontrar usuário.');
+    res.redirect('/user');
+  });
   req.flash('success', 'Pedido de fraqueamento recusado.');
   res.redirect('/user/contractRequests');
 });
@@ -537,7 +539,7 @@ router.post('/change', auth.isAuthenticated, (req, res) => {
       res.redirect('/error');
     });
     User.addContract(req.body.franchiseeId, userId).catch((error) => {
-      console.log(req.body.franchisee);
+      console.log(error);
       res.redirect('/error');
     });
     User.addContract(userId, req.body.franchiseeId).catch((error) => {
@@ -549,11 +551,13 @@ router.post('/change', auth.isAuthenticated, (req, res) => {
   });
 });
 
+/*
+ * POST indication - sends a franchisee's indication email
+ */
 router.post('/indication', (req, res) => {
-User.getById(req.session._id).then((users) => {
+  User.getById(req.session._id).then((users) => {
     console.log(users);
     Email.indication(users).catch((error) => {
-
     });
     User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: true }, {}).then((users) => {
       res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
@@ -565,15 +569,104 @@ User.getById(req.session._id).then((users) => {
     console.log(error);
     req.flash('danger', 'Não foi possível enviar email de compra.');
     res.redirect('/error');
-});
-req.flash('success', 'Um aviso foi enviado para o administrador. Em breve, ele te retornará em seu email.');
+  });
+  req.flash('success', 'Um aviso foi enviado para o administrador. Em breve, ele te retornará em seu email.');
 });
 
 /*
- * GET contract request page
+ * GET doubts page
  */
 router.get('/doubts', auth.isAuthenticated, (req, res) => {
   res.render('doubts', { title: 'Dúvidas frequentes', layout: 'layout' });
+});
+
+/*
+ * POST send-ticket - send the ticket to de client
+ */
+router.post('/send-ticket', (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    Transaction.getById(fields.transactionID).then((transaction) => {
+      const oldpath = files.ticket.path;
+      const newpath = `./tickets/${files.ticket.name}`;
+      fs.rename(oldpath, newpath, (error) => {
+        if (error) throw error;
+        const data = {
+          path: newpath,
+          email: transaction.buyer.email,
+          firstName: transaction.buyer.firstName,
+          transactionID: fields.transactionID
+        };
+        Email.ticket(data).then(() => {
+          req.flash('success', 'Boleto enviado');
+          const transactionData = {
+            status: 'Aguardando pagamento'
+          };
+          Transaction.update(fields.transactionID, transactionData).catch((error) => {
+            req.flash('danger', 'Não foi possível atualizar o status da transação.');
+            res.redirect('/error');
+          });
+          res.redirect('/user/sales');
+          res.end();
+        }).catch(() => {
+          req.flash('danger', 'Não foi possível enviar o boleto.');
+          res.redirect('/login');
+        });
+      });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  });
+});
+
+/*
+ * POST send-payment - Send the proof of payment
+ */
+router.post('/send-payment', (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    Transaction.getById(fields.transactionID).then((transaction) => {
+      const oldpath = files.payment.path;
+      const newpath = `./tickets/${files.payment.name}`;
+      fs.rename(oldpath, newpath, (error) => {
+        if (error) throw error;
+        if (req.session.userType === 'Franqueado' || req.session.userType === 'Produtor') {
+          const data = {
+            path: newpath,
+            email: transaction.offer.seller.email,
+            firstName: transaction.offer.seller.firstName,
+            transactionID: fields.transactionID
+          };
+          Email.paymentProof(data).then(() => {
+            req.flash('success', 'Comprovante de pagamento enviado');
+            res.redirect('/user/orders');
+            res.end();
+          }).catch(() => {
+            req.flash('danger', 'Não foi possível enviar o comprovante de pagamento.');
+            res.redirect('/login');
+          });
+        }
+        else {
+          const data = {
+            path: newpath,
+            transactionID: fields.transactionID
+          };
+          Email.taxPaymentProof(data).then(() => {
+            req.flash('success', 'Comprovante de pagamento enviado');
+            res.redirect('/user/sales');
+            res.end();
+          }).catch(() => {
+            req.flash('danger', 'Não foi possível enviar o comprovante de pagamento.');
+            res.redirect('/login');
+          });
+        }
+      });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  });
 });
 
 module.exports = router;

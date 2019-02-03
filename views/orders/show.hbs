@@ -95,6 +95,8 @@
           <h4>Endereço</h4>
           <p class="mb-4">{{buyer.address.street}}, {{buyer.address.number}}, {{buyer.address.city}}, {{buyer.address.state}}</p>
         </div>
+        <!-- end Transaction info -->
+
         <!-- end Buyer info -->
         {{/compare}}
 
@@ -348,8 +350,106 @@
             </div>
             {{/compare}}
         </div>
+
+        {{#compare userType 'Administrador'}}
+          {{#compare taxStatus 'Aguardando boleto'}}
+          <div class="col-12 col-md-6 mt-3 ">
+            <div class="text-center my-3 justify-content-center">
+              <form action="/admin/send-tax-ticket" enctype="multipart/form-data" method="post">
+                <small><small><input type="file" name="ticket" class="input-file" id="file"></small></small>
+                <input type="hidden" name="transactionID" value="{{_id}}">
+                <label for="file" class="floating-label text-dark2">Boleto da taxa</label>
+                <button type="btn btn-success col-12">Enviar boleto</button>
+              </form>
+            </div>
+          </div>
+          {{/compare}}
+        {{else compare userType 'Indústria'}}
+          {{#compare offer.seller._id userId}}
+            {{#compare status 'Aguardando boleto'}}
+            <div class="col-12 col-md-6 mt-3 ">
+              <div class="text-center my-3 justify-content-center">
+                <form action="/user/send-ticket" enctype="multipart/form-data" method="post">
+                  <small><small><input type="file" name="ticket" class="input-file" id="file"></small></small>
+                  <input type="hidden" name="transactionID" value="{{_id}}">
+                  <label for="file" class="floating-label text-dark2">Boleto da compra</label>
+                  <button type="btn btn-success col-12">Enviar boleto</button>
+                </form>
+              </div>
+            </div>
+            {{/compare}}
+            {{#compare taxStatus 'Aguardando pagamento'}}
+            <div class="col-12 col-md-6 mt-3 ">
+              <div class="text-center my-3 justify-content-center">
+                <form action="/user/send-payment" enctype="multipart/form-data" method="post">
+                  <small><small><input type="file" name="payment" class="input-file" id="file"></small></small>
+                  <input type="hidden" name="transactionID" value="{{_id}}">
+                  <label for="file" class="floating-label text-dark2">Comprovante de pagamento</label>
+                  <button type="btn btn-success col-12">Enviar comprovante</button>
+                </form>
+              </div>
+            </div>
+            {{/compare}}
+          {{/compare}}
+        {{else compare userType 'Revendedor'}}
+          {{#compare offer.seller._id userId}}
+            {{#compare status 'Aguardando boleto'}}
+            <div class="col-12 col-md-6 mt-3 ">
+              <div class="text-center my-3 justify-content-center">
+                <form action="/user/send-ticket" enctype="multipart/form-data" method="post">
+                  <small><small><input type="file" name="ticket" class="input-file" id="file"></small></small>
+                  <input type="hidden" name="transactionID" value="{{_id}}">
+                  <label for="file" class="floating-label text-dark2">Boleto da compra</label>
+                  <button type="btn btn-success col-12">Enviar boleto</button>
+                </form>
+              </div>
+            </div>
+            {{/compare}}
+            {{#compare taxStatus 'Aguardando pagamento'}}
+            <div class="col-12 col-md-6 mt-3 ">
+              <div class="text-center my-3 justify-content-center">
+                <form action="/user/send-payment" enctype="multipart/form-data" method="post">
+                  <small><small><input type="file" name="payment" class="input-file" id="file"></small></small>
+                  <input type="hidden" name="transactionID" value="{{_id}}">
+                  <label for="file" class="floating-label text-dark2">Comprovante de pagamento</label>
+                  <button type="btn btn-success col-12">Enviar comprovante</button>
+                </form>
+              </div>
+            </div>
+            {{/compare}}
+          {{/compare}}
+        {{else compare userType 'Produtor'}}
+          {{#compare buyer._id userId}}
+            {{#compare status 'Aguardando pagamento'}}
+            <div class="col-12 col-md-6 mt-3 ">
+              <div class="text-center my-3 justify-content-center">
+                <form action="/user/send-payment" enctype="multipart/form-data" method="post">
+                  <small><small><input type="file" name="payment" class="input-file" id="file"></small></small>
+                  <input type="hidden" name="transactionID" value="{{_id}}">
+                  <label for="file" class="floating-label text-dark2">Comprovante de pagamento</label>
+                  <button type="btn btn-success col-12">Enviar comprovante</button>
+                </form>
+              </div>
+            </div>
+            {{/compare}}
+          {{/compare}}
+        {{else compare userType 'Franqueado'}}
+          {{#compare franchisee._id userId}}
+            {{#compare status 'Aguardando pagamento'}}
+            <div class="col-12 col-md-6 mt-3 ">
+              <div class="text-center my-3 justify-content-center">
+                <form action="/user/send-payment" enctype="multipart/form-data" method="post">
+                  <small><small><input type="file" name="payment" class="input-file" id="file"></small></small>
+                  <input type="hidden" name="transactionID" value="{{_id}}">
+                  <label for="file" class="floating-label text-dark2">Comprovante de pagamento</label>
+                  <button type="btn btn-success col-12">Enviar comprovante</button>
+                </form>
+              </div>
+            </div>
+            {{/compare}}
+          {{/compare}}
+        {{/compare}}
       </div>
-        <!-- end Transaction info -->
 
       <div class="mx-auto col-12 col-md-5 pb-2 mb-2 mt-4">
         {{#ifNotEq userType 'Administrador'}}

@@ -19,7 +19,7 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
         console.log(group.dateFront);
       }
     });
-    res.render('groups/index', { title: 'Grupos de compras', groups });
+    res.render('groups/index', { title: 'Grupos de compras', groups, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -47,7 +47,7 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
   Group.getById(req.params.id).then((group) => {
     if (group) {
       console.log(group);
-      res.render('groups/show', { title: group.name, id: req.params.id, ...group });
+      res.render('groups/show', { title: group.name, id: req.params.id, ...group, ...req.session });
     }
     else {
       console.log('Group not found!');

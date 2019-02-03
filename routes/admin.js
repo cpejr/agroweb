@@ -1,5 +1,4 @@
 const express = require('express');
-const firebase = require('firebase');
 const formidable = require('formidable');
 const fs = require('fs');
 const Newsletter = require('../models/newsletter');
@@ -13,55 +12,54 @@ const Email = require('../models/email');
 
 const router = express.Router();
 
-/* GET Admin Home page */
+/**
+ *  GET Admin Home page
+ */
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('admin/index', { title: 'Administrador', layout: 'layoutDashboard' });
+  res.render('admin/index', { title: 'Administrador', layout: 'layoutDashboard', ...req.session});
 });
 
-/* GET Users - Show all users */
+/**
+ * GET Users - Show all users
+ */
 router.get('/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   User.getByQuerySorted().then((users) => {
     console.log(users);
-    res.render('admin/users', { title: 'Usuários', layout: 'layout', users });
+    res.render('admin/users', { title: 'Usuários', layout: 'layout', users, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
 });
 
-/* GET Products - Show all products docs */
+/**
+ * GET Products - Show all products docs
+ */
 router.get('/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Product.getByQuerySorted({ status: 'Aprovado' }).then((products) => {
     console.log(products);
-    res.render('admin/products', { title: 'Produtos', layout: 'layout', products });
+    res.render('admin/products', { title: 'Produtos', layout: 'layout', products, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
 });
 
-/* GET Newsletter - Show all newsletter docs */
-router.get('/newsletter', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Newsletter.getAll().then((newsletter) => {
-    console.log(newsletter);
-    res.render('admin/newsletter', { title: 'Usuários', layout: 'layout', newsletter });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/* GET Offers - Show all offers */
+/**
+ * GET Offers - Show all offers
+ */
 router.get('/offers', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Offer.getAll().then((offers) => {
-    res.render('admin/offer', { title: 'Administrador', layout: 'layout', offers });
+    res.render('admin/offer', { title: 'Administrador', layout: 'layout', offers, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
 });
 
-/* GET franchiseePayment */
+/**
+ * GET franchiseePayment
+ */
 router.get('/franchiseePayment', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   User.getByQuerySorted({ type: 'Franqueado', pendingPayment: { $ne: 0 } }, {}).then((users) => {
     res.render('admin/franchiseePayment', { title: 'Taxas dos franqueados', layout: 'layout', users, ...req.session });
@@ -71,32 +69,12 @@ router.get('/franchiseePayment', auth.isAuthenticated, auth.isAdmin, (req, res) 
   });
 });
 
-/* GET Transaction - Show all pending tickets */
+/**
+ * GET Transaction - Show all pending tickets
+ */
 router.get('/transaction', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Transaction.getByQuerySorted({ status: { $ne: 'Cancelado' } }, {}).then((transactions) => {
-    res.render('admin/transaction/index', { title: 'Administrador', layout: 'layout', transactions });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-
-/* GET requisitions/users - Show all users requisitions */
-router.get('/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  User.getByQuerySorted({ status: 'Aguardando aprovação' }).then((users) => {
-    res.render('admin/requisitions/users', { title: 'Requisições de cadastro', layout: 'layout', users });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
-
-/* GET products/requisitions - Show all products requisitions */
-router.get('/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Product.getByQuerySorted({ status: 'Aguardando', active: true }).then((products) => {
-    console.log(products);
-    res.render('admin/requisitions/products', { title: 'Requisições de produtos', layout: 'layout', products });
+  Transaction.getByQuerySorted({ taxStatus: { $nin: ['Pagamento confirmado', 'Cancelado'] } }, {}).then((transactions) => {
+    res.render('admin/transaction/index', { title: 'Administrador', layout: 'layout', transactions, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -104,17 +82,28 @@ router.get('/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, r
 });
 
 /**
- * POST updateTransaction - Update a Transaction in the database
+ * GET requisitions/users - Show all users requisitions
  */
-router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
-  const transaction = {
-    status: req.body.status
-  };
-  Transaction.update(req.params.id, transaction).catch((error) => {
+router.get('/requisitions/users', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  User.getByQuerySorted({ status: 'Aguardando aprovação' }).then((users) => {
+    res.render('admin/requisitions/users', { title: 'Requisições de cadastro', layout: 'layout', users, ...req.session });
+  }).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
-  res.redirect('/user/orders');
+});
+
+/**
+ * GET products/requisitions - Show all products requisitions
+ */
+router.get('/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Product.getByQuerySorted({ status: 'Aguardando', active: true }).then((products) => {
+    console.log(products);
+    res.render('admin/requisitions/products', { title: 'Requisições de produtos', layout: 'layout', products, ...req.session });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
 });
 
 /**
@@ -312,7 +301,7 @@ router.delete('/:id', (req, res) => {
 /* GET Groups - Show all groups */
 router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Offer.getAll().then((groups) => {
-    res.render('groups/index', { title: 'Grupos de Compra', layout: 'layout', groups });
+    res.render('groups/index', { title: 'Grupos de Compra', layout: 'layout', groups, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

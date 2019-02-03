@@ -216,41 +216,41 @@
               {{/compare}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-              <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
+                  <button type="submit" class="btn btn-outline-info col-12" name="transaction[status]" value="Aguardando boleto">
                     Aguardando boleto
                   </button>
                 </a>
               </form>
 
-              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
+                  <button type="submit" class="btn btn-outline-warning col-12" name="transaction[status]" value="Aguardando pagamento">
                     Aguardando pagamento
                   </button>
                 </a>
               </form>
 
-              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Pagamento confirmado">
+                  <button type="submit" class="btn btn-outline-secondary col-12" name="transaction[status]" value="Pagamento confirmado">
                     Pagamento confirmado
                   </button>
                 </a>
               </form>
 
-              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Produto a caminho">
+                  <button type="submit" class="btn btn-outline-primary col-12" name="transaction[status]" value="Produto a caminho">
                     Produto a caminho
                   </button>
                 </a>
               </form>
 
-              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
+                  <button type="submit" class="btn btn-outline-success col-12" name="transaction[status]" value="Entregue">
                     Entregue
                   </button>
                 </a>
@@ -299,41 +299,41 @@
               {{/compare}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-              <form  method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-info col-12" name="status" value="Aguardando boleto">
+                  <button type="submit" class="btn btn-outline-info col-12" name="transaction[status]" value="Aguardando boleto">
                     Aguardando boleto
                   </button>
                 </a>
               </form>
 
-              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-warning col-12" name="status" value="Aguardando pagamento">
+                  <button type="submit" class="btn btn-outline-warning col-12" name="transaction[status]" value="Aguardando pagamento">
                     Aguardando pagamento
                   </button>
                 </a>
               </form>
 
-              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-secondary col-12" name="status" value="Pagamento confirmado">
+                  <button type="submit" class="btn btn-outline-secondary col-12" name="transaction[status]" value="Pagamento confirmado">
                     Pagamento confirmado
                   </button>
                 </a>
               </form>
 
-              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-primary col-12" name="status" value="Produto a caminho">
+                  <button type="submit" class="btn btn-outline-primary col-12" name="transaction[status]" value="Produto a caminho">
                     Produto a caminho
                   </button>
                 </a>
               </form>
 
-              <form method= "POST" action="/transaction/{{id}}/updateTransaction">
+              <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
-                  <button type="submit" class="btn btn-outline-success col-12" name="status" value="Entregue">
+                  <button type="submit" class="btn btn-outline-success col-12" name="transaction[status]" value="Entregue">
                     Entregue
                   </button>
                 </a>

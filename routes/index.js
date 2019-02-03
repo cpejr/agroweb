@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
  * GET Terms page
  */
 router.get('/terms', (req, res) => {
-  res.render('terms', { title: 'Termos', layout: 'layout' });
+  res.render('terms', { title: 'Termos', layout: 'layout', ...req.session });
 });
 
 /**
@@ -105,7 +105,7 @@ router.post('/login', (req, res) => {
         req.session.userType = currentLogged.type;
         req.session.firstName = currentLogged.firstName;
         req.session.fullName = currentLogged.fullName;
-        req.session._id = currentLogged._id;
+        req.session.userId = currentLogged._id;
         req.session.userUid = user.uid;
         req.session.email = currentLogged.email;
         req.session.status = currentLogged.status;
@@ -178,7 +178,7 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
     delete req.session.userType;
     delete req.session.firstName;
     delete req.session.fullName;
-    delete req.session._id;
+    delete req.session.userId;
     delete req.session.userUid;
     delete req.session.email;
     delete req.session.status;
@@ -225,7 +225,7 @@ router.post('/signup', (req, res) => {
         req.session.email = userData.email;
         req.session.userUid = user.uid;
         req.session.status = 'Aguardando aprovação';
-        req.session._id = docId;
+        req.session.userId = docId;
         if (req.session.userType === 'Franqueado') {
           Email.signedUpFranchisee(userData.email).catch((error) => {
             console.log(error);
@@ -240,10 +240,10 @@ router.post('/signup', (req, res) => {
             res.redirect('/login');
           });
           if (req.session.userType === 'Indústria') {
-            res.render('industryMegaPremio', { title: 'Indústria' });
+            res.render('industryMegaPremio', { title: 'Indústria', ...req.session });
           }
           else if (req.session.userType === 'Revendedor') {
-            res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout' });
+            res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout', ...req.session });
           }
           else {
             res.redirect('/user');
@@ -290,11 +290,6 @@ router.post('/signup', (req, res) => {
     req.flash('success', 'A plataforma MegaPool não está disponível na sua região.');
     res.redirect('/logout');
   }
-});
-
-//terms
-router.get('/terms', (req, res) => {
-  res.render('terms', { title: 'Termos de uso', layout: 'layoutDashboard' });
 });
 
 module.exports = router;

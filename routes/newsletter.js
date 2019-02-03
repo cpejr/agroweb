@@ -1,15 +1,16 @@
-var express = require('express');
+const express = require('express');
 const Newsletter = require('../models/newsletter');
+const auth = require('./middleware/auth');
 
-var router = express.Router();
+const router = express.Router();
 
 /**
  * GET newsletter listing
  */
-router.get('/', (req, res) => {
-  Newsletter.getAll().then((users) => {
-    console.log(users);
-    res.render('admin/newsletter', { title: 'Newsletter', layout: 'layout', users });
+router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Newsletter.getAll().then((newsletter) => {
+    console.log(newsletter);
+    res.render('admin/newsletter', { title: 'Newsletter', layout: 'layout', newsletter, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');

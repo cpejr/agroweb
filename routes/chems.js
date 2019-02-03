@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', auth.isAuthenticated, (req, res) => {
   Chem.getAll().then((chems) => {
     console.log(chems);
-    res.render('chems/index', { title: 'Princípios ativos', chems });
+    res.render('chems/index', { title: 'Princípios ativos', chems, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -22,7 +22,7 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  * GET New - Show form to create new chem
  */
 router.get('/new', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('chems/new', { title: 'Novo princípio ativo' });
+  res.render('chems/new', { title: 'Novo princípio ativo', ...req.session });
 });
 
 /**
@@ -47,7 +47,7 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
   Chem.getById(req.params.id).then((chem) => {
     if (chem) {
       console.log(chem);
-      res.render('chems/show', { title: chem.name, id: req.params.id, ...chem });
+      res.render('chems/show', { title: chem.name, id: req.params.id, ...chem, ...req.session });
     }
     else {
       console.log('Chem not found!');
@@ -66,7 +66,7 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
 //   Chem.getById(req.params.id).then((chem) => {
 //     if (chem) {
 //       console.log(chem);
-//       res.render('chems/edit', { title: `Editar ${chem.name}`, id: req.params.id, ...chem });
+//       res.render('chems/edit', { title: `Editar ${chem.name}`, id: req.params.id, ...chem, ...req.session });
 //     }
 //     else {
 //       console.log('Chem not found!');

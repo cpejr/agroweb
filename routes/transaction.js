@@ -13,9 +13,8 @@ const router = express.Router();
  * GET Index - Show all transactions
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
   User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
-    res.render('history', { title: 'Histórico', transactions, userType });
+    res.render('history', { title: 'Histórico', transactions, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -162,16 +161,14 @@ router.post('/', auth.isAuthenticated, (req, res) => {
  * GET Show - Show details of a transaction
  */
 router.get('/:id', (req, res) => {
-  const { userType } = req.session;
-  const userId = req.session._id;
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
       Group.getOneByQuery({ offer: transaction.offer }).then((group) => {
         if (group) {
-          res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, group, userId });
+          res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, ...transaction, group, ...req.session });
         }
         else {
-          res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, userType, ...transaction, userId });
+          res.render('orders/show', { title: `Compra #${transaction._id}`, id: req.params.id, ...transaction, ...req.session });
         }
       }).catch((error) => {
         console.log(error);
@@ -403,19 +400,73 @@ router.put('/:id', (req, res) => {
     }
     else {
       transactionData = req.body.transaction;
-      Transaction.update(req.params.id, transactionData).then(() => {
-        Email.updateEmail(data, transactionData.status).catch((error) => {
+      if (req.session.userType === 'Indústria' || req.session.userType === 'Revendedor') {
+        if (transaction.franchisee) {
+          User.getById(transaction.franchisee).then((user) => {
+            if (transaction.status === 'Entregue') {
+              const userData = {
+                pendingPayment: user.pendingPayment
+              };
+              userData.pendingPayment += transaction.franchiseeTaxValue;
+              transactionData.franchiseeTaxStatus = 'Pendente';
+              User.update(user._id, userData).catch((error) => {
+                console.log(error);
+                req.flash('danger', 'Não foi possível atualizar o usuário.');
+                res.redirect('/user');
+              });
+            }
+          }).catch((error) => {
+            console.log(error);
+            req.flash('danger', 'Não foi possível encontrar o usuário.');
+            res.redirect('/user');
+          });
+        }
+
+        Transaction.update(req.params.id, transactionData).then(() => {
+          res.redirect('/user/sales');
+        }).catch((error) => {
           console.log(error);
-          req.flash('danger', 'Não foi possível enviar o email.');
+          req.flash('danger', 'Não foi possível atualizaçar transação.');
           res.redirect('/user');
         });
-        req.flash('success', 'Compra realizada.');
-        res.redirect('/user/orders');
-      }).catch((error) => {
-        console.log(error);
-        req.flash('danger', 'Não foi possível atualizar o transação.');
-        res.redirect('/user');
-      });
+        switch (transactionData.status) {
+          case 'Aguardando aprovação':
+            req.flash('success', 'Status da transação atualizado para: Aguardando aprovação.');
+            break;
+          case 'Aguardando pagamento':
+            req.flash('success', 'Status da transação atualizado para: Aguardando pagamento.');
+            break;
+          case 'Pagamento confirmado':
+            req.flash('success', 'Status da transação atualizado para: Pagamento confirmado.');
+            break;
+          case 'Produto a caminho':
+            req.flash('success', 'Status da transação atualizado para: Produto a caminho.');
+            break;
+          case 'Entregue':
+            req.flash('success', 'Produto entregue.');
+            break;
+          case 'Cancelado':
+            req.flash('success', 'Transação cancelada');
+            break;
+          default:
+            req.flash('success', 'Status da taxa de transação atualizado.');
+        }
+      }
+      else {
+        Transaction.update(req.params.id, transactionData).then(() => {
+          Email.updateEmail(data, transactionData.status).catch((error) => {
+            console.log(error);
+            req.flash('danger', 'Não foi possível enviar o email.');
+            res.redirect('/user');
+          });
+          req.flash('success', 'Compra realizada.');
+          res.redirect('/user/orders');
+        }).catch((error) => {
+          console.log(error);
+          req.flash('danger', 'Não foi possível atualizar o transação.');
+          res.redirect('/user');
+        });
+      }
     }
   }).catch((error) => {
     console.log(error);
@@ -507,78 +558,5 @@ router.delete('/:id', (req, res) => {
     res.redirect('/user');
   });
 });
-
-router.post('/:id/updateTransaction', auth.isAuthenticated, (req, res) => {
-  Transaction.getById(req.params.id).then((transaction) => {
-    transaction.status = req.body.status;
-
-    if (transaction.franchisee) {
-      User.getById(transaction.franchisee).then((user) => {
-        if (transaction.status === 'Entregue') {
-          user.pendingPayment += transaction.franchiseeTaxValue;
-          transaction.franchiseeTaxStatus = 'Pendente';
-          User.update(user._id, user).catch((error) => {
-            console.log(error);
-            req.flash('danger', 'Não foi possível atualizar o usuário.');
-            res.redirect('/user');
-          });
-        }
-      }).catch((error) => {
-        console.log(error);
-        req.flash('danger', 'Não foi possível encontrar o usuário.');
-        res.redirect('/user');
-      });
-    }
-
-    Transaction.update(req.params.id, transaction).then(() => {
-      res.redirect('/user/sales');
-    }).catch((error) => {
-      console.log(error);
-      req.flash('danger', 'Não foi possível atualizaçar transação.');
-      res.redirect('/user');
-    });
-    switch (transaction.status) {
-      case 'Aguardando aprovação':
-        req.flash('success', 'Status da transação atualizado para: Aguardando aprovação.');
-        break;
-      case 'Aguardando pagamento':
-        req.flash('success', 'Status da transação atualizado para: Aguardando pagamento.');
-        break;
-      case 'Pagamento confirmado':
-        req.flash('success', 'Status da transação atualizado para: Pagamento confirmado.');
-        break;
-      case 'Produto a caminho':
-        req.flash('success', 'Status da transação atualizado para: Produto a caminho.');
-        break;
-      case 'Entregue':
-        req.flash('success', 'Produto entregue.');
-        break;
-      case 'Cancelado':
-        req.flash('success', 'Transação cancelada');
-        break;
-      default:
-        req.flash('success', 'Status da taxa de transação atualizado.');
-    }
-  });
-});
-
-// /**
-//  * GET Show - Show details of a product
-//  */
-// router.get('/:id', (req, res) => {
-//   Transaction.getById(req.params.id).then((transaction) => {
-//     if (transaction) {
-//       console.log(transaction);
-//       res.render('/site', { title: transaction.name });
-//     }
-//     else {
-//       console.log('Transaction not found!');
-//       res.redirect('/user');
-//     }
-//   }).catch((error) => {
-//     console.log(error);
-//     res.redirect('/error');
-//   });
-// });
 
 module.exports = router;

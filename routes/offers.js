@@ -13,7 +13,7 @@ const router = express.Router();
  */
 router.get('/', auth.isAdmin, (req, res) => {
   Offer.getAll().then((offers) => {
-    res.render('offers/index', { title: 'Oferta', offers });
+    res.render('offers/index', { title: 'Oferta', offers, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -24,8 +24,7 @@ router.get('/', auth.isAdmin, (req, res) => {
  * GET New - Show form to create new offer
  */
 router.get('/new', auth.canSell, (req, res) => {
-  const { userType } = req.session;
-  res.render('offers/new', { title: 'Nova Oferta', userType });
+  res.render('offers/new', { title: 'Nova Oferta', ...req.session });
 });
 
 /**
@@ -211,11 +210,11 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
         Group.getOneByQuery({ offer: offer._id }).then((group) => {
           if (group) {
             const chems = offer.product.chems;
-            res.render('offers/show', { title: offer.product.name, id: req.params.id, userId, userType, chems, clients, group, ...offer });
+            res.render('offers/show', { title: offer.product.name, id: req.params.id, userId, chems, clients, group, ...offer, ...req.session });
           }
           else {
             const chems = offer.product.chems;
-            res.render('offers/show', { title: offer.product.name, id: req.params.id, userId, userType, chems, clients, ...offer });
+            res.render('offers/show', { title: offer.product.name, id: req.params.id, userId, chems, clients, ...offer, ...req.session });
           }
         }).catch((error) => {
           console.log(error);
@@ -240,11 +239,10 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
  * GET Edit - Show the offer edit form
  */
 router.get('/:id/edit', auth.canSell, (req, res) => {
-  const { userType } = req.session;
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);
-      res.render('offers/edit', { title: `Editar ${offer.product.name}`, id: req.params.id, userType, ...offer });
+      res.render('offers/edit', { title: `Editar ${offer.product.name}`, id: req.params.id, ...offer, ...req.session });
     }
     else {
       console.log('Offer not found!');

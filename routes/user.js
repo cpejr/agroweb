@@ -45,12 +45,11 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  * GET orders - Show all user's orders
  */
 router.get('/orders', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOpenOrdersByUserId(req.session._id).then((transactions) => {
         console.log(transactions);
-        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session});
+        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -71,13 +70,12 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
  */
 router.get('/sales', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
-  const { userType } = req.session;
   User.getById(userId).then((user) => {
     if (user) {
       User.getAllOpenSalesByUserId(userId).then((transactions) => {
         console.log(userId);
         console.log(transactions);
-        res.render('orders', { title: 'Demandas', transactions, userId, userType });
+        res.render('orders', { title: 'Demandas', transactions, ...req.session });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -97,11 +95,10 @@ router.get('/sales', auth.isAuthenticated, (req, res) => {
  * GET offers - Show all user's offers
  */
 router.get('/offers', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOffersByUserId(req.session._id).then((offers) => {
-        res.render('offers', { title: 'Produtos oferecidos', layout: 'layout', offers, userType });
+        res.render('offers', { title: 'Produtos oferecidos', layout: 'layout', offers, ...req.session });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -117,6 +114,9 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
   });
 });
 
+/**
+ * POST inactive - inactive a user
+ */
 router.post('/inactive', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     Email.inactivatedUsersEmail(user).catch((error) => {
@@ -140,20 +140,18 @@ router.post('/inactive', auth.isAuthenticated, (req, res) => {
  * GET contact page
  */
 router.get('/contact', (req, res) => {
-  const { userType } = req.session;
-  res.render('contact', { title: 'Contato', userType });
+  res.render('contact', { title: 'Contato', ...req.session });
 });
 
 /**
  * GET history - Show the user's buying history
  */
 router.get('/history', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
         console.log(transactions);
-        res.render('orders', { title: 'Histórico', transactions, userType });
+        res.render('orders', { title: 'Histórico', transactions, ...req.session });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -174,7 +172,6 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
  */
 router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
-  const userType = req.session;
   User.getById(req.params.id).then((user) => {
     if (user) {
       const franchisee = user.agreementList[0];
@@ -182,7 +179,7 @@ router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
         User.getContractRequestsById(req.session._id).then((contract) => {
           console.log(userId);
           console.log(user);
-          res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, userType, client, userId, franchisee, ...req.session});
+          res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, client, franchisee, ...req.session });
         }).catch((error) => {
           console.log(error);
           res.redirect('/error');
@@ -206,11 +203,10 @@ router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
  * GET Edit - Show the user edit form
  */
 router.get('/edit', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     console.log(user);
     if (user) {
-      res.render('profile/edit', { title: 'Editar', layout: 'layout', user, userType });
+      res.render('profile/edit', { title: 'Editar', layout: 'layout', user, ...req.session });
     }
     else {
       console.log('User not found!');
@@ -495,7 +491,7 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
 
 
 /**
- * POST cancel - Cancel franchisee
+ * POST denyContract - Franchisee refuses a contract
  */
 router.post('/denyContract', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
@@ -577,7 +573,7 @@ router.post('/indication', (req, res) => {
  * GET doubts page
  */
 router.get('/doubts', auth.isAuthenticated, (req, res) => {
-  res.render('doubts', { title: 'Dúvidas frequentes', layout: 'layout' });
+  res.render('doubts', { title: 'Dúvidas frequentes', layout: 'layout' , ...req.session });
 });
 
 /*

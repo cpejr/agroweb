@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
 });
 
 /**
- * DELETE Destroy - Removes a chem from the databse
+ * DELETE Destroy - Removes a newsletter from the databse
  */
 router.delete('/:id', (req, res) => {
   Newsletter.delete(req.params.id).catch((error) => {

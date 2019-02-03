@@ -13,7 +13,7 @@ const router = express.Router();
  * GET Index - Show all transactions
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
-  User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
+  User.getAllTransactionsByUserId(req.session.userId).then((transactions) => {
     res.render('history', { title: 'Histórico', transactions, ...req.session });
   }).catch((error) => {
     console.log(error);
@@ -30,11 +30,11 @@ router.post('/', auth.isAuthenticated, (req, res) => {
     offer: req.body._id,
   };
   if (req.session.userType === 'Franqueado') {
-    transactionData.franchisee = req.session._id;
+    transactionData.franchisee = req.session.userId;
     transactionData.buyer = req.body.buyer;
   }
   else {
-    transactionData.buyer = req.session._id;
+    transactionData.buyer = req.session.userId;
   }
   Offer.getById(transactionData.offer).then((offer) => {
     if (offer.delivery !== '48 horas' && !offer.megaOpportunity) {
@@ -160,7 +160,7 @@ router.post('/', auth.isAuthenticated, (req, res) => {
 /**
  * GET Show - Show details of a transaction
  */
-router.get('/:id', (req, res) => {
+router.get('/:id', auth.isAuthenticated, (req, res) => {
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction) {
       Group.getOneByQuery({ offer: transaction.offer }).then((group) => {
@@ -190,7 +190,7 @@ router.get('/:id', (req, res) => {
 /**
  * PUT Update - Update a transaction in the database
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', auth.isAuthenticated, (req, res) => {
   Transaction.getById(req.params.id).then((transaction) => {
     let transactionData = {};
     const data = {
@@ -478,8 +478,8 @@ router.put('/:id', (req, res) => {
 /**
  * DELETE Destroy - Removes a transaction from the databse
  */
-router.delete('/:id', (req, res) => {
-  const userId = req.session._id;
+router.delete('/:id',  auth.isAuthenticated, (req, res) => {
+  const userId = req.session.userId;
   const offerData = {};
   Transaction.getById(req.params.id).then((transaction) => {
     if (transaction.status === 'Cotado') {

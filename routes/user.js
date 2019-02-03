@@ -12,9 +12,9 @@ const router = express.Router();
  * GET User Home page
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
-  if (req.session.status === 'Ativo' || req.session.status === 'Inativo') {
-    if (req.session.status === 'Inativo') {
-      User.update(req.session._id, { status: 'Ativo' }).catch((error) => {
+  if (req.session.userStatus === 'Ativo' || req.session.userStatus === 'Inativo') {
+    if (req.session.userStatus === 'Inativo') {
+      User.update(req.session.userId, { status: 'Ativo' }).catch((error) => {
         console.log(error);
         res.redirect('/error');
       });
@@ -45,9 +45,9 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  * GET orders - Show all user's orders
  */
 router.get('/orders', auth.isAuthenticated, (req, res) => {
-  User.getById(req.session._id).then((user) => {
+  User.getById(req.session.userId).then((user) => {
     if (user) {
-      User.getAllOpenOrdersByUserId(req.session._id).then((transactions) => {
+      User.getAllOpenOrdersByUserId(req.session.userId).then((transactions) => {
         console.log(transactions);
         res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session });
       }).catch((error) => {
@@ -69,7 +69,7 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
  * GET orders - Show all user's orders
  */
 router.get('/sales', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
+  const userId = req.session.userId;
   User.getById(userId).then((user) => {
     if (user) {
       User.getAllOpenSalesByUserId(userId).then((transactions) => {
@@ -95,9 +95,9 @@ router.get('/sales', auth.isAuthenticated, (req, res) => {
  * GET offers - Show all user's offers
  */
 router.get('/offers', auth.isAuthenticated, (req, res) => {
-  User.getById(req.session._id).then((user) => {
+  User.getById(req.session.userId).then((user) => {
     if (user) {
-      User.getAllOffersByUserId(req.session._id).then((offers) => {
+      User.getAllOffersByUserId(req.session.userId).then((offers) => {
         res.render('offers', { title: 'Produtos oferecidos', layout: 'layout', offers, ...req.session });
       }).catch((error) => {
         console.log(error);
@@ -118,7 +118,7 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
  * POST inactive - inactive a user
  */
 router.post('/inactive', auth.isAuthenticated, (req, res) => {
-  User.getById(req.session._id).then((user) => {
+  User.getById(req.session.userId).then((user) => {
     Email.inactivatedUsersEmail(user).catch((error) => {
       req.flash('danger', 'Não foi possível enviar o email para o usuário inativado.');
       res.redirect('/login');
@@ -127,7 +127,7 @@ router.post('/inactive', auth.isAuthenticated, (req, res) => {
   const user = {
     status: 'Inativo'
   };
-  User.update(req.session._id, user).catch((error) => {
+  User.update(req.session.userId, user).catch((error) => {
     console.log(error);
     res.redirect('/error');
   });
@@ -139,7 +139,7 @@ router.post('/inactive', auth.isAuthenticated, (req, res) => {
 /**
  * GET contact page
  */
-router.get('/contact', (req, res) => {
+router.get('/contact',  auth.isAuthenticated, (req, res) => {
   res.render('contact', { title: 'Contato', ...req.session });
 });
 
@@ -147,9 +147,9 @@ router.get('/contact', (req, res) => {
  * GET history - Show the user's buying history
  */
 router.get('/history', auth.isAuthenticated, (req, res) => {
-  User.getById(req.session._id).then((user) => {
+  User.getById(req.session.userId).then((user) => {
     if (user) {
-      User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
+      User.getAllTransactionsByUserId(req.session.userId).then((transactions) => {
         console.log(transactions);
         res.render('orders', { title: 'Histórico', transactions, ...req.session });
       }).catch((error) => {
@@ -171,12 +171,12 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
  * GET Profile/index - Show all user's details
  */
 router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
+  const userId = req.session.userId;
   User.getById(req.params.id).then((user) => {
     if (user) {
       const franchisee = user.agreementList[0];
-      User.getAgreementListById(req.session._id).then((client) => {
-        User.getContractRequestsById(req.session._id).then((contract) => {
+      User.getAgreementListById(req.session.userId).then((client) => {
+        User.getContractRequestsById(req.session.userId).then((contract) => {
           console.log(userId);
           console.log(user);
           res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, client, franchisee, ...req.session });
@@ -203,7 +203,7 @@ router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
  * GET Edit - Show the user edit form
  */
 router.get('/edit', auth.isAuthenticated, (req, res) => {
-  User.getById(req.session._id).then((user) => {
+  User.getById(req.session.userId).then((user) => {
     console.log(user);
     if (user) {
       res.render('profile/edit', { title: 'Editar', layout: 'layout', user, ...req.session });
@@ -222,7 +222,7 @@ router.get('/edit', auth.isAuthenticated, (req, res) => {
  * POST buy - Buy all products from myCart
  */
 router.post('/buy', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
+  const userId = req.session.userId;
   const transaction = {
     status: 'Aguardando boleto'
   };
@@ -276,7 +276,7 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
   else {
     userData.firstName = userData.fullName;
   }
-  User.update(req.session._id, userData).then(() => {
+  User.update(req.session.userId, userData).then(() => {
     req.flash('success', 'Perfil atualizado.');
     res.redirect('/user');
   }).catch((error) => {
@@ -301,7 +301,7 @@ router.get('/franchisee', auth.isAuthenticated, (req, res) => {
  * GET contract request page
  */
 router.get('/contractRequests', auth.isAuthenticated, (req, res) => {
-  User.getContractRequestsById(req.session._id).then((users) => {
+  User.getContractRequestsById(req.session.userId).then((users) => {
     res.render('contractRequests', { title: 'Requisições de contrato', layout: 'layout', users, ...req.session });
   }).catch((error) => {
     console.log(error);
@@ -313,7 +313,7 @@ router.get('/contractRequests', auth.isAuthenticated, (req, res) => {
  * GET clients page
  */
 router.get('/agreementList', auth.isAuthenticated, (req, res) => {
-  User.getAgreementListById(req.session._id).then((clients) => {
+  User.getAgreementListById(req.session.userId).then((clients) => {
     if (req.session.userType === 'Produtor') {
       res.render('clients', { title: 'Meu Franqueado', layout: 'layout', clients, ...req.session });
     }
@@ -329,7 +329,7 @@ router.get('/agreementList', auth.isAuthenticated, (req, res) => {
 /**
  * DELETE Destroy - Update a user status to 'Inativo'
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth.isAuthenticated, (req, res) => {
   User.delete(req.params.id).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -342,7 +342,7 @@ router.delete('/:id', (req, res) => {
  */
 router.post('/contract', auth.isAuthenticated, (req, res) => {
   User.getContractRequestsById(req.body.clientId).then((users) => {
-    const userId = req.session._id;
+    const userId = req.session.userId;
     User.addClient(req.body.clientId, userId).catch((error) => {
       console.log(error);
       res.redirect('/error');
@@ -390,13 +390,13 @@ router.post('/contract', auth.isAuthenticated, (req, res) => {
 * POST contract - Generate Contract franchisee request
 */
 router.post('/generateContractRequest', auth.isAuthenticated, (req, res) => {
-  User.getAgreementListById(req.session._id).then((client) => {
+  User.getAgreementListById(req.session.userId).then((client) => {
     if (client.uid) {
       req.flash('danger', 'Não é possível contratar mais de um franqueado.');
       res.redirect('/user');
     }
     else {
-      const userId = req.session._id;
+      const userId = req.session.userId;
 
       User.removeContract(req.body.franchiseeId, userId).catch((error) => {
         console.log(error);
@@ -421,12 +421,11 @@ router.post('/generateContractRequest', auth.isAuthenticated, (req, res) => {
   });
 });
 
-
 /**
  * POST cancel - Cancel franchisee
  */
 router.post('/cancel', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
+  const userId = req.session.userId;
   const { userType } = req.session;
 
   const transaction = {
@@ -494,7 +493,7 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
  * POST denyContract - Franchisee refuses a contract
  */
 router.post('/denyContract', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
+  const userId = req.session.userId;
   console.log(req.body.clientId);
   console.log(userId);
   User.removeContract(req.body.clientId, userId).catch((error) => {
@@ -524,8 +523,8 @@ router.post('/denyContract', auth.isAuthenticated, (req, res) => {
  * POST change - Change franchisee
  */
 router.post('/change', auth.isAuthenticated, (req, res) => {
-  User.getAgreementListById(req.session._id).then((client) => {
-    const userId = req.session._id;
+  User.getAgreementListById(req.session.userId).then((client) => {
+    const userId = req.session.userId;
     User.removeClient(client[0]._id, userId).catch((error) => {
       console.log(error);
       res.redirect('/error');
@@ -550,8 +549,8 @@ router.post('/change', auth.isAuthenticated, (req, res) => {
 /*
  * POST indication - sends a franchisee's indication email
  */
-router.post('/indication', (req, res) => {
-  User.getById(req.session._id).then((users) => {
+router.post('/indication', auth.isAuthenticated, (req, res) => {
+  User.getById(req.session.userId).then((users) => {
     console.log(users);
     Email.indication(users).catch((error) => {
     });
@@ -579,7 +578,7 @@ router.get('/doubts', auth.isAuthenticated, (req, res) => {
 /*
  * POST send-ticket - send the ticket to de client
  */
-router.post('/send-ticket', (req, res) => {
+router.post('/send-ticket', auth.isAuthenticated, auth.canSell, (req, res) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     Transaction.getById(fields.transactionID).then((transaction) => {
@@ -619,7 +618,7 @@ router.post('/send-ticket', (req, res) => {
 /*
  * POST send-payment - Send the proof of payment
  */
-router.post('/send-payment', (req, res) => {
+router.post('/send-payment', auth.isAuthenticated, (req, res) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     Transaction.getById(fields.transactionID).then((transaction) => {

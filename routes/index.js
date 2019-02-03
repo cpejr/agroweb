@@ -108,7 +108,7 @@ router.post('/login', (req, res) => {
         req.session.userId = currentLogged._id;
         req.session.userUid = user.uid;
         req.session.email = currentLogged.email;
-        req.session.status = currentLogged.status;
+        req.session.userStatus = currentLogged.status;
         if (currentLogged.type === 'Produtor') {
           req.session.franchisee = currentLogged.agreementList;
         }
@@ -169,10 +169,10 @@ router.post('/recoverPassword', (req, res) => {
  */
 router.get('/logout', auth.isAuthenticated, (req, res) => {
   firebase.auth().signOut().then(() => {
-    if (req.session.status === 'Aguardando aprovação') {
+    if (req.session.userStatus === 'Aguardando aprovação') {
       req.flash('warning', 'Sua solicitação de cadastro foi enviada para a equipe que avaliará seus dados antes de ativar sua conta.');
     }
-    else if (req.session.status === 'Bloqueado') {
+    else if (req.session.userStatus === 'Bloqueado') {
       req.flash('warning', 'Essa conta não pode ser utilizada porque está bloqueada.')
     }
     delete req.session.userType;
@@ -181,7 +181,7 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
     delete req.session.userId;
     delete req.session.userUid;
     delete req.session.email;
-    delete req.session.status;
+    delete req.session.userStatus;
     res.redirect('/login');
   }).catch((error) => {
     console.log(error);
@@ -224,7 +224,7 @@ router.post('/signup', (req, res) => {
         req.session.fullName = userData.name;
         req.session.email = userData.email;
         req.session.userUid = user.uid;
-        req.session.status = 'Aguardando aprovação';
+        req.session.userStatus = 'Aguardando aprovação';
         req.session.userId = docId;
         if (req.session.userType === 'Franqueado') {
           Email.signedUpFranchisee(userData.email).catch((error) => {

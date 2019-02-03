@@ -396,7 +396,7 @@ router.post('/send-tax-ticket', (req, res) => {
             req.flash('danger', 'Não foi possível atualizar o status da transação.');
             res.redirect('/error');
           });
-          res.redirect('/admin/transactions');
+          res.redirect('/admin/transaction');
           res.end();
         }).catch(() => {
           req.flash('danger', 'Não foi possível enviar o boleto.');

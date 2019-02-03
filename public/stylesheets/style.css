@@ -8146,4 +8146,7 @@ a.more-link {
   position: absolute;
   z-index: -1; }
 
+.label-file {
+  cursor: pointer; }
+
 /*# sourceMappingURL=style.css.map */

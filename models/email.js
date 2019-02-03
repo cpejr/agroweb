@@ -629,7 +629,8 @@ A disposição
 Equipe MEGAPOOL`;
     const subject = `MEGAPOOL: Atualização no status do pedido #${data.transactionID}`;
     const emailContent = {
-      clientEmail: data.email,
+      // clientEmail: data.email,
+      clientEmail: 'maarina.faria@gmail.com',
       content,
       subject,
       attachments: [{ path: data.path }]
@@ -659,7 +660,8 @@ A disposição
 Equipe MEGAPOOL`;
     const subject = `MEGAPOOL: Pagamento da taxa venda #${data.transactionID}`;
     const emailContent = {
-      clientEmail: data.email,
+      // clientEmail: data.email,
+      clientEmail: 'maarina.faria@gmail.com',
       content,
       subject,
       attachments: [{ path: data.path }]
@@ -688,7 +690,8 @@ A disposição
 Equipe MEGAPOOL`;
     const subject = `MEGAPOOL: Comprovante de pagamento do pedido #${data.transactionID}`;
     const emailContent = {
-      clientEmail: data.email,
+      // clientEmail: data.email,
+      clientEmail: 'maarina.faria@gmail.com',
       content,
       subject,
       attachments: [{ path: data.path }]
@@ -713,7 +716,8 @@ Equipe MEGAPOOL`;
 Confira os dados e, caso esteja tudo certo, lembre-se de atualizar o status para "Pagamento confirmado" na plataforma.`;
     const subject = `MEGAPOOL: Comprovante de pagamento de taxa #${data.transactionID}`;
     const emailContent = {
-      clientEmail: 'admcpejr@megapool.com.br',
+      // clientEmail: 'admcpejr@megapool.com.br',
+      clientEmail: 'maarina.faria@gmail.com',
       content,
       subject,
       attachments: [{ path: data.path }]

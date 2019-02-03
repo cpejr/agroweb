@@ -4,14 +4,13 @@ const Offer = require('../models/offer');
 const Product = require('../models/product');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
-const config = require('../docs/config.json');
 
 const router = express.Router();
 
 /**
  * GET Index - Show all offers
  */
-router.get('/', auth.isAdmin, (req, res) => {
+router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Offer.getAll().then((offers) => {
     res.render('offers/index', { title: 'Oferta', offers, ...req.session });
   }).catch((error) => {
@@ -23,14 +22,14 @@ router.get('/', auth.isAdmin, (req, res) => {
 /**
  * GET New - Show form to create new offer
  */
-router.get('/new', auth.canSell, (req, res) => {
+router.get('/new', auth.isAuthenticated, auth.canSell, (req, res) => {
   res.render('offers/new', { title: 'Nova Oferta', ...req.session });
 });
 
 /**
  * POST Create - Add new offer to DB
  */
-router.post('/', (req, res) => {
+router.post('/', auth.isAuthenticated, auth.canSell, (req, res) => {
   const { offer } = req.body;
   console.log(offer);
   offer.stock = parseFloat(offer.stock);
@@ -40,7 +39,7 @@ router.post('/', (req, res) => {
   offer.price.high = parseFloat(offer.price.high);
   offer.breakpoints.low = parseFloat(offer.breakpoints.low);
   offer.breakpoints.average = parseFloat(offer.breakpoints.average);
-  User.getAllOffersByUserId(req.session._id).then((offers) => {
+  User.getAllOffersByUserId(req.session.userId).then((offers) => {
     offers.forEach((object) => {
       if (object.product.name === offer.product && object.delivery === offer.delivery) {
         req.flash('danger', 'Já existe uma oferta para esse produto com esse tipo de entrega.');
@@ -92,7 +91,7 @@ router.post('/', (req, res) => {
       cropCloseDate.setDate(cropCloseDate.getDate() - 15);
       smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
 
-      User.getById(req.session._id).then((user) => {
+      User.getById(req.session.userId).then((user) => {
         offer.seller = user;
         Product.getByQuerySorted({ name: offer.product }, {}).then((product) => {
           offer.product = product[0]._id;
@@ -164,7 +163,7 @@ router.post('/', (req, res) => {
                 res.redirect('/error');
               });
             }
-            User.addOffer(req.session._id, offerId).catch((error) => {
+            User.addOffer(req.session.userId, offerId).catch((error) => {
               console.log(error);
               res.redirect('/error');
             });
@@ -202,9 +201,9 @@ router.post('/', (req, res) => {
  */
 router.get('/:id', auth.isAuthenticated, (req, res) => {
   const { userType } = req.session;
-  const userId = req.session._id;
+  const userId = req.session.userId;
 
-  User.getAgreementListById(req.session._id).then((clients) => {
+  User.getAgreementListById(req.session.userId).then((clients) => {
     Offer.getById(req.params.id).then((offer) => {
       if (offer) {
         Group.getOneByQuery({ offer: offer._id }).then((group) => {
@@ -238,7 +237,7 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
 /**
  * GET Edit - Show the offer edit form
  */
-router.get('/:id/edit', auth.canSell, (req, res) => {
+router.get('/:id/edit', auth.isAuthenticated, auth.canSell, (req, res) => {
   Offer.getById(req.params.id).then((offer) => {
     if (offer) {
       console.log(offer);
@@ -257,7 +256,7 @@ router.get('/:id/edit', auth.canSell, (req, res) => {
 /**
  * PUT Update - Update a offer in the database
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
   const { offer } = req.body;
   console.log(offer);
   if (offer.stock) {
@@ -317,10 +316,8 @@ router.put('/:id', (req, res) => {
         if (offer.delivery !== '48 horas' && !offer.megaOpportunity) {
           const queryGroup = { productId: offer.product, delivery: offer.delivery };
           Group.getOneByQuery(queryGroup).then((group) => {
-            // console.log(group);
             if (group) {
               const groupData = {};
-              // console.log('Compares and changes the groups offer');
               const offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
               const offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
               if (offerGroupPrice > offerPrice) {
@@ -418,7 +415,7 @@ router.put('/:id', (req, res) => {
 /**
  * DELETE Destroy - Removes a offer from the databse
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth.isAuthenticated, (req, res) => {
   Offer.delete(req.params.id).then(() => {
     req.flash('success', 'Oferta inativada.');
     if (req.session.userType === 'Administrador') {

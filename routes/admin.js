@@ -1,7 +1,6 @@
 const express = require('express');
 const formidable = require('formidable');
 const fs = require('fs');
-const Newsletter = require('../models/newsletter');
 const Product = require('../models/product');
 const Offer = require('../models/offer');
 const User = require('../models/user');
@@ -109,7 +108,7 @@ router.get('/requisitions/products', auth.isAuthenticated, auth.isAdmin, (req, r
 /**
  * POST payFranchisse - make the franchisee payment
  */
-router.post('/payFranchisee/:id', auth.isAuthenticated, (req, res) => {
+router.post('/payFranchisee/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const user = {
     pendingPayment: 0
   };
@@ -309,7 +308,7 @@ router.get('/groups', auth.isAuthenticated, auth.isAdmin, (req, res) => {
 });
 
 /* POST send-contract - Send the contract to the franchisee */
-router.post('/send-contract', (req, res) => {
+router.post('/send-contract', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     User.getById(fields.id).then((user) => {
@@ -339,7 +338,7 @@ router.post('/send-contract', (req, res) => {
 });
 
 /* POST ptax - Updates ptax value */
-router.post('/ptax', (req, res) => {
+router.post('/ptax', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Dollar.getPtaxValue().then((oldPtax) => {
     console.log(oldPtax);
     if (oldPtax < req.body.ptax) {
@@ -362,7 +361,7 @@ router.post('/ptax', (req, res) => {
 });
 
 /* POST send-tax-ticket - Send the tax ticket to the client */
-router.post('/send-tax-ticket', (req, res) => {
+router.post('/send-tax-ticket', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     Transaction.getById(fields.transactionID).then((transaction) => {

@@ -12,7 +12,7 @@ var router = express.Router();
  * GET Index - Show all quotations
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
+  const userId = req.session.userId;
   User.getAllQuotationsByUserId(userId).then((quotations) => {
     res.render('quotations/index', { title: 'Cotações', layout: 'layout', quotations, ...req.session });
   }).catch((error) => {

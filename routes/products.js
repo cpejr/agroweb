@@ -21,8 +21,8 @@ router.get('/', auth.isAuthenticated, (req, res) => {
 /**
  * GET New - Show form to create new product
  */
-router.get('/new', (req, res) => {
-  User.getById(req.session._id).then((user) => {
+router.get('/new', auth.isAuthenticated, (req, res) => {
+  User.getById(req.session.userId).then((user) => {
     console.log(user);
     res.render('products/new', { title: 'Novo Produto', user, ...req.session });
   }).catch((error) => {
@@ -34,10 +34,8 @@ router.get('/new', (req, res) => {
 /**
  * POST Create - Add new product to DB
  */
-router.post('/', (req, res) => {
-
+router.post('/', auth.isAuthenticated, (req, res) => {
   if (req.body.chem) {
-
     const { product } = req.body;
     const { userType } = req.session;
     if (userType === 'Administrador') {
@@ -83,13 +81,12 @@ router.post('/', (req, res) => {
     req.flash('danger', 'É necessário inserir um princípio ativo antes de criar o produto.');
     res.redirect(`/products/new`);
   }
-
 });
 
 /**
  * GET Show - Show details of a product
  */
-router.get('/:id', (req, res) => {
+router.get('/:id', auth.isAuthenticated, (req, res) => {
   Product.getById(req.params.id).then((product) => {
     if (product) {
       console.log(product);
@@ -108,7 +105,7 @@ router.get('/:id', (req, res) => {
 /**
  * GET Edit - Show the product edit form
  */
-router.get('/:id/edit', auth.canSell, (req, res) => {
+router.get('/:id/edit', auth.isAuthenticated, (req, res) => {
   Product.getById(req.params.id).then((product) => {
     if (product) {
       res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product, ...req.session });
@@ -126,7 +123,7 @@ router.get('/:id/edit', auth.canSell, (req, res) => {
 /**
  * PUT Update - Update a product in the database
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const { product } = req.body;
   Product.update(req.params.id, product).then(() => {
     req.flash('success', 'Produto editado com sucesso.');
@@ -140,7 +137,7 @@ router.put('/:id', (req, res) => {
 /**
  * DELETE Destroy - Removes a product from the databse
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Product.delete(req.params.id).then(() => {
     req.flash('success', 'Produto removido.');
     res.redirect('/admin/products');

@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
  * GET Contact page
  */
 router.get('/contact', (req, res) => {
-  console.log(req.session._id);
+  console.log(req.session.userId);
   res.render('site/contact', { title: 'Contato', layout: 'layoutHome' });
 });
 
@@ -52,7 +52,7 @@ router.get('/franchisee', (req, res) => {
  * POST Contact Request
  */
 router.post('/contact', (req, res) => {
-  Email.contactEmail(req.body).then((user) => {
+  Email.contactEmail(req.body).then(() => {
     req.flash('success', 'Mensagem enviada com sucesso para o administrador.');
     res.redirect('/login');
   }).catch((error) => {

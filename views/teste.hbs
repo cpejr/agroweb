@@ -9,11 +9,6 @@
   <input type="file" name="contract">
   <button type="submit">Enviar</button>
 </form>
-{{#compare 1 2 operator=">"}}
-  jesus
-  {{else}}
-  não foi
-{{/compare}}
 
 <form action="/test" method="post">
   <input type="text" name="name">
@@ -27,3 +22,17 @@
   <input type="hidden" name="id" value="{{_id}}">
   <button type="submit">Enviar contrato</button>
 </form>
+
+<button type="button" id="trem">Abrir pop-up</button>
+{{#section 'scripts'}}
+<script>
+$(document).ready(() => {
+  $('#trem').click(() => {
+    $.post('/test', null, (response) => {
+      var wind = window.open("", "", "width=600,height=600,scrollbars=yes");
+      wind.document.write(response);
+    });
+  });
+});
+</script>
+{{/section}}

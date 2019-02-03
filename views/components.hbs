@@ -38,43 +38,23 @@
                 <h5 class="text-left align-text-top card-text font-black text-green mobile-font1 text-uppercase">
                   teste
                 </h5>
-                <!-- <div class="dropdown">
-                <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-                {{#compare taxStatus 'Aguardando boleto'}}
-                class="btn btn-outline-info dropdown-toggle col-12">
-                Aguardando boleto
-
-                {{else compare taxStatus 'Aguardando pagamento'}}
-                class="btn btn-outline-warning dropdown-toggle col-12">
-                Aguardando pagamento
-
-                {{else compare taxStatus 'Pagamento confirmado'}}
-                class="btn btn-outline-success  dropdown-toggle col-12">
-                Pagamento confirmado
-
-                {{else}}
-                class="btn  dropdown-toggle btn-outline-danger col-12">
-                Cancelado
-                {{/compare}}
-              </button>
-              <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
                 <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item">
                     <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
                       Aguardando boleto
                     </button>
                   </a>
                 </form>
                 <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                  <a class="dropdown-item " href="#">
+                  <a class="dropdown-item">
                     <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
                       Aguardando pagamento
                     </button>
                   </a>
                 </form>
                 <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item">
                     <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
                       Pagamento confirmado
                     </button>
@@ -82,7 +62,7 @@
                 </form>
 
                 <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item">
                     <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
                       Cancelado
                     </button>
@@ -176,24 +156,23 @@
                   Cancelado
                   {{/compare}}
                 </button>
-                <!--   <button <button onclick="location.href='/admin/{{id}}/updateTransaction'" class="btn btn-outline-success"> -->
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
                   <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item">
                       <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
                         Aguardando boleto
                       </button>
                     </a>
                   </form>
                   <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                    <a class="dropdown-item " href="#">
+                    <a class="dropdown-item">
                       <button type="submit" class="btn btn-outline-warning col-12" name="taxStatus" value="Aguardando pagamento">
                         Aguardando pagamento
                       </button>
                     </a>
                   </form>
                   <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item">
                       <button type="submit" class="btn btn-outline-success col-12" name="taxStatus" value="Pagamento confirmado">
                         Pagamento confirmado
                       </button>
@@ -201,7 +180,7 @@
                   </form>
 
                   <form method= "POST" action="/admin/{{id}}/updateTaxTransaction">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item">
                       <button type="submit" class="btn btn-outline-danger col-12" name="taxStatus" value="Cancelado">
                         Cancelado
                       </button>

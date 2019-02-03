@@ -48,6 +48,33 @@ $(document).ready(() => {
   password.onchange = validatePassword;
   confirmPassword.onkeyup = validatePassword;
 
+  $('#industryOption').click(() => {
+    $.get('/industryOption', (response) => {
+      const wind = window.open('', 'Industry Option', 'width=600,height=600,scrollbars=yes');
+      wind.document.write(response);
+    });
+  });
+
+  $('#producerOption').click(() => {
+    $.get('/producerOption', (response) => {
+      const wind = window.open('', 'Producer Option', 'width=600,height=600,scrollbars=yes');
+      wind.document.write(response);
+    });
+  });
+
+  $('#franchiseeOption').click(() => {
+    $.get('/site/franchisee', (response) => {
+      const wind = window.open('', 'Franchisee Option', 'width=600,height=600,scrollbars=yes');
+      wind.document.write(response);
+    });
+  });
+
+  $('#dealerOption').click(() => {
+    $.get('/dealerOption', (response) => {
+      const wind = window.open('', 'Dealer Option', 'width=600,height=600,scrollbars=yes');
+      wind.document.write(response);
+    });
+  });
 });
 
 function limpa_formulario_cep() {

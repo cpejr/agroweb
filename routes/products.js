@@ -11,7 +11,7 @@ const router = express.Router();
  */
 router.get('/', auth.isAuthenticated, (req, res) => {
   Product.getAll().then((products) => {
-    res.render('products/index', { title: 'Produtos', products });
+    res.render('products/index', { title: 'Produtos', products, ...req.session });
   }).catch((error) => {
     console.log(error);
     res.redirect('/error');
@@ -22,10 +22,9 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  * GET New - Show form to create new product
  */
 router.get('/new', (req, res) => {
-  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     console.log(user);
-    res.render('products/new', { title: 'Novo Produto', userType, user });
+    res.render('products/new', { title: 'Novo Produto', user, ...req.session });
   }).catch((error) => {
     req.flash('danger', 'Não foi possível fazer o pedido.');
     res.redirect('/user');
@@ -91,11 +90,10 @@ router.post('/', (req, res) => {
  * GET Show - Show details of a product
  */
 router.get('/:id', (req, res) => {
-  const { userType } = req.session;
   Product.getById(req.params.id).then((product) => {
     if (product) {
       console.log(product);
-      res.render('products/show', { title: product.name, id: req.params.id, ...product, userType });
+      res.render('products/show', { title: product.name, id: req.params.id, ...product, ...req.session });
     }
     else {
       console.log('Product not found!');
@@ -113,7 +111,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', auth.canSell, (req, res) => {
   Product.getById(req.params.id).then((product) => {
     if (product) {
-      res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product });
+      res.render('products/edit', { title: `Editar ${product.name}`, id: req.params.id, ...product, ...req.session });
     }
     else {
       console.log('Product not found!');

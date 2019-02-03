@@ -75,7 +75,7 @@ router.get('/', (req, res) => {
       });
     }
     else {
-      res.render('results', { title: `Resultados para "${req.query.filter}"` });
+      res.render('results', { title: `Resultados para "${req.query.filter}"`, ...req.session });
     }
   }).catch((error) => {
     console.log(error);

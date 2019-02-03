@@ -1,4 +1,6 @@
 const express = require('express');
+const formidable = require('formidable');
+const fs = require('fs');
 const Email = require('../models/email');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
@@ -43,12 +45,11 @@ router.get('/', auth.isAuthenticated, (req, res) => {
  * GET orders - Show all user's orders
  */
 router.get('/orders', auth.isAuthenticated, (req, res) => {
-  const userId = req.session._id;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOpenOrdersByUserId(req.session._id).then((transactions) => {
         console.log(transactions);
-        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session});
+        res.render('orders', { title: 'Minhas compras', layout: 'layout', transactions, ...req.session });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -69,13 +70,12 @@ router.get('/orders', auth.isAuthenticated, (req, res) => {
  */
 router.get('/sales', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
-  const { userType } = req.session;
   User.getById(userId).then((user) => {
     if (user) {
       User.getAllOpenSalesByUserId(userId).then((transactions) => {
         console.log(userId);
         console.log(transactions);
-        res.render('orders', { title: 'Demandas', transactions, userId, userType });
+        res.render('orders', { title: 'Demandas', transactions, ...req.session });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -95,11 +95,10 @@ router.get('/sales', auth.isAuthenticated, (req, res) => {
  * GET offers - Show all user's offers
  */
 router.get('/offers', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllOffersByUserId(req.session._id).then((offers) => {
-        res.render('offers', { title: 'Produtos oferecidos', layout: 'layout', offers, userType });
+        res.render('offers', { title: 'Produtos oferecidos', layout: 'layout', offers, ...req.session });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -115,6 +114,9 @@ router.get('/offers', auth.isAuthenticated, (req, res) => {
   });
 });
 
+/**
+ * POST inactive - inactive a user
+ */
 router.post('/inactive', auth.isAuthenticated, (req, res) => {
   User.getById(req.session._id).then((user) => {
     Email.inactivatedUsersEmail(user).catch((error) => {
@@ -138,20 +140,18 @@ router.post('/inactive', auth.isAuthenticated, (req, res) => {
  * GET contact page
  */
 router.get('/contact', (req, res) => {
-  const { userType } = req.session;
-  res.render('contact', { title: 'Contato', userType });
+  res.render('contact', { title: 'Contato', ...req.session });
 });
 
 /**
  * GET history - Show the user's buying history
  */
 router.get('/history', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     if (user) {
       User.getAllTransactionsByUserId(req.session._id).then((transactions) => {
         console.log(transactions);
-        res.render('orders', { title: 'Histórico', transactions, userType });
+        res.render('orders', { title: 'Histórico', transactions, ...req.session });
       }).catch((error) => {
         console.log(error);
         res.redirect('/error');
@@ -172,7 +172,6 @@ router.get('/history', auth.isAuthenticated, (req, res) => {
  */
 router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
-  const userType = req.session;
   User.getById(req.params.id).then((user) => {
     if (user) {
       const franchisee = user.agreementList[0];
@@ -180,7 +179,7 @@ router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
         User.getContractRequestsById(req.session._id).then((contract) => {
           console.log(userId);
           console.log(user);
-          res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, userType, client, userId, franchisee, ...req.session});
+          res.render('profile/index', { title: 'Perfil', id: req.params.id, layout: 'layout', user, client, franchisee, ...req.session });
         }).catch((error) => {
           console.log(error);
           res.redirect('/error');
@@ -204,11 +203,10 @@ router.get('/profile/:id', auth.isAuthenticated, (req, res) => {
  * GET Edit - Show the user edit form
  */
 router.get('/edit', auth.isAuthenticated, (req, res) => {
-  const { userType } = req.session;
   User.getById(req.session._id).then((user) => {
     console.log(user);
     if (user) {
-      res.render('profile/edit', { title: 'Editar', layout: 'layout', user, userType });
+      res.render('profile/edit', { title: 'Editar', layout: 'layout', user, ...req.session });
     }
     else {
       console.log('User not found!');
@@ -342,48 +340,48 @@ router.delete('/:id', (req, res) => {
 /**
  * POST contract - Contract franchisee
  */
- router.post('/contract', auth.isAuthenticated, (req, res) => {
-    User.getContractRequestsById(req.body.clientId).then((users) => {
-     const userId = req.session._id;
-     User.addClient(req.body.clientId, userId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-     User.addClient(userId, req.body.clientId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
-     User.increaseTotalCustomers(userId).catch((error) => {
-       console.log(error);
-       res.redirect('/error');
-     });
+router.post('/contract', auth.isAuthenticated, (req, res) => {
+  User.getContractRequestsById(req.body.clientId).then((users) => {
+    const userId = req.session._id;
+    User.addClient(req.body.clientId, userId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    User.addClient(userId, req.body.clientId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+    User.increaseTotalCustomers(userId).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
 
-     User.getById(req.body.clientId).then((user) => {
-       const userName = req.session.firstName;
-       Email.contractApprovedEmail(user, userName).catch((error) => {
-         req.flash('danger', 'Não foi possível enviar o email para o cliente do franqueado.');
-         res.redirect('/login');
-       });
-     }).catch((error) => {
-       req.flash('warning', 'Não foi possível encontrar usuário.');
-       res.redirect('/user');
-     });
-
-     users.forEach((user) => {
-       User.removeContract(user._id, req.body.clientId).catch((error) => {
-         console.log(error);
-         res.redirect('/error');
-       });
-       User.removeContract(req.body.clientId, user._id).catch((error) => {
-         console.log(error);
-         res.redirect('/error');
-       });
-     });
-      req.flash('success', 'Contrato de franqueamento aceito. Não se esqueça de enviar o contrato para o cliente.');
+    User.getById(req.body.clientId).then((user) => {
+      const userName = req.session.firstName;
+      Email.contractApprovedEmail(user, userName).catch((error) => {
+        req.flash('danger', 'Não foi possível enviar o email para o cliente do franqueado.');
+        res.redirect('/login');
+      });
+    }).catch((error) => {
+      req.flash('warning', 'Não foi possível encontrar usuário.');
       res.redirect('/user');
-   }).catch((error) => {
-     req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
-     res.redirect('/user');
+    });
+
+    users.forEach((user) => {
+      User.removeContract(user._id, req.body.clientId).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+      User.removeContract(req.body.clientId, user._id).catch((error) => {
+        console.log(error);
+        res.redirect('/error');
+      });
+    });
+    req.flash('success', 'Contrato de franqueamento aceito. Não se esqueça de enviar o contrato para o cliente.');
+    res.redirect('/user');
+  }).catch((error) => {
+    req.flash('warning', 'Não foi possível acessar lista de pedidos de contratos do cliente.');
+    res.redirect('/user');
   });
 });
 
@@ -493,7 +491,7 @@ router.post('/cancel', auth.isAuthenticated, (req, res) => {
 
 
 /**
- * POST cancel - Cancel franchisee
+ * POST denyContract - Franchisee refuses a contract
  */
 router.post('/denyContract', auth.isAuthenticated, (req, res) => {
   const userId = req.session._id;
@@ -514,10 +512,10 @@ router.post('/denyContract', auth.isAuthenticated, (req, res) => {
       req.flash('danger', 'Não foi possível enviar o email para o cliente recusado do franqueado.');
       res.redirect('/login');
     });
-    }).catch((error) => {
-      req.flash('warning', 'Não foi possível encontrar usuário.');
-      res.redirect('/user');
-    });
+  }).catch((error) => {
+    req.flash('warning', 'Não foi possível encontrar usuário.');
+    res.redirect('/user');
+  });
   req.flash('success', 'Pedido de fraqueamento recusado.');
   res.redirect('/user/contractRequests');
 });
@@ -537,7 +535,7 @@ router.post('/change', auth.isAuthenticated, (req, res) => {
       res.redirect('/error');
     });
     User.addContract(req.body.franchiseeId, userId).catch((error) => {
-      console.log(req.body.franchisee);
+      console.log(error);
       res.redirect('/error');
     });
     User.addContract(userId, req.body.franchiseeId).catch((error) => {
@@ -549,11 +547,13 @@ router.post('/change', auth.isAuthenticated, (req, res) => {
   });
 });
 
+/*
+ * POST indication - sends a franchisee's indication email
+ */
 router.post('/indication', (req, res) => {
-User.getById(req.session._id).then((users) => {
+  User.getById(req.session._id).then((users) => {
     console.log(users);
     Email.indication(users).catch((error) => {
-
     });
     User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: true }, {}).then((users) => {
       res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
@@ -565,15 +565,104 @@ User.getById(req.session._id).then((users) => {
     console.log(error);
     req.flash('danger', 'Não foi possível enviar email de compra.');
     res.redirect('/error');
-});
-req.flash('success', 'Um aviso foi enviado para o administrador. Em breve, ele te retornará em seu email.');
+  });
+  req.flash('success', 'Um aviso foi enviado para o administrador. Em breve, ele te retornará em seu email.');
 });
 
 /*
- * GET contract request page
+ * GET doubts page
  */
 router.get('/doubts', auth.isAuthenticated, (req, res) => {
-  res.render('doubts', { title: 'Dúvidas frequentes', layout: 'layout' });
+  res.render('doubts', { title: 'Dúvidas frequentes', layout: 'layout' , ...req.session });
+});
+
+/*
+ * POST send-ticket - send the ticket to de client
+ */
+router.post('/send-ticket', (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    Transaction.getById(fields.transactionID).then((transaction) => {
+      const oldpath = files.ticket.path;
+      const newpath = `./tickets/${files.ticket.name}`;
+      fs.rename(oldpath, newpath, (error) => {
+        if (error) throw error;
+        const data = {
+          path: newpath,
+          email: transaction.buyer.email,
+          firstName: transaction.buyer.firstName,
+          transactionID: fields.transactionID
+        };
+        Email.ticket(data).then(() => {
+          req.flash('success', 'Boleto enviado');
+          const transactionData = {
+            status: 'Aguardando pagamento'
+          };
+          Transaction.update(fields.transactionID, transactionData).catch((error) => {
+            req.flash('danger', 'Não foi possível atualizar o status da transação.');
+            res.redirect('/error');
+          });
+          res.redirect('/user/sales');
+          res.end();
+        }).catch(() => {
+          req.flash('danger', 'Não foi possível enviar o boleto.');
+          res.redirect('/login');
+        });
+      });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  });
+});
+
+/*
+ * POST send-payment - Send the proof of payment
+ */
+router.post('/send-payment', (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    Transaction.getById(fields.transactionID).then((transaction) => {
+      const oldpath = files.payment.path;
+      const newpath = `./tickets/${files.payment.name}`;
+      fs.rename(oldpath, newpath, (error) => {
+        if (error) throw error;
+        if (req.session.userType === 'Franqueado' || req.session.userType === 'Produtor') {
+          const data = {
+            path: newpath,
+            email: transaction.offer.seller.email,
+            firstName: transaction.offer.seller.firstName,
+            transactionID: fields.transactionID
+          };
+          Email.paymentProof(data).then(() => {
+            req.flash('success', 'Comprovante de pagamento enviado');
+            res.redirect('/user/orders');
+            res.end();
+          }).catch(() => {
+            req.flash('danger', 'Não foi possível enviar o comprovante de pagamento.');
+            res.redirect('/login');
+          });
+        }
+        else {
+          const data = {
+            path: newpath,
+            transactionID: fields.transactionID
+          };
+          Email.taxPaymentProof(data).then(() => {
+            req.flash('success', 'Comprovante de pagamento enviado');
+            res.redirect('/user/sales');
+            res.end();
+          }).catch(() => {
+            req.flash('danger', 'Não foi possível enviar o comprovante de pagamento.');
+            res.redirect('/login');
+          });
+        }
+      });
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  });
 });
 
 module.exports = router;

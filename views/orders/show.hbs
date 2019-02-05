@@ -20,7 +20,7 @@
         {{#compare userType 'Produtor'}}
         <!-- Seller info -->
         <div class="col-12 col-md-6 mt-3">
-          <h2 class="mb-4 text-center">Dados do vendedor</h2>
+          <h2 class="mb-4">Dados do vendedor</h2>
           <h4>Empresa</h4>
           <p class="mb-4">{{offer.seller.fantasyName}}</p>
           <h4>Contato</h4>
@@ -33,7 +33,7 @@
         {{else compare userType 'Indústria'}}
         <!-- Buyer info -->
         <div class="col-12 col-md-6 mt-3">
-          <h2 class="mb-4 text-center">Dados do comprador</h2>
+          <h2 class="mb-4">Dados do comprador</h2>
           <h4>Nome</h4>
           <p class="mb-4">{{buyer.fullName}}</p>
           <h4>Contato</h4>
@@ -47,7 +47,7 @@
         {{#compare offer.seller._id userId}}
         <!-- Buyer info -->
         <div class="col-12 col-md-6 mt-3 ">
-          <h2 class="mb-4 text-center">Dados do comprador</h2>
+          <h2 class="mb-4">Dados do comprador</h2>
           <h4>Nome</h4>
           <p class="mb-4">{{buyer.fullName}}</p>
           <h4>Contato</h4>
@@ -60,7 +60,7 @@
         {{else}}
         <!-- Seller info -->
         <div class="col-12 col-md-6 mt-3">
-          <h2 class="mb-4 text-center">Dados do vendedor</h2>
+          <h2 class="mb-4">Dados do vendedor</h2>
           <h4>Empresa</h4>
           <p class="mb-4">{{offer.seller.fantasyName}}</p>
           <h4>Contato</h4>
@@ -74,7 +74,7 @@
         {{else}}
         <!-- Seller info -->
         <div class="col-12 col-md-6 mt-3">
-          <h2 class="mb-4 text-center">Dados do vendedor</h2>
+          <h2 class="mb-4">Dados do vendedor</h2>
           <h4>Empresa</h4>
           <p class="mb-4">{{offer.seller.fantasyName}}</p>
           <h4>Contato</h4>
@@ -86,7 +86,7 @@
         <!-- end Seller info -->
         <!-- Buyer info -->
         <div class="col-12 col-md-6 mt-3 ">
-          <h2 class="mb-4 text-center">Dados do comprador</h2>
+          <h2 class="mb-4">Dados do comprador</h2>
           <h4>Nome</h4>
           <p class="mb-4">{{buyer.fullName}}</p>
           <h4>Contato</h4>
@@ -129,11 +129,12 @@
             <h4>Descrição</h4>
             <p>{{offer.product.description}}</p>
             {{/if}}
-
+          </div>
+            <div class="col-12 col-md-6 mt-3">
             {{#compare userType 'Administrador'}}
-            <h4 class="mt-5">Alterar status da taxa</h4>
+            <h4 class="mt-2">Alterar status da taxa</h4>
             <div class="dropdown pb-4">
-              <button name="taxStatus"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              <button name="taxStatus" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
               {{#compare taxStatus 'Aguardando boleto'}}
 
               class="btn btn-info dropdown-toggle col-8">
@@ -153,7 +154,7 @@
               Cancelado
               {{/compare}}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+            <div class="dropdown-menu col-8" aria-labelledby="dropdownMenuButton" >
               <form  method= "POST" action="/admin/{{id}}/updateTaxTransaction">
                 <a class="dropdown-item">
                   <button type="submit" align="center" class="btn btn-outline-info col-12" name="taxStatus" value="Aguardando boleto">
@@ -187,35 +188,35 @@
             </div>
 
             {{else compare userType 'Indústria'}}
-            <h4 class="mt-5">Alterar status</h4>
+            <h4 class="mt-2">Alterar status</h4>
             <div class="dropdown pb-4">
               <button name="status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
               {{#compare status 'Aguardando boleto'}}
-              class="btn btn-warning dropdown-toggle mx-auto">
+              class="btn btn-warning col-8 dropdown-toggle mx-auto">
               Aguardando boleto
 
               {{else compare status 'Aguardando pagamento'}}
-              class="btn btn-warning dropdown-toggle mx-auto">
+              class="btn btn-warning col-8 dropdown-toggle mx-auto">
               Aguardando pagamento
 
               {{else compare status 'Pagamento confirmado'}}
-              class="btn btn-secondary  dropdown-toggle mx-auto">
+              class="btn btn-secondary col-8 dropdown-toggle mx-auto">
               Pagamento confirmado
 
               {{else compare status 'Produto a caminho'}}
-              class="btn btn-primary  dropdown-toggle mx-auto">
+              class="btn btn-primary col-8 dropdown-toggle mx-auto">
               Produto a caminho
 
               {{else compare status 'Entregue'}}
-              class="btn btn-success  dropdown-toggle mx-auto">
+              class="btn btn-success col-8 dropdown-toggle mx-auto">
               Entregue
 
               {{else}}
-              class="btn  dropdown-toggle btn-danger mx-auto">
+              class="btn col-8 dropdown-toggle btn-danger mx-auto">
               Cancelado
               {{/compare}}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+            <div class="dropdown-menu col-8" aria-labelledby="dropdownMenuButton" >
               <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-info col-12" name="transaction[status]" value="Aguardando boleto">
@@ -268,7 +269,7 @@
 
             {{else compare userType 'Revendedor'}}
             {{#compare offer.seller._id userId}}
-            <h4 class="mt-5">Alterar status</h4>
+            <h4 class="mt-2">Alterar status</h4>
             <div class="dropdown pb-4">
               <button name="status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
               {{#compare status 'Aguardando boleto'}}
@@ -298,7 +299,7 @@
               {{/compare}}
               {{/compare}}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+            <div class="dropdown-menu col-8" aria-labelledby="dropdownMenuButton" >
               <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">
                   <button type="submit" class="btn btn-outline-info col-12" name="transaction[status]" value="Aguardando boleto">
@@ -353,80 +354,82 @@
 
         {{#compare userType 'Administrador'}}
           {{#compare taxStatus 'Aguardando boleto'}}
-          <div class="col-12 col-md-6 mt-3 ">
+          <div class="col-12 col-md-6 mt-3">
             <div class="text-center my-3 justify-content-center">
+              <h5 class="mb-2">Boleto da taxa</h5>
               <form action="/admin/send-tax-ticket" enctype="multipart/form-data" method="post">
                 <small><small><input type="file" name="ticket" class="input-file" id="file"></small></small>
                 <input type="hidden" name="transactionID" value="{{_id}}">
-                <label for="file" class="label-file floating-label text-dark2">Boleto da taxa</label>
+                <label for="file" class="label-file floating-label text-dark2">Clique aqui para escolher o arquivo</label>
                 <button type="submit" class="btn btn-success col-12">Enviar boleto</button>
               </form>
             </div>
           </div>
           {{/compare}}
         {{else compare userType 'Indústria'}}
+        <div class="col-12 col-md-6 mt-3 ">
           {{#compare offer.seller._id userId}}
             {{#compare status 'Aguardando boleto'}}
-            <div class="col-12 col-md-6 mt-3 ">
               <div class="text-center my-3 justify-content-center">
+                <h5 class="mb-2">Boleto da compra</h5>
                 <form action="/user/send-ticket" enctype="multipart/form-data" method="post">
-                  <small><small><input type="file" name="ticket" class="input-file" id="file"></small></small>
+                  <label for="file" class="label-file floating-label text-dark2">Clique aqui para escolher o arquivo</label>
+                  <small><input type="file" name="ticket" class="input-file" id="file"></small>
                   <input type="hidden" name="transactionID" value="{{_id}}">
-                  <label for="file" class="label-file floating-label text-dark2">Boleto da compra</label>
                   <button type="submit" class="btn btn-success col-12">Enviar boleto</button>
                 </form>
               </div>
-            </div>
             {{/compare}}
             {{#compare taxStatus 'Aguardando pagamento'}}
-            <div class="col-12 col-md-6 mt-3 ">
               <div class="text-center my-3 justify-content-center">
+                <h5 class="mb-2">Comprovante de pagamento</h5>
                 <form action="/user/send-payment" enctype="multipart/form-data" method="post">
                   <small><small><input type="file" name="payment" class="input-file" id="file"></small></small>
                   <input type="hidden" name="transactionID" value="{{_id}}">
-                  <label for="file" class="label-file floating-label text-dark2">Comprovante de pagamento</label>
+                  <label for="file" class="label-file floating-label text-dark2">Clique aqui para escolher o arquivo</label>
                   <button type="submit" class="btn btn-success col-12">Enviar comprovante</button>
                 </form>
               </div>
-            </div>
             {{/compare}}
           {{/compare}}
+        </div>
         {{else compare userType 'Revendedor'}}
+        <div class="col-12 col-md-6 mt-3 ">
           {{#compare offer.seller._id userId}}
             {{#compare status 'Aguardando boleto'}}
-            <div class="col-12 col-md-6 mt-3 ">
-              <div class="text-center my-3 justify-content-center">
+              <div class="text-center my-3 mb-4 justify-content-center">
+                <h5 class="mb-2">Boleto da compra</h5>
                 <form action="/user/send-ticket" enctype="multipart/form-data" method="post">
                   <small><small><input type="file" name="ticket" class="input-file" id="file"></small></small>
                   <input type="hidden" name="transactionID" value="{{_id}}">
-                  <label for="file" class="label-file floating-label text-dark2">Boleto da compra</label>
+                  <label for="file" class="label-file floating-label text-dark2">Clique aqui para escolher o arquivo</label>
                   <button type="submit" class="btn btn-success col-12">Enviar boleto</button>
                 </form>
               </div>
-            </div>
             {{/compare}}
             {{#compare taxStatus 'Aguardando pagamento'}}
-            <div class="col-12 col-md-6 mt-3 ">
-              <div class="text-center my-3 justify-content-center">
+              <div class="text-center my-3 mb-4 justify-content-center">
+                <h5 class="mb-2">Comprovante de pagamento</h5>
                 <form action="/user/send-payment" enctype="multipart/form-data" method="post">
                   <small><small><input type="file" name="payment" class="input-file" id="file"></small></small>
                   <input type="hidden" name="transactionID" value="{{_id}}">
-                  <label for="file" class="label-file floating-label text-dark2">Comprovante de pagamento</label>
+                  <label for="file" class="label-file floating-label text-dark2">Clique aqui para escolher o arquivo</label>
                   <button type="submit" class="btn btn-success col-12">Enviar comprovante</button>
                 </form>
               </div>
-            </div>
             {{/compare}}
           {{/compare}}
+        </div>
         {{else compare userType 'Produtor'}}
           {{#compare buyer._id userId}}
             {{#compare status 'Aguardando pagamento'}}
             <div class="col-12 col-md-6 mt-3 ">
               <div class="text-center my-3 justify-content-center">
+                <h5 class="mb-2">Comprovante de pagamento</h5>
                 <form action="/user/send-payment" enctype="multipart/form-data" method="post">
                   <small><small><input type="file" name="payment" class="input-file" id="file"></small></small>
                   <input type="hidden" name="transactionID" value="{{_id}}">
-                  <label for="file" class="label-file floating-label text-dark2">Comprovante de pagamento</label>
+                  <label for="file" class="label-file floating-label text-dark2">Clique aqui para escolher o arquivo</label>
                   <button type="submit" class="btn btn-success col-12">Enviar comprovante</button>
                 </form>
               </div>
@@ -438,10 +441,11 @@
             {{#compare status 'Aguardando pagamento'}}
             <div class="col-12 col-md-6 mt-3 ">
               <div class="text-center my-3 justify-content-center">
+                <h5 class="mb-2">Comprovante de pagamento</h5>
                 <form action="/user/send-payment" enctype="multipart/form-data" method="post">
                   <small><small><input type="file" name="payment" class="input-file" id="file"></small></small>
                   <input type="hidden" name="transactionID" value="{{_id}}">
-                  <label for="file" class="label-file floating-label text-dark2">Comprovante de pagamento</label>
+                  <label for="file" class="label-file floating-label text-dark2">Clique aqui para escolher o arquivo</label>
                   <button type="submit" class="btn btn-success col-12">Enviar comprovante</button>
                 </form>
               </div>

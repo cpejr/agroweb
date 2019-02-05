@@ -18,53 +18,7 @@ const formidable = require('formidable');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const cropDate = global.config.date.crop;
-  const smallCropDate = global.config.date.smallCrop;
-
-  const crop = new Date(today);
-  crop.setDate(Number(cropDate.slice(0, 2)));
-  crop.setMonth(Number(cropDate.slice(-2)) - 1);
-
-  const smallCrop = new Date(today);
-  smallCrop.setDate(Number(smallCropDate.slice(0, 2)));
-  smallCrop.setMonth(Number(smallCropDate.slice(-2)) - 1);
-
-  if (today.getTime() > crop.getTime()) {
-    crop.setFullYear(crop.getFullYear() + 1);
-  }
-
-  if (today.getTime() > smallCrop.getTime()) {
-    smallCrop.setFullYear(smallCrop.getFullYear() + 1);
-  }
-
-  const cropCloseDate = new Date(crop);
-
-  const smallCropCloseDate = new Date(smallCrop);
-
-  if (today.getTime() === crop.getTime()) {
-    cropCloseDate.setFullYear(crop.getFullYear() + 1);
-  }
-
-  if (today.getTime() === smallCrop.getTime()) {
-    smallCropCloseDate.setFullYear(crop.getFullYear() + 1);
-  }
-
-  cropCloseDate.setDate(cropCloseDate.getDate() - 15);
-  smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
-
-  // console.log(global);
-  // const { dollar } = global;
-  // console.log(dollar);
-  let x = {
-    number: 10.213123
-  };
-  x = parseFloat(x.number.toFixed(2));
-  console.log(typeof (x));
-  console.log(x);
-  // console.log('Teste = ', x.number.toFixed(2));
-  res.render('teste', { title: 'Teste' });
+  res.render('site/home', { title: 'Página inicial', layout: 'layoutHome' })
 });
 
 // rotapara industryMegaPremio

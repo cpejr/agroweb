@@ -16,7 +16,7 @@ const router = express.Router();
  * GET Home page
  */
 router.get('/', (req, res) => {
-  res.redirect('/site');
+  res.redirect('/maintenance');
 });
 
 /**

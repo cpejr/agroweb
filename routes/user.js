@@ -1,4 +1,5 @@
 const express = require('express');
+const firebase = require('firebase');
 const formidable = require('formidable');
 const fs = require('fs');
 const Email = require('../models/email');
@@ -661,6 +662,66 @@ router.post('/send-payment', auth.isAuthenticated, (req, res) => {
       console.log(error);
       res.redirect('/error');
     });
+  });
+});
+
+/*
+ * GET change-password - Render the page to change the user's password
+ */
+router.get('/change-password', auth.isAuthenticated, (req, res) => {
+  res.render('profile/change-password', { title: 'Alterar senha', ...req.session });
+});
+
+/*
+ * POST change-password - Change the user's password
+ */
+router.post('/change-password', auth.isAuthenticated, (req, res) => {
+  const { user } = req.body;
+  const credential = firebase.auth.EmailAuthProvider.credential(
+    req.session.email,
+    user.password
+  );
+  firebase.auth().currentUser.reauthenticateAndRetrieveDataWithCredential(credential).then(() => {
+    firebase.auth().currentUser.updatePassword(user.newPassword).then(() => {
+      req.flash('success', 'Senha alterada com sucesso');
+      res.redirect('/user/edit');
+    }).catch((error) => {
+      console.log(error);
+      switch (error.code) {
+        case 'auth/weak-password':
+          req.flash('danger', 'A senha fornecida é muito fraca.');
+          break;
+        case 'auth/requires-recent-login':
+          req.flash('danger', 'É necessário se reautenticar antes de realizar essa ação');
+          res.redirect('/login');
+          break;
+        default:
+          req.flash('danger', 'Erro indefinido.');
+      }
+      res.redirect('/change-password');
+    });
+  }).catch((error) => {
+    console.log(error);
+    switch (error.code) {
+      case 'auth/user-mismatch':
+        req.flash('danger', 'A credencial não corresponde ao usuário, contate nosso suporte.');
+        break;
+      case 'auth/user-not-found':
+        req.flash('danger', 'A credencial não corresponde à nenhum usuário, contate nosso suporte.');
+        break;
+      case 'auth/invalid-credential':
+        req.flash('danger', 'Credencial inválida. Tente novamente ou contate nosso suporte.');
+        break;
+      case 'auth/invalid-email':
+        req.flash('danger', 'Email inválido.');
+        break;
+      case 'auth/wrong-password':
+        req.flash('danger', 'Senha atual incorreta.');
+        break;
+      default:
+        req.flash('danger', 'Erro indefinido.');
+    }
+    res.redirect('/change-password');
   });
 });
 

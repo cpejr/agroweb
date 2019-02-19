@@ -1,7 +1,5 @@
 {{#section 'stylesheets'}}
 {{/section}}
-
-<body>
   <div class="text-center">
     <div class="pb-3 gradient-background text-white">
       <h3 class="text-center font-black">Editar perfil</h3>
@@ -571,7 +569,7 @@
         {{/compare}}
 
         <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-            <button type="button" class="btn btn-info mx-auto mt-4 px-5 d-block col-md-4 col-12">Alterar senha</button>
+            <button type="button" class="btn btn-info mx-auto mt-4 px-5 d-block col-md-4 col-12" onclick="location.href = '/user/change-password'">Alterar senha</button>
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-12 text-center ">
@@ -589,7 +587,6 @@
     <!-- end ordinary fields -->
 
   </div>
-</body>
 </div>
 {{#section 'scripts'}}
 <script src="/javascripts/signup.js"></script>

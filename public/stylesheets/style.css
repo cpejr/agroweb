@@ -5,7 +5,6 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 @import url(../fonts/fontawesome/fontawesome-all.css);
-@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700");
 @import url("https://fonts.googleapis.com/css?family=Catamaran:400,800");
 :root {
@@ -7467,14 +7466,8 @@ body {
   font-family: 'gotham-book';
   src: url("../fonts/officialfonts/Gotham-Book.otf") format("opentype"); }
 
-.font1 {
-  font-family: 'Dosis'; }
-
-.font2 {
-  font-family: 'Montserrat'; }
-
-.font3 {
-  font-family: 'Varela Round'; }
+button, h2, h4, h6, h7, p, i, a, dt, li {
+  font-family: 'gotham-book'; }
 
 .font-black {
   font-family: 'gotham-black'; }
@@ -7489,9 +7482,6 @@ body {
   font-family: 'gotham-book'; }
 
 body {
-  font-family: 'gotham-book'; }
-
-button, h2, h4, h6, h7, p, i, a, dt, li {
   font-family: 'gotham-book'; }
 
 h1, h3, h5, span {
@@ -7829,13 +7819,14 @@ a.more-link {
   -moz-transition: all .5s;
   transition: all .5s; }
 
-.searchbar input[type=search]:focus {
-  width: 190px !important;
-  background-color: #FFF;
-  border-color: #CCC;
-  -webkit-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
-  -moz-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
-  box-shadow: 0 0 5px rgba(109, 207, 246, 0.5); }
+@media (min-width: 769px) {
+  .searchbar input[type=search]:focus {
+    width: 190px !important;
+    background-color: #FFF;
+    border-color: #CCC;
+    -webkit-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
+    -moz-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);
+    box-shadow: 0 0 5px rgba(109, 207, 246, 0.5); } }
 
 .searchbar input:-moz-placeholder {
   color: #999; }
@@ -7876,6 +7867,7 @@ a.more-link {
     background: #E5E7E9; }
   .searchbar input[type=search] {
     width: 50px;
+      width-font-size: .5em;
       width-background-color: #5b5b5b;
       width-color: #fff;
     -webkit-border-radius: 10em;
@@ -7884,8 +7876,9 @@ a.more-link {
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
     transition: all .5s; }
+  .searchbar input[type=search]::placeholder {
+    font-size: .8em; }
   .searchbar input[type=search]:focus {
-    width: 80px;
     background-color: transparent !important;
     border-color: #ccc;
     -webkit-box-shadow: 0 0 5px rgba(109, 207, 246, 0.5);

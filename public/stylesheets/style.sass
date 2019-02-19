@@ -122,15 +122,8 @@ body
   font-family: 'gotham-book'
   src: url("../fonts/officialfonts/Gotham-Book.otf") format("opentype")
 
-
-.font1
-  font-family: 'Dosis'
-
-.font2
-  font-family: 'Montserrat'
-
-.font3
-  font-family: 'Varela Round'
+button, h2, h4, h6, h7, p, i, a, dt, li
+  font-family: 'gotham-book'
 
 .font-black
   font-family: 'gotham-black'
@@ -145,9 +138,6 @@ body
   font-family: 'gotham-book'
 
 body
-  font-family: 'gotham-book'
-
-button, h2, h4, h6, h7, p, i, a, dt, li
   font-family: 'gotham-book'
 
 h1, h3, h5, span
@@ -517,13 +507,14 @@ a.more-link
 	-moz-transition: all .5s
 	transition: all .5s
 
-.searchbar input[type=search]:focus
-	width: 190px !important
-	background-color: #FFF
-	border-color: #CCC
-	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5)
-	-moz-box-shadow: 0 0 5px rgba(109,207,246,.5)
-	box-shadow: 0 0 5px rgba(109,207,246,.5)
+@media (min-width:769px)
+  .searchbar input[type=search]:focus
+  	width: 190px !important
+  	background-color: #FFF
+  	border-color: #CCC
+  	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5)
+  	-moz-box-shadow: 0 0 5px rgba(109,207,246,.5)
+  	box-shadow: 0 0 5px rgba(109,207,246,.5)
 
 .searchbar input:-moz-placeholder
 	color: #999
@@ -576,6 +567,7 @@ a.more-link
 
   .searchbar input[type=search]
   	width: 50px
+    font-size: .5em
     background-color: $dark2-color
     color: #fff
   	-webkit-border-radius: 10em
@@ -585,8 +577,10 @@ a.more-link
   	-moz-transition: all .5s
   	transition: all .5s
 
+  .searchbar input[type=search]::placeholder
+    font-size: .8em
+
   .searchbar input[type=search]:focus
-  	width: 80px
   	background-color: transparent !important
   	border-color: #ccc
   	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5)

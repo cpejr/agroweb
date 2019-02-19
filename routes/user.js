@@ -669,7 +669,7 @@ router.post('/send-payment', auth.isAuthenticated, (req, res) => {
  * GET change-password - Render the page to change the user's password
  */
 router.get('/change-password', auth.isAuthenticated, (req, res) => {
-  res.render('profile/change-password', { title: 'Alterar senha', ...req.session });
+  res.render('profile/changePassword', { title: 'Alterar senha', ...req.session });
 });
 
 /*

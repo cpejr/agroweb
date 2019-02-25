@@ -269,10 +269,10 @@ class Email {
    * @param {String} status - Transaction's new status
    * @returns {Object} Information
    */
-  static updateEmail(data, status) {
+  static updateEmail(data) {
     console.log('Update email');
     const content = `Caro(a) ${data.firstName},
-    Seu pedido #${data.transactionID} teve atualização de status para:"${status}"`;
+    Seu pedido #${data.transactionID} teve atualização de status para:"${data.status}"`;
     const subject = `MEGAPOOL: Atualização no status do pedido #${data.transactionID}`;
     const emailContent = {
       ...data,
@@ -296,7 +296,7 @@ class Email {
     const totalPrice = data.priceBought;
     const unitPrice = data.unitPrice;
     const content = `Caro(a) ${data.buyer.firstName},
-    Sua compra* do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "Aguardando boleto" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
+    Sua compra do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "Aguardando boleto" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
 
     Confira os dados de sua compra abaixo:
 
@@ -462,6 +462,50 @@ class Email {
     const subject = `Olá ${data.franchisee.fullName}, uma cotação sua foi comprada.`;
     const emailContent = {
       clientEmail: data.franchisee.email,
+      subject,
+      content
+    };
+    return new Promise((resolve) => {
+      Email.sendEmail(emailContent).then((info) => {
+        resolve(info);
+      });
+    });
+  }
+
+  /**
+  * Send an email to the buyer
+  * @param {Object} data - Email Document Data
+  * @returns {Object} Information
+  */
+  static waitingTicketsEmail(data) {
+    console.log('Waiting Ticket Email');
+    const totalPrice = data.priceBought;
+    const unitPrice = data.unitPrice;
+    const content = `Caro(a) ${data.buyer.firstName},
+    Sua compra do produto ${data.offer.product.name} foi realizada com sucesso e permanecerá com status de "Aguardando boleto" até o vendedor confirmar a venda. Você será informado quando isso acontecer.
+
+    Confira os dados de sua compra abaixo:
+
+    Compra #${data._id}
+    Produto: ${data.offer.product.name}
+    Entrega: ${data.offer.delivery}
+    Quantidade: ${data.amountBought} ${data.offer.product.unit}
+    Preço: U$ ${unitPrice}/${data.offer.product.unit}
+    Total: U$ ${totalPrice}
+
+    Dados do vendedor:
+    Nome: ${data.offer.seller.fullName}
+    Email: ${data.offer.seller.email}
+    Telefone: ${data.offer.seller.phone}
+    Celular: ${data.offer.seller.cellphone}
+
+    *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento.
+
+    Qualquer divergência entre em contato conosco: suportemegapool@megapool.com.br
+    Equipe MEGAPOOL`;
+    const subject = 'MEGAPOOL: Compra realizada com sucesso';
+    const emailContent = {
+      clientEmail: data.buyer.email,
       subject,
       content
     };

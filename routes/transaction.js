@@ -422,6 +422,12 @@ router.put('/:id', auth.isAuthenticated, (req, res) => {
           });
         }
 
+        Email.updateEmail(transaction).catch((error) => {
+          console.log(error);
+          req.flash('danger', 'Não foi possível enviar email de compra.');
+          res.redirect('/user');
+        });
+
         Transaction.update(req.params.id, transactionData).then(() => {
           res.redirect('/user/sales');
         }).catch((error) => {

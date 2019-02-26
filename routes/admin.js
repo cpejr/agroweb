@@ -143,7 +143,6 @@ router.post('/:id/updateTaxTransaction', auth.isAuthenticated, auth.isAdmin, (re
   const transaction = {
     taxStatus: req.body.taxStatus
   };
-  console.log(transaction);
   Transaction.update(req.params.id, transaction).catch((error) => {
     console.log(error);
     res.redirect('/error');

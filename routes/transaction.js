@@ -192,6 +192,7 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
  */
 router.put('/:id', auth.isAuthenticated, (req, res) => {
   Transaction.getById(req.params.id).then((transaction) => {
+    console.log("Paramentros: "+ req.params);
     let transactionData = {};
     const data = {
       name: transaction.buyer.firstName,
@@ -401,13 +402,17 @@ router.put('/:id', auth.isAuthenticated, (req, res) => {
     else {
       transactionData = req.body.transaction;
       if (req.session.userType === 'Indústria' || req.session.userType === 'Revendedor') {
+        console.log("Passou aquiiiiiiiiiiiiiiiii");
         if (transaction.franchisee) {
           User.getById(transaction.franchisee).then((user) => {
             if (transaction.status === 'Entregue') {
+              console.log("Passou aquiiiiiiiiiiiiiiiii2");
               const userData = {
                 pendingPayment: user.pendingPayment
               };
+              console.log("Antes: " + user.pendingPayment);
               userData.pendingPayment += transaction.franchiseeTaxValue;
+              console.log("Depois: " + user.pendingPayment);
               transactionData.franchiseeTaxStatus = 'Pendente';
               User.update(user._id, userData).catch((error) => {
                 console.log(error);
@@ -460,7 +465,7 @@ router.put('/:id', auth.isAuthenticated, (req, res) => {
       }
       else {
         Transaction.update(req.params.id, transactionData).then(() => {
-          Email.updateEmail(data, transactionData.status).catch((error) => {
+          Email.updateEmail(data).catch((error) => {
             console.log(error);
             req.flash('danger', 'Não foi possível enviar o email.');
             res.redirect('/user');

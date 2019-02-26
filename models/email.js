@@ -271,14 +271,16 @@ class Email {
    */
   static updateEmail(data) {
     console.log('Update email');
-    const content = `Caro(a) ${data.firstName},
-    Seu pedido #${data.transactionID} teve atualização de status para:"${data.status}"`;
-    const subject = `MEGAPOOL: Atualização no status do pedido #${data.transactionID}`;
+    console.log(data);
+    const content = `Caro(a) ${data.buyer.firstName},
+    Seu pedido teve atualização de status para: "${data.status}"`;
+    const subject = `MEGAPOOL: Atualização no status do pedido`;
     const emailContent = {
-      ...data,
+      clientEmail: data.buyer.email,
       content,
       subject
     };
+    console.log(emailContent);
     return new Promise((resolve) => {
       Email.sendEmail(emailContent).then((info) => {
         resolve(info);

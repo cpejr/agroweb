@@ -402,17 +402,13 @@ router.put('/:id', auth.isAuthenticated, (req, res) => {
     else {
       transactionData = req.body.transaction;
       if (req.session.userType === 'Indústria' || req.session.userType === 'Revendedor') {
-        console.log("Passou aquiiiiiiiiiiiiiiiii");
         if (transaction.franchisee) {
           User.getById(transaction.franchisee).then((user) => {
-            if (transaction.status === 'Entregue') {
-              console.log("Passou aquiiiiiiiiiiiiiiiii2");
+            if (transactionData.status === 'Entregue') {
               const userData = {
                 pendingPayment: user.pendingPayment
               };
-              console.log("Antes: " + user.pendingPayment);
-              userData.pendingPayment += transaction.franchiseeTaxValue;
-              console.log("Depois: " + user.pendingPayment);
+              userData.pendingPayment = userData.pendingPayment + transaction.franchiseeTaxValue;
               transactionData.franchiseeTaxStatus = 'Pendente';
               User.update(user._id, userData).catch((error) => {
                 console.log(error);

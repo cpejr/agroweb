@@ -31,9 +31,6 @@ class Email {
       text: data.content,
       attachments: data.attachments
     };
-
-    console.log(`Config ${config}`);
-    console.log(config.to);
     return new Promise((resolve) => {
       transporter.sendMail(config, (error, info) => {
         if (error) {
@@ -113,7 +110,6 @@ class Email {
    */
   static waitingForApprovalEmail(data) {
     console.log('Email aguardando aprovação enviado');
-    console.log(data);
     const content = `Prezado(a) ${data.firstName},
     Você acabou de cadastrar na plataforma Megapool. Seus dados foram enviados para nossa equipe e avaliaremos se será aprovado ou não. Aguarde essa avaliação para começar a utilizar as funcionalidades.`;
     const subject = 'MEGAPOOL: Cadastro feito com sucesso';
@@ -271,7 +267,6 @@ class Email {
    */
   static updateEmail(data) {
     console.log('Update email');
-    console.log(data);
     const content = `Caro(a) ${data.buyer.firstName},
     Seu pedido teve atualização de status para: "${data.status}"`;
     const subject = `MEGAPOOL: Atualização no status do pedido`;
@@ -280,7 +275,6 @@ class Email {
       content,
       subject
     };
-    console.log(emailContent);
     return new Promise((resolve) => {
       Email.sendEmail(emailContent).then((info) => {
         resolve(info);

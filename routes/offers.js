@@ -345,6 +345,17 @@ router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
                     groupData.unitPrice = offer.price.low;
                   }
                 }
+                else if (group.offer._id === offer._id) {
+                  if (group.amount < offer.breakpoints.average) {
+                    groupData.unitPrice = offer.price.high;
+                  }
+                  else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                    groupData.unitPrice = offer.price.average;
+                  }
+                  else {
+                    groupData.unitPrice = offer.price.low;
+                  }
+                }
               }
               Group.update(group._id, groupData).catch((error) => {
                 console.log(error);

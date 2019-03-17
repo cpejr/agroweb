@@ -15,7 +15,7 @@ const router = express.Router();
  *  GET Admin Home page
  */
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  res.render('admin/index', { title: 'Administrador', layout: 'layoutDashboard', ...req.session});
+  res.render('admin/index', { title: 'Administrador', layout: 'layoutDashboard', ...req.session });
 });
 
 /**

@@ -23,7 +23,6 @@ router.get('/', (req, res) => {
  * GET Contact page
  */
 router.get('/contact', (req, res) => {
-  console.log(req.session.userId);
   res.render('site/contact', { title: 'Contato', layout: 'layoutHome' });
 });
 

@@ -317,17 +317,10 @@ router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
           const queryGroup = { productId: offer.product, delivery: offer.delivery };
           Group.getOneByQuery(queryGroup).then((group) => {
             if (group) {
-              console.log(offer.price);
-
-              console.log(group.offer.price);
-
               const groupData = {};
               let offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
               const offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
               if (`${group.offer._id}` === req.params.id) {
-                console.log('Entrou no if');
-                console.log(`offerGroupPrice: ${offerGroupPrice}`);
-                console.log(`offerPrice: ${offerPrice}`);
                 if (offerGroupPrice > offerPrice) {
                   if (group.amount < offer.breakpoints.average) {
                     groupData.unitPrice = offer.price.high;
@@ -387,7 +380,6 @@ router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
                 }
                 else {
                   Offer.getByQuerySorted({ product: offer.product }).then((offers) => {
-                    console.log('antes do for');
                     offers.forEach((off) => {
                       const offPrice = ((off.price.high * 3) + (off.price.average * 1)) / 4;
                       if (offerPrice > offPrice) {
@@ -418,8 +410,6 @@ router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
                         }
                       }
                     });
-                    console.log('terminou o for');
-                    console.log(`groupData: ${groupData}`);
                     console.log(typeof (groupData.offer));
                     if (`${groupData.offer}` === req.params.id) {
                       if (group.amount < offer.breakpoints.average) {

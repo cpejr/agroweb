@@ -317,23 +317,140 @@ router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
           const queryGroup = { productId: offer.product, delivery: offer.delivery };
           Group.getOneByQuery(queryGroup).then((group) => {
             if (group) {
+              console.log(offer.price);
+
+              console.log(group.offer.price);
+
               const groupData = {};
-              const offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
+              let offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
               const offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
-              if (offerGroupPrice > offerPrice) {
-                groupData.offer = req.params.id;
-                if (group.amount < offer.breakpoints.average) {
-                  groupData.unitPrice = offer.price.high;
+              if (`${group.offer._id}` === req.params.id) {
+                console.log('Entrou no if');
+                console.log(`offerGroupPrice: ${offerGroupPrice}`);
+                console.log(`offerPrice: ${offerPrice}`);
+                if (offerGroupPrice > offerPrice) {
+                  if (group.amount < offer.breakpoints.average) {
+                    groupData.unitPrice = offer.price.high;
+                  }
+                  else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                    groupData.unitPrice = offer.price.average;
+                  }
+                  else {
+                    groupData.unitPrice = offer.price.low;
+                  }
+                  Group.update(group._id, groupData).catch((error) => {
+                    console.log(error);
+                    res.redirect('/error');
+                  });
+                  Offer.update(req.params.id, offer).then(() => {
+                    req.flash('success', 'Oferta editada com sucesso.');
+                    res.redirect(`/offers/${req.params.id}`);
+                  }).catch((error) => {
+                    console.log(error);
+                    res.redirect('/error');
+                  });
                 }
-                else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
-                  groupData.unitPrice = offer.price.average;
+                else if (offerGroupPrice === offerPrice) {
+                  if (group.offer.price.low > offer.price.low) {
+                    if (group.amount < offer.breakpoints.average) {
+                      groupData.unitPrice = offer.price.high;
+                    }
+                    else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                      groupData.unitPrice = offer.price.average;
+                    }
+                    else {
+                      groupData.unitPrice = offer.price.low;
+                    }
+                  }
+                  if (group.offer.stock < offer.stock) {
+                    if (group.amount < offer.breakpoints.average) {
+                      groupData.unitPrice = offer.price.high;
+                    }
+                    else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                      groupData.unitPrice = offer.price.average;
+                    }
+                    else {
+                      groupData.unitPrice = offer.price.low;
+                    }
+                  }
+                  Group.update(group._id, groupData).catch((error) => {
+                    console.log(error);
+                    res.redirect('/error');
+                  });
+                  Offer.update(req.params.id, offer).then(() => {
+                    req.flash('success', 'Oferta editada com sucesso.');
+                    res.redirect(`/offers/${req.params.id}`);
+                  }).catch((error) => {
+                    console.log(error);
+                    res.redirect('/error');
+                  });
                 }
                 else {
-                  groupData.unitPrice = offer.price.low;
+                  Offer.getByQuerySorted({ product: offer.product }).then((offers) => {
+                    console.log('antes do for');
+                    offers.forEach((off) => {
+                      const offPrice = ((off.price.high * 3) + (off.price.average * 1)) / 4;
+                      if (offerPrice > offPrice) {
+                        groupData.offer = off._id;
+                        offerGroupPrice = offPrice;
+                        if (group.amount < off.breakpoints.average) {
+                          groupData.unitPrice = off.price.high;
+                        }
+                        else if (group.amount >= off.breakpoints.average && group.amount < off.breakpoints.low) {
+                          groupData.unitPrice = off.price.average;
+                        }
+                        else {
+                          groupData.unitPrice = off.price.low;
+                        }
+                      }
+                      else if (offerPrice === offPrice) {
+                        if (offer.stock < off.stock) {
+                          groupData.offer = off._id;
+                          if (group.amount < off.breakpoints.average) {
+                            groupData.unitPrice = off.price.high;
+                          }
+                          else if (group.amount >= off.breakpoints.average && group.amount < off.breakpoints.low) {
+                            groupData.unitPrice = off.price.average;
+                          }
+                          else {
+                            groupData.unitPrice = off.price.low;
+                          }
+                        }
+                      }
+                    });
+                    console.log('terminou o for');
+                    console.log(`groupData: ${groupData}`);
+                    console.log(typeof (groupData.offer));
+                    if (`${groupData.offer}` === req.params.id) {
+                      if (group.amount < offer.breakpoints.average) {
+                        groupData.unitPrice = offer.price.high;
+                      }
+                      else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                        groupData.unitPrice = offer.price.average;
+                      }
+                      else {
+                        groupData.unitPrice = offer.price.low;
+                      }
+                    }
+                    Group.update(group._id, groupData).catch((error) => {
+                      console.log(error);
+                      res.redirect('/error');
+                    });
+                    Offer.update(req.params.id, offer).then(() => {
+                      req.flash('success', 'Oferta editada com sucesso.');
+                      res.redirect(`/offers/${req.params.id}`);
+                    }).catch((error) => {
+                      console.log(error);
+                      res.redirect('/error');
+                    });
+                  }).catch((error) => {
+                    console.log(error);
+                    res.redirect('/error');
+                  });
                 }
               }
-              else if (offerGroupPrice === offerPrice) {
-                if (group.offer.stock < offer.stock) {
+              else {
+                if (offerGroupPrice > offerPrice) {
                   groupData.offer = req.params.id;
                   if (group.amount < offer.breakpoints.average) {
                     groupData.unitPrice = offer.price.high;
@@ -344,23 +461,40 @@ router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
                   else {
                     groupData.unitPrice = offer.price.low;
                   }
+                  Offer.update(req.params.id, offer).then(() => {
+                    req.flash('success', 'Oferta editada com sucesso.');
+                    res.redirect(`/offers/${req.params.id}`);
+                  }).catch((error) => {
+                    console.log(error);
+                    res.redirect('/error');
+                  });
                 }
-                else if (group.offer._id === offer._id) {
-                  if (group.amount < offer.breakpoints.average) {
-                    groupData.unitPrice = offer.price.high;
+                else if (offerGroupPrice === offerPrice) {
+                  if (group.offer.stock < offer.stock) {
+                    groupData.offer = req.params.id;
+                    if (group.amount < offer.breakpoints.average) {
+                      groupData.unitPrice = offer.price.high;
+                    }
+                    else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                      groupData.unitPrice = offer.price.average;
+                    }
+                    else {
+                      groupData.unitPrice = offer.price.low;
+                    }
                   }
-                  else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
-                    groupData.unitPrice = offer.price.average;
-                  }
-                  else {
-                    groupData.unitPrice = offer.price.low;
-                  }
+                  Offer.update(req.params.id, offer).then(() => {
+                    req.flash('success', 'Oferta editada com sucesso.');
+                    res.redirect(`/offers/${req.params.id}`);
+                  }).catch((error) => {
+                    console.log(error);
+                    res.redirect('/error');
+                  });
                 }
+                Group.update(group._id, groupData).catch((error) => {
+                  console.log(error);
+                  res.redirect('/error');
+                });
               }
-              Group.update(group._id, groupData).catch((error) => {
-                console.log(error);
-                res.redirect('/error');
-              });
             }
             else {
               const newGroup = {
@@ -384,19 +518,19 @@ router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
                 console.log(error);
                 res.redirect('/error');
               });
+              Offer.update(req.params.id, offer).then(() => {
+                req.flash('success', 'Oferta editada com sucesso.');
+                res.redirect(`/offers/${req.params.id}`);
+              }).catch((error) => {
+                console.log(error);
+                res.redirect('/error');
+              });
             }
           }).catch((error) => {
             console.log(error);
             res.redirect('/error');
           });
         }
-        Offer.update(req.params.id, offer).then(() => {
-          req.flash('success', 'Oferta editada com sucesso.');
-          res.redirect(`/offers/${req.params.id}`);
-        }).catch((error) => {
-          console.log(error);
-          res.redirect('/error');
-        });
       }
       else {
         Offer.update(req.params.id, offer).then(() => {

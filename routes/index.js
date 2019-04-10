@@ -116,6 +116,7 @@ router.post('/login', (req, res) => {
           res.redirect('/admin');
         }
         else {
+          console.log(req.session);
           res.redirect('/user');
         }
       }

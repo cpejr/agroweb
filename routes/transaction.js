@@ -6,6 +6,7 @@ const Product = require('../models/product');
 const Transaction = require('../models/transaction');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
+const commercial = require('./middleware/commercial');
 
 const router = express.Router();
 
@@ -190,9 +191,8 @@ router.get('/:id', auth.isAuthenticated, (req, res) => {
 /**
  * PUT Update - Update a transaction in the database
  */
-router.put('/:id', auth.isAuthenticated, (req, res) => {
+router.put('/:id', auth.isAuthenticated, commercial.hasStock, (req, res) => {
   Transaction.getById(req.params.id).then((transaction) => {
-    console.log("Paramentros: "+ req.params);
     let transactionData = {};
     const data = {
       name: transaction.buyer.firstName,
@@ -236,14 +236,9 @@ router.put('/:id', auth.isAuthenticated, (req, res) => {
       }
       transactionData.taxValue = transaction.priceBought * taxMegapool;
       const offerData = {};
-      if (transaction.offer.stock < transaction.amountBought) {
-        req.flash('danger', 'Tarde demais, o fornecedor não tem mais estoque para atender seu pedido.');
-        res.redirect('/user');
-        return;
-      }
       offerData.stock = transaction.offer.stock - transaction.amountBought;
       offerData.balance = transaction.offer.balance - transaction.amountBought;
-      if (transaction.offer.stock < transaction.offer.minAmount) {
+      if (offerData.stock < transaction.offer.minAmount) {
         offerData.active = false;
       }
       Offer.update(transaction.offer._id, offerData).then(() => {

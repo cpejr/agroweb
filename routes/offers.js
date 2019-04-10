@@ -4,6 +4,7 @@ const Offer = require('../models/offer');
 const Product = require('../models/product');
 const User = require('../models/user');
 const auth = require('./middleware/auth');
+const commercial = require('./middleware/commercial');
 
 const router = express.Router();
 
@@ -29,9 +30,8 @@ router.get('/new', auth.isAuthenticated, auth.canSell, (req, res) => {
 /**
  * POST Create - Add new offer to DB
  */
-router.post('/', auth.isAuthenticated, auth.canSell, (req, res) => {
+router.post('/', auth.isAuthenticated, auth.canSell, commercial.hasOfferAlready, (req, res) => {
   const { offer } = req.body;
-  console.log(offer);
   offer.stock = parseFloat(offer.stock);
   offer.minAmount = parseFloat(offer.minAmount);
   offer.price.low = parseFloat(offer.price.low);
@@ -39,72 +39,77 @@ router.post('/', auth.isAuthenticated, auth.canSell, (req, res) => {
   offer.price.high = parseFloat(offer.price.high);
   offer.breakpoints.low = parseFloat(offer.breakpoints.low);
   offer.breakpoints.average = parseFloat(offer.breakpoints.average);
-  User.getAllOffersByUserId(req.session.userId).then((offers) => {
-    offers.forEach((object) => {
-      if (object.product.name === offer.product && object.delivery === offer.delivery) {
-        req.flash('danger', 'Já existe uma oferta para esse produto com esse tipo de entrega.');
-        res.redirect('/offers/new');
-        return;
-      }
-    });
-    if (offer.price.mega) {
-      offer.price.low = offer.price.mega;
-      offer.price.average = offer.price.mega;
-      offer.price.high = offer.price.mega;
-      delete offer.price.mega;
+  if (offer.price.mega) {
+    offer.price.low = offer.price.mega;
+    offer.price.average = offer.price.mega;
+    offer.price.high = offer.price.mega;
+    delete offer.price.mega;
+  }
+  if (offer.breakpoints.low > offer.breakpoints.average) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const cropDate = global.config.date.crop;
+    const smallCropDate = global.config.date.smallCrop;
+
+    const crop = new Date(today);
+    crop.setDate(Number(cropDate.slice(0, 2)));
+    crop.setMonth(Number(cropDate.slice(-2)) - 1);
+
+    const smallCrop = new Date(today);
+    smallCrop.setDate(Number(smallCropDate.slice(0, 2)));
+    smallCrop.setMonth(Number(smallCropDate.slice(-2)) - 1);
+
+    if (today.getTime() > crop.getTime()) {
+      crop.setFullYear(crop.getFullYear() + 1);
     }
-    if (offer.breakpoints.low > offer.breakpoints.average) {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const cropDate = global.config.date.crop;
-      const smallCropDate = global.config.date.smallCrop;
 
-      const crop = new Date(today);
-      crop.setDate(Number(cropDate.slice(0, 2)));
-      crop.setMonth(Number(cropDate.slice(-2)) - 1);
+    if (today.getTime() > smallCrop.getTime()) {
+      smallCrop.setFullYear(smallCrop.getFullYear() + 1);
+    }
 
-      const smallCrop = new Date(today);
-      smallCrop.setDate(Number(smallCropDate.slice(0, 2)));
-      smallCrop.setMonth(Number(smallCropDate.slice(-2)) - 1);
+    const cropCloseDate = new Date(crop);
+    const smallCropCloseDate = new Date(smallCrop);
+    const cropDateString = `${crop.getFullYear()}/${crop.getFullYear() + 1}`;
+    const smallCropDateString = smallCrop.getFullYear();
 
-      if (today.getTime() > crop.getTime()) {
-        crop.setFullYear(crop.getFullYear() + 1);
-      }
+    if (today.getTime() === crop.getTime()) {
+      cropCloseDate.setFullYear(crop.getFullYear() + 1);
+    }
 
-      if (today.getTime() > smallCrop.getTime()) {
-        smallCrop.setFullYear(smallCrop.getFullYear() + 1);
-      }
+    if (today.getTime() === smallCrop.getTime()) {
+      smallCropCloseDate.setFullYear(crop.getFullYear() + 1);
+    }
 
-      const cropCloseDate = new Date(crop);
-      const smallCropCloseDate = new Date(smallCrop);
-      const cropDateString = `${crop.getFullYear()}/${crop.getFullYear() + 1}`;
-      const smallCropDateString = smallCrop.getFullYear();
+    cropCloseDate.setDate(cropCloseDate.getDate() - 15);
+    smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
 
-      if (today.getTime() === crop.getTime()) {
-        cropCloseDate.setFullYear(crop.getFullYear() + 1);
-      }
-
-      if (today.getTime() === smallCrop.getTime()) {
-        smallCropCloseDate.setFullYear(crop.getFullYear() + 1);
-      }
-
-      cropCloseDate.setDate(cropCloseDate.getDate() - 15);
-      smallCropCloseDate.setDate(smallCropCloseDate.getDate() - 15);
-
-      User.getById(req.session.userId).then((user) => {
-        offer.seller = user;
-        Product.getByQuerySorted({ name: offer.product }, {}).then((product) => {
-          offer.product = product[0]._id;
-          Offer.create(offer).then((offerId) => {
-            console.log(offerId);
-            if (offer.delivery !== '48 horas' && !offer.megaOpportunity) {
-              const queryGroup = { productId: offer.product, delivery: offer.delivery };
-              Group.getOneByQuery(queryGroup).then((group) => {
-                if (group) {
-                  const groupData = {};
-                  const offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
-                  const offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
-                  if (offerGroupPrice > offerPrice) {
+    User.getById(req.session.userId).then((user) => {
+      offer.seller = user;
+      Product.getByQuerySorted({ name: offer.product }, {}).then((product) => {
+        offer.product = product[0]._id;
+        Offer.create(offer).then((offerId) => {
+          console.log(offerId);
+          if (offer.delivery !== '48 horas' && !offer.megaOpportunity) {
+            const queryGroup = { productId: offer.product, delivery: offer.delivery };
+            Group.getOneByQuery(queryGroup).then((group) => {
+              if (group) {
+                const groupData = {};
+                const offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
+                const offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
+                if (offerGroupPrice > offerPrice) {
+                  groupData.offer = offerId;
+                  if (group.amount < offer.breakpoints.average) {
+                    groupData.unitPrice = offer.price.high;
+                  }
+                  else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                    groupData.unitPrice = offer.price.average;
+                  }
+                  else {
+                    groupData.unitPrice = offer.price.low;
+                  }
+                }
+                else if (offerGroupPrice === offerPrice) {
+                  if (group.offer.stock < offer.stock) {
                     groupData.offer = offerId;
                     if (group.amount < offer.breakpoints.average) {
                       groupData.unitPrice = offer.price.high;
@@ -116,84 +121,66 @@ router.post('/', auth.isAuthenticated, auth.canSell, (req, res) => {
                       groupData.unitPrice = offer.price.low;
                     }
                   }
-                  else if (offerGroupPrice === offerPrice) {
-                    if (group.offer.stock < offer.stock) {
-                      groupData.offer = offerId;
-                      if (group.amount < offer.breakpoints.average) {
-                        groupData.unitPrice = offer.price.high;
-                      }
-                      else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
-                        groupData.unitPrice = offer.price.average;
-                      }
-                      else {
-                        groupData.unitPrice = offer.price.low;
-                      }
-                    }
-                  }
-                  Group.update(group._id, groupData).catch((error) => {
-                    console.log(error);
-                    res.redirect('/error');
-                  });
                 }
-                else {
-                  const newGroup = {
-                    amount: 0,
-                    offer: offerId,
-                    unitPrice: offer.price.high,
-                    productId: offer.product,
-                    delivery: offer.delivery
-                  };
-                  if (newGroup.delivery === 'Safra') {
-                    newGroup.closeDate = cropCloseDate;
-                    newGroup.date = cropDateString;
-                  }
-                  if (newGroup.delivery === 'Safrinha') {
-                    newGroup.closeDate = smallCropCloseDate;
-                    newGroup.date = smallCropDateString;
-                  }
-                  Group.create(newGroup).then((groupId) => {
-                    console.log(`Created new group with id: ${groupId}`);
-                  }).catch((error) => {
-                    console.log(error);
-                    res.redirect('/error');
-                  });
+                Group.update(group._id, groupData).catch((error) => {
+                  console.log(error);
+                  res.redirect('/error');
+                });
+              }
+              else {
+                const newGroup = {
+                  amount: 0,
+                  offer: offerId,
+                  unitPrice: offer.price.high,
+                  productId: offer.product,
+                  delivery: offer.delivery
+                };
+                if (newGroup.delivery === 'Safra') {
+                  newGroup.closeDate = cropCloseDate;
+                  newGroup.date = cropDateString;
                 }
-              }).catch((error) => {
-                console.log(error);
-                res.redirect('/error');
-              });
-            }
-            User.addOffer(req.session.userId, offerId).catch((error) => {
+                if (newGroup.delivery === 'Safrinha') {
+                  newGroup.closeDate = smallCropCloseDate;
+                  newGroup.date = smallCropDateString;
+                }
+                Group.create(newGroup).then((groupId) => {
+                  console.log(`Created new group with id: ${groupId}`);
+                }).catch((error) => {
+                  console.log(error);
+                  res.redirect('/error');
+                });
+              }
+            }).catch((error) => {
               console.log(error);
               res.redirect('/error');
             });
-            req.flash('success', 'Oferta criada com sucesso.');
-            res.redirect(`/offers/${offerId}`);
-          }).catch((error) => {
+          }
+          User.addOffer(req.session.userId, offerId).catch((error) => {
             console.log(error);
-            req.flash('danger', 'Não foi possivel criar a oferta. Tente novamente');
-            res.redirect('new');
+            res.redirect('/error');
           });
+          req.flash('success', 'Oferta criada com sucesso.');
+          res.redirect(`/offers/${offerId}`);
         }).catch((error) => {
           console.log(error);
-          req.flash('danger', 'O produto escolhido não existe.');
+          req.flash('danger', 'Não foi possivel criar a oferta. Tente novamente');
           res.redirect('new');
         });
       }).catch((error) => {
         console.log(error);
-        req.flash('danger', 'Faça seu login novamente.');
-        res.redirect('/login');
+        req.flash('danger', 'O produto escolhido não existe.');
+        res.redirect('new');
       });
-    }
-    else {
-      req.flash('danger', 'O campo que muda para valor médio deve ser menor do que o campo que muda para valor baixo.');
-      res.redirect('/offers/new');
-    }
-  }).catch((error) => {
-    console.log(error);
-    req.flash('danger', 'Não foi possível recuperar as ofertas desse usuário');
+    }).catch((error) => {
+      console.log(error);
+      req.flash('danger', 'Faça seu login novamente.');
+      res.redirect('/login');
+    });
+  }
+  else {
+    req.flash('danger', 'O campo que muda para valor médio deve ser menor do que o campo que muda para valor baixo.');
     res.redirect('/offers/new');
-  });
+  }
 });
 
 /**

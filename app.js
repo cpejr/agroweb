@@ -226,7 +226,10 @@ app.use(cookieParser());
 app.use(session({
   secret: 'some-private-cpe-key',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 3600000
+  }
 }));
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),

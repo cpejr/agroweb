@@ -14,7 +14,6 @@ router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
     groups.forEach((group) => {
       if (group.delivery === 'Safra' || group.delivery === 'Safrinha') {
         group.closeDateFront = group.closeDate.toISOString().slice(0, 10);
-        group.dateFront = group.date.toISOString().slice(0, 10);
         console.log(group.closeDateFront);
         console.log(group.dateFront);
       }

@@ -50,12 +50,14 @@ class Delivery {
       Group.getAll().then((groups) => {
         groups.forEach((group) => {
           let groupData = {};
-          if (group.closeDate.getTime() === today.getTime()) {
-            groupData.active = false;
-            Group.update(group._id, groupData).catch((error) => {
-              console.log(error);
-              reject(error);
-            });
+          if (group.delivery === 'Safra' || group.delivery === 'Safrinha') {
+            if (group.closeDate.getTime() === today.getTime()) {
+              groupData.active = false;
+              Group.update(group._id, groupData).catch((error) => {
+                console.log(error);
+                reject(error);
+              });
+            }
           }
           if (crop.getTime() === today.getTime()) {
             if (group.delivery === 'Safra') {

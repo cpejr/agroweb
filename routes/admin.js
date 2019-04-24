@@ -359,6 +359,29 @@ router.post('/ptax', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   });
 });
 
+/* POST dollar - Updates dollar value */
+router.post('/dollar', auth.isAuthenticated, auth.isAdmin, (req, res) => {
+  Dollar.getUsdValue().then((oldUsd) => {
+    console.log(oldUsd);
+    if (oldUsd < req.body.usd) {
+      global.rising = 'true';
+    }
+    else {
+      global.rising = 'false';
+    }
+    Dollar.usdUpdate(req.body.usd).then(() => {
+      global.dollar = parseFloat(req.body.usd).toFixed(4);
+      res.redirect('/admin');
+    }).catch((error) => {
+      console.log(error);
+      res.redirect('/error');
+    });
+  }).catch((error) => {
+    console.log(error);
+    res.redirect('/error');
+  });
+});
+
 /* POST send-tax-ticket - Send the tax ticket to the client */
 router.post('/send-tax-ticket', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   const form = new formidable.IncomingForm();

@@ -31,12 +31,14 @@
                   <h3 class="font3 mobile-font float-right">Minha conta</h3>
                 </a>
               </li>
+              {{#ifNotEq userType 'Administrador'}}
               <li class="nav-item">
                 <a class="nav-link opacity-changes d-inline-block" href="/transaction/">
                   <i class="fas fa-hdd fa-sm mt-2 float-left"></i>
                   <h3 class="font3 mobile-font float-right">Histórico</h3>
                 </a>
               </li>
+              {{/ifNotEq}}
               <li class="nav-item">
                 <a class="nav-link opacity-changes d-inline-block" href="/logout">
                   <i class="fas fa-sign-out-alt fa-sm mt-2 float-left"></i>
@@ -70,7 +72,7 @@
         </ul>
       </div>
     </div>
-    <nav class="navbar gradient-background pl-2 pt-2 ">
+    <nav class="navbar gradient-background pl-2 pt-2">
       <row>
         <button id="menu" class="btn btn-outline-dark nav-color-change float-left mr-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
           <i class="d-inline d-sm-none card-icon fas fa-bars fa-sm align-self-center"></i>
@@ -105,7 +107,7 @@
           </h5>
         </div>
 
-        <div class="col-sd-6 float-right pt-4 mx-3 mt-2">
+        <div class="col-sd-6 float-right pt-sm-4 mx-3 mt-2">
           <h5 class="font3 mobile-font1 text-success"><span class="text-light">PTAX: </span>R$ {{ptaxValue}}
             {{{risingPtax}}}
           </h5>

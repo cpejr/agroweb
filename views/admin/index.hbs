@@ -3,15 +3,27 @@
 <stylesheet src="/stylesheets/estilos.css"></stylesheet>
 {{/section}}
 <div class="p-3">
-  <section class="text-center">
-    <form class="form-group" action="/admin/ptax" method="post">
-      <label for="ptax-value"> Insira aqui o valor do PTAX a ser atualizado na plataforma:</label></br>
-      <div class="row justify-content-center">
-        <input type="number" step="0.0001" class="form-control col-4 mr-1" name="ptax">
-        <button type="submit" class="btn btn-success">Salvar</button>
-      </div>
-    </form>
-  </section>
+  <div class="row justify-content-center">
+    <section class="text-center col-12 col-sm-6">
+      <form class="form-group" action="/admin/ptax" method="post">
+        <label for="ptax-value"> Insira aqui o valor do PTAX a ser atualizado na plataforma:</label></br>
+        <div class="row justify-content-center">
+          <input type="number" step="0.0001" class="form-control col-8 col-sm-6 mr-1" name="ptax">
+          <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="text-center col-12 col-sm-6">
+      <form class="form-group" action="/admin/dollar" method="post">
+        <label for="usd-value"> Insira aqui o valor do dólar a ser atualizado na plataforma:</label></br>
+        <div class="row justify-content-center">
+          <input type="number" step="0.0001" class="form-control col-8 col-sm-6 mr-1" name="usd">
+          <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+      </form>
+    </section>
+  </div>
 
   <div class="row justify-content-center">
 

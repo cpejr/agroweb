@@ -71,32 +71,33 @@ schedule.scheduleJob('0 0 3 * * *', () => {
   });
 });
 
-schedule.scheduleJob('0 0/1 * * * *', () => {
-  Money.getUsdValue().then((prevDollar) => {
-    Money.createDollarJSON().then(() => {
-      Money.getUsdValue().then((dollar) => {
-        global.dollar = dollar;
-        if (dollar > prevDollar) {
-          global.rising = 'true';
-        }
-        else {
-          global.rising = 'false';
-        }
-      }).catch((error) => {
-        console.log(error);
-      });
-    }).catch((error) => {
-      console.log(error);
-    });
-  }).catch((error) => {
-    console.log(error);
-  });
-});
+// schedule.scheduleJob('0 0/1 * * * *', () => {
+//   Money.getUsdValue().then((prevDollar) => {
+//     Money.createDollarJSON().then(() => {
+//       Money.getUsdValue().then((dollar) => {
+//         global.dollar = dollar;
+//         if (dollar > prevDollar) {
+//           global.rising = 'true';
+//         }
+//         else {
+//           global.rising = 'false';
+//         }
+//       }).catch((error) => {
+//         console.log(error);
+//       });
+//     }).catch((error) => {
+//       console.log(error);
+//     });
+//   }).catch((error) => {
+//     console.log(error);
+//   });
+// });
 
 /**
  * Initializing dollar value
  */
 Money.getUsdValue().then((dollar) => {
+  console.log(dollar);
   global.dollar = dollar;
   global.rising = 'true';
   Money.getPtaxValue().then((ptax) => {

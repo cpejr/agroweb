@@ -319,7 +319,7 @@ router.put('/:id', auth.isAuthenticated, commercial.hasStock, (req, res) => {
               res.redirect('/user');
             });
             if (offerData.active === false) {
-              Offer.getByQuerySorted({ product: group.productId, active: true, delivery: { $ne: '48 horas' } }, {}).then((offers) => {
+              Offer.getByQuerySorted({ product: group.productId, active: true, delivery: transaction.offer.delivery }, {}).then((offers) => {
                 groupData.unitPrice = offers[0].price.high;
                 groupData.offer = offers[0]._id;
                 offers.forEach((offerElement) => {

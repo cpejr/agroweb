@@ -229,7 +229,6 @@ router.post('/signup', (req, res) => {
         req.session.userId = docId;
         if (req.session.userType === 'Franqueado') {
           Email.signedUpFranchisee(userData.email).catch((error) => {
-            console.log(error);
             req.flash('danger', 'Falha no envio do email.');
             res.redirect('/login');
           });
@@ -263,8 +262,6 @@ router.post('/signup', (req, res) => {
           default:
             req.flash('danger', 'Erro ao criar o perfil.');
         }
-        console.log(`Error Code: ${error.code}`);
-        console.log(`Error Message: ${error.message}`);
         console.log(error);
         res.redirect('/signup');
       });

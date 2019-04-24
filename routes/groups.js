@@ -10,12 +10,9 @@ const router = express.Router();
  */
 router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
   Group.getAll().then((groups) => {
-    console.log(groups);
     groups.forEach((group) => {
       if (group.delivery === 'Safra' || group.delivery === 'Safrinha') {
         group.closeDateFront = group.closeDate.toISOString().slice(0, 10);
-        console.log(group.closeDateFront);
-        console.log(group.dateFront);
       }
     });
     res.render('groups/index', { title: 'Grupos de compras', groups, ...req.session });

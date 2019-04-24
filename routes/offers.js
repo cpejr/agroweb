@@ -96,7 +96,19 @@ router.post('/', auth.isAuthenticated, auth.canSell, commercial.hasOfferAlready,
                 const groupData = {};
                 const offerGroupPrice = ((group.offer.price.high * 3) + (group.offer.price.average * 1)) / 4;
                 const offerPrice = ((offer.price.high * 3) + (offer.price.average * 1)) / 4;
-                if (offerGroupPrice > offerPrice) {
+                if (group.offer.active === false) {
+                  groupData.offer = offerId;
+                  if (group.amount < offer.breakpoints.average) {
+                    groupData.unitPrice = offer.price.high;
+                  }
+                  else if (group.amount >= offer.breakpoints.average && group.amount < offer.breakpoints.low) {
+                    groupData.unitPrice = offer.price.average;
+                  }
+                  else {
+                    groupData.unitPrice = offer.price.low;
+                  }
+                }
+                else if (offerGroupPrice > offerPrice) {
                   groupData.offer = offerId;
                   if (group.amount < offer.breakpoints.average) {
                     groupData.unitPrice = offer.price.high;
@@ -366,7 +378,7 @@ router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
                   });
                 }
                 else {
-                  Offer.getByQuerySorted({ product: offer.product }).then((offers) => {
+                  Offer.getByQuerySorted({ product: offer.product, delivery: group.delivery }).then((offers) => {
                     offers.forEach((off) => {
                       const offPrice = ((off.price.high * 3) + (off.price.average * 1)) / 4;
                       if (offerPrice > offPrice) {

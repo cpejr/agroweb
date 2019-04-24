@@ -8,6 +8,17 @@ class Money {
    * Get the dollar commercial quotation
    * @returns {Number} Dollar value
    */
+  // static getUsdValue() {
+  //   return new Promise((resolve, reject) => {
+  //     fs.readFile('./docs/dollar.json', (err, data) => {
+  //       if (err) {
+  //         reject(err);
+  //       }
+  //       const dataJSON = JSON.parse(data);
+  //       resolve(parseFloat(dataJSON.ask).toFixed(4));
+  //     });
+  //   });
+  // }
   static getUsdValue() {
     return new Promise((resolve, reject) => {
       fs.readFile('./docs/dollar.json', (err, data) => {
@@ -15,7 +26,7 @@ class Money {
           reject(err);
         }
         const dataJSON = JSON.parse(data);
-        resolve(parseFloat(dataJSON.ask).toFixed(4));
+        resolve(parseFloat(dataJSON.usd).toFixed(4));
       });
     });
   }
@@ -51,6 +62,26 @@ class Money {
           reject(err);
         }
         console.log('The ptax file has been saved!');
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * Update the usd value
+   * @param {Number} usd - USD Value
+   * @returns {null}
+   */
+  static usdUpdate(usd) {
+    return new Promise((resolve, reject) => {
+      const object = {
+        usd
+      };
+      fs.writeFile('./docs/dollar.json', JSON.stringify(object), (err) => {
+        if (err) {
+          reject(err);
+        }
+        console.log('The dollar file has been saved!');
         resolve();
       });
     });

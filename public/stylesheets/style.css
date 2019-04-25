@@ -7866,7 +7866,7 @@ a.more-link {
     padding-bottom: 20px;
     background: #E5E7E9; }
   .searchbar input[type=search] {
-    width: 50px;
+    width: 45px;
       width-font-size: .5em;
       width-background-color: #5b5b5b;
       width-color: #fff;
@@ -8130,5 +8130,9 @@ a.more-link {
 
 .margin-flash {
   margin-top: 4.7em; }
+
+@media (max-width: 425px) {
+  .margin-sm-dashboard {
+    margin-top: 2.75em; } }
 
 /*# sourceMappingURL=style.css.map */

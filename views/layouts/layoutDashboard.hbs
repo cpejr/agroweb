@@ -85,8 +85,8 @@
           {{#ifNotEq userType 'Indústria'}}
           {{#if franchisee}}
           {{#compare userType 'Franqueado'}}
-          <form action="../search" method="get" class="input-wrapper float-right my-2 my-lg-0 my-sm-0 searchbar">
-            <input id="searchbar-icon" type="text" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-searchbar typeahead-search">
+          <form action="../search" method="get" class="input-wrapper float-right mt-0 mb-3 searchbar">
+            <input id="searchbar-icon" type="search" placeholder="Buscar" name="filter" class="text-light typeahead typeahead-searchbar typeahead-search">
             <label for="searchbar-icon" class="fas fa-search input-icon"></label>
             <button type="submit" class="d-none"></button>
           </form>
@@ -107,8 +107,8 @@
           </h5>
         </div>
 
-        <div class="col-sd-6 float-right pt-sm-4 mx-3 mt-2">
-          <h5 class="font3 mobile-font1 text-success"><span class="text-light">PTAX: </span>R$ {{ptaxValue}}
+        <div class="col-sd-6 float-right pt-sm-4 mx-3 mt-sm-2">
+          <h5 class="font3 mobile-font1 text-success margin-sm-dashboard"><span class="text-light">PTAX: </span>R$ {{ptaxValue}}
             {{{risingPtax}}}
           </h5>
         </div>

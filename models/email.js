@@ -149,8 +149,7 @@ class Email {
     Equipe MEGAPOOL`;
     const subject = 'MEGAPOOL: Conta ativada';
     const emailContent = {
-      // clientEmail: data.email,
-      clientEmail: 'lucaschaia@hotmail.com',
+      clientEmail: data.email,
       subject,
       content
     };

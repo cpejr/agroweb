@@ -121,7 +121,6 @@ const quotationRouter = require('./routes/quotations');
 const productRouter = require('./routes/products');
 const transactionRouter = require('./routes/transaction');
 const chemRouter = require('./routes/chems');
-const testRouter = require('./routes/test');
 const searchRouter = require('./routes/search');
 const componentsRouter = require('./routes/components');
 const siteRouter = require('./routes/site');
@@ -258,7 +257,6 @@ app.use('/products', productRouter);
 app.use('/search', searchRouter);
 app.use('/transaction', transactionRouter);
 app.use('/chems', chemRouter);
-app.use('/test', testRouter);
 app.use('/components', componentsRouter);
 app.use('/site', siteRouter);
 

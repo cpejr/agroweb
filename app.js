@@ -97,7 +97,6 @@ schedule.scheduleJob('0 0 3 * * *', () => {
  * Initializing dollar value
  */
 Money.getUsdValue().then((dollar) => {
-  console.log(dollar);
   global.dollar = dollar;
   global.rising = 'true';
   Money.getPtaxValue().then((ptax) => {
@@ -121,7 +120,6 @@ const quotationRouter = require('./routes/quotations');
 const productRouter = require('./routes/products');
 const transactionRouter = require('./routes/transaction');
 const chemRouter = require('./routes/chems');
-const testRouter = require('./routes/test');
 const searchRouter = require('./routes/search');
 const componentsRouter = require('./routes/components');
 const siteRouter = require('./routes/site');
@@ -157,7 +155,6 @@ app.engine('hbs', exphbs({
 
     ptaxValue() {
       return global.ptax;
-      console.log(global.ptax);
     },
 
     risingPtax() {
@@ -258,7 +255,6 @@ app.use('/products', productRouter);
 app.use('/search', searchRouter);
 app.use('/transaction', transactionRouter);
 app.use('/chems', chemRouter);
-app.use('/test', testRouter);
 app.use('/components', componentsRouter);
 app.use('/site', siteRouter);
 

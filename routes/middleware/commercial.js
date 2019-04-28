@@ -7,14 +7,20 @@ const User = require('../../models/user');
 module.exports = {
   hasOfferAlready: (req, res, next) => {
     const { offer } = req.body;
+    const duplicates = [];
     User.getAllOffersByUserId(req.session.userId).then((offers) => {
       offers.forEach((object) => {
         if (object.product.name === offer.product && object.delivery === offer.delivery) {
-          req.flash('danger', 'Já existe uma oferta para esse produto com esse tipo de entrega.');
-          res.redirect('/offers/new');
+          duplicates.push(object);
         }
       });
-      next();
+      if (duplicates.length === 0) {
+        next();
+      }
+      else {
+        req.flash('danger', 'Já existe uma oferta para esse produto com esse tipo de entrega.');
+        res.redirect('/offers/new');
+      }
     }).catch((error) => {
       console.log(error);
       res.redirect('/error');

@@ -97,7 +97,6 @@ schedule.scheduleJob('0 0 3 * * *', () => {
  * Initializing dollar value
  */
 Money.getUsdValue().then((dollar) => {
-  console.log(dollar);
   global.dollar = dollar;
   global.rising = 'true';
   Money.getPtaxValue().then((ptax) => {
@@ -156,7 +155,6 @@ app.engine('hbs', exphbs({
 
     ptaxValue() {
       return global.ptax;
-      console.log(global.ptax);
     },
 
     risingPtax() {

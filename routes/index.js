@@ -195,99 +195,84 @@ router.get('/logout', auth.isAuthenticated, (req, res) => {
  */
 router.post('/signup', (req, res) => {
   const userData = req.body.user;
-  console.log(userData.address.city);
-  if ((userData.address.city === 'Sorriso') ||
-      (userData.address.city === 'Nova Ubiratã') ||
-      (userData.address.city === 'Ipiranga do Norte') ||
-      (userData.address.city === 'Boa Esperança') ||
-      (userData.address.city === 'Ipiranga do Norte') ||
-      (userData.address.city === 'Tapurah') ||
-      (userData.address.city === 'Vera') ||
-      (userData.address.city === 'Feliz Natal')) {
-
-    // Separates the first name from the rest
-    const position = userData.name.indexOf(' ');
-    if (position > -1) {
-      userData.firstName = userData.name.slice(0, position);
-    }
-    else {
-      userData.firstName = userData.name;
-    }
-    userData.fullName = userData.name;
-
-    delete userData.name;
-    firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
-      userData.uid = user.uid;
-      delete userData.password;
-      User.create(userData).then((docId) => {
-        req.session.userType = userData.type;
-        req.session.firstName = userData.firstName;
-        req.session.fullName = userData.name;
-        req.session.email = userData.email;
-        req.session.userUid = user.uid;
-        req.session.userStatus = 'Aguardando aprovação';
-        req.session.userId = docId;
-        if (req.session.userType === 'Franqueado') {
-          Email.signedUpFranchisee(userData.email).catch((error) => {
-            req.flash('danger', 'Falha no envio do email.');
-            res.redirect('/login');
-          });
-          res.redirect('/user');
-        }
-        else {
-          Email.waitingForApprovalEmail(userData).catch((error) => {
-            req.flash('danger', 'Não foi possível enviar o email para o novo usuário.');
-            res.redirect('/login');
-          });
-          if (req.session.userType === 'Indústria') {
-            res.render('industryMegaPremio', { title: 'Indústria', ...req.session });
-          }
-          else if (req.session.userType === 'Revendedor') {
-            res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout', ...req.session });
-          }
-          else {
-            res.redirect('/user');
-          }
-        }
-      }).catch((error) => {
-        var userLogged = firebase.auth().currentUser;
-        userLogged.delete().catch((error) => {
-          req.flash('danger', 'Não foi possível liberar o email para nova utilização');
-        });
-
-        switch (error.code) {
-          case '11000':
-            req.flash('danger', 'O CPF já está cadastrado.');
-            break;
-          default:
-            req.flash('danger', 'Erro ao criar o perfil.');
-        }
-        console.log(error);
-        res.redirect('/signup');
-      });
-    }).catch((error) => {
-      switch (error.code) {
-        case 'auth/email-already-in-use':
-          req.flash('danger', 'Email já cadastrado');
-          break;
-        case 'auth/network-request-failed':
-          req.flash('danger', 'Falha na internet. Verifique sua conexão de rede.');
-          break;
-        case 'auth/invalid-email':
-          req.flash('danger', 'Verifique se o email está digitado corretamente.');
-          break;
-        default:
-          req.flash('danger', 'Erro ao preencher os campos.');
-      }
-      console.log(`Error Code: ${error.code}`);
-      console.log(`Error Message: ${error.message}`);
-      res.redirect('/signup');
-    });
+  // Separates the first name from the rest
+  const position = userData.name.indexOf(' ');
+  if (position > -1) {
+    userData.firstName = userData.name.slice(0, position);
   }
   else {
-    req.flash('success', 'A plataforma MegaPool não está disponível na sua região.');
-    res.redirect('/logout');
+    userData.firstName = userData.name;
   }
+  userData.fullName = userData.name;
+
+  delete userData.name;
+  firebase.auth().createUserWithEmailAndPassword(userData.email, userData.password).then((user) => {
+    userData.uid = user.uid;
+    delete userData.password;
+    User.create(userData).then((docId) => {
+      req.session.userType = userData.type;
+      req.session.firstName = userData.firstName;
+      req.session.fullName = userData.name;
+      req.session.email = userData.email;
+      req.session.userUid = user.uid;
+      req.session.userStatus = 'Aguardando aprovação';
+      req.session.userId = docId;
+      if (req.session.userType === 'Franqueado') {
+        Email.signedUpFranchisee(userData.email).catch((error) => {
+          req.flash('danger', 'Falha no envio do email.');
+          res.redirect('/login');
+        });
+        res.redirect('/user');
+      }
+      else {
+        Email.waitingForApprovalEmail(userData).catch((error) => {
+          req.flash('danger', 'Não foi possível enviar o email para o novo usuário.');
+          res.redirect('/login');
+        });
+        if (req.session.userType === 'Indústria') {
+          res.render('industryMegaPremio', { title: 'Indústria', ...req.session });
+        }
+        else if (req.session.userType === 'Revendedor') {
+          res.render('dealerMegaOportunidade', { title: 'Revendedor', layout: 'layout', ...req.session });
+        }
+        else {
+          res.redirect('/user');
+        }
+      }
+    }).catch((error) => {
+      var userLogged = firebase.auth().currentUser;
+      userLogged.delete().catch((error) => {
+        req.flash('danger', 'Não foi possível liberar o email para nova utilização');
+      });
+
+      switch (error.code) {
+        case '11000':
+          req.flash('danger', 'O CPF já está cadastrado.');
+          break;
+        default:
+          req.flash('danger', 'Erro ao criar o perfil.');
+      }
+      console.log(error);
+      res.redirect('/signup');
+    });
+  }).catch((error) => {
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        req.flash('danger', 'Email já cadastrado');
+        break;
+      case 'auth/network-request-failed':
+        req.flash('danger', 'Falha na internet. Verifique sua conexão de rede.');
+        break;
+      case 'auth/invalid-email':
+        req.flash('danger', 'Verifique se o email está digitado corretamente.');
+        break;
+      default:
+        req.flash('danger', 'Erro ao preencher os campos.');
+    }
+    console.log(`Error Code: ${error.code}`);
+    console.log(`Error Message: ${error.message}`);
+    res.redirect('/signup');
+  });
 });
 
 module.exports = router;

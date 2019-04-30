@@ -130,28 +130,33 @@
             <p>{{offer.product.description}}</p>
             {{/if}}
           </div>
-            <div class="col-12 col-md-6 mt-3">
+            <div class="col-12 col-md-6">
             {{#compare userType 'Administrador'}}
             <h4 class="mt-2">Alterar status da taxa</h4>
             <div class="dropdown pb-4">
-              <button name="taxStatus" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-              {{#compare taxStatus 'Aguardando boleto'}}
-
-              class="btn btn-info dropdown-toggle col-8">
-              Aguardando boleto
-
-              {{else compare taxStatus 'Aguardando pagamento'}}
-              class="btn btn-warning dropdown-toggle col-8">
-              Aguardando pagamento
-
-              {{else compare taxStatus 'Pagamento confirmado'}}
-              class="btn btn-success  dropdown-toggle col-8">
-              Pagamento confirmado
-
+              {{#compare status 'Cancelado'}}
+                Transação cancelada.
+              {{else compare status 'Entregue'}}
+                Transação concluída.
               {{else}}
-              class="btn  dropdown-toggle btn-danger col-8">
+              <button name="taxStatus" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                {{#compare taxStatus 'Aguardando boleto'}}
 
-              Cancelado
+                class="btn btn-info dropdown-toggle col-8">
+                Aguardando boleto
+
+                {{else compare taxStatus 'Aguardando pagamento'}}
+                class="btn btn-warning dropdown-toggle col-8">
+                Aguardando pagamento
+
+                {{else compare taxStatus 'Pagamento confirmado'}}
+                class="btn btn-success  dropdown-toggle col-8">
+                Pagamento confirmado
+
+                {{else}}
+                class="btn  dropdown-toggle btn-danger col-8">
+
+                Cancelado
               {{/compare}}
             </button>
             <div class="dropdown-menu col-8" aria-labelledby="dropdownMenuButton" >
@@ -185,11 +190,17 @@
                 </a>
               </form>
             </div>
+            {{/compare}}
             </div>
 
             {{else compare userType 'Indústria'}}
             <h4 class="mt-2">Alterar status</h4>
             <div class="dropdown pb-4">
+              {{#compare status 'Cancelado'}}
+                Transação cancelada.
+              {{else compare status 'Entregue'}}
+                Transação concluída.
+              {{else}}
               <button name="status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
               {{#compare status 'Aguardando boleto'}}
               class="btn btn-warning col-8 dropdown-toggle mx-auto">
@@ -265,40 +276,48 @@
                 </a>
               </form>
             </div>
+            {{/compare}}
             </div>
 
             {{else compare userType 'Revendedor'}}
             {{#compare offer.seller._id userId}}
             <h4 class="mt-2">Alterar status</h4>
             <div class="dropdown pb-4">
-              <button name="status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-              {{#compare status 'Aguardando boleto'}}
-
-              class="btn btn-warning dropdown-toggle col-8">
-              Aguardando boleto
-
-              {{else compare status 'Aguardando pagamento'}}
-              class="btn btn-warning dropdown-toggle col-8">
-              Aguardando pagamento
-
-              {{else compare status 'Pagamento confirmado'}}
-              class="btn btn-secondary  dropdown-toggle col-8">
-              Pagamento confirmado
-
-              {{else compare status 'Produto a caminho'}}
-              class="btn btn-primary  dropdown-toggle col-8">
-              Produto a caminho
-
+              {{#compare status 'Cancelado'}}
+                Transação cancelada.
               {{else compare status 'Entregue'}}
-              class="btn btn-success  dropdown-toggle col-8">
-              Entregue
-
+                Transação concluída.
               {{else}}
-              class="btn  dropdown-toggle btn-danger col-8">
-              Cancelado
+                <button name="status" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                {{#compare status 'Aguardando boleto'}}
+
+                class="btn btn-warning dropdown-toggle col-8">
+                Aguardando boleto
+
+                {{else compare status 'Aguardando pagamento'}}
+                class="btn btn-warning dropdown-toggle col-8">
+                Aguardando pagamento
+
+                {{else compare status 'Pagamento confirmado'}}
+                class="btn btn-secondary  dropdown-toggle col-8">
+                Pagamento confirmado
+
+                {{else compare status 'Produto a caminho'}}
+                class="btn btn-primary  dropdown-toggle col-8">
+                Produto a caminho
+
+                {{else compare status 'Entregue'}}
+                class="btn btn-success  dropdown-toggle col-8">
+                Entregue
+
+                {{else}}
+                class="btn  dropdown-toggle btn-danger col-8">
+                Cancelado
+                {{/compare}}
+                {{/compare}}
+              </button>
               {{/compare}}
-              {{/compare}}
-            </button>
+
             <div class="dropdown-menu col-8" aria-labelledby="dropdownMenuButton" >
               <form method= "POST" action="/transaction/{{id}}?_method=PUT">
                 <a class="dropdown-item">

@@ -51,7 +51,7 @@ firebase.initializeApp(config);
 /**
  * Mongoose Setup
  */
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_SERVER}/${process.env.MONGO_DATABASE}?${process.env.MONGO_OPTIONS}`)
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_SERVER}/${process.env.MONGO_DATABASE}?${process.env.MONGO_OPTIONS}`, { useNewUrlParser: true })
   .then(() => {
     console.log('Database connected.');
   }).catch((error) => {

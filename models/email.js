@@ -136,13 +136,6 @@ class Email {
     Sua conta na plataforma MEGAPOOL, foi aprovada.
     Entre na site da MEGAPOOL, com seu login e senha e tenha acesso a tudo que a plataforma possa lhe proporcionar!
 
-    Os usuários da plataforma devem pagar à equipe MEGAPOOL uma taxa sob suas vendas proporcional ao valor do produto negociado e que dependente da categoria do produto. Esses valores podem ser vistos a seguir:
-    Defensivos agrícolas/Agroquímicos -> 1%
-    Sementes em geral -> 2%
-    Fertilizantes sólidos de base -> 0,65%
-    Fertilizantes liquidos/Adjuvantes/Biológicos -> 3%
-    Produtos Mega Oportunidade -> 3%
-
     Bons negócios!
     Dúvidas, entre em contato conosco: suportemegapool@megapool.com.br
 

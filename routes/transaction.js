@@ -542,7 +542,7 @@ router.delete('/:id',  auth.isAuthenticated, (req, res) => {
     }
     Offer.update(transaction.offer._id, offerData).then(() => {
       Transaction.delete(req.params.id).then(() => {
-        req.flash('success', 'Compra cancelada.');
+        req.flash('success', 'Transação cancelada.');
         res.redirect(`/transaction/${req.params.id}`);
       }).catch((error) => {
         console.log(error);

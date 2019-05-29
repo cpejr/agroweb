@@ -5,7 +5,7 @@
   <h3 class="font-black">Newsletter</h3>
 </div>
 
-{{#if users}}
+{{#if newsletters}}
 <div style="overflow-x:auto;">
   <div class="container">
     <p>Digite logo abaixo para buscar algum e-mail específico:</p>
@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody id="myTable">
-        {{#each users}}
+        {{#each newsletters}}
         <tr class="text-center">
           <td class="font-book text-center">{{fullName}}</td>
           <td class="font-book text-center">{{email}}</td>

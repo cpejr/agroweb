@@ -17,7 +17,7 @@ class Newsletter {
    */
   static getAll() {
     return new Promise((resolve, reject) => {
-      NewsletterModel.find({}).populate('user').exec().then((results) => {
+      NewsletterModel.find({}).populate().exec().then((results) => {
         resolve(results);
       }).catch((err) => {
         reject(err);

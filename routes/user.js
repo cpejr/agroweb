@@ -290,7 +290,7 @@ router.post('/update', auth.isAuthenticated, (req, res) => {
  * GET contract page
  */
 router.get('/franchisee', auth.isAuthenticated, (req, res) => {
-  User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: true }, {}).then((users) => {
+  User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: 'Sim' }, {}).then((users) => {
     res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
   }).catch((error) => {
     console.log(error);
@@ -555,7 +555,7 @@ router.post('/indication', auth.isAuthenticated, (req, res) => {
     console.log(users);
     Email.indication(users).catch((error) => {
     });
-    User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: true }, {}).then((users) => {
+    User.getByQuerySorted({ type: 'Franqueado', status: 'Ativo', moreClients: 'Sim' }, {}).then((users) => {
       res.render('contract', { title: 'Contrate um franqueados', layout: 'layout', users, ...req.session });
     }).catch((error) => {
       console.log(error);

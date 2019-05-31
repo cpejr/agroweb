@@ -418,13 +418,13 @@
 </form>
 
 {{else}}
-{{#compare user.moreClients false}}
+{{#compare user.moreClients 'Não'}}
 <div class="container mb-5">
   <h4 class="text-center font-light">Este franqueado não está disponível.</h4>
 </div>
 {{/compare}}
 
-{{#compare user.moreClients true}}
+{{#compare user.moreClients 'Sim'}}
 
 {{#if client.0.uid}}
 <form action="/user/change" method="POST">

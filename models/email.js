@@ -25,7 +25,7 @@ class Email {
   static sendEmail(data) {
 
     const config = {
-      from: 'admcpejr@megapool.com.br',
+      from: 'adm@megapool.com.br',
       to: data.clientEmail,
       subject: data.subject,
       text: data.content,
@@ -48,7 +48,7 @@ class Email {
   static contactEmail(data) {
     const config = {
       from: data.clientEmail,
-      to: 'admcpejr@megapool.com.br',
+      to: 'adm@megapool.com.br',
       subject: data.subject,
       text: `Mensagem enviada por: ${data.name}
 
@@ -407,7 +407,7 @@ class Email {
     *LEMBRE-SE: Todos os preços são em Dólar, para conversão será utilizado o valor do Dólar Ptax de venda do dia anterior ao vencimento. `;
     const subject = 'MEGAPOOL: Uma nova transação foi realizada';
     const emailContent = {
-      clientEmail: 'admcpejr@megapool.com.br',
+      clientEmail: 'adm@megapool.com.br',
       content,
       subject
     };
@@ -520,7 +520,7 @@ class Email {
     Celular: ${data.cellphone}  `;
     const subject = 'Olá administrador, um cliente gostaria de uma indicação';
     const emailContent = {
-      clientEmail: 'admcpejr@megapool.com.br',
+      clientEmail: 'adm@megapool.com.br',
       subject,
       content
     };
@@ -745,7 +745,7 @@ Equipe MEGAPOOL`;
 Confira os dados e, caso esteja tudo certo, lembre-se de atualizar o status para "Pagamento confirmado" na plataforma.`;
     const subject = `MEGAPOOL: Comprovante de pagamento de taxa #${data.transactionID}`;
     const emailContent = {
-      clientEmail: 'admcpejr@megapool.com.br',
+      clientEmail: 'adm@megapool.com.br',
       content,
       subject,
       attachments: [{ path: data.path }]

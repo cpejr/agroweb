@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
     default: false
   },
   moreClients: {
-    type: Boolean,
+    type: String,
     default: true
   },
   pendingPayment: {

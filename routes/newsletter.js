@@ -7,15 +7,15 @@ const router = express.Router();
 /**
  * GET newsletter listing
  */
-router.get('/', auth.isAuthenticated, auth.isAdmin, (req, res) => {
-  Newsletter.getAll().then((newsletter) => {
-    console.log(newsletter);
-    res.render('admin/newsletter', { title: 'Newsletter', layout: 'layout', newsletter, ...req.session });
-  }).catch((error) => {
-    console.log(error);
-    res.redirect('/error');
-  });
-});
+ router.get('/', auth.isAuthenticated, auth.isAdmin,(req, res) => {
+   Newsletter.getAll().then((newsletters) => {
+     console.log(newsletters);
+     res.render('admin/newsletter', { title: 'Newsletter', layout: 'layout', newsletters, ...req.session });
+   }).catch((error) => {
+     console.log(error);
+     res.redirect('/error');
+   });
+ });
 
 /**
  * POST Create - Add new newsletter to DB

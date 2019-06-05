@@ -121,15 +121,15 @@
         <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
           <div class="form-group">
             <p class="row col text-bold" align="justify">Deseja poder ser contrado como franqueado?</p>
-            <select class="form-control font-light"  name="user[moreClients]"  id="type" type="Boolean">
-              {{#compare user.moreClients true}}
+            <select class="form-control font-light"  name="user[moreClients]"  id="type" type="string">
+              {{#compare user.moreClients 'Sim'}}
               <option selected hidden value  = {{user.moreClients}}>Sim </option>
               {{/compare}}
-              {{#compare user.moreClients false}}
+              {{#compare user.moreClients 'Não'}}
               <option selected hidden value  = {{user.moreClients}}>Não </option>
               {{/compare}}
-              <option value = false >Não</option>
-              <option value = true >Sim</option>
+              <option value = 'Sim' >Sim</option>
+              <option value = 'Não' >Não</option>
             </select>
           </div>
         </div>
@@ -137,15 +137,15 @@
         <div class="col-sm-12  col-md-6 col-lg-5 text-center pl-lg-5 ml-lg-5">
           <div class="form-group">
             <p class="row col text-bold" align="justify">Status da conta:</p>
-            <select class="form-control font-light"  name="user[moreClients]"  id="type" type="Boolean">
+            <select class="form-control font-light"  name="user[status]"  id="type" type="string">
               {{#compare user.status 'Ativo'}}
-              <option selected hidden value  = {{user.moreClients}}>Sim </option>
+              <option selected hidden value  = {{user.status}}>Ativo </option>
               {{/compare}}
               {{#compare user.status 'Inativo'}}
-              <option selected hidden value  = {{user.moreClients}}>Não </option>
+              <option selected hidden value  = {{user.status}}>Inativo </option>
               {{/compare}}
-              <option value = false >Não</option>
-              <option value = true >Sim</option>
+              <option value = 'Ativo' >Ativo</option>
+              <option value = 'Inativo' >Inativo</option>
             </select>
           </div>
         </div>

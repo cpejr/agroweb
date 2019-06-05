@@ -5,9 +5,11 @@
   <h3 class="text-center font-black">Editar oferta</h3>
 </div>
 
+{{#compare megaOpportunity 0}}
 <div class="container">
   <form action="/offers/{{id}}?_method=PUT" method="POST">
     <div class="row d-flex justify-content-between">
+
       <div class="col-md-4">
         <div class="form-group mx-4 my-2">
           <label for="price" class="rounded bg-black"><i class="fas fa-archive fa-sm mr-2"></i> Dados gerais: </label>
@@ -58,20 +60,20 @@
           <label class="text-dark2">Moeda utilizada</label>
           <div class="input-group mb-2">
 
-           <div class="input-group-prepend">
-             <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
-           </div>
-           <select class="form-control new-shadow" name="offer[usd]" required/>
-              {{#if usd}}
-                <option value="false">Real (R$)</option>
-                <option value="true" selected>Dólar americano (U$)</option>
-              {{else}}
-                <option value="false">Dólar americano (U$)</option>
-                <!-- <option value="false" selected>Real (R$)</option> -->
-              {{/if}}
-           </select>
-          </div>
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+            </div>
+            <select class="form-control new-shadow" name="offer[usd]" required/>
+            {{#if usd}}
+            <option value="false">Real (R$)</option>
+            <option value="true" selected>Dólar americano (U$)</option>
+            {{else}}
+            <option value="false">Dólar americano (U$)</option>
+            <!-- <option value="false" selected>Real (R$)</option> -->
+            {{/if}}
+          </select>
         </div>
+      </div>
 
       <div class="user-input">
         <label class="text-dark2">Baixo</label>
@@ -105,39 +107,39 @@
 
     </div>
 
-      <div class="col-md-4">
-        <div class="user-input">
-          <label class="text-dark2">Forma de entrega</label>
-          <div class="input-group mb-2">
-           <div class="input-group-prepend">
-             <div class="input-group-text"><i class="fas fa-car"></i></div>
-           </div>
-           <select class="form-control new-shadow" name="offer[delivery]">
-             {{#compare userType 'Revendedor'}}
-              {{#compare delivery '48 horas'}}
-                <option value="48 horas" selected>Em até 48 horas</option>
-                <option value="31 dias">Em até 31 dias</option>
-              {{else compare delivery '31 dias'}}
-                <option value="48 horas">Em até 48 horas</option>
-                <option value="31 dias" selected>Em até 31 dias</option>
-              {{/compare}}
-             {{else compare userType 'Indústria'}}
-               {{#compare delivery '31 dias'}}
-                 <option value="31 dias" selected>Em até 31 dias</option>
-                 <option value="Safra">Safra</option>
-                 <option value="Safrinha">Safrinha</option>
-               {{else compare delivery 'Safra'}}
-                 <option value="31 dias">Em até 31 dias</option>
-                 <option value="Safra" selected>Safra</option>
-                 <option value="Safrinha">Safrinha</option>
-               {{else compare delivery 'Safrinha'}}
-                 <option value="31 dias">Em até 31 dias</option>
-                 <option value="Safra">Safra</option>
-                 <option value="Safrinha" selected>Safrinha</option>
-               {{/compare}}
-             {{/compare}}
-           </select>
+    <div class="col-md-4">
+      <div class="user-input">
+        <label class="text-dark2">Forma de entrega</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-car"></i></div>
           </div>
+          <select class="form-control new-shadow" name="offer[delivery]">
+            {{#compare userType 'Revendedor'}}
+            {{#compare delivery '48 horas'}}
+            <option value="48 horas" selected>Em até 48 horas</option>
+            <option value="31 dias">Em até 31 dias</option>
+            {{else compare delivery '31 dias'}}
+            <option value="48 horas">Em até 48 horas</option>
+            <option value="31 dias" selected>Em até 31 dias</option>
+            {{/compare}}
+            {{else compare userType 'Indústria'}}
+            {{#compare delivery '31 dias'}}
+            <option value="31 dias" selected>Em até 31 dias</option>
+            <option value="Safra">Safra</option>
+            <option value="Safrinha">Safrinha</option>
+            {{else compare delivery 'Safra'}}
+            <option value="31 dias">Em até 31 dias</option>
+            <option value="Safra" selected>Safra</option>
+            <option value="Safrinha">Safrinha</option>
+            {{else compare delivery 'Safrinha'}}
+            <option value="31 dias">Em até 31 dias</option>
+            <option value="Safra">Safra</option>
+            <option value="Safrinha" selected>Safrinha</option>
+            {{/compare}}
+            {{/compare}}
+          </select>
+        </div>
       </div>
 
       <div class="user-input">
@@ -156,24 +158,21 @@
       </div>
     </div>
 
-      <div class="user-input">
-        <label class="text-dark2">Muda para médio</label>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text"><i class="fas fa-window-minimize"></i></div>
-          </div>
-          <input name="offer[breakpoints][average]" type="number" class="form-control input-text" value="{{breakpoints.average}}" required/>
-          <div class="input-group-append">
-            <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
-            data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'médio' a partir do valor inserido neste campo">
-            ?
-          </button>
+    <div class="user-input">
+      <label class="text-dark2">Muda para médio</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fas fa-window-minimize"></i></div>
         </div>
+        <input name="offer[breakpoints][average]" type="number" class="form-control input-text" value="{{breakpoints.average}}" required/>
+        <div class="input-group-append">
+          <button type="button" class="btn btn-green input-group-text" id="basic-addon2"
+          data-toggle="tooltip" data-placement="top" title="O preço da oferta mudará para 'médio' a partir do valor inserido neste campo">
+          ?
+        </button>
       </div>
     </div>
-    </div>
-
-
+  </div>
 </div>
 </div>
 <div>
@@ -181,6 +180,142 @@
 </div>
 </form>
 </div>
+{{/compare}}
+
+{{#compare megaOpportunity 1}}
+<div class="container">
+  <form action="/offers/{{id}}?_method=PUT" method="POST">
+    <div class="row d-flex justify-content-between">
+
+      <div class="col-md-4">
+        <div class="form-group mx-4 my-2">
+          <label for="price" class="rounded bg-black"><i class="fas fa-archive fa-sm mr-2"></i> Dados gerais: </label>
+        </div>
+
+        <div class="user-input">
+          <label class="text-dark2">Nome do produto</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-archive"></i></div>
+            </div>
+            <input name="offer[product]" type="text" class="form-control input-text" value="{{product.name}}" readonly required/>
+          </div>
+        </div>
+
+        <div class="user-input">
+          <label class="text-dark2">Estoque</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-archive"></i></div>
+            </div>
+            <input name="offer[stock]" type="number" class="form-control input-text" value="{{stock}}" required/>
+            <div class="input-group-prepend">
+              <div class="input-group-text">{{product.unit}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-input">
+          <label class="text-dark2">Quantidade mínima</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-archive"></i></div>
+            </div>
+            <input name="offer[minAmount]" type="number" class="form-control input-text" value="{{minAmount}}" required/>
+            <div class="input-group-prepend">
+              <div class="input-group-text">{{product.unit}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group mx-4 my-2">
+          <label for="price" class="rounded bg-black"><i class="fas fa-dollar-sign fa-sm mr-2"></i> Preços: </label>
+        </div>
+        <div class="user-input">
+          <label class="text-dark2">Moeda utilizada</label>
+          <div class="input-group mb-2">
+
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+            </div>
+            <select class="form-control new-shadow" name="offer[usd]" required/>
+            {{#if usd}}
+            <option value="false">Real (R$)</option>
+            <option value="true" selected>Dólar americano (U$)</option>
+            {{else}}
+            <option value="false">Dólar americano (U$)</option>
+            <!-- <option value="false" selected>Real (R$)</option> -->
+            {{/if}}
+          </select>
+        </div>
+      </div>
+
+      <div class="user-input">
+        <label class="text-dark2">Preço</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-arrow-down"></i></div>
+          </div>
+          <input name="offer[price][mega]" type="number" class="form-control input-text" value="{{price.low}}" required/>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+      <div class="user-input">
+        <label class="text-dark2">Entrega e avaria</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-car"></i></div>
+          </div>
+          <select class="form-control new-shadow" name="offer[delivery]">
+            {{#compare userType 'Revendedor'}}
+            {{#compare delivery '48 horas'}}
+            <option value="48 horas" selected>Em até 48 horas</option>
+            <option value="31 dias">Em até 31 dias</option>
+            {{else compare delivery '31 dias'}}
+            <option value="48 horas">Em até 48 horas</option>
+            <option value="31 dias" selected>Em até 31 dias</option>
+            {{/compare}}
+            {{else compare userType 'Indústria'}}
+            {{#compare delivery '31 dias'}}
+            <option value="31 dias" selected>Em até 31 dias</option>
+            <option value="Safra">Safra</option>
+            <option value="Safrinha">Safrinha</option>
+            {{else compare delivery 'Safra'}}
+            <option value="31 dias">Em até 31 dias</option>
+            <option value="Safra" selected>Safra</option>
+            <option value="Safrinha">Safrinha</option>
+            {{else compare delivery 'Safrinha'}}
+            <option value="31 dias">Em até 31 dias</option>
+            <option value="Safra">Safra</option>
+            <option value="Safrinha" selected>Safrinha</option>
+            {{/compare}}
+            {{/compare}}
+          </select>
+        </div>
+      </div>
+
+      <div class="user-input">
+        <label class="floating-label text-dark2">Avaria</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-newspaper"></i></div>
+          </div>
+          <textarea id="damage-input" rows="4" name="offer[damage]" class="form-control input-text">{{damage}}</textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-default bg-green text-light mx-auto mt-4 px-5 mb-3 d-block" type="submit">Salvar</button>
+  </div>
+</form>
+</div>
+{{/compare}}
 
 {{#section 'scripts'}}
 <script>

@@ -509,15 +509,19 @@
         {{#ifNotEq status 'Cancelado'}}
           {{#ifNotEq status 'Entregue'}}
             {{#ifNotEq status 'Cotado'}}
-              {{#ifNotEq userType 'Administrador'}}
-                {{#ifNotEq offer.seller._id userId}}
-                  <div class="text-center my-3 justify-content-center">
-                    <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
-                      <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
-                        Cancelar compra
-                      </button>
-                    </form>
-                  </div>
+              {{#ifNotEq status 'Pagamento confirmado'}}
+                {{#ifNotEq status 'Produto a caminho'}}
+                  {{#ifNotEq userType 'Administrador'}}
+                    {{#ifNotEq offer.seller._id userId}}
+                      <div class="text-center my-3 justify-content-center">
+                        <form action="/transaction/{{id}}?_method=DELETE" method="POST" id="form-delete">
+                          <button type="submit" class="btn btn-danger col-12" name="status" value="Cancelado">
+                            Cancelar compra
+                          </button>
+                        </form>
+                      </div>
+                    {{/ifNotEq}}
+                  {{/ifNotEq}}
                 {{/ifNotEq}}
               {{/ifNotEq}}
             {{/ifNotEq}}

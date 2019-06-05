@@ -257,7 +257,15 @@ router.get('/:id/edit', auth.isAuthenticated, auth.canSell, (req, res) => {
  */
 router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
   const { offer } = req.body;
-  console.log(offer);
+  if (offer.price.mega) {
+    offer.price.low = offer.price.mega;
+    offer.price.average = offer.price.mega;
+    offer.price.high = offer.price.mega;
+    offer.breakpoints = {};
+    offer.breakpoints.average = 1;
+    offer.breakpoints.low = 1;
+    delete offer.price.mega;
+  }
   if (offer.stock) {
     offer.stock = parseFloat(offer.stock);
     offer.minAmount = parseFloat(offer.minAmount);
@@ -266,7 +274,6 @@ router.put('/:id', auth.isAuthenticated, auth.canSell, (req, res) => {
     offer.price.high = parseFloat(offer.price.high);
     offer.breakpoints.low = parseFloat(offer.breakpoints.low);
     offer.breakpoints.average = parseFloat(offer.breakpoints.average);
-
     if (offer.stock > offer.minAmount) {
       offer.active = true;
     }

@@ -433,16 +433,16 @@ router.put('/:id', auth.isAuthenticated, commercial.hasStock, (req, res) => {
         });
         switch (transactionData.status) {
           case 'Aguardando aprovação':
-            req.flash('success', 'Status da transação atualizado para: Aguardando aprovação.');
+            req.flash('success', 'Status da transação atualizado.');
             break;
           case 'Aguardando pagamento':
-            req.flash('success', 'Status da transação atualizado para: Aguardando pagamento.');
+            req.flash('success', 'Status da transação atualizado.');
             break;
           case 'Pagamento confirmado':
-            req.flash('success', 'Status da transação atualizado para: Pagamento confirmado.');
+            req.flash('success', 'Status da transação atualizado.');
             break;
           case 'Produto a caminho':
-            req.flash('success', 'Status da transação atualizado para: Produto a caminho.');
+            req.flash('success', 'Status da transação atualizado.');
             break;
           case 'Entregue':
             req.flash('success', 'Produto entregue.');
@@ -542,7 +542,7 @@ router.delete('/:id',  auth.isAuthenticated, (req, res) => {
     }
     Offer.update(transaction.offer._id, offerData).then(() => {
       Transaction.delete(req.params.id).then(() => {
-        req.flash('success', 'Compra cancelada.');
+        req.flash('success', 'Transação cancelada.');
         res.redirect(`/transaction/${req.params.id}`);
       }).catch((error) => {
         console.log(error);
